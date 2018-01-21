@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">科勒</string>
+    <string name="app_name_english">KOHLER.</string>
+    <string name="home">首页</string>
+    <string name="whole_category">全品类</string>
+    <string name="ar">AR</string>
+    <string name="account">账户</string>
+
+    <array name="tab_main_title">
+        <item>首页</item>
+        <item>全品类</item>
+        <item>AR</item>
+        <item>账户</item>
+    </array>
+
+
+
+    <string name="connect_error">网络连接失败,请检查网络</string>
+    <string name="connect_timeout">连接超时,请稍后再试</string>
+    <string name="bad_network">服务器异常</string>
+    <string name="parse_error">解析服务器响应数据失败</string>
+    <string name="unknown_error">未知错误</string>
+    <string name="response_return_error">服务器返回数据失败</string>
+    <string name="refresh">刷新</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="toilet_seat">座便器</string>
+    <string name="shower_room_parts">浴室配件</string>
+    <string name="shower_room_nozzle">浴室龙头</string>
+    <string name="shower_nozzle">淋浴龙头</string>
+    <string name="makeup">梳妆</string>
+    <string name="massage_bathtub">按摩浴缸</string>
+    <string name="bathtub">浴缸</string>
+    <string name="search">Search SKU</string>
+    <string name="art_design"><![CDATA[Art&Design]]></string>
+    <string name="brand_selection">科勒品牌精选</string>
+    <string name="editor_selection">Editor Selection</string>
+    <string name="special_recommendation">特别推荐</string>
+    <string name="view_all">View All</string>
+    <string name="my_brochure">My Brochure</string>
+    <string name="books">图册</string>
+    <string name="where_to_buy">Where to Buy</string>
+    <string name="find_shop">查找店铺</string>
+</resources>

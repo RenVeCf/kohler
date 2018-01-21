@@ -74,12 +74,11 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     @Override
     protected void initValues() {
         initViews();
-        ;
-        Boolean isFirst = (Boolean) SPUtil.get(this, "isFirst", true);
-        if (isFirst) {
-            rlHome.openPane();
-            SPUtil.put(this, "isFirst", false);
-        }
+//        Boolean isFirst = (Boolean) SPUtil.get(this, "isFirst", true);
+//        if (isFirst) {
+//            rlHome.openPane();
+//            SPUtil.put(this, "isFirst", false);
+//        }
     }
 
     @Override

@@ -1,0 +1,20 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context="com.mengyang.kohler.whole_category.WholeCategoryFragment">
+
+    <com.mengyang.kohler.common.view.TopView
+        android:id="@+id/tv_whole_category_top"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white"
+        app:title="@string/whole_category"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_whole_category"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</FrameLayout>
