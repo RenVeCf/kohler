@@ -28,7 +28,6 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     TabContainerView llTabContainer;
     @BindView(R.id.rl_home)
     ResideLayout rlHome;
-    String text = "texttexttexttexttexttexttexttext";
 
     /**
      * tab图标集合
