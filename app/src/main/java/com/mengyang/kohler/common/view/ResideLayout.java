@@ -34,7 +34,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 /**
- *  侧滑 布局
+ * 侧滑 布局
  */
 
 public class ResideLayout extends ViewGroup {
@@ -1164,11 +1164,16 @@ public class ResideLayout extends ViewGroup {
 
         @Override
         public boolean tryCaptureView(View child, int pointerId) {
-            if (mIsUnableToDrag) {
-                return false;
-            }
+            //            if (mIsUnableToDrag) {
+            //                 return false;
+            //            }
 
-            return ((LayoutParams) child.getLayoutParams()).slideable;
+            //            return ((LayoutParams) child.getLayoutParams()).slideable;
+            //如果是主页面，禁止滑动
+            if (isOpen())
+                return ((LayoutParams) child.getLayoutParams()).slideable;
+            else
+                return false;
         }
 
         @Override
@@ -1264,7 +1269,7 @@ public class ResideLayout extends ViewGroup {
         Paint dimPaint;
 
         public LayoutParams() {
-            super(MATCH_PARENT, FILL_PARENT);
+            super(MATCH_PARENT, MATCH_PARENT);
         }
 
         public LayoutParams(int width, int height) {

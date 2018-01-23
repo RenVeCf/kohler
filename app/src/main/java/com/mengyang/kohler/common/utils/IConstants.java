@@ -9,12 +9,13 @@ package com.mengyang.kohler.common.utils;
 
 public class IConstants {
     //包名
-    public static final String PACKAGE_NAME = "com.mengyang.pinganbank";
+    public static final String PACKAGE_NAME = "com.mengyang.kohler";
     public static final String FIRSTENTER = "ping_an_bank";
     /**
     * 共享参数
     */
     public static final String TOKEN = "token"; //token
+    public static final String FIRST_APP = "isFirstApp"; //第一次进应用
 
     /**
      * 请求码 从60开始

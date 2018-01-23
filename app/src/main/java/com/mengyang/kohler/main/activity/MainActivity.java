@@ -14,7 +14,7 @@ import com.mengyang.kohler.home.fragment.HomeFragment;
 import com.mengyang.kohler.main.adapter.FragmentViewPagerAdapter;
 import com.mengyang.kohler.main.view.CustomViewPager;
 import com.mengyang.kohler.main.view.TabContainerView;
-import com.mengyang.kohler.whole_category.WholeCategoryFragment;
+import com.mengyang.kohler.whole_category.fragment.WholeCategoryFragment;
 
 import butterknife.BindView;
 
@@ -72,10 +72,10 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     @Override
     protected void initValues() {
         initViews();
-        //        Boolean isFirst = (Boolean) SPUtil.get(this, "isFirst", true);
+        //        Boolean isFirst = (Boolean) SPUtil.get(this, IConstants.FIRST_APP, true);
         //        if (isFirst) {
         //            rlHome.openPane();
-        //            SPUtil.put(this, "isFirst", false);
+        //            SPUtil.put(this, IConstants.FIRST_APP, false);
         //        }
     }
 

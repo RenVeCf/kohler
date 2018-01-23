@@ -2,6 +2,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:scaleType="fitXY">
+
+    <!--返回-->
+    <ImageView
+        android:id="@+id/iv_top_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:src="@mipmap/ic_launcher_round"/>
+
+    <!--侧滑菜单-->
+    <ImageView
+        android:id="@+id/iv_top_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:src="@mipmap/ic_launcher_round"/>
+
     <!--标题-->
     <TextView
         android:id="@+id/tv_top_title"
@@ -11,8 +28,17 @@
         android:layout_margin="10dp"
         android:letterSpacing="0.13"
         android:lineSpacingExtra="14sp"
-        android:textColor="#000000"
         android:textSize="16sp"/>
+
+    <!--设置-->
+    <ImageView
+        android:id="@+id/iv_top_settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:paddingEnd="20dp"
+        android:visibility="gone"
+        android:src="@mipmap/ic_launcher_round"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -27,6 +53,7 @@
             android:id="@+id/iv_top_customer_service"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:src="@mipmap/ic_launcher_round"/>
 
         <!--系统消息-->
@@ -34,6 +61,7 @@
             android:id="@+id/iv_top_system_msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:src="@mipmap/ic_launcher_round"/>
     </LinearLayout>
 </RelativeLayout>

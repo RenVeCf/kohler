@@ -14,7 +14,6 @@
     </array>
 
 
-
     <string name="connect_error">网络连接失败,请检查网络</string>
     <string name="connect_timeout">连接超时,请稍后再试</string>
     <string name="bad_network">服务器异常</string>
@@ -23,7 +22,6 @@
     <string name="response_return_error">服务器返回数据失败</string>
     <string name="refresh">刷新</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="toilet_seat">座便器</string>
     <string name="shower_room_parts">浴室配件</string>
     <string name="shower_room_nozzle">浴室龙头</string>
@@ -41,4 +39,17 @@
     <string name="books">图册</string>
     <string name="where_to_buy">Where to Buy</string>
     <string name="find_shop">查找店铺</string>
+    <string name="mine_account">我的账户</string>
+    <string name="mine_like">我的收藏</string>
+    <string name="reservation_query">预约查询</string>
+    <string name="viewed">Viewed</string>
+    <string name="your_browsing">您的浏览</string>
+    <string name="commodity_details">商品详情</string>
+    <string name="like">收藏</string>
+    <string name="go_pay">去购买</string>
+    <string name="dealers_meeting">经销商大会</string>
+    <string name="login">登录</string>
+    <string name="forget_the_password">忘记密码？</string>
+    <string name="input_pwd">请输入密码</string>
+    <string name="input_phone_num">请输入手机号码</string>
 </resources>

@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.mengyang.kohler.R;
 
 /**
@@ -35,6 +34,7 @@ public class TopView extends RelativeLayout implements View.OnClickListener {
 
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.TopView);
         tvTopTitle.setText(typedArray.getString(R.styleable.TopView_title));
+        tvTopTitle.setTextColor(typedArray.getColor(R.styleable.TopView_title_color, 0x000000));
         isSystemMsg = typedArray.getBoolean(R.styleable.TopView_is_system_msg, false);
         ivTopSystemMsg.setVisibility(isSystemMsg ? View.GONE : View.VISIBLE);
         ivTopCustomerService.setVisibility(isSystemMsg ? View.GONE : View.VISIBLE);

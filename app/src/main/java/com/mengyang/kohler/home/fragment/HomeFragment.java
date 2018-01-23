@@ -1,12 +1,22 @@
 package com.mengyang.kohler.home.fragment;
 
+import android.content.Intent;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.BaseFragment;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.utils.ToastUtil;
 import com.mengyang.kohler.common.view.TopView;
+import com.mengyang.kohler.home.activity.PDFActivity;
+import com.mengyang.kohler.home.adapter.HomeBooksAdapter;
+import com.mengyang.kohler.home.adapter.HomeEditorSelectionAdapter;
+import com.mengyang.kohler.whole_category.activity.CommodityClassificationActivity;
 import com.ryane.banner_lib.AdPageInfo;
 import com.ryane.banner_lib.AdPlayBanner;
 import com.ryane.banner_lib.transformer.FadeInFadeOutTransformer;
@@ -27,8 +37,24 @@ public class HomeFragment extends BaseFragment {
     EditText etHomeSearch;
     @BindView(R.id.ab_home_loop)
     AdPlayBanner abHomeLoop;
+    @BindView(R.id.rv_home_video)
+    RecyclerView rvHomeVideo;
+    @BindView(R.id.rv_home_books)
+    RecyclerView rvHomeBooks;
+    @BindView(R.id.rv_home_editor_selection)
+    RecyclerView rvHomeEditorSelection;
+    @BindView(R.id.iv_top_menu)
+    ImageView ivTopMenu;
+    @BindView(R.id.iv_top_customer_service)
+    ImageView ivTopCustomerService;
+    @BindView(R.id.iv_top_system_msg)
+    ImageView ivTopSystemMsg;
     //轮播图集合
     private List<AdPageInfo> mDatas = new ArrayList<>();
+    //我的图册
+    private HomeBooksAdapter mHomeBooksAdapter;
+    //特别推荐适配器
+    private HomeEditorSelectionAdapter mHomeEditorSelectionAdapter;
 
     @Override
     protected int getLayoutId() {
@@ -41,6 +67,16 @@ public class HomeFragment extends BaseFragment {
         ImmersionBar.setTitleBar(getActivity(), tvHomeTop);
         //轮播
         abHomeLoop.measure(0, 0);
+        //特别推荐
+        LinearLayoutManager layoutManagerPoints = new LinearLayoutManager(getContext());
+        rvHomeEditorSelection.setLayoutManager(layoutManagerPoints);
+        // 如果可以确定每个item的高度是固定的，设置这个选项可以提高性能
+        rvHomeEditorSelection.setNestedScrollingEnabled(false);
+        rvHomeEditorSelection.setHasFixedSize(true);
+        rvHomeEditorSelection.setItemAnimator(new DefaultItemAnimator());
+        ivTopMenu.setVisibility(View.VISIBLE);
+        ivTopCustomerService.setVisibility(View.VISIBLE);
+        ivTopSystemMsg.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -59,6 +95,7 @@ public class HomeFragment extends BaseFragment {
         abHomeLoop.setOnPageClickListener(new AdPlayBanner.OnPageClickListener() {
             @Override
             public void onPageClick(AdPageInfo info, int postion) {
+                startActivity(new Intent(getActivity(), CommodityClassificationActivity.class));
                 ToastUtil.showToast("你点击了图片 " + info.getTitle() + "\n 跳转链接为：" + info.getClickUlr() + "\n 当前位置是：" + postion + "\n 当前优先级是：" + info.getOrder());
             }
         });
@@ -83,5 +120,11 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     protected void initData() {
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        abHomeLoop.stop();
     }
 }

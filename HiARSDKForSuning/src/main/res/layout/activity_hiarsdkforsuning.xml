@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/scan_layout">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:id="@+id/scan_bg"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="90dp">
+
+        <ImageButton
+            android:layout_width="115dp"
+            android:layout_height="122dp"
+            android:background="#0000"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/btn_catch"
+            android:onClick="onBtnCatchPressed"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:id="@+id/dialog_success"
+        >
+
+        <RelativeLayout
+            android:layout_width="290dp"
+            android:layout_height="375dp"
+            android:layout_centerInParent="true"
+            android:id="@+id/dialog_success_bg">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_centerHorizontal="true"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="160dp"
+                    android:layout_height="180dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="70dp"
+                    android:id="@+id/constellation"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="获得金牛座卡片"
+                    android:textSize="18dp"
+                    android:textColor="#fff"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/card_name"/>
+
+                <RelativeLayout
+                    android:layout_width="250dp"
+                    android:layout_height="90dp">
+
+                    <ImageButton
+                        android:layout_width="115dp"
+                        android:layout_height="45dp"
+                        android:background="#0000"
+                        android:layout_centerVertical="true"
+                        android:id="@+id/btn_success_watch"
+                        android:onClick="onBtnSuccessWatchPressed"/>
+
+                    <ImageButton
+                        android:layout_width="115dp"
+                        android:layout_height="45dp"
+                        android:background="#0000"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:id="@+id/btn_success_catch"
+                        android:onClick="onBtnSuccessCatchPressed"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <ImageButton
+            android:layout_marginLeft="-20dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="#0000"
+            android:layout_toRightOf="@+id/dialog_success_bg"
+            android:id="@+id/btn_success_close"
+            android:onClick="onBtnSuccessClosePressed"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:id="@+id/dialog_fail"
+        >
+
+        <RelativeLayout
+            android:layout_width="290dp"
+            android:layout_height="375dp"
+            android:layout_centerInParent="true"
+            android:id="@+id/dialog_fail_bg">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_centerHorizontal="true"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="别灰心还有机会"
+                    android:textSize="18dp"
+                    android:textColor="#aaa"
+                    android:layout_marginTop="260dp"
+                    android:id="@+id/fail_prompt"/>
+
+                <RelativeLayout
+                    android:layout_width="250dp"
+                    android:layout_height="90dp">
+
+                    <ImageButton
+                        android:layout_width="170dp"
+                        android:layout_height="45dp"
+                        android:background="#0000"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:id="@+id/btn_fail_catch"
+                        android:onClick="onBtnFailCatchPressed"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <ImageButton
+            android:layout_marginLeft="-20dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="#0000"
+            android:layout_toRightOf="@+id/dialog_fail_bg"
+            android:id="@+id/btn_fail_close"
+            android:onClick="onBtnFailClosePressed"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:id="@+id/dialog_share"
+        >
+
+        <RelativeLayout
+            android:layout_width="290dp"
+            android:layout_height="375dp"
+            android:layout_centerInParent="true"
+            android:id="@+id/dialog_share_bg">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_centerHorizontal="true"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="分享可额外"
+                    android:textSize="18dp"
+                    android:textColor="#ffe13c"
+                    android:layout_marginTop="220dp"
+                    android:id="@+id/dialog_share_line_1"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="获得1次抓捕机会"
+                    android:textSize="18dp"
+                    android:textColor="#ffe13c"
+                    android:id="@+id/dialog_share_line_2"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="(每日仅限一次)"
+                    android:textSize="13dp"
+                    android:textColor="#ffe13c"/>
+
+                <RelativeLayout
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="250dp"
+                    android:layout_height="90dp">
+
+                    <ImageButton
+                        android:layout_width="170dp"
+                        android:layout_height="45dp"
+                        android:background="#0000"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:id="@+id/btn_share_share"
+                        android:onClick="onBtnShareSharePressed"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <ImageButton
+            android:layout_marginLeft="-20dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="#0000"
+            android:layout_toRightOf="@+id/dialog_share_bg"
+            android:id="@+id/btn_share_close"
+            android:onClick="onBtnShareClosePressed"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="今日抓捕次数已经用完,请明日再来"
+            android:id="@+id/prompt"/>
+
+        <ImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="#0000"
+            android:layout_marginLeft="30dp"
+            android:id="@+id/icon_catch"
+            android:layout_centerVertical="true"/>
+
+        <RelativeLayout
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/icon_catch"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true">
+
+                <ImageView
+                    android:layout_width="57dp"
+                    android:layout_height="20dp"
+                    android:id="@+id/catch_count"
+                    />
+
+                <TextView
+                    android:paddingRight="12dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="1/10"
+                    android:textSize="13dp"
+                    android:id="@+id/count_view"
+                    />
+
+            </RelativeLayout>
+
+            <ImageButton
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="#0000"
+                android:layout_alignParentRight="true"
+                android:id="@+id/btn_share"
+                android:onClick="onBtnSharePressed"/>
+
+        </RelativeLayout>
+
+        <ImageButton
+            android:layout_width="115dp"
+            android:layout_height="45dp"
+            android:background="#0000"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="30dp"
+            android:id="@+id/btn_watch"
+            android:onClick="onBtnWatchPressed"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <ImageButton
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:background="#0000"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="22dp"
+            android:id="@+id/btn_back"
+            android:onClick="onBtnBackPressed"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="AR 扫码"
+            android:textSize="24dp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="80dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="请将镜头对准"
+                android:textSize="16dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text=" 【苏宁萌狮】 "
+                android:textSize="16dp"
+                android:textColor="#fde13f"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="图片 进行抓捕"
+                android:textSize="16dp"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

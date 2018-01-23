@@ -1,13 +1,83 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context="com.mengyang.kohler.account.AccountFragment">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/white"
+              android:orientation="vertical"
+              tools:context="com.mengyang.kohler.account.AccountFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment"/>
+        android:layout_height="wrap_content">
 
-</FrameLayout>
+        <com.mengyang.kohler.common.view.TopView
+            android:id="@+id/tv_account_top"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@color/black"
+            app:title="@string/mine_account"
+            app:title_color="#ffffff"/>
+
+        <com.mengyang.kohler.common.view.CircleImageView
+            android:id="@+id/civ_account_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:layout_centerHorizontal="true"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_launcher_round"
+            app:border_color="@color/white"
+            app:border_width="2dp"/>
+
+        <TextView
+            android:id="@+id/tv_account_name"
+            android:layout_below="@+id/civ_account_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/white"
+            tools:text="GFDSGFDS"/>
+    </RelativeLayout>
+
+    <RadioGroup
+        android:id="@+id/rg_select"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_message"
+            style="@style/RadioStyle"
+            android:checked="true"
+            android:text="@string/mine_like"/>
+
+        <RadioButton
+            android:id="@+id/rb_phone"
+            style="@style/RadioStyle"
+            android:text="@string/reservation_query"/>
+    </RadioGroup>
+
+    <LinearLayout
+        android:id="@+id/ll_mine_browsing"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/viewed"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/your_browsing"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_mine_browsing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+</LinearLayout>
