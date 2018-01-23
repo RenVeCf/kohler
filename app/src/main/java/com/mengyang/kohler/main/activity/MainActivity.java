@@ -3,6 +3,8 @@ package com.mengyang.kohler.main.activity;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.DisplayMetrics;
+import android.view.MotionEvent;
 
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
@@ -63,6 +65,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
             new ARFragment(),
             new AccountFragment()
     };
+    private float mCurrentX;
 
     @Override
     protected int getLayoutId() {
@@ -81,11 +84,11 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
     @Override
     public void onBackPressed() {
-        if (rlHome.isOpen()) {
-            rlHome.closePane();
-        } else {
-            super.onBackPressed();
-        }
+            if (rlHome.isOpen()) {
+                rlHome.closePane();
+            } else {
+                super.onBackPressed();
+            }
     }
 
     private void initViews() {
