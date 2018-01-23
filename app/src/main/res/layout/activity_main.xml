@@ -5,7 +5,7 @@
     android:id="@+id/rl_home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_color"
+    android:background="@color/white"
     tools:context=".main.activity.MainActivity">
 
     <LinearLayout
@@ -22,7 +22,7 @@
             android:layout_marginLeft="80dp"
             android:layout_weight="0.1"
             android:gravity="bottom"
-            android:text="@string/app_name"
+            android:text="科勒.KOHLER."
             android:textColor="@android:color/white"
             android:textSize="26sp"/>
 
@@ -36,6 +36,21 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingTop="50dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        style="@style/MenuIconStyle"
+                        android:src="@mipmap/ic_launcher_round"/>
+
+                    <TextView
+                        style="@style/MenuStyle"
+                        android:text="@string/mine_manual"/>
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -156,6 +171,11 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:overScrollMode="never"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#e4e4e4"/>
 
         <com.mengyang.kohler.main.view.TabContainerView
             android:id="@+id/ll_tab_container"

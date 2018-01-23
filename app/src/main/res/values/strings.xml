@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">科勒</string>
-    <string name="app_name_english">KOHLER.</string>
+    <string name="app_name_english">KHOLER.</string>
     <string name="home">首页</string>
     <string name="whole_category">全品类</string>
-    <string name="ar">AR</string>
+    <string name="ar">AR</string>KOHLER
     <string name="account">账户</string>
 
     <array name="tab_main_title">
@@ -22,6 +22,7 @@
     <string name="response_return_error">服务器返回数据失败</string>
     <string name="refresh">刷新</string>
 
+    <string name="mine_manual">我的手册</string>
     <string name="toilet_seat">座便器</string>
     <string name="shower_room_parts">浴室配件</string>
     <string name="shower_room_nozzle">浴室龙头</string>
@@ -52,4 +53,6 @@
     <string name="forget_the_password">忘记密码？</string>
     <string name="input_pwd">请输入密码</string>
     <string name="input_phone_num">请输入手机号码</string>
+    <string name="kohler_store">科勒门店 (地图)</string>
+    <string name="get_started">Get Started</string>
 </resources>

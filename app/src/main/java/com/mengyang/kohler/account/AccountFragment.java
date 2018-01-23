@@ -45,7 +45,6 @@ public class AccountFragment extends BaseFragment {
     protected void initValues() {
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(getActivity(), tvAccountTop);
-        ivTopSettings.setVisibility(View.VISIBLE);
     }
 
     @Override

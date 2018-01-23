@@ -3,7 +3,7 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@color/background_color"
+              android:background="@color/white"
               android:orientation="vertical"
               tools:context="com.mengyang.kohler.home.fragment.HomeFragment">
 
@@ -11,10 +11,15 @@
         android:id="@+id/tv_home_top"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/white"
         android:layout_marginBottom="20dp"
-        app:title_color="@color/black"
-        app:title="@string/app_name_english"/>
+        android:background="@color/white"
+        app:is_back="true"
+        app:is_customer_service="false"
+        app:is_menu="false"
+        app:is_settings="true"
+        app:is_system_msg="false"
+        app:title="@string/app_name_english"
+        app:title_color="@color/black"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -23,44 +28,79 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="50dp"
+            android:layout_marginStart="18dp"
             android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/et_home_search"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@null"
-                android:drawableRight="@mipmap/ic_launcher_round"
-                android:hint="@string/search"
-                android:singleLine="true"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="#ffffff"/>
-
-            <com.ryane.banner_lib.AdPlayBanner
-                android:id="@+id/ab_home_loop"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:background="@color/background_color"/>
-
-            <TextView
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:text="@string/art_design"/>
+                android:layout_marginEnd="18dp"
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/brand_selection"/>
+                <EditText
+                    android:id="@+id/et_home_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:background="@null"
+                    android:drawableRight="@mipmap/ic_launcher_round"
+                    android:hint="@string/search"
+                    android:singleLine="true"
+                    android:textColor="#6e6e6e"/>
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_home_video"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#2c2c2c"/>
+
+                <com.ryane.banner_lib.AdPlayBanner
+                    android:id="@+id/ab_home_loop"
+                    android:layout_width="match_parent"
+                    android:layout_height="460dp"
+                    android:layout_marginTop="12dp"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:orientation="horizontal"
+                    android:padding="13dp">
+
+                    <View
+                        android:id="@+id/v_home_banner1"
+                        android:layout_width="25dp"
+                        android:layout_height="2dp"/>
+
+                    <View
+                        android:id="@+id/v_home_banner2"
+                        android:layout_width="25dp"
+                        android:layout_height="2dp"/>
+
+                    <View
+                        android:id="@+id/v_home_banner3"
+                        android:layout_width="25dp"
+                        android:layout_height="2dp"/>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:text="@string/art_design"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/brand_selection"
+                    android:visibility="gone"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_home_video"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"/>
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -134,6 +174,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/find_shop"/>
+
+            <ImageView
+                android:id="@+id/iv_home_map"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_launcher_round"/>
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

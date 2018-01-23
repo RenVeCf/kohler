@@ -18,6 +18,8 @@ import butterknife.ButterKnife;
 
 public abstract class BaseActivity extends RxAppCompatActivity {
 
+    public Bundle savedInstanceState;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //防止getFragment为null
@@ -25,6 +27,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
             savedInstanceState.remove("android:support:fragments");
         }
         super.onCreate(savedInstanceState);
+        this.savedInstanceState = savedInstanceState;
         setContentView(getLayoutId());
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         //控件注释框架

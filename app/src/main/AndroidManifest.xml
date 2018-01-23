@@ -2,25 +2,33 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.mengyang.kohler">
 
+    <!-- 用于访问GPS定位 -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <!-- 用于进行网络定位 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.GET_TASKS"/>
     <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- 允许程序访问WiFi网络信息 -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <!-- 允许程序获取网络状态 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <!-- 用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <!-- 允许程序设置内置sd卡的写权限 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
-
     <!-- 获取手机唯一标识需要用到的权限 -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <!-- 用于申请获取蓝牙信息进行室内定位 -->
     <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
     <!-- 相机 -->
     <uses-permission android:name="android.permission.CAMERA"/>
-    <!-- 保存SD卡 -->
+    <!-- 允许程序打开网络套接字 -->
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <!-- 用于申请调用A-GPS模块 -->
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
+    <!-- 保存SD卡 -->
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
 
     <application
@@ -33,7 +41,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:windowSoftInputMode="adjustResize">
-        <activity android:name=".main.activity.LoginActivity">
+        <activity android:name=".main.activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -49,6 +57,19 @@
         <activity android:name=".main.activity.MainActivity">
         </activity>
         <activity android:name=".whole_category.activity.CommodityClassificationActivity">
+        </activity>
+
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="db95dac66558004676aa5e772d122002"/>
+
+        <service android:name="com.amap.api.location.APSService"/>
+
+        <activity android:name=".home.activity.ShopsListActivity">
+        </activity>
+        <activity android:name=".main.activity.LoginActivity">
+        </activity>
+        <activity android:name=".main.activity.LoadingActivity">
         </activity>
     </application>
 

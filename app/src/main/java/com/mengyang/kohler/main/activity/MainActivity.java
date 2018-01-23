@@ -27,7 +27,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     @BindView(R.id.ll_tab_container)
     TabContainerView llTabContainer;
     @BindView(R.id.rl_home)
-    ResideLayout rlHome;
+    public ResideLayout rlHome;
 
     /**
      * tab图标集合

@@ -13,7 +13,7 @@ import com.mengyang.kohler.BaseFragment;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.utils.ToastUtil;
 import com.mengyang.kohler.common.view.TopView;
-import com.mengyang.kohler.home.activity.PDFActivity;
+import com.mengyang.kohler.home.activity.ShopsListActivity;
 import com.mengyang.kohler.home.adapter.HomeBooksAdapter;
 import com.mengyang.kohler.home.adapter.HomeEditorSelectionAdapter;
 import com.mengyang.kohler.whole_category.activity.CommodityClassificationActivity;
@@ -25,9 +25,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 import static com.ryane.banner_lib.AdPlayBanner.ImageLoaderType.GLIDE;
-import static com.ryane.banner_lib.AdPlayBanner.IndicatorType.POINT_INDICATOR;
+import static com.ryane.banner_lib.AdPlayBanner.IndicatorType.NONE_INDICATOR;
 
 public class HomeFragment extends BaseFragment {
 
@@ -43,12 +44,14 @@ public class HomeFragment extends BaseFragment {
     RecyclerView rvHomeBooks;
     @BindView(R.id.rv_home_editor_selection)
     RecyclerView rvHomeEditorSelection;
-    @BindView(R.id.iv_top_menu)
-    ImageView ivTopMenu;
-    @BindView(R.id.iv_top_customer_service)
-    ImageView ivTopCustomerService;
-    @BindView(R.id.iv_top_system_msg)
-    ImageView ivTopSystemMsg;
+    @BindView(R.id.iv_home_map)
+    ImageView ivHomeMap;
+    @BindView(R.id.v_home_banner1)
+    View vHomeBanner1;
+    @BindView(R.id.v_home_banner2)
+    View vHomeBanner2;
+    @BindView(R.id.v_home_banner3)
+    View vHomeBanner3;
     //轮播图集合
     private List<AdPageInfo> mDatas = new ArrayList<>();
     //我的图册
@@ -74,9 +77,6 @@ public class HomeFragment extends BaseFragment {
         rvHomeEditorSelection.setNestedScrollingEnabled(false);
         rvHomeEditorSelection.setHasFixedSize(true);
         rvHomeEditorSelection.setItemAnimator(new DefaultItemAnimator());
-        ivTopMenu.setVisibility(View.VISIBLE);
-        ivTopCustomerService.setVisibility(View.VISIBLE);
-        ivTopSystemMsg.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -102,15 +102,15 @@ public class HomeFragment extends BaseFragment {
         //自动滚动
         abHomeLoop.setAutoPlay(true);
         //页码指示器
-        abHomeLoop.setIndicatorType(POINT_INDICATOR);
-        //normalColor为数字没选中时的背景颜色，selectedColor为数字选中时的背景颜色，numberColor为数字的字体颜色
-        abHomeLoop.setNumberViewColor(0xcc00A600, 0xccea0000, 0xffffffff);
+        abHomeLoop.setIndicatorType(NONE_INDICATOR);
+        //        //normalColor为数字没选中时的背景颜色，selectedColor为数字选中时的背景颜色，numberColor为数字的字体颜色
+        //        abHomeLoop.setNumberViewColor(0xcc00A600, 0xccea0000, 0xffffffff);
         //间隔时间
         abHomeLoop.setInterval(3000);
         //标题
         //abLoop.addTitleView(new TitleView(getContext()).setPosition(PARENT_TOP).setTitlePadding(5, 5, 5, 5).setTitleMargin(0, 0, 0, 25).setTitleSize(16).setViewBackground(0x55000000).setTitleColor(ContextCompat.getColor(getContext(), R.color.white)));
         //背景
-        abHomeLoop.setBannerBackground(0xfffbf4f3);
+        abHomeLoop.setBannerBackground(0xffffffff);
         //切换动画
         abHomeLoop.setPageTransfromer(new FadeInFadeOutTransformer());
         //数据源
@@ -122,9 +122,8 @@ public class HomeFragment extends BaseFragment {
     protected void initData() {
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        abHomeLoop.stop();
+    @OnClick(R.id.iv_home_map)
+    public void onViewClicked() {
+        startActivity(new Intent(getActivity(), ShopsListActivity.class));
     }
 }
