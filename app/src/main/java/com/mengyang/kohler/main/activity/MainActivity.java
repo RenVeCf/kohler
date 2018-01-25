@@ -3,15 +3,12 @@ package com.mengyang.kohler.main.activity;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.DisplayMetrics;
-import android.view.MotionEvent;
 
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.account.AccountFragment;
 import com.mengyang.kohler.ar.ARFragment;
-import com.mengyang.kohler.common.view.ResideLayout;
 import com.mengyang.kohler.home.fragment.HomeFragment;
 import com.mengyang.kohler.main.adapter.FragmentViewPagerAdapter;
 import com.mengyang.kohler.main.view.CustomViewPager;
@@ -26,29 +23,27 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     CustomViewPager tabPager;
     @BindView(R.id.ll_tab_container)
     TabContainerView llTabContainer;
-    @BindView(R.id.rl_home)
-    public ResideLayout rlHome;
 
     /**
      * tab图标集合
      */
     private final int ICONS_RES[][] = {
             {
-                    R.mipmap.ic_launcher_round,
-                    R.mipmap.ic_launcher_round
+                    R.mipmap.ar,
+                    R.mipmap.ar
             },
             {
-                    R.mipmap.ic_launcher_round,
-                    R.mipmap.ic_launcher_round
+                    R.mipmap.category,
+                    R.mipmap.category
             },
 
             {
-                    R.mipmap.ic_launcher_round,
-                    R.mipmap.ic_launcher_round
+                    R.mipmap.icon_home,
+                    R.mipmap.icon_home
             },
             {
-                    R.mipmap.ic_launcher_round,
-                    R.mipmap.ic_launcher_round
+                    R.mipmap.personal,
+                    R.mipmap.personal
             }
     };
 
@@ -57,7 +52,8 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
      */
     private final int[] TAB_COLORS = new int[]{
             R.color.main_bottom_tab_textcolor_normal,
-            R.color.main_bottom_tab_textcolor_selected};
+            R.color.main_bottom_tab_textcolor_normal
+    };
 
     private Fragment[] fragments = {
             new HomeFragment(),
@@ -82,14 +78,14 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         //        }
     }
 
-    @Override
-    public void onBackPressed() {
-            if (rlHome.isOpen()) {
-                rlHome.closePane();
-            } else {
-                super.onBackPressed();
-            }
-    }
+    //    @Override
+    //    public void onBackPressed() {
+    //        if (rlHome.isOpen()) {
+    //            rlHome.closePane();
+    //        } else {
+    //            super.onBackPressed();
+    //        }
+    //    }
 
     private void initViews() {
         FragmentViewPagerAdapter mAdapter = new FragmentViewPagerAdapter(getSupportFragmentManager(), fragments);
@@ -130,6 +126,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
     @Override
     protected void initListener() {
+
     }
 
     @Override

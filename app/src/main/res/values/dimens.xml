@@ -1,7 +1,7 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="tab_icon_width">17dp</dimen>
-    <dimen name="tab_icon_height">18dp</dimen>
+    <dimen name="tab_icon_width">20dp</dimen>
+    <dimen name="tab_icon_height">20dp</dimen>
 
 
     <!-- Default screen margins, per the Android Design guidelines. -->
@@ -23,4 +23,7 @@
     <dimen name="load_more_trigger_offset_google">60dp</dimen>
     <dimen name="load_more_final_offset_google">100dp</dimen>
     <dimen name="load_more_drawable_size_google">36dp</dimen>
+
+    <!-- 全品类CardView间距 -->
+    <dimen name="item_space">15dp</dimen>
 </resources>

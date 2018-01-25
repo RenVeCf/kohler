@@ -1,31 +1,25 @@
 package com.mengyang.kohler.whole_category.fragment;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ListView;
-
+import android.support.v7.widget.RecyclerView;
 import com.gyf.barlibrary.ImmersionBar;
-import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseFragment;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.view.TopView;
-import com.mengyang.kohler.whole_category.view.CardDataImpl;
-import com.ramotion.expandingcollection.ECBackgroundSwitcherView;
-import com.ramotion.expandingcollection.ECCardData;
-import com.ramotion.expandingcollection.ECPagerView;
-import com.ramotion.expandingcollection.ECPagerViewAdapter;
+import com.mengyang.kohler.whole_category.view.Align;
+import com.mengyang.kohler.whole_category.view.Config;
+import com.mengyang.kohler.whole_category.view.StackAdapter;
+import com.mengyang.kohler.whole_category.view.StackLayoutManager;
 
+import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 
 public class WholeCategoryFragment extends BaseFragment {
 
     @BindView(R.id.tv_whole_category_top)
     TopView tvWholeCategoryTop;
-    @BindView(R.id.ec_pager_element)
-    ECPagerView ecPagerElement;
+    @BindView(R.id.rv_whole_category)
+    RecyclerView rvWholeCategory;
 
     @Override
     protected int getLayoutId() {
@@ -36,39 +30,27 @@ public class WholeCategoryFragment extends BaseFragment {
     protected void initValues() {
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(getActivity(), tvWholeCategoryTop);
+
+        List<String> datas = new ArrayList<>();
+        for (int i = 0; i < 15; i++) {
+            datas.add(String.valueOf(i));
+        }
+
+        Config config = new Config();
+        config.secondaryScale = 0.8f;
+        config.scaleRatio = 0.4f;
+        config.maxStackCount = 3;
+        config.initialStackCount = 2;
+        config.space = getResources().getDimensionPixelOffset(R.dimen.item_space);
+
+        config.align = Align.RIGHT;
+        rvWholeCategory.setLayoutManager(new StackLayoutManager(config));
+        rvWholeCategory.setAdapter(new StackAdapter(datas));
     }
 
     @Override
     protected void initListener() {
-        List<ECCardData> dataset = CardDataImpl.generateExampleData();
-        ECPagerViewAdapter ecPagerViewAdapter = new ECPagerViewAdapter(App.getContext(), dataset) {
-
-            @Override
-            public void instantiateCard(LayoutInflater inflaterService, ViewGroup head, ListView list, ECCardData data) {
-                list.setBackgroundResource(R.mipmap.ic_launcher_round);
-                head.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(final View v) {
-                    }
-                });
-            }
-        };
-        ecPagerElement.setPagerViewAdapter(ecPagerViewAdapter);
-
-        // Add background switcher to pager view
-        ecPagerElement.setBackgroundSwitcherView((ECBackgroundSwitcherView) getActivity().findViewById(R.id.ec_bg_switcher_element));
-
-        // Directly modifying dataset
-        dataset.remove(2);
-        ecPagerViewAdapter.notifyDataSetChanged();
     }
-
-    // Card collapse on back pressed
-//    @Override
-//    public void onBackPressed() {
-//        if (!ecPagerElement.collapse())
-//            super.onBackPressed();
-//    }
 
     @Override
     protected void initData() {

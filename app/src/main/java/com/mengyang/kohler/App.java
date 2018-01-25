@@ -2,6 +2,7 @@ package com.mengyang.kohler;
 
 import android.app.Application;
 import android.content.Context;
+import android.support.multidex.MultiDex;
 
 /**
  * Description :
@@ -23,4 +24,9 @@ public class App extends Application{
         return context;
     }
 
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
 }

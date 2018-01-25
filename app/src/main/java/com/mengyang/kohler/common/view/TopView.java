@@ -9,10 +9,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mengyang.kohler.R;
-import com.mengyang.kohler.common.utils.ToastUtil;
 import com.mengyang.kohler.main.activity.MainActivity;
-
-import butterknife.OnClick;
 
 /**
  * Description : 标题栏
@@ -23,12 +20,14 @@ import butterknife.OnClick;
 
 public class TopView extends RelativeLayout implements View.OnClickListener {
     private TextView tvTopTitle;
+    private ImageView ivTopTitle;
     private ImageView ivTopBack;
     private ImageView ivTopMenu;
     private ImageView ivTopSettings;
     private ImageView ivTopCustomerService;
     private ImageView ivTopSystemMsg;
     //各icon是否显示
+    private Boolean isIvTopTitle;
     private Boolean isSystemMsg;
     private Boolean isCustomerService;
     private Boolean isBack;
@@ -47,12 +46,14 @@ public class TopView extends RelativeLayout implements View.OnClickListener {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.TopView);
         tvTopTitle.setText(typedArray.getString(R.styleable.TopView_title));
         tvTopTitle.setTextColor(typedArray.getColor(R.styleable.TopView_title_color, 0x000000));
+        isIvTopTitle = typedArray.getBoolean(R.styleable.TopView_is_iv_top_title, false);
         isSystemMsg = typedArray.getBoolean(R.styleable.TopView_is_system_msg, false);
         isCustomerService = typedArray.getBoolean(R.styleable.TopView_is_customer_service, false);
         isBack = typedArray.getBoolean(R.styleable.TopView_is_back, false);
         isMenu = typedArray.getBoolean(R.styleable.TopView_is_menu, false);
         isSettings = typedArray.getBoolean(R.styleable.TopView_is_settings, false);
 
+        ivTopTitle.setVisibility(isIvTopTitle ? View.GONE : View.VISIBLE);
         ivTopSystemMsg.setVisibility(isSystemMsg ? View.GONE : View.VISIBLE);
         ivTopCustomerService.setVisibility(isCustomerService ? View.GONE : View.VISIBLE);
         ivTopBack.setVisibility(isBack ? View.GONE : View.VISIBLE);
@@ -69,6 +70,8 @@ public class TopView extends RelativeLayout implements View.OnClickListener {
         View.inflate(context, R.layout.top_view, this);
         tvTopTitle = findViewById(R.id.tv_top_title);
         tvTopTitle.setOnClickListener(this);
+        ivTopTitle = findViewById(R.id.iv_top_title);
+        ivTopTitle.setOnClickListener(this);
         ivTopBack = findViewById(R.id.iv_top_back);
         ivTopBack.setOnClickListener(this);
         ivTopMenu = findViewById(R.id.iv_top_menu);
@@ -87,8 +90,6 @@ public class TopView extends RelativeLayout implements View.OnClickListener {
             case R.id.iv_top_back:
                 break;
             case R.id.iv_top_menu:
-                MainActivity mainActivity = new MainActivity();
-                mainActivity.rlHome.openPane();
                 break;
             case R.id.iv_top_settings:
                 break;

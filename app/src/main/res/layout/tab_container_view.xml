@@ -21,8 +21,9 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/iv_tab_icon"
         android:letterSpacing="0.1"
+        android:layout_marginTop="5dp"
         android:textColor="@color/main_bottom_tab_textcolor_normal"
-        android:textSize="11sp" />
+        android:textSize="12sp" />
 
 </RelativeLayout>
 

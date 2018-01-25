@@ -13,6 +13,8 @@
         <item>账户</item>
     </array>
 
+    <!-- 这条不是翻译，是 Recyclerview 管理类调用 （用法：包名.类名） -->
+    <string name="stacklayoutmanager">com.mengyang.kohler.whole_category.view.StackLayoutManager</string>
 
     <string name="connect_error">网络连接失败,请检查网络</string>
     <string name="connect_timeout">连接超时,请稍后再试</string>

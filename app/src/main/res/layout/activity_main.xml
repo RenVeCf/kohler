@@ -1,187 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.mengyang.kohler.common.view.ResideLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/rl_home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:orientation="vertical"
     tools:context=".main.activity.MainActivity">
 
-    <LinearLayout
+
+    <com.mengyang.kohler.main.view.CustomViewPager
+        android:id="@+id/tab_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorRedAccent"
-        android:orientation="vertical">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:overScrollMode="never"/>
 
-        <TextView
-            android:id="@+id/tv_brand_name"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="80dp"
-            android:layout_weight="0.1"
-            android:gravity="bottom"
-            android:text="科勒.KOHLER."
-            android:textColor="@android:color/white"
-            android:textSize="26sp"/>
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.7">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingTop="50dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        style="@style/MenuIconStyle"
-                        android:src="@mipmap/ic_launcher_round"/>
-
-                    <TextView
-                        style="@style/MenuStyle"
-                        android:text="@string/mine_manual"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        style="@style/MenuIconStyle"
-                        android:src="@mipmap/ic_launcher_round"/>
-
-                    <TextView
-                        style="@style/MenuStyle"
-                        android:text="@string/toilet_seat"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        style="@style/MenuIconStyle"
-                        android:src="@mipmap/ic_launcher_round"/>
-
-                    <TextView
-                        style="@style/MenuStyle"
-                        android:text="@string/shower_room_parts"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        style="@style/MenuIconStyle"
-                        android:src="@mipmap/ic_launcher_round"/>
-
-                    <TextView
-                        style="@style/MenuStyle"
-                        android:text="@string/shower_room_nozzle"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        style="@style/MenuIconStyle"
-                        android:src="@mipmap/ic_launcher_round"/>
-
-                    <TextView
-                        style="@style/MenuStyle"
-                        android:text="@string/shower_nozzle"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        style="@style/MenuIconStyle"
-                        android:src="@mipmap/ic_launcher_round"/>
-
-                    <TextView
-                        style="@style/MenuStyle"
-                        android:text="@string/makeup"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        style="@style/MenuIconStyle"
-                        android:src="@mipmap/ic_launcher_round"/>
-
-                    <TextView
-                        style="@style/MenuStyle"
-                        android:text="@string/massage_bathtub"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        style="@style/MenuIconStyle"
-                        android:src="@mipmap/ic_launcher_round"/>
-
-                    <TextView
-                        style="@style/MenuStyle"
-                        android:text="@string/bathtub"/>
-                </LinearLayout>
-            </LinearLayout>
-        </ScrollView>
-    </LinearLayout>
-
-    <LinearLayout
+    <View
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="1dp"
+        android:background="#e4e4e4"/>
 
-        <com.mengyang.kohler.main.view.CustomViewPager
-            android:id="@+id/tab_pager"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:overScrollMode="never"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#e4e4e4"/>
-
-        <com.mengyang.kohler.main.view.TabContainerView
-            android:id="@+id/ll_tab_container"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:background="#ffffff"/>
-    </LinearLayout>
-
-</com.mengyang.kohler.common.view.ResideLayout>
+    <com.mengyang.kohler.main.view.TabContainerView
+        android:id="@+id/ll_tab_container"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="#ffffff"/>
+</LinearLayout>

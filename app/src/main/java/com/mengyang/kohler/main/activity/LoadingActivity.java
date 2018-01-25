@@ -31,8 +31,8 @@ public class LoadingActivity extends BaseActivity {
     LockableViewPager lvpLoading;
     @BindView(R.id.bt_loading_login)
     Button btLoadingLogin;
-    private int[] imageUrls = {R.mipmap.ic_launcher_round};
-    private int[] imageUrlsEn = {R.mipmap.ic_launcher_round};
+    private int[] imageUrls = {R.mipmap.ic_launcher_round, R.mipmap.ic_launcher_round, R.mipmap.ic_launcher_round, R.mipmap.ic_launcher_round, R.mipmap.ic_launcher_round};
+    private int[] imageUrlsEn = {R.mipmap.ic_launcher_round, R.mipmap.ic_launcher_round, R.mipmap.ic_launcher_round, R.mipmap.ic_launcher_round, R.mipmap.ic_launcher_round};
     private ContentAdapter adapter;
     private List<View> viewList;
     private int currentItem = 0;
@@ -47,12 +47,12 @@ public class LoadingActivity extends BaseActivity {
         DisplayUtils.getScreenHeight(this);
         viewList = new ArrayList<>();
         if (LanguageUtil.isZh(this)) {
-            btLoadingLogin.setBackgroundResource(R.mipmap.ic_launcher_round);
+            //            btLoadingLogin.setBackgroundResource(R.mipmap.ic_launcher_round);
             for (int i = 0; i < imageUrls.length; i++) {
                 viewList.add(initView(imageUrls[i]));
             }
         } else {
-            btLoadingLogin.setBackgroundResource(R.mipmap.ic_launcher_round);
+            //            btLoadingLogin.setBackgroundResource(R.mipmap.ic_launcher_round);
             for (int i = 0; i < imageUrlsEn.length; i++) {
                 viewList.add(initView(imageUrlsEn[i]));
             }
@@ -68,7 +68,7 @@ public class LoadingActivity extends BaseActivity {
 
             @Override
             public void onPageSelected(int position) {
-                if (position == 3) {
+                if (position == 4) {
                     btLoadingLogin.setVisibility(View.VISIBLE);
                 } else {
                     btLoadingLogin.setVisibility(View.GONE);

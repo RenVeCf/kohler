@@ -12,14 +12,15 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.BaseFragment;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.utils.ToastUtil;
+import com.mengyang.kohler.common.view.ResideLayout;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.home.activity.ShopsListActivity;
 import com.mengyang.kohler.home.adapter.HomeBooksAdapter;
 import com.mengyang.kohler.home.adapter.HomeEditorSelectionAdapter;
 import com.mengyang.kohler.whole_category.activity.CommodityClassificationActivity;
-import com.ryane.banner_lib.AdPageInfo;
-import com.ryane.banner_lib.AdPlayBanner;
-import com.ryane.banner_lib.transformer.FadeInFadeOutTransformer;
+import com.ryane.banner.AdPageInfo;
+import com.ryane.banner.AdPlayBanner;
+import com.ryane.banner.transformer.FadeInFadeOutTransformer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +28,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-import static com.ryane.banner_lib.AdPlayBanner.ImageLoaderType.GLIDE;
-import static com.ryane.banner_lib.AdPlayBanner.IndicatorType.NONE_INDICATOR;
+import static com.ryane.banner.AdPlayBanner.ImageLoaderType.GLIDE;
+import static com.ryane.banner.AdPlayBanner.IndicatorType.NONE_INDICATOR;
 
 public class HomeFragment extends BaseFragment {
 
@@ -52,6 +53,12 @@ public class HomeFragment extends BaseFragment {
     View vHomeBanner2;
     @BindView(R.id.v_home_banner3)
     View vHomeBanner3;
+    @BindView(R.id.iv_top_menu)
+    ImageView ivTopMenu;
+    @BindView(R.id.rl_home)
+    ResideLayout rlHome;
+    @BindView(R.id.iv_home_search)
+    ImageView ivHomeSearch;
     //轮播图集合
     private List<AdPageInfo> mDatas = new ArrayList<>();
     //我的图册
@@ -112,7 +119,7 @@ public class HomeFragment extends BaseFragment {
         //背景
         abHomeLoop.setBannerBackground(0xffffffff);
         //切换动画
-        abHomeLoop.setPageTransfromer(new FadeInFadeOutTransformer());
+        abHomeLoop.setPageTransformer(new FadeInFadeOutTransformer());
         //数据源
         abHomeLoop.setInfoList((ArrayList<AdPageInfo>) mDatas);
         abHomeLoop.setUp();
@@ -122,8 +129,19 @@ public class HomeFragment extends BaseFragment {
     protected void initData() {
     }
 
-    @OnClick(R.id.iv_home_map)
-    public void onViewClicked() {
-        startActivity(new Intent(getActivity(), ShopsListActivity.class));
+    @OnClick({R.id.et_home_search, R.id.iv_home_map, R.id.iv_top_menu, R.id.iv_home_search})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.iv_home_search:
+                break;
+            case R.id.iv_top_menu:
+                rlHome.openPane();
+                break;
+            case R.id.et_home_search:
+                break;
+            case R.id.iv_home_map:
+                startActivity(new Intent(getActivity(), ShopsListActivity.class));
+                break;
+        }
     }
 }

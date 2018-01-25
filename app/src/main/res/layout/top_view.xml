@@ -16,8 +16,9 @@
         android:id="@+id/iv_top_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/x60"
         android:visibility="gone"
-        android:src="@mipmap/ic_launcher_round"/>
+        android:src="@mipmap/navigation"/>
 
     <!--标题-->
     <TextView
@@ -29,6 +30,14 @@
         android:letterSpacing="0.13"
         android:lineSpacingExtra="14sp"
         android:textSize="16sp"/>
+
+    <ImageView
+        android:id="@+id/iv_top_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="10dp"
+        android:src="@mipmap/logo"/>
 
     <!--设置-->
     <ImageView
@@ -45,23 +54,24 @@
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
         android:gravity="center_vertical"
-        android:paddingEnd="20dp"
+        android:layout_marginEnd="@dimen/x60"
         android:orientation="horizontal">
 
         <!--客服-->
         <ImageView
             android:id="@+id/iv_top_customer_service"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="@dimen/x72"
             android:visibility="gone"
-            android:src="@mipmap/ic_launcher_round"/>
+            android:src="@mipmap/service"/>
 
         <!--系统消息-->
         <ImageView
             android:id="@+id/iv_top_system_msg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:visibility="gone"
-            android:src="@mipmap/ic_launcher_round"/>
+            android:src="@mipmap/message"/>
     </LinearLayout>
 </RelativeLayout>

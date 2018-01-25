@@ -9,6 +9,8 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        // Enabling multidex support.
+        multiDexEnabled true
 
         ndk {
             //设置支持的SO库架构（开发者可以根据需要，选择一个或多个平台的so）
@@ -71,10 +73,11 @@ dependencies {
     //沉浸式状态栏
     implementation 'com.gyf.barlibrary:barlibrary:2.3.0'
     //轮播图框架 AdPlayBanner
-    implementation 'com.github.ryanlijianchang:AdPlayBanner:v0.3'
+    implementation 'com.github.ryanlijianchang:AdPlayBanner:v0.4'
     //PDF
     implementation 'com.github.barteksc:android-pdf-viewer:2.7.0-beta.1'
     //高德地图
     implementation files('libs/AMap3DMap_5.7.0_AMapNavi_5.6.0_AMapSearch_5.7.0_AMapLocation_3.7.0_20180109.jar')
-    implementation project(':expanding-collection')
+    implementation 'com.makeramen:roundedimageview:2.3.0'
+    implementation 'com.android.support:cardview-v7:27.0.2'
 }
