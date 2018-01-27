@@ -33,6 +33,10 @@ import java.util.List;
 
 import butterknife.BindView;
 
+/**
+ * 门店列表
+ */
+
 public class ShopsListActivity extends BaseActivity {
     @BindView(R.id.tv_shops_list_top)
     TopView tvShopsListTop;

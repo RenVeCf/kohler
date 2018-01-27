@@ -11,7 +11,7 @@ import android.util.AttributeSet;
 
 /**
  * 底部 Fragment bar的图标
- * Created by Jarek(王健) 2016/3/10.
+ * Created by Jarek(王健) 2016/loading3/10.
  */
 public class TabIconView extends android.support.v7.widget.AppCompatImageView {
 

@@ -4,7 +4,7 @@ import java.util.Random;
 
 /**
  * @author wlj
- * @date 2017/3/29
+ * @date 2017/loading3/29
  * @email wanglijundev@gmail.com
  * @packagename wanglijun.vip.androidutils.utils
  * @desc: 获取随机数操作类
@@ -70,7 +70,7 @@ public class RandomUtils {
     }
 
     /**
-     * Returns a pseudo-random uniformly distributed {@code float} in the half-open range [0.0, 1.0).
+     * Returns a pseudo-random uniformly distributed {@code float} in the half-open range [0.0, loading1.0).
      * 随机Float型小数
      *
      * @return
@@ -81,7 +81,7 @@ public class RandomUtils {
     }
 
     /**
-     * Returns a pseudo-random uniformly distributed {@code double} in the half-open range [0.0, 1.0).
+     * Returns a pseudo-random uniformly distributed {@code double} in the half-open range [0.0, loading1.0).
      * 随机Double型小数
      *
      * @return
@@ -115,8 +115,8 @@ public class RandomUtils {
 
     /**
      * Returns a pseudo-random (approximately) normally distributed {@code double} with mean 0.0 and standard deviation
-     * 1.0. This method uses the <i>polar method</i> of G. E. P. Box, M. E. Muller, and G. Marsaglia, as described by
-     * Donald E. Knuth in <i>The Art of Computer Programming, Volume 2: Seminumerical Algorithms</i>, section 3.4.1,
+     * loading1.0. This method uses the <i>polar method</i> of G. E. P. Box, M. E. Muller, and G. Marsaglia, as described by
+     * Donald E. Knuth in <i>The Art of Computer Programming, Volume loading2: Seminumerical Algorithms</i>, section loading3.4.loading1,
      * subsection C, algorithm P.
      * 方法用于获取下一个伪高斯(“正常地”)分布的均值为0.0，标准差为1.0从此随机数生成器的序列的double值。
      *

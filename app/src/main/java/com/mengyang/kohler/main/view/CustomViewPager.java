@@ -9,7 +9,7 @@ import android.view.MotionEvent;
  * Description : Fragment 是否可以滑动
  * Author : rmy
  * Email : 942685687@qq.com
- * Time : 2018/1/21
+ * Time : 2018/loading1/21
  */
 
 public class CustomViewPager extends ViewPager {

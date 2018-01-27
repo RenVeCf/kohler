@@ -1,0 +1,17 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.mengyang.kohler.whole_category.fragment.CommodityClassificationFragment">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_commodity_classification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y69"
+        android:layout_marginStart="@dimen/x72"
+        android:layout_marginEnd="@dimen/x72"/>
+
+</LinearLayout>

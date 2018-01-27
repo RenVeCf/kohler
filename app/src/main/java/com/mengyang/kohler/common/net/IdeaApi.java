@@ -30,7 +30,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * 网络请求公共配置
- * Created by zhpan on 2017/4/1.
+ * Created by zhpan on 2017/4/loading1.
  */
 
 public class IdeaApi {
@@ -76,7 +76,7 @@ public class IdeaApi {
     //公共参数
     public static Map<String, String> getSign() {
         Map<String, String> stringMap = new HashMap<String, String>();
-        stringMap.put("appVersion", "1.0.4");
+        stringMap.put("appVersion", "loading1.0.4");
         stringMap.put("appType", "android");
         stringMap.put("clientId", "FjyrG8VkMLntjtGi");
         stringMap.put("charset", "utf-8");

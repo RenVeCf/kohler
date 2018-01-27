@@ -1,6 +1,8 @@
 package com.mengyang.kohler.common.view;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.View;
@@ -8,14 +10,16 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.mengyang.kohler.App;
 import com.mengyang.kohler.R;
-import com.mengyang.kohler.main.activity.MainActivity;
+import com.mengyang.kohler.main.activity.CustomerServiceActivity;
+import com.mengyang.kohler.main.activity.SystemMsgActivity;
 
 /**
  * Description : 标题栏
  * Author : rmy
  * Email : 942685687@qq.com
- * Time : 2017/11/1
+ * Time : 2017/11/loading1
  */
 
 public class TopView extends RelativeLayout implements View.OnClickListener {
@@ -33,6 +37,7 @@ public class TopView extends RelativeLayout implements View.OnClickListener {
     private Boolean isBack;
     private Boolean isMenu;
     private Boolean isSettings;
+    private Context mContext;
 
     public TopView(Context context) {
         super(context);
@@ -66,21 +71,20 @@ public class TopView extends RelativeLayout implements View.OnClickListener {
         initValues(context);
     }
 
-    private void initValues(Context context) {
+    private void initValues(final Context context) {
+        mContext = context;
         View.inflate(context, R.layout.top_view, this);
-        tvTopTitle = findViewById(R.id.tv_top_title);
-        tvTopTitle.setOnClickListener(this);
-        ivTopTitle = findViewById(R.id.iv_top_title);
-        ivTopTitle.setOnClickListener(this);
-        ivTopBack = findViewById(R.id.iv_top_back);
+        tvTopTitle = (TextView) this.findViewById(R.id.tv_top_title);
+        ivTopTitle = (ImageView) this.findViewById(R.id.iv_top_title);
+        ivTopBack = (ImageView) this.findViewById(R.id.iv_top_back);
         ivTopBack.setOnClickListener(this);
-        ivTopMenu = findViewById(R.id.iv_top_menu);
+        ivTopMenu = (ImageView) this.findViewById(R.id.iv_top_menu);
         ivTopMenu.setOnClickListener(this);
-        ivTopSettings = findViewById(R.id.iv_top_settings);
+        ivTopSettings = (ImageView) this.findViewById(R.id.iv_top_settings);
         ivTopSettings.setOnClickListener(this);
-        ivTopCustomerService = findViewById(R.id.iv_top_customer_service);
+        ivTopCustomerService = (ImageView) this.findViewById(R.id.iv_top_customer_service);
         ivTopCustomerService.setOnClickListener(this);
-        ivTopSystemMsg = findViewById(R.id.iv_top_system_msg);
+        ivTopSystemMsg = (ImageView) this.findViewById(R.id.iv_top_system_msg);
         ivTopSystemMsg.setOnClickListener(this);
     }
 
@@ -88,14 +92,19 @@ public class TopView extends RelativeLayout implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_top_back:
+                if (mContext instanceof Activity) {
+                    ((Activity) mContext).finish();
+                }
                 break;
             case R.id.iv_top_menu:
                 break;
             case R.id.iv_top_settings:
                 break;
             case R.id.iv_top_customer_service:
+                App.getContext().startActivity(new Intent(App.getContext(), CustomerServiceActivity.class));
                 break;
             case R.id.iv_top_system_msg:
+                App.getContext().startActivity(new Intent(App.getContext(), SystemMsgActivity.class));
                 break;
         }
     }

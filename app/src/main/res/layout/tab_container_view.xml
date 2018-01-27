@@ -7,9 +7,8 @@
 
     <com.mengyang.kohler.main.view.TabIconView
         android:id="@+id/iv_tab_icon"
-        android:layout_marginTop="13dp"
-        android:layout_width="@dimen/tab_icon_width"
-        android:layout_height="@dimen/tab_icon_height"
+        android:layout_width="@dimen/x72"
+        android:layout_height="@dimen/y72"
         android:layout_centerHorizontal="true"
         android:scaleType="centerInside" />
 
@@ -20,10 +19,8 @@
         android:gravity="center_horizontal"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/iv_tab_icon"
-        android:letterSpacing="0.1"
-        android:layout_marginTop="5dp"
-        android:textColor="@color/main_bottom_tab_textcolor_normal"
-        android:textSize="12sp" />
-
+        android:layout_marginTop="1dp"
+        android:textColor="#d2d2d2"
+        android:textSize="11sp" />
 </RelativeLayout>
 

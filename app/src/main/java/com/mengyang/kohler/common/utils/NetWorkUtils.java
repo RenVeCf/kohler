@@ -9,7 +9,7 @@ import android.text.TextUtils;
 /**
  * 注意 要添加网络权限 android.permission.ACCESS_NETWORK_STATE
  * @author wlj
- * @date 2017/3/29
+ * @date 2017/loading3/29
  * @email wanglijundev@gmail.com
  * @packagename wanglijun.vip.androidutils.utils
  * @desc: 获取网络状态

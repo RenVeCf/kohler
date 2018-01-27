@@ -8,7 +8,7 @@ import android.widget.ScrollView;
  * Description : 滑动渐变view
  * Author : rmy
  * Email : 942685687@qq.com
- * Time : 2018/1/4
+ * Time : 2018/loading1/4
  */
 
 public class ObservableScrollView extends ScrollView {

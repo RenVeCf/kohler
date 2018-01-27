@@ -5,7 +5,7 @@ import android.content.Context;
 import android.support.multidex.MultiDex;
 
 /**
- * Description :
+ * Description : 全局
  * Author : rmy
  * Email : 942685687@qq.com
  * Time : 2017/12/28

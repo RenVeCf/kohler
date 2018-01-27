@@ -1,6 +1,8 @@
 package com.mengyang.kohler.whole_category.view;
 
 /**
+ *
+ * 卡片手势反转
  * Created by CJJ on 2017/10/16.
  *
  * @author CJJ

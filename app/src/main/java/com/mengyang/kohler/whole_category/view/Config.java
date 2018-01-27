@@ -10,7 +10,6 @@ import android.support.annotation.IntRange;
  */
 
 public class Config {
-
     @IntRange(from = 2)
     public int space = 60;
     public int maxStackCount = 3;
@@ -26,5 +25,4 @@ public class Config {
     @FloatRange(from = 1f,to = 2f)
     public float parallex = 1f;
     public Align align;
-
 }

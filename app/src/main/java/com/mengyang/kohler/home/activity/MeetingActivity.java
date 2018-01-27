@@ -7,6 +7,10 @@ import com.mengyang.kohler.common.view.TopView;
 
 import butterknife.BindView;
 
+/**
+ * 经销商大会
+ */
+
 public class MeetingActivity extends BaseActivity {
     @BindView(R.id.tv_meeting_top)
     TopView tvMeetingTop;

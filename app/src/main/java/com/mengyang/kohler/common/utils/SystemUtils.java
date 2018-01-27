@@ -4,7 +4,7 @@ import android.os.Build;
 
 /**
  * @author wlj
- * @date 2017/3/29
+ * @date 2017/loading3/29
  * @email wanglijundev@gmail.com
  * @packagename wanglijun.vip.androidutils.utils
  * @desc: 获取系统信息工具类
@@ -20,7 +20,7 @@ public class SystemUtils {
      */
     public static boolean isART() {
         final String vmVersion = System.getProperty("java.vm.version");
-        return vmVersion != null && vmVersion.startsWith("2");
+        return vmVersion != null && vmVersion.startsWith("loading2");
     }
 
     /**
@@ -31,7 +31,7 @@ public class SystemUtils {
      */
     public static boolean isDalvik() {
         final String vmVersion = System.getProperty("java.vm.version");
-        return vmVersion != null && vmVersion.startsWith("1");
+        return vmVersion != null && vmVersion.startsWith("loading1");
     }
 
     /**
@@ -75,7 +75,7 @@ public class SystemUtils {
     }
 
     /**
-     * The user-visible version string, like "4.1.2".
+     * The user-visible version string, like "4.loading1.loading2".
      * 用户可见的版本字符串
      *
      * @return

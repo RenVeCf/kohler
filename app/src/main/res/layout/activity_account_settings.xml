@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.mengyang.kohler.account.activity.AccountSettingsActivity">
+
+    <com.mengyang.kohler.common.view.TopView
+        android:id="@+id/tv_account_settings_top"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:is_back="false"
+        app:is_customer_service="true"
+        app:is_iv_top_title="true"
+        app:is_menu="true"
+        app:is_settings="true"
+        app:is_system_msg="true"
+        app:title="@string/settings"
+        app:title_color="#000000"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#e0e0e0"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/x72"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_account_settings_about"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/y72"
+            android:layout_marginTop="@dimen/y72"
+            android:text="@string/about"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#e0e0e0"/>
+
+        <TextView
+            android:id="@+id/tv_account_settings_privacy_policy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/y72"
+            android:layout_marginTop="@dimen/y72"
+            android:text="@string/privacy_policy"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#e0e0e0"/>
+
+        <TextView
+            android:id="@+id/tv_account_settings_modify_pwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/y72"
+            android:layout_marginTop="@dimen/y72"
+            android:text="@string/modify_pwd"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#e0e0e0"/>
+
+        <TextView
+            android:id="@+id/tv_account_settings_modify_bind_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/y72"
+            android:layout_marginTop="@dimen/y72"
+            android:text="@string/modify_bind_phone"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#e0e0e0"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/bt_account_settings_sign_out"
+        android:layout_width="@dimen/x885"
+        android:layout_height="@dimen/y156"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/y141"
+        android:background="@color/black"
+        android:text="@string/sign_out"
+        android:textColor="@color/white"/>
+</LinearLayout>

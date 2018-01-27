@@ -7,8 +7,9 @@ import android.support.v4.view.ViewPager;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
-import com.mengyang.kohler.account.AccountFragment;
+import com.mengyang.kohler.account.fragment.AccountFragment;
 import com.mengyang.kohler.ar.ARFragment;
+import com.mengyang.kohler.common.utils.ToastUtil;
 import com.mengyang.kohler.home.fragment.HomeFragment;
 import com.mengyang.kohler.main.adapter.FragmentViewPagerAdapter;
 import com.mengyang.kohler.main.view.CustomViewPager;
@@ -61,7 +62,6 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
             new ARFragment(),
             new AccountFragment()
     };
-    private float mCurrentX;
 
     @Override
     protected int getLayoutId() {
@@ -109,6 +109,13 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
     @Override
     public void onPageSelected(int position) {
+        if (position == 1) {
+            llTabContainer.setBackgroundResource(R.mipmap.bg2);
+
+        } else {
+            llTabContainer.setBackgroundResource(R.color.white);
+        }
+
         for (int index = 0, len = fragments.length; index < len; index++) {
             fragments[index].onHiddenChanged(index != position);
         }

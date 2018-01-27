@@ -15,6 +15,10 @@ import com.mengyang.kohler.common.utils.SPUtil;
 
 import butterknife.BindView;
 
+/**
+ * PDF
+ */
+
 public class PDFActivity extends BaseActivity {
 
     @BindView(R.id.pdf_home)
@@ -37,7 +41,7 @@ public class PDFActivity extends BaseActivity {
         final int myPage = (int) SPUtil.get(PDFActivity.this, "page", 0);
         //选择pdf
         pdfHome.fromAsset("android_pdf_test.pdf")
-                //                .pages(0, 2, 3, 4, 5); // 把0 , 2 , 3 , 4 , 5 过滤掉
+                //                .pages(0, loading2, loading3, 4, 5); // 把0 , loading2 , loading3 , 4 , 5 过滤掉
                 //是否允许翻页，默认是允许翻页
                 .enableSwipe(true)
                 //pdf文档翻页是否是垂直翻页，默认是左右滑动翻页

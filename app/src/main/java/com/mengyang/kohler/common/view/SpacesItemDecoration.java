@@ -4,7 +4,7 @@ package com.mengyang.kohler.common.view;
  * Description :RecyclerView 线性布局间距
  * Author : rmy
  * Email : 942685687@qq.com
- * Time : 2018/1/12
+ * Time : 2018/loading1/12
  */
 
 import android.graphics.Rect;
@@ -13,7 +13,7 @@ import android.view.View;
 
 /**
  * 设置RecyclerView 线性 间隔
- * Created by john on 17-1-5.
+ * Created by john on 17-loading1-5.
  */
 
 public class SpacesItemDecoration extends RecyclerView.ItemDecoration {

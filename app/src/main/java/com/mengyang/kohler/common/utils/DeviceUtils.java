@@ -17,7 +17,7 @@ import java.util.UUID;
 
 /**
  * @author wlj
- * @date 2017/3/29
+ * @date 2017/loading3/29
  * @email wanglijundev@gmail.com
  * @packagename wanglijun.vip.androidutils.utils
  * @desc: 获取设备信息
@@ -203,7 +203,7 @@ public class DeviceUtils {
      * {@link Manifest.permission#WRITE_APN_SETTINGS} permission in its manifest.
      *
      * @param context
-     * @return 1:open, 0:close, default:close
+     * @return loading1:open, 0:close, default:close
      */
     public static int getAirplaneMode(Context context) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {

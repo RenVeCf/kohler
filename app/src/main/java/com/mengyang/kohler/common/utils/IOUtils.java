@@ -5,7 +5,7 @@ import java.io.IOException;
 
 /**
  * @author wlj
- * @date 2017/3/29
+ * @date 2017/loading3/29
  * @email wanglijundev@gmail.com
  * @packagename wanglijun.vip.androidutils.utils
  * @desc: io操作

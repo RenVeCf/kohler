@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.mengyang.kohler.account.activity.AccountBindPhoneActivity">
+
+    <com.mengyang.kohler.common.view.TopView
+        android:id="@+id/tv_account_bind_phone_top"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:is_back="false"
+        app:is_customer_service="true"
+        app:is_iv_top_title="true"
+        app:is_menu="true"
+        app:is_settings="true"
+        app:is_system_msg="true"
+        app:title="@string/modify_bind_phone"
+        app:title_color="#000000"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#e0e0e0"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/x120"
+        android:layout_marginStart="@dimen/x120"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/et_modify_bind_phone_old_num"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/y93"
+                android:background="@null"
+                android:textSize="12sp"
+                android:hint="@string/input_old_phone_num"
+                android:inputType="phone"/>
+
+            <Button
+                android:id="@+id/bt_modify_bind_phone_send_out_old_num"
+                android:layout_width="@dimen/x156"
+                android:layout_height="@dimen/y72"
+                android:layout_marginTop="@dimen/y93"
+                android:textSize="12sp"
+                android:background="@color/black"
+                android:textColor="@color/white"
+                android:text="@string/send_out"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/y36"
+            android:background="@color/black"/>
+
+        <EditText
+            android:id="@+id/et_modify_bind_phone_verification_code_old_num"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y96"
+            android:background="@null"
+            android:textSize="12sp"
+            android:hint="@string/input_verification_code"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/y36"
+            android:background="@color/black"/>
+
+        <EditText
+            android:id="@+id/et_modify_bind_phone_new_num"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y96"
+            android:background="@null"
+            android:textSize="12sp"
+            android:hint="@string/input_new_phone_num"
+            android:inputType="phone"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/y36"
+            android:background="@color/black"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/et_modify_bind_phone_verification_code_new_num"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/y96"
+                android:background="@null"
+                android:textSize="12sp"
+                android:hint="@string/input_verification_code"/>
+
+            <Button
+                android:id="@+id/bt_modify_bind_phone_send_out_verification_code_new_num"
+                android:layout_width="@dimen/x156"
+                android:layout_height="@dimen/y72"
+                android:layout_marginTop="@dimen/y93"
+                android:textSize="12sp"
+                android:background="@color/black"
+                android:textColor="@color/white"
+                android:text="@string/send_out"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/y36"
+            android:background="@color/black"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/bt_modify_bind_phone_determine"
+        android:layout_width="@dimen/x885"
+        android:layout_height="@dimen/y156"
+        android:layout_marginTop="@dimen/y108"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/black"
+        android:textColor="@color/white"
+        android:text="@string/determine"/>
+</LinearLayout>

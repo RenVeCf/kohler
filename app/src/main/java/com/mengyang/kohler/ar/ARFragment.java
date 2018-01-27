@@ -7,6 +7,10 @@ import com.mengyang.kohler.common.view.TopView;
 
 import butterknife.BindView;
 
+/**
+ * AR
+ */
+
 public class ARFragment extends BaseFragment {
     @BindView(R.id.tv_ar_top)
     TopView tvArTop;

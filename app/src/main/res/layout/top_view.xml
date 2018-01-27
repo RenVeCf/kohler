@@ -6,17 +6,20 @@
     <!--返回-->
     <ImageView
         android:id="@+id/iv_top_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/x60"
+        android:layout_height="@dimen/y60"
+        android:layout_marginStart="@dimen/x60"
+        android:layout_centerVertical="true"
         android:visibility="gone"
-        android:src="@mipmap/ic_launcher_round"/>
+        android:src="@mipmap/fanhui"/>
 
     <!--侧滑菜单-->
     <ImageView
         android:id="@+id/iv_top_menu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/x60"
+        android:layout_height="@dimen/y60"
         android:layout_marginStart="@dimen/x60"
+        android:layout_centerVertical="true"
         android:visibility="gone"
         android:src="@mipmap/navigation"/>
 
@@ -34,7 +37,7 @@
     <ImageView
         android:id="@+id/iv_top_title"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/y60"
         android:layout_centerInParent="true"
         android:layout_margin="10dp"
         android:src="@mipmap/logo"/>
@@ -45,6 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
         android:paddingEnd="20dp"
         android:visibility="gone"
         android:src="@mipmap/ic_launcher_round"/>
@@ -60,8 +64,8 @@
         <!--客服-->
         <ImageView
             android:id="@+id/iv_top_customer_service"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="@dimen/x60"
+            android:layout_height="@dimen/y60"
             android:layout_marginEnd="@dimen/x72"
             android:visibility="gone"
             android:src="@mipmap/service"/>
@@ -69,8 +73,8 @@
         <!--系统消息-->
         <ImageView
             android:id="@+id/iv_top_system_msg"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="@dimen/x60"
+            android:layout_height="@dimen/y60"
             android:visibility="gone"
             android:src="@mipmap/message"/>
     </LinearLayout>

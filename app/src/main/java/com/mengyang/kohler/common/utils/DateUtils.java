@@ -7,7 +7,7 @@ import java.util.Locale;
 
 /**
  * @author wlj
- * @date 2017/3/29
+ * @date 2017/loading3/29
  * @email wanglijundev@gmail.com
  * @packagename wanglijun.vip.androidutils
  * @description 时间转换工具类

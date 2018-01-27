@@ -98,13 +98,13 @@ public class ResideLayout extends ViewGroup {
 
     /**
      * How far the panel is offset from its closed position.
-     * range [0, 1] where 0 = closed, 1 = open.
+     * range [0, loading1] where 0 = closed, loading1 = open.
      */
     private float mSlideOffset;
 
     /**
      * How far the non-sliding panel is parallaxed from its usual position when open.
-     * range [0, 1]
+     * range [0, loading1]
      */
     private float mParallaxOffset;
 
@@ -165,7 +165,7 @@ public class ResideLayout extends ViewGroup {
          * Called when a sliding pane's position changes.
          *
          * @param panel       The child view that was moved
-         * @param slideOffset The new offset of this sliding pane within its range, from 0-1
+         * @param slideOffset The new offset of this sliding pane within its range, from 0-loading1
          */
         public void onPanelSlide(View panel, float slideOffset);
 

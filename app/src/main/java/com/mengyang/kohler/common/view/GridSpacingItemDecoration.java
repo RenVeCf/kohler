@@ -4,7 +4,7 @@ package com.mengyang.kohler.common.view;
  * Description :RecyclerView 宫格布局、瀑布流布局间距
  * Author : rmy
  * Email : 942685687@qq.com
- * Time : 2018/1/12
+ * Time : 2018/loading1/12
  */
 
 import android.graphics.Rect;
@@ -13,7 +13,7 @@ import android.view.View;
 
 /**
  * 设置RecyclerView 网格 或 瀑布流 间隔
- * Created by john on 17-1-5.
+ * Created by john on 17-loading1-5.
  */
 
 public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
@@ -35,7 +35,7 @@ public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
 
         if (includeEdge) {
             outRect.left = spacing - column * spacing / spanCount; // spacing - column * ((1f / spanCount) * spacing)
-            outRect.right = (column + 1) * spacing / spanCount; // (column + 1) * ((1f / spanCount) * spacing)
+            outRect.right = (column + 1) * spacing / spanCount; // (column + loading1) * ((1f / spanCount) * spacing)
 
             if (position < spanCount) { // top edge
                 outRect.top = spacing;
@@ -43,7 +43,7 @@ public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
             outRect.bottom = spacing; // item bottom
         } else {
             outRect.left = column * spacing / spanCount; // column * ((1f / spanCount) * spacing)
-            outRect.right = spacing - (column + 1) * spacing / spanCount; // spacing - (column + 1) * ((1f /    spanCount) * spacing)
+            outRect.right = spacing - (column + 1) * spacing / spanCount; // spacing - (column + loading1) * ((1f /    spanCount) * spacing)
             if (position >= spanCount) {
                 outRect.top = spacing; // item top
             }

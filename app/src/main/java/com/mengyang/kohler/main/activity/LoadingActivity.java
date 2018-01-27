@@ -31,8 +31,8 @@ public class LoadingActivity extends BaseActivity {
     LockableViewPager lvpLoading;
     @BindView(R.id.bt_loading_login)
     Button btLoadingLogin;
-    private int[] imageUrls = {R.mipmap.ic_launcher_round, R.mipmap.ic_launcher_round, R.mipmap.ic_launcher_round, R.mipmap.ic_launcher_round, R.mipmap.ic_launcher_round};
-    private int[] imageUrlsEn = {R.mipmap.ic_launcher_round, R.mipmap.ic_launcher_round, R.mipmap.ic_launcher_round, R.mipmap.ic_launcher_round, R.mipmap.ic_launcher_round};
+    private int[] imageUrls = {R.mipmap.loading1, R.mipmap.loading2, R.mipmap.loading3, R.mipmap.loading4, R.mipmap.loading5};
+    private int[] imageUrlsEn = {R.mipmap.loading1, R.mipmap.loading2, R.mipmap.loading3, R.mipmap.loading4, R.mipmap.loading5};
     private ContentAdapter adapter;
     private List<View> viewList;
     private int currentItem = 0;

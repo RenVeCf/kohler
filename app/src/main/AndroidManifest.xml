@@ -71,6 +71,34 @@
         </activity>
         <activity android:name=".main.activity.LoadingActivity">
         </activity>
+        <activity android:name=".account.activity.AccountSettingsActivity">
+        </activity>
+        <activity android:name=".main.activity.SystemMsgActivity">
+        </activity>
+        <activity android:name=".account.activity.AccountMineLikeActivity">
+        </activity>
+        <activity android:name=".account.activity.AccountMineReservationQueryActivity">
+        </activity>
+        <activity android:name=".main.activity.UserRegisterActivity">
+        </activity>
+        <activity android:name=".account.activity.AccountBindPhoneActivity">
+        </activity>
+        <activity android:name=".main.activity.DesignerRegisterActivity">
+        </activity>
+        <activity android:name=".main.activity.ModifyPwdActivity">
+        </activity>
+        <activity android:name=".main.activity.DistributorRegisterActivity">
+        </activity>
+        <activity android:name=".main.activity.DistributorVerificationCodeActivity">
+        </activity>
+        <activity android:name=".main.activity.CustomerServiceActivity">
+        </activity>
+        <activity android:name=".account.activity.UserMsgEditActivity">
+        </activity>
+        <activity android:name=".main.activity.ForgetPasswordActivity">
+        </activity>
+        <activity android:name=".home.activity.MineManualActivity">
+        </activity>
     </application>
 
 </manifest>

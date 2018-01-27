@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.mengyang.kohler.main.activity.DesignerRegisterActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y327"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/x72"
+                android:layout_marginTop="@dimen/y126"
+                android:text="@string/sign_up"
+                android:textColor="#252525"
+                android:textSize="22sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/x72"
+                android:text="@string/register"
+                android:textColor="#9e9e9e"
+                android:textSize="10sp"/>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_designer_register_go_home"
+            android:layout_width="@dimen/x72"
+            android:layout_height="@dimen/y72"
+            android:layout_marginEnd="@dimen/x72"
+            android:layout_marginTop="@dimen/y129"
+            android:src="@mipmap/kohler_exit"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="@dimen/x120"
+        android:layout_marginStart="@dimen/x120"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y84"
+            android:src="@mipmap/kohler_logo"/>
+
+        <EditText
+            android:id="@+id/et_designer_register_phone_num"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y188"
+            android:background="@null"
+            android:textSize="12sp"
+            android:hint="@string/input_phone_num"
+            android:inputType="phone"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/y36"
+            android:background="@color/black"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y93"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/et_designer_register_verification_code"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:textSize="12sp"
+                android:hint="@string/input_verification_code"/>
+
+            <TextView
+                android:id="@+id/tv_designer_register_verification_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textSize="12sp"
+                android:background="@color/white"
+                android:textColor="@color/black"
+                tools:text="8596"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/y36"
+            android:background="@color/black"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/et_designer_register_sms_verification_code"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/y93"
+                android:background="@null"
+                android:textSize="12sp"
+                android:hint="@string/input_sms_verification_code"/>
+
+            <Button
+                android:id="@+id/bt_designer_register_send_out_sms"
+                android:layout_width="@dimen/x156"
+                android:layout_height="@dimen/y72"
+                android:layout_marginTop="@dimen/y93"
+                android:textSize="12sp"
+                android:background="@color/black"
+                android:textColor="@color/white"
+                android:text="@string/send_out"/>
+
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/y36"
+            android:background="@color/black"/>
+
+        <EditText
+            android:id="@+id/et_designer_register_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y93"
+            android:background="@null"
+            android:textSize="12sp"
+            android:hint="@string/login_pwd"
+            android:inputType="textPassword"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/y36"
+            android:background="@color/black"/>
+
+        <Button
+            android:id="@+id/bt_designer_register"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y156"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/y90"
+            android:background="@color/black"
+            android:text="@string/register"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:id="@+id/tv_designer_register_go_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y36"
+            android:layout_gravity="right"
+            android:autoLink="all"
+            android:textSize="12sp"
+            android:text="@string/go_login"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y48"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/y201"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_designer_register_go_user_register"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:layout_marginEnd="@dimen/x60"
+                android:textSize="12sp"
+                android:text="@string/user_register"/>
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/black"/>
+
+            <TextView
+                android:id="@+id/tv_designer_register_go_distributor_register"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="@dimen/x60"
+                android:textSize="12sp"
+                android:text="@string/distributor_register"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

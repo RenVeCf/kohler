@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -15,7 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by CJJ on 2017/3/7.
+ * Created by CJJ on 2017/loading3/7.
  */
 
 public class StackAdapter extends RecyclerView.Adapter<StackAdapter.ViewHolder> {
@@ -41,7 +42,6 @@ public class StackAdapter extends RecyclerView.Adapter<StackAdapter.ViewHolder> 
             R.mipmap.ic_launcher_round
     );
     private boolean vertical;
-
     public StackAdapter(List<String> datas) {
         this.datas = datas;
     }
@@ -52,13 +52,15 @@ public class StackAdapter extends RecyclerView.Adapter<StackAdapter.ViewHolder> 
             context = parent.getContext();
             inflater = LayoutInflater.from(parent.getContext());
         }
+//        if (vertical)
+//            return new ViewHolder(inflater.inflate(R.layout.vertical_item_card, parent, false));
         return new ViewHolder(inflater.inflate(R.layout.item_whole_category_card, parent, false));
     }
 
-    public StackAdapter vertical() {
-        this.vertical = true;
-        return this;
-    }
+//    public StackAdapter vertical() {
+//        this.vertical = true;
+//        return this;
+//    }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
@@ -70,7 +72,6 @@ public class StackAdapter extends RecyclerView.Adapter<StackAdapter.ViewHolder> 
     public int getItemCount() {
         return datas == null ? 0 : datas.size();
     }
-
     class ViewHolder extends RecyclerView.ViewHolder {
         ImageView cover;
 //        TextView index;
@@ -82,8 +83,7 @@ public class StackAdapter extends RecyclerView.Adapter<StackAdapter.ViewHolder> 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(context.getApplicationContext(), String.valueOf(getAdapterPosition()), Toast.LENGTH_SHORT)
-                            .show();
+                    Toast.makeText(context.getApplicationContext(), String.valueOf(getAdapterPosition()), Toast.LENGTH_SHORT).show();
                 }
             });
         }

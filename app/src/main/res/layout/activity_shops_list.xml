@@ -13,6 +13,12 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/white"
+        app:is_back="true"
+        app:is_customer_service="true"
+        app:is_iv_top_title="true"
+        app:is_menu="true"
+        app:is_settings="true"
+        app:is_system_msg="true"
         app:title_color="@color/black"
         app:title="@string/kohler_store"/>
 

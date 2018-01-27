@@ -21,7 +21,7 @@ import com.mengyang.kohler.R;
  * Description : 切圆形图片
  * Author : rmy
  * Email : 942685687@qq.com
- * Time : 2017/11/1
+ * Time : 2017/11/loading1
  */
 
 public class CircleImageView extends android.support.v7.widget.AppCompatImageView {

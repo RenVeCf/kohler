@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mengyang.kohler.BaseActivity;
@@ -12,16 +13,28 @@ import com.mengyang.kohler.R;
 import butterknife.BindView;
 import butterknife.OnClick;
 
+/**
+ * 登陆
+ */
+
 public class LoginActivity extends BaseActivity {
 
-    @BindView(R.id.ev_login_phone_num)
-    EditText evLoginPhoneNum;
-    @BindView(R.id.ev_login_pwd)
-    EditText evLoginPwd;
+    @BindView(R.id.iv_lonin_go_home)
+    ImageView ivLoninGoHome;
+    @BindView(R.id.et_login_phone_num)
+    EditText etLoginPhoneNum;
+    @BindView(R.id.et_login_pwd)
+    EditText etLoginPwd;
+    @BindView(R.id.et_login_verification_code)
+    EditText etLoginVerificationCode;
+    @BindView(R.id.tv_login_verification_code)
+    TextView tvLoginVerificationCode;
     @BindView(R.id.tv_login_forget_pwd)
     TextView tvLoginForgetPwd;
     @BindView(R.id.bt_login)
     Button btLogin;
+    @BindView(R.id.tv_login_go_register)
+    TextView tvLoginGoRegister;
 
     @Override
     protected int getLayoutId() {
@@ -43,13 +56,18 @@ public class LoginActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.tv_login_forget_pwd, R.id.bt_login})
+    @OnClick({R.id.iv_lonin_go_home, R.id.tv_login_forget_pwd, R.id.bt_login, R.id.tv_login_go_register})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.iv_lonin_go_home:
+                break;
             case R.id.tv_login_forget_pwd:
+                startActivity(new Intent(this, ForgetPasswordActivity.class));
                 break;
             case R.id.bt_login:
-                startActivity(new Intent(this, MainActivity.class));
+                break;
+            case R.id.tv_login_go_register:
+                startActivity(new Intent(this, UserRegisterActivity.class));
                 break;
         }
     }

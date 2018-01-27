@@ -10,50 +10,107 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.mengyang.kohler.R;
+import com.mengyang.kohler.common.utils.LogUtils;
+
 
 /**
  * Fragment tab 容器
- * Created by Jarek(王健) 2016/3/10.
+ * Created by Jarek(王健) 2016/loading3/10.
  */
 public class TabContainerView extends LinearLayout {
 
     private ViewPager mViewPager;
     private ViewPager.OnPageChangeListener mViewPagerPageChangeListener;
 
-    /** 默认颜色*/
+    /**
+     * 默认颜色
+     */
     private int mTextNormalColor;
-    /** 选中时颜色值*/
+    /**
+     * 选中时颜色值
+     */
     private int mTextSelectedColor;
 
-    /** 前一次选择位置*/
+    /**
+     * 前一次选择位置
+     */
     private int mLastPosition;
-    /** 当前选中位置*/
+    /**
+     * 当前选中位置
+     */
     private int mSelectedPosition;
-    /**选择偏移位置 */
+    /**
+     * 选择偏移位置
+     */
     private float mSelectionOffset;
 
-    /** tab 标题*/
+    /**
+     * tab 标题
+     */
     private String[] mTitles;
-    /** tab icon集合*/
+    /**
+     * tab icon集合
+     */
     private int[][] mIconRes;
 
-    /** tab item 视图集合*/
+    /**
+     * tab item 视图集合
+     */
     private View[] mTabView;
 
-    /** 布局文件id*/
+    /**
+     * 布局文件id
+     */
     private int mLayoutId;
-    /** textView 控件id*/
+    /**
+     * textView 控件id
+     */
     private int mTextViewId;
-    /** icon 控件id*/
+    /**
+     * icon 控件id
+     */
     private int mIconVIewId;
 
-    /**icon宽度*/
+    /**
+     * icon宽度
+     */
     private int mIconWidth;
-    /**icon高度*/
+    /**
+     * icon高度
+     */
     private int mIconHeight;
 
-    /** 是否显示过渡颜色效果*/
+    /**
+     * 是否显示过渡颜色效果
+     */
     private boolean mShowTransitionColor = true;
+
+    private final int ICONS_RES_BAI[][] = {
+            {
+                    R.mipmap.arbai,
+                    R.mipmap.arbai
+            },
+            {
+                    R.mipmap.pinleibai,
+                    R.mipmap.pinleibai
+            },
+
+            {
+                    R.mipmap.shouyebai,
+                    R.mipmap.shouyebai
+            },
+            {
+                    R.mipmap.zhanghubai,
+                    R.mipmap.zhanghubai
+            }
+    };
+
+    TabIconView iconView = null;
+
+    private int position;
+
+    private PagerAdapter adapter;
 
     public TabContainerView(Context context) {
         this(context, null);
@@ -63,7 +120,7 @@ public class TabContainerView extends LinearLayout {
         super(context, attrs);
     }
 
-    public void initContainer (String[] titles, int[][] iconsRes, int[] colors, boolean showTransitionColor) {
+    public void initContainer(String[] titles, int[][] iconsRes, int[] colors, boolean showTransitionColor) {
         this.mTitles = titles;
         this.mIconRes = iconsRes;
         this.mTextNormalColor = getResources().getColor(colors[0]);
@@ -73,13 +130,14 @@ public class TabContainerView extends LinearLayout {
 
     /**
      * 设置布局文件及相关控件id
+     *
      * @param layout layout布局文件 id
      * @param iconId ImageView 控件 id id <=0 时不显示
      * @param textId TextView 控件 id id <=0 时不显示
      * @param width  icon 宽度
      * @param height icon 高度
      */
-    public void setContainerLayout (int layout, int iconId, int textId, int width, int height) {
+    public void setContainerLayout(int layout, int iconId, int textId, int width, int height) {
         mLayoutId = layout;
         mTextViewId = textId;
         mIconVIewId = iconId;
@@ -89,25 +147,27 @@ public class TabContainerView extends LinearLayout {
 
     /**
      * <p>设置布局文件及相关控件id --只有文本</p>
+     *
      * @param layout layout布局文件 id
      * @param textId TextView 控件 id
      * @param width  icon 宽度
      * @param height icon 高度
      */
-    public void setSingleTextLayout (int layout, int textId, int width, int height) {
+    public void setSingleTextLayout(int layout, int textId, int width, int height) {
         setContainerLayout(layout, 0, textId, width, height);
 
     }
 
     /**
      * <p>设置布局文件及相关控件id</p>
+     *
      * @param layout layout布局文件 id
      * @param iconId ImageView 控件 id
      * @param width  icon 宽度
      * @param height icon 高度
      */
-    public void setSingleIconLayout (int layout, int iconId, int width, int height) {
-        setContainerLayout(layout, iconId, 0, width,  height);
+    public void setSingleIconLayout(int layout, int iconId, int width, int height) {
+        setContainerLayout(layout, iconId, 0, width, height);
     }
 
     public void setViewPager(ViewPager viewPager) {
@@ -123,7 +183,7 @@ public class TabContainerView extends LinearLayout {
      * <p>添加tab view到当前容器</p>
      */
     private void addTabViewToContainer() {
-        final PagerAdapter adapter = mViewPager.getAdapter();
+        adapter = mViewPager.getAdapter();
         mTabView = new View[adapter.getCount()];
 
         for (int index = 0, len = adapter.getCount(); index < len; index++) {
@@ -132,10 +192,13 @@ public class TabContainerView extends LinearLayout {
             mTabView[index] = tabView;
 
             /*tabIconView初始化*/
-            TabIconView iconView = null;
             if (mIconVIewId > 0) {
                 iconView = (TabIconView) tabView.findViewById(mIconVIewId);
-                iconView.init(mIconRes[index][0], mIconRes[index][1], mIconWidth, mIconHeight);
+                LogUtils.i("000000000000000000000");
+                if (position == 1)
+                    iconView.init(ICONS_RES_BAI[index][0], ICONS_RES_BAI[index][1], mIconWidth, mIconHeight);
+                else
+                    iconView.init(mIconRes[index][0], mIconRes[index][1], mIconWidth, mIconHeight);
             }
 
             /*tabTextView初始化*/
@@ -186,29 +249,55 @@ public class TabContainerView extends LinearLayout {
 
         @Override
         public void onPageSelected(int position) {
-
             /*完成滑动动作后更新每个Item TextView的颜色值以及ImageView的状态值*/
             for (int i = 0; i < getChildCount(); i++) {
+                if (position == 1) {
+                    iconView.init(ICONS_RES_BAI[i][0], ICONS_RES_BAI[i][1], mIconWidth, mIconHeight);
+                } else {
+                    iconView.init(mIconRes[i][0], mIconRes[i][1], mIconWidth, mIconHeight);
+                }
                 if (mIconVIewId > 0) {
-                    ((TabIconView) mTabView[i].findViewById(mIconVIewId)) .offsetChanged(position == i ? 0 : 1);
+                    ((TabIconView) mTabView[i].findViewById(mIconVIewId)).offsetChanged(position == i ? 0 : 1);
                 }
                 if (mTextViewId > 0) {
-                    ((TextView) mTabView[i].findViewById(mTextViewId)) .setTextColor(position == i ? mTextSelectedColor : mTextNormalColor);
+                    ((TextView) mTabView[i].findViewById(mTextViewId)).setTextColor(position == i ? mTextSelectedColor : mTextNormalColor);
                 }
             }
 
-            if (mScrollState == ViewPager.SCROLL_STATE_IDLE) {
+            if (mScrollState == ViewPager.SCROLL_STATE_IDLE)
+
+            {
                 onViewPagerPageChanged(position, 0f);
             }
 
-            for (int i = 0, size = getChildCount(); i < size; i++) {
+            for (
+                    int i = 0, size = getChildCount();
+                    i < size; i++)
+
+            {
                 getChildAt(i).setSelected(position == i);
             }
 
 
-            if (mViewPagerPageChangeListener != null) {
+            if (mViewPagerPageChangeListener != null)
+
+            {
                 mViewPagerPageChangeListener.onPageSelected(position);
             }
+
+            TabContainerView.this.position = position;
+            //            for (int index = 0, len = adapter.getCount(); index < len; index++) {
+            //
+            //                LogUtils.i("111111111111111");
+            //            /*tabIconView初始化*/
+            //                if (mIconVIewId > 0) {
+            //                    if (position == 1) {
+            //                        iconView.init(ICONS_RES_BAI[index][0], ICONS_RES_BAI[index][1], mIconWidth, mIconHeight);
+            //                    } else {
+            //                        iconView.init(mIconRes[index][0], mIconRes[index][1], mIconWidth, mIconHeight);
+            //                    }
+            //                }
+            //            }
         }
 
         @Override
@@ -219,11 +308,13 @@ public class TabContainerView extends LinearLayout {
                 mViewPagerPageChangeListener.onPageScrollStateChanged(state);
             }
         }
+
     }
 
     /**
      * viewpager滑动改变后更新当前container视图
-     * @param position 当前选择position
+     *
+     * @param position       当前选择position
      * @param positionOffset position 偏移量
      */
     private void onViewPagerPageChanged(int position, float positionOffset) {
@@ -260,7 +351,7 @@ public class TabContainerView extends LinearLayout {
                 }
 
                  /*显示tab text,刷新各自view 透明度*/
-                if  (mTextViewId > 0) {
+                if (mTextViewId > 0) {
                     View selectedTextView = selectedTab.findViewById(mTextViewId);
                     View nextTextView = nextTab.findViewById(mTextViewId);
 
@@ -280,10 +371,11 @@ public class TabContainerView extends LinearLayout {
 
     /**
      * tab item点击事件,点击时直接跳到对应view
-     * @param view        View
+     *
+     * @param view     View
      * @param position position
      */
-    private void addTabOnClickListener (View view, final int position) {
+    private void addTabOnClickListener(View view, final int position) {
         OnClickListener listener = new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -292,7 +384,6 @@ public class TabContainerView extends LinearLayout {
         };
         view.setOnClickListener(listener);
     }
-
 
     public void setOnPageChangeListener(ViewPager.OnPageChangeListener listener) {
         mViewPagerPageChangeListener = listener;
@@ -304,11 +395,11 @@ public class TabContainerView extends LinearLayout {
      * bytes of the 32-bit int. Each channel is separately linearly interpolated
      * and the resulting calculated values are recombined into the return value.
      *
-     * @param fraction The fraction from the starting to the ending values
+     * @param fraction   The fraction from the starting to the ending values
      * @param startValue A 32-bit int value representing colors in the
-     * separate bytes of the parameter
-     * @param endValue A 32-bit int value representing colors in the
-     * separate bytes of the parameter
+     *                   separate bytes of the parameter
+     * @param endValue   A 32-bit int value representing colors in the
+     *                   separate bytes of the parameter
      * @return A value that is calculated to be the linearly interpolated
      * result, derived by separating the start and end values into separate
      * color channels and interpolating each one separately, recombining the
@@ -327,10 +418,10 @@ public class TabContainerView extends LinearLayout {
         int endG = (endInt >> 8) & 0xff;
         int endB = endInt & 0xff;
 
-        return (startA + (int)(fraction * (endA - startA))) << 24 |
-                (startR + (int)(fraction * (endR - startR))) << 16 |
-                (startG + (int)(fraction * (endG - startG))) << 8 |
-                (startB + (int)(fraction * (endB - startB)));
+        return (startA + (int) (fraction * (endA - startA))) << 24 |
+                (startR + (int) (fraction * (endR - startR))) << 16 |
+                (startG + (int) (fraction * (endG - startG))) << 8 |
+                (startB + (int) (fraction * (endB - startB)));
     }
 
     public int getTextSelectedColor() {

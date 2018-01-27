@@ -1,6 +1,7 @@
 package com.mengyang.kohler.whole_category.activity;
 
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
@@ -9,6 +10,10 @@ import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.view.TopView;
 
 import butterknife.BindView;
+
+/**
+ * 商品详情
+ */
 
 public class CommodityDetailsActivity extends BaseActivity {
 
@@ -24,6 +29,8 @@ public class CommodityDetailsActivity extends BaseActivity {
     Button btCommodityDetailsLike;
     @BindView(R.id.bt_commodity_details_pay)
     Button btCommodityDetailsPay;
+    @BindView(R.id.iv_top_back)
+    ImageView ivTopBack;
 
     @Override
     protected int getLayoutId() {
@@ -34,6 +41,7 @@ public class CommodityDetailsActivity extends BaseActivity {
     protected void initValues() {
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(this, tvCommodityDetailsTop);
+        ivTopBack.setImageResource(R.mipmap.fanhuibai);
     }
 
     @Override

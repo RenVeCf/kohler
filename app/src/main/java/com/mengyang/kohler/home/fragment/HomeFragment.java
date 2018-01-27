@@ -9,14 +9,17 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.gyf.barlibrary.ImmersionBar;
+import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseFragment;
 import com.mengyang.kohler.R;
+import com.mengyang.kohler.account.activity.AccountSettingsActivity;
 import com.mengyang.kohler.common.utils.ToastUtil;
 import com.mengyang.kohler.common.view.ResideLayout;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.home.activity.ShopsListActivity;
 import com.mengyang.kohler.home.adapter.HomeBooksAdapter;
 import com.mengyang.kohler.home.adapter.HomeEditorSelectionAdapter;
+import com.mengyang.kohler.main.activity.SystemMsgActivity;
 import com.mengyang.kohler.whole_category.activity.CommodityClassificationActivity;
 import com.ryane.banner.AdPageInfo;
 import com.ryane.banner.AdPlayBanner;
@@ -31,6 +34,10 @@ import butterknife.OnClick;
 import static com.ryane.banner.AdPlayBanner.ImageLoaderType.GLIDE;
 import static com.ryane.banner.AdPlayBanner.IndicatorType.NONE_INDICATOR;
 
+/**
+ * 主页
+ */
+
 public class HomeFragment extends BaseFragment {
 
     @BindView(R.id.tv_home_top)
@@ -43,10 +50,10 @@ public class HomeFragment extends BaseFragment {
     RecyclerView rvHomeVideo;
     @BindView(R.id.rv_home_books)
     RecyclerView rvHomeBooks;
-    @BindView(R.id.rv_home_editor_selection)
-    RecyclerView rvHomeEditorSelection;
-    @BindView(R.id.iv_home_map)
-    ImageView ivHomeMap;
+    //    @BindView(R.id.rv_home_editor_selection)
+    //    RecyclerView rvHomeEditorSelection;
+    //    @BindView(R.id.iv_home_map)
+    //    ImageView ivHomeMap;
     @BindView(R.id.v_home_banner1)
     View vHomeBanner1;
     @BindView(R.id.v_home_banner2)
@@ -63,8 +70,6 @@ public class HomeFragment extends BaseFragment {
     private List<AdPageInfo> mDatas = new ArrayList<>();
     //我的图册
     private HomeBooksAdapter mHomeBooksAdapter;
-    //特别推荐适配器
-    private HomeEditorSelectionAdapter mHomeEditorSelectionAdapter;
 
     @Override
     protected int getLayoutId() {
@@ -77,13 +82,6 @@ public class HomeFragment extends BaseFragment {
         ImmersionBar.setTitleBar(getActivity(), tvHomeTop);
         //轮播
         abHomeLoop.measure(0, 0);
-        //特别推荐
-        LinearLayoutManager layoutManagerPoints = new LinearLayoutManager(getContext());
-        rvHomeEditorSelection.setLayoutManager(layoutManagerPoints);
-        // 如果可以确定每个item的高度是固定的，设置这个选项可以提高性能
-        rvHomeEditorSelection.setNestedScrollingEnabled(false);
-        rvHomeEditorSelection.setHasFixedSize(true);
-        rvHomeEditorSelection.setItemAnimator(new DefaultItemAnimator());
     }
 
     @Override
@@ -91,7 +89,7 @@ public class HomeFragment extends BaseFragment {
         AdPageInfo info1 = new AdPageInfo("拜仁球场冠绝全球", "http://onq81n53u.bkt.clouddn.com/photo1.jpg", "http://www.bairen.com", 1);
         AdPageInfo info2 = new AdPageInfo("日落东单一起战斗", "http://onq81n53u.bkt.clouddn.com/photo2.jpg", "http://www.riluodongdan.com", 4);
         AdPageInfo info3 = new AdPageInfo("香港夜景流连忘返", "http://onq81n53u.bkt.clouddn.com/photo3333.jpg", "http://www.hongkong.com", 2);
-        AdPageInfo info4 = new AdPageInfo("耐克大法绝顶天下", "http://7xrwkh.com1.z0.glb.clouddn.com/1.jpg", "http://www.nike.com", 3);
+        AdPageInfo info4 = new AdPageInfo("耐克大法绝顶天下", "http://onq81n53u.bkt.clouddn.com/photo3.jpg", "http://www.nike.com", 3);
 
         mDatas.add(info1);
         mDatas.add(info2);
@@ -129,7 +127,7 @@ public class HomeFragment extends BaseFragment {
     protected void initData() {
     }
 
-    @OnClick({R.id.et_home_search, R.id.iv_home_map, R.id.iv_top_menu, R.id.iv_home_search})
+    @OnClick({R.id.et_home_search, R.id.iv_top_menu, R.id.iv_home_search})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_home_search:
@@ -139,9 +137,9 @@ public class HomeFragment extends BaseFragment {
                 break;
             case R.id.et_home_search:
                 break;
-            case R.id.iv_home_map:
-                startActivity(new Intent(getActivity(), ShopsListActivity.class));
-                break;
+            //            case R.id.iv_home_map:
+            //                startActivity(new Intent(getActivity(), ShopsListActivity.class));
+            //                break;
         }
     }
 }

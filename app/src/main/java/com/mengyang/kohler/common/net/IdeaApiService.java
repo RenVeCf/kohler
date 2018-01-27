@@ -13,7 +13,7 @@ import retrofit2.http.POST;
 
 /**
  * 接口请求类
- * Created by dell on 2017/4/1.
+ * Created by dell on 2017/4/loading1.
  */
 
 public interface IdeaApiService {

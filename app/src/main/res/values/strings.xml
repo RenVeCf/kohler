@@ -24,7 +24,7 @@
     <string name="response_return_error">服务器返回数据失败</string>
     <string name="refresh">刷新</string>
 
-    <string name="mine_manual">我的手册</string>
+    <string name="account_manual">我的手册</string>
     <string name="toilet_seat">座便器</string>
     <string name="shower_room_parts">浴室配件</string>
     <string name="shower_room_nozzle">浴室龙头</string>
@@ -54,7 +54,43 @@
     <string name="login">登录</string>
     <string name="forget_the_password">忘记密码？</string>
     <string name="input_pwd">请输入密码</string>
+    <string name="input_verification_code">请输入验证码</string>
+    <string name="input_sms_verification_code">短信验证码</string>
     <string name="input_phone_num">请输入手机号码</string>
     <string name="kohler_store">科勒门店 (地图)</string>
     <string name="get_started">Get Started</string>
+    <string name="select">精选</string>
+    <string name="settings">设置</string>
+    <string name="about">关于</string>
+    <string name="privacy_policy">隐私政策</string>
+    <string name="modify_pwd">修改密码</string>
+    <string name="modify_bind_phone">修改绑定手机</string>
+    <string name="sign_out">登出</string>
+    <string name="system_msg">系统消息</string>
+    <string name="log_in">Log In</string>
+    <string name="register">注册</string>
+    <string name="sign_up">Sign up</string>
+    <string name="login_pwd">登录密码</string>
+    <string name="send_out">发送</string>
+    <string name="go_login">已有账号，去登录</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="search_result">搜索结果</string>
+    <string name="input_new_phone_num">请输入修改的手机号码</string>
+    <string name="determine">确定</string>
+    <string name="input_old_phone_num">请输入原手机号码</string>
+    <string name="inpit_old_pwd">请输入旧密码</string>
+    <string name="user_register">用户注册</string>
+    <string name="distributor_register">经销商用户注册</string>
+    <string name="designer_register">设计师用户注册</string>
+    <string name="verification_code">验证码</string>
+    <string name="verification_code_title">Verification Code</string>
+    <string name="input_deigner_code">请输入经销商验证码</string>
+    <string name="customer_service">客服主页</string>
+    <string name="user_msg_edit">个人信息编辑</string>
+    <string name="name">名字</string>
+    <string name="input_name">请输入姓名</string>
+    <string name="done">完成</string>
+    <string name="mine_manual">我的手册</string>
 </resources>
