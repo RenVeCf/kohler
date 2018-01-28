@@ -6,20 +6,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.mengyang.kohler.main.activity.SystemMsgActivity">
+    tools:context="com.mengyang.kohler.home.activity.LiveRealTimeActivity">
 
     <com.mengyang.kohler.common.view.TopView
-        android:id="@+id/tv_system_msg_top"
+        android:id="@+id/tv_live_real_time_top"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        android:background="@color/white"
         app:is_back="false"
         app:is_customer_service="true"
         app:is_iv_top_title="true"
         app:is_menu="true"
         app:is_share="true"
         app:is_system_msg="true"
-        app:title="@string/system_msg"
-        app:title_color="#000000"/>
+        app:title="@string/live_real_time"
+        app:title_color="@color/black"/>
 
     <View
         android:layout_width="match_parent"
@@ -27,8 +28,10 @@
         android:background="#e0e0e0"/>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_system_msg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/y60"/>
+        android:layout_marginTop="@dimen/y72"
+        android:layout_marginStart="@dimen/x72"
+        android:layout_marginEnd="@dimen/x72"/>
+
 </LinearLayout>

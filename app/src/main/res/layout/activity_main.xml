@@ -1,29 +1,235 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<com.mengyang.kohler.common.view.ResideLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
     tools:context=".main.activity.MainActivity">
 
-
-    <com.mengyang.kohler.main.view.CustomViewPager
-        android:id="@+id/tab_pager"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:overScrollMode="never"/>
+        android:layout_height="match_parent"
+        android:background="@mipmap/cebianlanbg"
+        android:orientation="vertical">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#e4e4e4"/>
+        <ImageView
+            android:layout_width="@dimen/x396"
+            android:layout_height="@dimen/y84"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/x120"
+            android:layout_marginTop="@dimen/y270"
+            android:gravity="bottom"
+            android:src="@mipmap/logobai"/>
 
-    <com.mengyang.kohler.main.view.TabContainerView
-        android:id="@+id/ll_tab_container"
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y105"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/y120">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/y120">
+
+                    <ImageView
+                        style="@style/MenuIconStyle"
+                        android:background="@mipmap/shouce"/>
+
+                    <TextView
+                        style="@style/MenuStyle"
+                        android:text="@string/account_manual"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/y120">
+
+                    <ImageView
+                        style="@style/MenuIconStyle"
+                        android:background="@mipmap/zuobianqi"/>
+
+                    <TextView
+                        style="@style/MenuStyle"
+                        android:text="@string/toilet_seat"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/y120">
+
+                    <ImageView
+                        style="@style/MenuIconStyle"
+                        android:background="@mipmap/yushipeijian"/>
+
+                    <TextView
+                        style="@style/MenuStyle"
+                        android:text="@string/shower_room_parts"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/y120">
+
+                    <ImageView
+                        style="@style/MenuIconStyle"
+                        android:background="@mipmap/yushilongtou"/>
+
+                    <TextView
+                        style="@style/MenuStyle"
+                        android:text="@string/shower_room_nozzle"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/y120">
+
+                    <ImageView
+                        style="@style/MenuIconStyle"
+                        android:background="@mipmap/liyulongtou"/>
+
+                    <TextView
+                        style="@style/MenuStyle"
+                        android:text="@string/shower_nozzle"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/y120">
+
+                    <ImageView
+                        style="@style/MenuIconStyle"
+                        android:background="@mipmap/shuzhuang"/>
+
+                    <TextView
+                        style="@style/MenuStyle"
+                        android:text="@string/makeup"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/y120">
+
+                    <ImageView
+                        style="@style/MenuIconStyle"
+                        android:background="@mipmap/anmoyugang"/>
+
+                    <TextView
+                        style="@style/MenuStyle"
+                        android:text="@string/massage_bathtub"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/y120">
+
+                    <ImageView
+                        style="@style/MenuIconStyle"
+                        android:background="@mipmap/yugang"/>
+
+                    <TextView
+                        style="@style/MenuStyle"
+                        android:text="@string/bathtub"/>
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y168"
-        android:background="@color/white"/>
-</LinearLayout>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.mengyang.kohler.main.view.CustomViewPager
+            android:id="@+id/cvp_main_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#e0e0e0"/>
+
+        <LinearLayout
+            android:id="@+id/ll_main_fragment_select"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y150"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/y30">
+
+            <Button
+                android:id="@+id/bt_home"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:drawableTop="@mipmap/ar"
+                android:text="@string/home"
+                android:textColor="@color/background_color"/>
+
+            <Button
+                android:id="@+id/bt_whole_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:drawableTop="@mipmap/category"
+                android:text="@string/whole_category"
+                android:textColor="@color/background_color"/>
+
+            <Button
+                android:id="@+id/bt_ar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:drawableTop="@mipmap/icon_home"
+                android:text="@string/ar"
+                android:textColor="@color/background_color"/>
+
+            <Button
+                android:id="@+id/bt_account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:drawableTop="@mipmap/personal"
+                android:text="@string/account"
+                android:textColor="@color/background_color"/>
+        </LinearLayout>
+    </LinearLayout>
+</com.mengyang.kohler.common.view.ResideLayout>

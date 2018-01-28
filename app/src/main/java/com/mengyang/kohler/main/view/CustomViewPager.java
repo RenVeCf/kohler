@@ -6,10 +6,10 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 
 /**
- * Description : Fragment 是否可以滑动
+ * Description :
  * Author : rmy
  * Email : 942685687@qq.com
- * Time : 2018/loading1/21
+ * Time : 2018/1/27
  */
 
 public class CustomViewPager extends ViewPager {

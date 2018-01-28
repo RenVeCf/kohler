@@ -41,22 +41,34 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:windowSoftInputMode="adjustResize">
-        <activity android:name=".main.activity.SplashActivity">
+        <activity
+            android:name=".main.activity.SplashActivity"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".whole_category.activity.CommodityDetailsActivity">
+        <activity
+            android:name=".whole_category.activity.CommodityDetailsActivity"
+            android:launchMode="singleTask">
         </activity>
-        <activity android:name=".home.activity.MeetingActivity">
+        <activity
+            android:name=".home.activity.MeetingActivity"
+            android:launchMode="singleTask">
         </activity>
-        <activity android:name=".home.activity.PDFActivity">
+        <activity
+            android:name=".home.activity.PDFActivity"
+            android:launchMode="singleTask">
         </activity>
-        <activity android:name=".main.activity.MainActivity">
+        <activity
+            android:name=".main.activity.MainActivity"
+            android:launchMode="singleTask">
         </activity>
-        <activity android:name=".whole_category.activity.CommodityClassificationActivity">
+        <activity
+            android:name=".whole_category.activity.CommodityClassificationActivity"
+            android:launchMode="singleTask">
         </activity>
 
         <meta-data
@@ -65,40 +77,79 @@
 
         <service android:name="com.amap.api.location.APSService"/>
 
-        <activity android:name=".home.activity.ShopsListActivity">
+        <activity
+            android:name=".home.activity.ShopsListActivity"
+            android:launchMode="singleTask">
         </activity>
-        <activity android:name=".main.activity.LoginActivity">
+        <activity
+            android:name=".main.activity.LoginActivity"
+            android:launchMode="singleTask">
         </activity>
-        <activity android:name=".main.activity.LoadingActivity">
+        <activity
+            android:name=".main.activity.LoadingActivity"
+            android:launchMode="singleTask">
         </activity>
-        <activity android:name=".account.activity.AccountSettingsActivity">
+        <activity
+            android:name=".account.activity.AccountSettingsActivity"
+            android:launchMode="singleTask">
         </activity>
-        <activity android:name=".main.activity.SystemMsgActivity">
+        <activity
+            android:name=".main.activity.SystemMsgActivity"
+            android:launchMode="singleTask">
         </activity>
-        <activity android:name=".account.activity.AccountMineLikeActivity">
+        <activity
+            android:name=".account.activity.AccountMineLikeActivity"
+            android:launchMode="singleTask">
         </activity>
-        <activity android:name=".account.activity.AccountMineReservationQueryActivity">
+        <activity
+            android:name=".account.activity.AccountMineReservationQueryActivity"
+            android:launchMode="singleTask">
         </activity>
-        <activity android:name=".main.activity.UserRegisterActivity">
+        <activity
+            android:name=".main.activity.UserRegisterActivity"
+            android:launchMode="singleTask">
         </activity>
-        <activity android:name=".account.activity.AccountBindPhoneActivity">
+        <activity
+            android:name=".account.activity.AccountBindPhoneActivity"
+            android:launchMode="singleTask">
         </activity>
-        <activity android:name=".main.activity.DesignerRegisterActivity">
+        <activity
+            android:name=".main.activity.DesignerRegisterActivity"
+            android:launchMode="singleTask">
         </activity>
-        <activity android:name=".main.activity.ModifyPwdActivity">
+        <activity
+            android:name=".main.activity.ModifyPwdActivity"
+            android:launchMode="singleTask">
         </activity>
-        <activity android:name=".main.activity.DistributorRegisterActivity">
+        <activity
+            android:name=".main.activity.DistributorRegisterActivity"
+            android:launchMode="singleTask">
         </activity>
-        <activity android:name=".main.activity.DistributorVerificationCodeActivity">
+        <activity
+            android:name=".main.activity.DistributorVerificationCodeActivity"
+            android:launchMode="singleTask">
         </activity>
-        <activity android:name=".main.activity.CustomerServiceActivity">
+        <activity
+            android:name=".main.activity.CustomerServiceActivity"
+            android:launchMode="singleTask">
         </activity>
-        <activity android:name=".account.activity.UserMsgEditActivity">
+        <activity
+            android:name=".account.activity.UserMsgEditActivity"
+            android:launchMode="singleTask">
         </activity>
-        <activity android:name=".main.activity.ForgetPasswordActivity">
+        <activity
+            android:name=".main.activity.ForgetPasswordActivity"
+            android:launchMode="singleTask">
         </activity>
-        <activity android:name=".home.activity.MineManualActivity">
+        <activity
+            android:name=".home.activity.MineManualActivity"
+            android:launchMode="singleTask">
+        </activity>
+        <activity android:name=".home.activity.LiveRealTimeActivity"
+                  android:launchMode="singleTask">
+        </activity>
+        <activity android:name=".home.activity.HomeSearchActivity"
+                  android:launchMode="singleTask">
         </activity>
     </application>
-
 </manifest>

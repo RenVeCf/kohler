@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mengyang.kohler.common.utils.LogUtils;
 import com.trello.rxlifecycle2.components.support.RxFragment;
 
 import butterknife.ButterKnife;
@@ -18,16 +19,17 @@ public abstract class BaseFragment extends RxFragment {
 
     protected View rootView;
     Unbinder unbinder;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if (rootView == null) {
+//        if (rootView == null) {
             rootView = inflater.inflate(this.getLayoutId(), container, false);
-            unbinder = ButterKnife.bind(this,rootView);
-        }
-        ViewGroup parent = (ViewGroup) rootView.getParent();
-        if (parent != null) {
-            parent.removeView(rootView);
-        }
+            unbinder = ButterKnife.bind(this, rootView);
+//        }
+//        ViewGroup parent = (ViewGroup) rootView.getParent();
+//        if (parent != null) {
+//            parent.removeView(rootView);
+//        }
         return rootView;
     }
 

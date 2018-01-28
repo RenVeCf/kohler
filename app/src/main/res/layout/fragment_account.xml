@@ -16,7 +16,7 @@
         app:is_customer_service="true"
         app:is_iv_top_title="true"
         app:is_menu="true"
-        app:is_settings="true"
+        app:is_share="true"
         app:is_system_msg="true"
         app:title="@string/mine_account"
         app:title_color="#000000"/>

@@ -16,6 +16,7 @@ public class IConstants {
     */
     public static final String TOKEN = "token"; //token
     public static final String FIRST_APP = "isFirstApp"; //第一次进应用
+    public static final String IS_LOGIN = "isLogin"; //已经登录
 
     /**
      * 请求码 从60开始

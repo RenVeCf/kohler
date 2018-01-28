@@ -93,4 +93,27 @@
     <string name="input_name">请输入姓名</string>
     <string name="done">完成</string>
     <string name="mine_manual">我的手册</string>
+    <string name="size_diagram">尺寸图</string>
+    <string name="installation_instructions">安装说明书</string>
+    <string name="purchase_inquiries">购买查询</string>
+    <string name="commodity_classification">商品分类</string>
+    <string name="invitation">邀请函</string>
+    <string name="invitation_english">Invitation</string>
+    <string name="reminder">Reminder</string>
+    <string name="timed_remind">定点提醒功能</string>
+    <string name="time_">时间：</string>
+    <string name="ndc">NDC</string>
+    <string name="kohler_china_meeting">科勒中国经销商大会</string>
+    <string name="msg_reminder_push">点击开启议程消息提醒推送</string>
+    <string name="next_agenda">下一议程</string>
+    <string name="position_">位置：</string>
+    <string name="name_">名称：</string>
+    <string name="live">Live</string>
+    <string name="real_time_dynamic">实时动态</string>
+    <string name="conference_agenda">会议议程</string>
+    <string name="agenda">Agenda</string>
+    <string name="now_agenda">当前议程</string>
+    <string name="day_agenda">每日议程</string>
+    <string name="over_agenda">过期议程</string>
+    <string name="live_real_time">现场实时</string>
 </resources>

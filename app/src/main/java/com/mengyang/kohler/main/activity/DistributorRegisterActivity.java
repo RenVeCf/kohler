@@ -75,12 +75,15 @@ public class DistributorRegisterActivity extends BaseActivity {
                 break;
             case R.id.tv_distributor_register_go_login:
                 startActivity(new Intent(this, LoginActivity.class));
+                finish();
                 break;
             case R.id.tv_distributor_register_go_user_register:
                 startActivity(new Intent(this, UserRegisterActivity.class));
+                finish();
                 break;
             case R.id.tv_distributor_register_go_designer_register:
                 startActivity(new Intent(this, DesignerRegisterActivity.class));
+                finish();
                 break;
         }
     }

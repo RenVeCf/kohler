@@ -63,11 +63,13 @@ public class LoginActivity extends BaseActivity {
                 break;
             case R.id.tv_login_forget_pwd:
                 startActivity(new Intent(this, ForgetPasswordActivity.class));
+                finish();
                 break;
             case R.id.bt_login:
                 break;
             case R.id.tv_login_go_register:
                 startActivity(new Intent(this, UserRegisterActivity.class));
+                finish();
                 break;
         }
     }

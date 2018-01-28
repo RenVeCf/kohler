@@ -1,6 +1,5 @@
 package com.mengyang.kohler.main.activity;
 
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,7 +9,6 @@ import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class DistributorVerificationCodeActivity extends BaseActivity {

@@ -12,8 +12,8 @@ import com.mengyang.kohler.App;
 
 public class NetWork {
     public static void internal() {
-        int networkType = NetWorkUtils.getNetworkType(App.context);
-        String networkTypeName = NetWorkUtils.getNetworkTypeName(App.context);
+        int networkType = NetWorkUtils.getNetworkType(App.getContext());
+        String networkTypeName = NetWorkUtils.getNetworkTypeName(App.getContext());
         LogUtils.d("-----网络名字-----", networkTypeName);
         LogUtils.d("----网络类型-----", networkType + "");
         if (networkTypeName.equals(NetWorkUtils.NETWORK_TYPE_WIFI)) {

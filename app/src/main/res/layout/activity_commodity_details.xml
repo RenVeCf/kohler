@@ -23,43 +23,157 @@
             app:is_customer_service="true"
             app:is_iv_top_title="true"
             app:is_menu="true"
-            app:is_settings="true"
+            app:is_share="false"
             app:is_system_msg="true"
             app:title="@string/commodity_details"
             app:title_color="@color/white"/>
 
-        <TextView
-            android:id="@+id/tv_commodity_details_brand"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginStart="@dimen/x72"
-            android:textSize="18sp"
-            android:textColor="#ffffff"
-            tools:text="ESCALE® 艾思格尔"/>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
 
-        <TextView
-            android:id="@+id/tv_commodity_details_category"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/x72"
-            android:textSize="18sp"
-            android:textColor="#ffffff"
-            tools:text="嵌入式泡泡浴缸（含浴枕）"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_commodity_details_model"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/x72"
-            android:layout_marginTop="@dimen/y12"
-            android:textColor="#ffffff"
-            tools:text="K-11343T-GE-0"/>
+                <TextView
+                    android:id="@+id/tv_commodity_details_brand"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/x72"
+                    android:gravity="center"
+                    android:textColor="#ffffff"
+                    android:textSize="18sp"
+                    tools:text="ESCALE® 艾思格尔"/>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/y96"/>
+                <TextView
+                    android:id="@+id/tv_commodity_details_category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/x72"
+                    android:textColor="#ffffff"
+                    android:textSize="18sp"
+                    tools:text="嵌入式泡泡浴缸（含浴枕）"/>
+
+                <TextView
+                    android:id="@+id/tv_commodity_details_model"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/x72"
+                    android:layout_marginTop="@dimen/y12"
+                    android:textColor="#ffffff"
+                    tools:text="K-11343T-GE-0"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/y780"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/y96"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/x72"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="技术资料下载："
+                        android:textColor="#000000"
+                        android:textSize="13sp"
+                        android:textStyle="bold"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/y51"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/y60"
+                            android:layout_weight="1"
+                            android:text="@string/size_diagram"
+                            android:textColor="#000000"
+                            android:textSize="13sp"/>
+
+                        <ImageView
+                            android:id="@+id/iv_size_diagram_download"
+                            android:layout_width="@dimen/x60"
+                            android:layout_height="@dimen/y60"
+                            android:layout_marginEnd="@dimen/x75"
+                            android:src="@mipmap/xiazaibai"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/y51"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/y60"
+                            android:layout_weight="1"
+                            android:text="@string/installation_instructions"
+                            android:textColor="#000000"
+                            android:textSize="13sp"/>
+
+                        <ImageView
+                            android:id="@+id/iv_installation_instructions_download"
+                            android:layout_width="@dimen/x60"
+                            android:layout_height="@dimen/y60"
+                            android:layout_marginEnd="@dimen/x75"
+                            android:src="@mipmap/xiazaibai"/>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="@dimen/y39"
+                        android:background="#dddddd"/>
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/y300"
+                        android:layout_marginTop="@dimen/y54"
+                        android:src="@mipmap/ic_launcher_round"/>
+
+                    <LinearLayout
+                        android:id="@+id/ll_commodity_details_purchase_inquiries"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_marginEnd="@dimen/x72"
+                        android:layout_marginTop="@dimen/y63"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/x60"
+                            android:layout_height="@dimen/y60"
+                            android:src="@mipmap/ic_launcher_round"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="@string/purchase_inquiries"
+                            android:textColor="#000000"
+                            android:textSize="15sp"
+                            android:textStyle="bold"/>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="@dimen/y36"
+                        android:background="#dddddd"/>
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 
     <LinearLayout

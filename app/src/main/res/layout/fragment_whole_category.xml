@@ -16,7 +16,7 @@
         app:is_customer_service="false"
         app:is_iv_top_title="true"
         app:is_menu="true"
-        app:is_settings="true"
+        app:is_share="true"
         app:is_system_msg="false"
         app:title="@string/whole_category"
         app:title_color="@color/white"/>

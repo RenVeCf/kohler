@@ -107,7 +107,7 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
     public void onFail(T response) {
         String message = response.getMessage();
         if (TextUtils.isEmpty(message)) {
-            ToastUtil.showToast(App.context.getString(R.string.response_return_error));
+            ToastUtil.showToast(App.getContext().getString(R.string.response_return_error));
         } else {
             ToastUtil.showToast(message);
         }

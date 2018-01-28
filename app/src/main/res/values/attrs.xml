@@ -8,7 +8,7 @@
         <attr name="is_customer_service" format="boolean"/>
         <attr name="is_back" format="boolean"/>
         <attr name="is_menu" format="boolean"/>
-        <attr name="is_settings" format="boolean"/>
+        <attr name="is_share" format="boolean"/>
     </declare-styleable>
 
     <declare-styleable name="CircleImageView">

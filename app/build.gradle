@@ -78,6 +78,10 @@ dependencies {
     implementation 'com.github.barteksc:android-pdf-viewer:2.7.0-beta.1'
     //高德地图
     implementation files('libs/AMap3DMap_5.7.0_AMapNavi_5.6.0_AMapSearch_5.7.0_AMapLocation_3.7.0_20180109.jar')
+    //圆形图片
     implementation 'com.makeramen:roundedimageview:2.3.0'
+    //卡片View
     implementation 'com.android.support:cardview-v7:27.0.2'
+    //照片选择器
+//    implementation 'com.github.yudu233:PhotoPicker:1.2.0'
 }

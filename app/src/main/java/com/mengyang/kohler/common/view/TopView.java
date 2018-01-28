@@ -4,9 +4,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
+import android.graphics.drawable.ColorDrawable;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -27,7 +31,7 @@ public class TopView extends RelativeLayout implements View.OnClickListener {
     private ImageView ivTopTitle;
     private ImageView ivTopBack;
     private ImageView ivTopMenu;
-    private ImageView ivTopSettings;
+    private ImageView ivTopShare;
     private ImageView ivTopCustomerService;
     private ImageView ivTopSystemMsg;
     //各icon是否显示
@@ -36,8 +40,10 @@ public class TopView extends RelativeLayout implements View.OnClickListener {
     private Boolean isCustomerService;
     private Boolean isBack;
     private Boolean isMenu;
-    private Boolean isSettings;
+    private Boolean isShare;
     private Context mContext;
+    private PopupWindow mSharePopupWindow;
+    private View mPopLayout;
 
     public TopView(Context context) {
         super(context);
@@ -56,14 +62,24 @@ public class TopView extends RelativeLayout implements View.OnClickListener {
         isCustomerService = typedArray.getBoolean(R.styleable.TopView_is_customer_service, false);
         isBack = typedArray.getBoolean(R.styleable.TopView_is_back, false);
         isMenu = typedArray.getBoolean(R.styleable.TopView_is_menu, false);
-        isSettings = typedArray.getBoolean(R.styleable.TopView_is_settings, false);
+        isShare = typedArray.getBoolean(R.styleable.TopView_is_share, false);
 
         ivTopTitle.setVisibility(isIvTopTitle ? View.GONE : View.VISIBLE);
         ivTopSystemMsg.setVisibility(isSystemMsg ? View.GONE : View.VISIBLE);
         ivTopCustomerService.setVisibility(isCustomerService ? View.GONE : View.VISIBLE);
         ivTopBack.setVisibility(isBack ? View.GONE : View.VISIBLE);
         ivTopMenu.setVisibility(isMenu ? View.GONE : View.VISIBLE);
-        ivTopSettings.setVisibility(isSettings ? View.GONE : View.VISIBLE);
+        ivTopShare.setVisibility(isShare ? View.GONE : View.VISIBLE);
+
+        mSharePopupWindow = new PopupWindow(this);
+        mSharePopupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
+        mSharePopupWindow.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
+        LayoutInflater inflater = LayoutInflater.from(App.getContext());
+        mPopLayout = inflater.inflate(R.layout.share, null);
+        mSharePopupWindow.setContentView(mPopLayout);
+        mSharePopupWindow.setBackgroundDrawable(new ColorDrawable(0x4c000000));
+        mSharePopupWindow.setOutsideTouchable(false);
+        mSharePopupWindow.setFocusable(true);
     }
 
     public TopView(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -80,8 +96,8 @@ public class TopView extends RelativeLayout implements View.OnClickListener {
         ivTopBack.setOnClickListener(this);
         ivTopMenu = (ImageView) this.findViewById(R.id.iv_top_menu);
         ivTopMenu.setOnClickListener(this);
-        ivTopSettings = (ImageView) this.findViewById(R.id.iv_top_settings);
-        ivTopSettings.setOnClickListener(this);
+        ivTopShare = (ImageView) this.findViewById(R.id.iv_top_share);
+        ivTopShare.setOnClickListener(this);
         ivTopCustomerService = (ImageView) this.findViewById(R.id.iv_top_customer_service);
         ivTopCustomerService.setOnClickListener(this);
         ivTopSystemMsg = (ImageView) this.findViewById(R.id.iv_top_system_msg);
@@ -98,7 +114,8 @@ public class TopView extends RelativeLayout implements View.OnClickListener {
                 break;
             case R.id.iv_top_menu:
                 break;
-            case R.id.iv_top_settings:
+            case R.id.iv_top_share:
+                mSharePopupWindow.showAsDropDown(view, 0, 0);
                 break;
             case R.id.iv_top_customer_service:
                 App.getContext().startActivity(new Intent(App.getContext(), CustomerServiceActivity.class));

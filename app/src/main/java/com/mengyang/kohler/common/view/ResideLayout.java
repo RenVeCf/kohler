@@ -2,6 +2,7 @@ package com.mengyang.kohler.common.view;
 
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -28,6 +29,10 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.accessibility.AccessibilityEvent;
+
+import com.gyf.barlibrary.ImmersionBar;
+import com.mengyang.kohler.App;
+import com.mengyang.kohler.main.activity.MainActivity;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -801,6 +806,8 @@ public class ResideLayout extends ViewGroup {
      * @return true if the pane was slideable and is now open/in the process of opening
      */
     public boolean openPane() {
+        //沉浸式状态栏初始化
+//        ImmersionBar.with(App.getActivity()).fitsSystemWindows(false).statusBarDarkFont(false).init();
         return openPane(mSlideableView, 0);
     }
 
@@ -819,6 +826,8 @@ public class ResideLayout extends ViewGroup {
      * @return true if the pane was slideable and is now closed/in the process of closing
      */
     public boolean closePane() {
+        //沉浸式状态栏初始化
+//        ImmersionBar.with(App.getInstance()).fitsSystemWindows(false).statusBarDarkFont(true).init();
         return closePane(mSlideableView, 0);
     }
 

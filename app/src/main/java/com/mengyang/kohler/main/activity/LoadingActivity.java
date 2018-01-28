@@ -8,10 +8,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.utils.DisplayUtils;
+import com.mengyang.kohler.common.utils.IConstants;
 import com.mengyang.kohler.common.utils.LanguageUtil;
+import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.main.adapter.ContentAdapter;
 import com.mengyang.kohler.main.view.LockableViewPager;
 
@@ -44,6 +47,16 @@ public class LoadingActivity extends BaseActivity {
 
     @Override
     protected void initValues() {
+        // 判断是否是第一次开启应用
+        boolean isFirstOpen = (boolean) SPUtil.get(this, IConstants.FIRST_APP, false);
+        if (!isFirstOpen) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+            return;
+        }
+        //沉浸式状态栏初始化白色
+        ImmersionBar.with(this).fitsSystemWindows(false).statusBarDarkFont(false).init();
         DisplayUtils.getScreenHeight(this);
         viewList = new ArrayList<>();
         if (LanguageUtil.isZh(this)) {
@@ -133,5 +146,6 @@ public class LoadingActivity extends BaseActivity {
     @OnClick(R.id.bt_loading_login)
     public void onViewClicked() {
         startActivity(new Intent(LoadingActivity.this, MainActivity.class));
+        finish();
     }
 }

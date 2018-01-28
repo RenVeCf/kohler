@@ -32,6 +32,7 @@
         android:layout_margin="10dp"
         android:letterSpacing="0.13"
         android:lineSpacingExtra="14sp"
+        android:textStyle="bold"
         android:textSize="16sp"/>
 
     <ImageView
@@ -42,16 +43,16 @@
         android:layout_margin="10dp"
         android:src="@mipmap/logo"/>
 
-    <!--设置-->
+    <!--分享-->
     <ImageView
-        android:id="@+id/iv_top_settings"
+        android:id="@+id/iv_top_share"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:paddingEnd="20dp"
+        android:paddingEnd="@dimen/x72"
         android:visibility="gone"
-        android:src="@mipmap/ic_launcher_round"/>
+        android:src="@mipmap/fenxiangbai"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
