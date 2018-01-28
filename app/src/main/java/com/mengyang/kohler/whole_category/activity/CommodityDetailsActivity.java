@@ -1,18 +1,33 @@
 package com.mengyang.kohler.whole_category.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
+import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
+import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.view.TopView;
+import com.mengyang.kohler.home.activity.PDFActivity;
 import com.mengyang.kohler.home.activity.ShopsListActivity;
+import com.ryane.banner.AdPageInfo;
+import com.zhouwei.mzbanner.MZBannerView;
+import com.zhouwei.mzbanner.holder.MZHolderCreator;
+import com.zhouwei.mzbanner.holder.MZViewHolder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,6 +59,15 @@ public class CommodityDetailsActivity extends BaseActivity {
     Button btCommodityDetailsLike;
     @BindView(R.id.bt_commodity_details_pay)
     Button btCommodityDetailsPay;
+    @BindView(R.id.mzb_commodity_details)
+    MZBannerView mzbCommodityDetails;
+    private PopupWindow mDownloadPopupWindow;
+    private View mPopLayout;
+    //轮播图集合
+    private List<Integer> mDatas = new ArrayList<>();
+    private TextView tvCommodityDetailsDownloadName;
+    private Button btCommodityDetailsCancel;
+    private Button btCommodityDetailsDownloadPreview;
 
     @Override
     protected int getLayoutId() {
@@ -57,6 +81,76 @@ public class CommodityDetailsActivity extends BaseActivity {
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(this, tvCommodityDetailsTop);
         ivTopBack.setImageResource(R.mipmap.fanhuibai);
+
+        mDatas.add(R.mipmap.cebianlanbg);
+        mDatas.add(R.mipmap.cebianlanbg);
+        mDatas.add(R.mipmap.cebianlanbg);
+
+        // 设置数据
+        mzbCommodityDetails.setPages(mDatas, new MZHolderCreator<BannerViewHolder>() {
+            @Override
+            public BannerViewHolder createViewHolder() {
+                return new BannerViewHolder();
+            }
+        });
+        //设置是否显式指示器
+        mzbCommodityDetails.setIndicatorVisible(false);
+        //设置BannerView 的切换时间间隔
+        mzbCommodityDetails.setDelayedTime(5000);
+
+        mDownloadPopupWindow = new PopupWindow(this);
+        mDownloadPopupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
+        mDownloadPopupWindow.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
+        LayoutInflater inflater = LayoutInflater.from(App.getContext());
+        mPopLayout = inflater.inflate(R.layout.commodity_details_download, null);
+        mDownloadPopupWindow.setContentView(mPopLayout);
+        mDownloadPopupWindow.setBackgroundDrawable(new ColorDrawable(0x4c000000));
+        mDownloadPopupWindow.setOutsideTouchable(false);
+        mDownloadPopupWindow.setFocusable(true);
+        tvCommodityDetailsDownloadName = mPopLayout.findViewById(R.id.tv_commodity_details_download_name);
+        btCommodityDetailsCancel = mPopLayout.findViewById(R.id.bt_commodity_details_cancel);
+        btCommodityDetailsCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mDownloadPopupWindow.dismiss();
+            }
+        });
+        btCommodityDetailsDownloadPreview = mPopLayout.findViewById(R.id.bt_commodity_details_download_preview);
+        btCommodityDetailsDownloadPreview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(CommodityDetailsActivity.this, PDFActivity.class));
+            }
+        });
+    }
+
+    public static class BannerViewHolder implements MZViewHolder<Integer> {
+        private ImageView mImageView;
+        @Override
+        public View createView(Context context) {
+            // 返回页面布局
+            View view = LayoutInflater.from(context).inflate(R.layout.item_banner_commodity_details,null);
+            mImageView = (ImageView) view.findViewById(R.id.iv_banner_commodity_details);
+            return view;
+        }
+
+        @Override
+        public void onBind(Context context, int position, Integer data) {
+            // 数据绑定
+            mImageView.setImageResource(data);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mzbCommodityDetails.pause();//暂停轮播
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mzbCommodityDetails.start();//开始轮播
     }
 
     @Override
@@ -73,8 +167,12 @@ public class CommodityDetailsActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_size_diagram_download:
+                tvCommodityDetailsDownloadName.setText(App.getContext().getResources().getText(R.string.download_size_diagram));
+                mDownloadPopupWindow.showAsDropDown(view, 0, 0);
                 break;
             case R.id.iv_installation_instructions_download:
+                tvCommodityDetailsDownloadName.setText(App.getContext().getResources().getText(R.string.download_installation_instructions));
+                mDownloadPopupWindow.showAsDropDown(view, 0, 0);
                 break;
             case R.id.ll_commodity_details_purchase_inquiries:
                 startActivity(new Intent(this, ShopsListActivity.class));

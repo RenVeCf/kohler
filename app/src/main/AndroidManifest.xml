@@ -151,5 +151,22 @@
         <activity android:name=".home.activity.HomeSearchActivity"
                   android:launchMode="singleTask">
         </activity>
+
+        <!--<activity-->
+            <!--android:name=".ui.PhotoPickActivity"-->
+            <!--android:theme="@style/PhoAppTheme.AppTheme" />-->
+
+        <!--<activity-->
+            <!--android:name=".ui.PhotoPreviewActivity"-->
+            <!--android:theme="@style/PhoAppTheme.AppTheme" />-->
+
+        <!--<activity-->
+            <!--android:name="com.yalantis.ucrop.UCropActivity"-->
+            <!--android:screenOrientation="portrait"-->
+            <!--android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>-->
+
+        <!--<activity android:name=".lookBigImage.ViewBigImageActivity"-->
+                  <!--android:screenOrientation="portrait"-->
+                  <!--android:theme="@style/Theme.AppCompat.Light.NoActionBar" />-->
     </application>
 </manifest>

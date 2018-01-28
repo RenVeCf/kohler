@@ -81,7 +81,6 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     protected void initListener() {
-        LogUtils.i("rmy", "mDatas = " + mDatas);
         if (mDatas.size() == 0) {
             AdPageInfo info1 = new AdPageInfo("拜仁球场冠绝全球", "http://onq81n53u.bkt.clouddn.com/photo1.jpg", "http://www.bairen.com", 1);
             AdPageInfo info2 = new AdPageInfo("日落东单一起战斗", "http://onq81n53u.bkt.clouddn.com/photo2.jpg", "http://www.riluodongdan.com", 4);

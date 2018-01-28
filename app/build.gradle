@@ -72,7 +72,7 @@ dependencies {
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'
     //沉浸式状态栏
     implementation 'com.gyf.barlibrary:barlibrary:2.3.0'
-    //轮播图框架 AdPlayBanner
+    //轮播图框架 AdPlayBanner (http://www.apkbus.com/blog-771645-68545.html)
     implementation 'com.github.ryanlijianchang:AdPlayBanner:v0.4'
     //PDF
     implementation 'com.github.barteksc:android-pdf-viewer:2.7.0-beta.1'
@@ -82,6 +82,8 @@ dependencies {
     implementation 'com.makeramen:roundedimageview:2.3.0'
     //卡片View
     implementation 'com.android.support:cardview-v7:27.0.2'
-    //照片选择器
+    //照片选择器 (https://www.jianshu.com/p/a6b5831797d0)
 //    implementation 'com.github.yudu233:PhotoPicker:1.2.0'
+    //仿魅族卡片轮播 (https://github.com/pinguo-zhouwei/MZBannerView)
+    implementation 'com.github.pinguo-zhouwei:MZBannerView:v2.0.0'
 }

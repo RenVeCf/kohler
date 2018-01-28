@@ -116,4 +116,8 @@
     <string name="day_agenda">每日议程</string>
     <string name="over_agenda">过期议程</string>
     <string name="live_real_time">现场实时</string>
+    <string name="cancel">取消</string>
+    <string name="download_preview">下载预览</string>
+    <string name="download_size_diagram">您将下载“尺寸图”</string>
+    <string name="download_installation_instructions">您将下载“安葬说明书”</string>
 </resources>
