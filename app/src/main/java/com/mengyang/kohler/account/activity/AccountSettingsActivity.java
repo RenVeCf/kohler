@@ -62,8 +62,10 @@ public class AccountSettingsActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_account_settings_about:
+                startActivity(new Intent(this, AccountAboutActivity.class));
                 break;
             case R.id.tv_account_settings_privacy_policy:
+                startActivity(new Intent(this, AccountPrivacyPolicyActivity.class));
                 break;
             case R.id.tv_account_settings_modify_pwd:
                 startActivity(new Intent(this, ModifyPwdActivity.class));

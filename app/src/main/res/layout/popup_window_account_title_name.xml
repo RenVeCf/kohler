@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y678"
+        android:textSize="13sp"
+        android:textColor="#ffffff"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/input_new_name"/>
+
+    <EditText
+        android:id="@+id/et_account_pop_new_name"
+        android:layout_width="@dimen/x504"
+        android:layout_height="wrap_content"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"
+        android:background="@null"/>
+
+    <View
+        android:layout_width="@dimen/x504"
+        android:layout_height="3dp"
+        android:layout_marginTop="4dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/white"/>
+
+    <Button
+        android:id="@+id/bt_account_pop_new_name"
+        android:layout_width="@dimen/x552"
+        android:layout_height="@dimen/y114"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/y78"
+        android:text="@string/determine"
+        android:textColor="@color/white"
+        android:background="@color/black"/>
+</LinearLayout>

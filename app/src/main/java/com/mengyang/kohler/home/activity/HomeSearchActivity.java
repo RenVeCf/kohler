@@ -7,6 +7,10 @@ import com.mengyang.kohler.common.view.TopView;
 
 import butterknife.BindView;
 
+/**
+ * 搜索页
+ */
+
 public class HomeSearchActivity extends BaseActivity {
     @BindView(R.id.tv_home_search_top)
     TopView tvHomeSearchTop;

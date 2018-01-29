@@ -48,7 +48,7 @@ public class LoadingActivity extends BaseActivity {
     @Override
     protected void initValues() {
         // 判断是否是第一次开启应用
-        boolean isFirstOpen = (boolean) SPUtil.get(this, IConstants.FIRST_APP, false);
+        boolean isFirstOpen = (boolean) SPUtil.get(this, IConstants.FIRST_APP, true);
         if (!isFirstOpen) {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);

@@ -83,30 +83,35 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
-                        android:layout_marginTop="@dimen/y32"
+                        android:layout_marginTop="@dimen/y30"
                         android:orientation="horizontal"
-                        android:paddingEnd="@dimen/x40">
+                        android:paddingEnd="@dimen/x60">
 
                         <View
                             android:id="@+id/v_home_banner1"
                             android:layout_width="@dimen/x75"
-                            android:layout_height="2dp"/>
+                            android:layout_height="3dp"
+                            android:layout_marginEnd="@dimen/x39"
+                            android:background="@color/black"/>
 
                         <View
                             android:id="@+id/v_home_banner2"
                             android:layout_width="@dimen/x75"
-                            android:layout_height="2dp"/>
+                            android:layout_height="3dp"
+                            android:layout_marginEnd="@dimen/x39"
+                            android:background="@color/home_banner_line"/>
 
                         <View
                             android:id="@+id/v_home_banner3"
                             android:layout_width="@dimen/x75"
-                            android:layout_height="2dp"/>
+                            android:layout_height="3dp"
+                            android:background="@color/home_banner_line"/>
                     </LinearLayout>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/y186"
+                        android:layout_marginTop="@dimen/y168"
                         android:text="@string/art_design"
                         android:visibility="gone"/>
 
@@ -141,70 +146,9 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_home_books"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-                <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="@dimen/y186"-->
-                <!--android:orientation="horizontal">-->
-
-                <!--<LinearLayout-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weigloading2t="2"-->
-                <!--android:orientation="vertical">-->
-
-                <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="@string/editor_selection"/>-->
-
-                <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="@string/special_recommendation"/>-->
-                <!--</LinearLayout>-->
-
-                <!--<LinearLayout-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weigloading1t="1"-->
-                <!--android:orientation="vertical">-->
-
-                <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="@string/view_all"/>-->
-
-                <!--<View-->
-                <!--android:layout_width="50dp"-->
-                <!--android:layout_height="1dp"-->
-                <!--android:background="#000000"/>-->
-                <!--</LinearLayout>-->
-                <!--</LinearLayout>-->
-
-                <!--<android.support.v7.widget.RecyclerView-->
-                <!--android:id="@+id/rv_home_editor_selection"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"/>-->
-
-                <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="50dp"-->
-                <!--android:text="@string/where_to_buy"/>-->
-
-                <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="@string/find_shop"/>-->
-
-                <!--<ImageView-->
-                <!--android:id="@+id/iv_home_map"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:src="@mipmap/ic_launcher_round"/>-->
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="@dimen/y48"/>
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

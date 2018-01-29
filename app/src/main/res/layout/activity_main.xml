@@ -37,6 +37,24 @@
                 android:paddingBottom="@dimen/y120">
 
                 <LinearLayout
+                    android:id="@+id/ll_nearby_shops"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/y120">
+
+                    <ImageView
+                        style="@style/MenuIconStyle"
+                        android:background="@mipmap/icon_shop"/>
+
+                    <TextView
+                        style="@style/MenuStyle"
+                        android:text="@string/nearby_shops"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_account_manual"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
@@ -53,6 +71,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll_toilet_seat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
@@ -69,6 +88,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll_shower_room_parts"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
@@ -85,6 +105,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll_shower_room_nozzle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
@@ -101,6 +122,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll_shower_nozzle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
@@ -117,6 +139,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll_makeup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
@@ -133,6 +156,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll_massage_bathtub"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
@@ -149,6 +173,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll_bathtub"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"

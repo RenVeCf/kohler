@@ -62,7 +62,7 @@ public class LoginActivity extends BaseActivity {
             case R.id.iv_lonin_go_home:
                 break;
             case R.id.tv_login_forget_pwd:
-                startActivity(new Intent(this, ForgetPasswordActivity.class));
+                startActivity(new Intent(this, ForgetPasswordTwoActivity.class));
                 finish();
                 break;
             case R.id.bt_login:

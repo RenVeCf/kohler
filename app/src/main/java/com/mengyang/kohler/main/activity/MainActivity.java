@@ -1,7 +1,7 @@
 package com.mengyang.kohler.main.activity;
 
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import com.bumptech.glide.Glide;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
@@ -28,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity implements HomeFragment.OnFragmentInteractionListener {
@@ -46,6 +46,24 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
     ResideLayout rlMain;
     @BindView(R.id.ll_main_fragment_select)
     LinearLayout llMainFragmentSelect;
+    @BindView(R.id.ll_nearby_shops)
+    LinearLayout llNearbyShops;
+    @BindView(R.id.ll_account_manual)
+    LinearLayout llAccountManual;
+    @BindView(R.id.ll_toilet_seat)
+    LinearLayout llToiletSeat;
+    @BindView(R.id.ll_shower_room_parts)
+    LinearLayout llShowerRoomParts;
+    @BindView(R.id.ll_shower_room_nozzle)
+    LinearLayout llShowerRoomNozzle;
+    @BindView(R.id.ll_shower_nozzle)
+    LinearLayout llShowerNozzle;
+    @BindView(R.id.ll_makeup)
+    LinearLayout llMakeup;
+    @BindView(R.id.ll_massage_bathtub)
+    LinearLayout llMassageBathtub;
+    @BindView(R.id.ll_bathtub)
+    LinearLayout llBathtub;
 
     private List<Fragment> list;
 
@@ -56,8 +74,8 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
 
     @Override
     protected void initValues() {
-        Boolean isFirst = (Boolean) SPUtil.get(this, IConstants.FIRST_APP, true);
-        if (isFirst) {
+        Boolean isFirstOpen = (Boolean) SPUtil.get(this, IConstants.FIRST_APP, true);
+        if (isFirstOpen) {
             rlMain.openPane();
             SPUtil.put(this, IConstants.FIRST_APP, false);
         }
@@ -157,7 +175,7 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
         }
     }
 
-    @OnClick({R.id.bt_home, R.id.bt_whole_category, R.id.bt_ar, R.id.bt_account})
+    @OnClick({R.id.bt_home, R.id.bt_whole_category, R.id.bt_ar, R.id.bt_account, R.id.ll_nearby_shops, R.id.ll_account_manual, R.id.ll_toilet_seat, R.id.ll_shower_room_parts, R.id.ll_shower_room_nozzle, R.id.ll_shower_nozzle, R.id.ll_makeup, R.id.ll_massage_bathtub, R.id.ll_bathtub})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_home:
@@ -183,6 +201,24 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 //沉浸式状态栏初始化黑色
                 ImmersionBar.with(this).fitsSystemWindows(false).statusBarDarkFont(true).init();
                 FragmentSelect(1);
+                break;
+            case R.id.ll_nearby_shops:
+                break;
+            case R.id.ll_account_manual:
+                break;
+            case R.id.ll_toilet_seat:
+                break;
+            case R.id.ll_shower_room_parts:
+                break;
+            case R.id.ll_shower_room_nozzle:
+                break;
+            case R.id.ll_shower_nozzle:
+                break;
+            case R.id.ll_makeup:
+                break;
+            case R.id.ll_massage_bathtub:
+                break;
+            case R.id.ll_bathtub:
                 break;
         }
     }

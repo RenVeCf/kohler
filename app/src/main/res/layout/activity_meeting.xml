@@ -132,7 +132,7 @@
                             android:layout_width="8dp"
                             android:layout_height="8dp"
                             android:layout_marginStart="@dimen/x48"
-                            android:src="@mipmap/ic_launcher_round"/>
+                            android:src="@mipmap/remind"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -146,6 +146,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll_meeting_next"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"

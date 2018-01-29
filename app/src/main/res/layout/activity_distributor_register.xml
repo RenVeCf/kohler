@@ -46,6 +46,12 @@
             android:src="@mipmap/kohler_exit"/>
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="@dimen/x72"
+        android:background="#e2e2e2"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -63,7 +69,7 @@
             android:id="@+id/et_distributor_register_phone_num"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/y188"
+            android:layout_marginTop="@dimen/y168"
             android:background="@null"
             android:hint="@string/input_phone_num"
             android:inputType="phone"
@@ -75,65 +81,14 @@
             android:layout_marginTop="@dimen/y36"
             android:background="@color/black"/>
 
-        <LinearLayout
+        <EditText
+            android:id="@+id/et_distributor_register_distributor_code"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/y93"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/et_distributor_register_verification_code"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@null"
-                android:hint="@string/input_verification_code"
-                android:textSize="12sp"/>
-
-            <TextView
-                android:id="@+id/tv_distributor_register_verification_code"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:background="@color/white"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                tools:text="8596"/>
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="@dimen/y36"
-            android:background="@color/black"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/et_distributor_register_sms_verification_code"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/y93"
-                android:layout_weight="1"
-                android:background="@null"
-                android:hint="@string/input_sms_verification_code"
-                android:textSize="12sp"/>
-
-            <Button
-                android:id="@+id/bt_distributor_register_send_out_sms"
-                android:layout_width="@dimen/x156"
-                android:layout_height="@dimen/y72"
-                android:layout_marginTop="@dimen/y93"
-                android:background="@color/black"
-                android:text="@string/send_out"
-                android:textColor="@color/white"
-                android:textSize="12sp"/>
-
-        </LinearLayout>
+            android:layout_marginTop="@dimen/y96"
+            android:background="@null"
+            android:hint="@string/input_distributor_code"
+            android:textSize="12sp"/>
 
         <View
             android:layout_width="match_parent"
@@ -142,12 +97,12 @@
             android:background="@color/black"/>
 
         <EditText
-            android:id="@+id/et_distributor_register_pwd"
+            android:id="@+id/et_distributor_register_login_pwd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/y93"
+            android:layout_marginTop="@dimen/y96"
             android:background="@null"
-            android:hint="@string/login_pwd"
+            android:hint="@string/input_login_pwd"
             android:inputType="textPassword"
             android:textSize="12sp"/>
 
@@ -162,39 +117,16 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/y156"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/y90"
+            android:layout_marginTop="@dimen/y168"
             android:background="@color/black"
             android:text="@string/register"
             android:textColor="@color/white"/>
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginTop="@dimen/y36"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_distributor_register_go_login"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:text="@string/go_login"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="1dp"
-                android:background="@color/black"/>
-        </LinearLayout>
-
-        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/y48"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/y201"
+            android:layout_marginTop="@dimen/y418"
             android:orientation="horizontal">
 
             <TextView

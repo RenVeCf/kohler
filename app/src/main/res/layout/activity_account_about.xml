@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.mengyang.kohler.account.activity.AccountAboutActivity">
+
+    <com.mengyang.kohler.common.view.TopView
+        android:id="@+id/tv_account_about_top"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:is_back="false"
+        app:is_customer_service="true"
+        app:is_iv_top_title="true"
+        app:is_menu="true"
+        app:is_share="true"
+        app:is_system_msg="true"
+        app:title="@string/about"
+        app:title_color="#000000"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y600"
+        android:scaleType="fitXY"
+        android:src="@mipmap/ic_launcher_round"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/x72"
+        android:layout_marginTop="@dimen/y108"
+        android:text="@string/about_kohler"
+        android:textColor="#000000"
+        android:textSize="20sp"/>
+</LinearLayout>

@@ -75,7 +75,7 @@ public class TopView extends RelativeLayout implements View.OnClickListener {
         mSharePopupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
         mSharePopupWindow.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
         LayoutInflater inflater = LayoutInflater.from(App.getContext());
-        mPopLayout = inflater.inflate(R.layout.share, null);
+        mPopLayout = inflater.inflate(R.layout.popup_window_share, null);
         mSharePopupWindow.setContentView(mPopLayout);
         mSharePopupWindow.setBackgroundDrawable(new ColorDrawable(0x4c000000));
         mSharePopupWindow.setOutsideTouchable(false);

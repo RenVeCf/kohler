@@ -2,12 +2,19 @@ package com.mengyang.kohler.home.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.gyf.barlibrary.ImmersionBar;
+import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseFragment;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.utils.LogUtils;
@@ -46,10 +53,6 @@ public class HomeFragment extends BaseFragment {
     RecyclerView rvHomeVideo;
     @BindView(R.id.rv_home_books)
     RecyclerView rvHomeBooks;
-    //    @BindView(R.id.rv_home_editor_selection)
-    //    RecyclerView rvHomeEditorSelection;
-    //    @BindView(R.id.iv_home_map)
-    //    ImageView ivHomeMap;
     @BindView(R.id.v_home_banner1)
     View vHomeBanner1;
     @BindView(R.id.v_home_banner2)
@@ -64,7 +67,9 @@ public class HomeFragment extends BaseFragment {
     private List<AdPageInfo> mDatas = new ArrayList<>();
     //我的图册
     private HomeBooksAdapter mHomeBooksAdapter;
+    //侧滑Meun键的接口回调
     private OnFragmentInteractionListener mListener;
+    ArrayList<String> mDatassssssss;
 
     @Override
     protected int getLayoutId() {
@@ -77,6 +82,13 @@ public class HomeFragment extends BaseFragment {
         ImmersionBar.setTitleBar(getActivity(), tvHomeTop);
         //轮播
         abHomeLoop.measure(0, 0);
+        // 设置管理器
+        LinearLayoutManager layoutManager = new LinearLayoutManager(App.getContext());
+        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        rvHomeBooks.setLayoutManager(layoutManager);
+        // 如果可以确定每个item的高度是固定的，设置这个选项可以提高性能
+        rvHomeBooks.setHasFixedSize(true);
+        rvHomeBooks.setItemAnimator(new DefaultItemAnimator());
     }
 
     @Override
@@ -85,12 +97,10 @@ public class HomeFragment extends BaseFragment {
             AdPageInfo info1 = new AdPageInfo("拜仁球场冠绝全球", "http://onq81n53u.bkt.clouddn.com/photo1.jpg", "http://www.bairen.com", 1);
             AdPageInfo info2 = new AdPageInfo("日落东单一起战斗", "http://onq81n53u.bkt.clouddn.com/photo2.jpg", "http://www.riluodongdan.com", 4);
             AdPageInfo info3 = new AdPageInfo("香港夜景流连忘返", "http://onq81n53u.bkt.clouddn.com/photo3333.jpg", "http://www.hongkong.com", 2);
-            AdPageInfo info4 = new AdPageInfo("耐克大法绝顶天下", "http://onq81n53u.bkt.clouddn.com/photo3.jpg", "http://www.nike.com", 3);
 
             mDatas.add(info1);
             mDatas.add(info2);
             mDatas.add(info3);
-            mDatas.add(info4);
         }
         abHomeLoop.setImageLoadType(GLIDE);
         abHomeLoop.setOnPageClickListener(new AdPlayBanner.OnPageClickListener() {
@@ -117,20 +127,60 @@ public class HomeFragment extends BaseFragment {
         //abLoop.addTitleView(new TitleView(getContext()).setPosition(PARENT_TOP).setTitlePadding(5, 5, 5, 5).setTitleMargin(0, 0, 0, 25).setTitleSize(16).setViewBackground(0x55000000).setTitleColor(ContextCompat.getColor(getContext(), R.color.white)));
         //背景
         abHomeLoop.setBannerBackground(0xffffffff);
-//        //切换动画
-//        abHomeLoop.setPageTransformer(new FadeInFadeOutTransformer());
+        //        //切换动画
+        //        abHomeLoop.setPageTransformer(new FadeInFadeOutTransformer());
+        //滑动监听
+        abHomeLoop.setOnPagerChangeListener(new AdPlayBanner.OnPagerChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                if (position == 0) {
+                    vHomeBanner1.setBackgroundColor(getResources().getColor(R.color.black));
+                    vHomeBanner2.setBackgroundColor(getResources().getColor(R.color.home_banner_line));
+                    vHomeBanner3.setBackgroundColor(getResources().getColor(R.color.home_banner_line));
+                } else if (position == 1) {
+                    vHomeBanner1.setBackgroundColor(getResources().getColor(R.color.home_banner_line));
+                    vHomeBanner2.setBackgroundColor(getResources().getColor(R.color.black));
+                    vHomeBanner3.setBackgroundColor(getResources().getColor(R.color.home_banner_line));
+                } else {
+                    vHomeBanner1.setBackgroundColor(getResources().getColor(R.color.home_banner_line));
+                    vHomeBanner2.setBackgroundColor(getResources().getColor(R.color.home_banner_line));
+                    vHomeBanner3.setBackgroundColor(getResources().getColor(R.color.black));
+                }
+            }
+
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
         //数据源
         abHomeLoop.setInfoList((ArrayList<AdPageInfo>) mDatas);
         abHomeLoop.setUp();
     }
 
+    private void initDatas() {
+        mDatassssssss = new ArrayList<>();
+
+        for (int i = 0; i < 50; i++) {
+            mDatassssssss.add(i, i + 1 + "");
+        }
+    }
+
     @Override
     protected void initData() {
+        initDatas();
+        // 设置适配器
+        mHomeBooksAdapter = new HomeBooksAdapter(mDatassssssss);
+        rvHomeBooks.setAdapter(mHomeBooksAdapter);
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        LogUtils.i("rmy", "onAttachonAttachonAttachonAttachonAttach");
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
@@ -161,9 +211,6 @@ public class HomeFragment extends BaseFragment {
                 break;
             case R.id.et_home_search:
                 break;
-            //            case R.id.iv_home_map:
-            //                startActivity(new Intent(getActivity(), ShopsListActivity.class));
-            //                break;
         }
     }
 }

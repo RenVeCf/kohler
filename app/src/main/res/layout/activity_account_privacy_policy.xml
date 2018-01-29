@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.mengyang.kohler.account.activity.AccountPrivacyPolicyActivity">
+
+    <com.mengyang.kohler.common.view.TopView
+        android:id="@+id/tv_account_privacy_policy_top"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:is_back="false"
+        app:is_customer_service="true"
+        app:is_iv_top_title="true"
+        app:is_menu="true"
+        app:is_share="true"
+        app:is_system_msg="true"
+        app:title="@string/privacy_policy"
+        app:title_color="#000000"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#e0e0e0"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/x72"
+            android:layout_marginStart="@dimen/x72"
+            android:layout_marginTop="@dimen/y93"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            tools:text="@string/privacy_policy_text"/>
+    </ScrollView>
+</LinearLayout>

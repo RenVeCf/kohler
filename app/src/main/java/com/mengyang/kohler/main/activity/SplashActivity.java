@@ -23,9 +23,9 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void initValues() {
         // 判断是否是第一次开启应用
-        boolean isFirstOpen = (boolean) SPUtil.get(this, IConstants.FIRST_APP, false);
+        boolean isFirstOpen = (boolean) SPUtil.get(this, IConstants.FIRST_APP, true);
         // 如果是第一次启动，则先进入功能引导页
-        if (!isFirstOpen) {
+        if (isFirstOpen) {
             Intent intent = new Intent(this, LoadingActivity.class);
             startActivity(intent);
             finish();

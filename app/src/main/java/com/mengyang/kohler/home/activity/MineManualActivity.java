@@ -1,6 +1,5 @@
 package com.mengyang.kohler.home.activity;
 
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 
 import com.gyf.barlibrary.ImmersionBar;
@@ -9,7 +8,10 @@ import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.view.TopView;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
+
+/**
+ * 我的手册
+ */
 
 public class MineManualActivity extends BaseActivity {
 

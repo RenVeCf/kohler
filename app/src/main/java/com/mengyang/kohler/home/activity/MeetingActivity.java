@@ -1,12 +1,17 @@
 package com.mengyang.kohler.home.activity;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
+import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.view.TopView;
@@ -49,6 +54,10 @@ public class MeetingActivity extends BaseActivity {
     TextView tvMeetingOverAgendaPosition;
     @BindView(R.id.tv_meeting_over_agenda_name)
     TextView tvMeetingOverAgendaName;
+    @BindView(R.id.ll_meeting_next)
+    LinearLayout llMeetingNext;
+    private PopupWindow mMeetingPopupWindow;
+    private View mPopLayout;
 
     @Override
     protected int getLayoutId() {
@@ -59,6 +68,15 @@ public class MeetingActivity extends BaseActivity {
     protected void initValues() {
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(this, tvMeetingTop);
+        mMeetingPopupWindow = new PopupWindow(this);
+        mMeetingPopupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
+        mMeetingPopupWindow.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
+        LayoutInflater inflater = LayoutInflater.from(App.getContext());
+        mPopLayout = inflater.inflate(R.layout.popup_window_meeting, null);
+        mMeetingPopupWindow.setContentView(mPopLayout);
+        mMeetingPopupWindow.setBackgroundDrawable(new ColorDrawable(0x4c000000));
+        mMeetingPopupWindow.setOutsideTouchable(false);
+        mMeetingPopupWindow.setFocusable(true);
     }
 
     @Override
@@ -71,7 +89,7 @@ public class MeetingActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.tv_meeting_next_agenda_time, R.id.tv_meeting_next_agenda_position, R.id.tv_meeting_next_agenda_name, R.id.iv_real_time_dynamic, R.id.tv_meeting_now_agenda_time, R.id.tv_meeting_now_agenda_position, R.id.tv_meeting_now_agenda_name, R.id.tv_meeting_day_agenda_time, R.id.tv_meeting_dayagenda_position, R.id.tv_meeting_day_agenda_name, R.id.tv_meeting_over_agenda_time, R.id.tv_meeting_over_agenda_position, R.id.tv_meeting_over_agenda_name})
+    @OnClick({R.id.tv_meeting_next_agenda_time, R.id.tv_meeting_next_agenda_position, R.id.tv_meeting_next_agenda_name, R.id.iv_real_time_dynamic, R.id.tv_meeting_now_agenda_time, R.id.tv_meeting_now_agenda_position, R.id.tv_meeting_now_agenda_name, R.id.tv_meeting_day_agenda_time, R.id.tv_meeting_dayagenda_position, R.id.tv_meeting_day_agenda_name, R.id.tv_meeting_over_agenda_time, R.id.tv_meeting_over_agenda_position, R.id.tv_meeting_over_agenda_name, R.id.ll_meeting_next})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_meeting_next_agenda_time:
@@ -100,6 +118,9 @@ public class MeetingActivity extends BaseActivity {
             case R.id.tv_meeting_over_agenda_position:
                 break;
             case R.id.tv_meeting_over_agenda_name:
+                break;
+            case R.id.ll_meeting_next:
+                mMeetingPopupWindow.showAsDropDown(view, 0, 0);
                 break;
         }
     }

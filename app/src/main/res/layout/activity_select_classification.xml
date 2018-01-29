@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.mengyang.kohler.whole_category.activity.SelectClassificationActivity">
+
+    <com.mengyang.kohler.common.view.TopView
+        android:id="@+id/tv_whole_category_select_classification_top"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:is_back="false"
+        app:is_customer_service="true"
+        app:is_iv_top_title="true"
+        app:is_menu="true"
+        app:is_share="true"
+        app:is_system_msg="true"
+        app:title="@string/select_classification"
+        app:title_color="@color/white"/>
+
+</LinearLayout>

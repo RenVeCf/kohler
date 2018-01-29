@@ -74,7 +74,7 @@
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/x141"
             android:layout_weight="1"
-            android:background="@drawable/account_stroke_bt_bg"
+            android:background="@drawable/account_stroke_lgoin_bt_bg"
             android:drawableStart="@mipmap/shouchan"
             android:paddingEnd="@dimen/x21"
             android:paddingStart="@dimen/x51"
@@ -87,7 +87,7 @@
             android:layout_marginEnd="@dimen/x141"
             android:layout_marginStart="@dimen/x51"
             android:layout_weight="1"
-            android:background="@drawable/account_stroke_bt_bg"
+            android:background="@drawable/account_stroke_lgoin_bt_bg"
             android:drawableStart="@mipmap/yuyue"
             android:paddingStart="@dimen/x74"
             android:text="@string/reservation_query"/>
@@ -115,10 +115,25 @@
         android:textColor="#7c7c7c"
         android:textSize="10sp"/>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_account_browsing"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/x78"
-        android:layout_marginTop="@dimen/y90"/>
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_account_browsing_no_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y261"
+            android:layout_centerHorizontal="true"
+            android:textColor="#797979"
+            android:text="@string/browsing_no_login"
+            android:visibility="gone"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_account_browsing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/x78"
+            android:layout_marginTop="@dimen/y90"/>
+    </RelativeLayout>
 </LinearLayout>

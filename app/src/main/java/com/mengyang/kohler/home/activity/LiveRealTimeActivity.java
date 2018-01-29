@@ -1,14 +1,15 @@
 package com.mengyang.kohler.home.activity;
 
-import android.os.Bundle;
-
 import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.view.TopView;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
+
+/**
+ * 现场实时投票
+ */
 
 public class LiveRealTimeActivity extends BaseActivity {
 
@@ -34,12 +35,5 @@ public class LiveRealTimeActivity extends BaseActivity {
     @Override
     protected void initData() {
 
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 }
