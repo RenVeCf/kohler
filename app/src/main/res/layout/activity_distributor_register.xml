@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.mengyang.kohler.main.activity.DistributorRegisterActivity">
+    tools:context="com.mengyang.kohler.account.activity.DistributorRegisterActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/x72"
                 android:layout_marginTop="@dimen/y126"
-                android:text="@string/sign_up"
+                android:text="@string/register_english"
                 android:textColor="#252525"
                 android:textSize="22sp"/>
 

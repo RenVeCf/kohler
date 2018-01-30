@@ -33,64 +33,15 @@
         android:layout_marginStart="@dimen/x120"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/et_modify_bind_phone_old_num"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginTop="@dimen/y93"
-                android:background="@null"
-                android:textSize="12sp"
-                android:hint="@string/input_old_phone_num"
-                android:inputType="phone"/>
-
-            <Button
-                android:id="@+id/bt_modify_bind_phone_send_out_old_num"
-                android:layout_width="@dimen/x156"
-                android:layout_height="@dimen/y72"
-                android:layout_marginTop="@dimen/y93"
-                android:textSize="12sp"
-                android:background="@color/black"
-                android:textColor="@color/white"
-                android:text="@string/send_out"/>
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="@dimen/y36"
-            android:background="@color/black"/>
-
         <EditText
-            android:id="@+id/et_modify_bind_phone_verification_code_old_num"
+            android:id="@+id/et_modify_bind_phone_old_num"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/y96"
+            android:layout_marginTop="@dimen/y93"
             android:background="@null"
-            android:textSize="12sp"
-            android:hint="@string/input_verification_code"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="@dimen/y36"
-            android:background="@color/black"/>
-
-        <EditText
-            android:id="@+id/et_modify_bind_phone_new_num"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/y96"
-            android:background="@null"
-            android:textSize="12sp"
-            android:hint="@string/input_new_phone_num"
-            android:inputType="phone"/>
+            android:hint="@string/input_old_phone_num"
+            android:inputType="phone"
+            android:textSize="12sp"/>
 
         <View
             android:layout_width="match_parent"
@@ -104,25 +55,57 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/et_modify_bind_phone_verification_code_new_num"
+                android:id="@+id/et_modify_bind_phone_new_num"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginTop="@dimen/y96"
+                android:layout_weight="1"
                 android:background="@null"
-                android:textSize="12sp"
-                android:hint="@string/input_verification_code"/>
+                android:hint="@string/input_new_phone_num"
+                android:inputType="phone"
+                android:textSize="12sp"/>
 
             <Button
-                android:id="@+id/bt_modify_bind_phone_send_out_verification_code_new_num"
+                android:id="@+id/bt_modify_bind_phone_send_out_new_num"
                 android:layout_width="@dimen/x156"
                 android:layout_height="@dimen/y72"
                 android:layout_marginTop="@dimen/y93"
-                android:textSize="12sp"
                 android:background="@color/black"
+                android:text="@string/send_out"
                 android:textColor="@color/white"
-                android:text="@string/send_out"/>
+                android:textSize="12sp"/>
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/y36"
+            android:background="@color/black"/>
+
+        <EditText
+            android:id="@+id/et_modify_bind_phone_verification_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y96"
+            android:background="@null"
+            android:hint="@string/input_verification_code"
+            android:textSize="12sp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/y36"
+            android:background="@color/black"/>
+
+        <EditText
+            android:id="@+id/et_modify_bind_phone_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y96"
+            android:layout_weight="1"
+            android:background="@null"
+            android:hint="@string/input_pwd"
+            android:textSize="12sp"/>
 
         <View
             android:layout_width="match_parent"
@@ -135,9 +118,9 @@
         android:id="@+id/bt_modify_bind_phone_determine"
         android:layout_width="@dimen/x885"
         android:layout_height="@dimen/y156"
-        android:layout_marginTop="@dimen/y108"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/y108"
         android:background="@color/black"
-        android:textColor="@color/white"
-        android:text="@string/determine"/>
+        android:text="@string/determine"
+        android:textColor="@color/white"/>
 </LinearLayout>

@@ -85,9 +85,10 @@
                 android:layout_marginTop="8dp"
                 android:textColor="#000000"
                 android:textSize="14sp"
-                android:text="科勒中国经销商大会就要拉开帷幕，科勒向全球展示
-着技术与舒适的完美融合，其也将莅临上海展开幕，
-我们期待科勒今年在上海的全球表现。"/>
+                android:text="敢经典，敢未来。2018年科勒中国经销商大会将在三
+月于苏州正式拉开帷幕，届时科勒将向全国经销商伙
+伴们展示逾百款融合了科技与设计的全新卫浴产品，
+共同助力更多中国消费者的美好生活。"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -99,7 +100,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@color/black"
+                    android:background="@mipmap/meeting_bg1"
                     android:orientation="vertical">
 
                     <TextView
@@ -166,6 +167,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal">
 
                         <TextView
@@ -186,6 +188,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal">
 
                         <TextView
@@ -205,6 +208,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal">
 
                         <TextView
@@ -281,6 +285,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
                             android:orientation="horizontal">
 
                             <TextView
@@ -300,6 +305,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
                             android:orientation="horizontal">
 
                             <TextView
@@ -319,6 +325,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
                             android:orientation="horizontal">
 
                             <TextView
@@ -341,7 +348,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
                         android:layout_weight="1"
-                        android:background="#7f7f7f"
+                        android:background="@mipmap/meeting_bg2"
                         android:orientation="vertical"
                         android:paddingBottom="@dimen/y150"
                         android:paddingStart="@dimen/x48"
@@ -391,6 +398,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
                             android:orientation="horizontal">
 
                             <TextView
@@ -411,6 +419,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
                             android:orientation="horizontal">
 
                             <TextView
@@ -430,6 +439,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
                             android:orientation="horizontal">
 
                             <TextView
@@ -468,6 +478,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
                             android:orientation="horizontal">
 
                             <TextView
@@ -488,6 +499,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
                             android:orientation="horizontal">
 
                             <TextView
@@ -507,6 +519,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
                             android:orientation="horizontal">
 
                             <TextView

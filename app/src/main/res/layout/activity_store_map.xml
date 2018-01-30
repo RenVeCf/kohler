@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.mengyang.kohler.home.activity.StoreMapActivity">
+
+    <com.mengyang.kohler.common.view.TopView
+        android:id="@+id/tv_store_map_top"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white"
+        app:is_back="false"
+        app:is_customer_service="true"
+        app:is_iv_top_title="true"
+        app:is_menu="true"
+        app:is_share="true"
+        app:is_system_msg="true"
+        app:title="@string/kohler_store"
+        app:title_color="@color/black"/>
+
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/map_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clickable="true" />
+
+    <Button
+        android:id="@+id/bt_store_map"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black"
+        android:text="列表显示"
+        android:textColor="@color/white"/>
+</LinearLayout>

@@ -18,7 +18,7 @@ import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.home.activity.PDFActivity;
-import com.mengyang.kohler.home.activity.ShopsListActivity;
+import com.mengyang.kohler.home.activity.StoreMapActivity;
 import com.zhouwei.mzbanner.MZBannerView;
 import com.zhouwei.mzbanner.holder.MZHolderCreator;
 import com.zhouwei.mzbanner.holder.MZViewHolder;
@@ -171,7 +171,7 @@ public class CommodityDetailsActivity extends BaseActivity {
                 mDownloadPopupWindow.showAsDropDown(view, 0, 0);
                 break;
             case R.id.ll_commodity_details_purchase_inquiries:
-                startActivity(new Intent(this, ShopsListActivity.class));
+                startActivity(new Intent(this, StoreMapActivity.class));
                 break;
             case R.id.bt_commodity_details_like:
                 tvCommodityDetailsDownloadName.setText(App.getContext().getResources().getText(R.string.you_can_cancel));

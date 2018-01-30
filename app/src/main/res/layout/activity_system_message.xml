@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.mengyang.kohler.main.activity.SystemMsgActivity">
+    tools:context="com.mengyang.kohler.common.activity.SystemMsgActivity">
 
     <com.mengyang.kohler.common.view.TopView
         android:id="@+id/tv_system_msg_top"
@@ -30,5 +30,6 @@
         android:id="@+id/rv_system_msg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/y60"/>
+        android:layout_marginTop="@dimen/y72"
+        android:layout_marginStart="@dimen/x54"/>
 </LinearLayout>

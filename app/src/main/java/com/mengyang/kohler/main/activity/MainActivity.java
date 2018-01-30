@@ -145,9 +145,9 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
      */
     private void FragmentSelect(int flag) {
         if (flag == 0) {
-            final Drawable homeDrawableTop = getResources().getDrawable(R.mipmap.arbai);
+            final Drawable homeDrawableTop = getResources().getDrawable(R.mipmap.shouyebai);
             final Drawable wholeCategoryDrawableTop = getResources().getDrawable(R.mipmap.pinleibai);
-            final Drawable arDrawableTop = getResources().getDrawable(R.mipmap.shouyebai);
+            final Drawable arDrawableTop = getResources().getDrawable(R.mipmap.arbai);
             final Drawable accountDrawableTop = getResources().getDrawable(R.mipmap.zhanghubai);
             llMainFragmentSelect.setBackgroundResource(R.mipmap.bg2);
             btHome.setTextColor(getResources().getColor(R.color.background_color));
@@ -159,9 +159,9 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
             btAccount.setTextColor(getResources().getColor(R.color.background_color));
             btAccount.setCompoundDrawablesWithIntrinsicBounds(null, accountDrawableTop, null, null);
         } else {
-            final Drawable homeDrawableTop = getResources().getDrawable(R.mipmap.ar);
+            final Drawable homeDrawableTop = getResources().getDrawable(R.mipmap.icon_home);
             final Drawable wholeCategoryDrawableTop = getResources().getDrawable(R.mipmap.category);
-            final Drawable arDrawableTop = getResources().getDrawable(R.mipmap.icon_home);
+            final Drawable arDrawableTop = getResources().getDrawable(R.mipmap.ar);
             final Drawable accountDrawableTop = getResources().getDrawable(R.mipmap.personal);
             llMainFragmentSelect.setBackgroundResource(R.color.white);
             btHome.setTextColor(getResources().getColor(R.color.background_color));

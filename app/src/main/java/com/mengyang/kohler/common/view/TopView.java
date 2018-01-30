@@ -16,8 +16,8 @@ import android.widget.TextView;
 
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.R;
-import com.mengyang.kohler.main.activity.CustomerServiceActivity;
-import com.mengyang.kohler.main.activity.SystemMsgActivity;
+import com.mengyang.kohler.common.activity.CustomerServiceActivity;
+import com.mengyang.kohler.common.activity.SystemMsgActivity;
 
 /**
  * Description : 标题栏

@@ -3,16 +3,12 @@ package com.mengyang.kohler.account.activity;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
-import com.mengyang.kohler.common.utils.ToastUtil;
 import com.mengyang.kohler.common.view.TopView;
-import com.mengyang.kohler.main.activity.LoginActivity;
-import com.mengyang.kohler.main.activity.ModifyPwdActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;

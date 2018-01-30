@@ -147,8 +147,8 @@
                     android:id="@+id/rv_home_books"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="@dimen/y48"/>
+                    android:layout_marginTop="@dimen/y24"
+                    android:layout_marginBottom="@dimen/y72"/>
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

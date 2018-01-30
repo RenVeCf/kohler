@@ -26,6 +26,6 @@ public class HomeBooksAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, String item) {
-        Glide.with(App.getContext()).load("http://onq81n53u.bkt.clouddn.com/photo1.jpg").into((ImageView) helper.getView(R.id.iv_item_home_books));
+        Glide.with(App.getContext()).load("").into((ImageView) helper.getView(R.id.iv_item_home_books));
     }
 }

@@ -49,9 +49,11 @@
 
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:src="@mipmap/livevote_icon1"/>
 
             <TextView
+                android:id="@+id/tv_live_real_time_prize"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
@@ -70,6 +72,7 @@
             android:text="@string/voting_cannot_be_withdrawn"/>
 
         <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_live_real_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"/>

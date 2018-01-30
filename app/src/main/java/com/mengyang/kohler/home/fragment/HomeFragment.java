@@ -2,14 +2,10 @@ package com.mengyang.kohler.home.fragment;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -17,7 +13,7 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseFragment;
 import com.mengyang.kohler.R;
-import com.mengyang.kohler.common.utils.LogUtils;
+import com.mengyang.kohler.common.view.SpacesItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.home.activity.HomeSearchActivity;
 import com.mengyang.kohler.home.activity.MeetingActivity;
@@ -26,7 +22,6 @@ import com.mengyang.kohler.whole_category.activity.CommodityClassificationActivi
 import com.mengyang.kohler.whole_category.activity.CommodityDetailsActivity;
 import com.ryane.banner.AdPageInfo;
 import com.ryane.banner.AdPlayBanner;
-import com.ryane.banner.transformer.FadeInFadeOutTransformer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,13 +58,13 @@ public class HomeFragment extends BaseFragment {
     ImageView ivTopMenu;
     @BindView(R.id.iv_home_search)
     ImageView ivHomeSearch;
-    //轮播图集合
-    private List<AdPageInfo> mDatas = new ArrayList<>();
-    //我的图册
-    private HomeBooksAdapter mHomeBooksAdapter;
     //侧滑Meun键的接口回调
     private OnFragmentInteractionListener mListener;
     ArrayList<String> mDatassssssss;
+    //我的图册
+    private HomeBooksAdapter mHomeBooksAdapter;
+    //轮播图集合
+    private List<AdPageInfo> mDatas = new ArrayList<>();
 
     @Override
     protected int getLayoutId() {
@@ -86,6 +81,7 @@ public class HomeFragment extends BaseFragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(App.getContext());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         rvHomeBooks.setLayoutManager(layoutManager);
+        rvHomeBooks.addItemDecoration(new SpacesItemDecoration(16));
         // 如果可以确定每个item的高度是固定的，设置这个选项可以提高性能
         rvHomeBooks.setHasFixedSize(true);
         rvHomeBooks.setItemAnimator(new DefaultItemAnimator());
@@ -133,15 +129,15 @@ public class HomeFragment extends BaseFragment {
         abHomeLoop.setOnPagerChangeListener(new AdPlayBanner.OnPagerChangeListener() {
             @Override
             public void onPageSelected(int position) {
-                if (position == 0) {
+                if (position == 0 && vHomeBanner1 != null && vHomeBanner2 != null && vHomeBanner3 != null) {
                     vHomeBanner1.setBackgroundColor(getResources().getColor(R.color.black));
                     vHomeBanner2.setBackgroundColor(getResources().getColor(R.color.home_banner_line));
                     vHomeBanner3.setBackgroundColor(getResources().getColor(R.color.home_banner_line));
-                } else if (position == 1) {
+                } else if (position == 1 && vHomeBanner1 != null && vHomeBanner2 != null && vHomeBanner3 != null) {
                     vHomeBanner1.setBackgroundColor(getResources().getColor(R.color.home_banner_line));
                     vHomeBanner2.setBackgroundColor(getResources().getColor(R.color.black));
                     vHomeBanner3.setBackgroundColor(getResources().getColor(R.color.home_banner_line));
-                } else {
+                } else if (position == 2 && vHomeBanner1 != null && vHomeBanner2 != null && vHomeBanner3 != null) {
                     vHomeBanner1.setBackgroundColor(getResources().getColor(R.color.home_banner_line));
                     vHomeBanner2.setBackgroundColor(getResources().getColor(R.color.home_banner_line));
                     vHomeBanner3.setBackgroundColor(getResources().getColor(R.color.black));
@@ -180,7 +176,6 @@ public class HomeFragment extends BaseFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        LogUtils.i("rmy", "onAttachonAttachonAttachonAttachonAttach");
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.mengyang.kohler.main.activity.CustomerServiceActivity">
+    tools:context="com.mengyang.kohler.common.activity.CustomerServiceActivity">
 
     <com.mengyang.kohler.common.view.TopView
         android:id="@+id/tv_customer_service_top"

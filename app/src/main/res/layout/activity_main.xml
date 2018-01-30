@@ -222,7 +222,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@null"
-                android:drawableTop="@mipmap/ar"
+                android:drawableTop="@mipmap/icon_home"
                 android:text="@string/home"
                 android:textColor="@color/background_color"/>
 
@@ -242,7 +242,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@null"
-                android:drawableTop="@mipmap/icon_home"
+                android:drawableTop="@mipmap/ar"
                 android:text="@string/ar"
                 android:textColor="@color/background_color"/>
 

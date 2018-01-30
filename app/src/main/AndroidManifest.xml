@@ -71,23 +71,32 @@
             android:launchMode="singleTask">
         </activity>
 
-        <meta-data
-            android:name="com.amap.api.v2.apikey"
-            android:value="db95dac66558004676aa5e772d122002"/>
-        <!-- 高德 SHA1 -->
         <!-- debug SHA1 -->
         <!-- C5:B2:06:31:E1:7B:6A:07:9B:3E:AF:FF:9E:0F:FA:45:D3:9A:38:00 -->
         <!-- release SHA1 -->
         <!-- 38:20:70:66:55:C0:B1:47:8E:B0:8C:38:17:BB:D7:08:40:D7:B4:15 -->
-
-        <service android:name="com.amap.api.location.APSService"/>
+        <!-- Bai_Du App_Key -->
+        <!--f5kPNXnZXtGtEoSzoPBzRo1jTEhXGvPw-->
+        <meta-data android:name="com.baidu.lbsapi.API_KEY"
+                   android:value="f5kPNXnZXtGtEoSzoPBzRo1jTEhXGvPw"/>
+        <!-- 百度定位 -->
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" >
+            <intent-filter>
+                <action
+                    android:name="com.baidu.location.service_v2.2">
+                </action>
+            </intent-filter>
+        </service>
 
         <activity
-            android:name=".home.activity.ShopsListActivity"
+            android:name=".home.activity.StoreMapActivity"
             android:launchMode="singleTask">
         </activity>
         <activity
-            android:name=".main.activity.LoginActivity"
+            android:name=".account.activity.LoginActivity"
             android:launchMode="singleTask">
         </activity>
         <activity
@@ -99,7 +108,7 @@
             android:launchMode="singleTask">
         </activity>
         <activity
-            android:name=".main.activity.SystemMsgActivity"
+            android:name=".common.activity.SystemMsgActivity"
             android:launchMode="singleTask">
         </activity>
         <activity
@@ -111,7 +120,7 @@
             android:launchMode="singleTask">
         </activity>
         <activity
-            android:name=".main.activity.UserRegisterActivity"
+            android:name=".account.activity.UserRegisterActivity"
             android:launchMode="singleTask">
         </activity>
         <activity
@@ -119,27 +128,27 @@
             android:launchMode="singleTask">
         </activity>
         <activity
-            android:name=".main.activity.DesignerRegisterActivity"
+            android:name=".account.activity.DesignerRegisterActivity"
             android:launchMode="singleTask">
         </activity>
         <activity
-            android:name=".main.activity.ModifyPwdActivity"
+            android:name=".account.activity.ModifyPwdActivity"
             android:launchMode="singleTask">
         </activity>
         <activity
-            android:name=".main.activity.DistributorRegisterActivity"
+            android:name=".account.activity.DistributorRegisterActivity"
             android:launchMode="singleTask">
         </activity>
         <activity
-            android:name=".main.activity.DistributorVerificationCodeActivity"
+            android:name=".account.activity.DistributorVerificationCodeActivity"
             android:launchMode="singleTask">
         </activity>
         <activity
-            android:name=".main.activity.CustomerServiceActivity"
+            android:name=".common.activity.CustomerServiceActivity"
             android:launchMode="singleTask">
         </activity>
         <activity
-            android:name=".main.activity.ForgetPasswordTwoActivity"
+            android:name=".account.activity.ForgetPasswordTwoActivity"
             android:launchMode="singleTask">
         </activity>
         <activity
@@ -154,33 +163,15 @@
             android:name=".home.activity.HomeSearchActivity"
             android:launchMode="singleTask">
         </activity>
-
-        <!-- <activity -->
-        <!-- android:name=".ui.PhotoPickActivity" -->
-        <!-- android:theme="@style/PhoAppTheme.AppTheme" /> -->
-
-
-        <!-- <activity -->
-        <!-- android:name=".ui.PhotoPreviewActivity" -->
-        <!-- android:theme="@style/PhoAppTheme.AppTheme" /> -->
-
-
-        <!-- <activity -->
-        <!-- android:name="com.yalantis.ucrop.UCropActivity" -->
-        <!-- android:screenOrientation="portrait" -->
-        <!-- android:theme="@style/Theme.AppCompat.Light.NoActionBar"/> -->
-
-
-        <!-- <activity android:name=".lookBigImage.ViewBigImageActivity" -->
-        <!-- android:screenOrientation="portrait" -->
-        <!-- android:theme="@style/Theme.AppCompat.Light.NoActionBar" /> -->
         <activity android:name=".account.activity.AccountPrivacyPolicyActivity">
         </activity>
         <activity android:name=".account.activity.AccountAboutActivity">
         </activity>
         <activity android:name=".whole_category.activity.SelectClassificationActivity">
         </activity>
-        <activity android:name=".main.activity.ForgetPasswordOneActivity">
+        <activity android:name=".account.activity.ForgetPasswordOneActivity">
+        </activity>
+        <activity android:name=".home.activity.StoreListActivity">
         </activity>
     </application>
 

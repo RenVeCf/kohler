@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/iv_home_search_adapter_item"
+        android:layout_width="@dimen/x468"
+        android:layout_height="@dimen/y411"
+        android:scaleType="fitXY"
+        android:src="@mipmap/ic_launcher_round"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="@dimen/y30"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_home_search_adapter_product_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:textSize="11sp"
+            tools:text="VERDERA™维乐系列
+镜柜508mm ( 左开门)"/>
+
+        <TextView
+            android:id="@+id/tv_home_search_adapter_model_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textColor="#676767"
+            android:textSize="10sp"
+            tools:text="K-99003T-L-NA"/>
+    </LinearLayout>
+</LinearLayout>
