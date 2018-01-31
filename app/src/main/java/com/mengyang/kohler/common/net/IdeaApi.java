@@ -73,9 +73,12 @@ public class IdeaApi {
         service = retrofit.create(IdeaApiService.class);
     }
 
-    //公共参数
+    /**
+     * 公共参数
+     */
     public static Map<String, String> getSign() {
         Map<String, String> stringMap = new HashMap<String, String>();
+
         stringMap.put("appVersion", "loading1.0.4");
         stringMap.put("appType", "android");
         stringMap.put("clientId", "FjyrG8VkMLntjtGi");

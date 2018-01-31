@@ -41,6 +41,7 @@ public class StackAdapter extends RecyclerView.Adapter<StackAdapter.ViewHolder> 
             R.mipmap.ic_launcher_round,
             R.mipmap.ic_launcher_round
     );
+
     private boolean vertical;
     public StackAdapter(List<String> datas) {
         this.datas = datas;

@@ -56,8 +56,10 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
     public void onNext(T response) {
         dismissProgress();
         if (response.getError().equals("200")) {
+            LogUtils.i("rmy", "onSuccess");
             onSuccess(response);
         } else {
+            LogUtils.i("rmy", "onFail");
             onFail(response);
         }
     }

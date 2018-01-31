@@ -12,5 +12,7 @@ public interface Config  {
     /**
      *  首页
      */
-    String INDEX = "loading1.0.0/common/index";
+    String USER_REGISTER = "account/register"; //普通用户注册
+
+    String BOOK_LIST = "handBook/list"; //手册列表
 }

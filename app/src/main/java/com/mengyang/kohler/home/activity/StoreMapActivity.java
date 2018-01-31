@@ -1,6 +1,8 @@
 package com.mengyang.kohler.home.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.View;
 import android.widget.Button;
 
@@ -11,23 +13,39 @@ import com.baidu.location.LocationClientOption;
 import com.baidu.location.Poi;
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.BitmapDescriptor;
+import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.Marker;
+import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.search.core.PoiInfo;
+import com.baidu.mapapi.search.core.SearchResult;
+import com.baidu.mapapi.search.poi.OnGetPoiSearchResultListener;
+import com.baidu.mapapi.search.poi.PoiDetailResult;
+import com.baidu.mapapi.search.poi.PoiDetailSearchOption;
+import com.baidu.mapapi.search.poi.PoiIndoorResult;
+import com.baidu.mapapi.search.poi.PoiNearbySearchOption;
+import com.baidu.mapapi.search.poi.PoiResult;
+import com.baidu.mapapi.search.poi.PoiSearch;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.ToastUtil;
 import com.mengyang.kohler.common.view.TopView;
+import com.mengyang.kohler.home.view.PoiOverlay;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+
+import static com.baidu.mapapi.utils.DistanceUtil.getDistance;
 
 /**
  * 门店列表
@@ -44,6 +62,7 @@ public class StoreMapActivity extends BaseActivity {
     private LocationClient mLocationClient = null;
     //是否第一次定位，如果是第一次定位的话要将自己的位置显示在地图 中间
     private boolean isFirstLocation = true;
+    private Marker mMarker; //坐标气球
 
     @Override
     protected int getLayoutId() {
@@ -97,7 +116,6 @@ public class StoreMapActivity extends BaseActivity {
                 String street = bdLocation.getStreet();    //获取街道信息
 
                 String locationDescribe = bdLocation.getLocationDescribe();    //获取位置描述信息
-                LogUtils.i("rmy", locationDescribe);
 
                 List<Poi> poiList = bdLocation.getPoiList();
                 //获取周边POI信息
@@ -118,11 +136,11 @@ public class StoreMapActivity extends BaseActivity {
                     MapStatusUpdate status = MapStatusUpdateFactory.newLatLng(ll);
                     //mBaiduMap.setMapStatus(status);//直接到中间
                     mBaiduMap.animateMapStatus(status);//动画的方式到中间
-                    //                    isFirstLocation = false; //如果要设置一个按钮（点一下就回到定位中心点的那种），就打开，再在按钮事件里写 isFirstLocation = true;
-                    showInfo("位置：" + bdLocation.getAddrStr());
+                    //isFirstLocation = false; //如果要设置一个按钮（点一下就回到定位中心点的那种），就打开，再在按钮事件里写 isFirstLocation = true;
+                    //                    showInfo("位置：" + bdLocation.getAddrStr());
                 }
             }
-        });//注册监听函数
+        });
     }
 
 
@@ -169,21 +187,26 @@ public class StoreMapActivity extends BaseActivity {
         option.setEnableSimulateGps(false);
         //可选，设置是否需要过滤GPS仿真结果，默认需要，即参数为false
 
-        option.setIsNeedAddress(true);
+        option.setIsNeedLocationPoiList(true);
         //可选，是否需要地址信息，默认为不需要，即参数为false
         //如果开发者需要获得当前点的地址信息，此处必须为true
 
         mLocationClient.setLocOption(option);
-        //mLocationClient为第二步初始化过的LocationClient对象
-        //需将配置好的LocationClientOption对象，通过setLocOption方法传递给LocationClient对象使用
-        //更多LocationClientOption的配置，请参照类参考中LocationClientOption类的详细说明
-    }
 
-    /**
-     * 显示消息
-     */
-    private void showInfo(String str) {
-        ToastUtil.showToast(str);
+//        /**
+//         * 绘制Marker，地图上常见的类似气球形状的图层
+//         */
+//        MarkerOptions markerOptions = new MarkerOptions();//参数设置类
+//        markerOptions.position(经纬度);//marker坐标位置
+//        BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher_round);
+//        markerOptions.icon(bitmap);//marker图标，可以自定义
+//        markerOptions.draggable(false);//是否可拖拽，默认不可拖拽
+//        markerOptions.anchor(0.5f, 1.0f);//设置 marker覆盖物与位置点的位置关系，默认（0.5f, 1.0f）水平居中，垂直下对齐
+//        markerOptions.alpha(0.8f);//marker图标透明度，0~1.0，默认为1.0
+//        markerOptions.animateType(MarkerOptions.MarkerAnimateType.drop);//marker出现的方式，从天上掉下
+//        markerOptions.flat(false);//marker突变是否平贴地面
+//        markerOptions.zIndex(1);//index
+//        mMarker = (Marker) mBaiduMap.addOverlay(markerOptions);//在地图上增加mMarker图层
     }
 
     @Override
@@ -233,6 +256,10 @@ public class StoreMapActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_store_map:
+                //测距
+//                LatLng start = new LatLng(39.95676, 116.401394);
+//                LatLng end = new LatLng(36.63014,114.499574);
+//                getDistance(start, end);
                 startActivity(new Intent(this, StoreListActivity.class));
                 break;
         }

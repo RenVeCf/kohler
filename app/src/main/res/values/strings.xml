@@ -149,4 +149,5 @@
     <string name="brochure_list">Brochure List</string>
     <string name="mine_atlas">我的图册</string>
     <string name="confirm_the_replacement">确认更换</string>
+    <string name="msg_no_ok">请将信息填写完成！</string>
 </resources>

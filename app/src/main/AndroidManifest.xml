@@ -91,6 +91,11 @@
             </intent-filter>
         </service>
 
+        <!--<service android:name="cn.jpush.android.service.PushService"-->
+                 <!--android:process=":multiprocess"-->
+                 <!--tools:node="replace" >-->
+        <!--</service>-->
+
         <activity
             android:name=".home.activity.StoreMapActivity"
             android:launchMode="singleTask">
@@ -121,7 +126,8 @@
         </activity>
         <activity
             android:name=".account.activity.UserRegisterActivity"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustPan">
         </activity>
         <activity
             android:name=".account.activity.AccountBindPhoneActivity"
@@ -163,15 +169,20 @@
             android:name=".home.activity.HomeSearchActivity"
             android:launchMode="singleTask">
         </activity>
-        <activity android:name=".account.activity.AccountPrivacyPolicyActivity">
+        <activity android:name=".account.activity.AccountPrivacyPolicyActivity"
+                  android:launchMode="singleTask">
         </activity>
-        <activity android:name=".account.activity.AccountAboutActivity">
+        <activity android:name=".account.activity.AccountAboutActivity"
+                  android:launchMode="singleTask">
         </activity>
-        <activity android:name=".whole_category.activity.SelectClassificationActivity">
+        <activity android:name=".whole_category.activity.SelectClassificationActivity"
+                  android:launchMode="singleTask">
         </activity>
-        <activity android:name=".account.activity.ForgetPasswordOneActivity">
+        <activity android:name=".account.activity.ForgetPasswordOneActivity"
+                  android:launchMode="singleTask">
         </activity>
-        <activity android:name=".home.activity.StoreListActivity">
+        <activity android:name=".home.activity.StoreListActivity"
+                  android:launchMode="singleTask">
         </activity>
     </application>
 
