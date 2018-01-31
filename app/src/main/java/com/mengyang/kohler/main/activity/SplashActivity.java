@@ -5,12 +5,19 @@ import android.os.Handler;
 
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
+import com.mengyang.kohler.common.net.DefaultObserver;
+import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.utils.IConstants;
 import com.mengyang.kohler.common.utils.SPUtil;
+import com.mengyang.kohler.module.BasicResponse;
+
+import java.util.Map;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * 启动屏
- *
  */
 
 public class SplashActivity extends BaseActivity {
@@ -57,6 +64,20 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        Map<String, String> stringMap = IdeaApi.getSign();
+        stringMap.put("pushRegisterId", IConstants.JPUSH_SYSTEM_ID); //第三方推送系统注册ID
+        stringMap.put("pushChannel", 2 + ""); //推送通道 (1:友盟2:极光 3:小米 )
 
+        IdeaApi.getRequestLogin(stringMap);
+        IdeaApi.getApiService()
+                .getEquipmentReqistration(stringMap)
+                .compose(this.<BasicResponse>bindToLifecycle())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultObserver<BasicResponse>(this, true) {
+                    @Override
+                    public void onSuccess(BasicResponse response) {
+                    }
+                });
     }
 }

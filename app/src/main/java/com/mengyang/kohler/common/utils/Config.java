@@ -10,9 +10,14 @@ package com.mengyang.kohler.common.utils;
 public interface Config  {
 
     /**
-     *  首页
+     * 首页
      */
-    String USER_REGISTER = "account/register"; //普通用户注册
-
-    String BOOK_LIST = "handBook/list"; //手册列表
+    String BOOK_LIST = "authz/handBook/list"; //手册列表
+    /**
+     *  账户
+     */
+    String USER_REGISTER = "authz/account/register"; //普通用户注册
+    String APP_LOGIN = "authz/account/login"; //登陆
+    String EQUIPMENT_REQISTRATION = "authz/device/register"; //设备注册
+    String USER_GO_OUT = "authz/account/logout"; //用户退出
 }

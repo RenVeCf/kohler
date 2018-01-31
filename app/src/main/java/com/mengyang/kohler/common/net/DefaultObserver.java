@@ -1,14 +1,19 @@
 package com.mengyang.kohler.common.net;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.text.TextUtils;
 
 import com.google.gson.JsonParseException;
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
 import com.mengyang.kohler.App;
+import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
+import com.mengyang.kohler.account.activity.LoginActivity;
 import com.mengyang.kohler.common.utils.CommonDialogUtils;
+import com.mengyang.kohler.common.utils.IConstants;
 import com.mengyang.kohler.common.utils.LogUtils;
+import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.utils.ToastUtil;
 import com.mengyang.kohler.module.BasicResponse;
 
@@ -38,6 +43,24 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
     private boolean isAddInStop = false;
     private Disposable disposable;
     private CommonDialogUtils dialogUtils;
+    /**
+     * 请求成功
+     */
+    public final static int REQUEST_SUCCESS = 200;
+    /**
+     * token错误
+     */
+    public final static int TOKEN_INCORRECT = 201;
+    /**
+     * token过期
+     */
+    public final static int TOKEN_EXPIRED = 202;
+
+    /**
+     * refresh_token过期
+     */
+    public final static int REFRESH_TOKEN_EXPIRED = 203;
+
 
     public DefaultObserver(Activity activity, boolean isShowLoading) {
         this.activity = activity;
@@ -55,12 +78,10 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
     @Override
     public void onNext(T response) {
         dismissProgress();
-        if (response.getError().equals("200")) {
-            LogUtils.i("rmy", "onSuccess");
+        if (response.getError().equals(REQUEST_SUCCESS)) {
             onSuccess(response);
         } else {
-            LogUtils.i("rmy", "onFail");
-            onFail(response);
+            onFail(response, response.getStatus());
         }
     }
 
@@ -106,14 +127,34 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
      *
      * @param response 服务器返回的数据
      */
-    public void onFail(T response) {
+    public void onFail(T response, int code) {
         String message = response.getMessage();
-        if (TextUtils.isEmpty(message)) {
-            ToastUtil.showToast(App.getContext().getString(R.string.response_return_error));
-        } else {
-            ToastUtil.showToast(message);
+        switch (code) {
+            case TOKEN_EXPIRED: //  token过期 刷新token
+                refreshToken();
+                break;
+            case REFRESH_TOKEN_EXPIRED:// refresh_token过期
+            case TOKEN_INCORRECT:// token错误重新登录
+                SPUtil.put(activity, IConstants.IS_LOGIN, false);
+                activity.startActivity(new Intent(activity, LoginActivity.class));
+                break;
+            default:
+                ToastUtil.showToast(message);
+                break;
         }
     }
+    //  刷新token
+    private void refreshToken() {
+//        new RequestHelper((BaseActivity) activity, new RequestHelper.RequestCallback() {
+//            @Override
+//            public void onTokenUpdateSucceed() {
+//                onTokenUpdateSuccess();
+//            }
+//        }).refreshToken();
+    }
+
+    //  刷新token成功，此方法需要在请求网络时重写
+    public void onTokenUpdateSuccess() {}
 
     /**
      * 请求异常

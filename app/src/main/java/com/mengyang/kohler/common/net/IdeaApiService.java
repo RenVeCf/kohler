@@ -2,6 +2,7 @@ package com.mengyang.kohler.common.net;
 
 import com.mengyang.kohler.common.utils.Config;
 import com.mengyang.kohler.module.BasicResponse;
+import com.mengyang.kohler.module.bean.LoginBean;
 
 import java.util.Map;
 
@@ -21,14 +22,31 @@ public interface IdeaApiService {
      */
     int DEFAULT_TIMEOUT = 5000;
     //项目主页(测试环境)
-    String API_SERVER_URL = "http://xxxxx.com/authz/";
+    String API_SERVER_URL = "http://kohler-app.glor.cn/";
     //项目主页(正式环境)
     //    String API_SERVER_URL = "http://t-api.glor.cn/";
 
+    //普通用户注册
     @FormUrlEncoded
     @POST(Config.USER_REGISTER)
     Observable<BasicResponse> getUserRegister(@FieldMap Map<String, String> map);
 
+    //登陆
+    @FormUrlEncoded
+    @POST(Config.APP_LOGIN)
+    Observable<BasicResponse<LoginBean>> getLogin(@FieldMap Map<String, String> map);
+
+    //设备注册
+    @FormUrlEncoded
+    @POST(Config.EQUIPMENT_REQISTRATION)
+    Observable<BasicResponse> getEquipmentReqistration(@FieldMap Map<String, String> map);
+
+    //设备注册
+    @FormUrlEncoded
+    @POST(Config.EQUIPMENT_REQISTRATION)
+    Observable<BasicResponse> getUserGoOut(@FieldMap Map<String, String> map);
+
+    //手册
     @FormUrlEncoded
     @POST(Config.BOOK_LIST)
     Observable<BasicResponse> getBookList(@FieldMap Map<String, String> map);

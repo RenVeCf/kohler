@@ -6,9 +6,11 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.mengyang.kohler.App;
+import com.mengyang.kohler.common.utils.IConstants;
 import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.MD5Utils;
 import com.mengyang.kohler.common.utils.NetWorkUtils;
+import com.mengyang.kohler.common.utils.SPUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -58,6 +60,7 @@ public class IdeaApi {
                 .readTimeout(IdeaApiService.DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS)
                 .connectTimeout(IdeaApiService.DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS)
                 .addInterceptor(interceptor)
+                .addInterceptor(new HttpHeaderInterceptor())
                 .addNetworkInterceptor(new HttpCacheInterceptor())
                 .cache(cache)
                 .build();
@@ -71,6 +74,22 @@ public class IdeaApi {
                 .baseUrl(IdeaApiService.API_SERVER_URL)
                 .build();
         service = retrofit.create(IdeaApiService.class);
+    }
+
+    //  添加请求头的拦截器
+    private class HttpHeaderInterceptor implements Interceptor {
+        @Override
+        public Response intercept(Chain chain) throws IOException {
+            //  将token统一放到请求头
+            String token = (String) SPUtil.get(App.getContext(), IConstants.TOKEN, "");
+            //            //  也可以统一配置用户名
+            //            String user_id="123456";
+            Response originalResponse = chain.proceed(chain.request());
+            return originalResponse.newBuilder()
+                    .header("token", token)
+                    //                    .header("user_id", user_id)
+                    .build();
+        }
     }
 
     /**

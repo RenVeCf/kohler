@@ -82,7 +82,7 @@
     <string name="input_old_phone_num">请输入原手机号码</string>
     <string name="inpit_old_pwd">请输入旧密码</string>
     <string name="user_register">用户注册</string>
-    <string name="distributor_register">经销商用户注册</string>
+    <string name="distributor_register">科勒员工和经销商用户注册</string>
     <string name="designer_register">设计师用户注册</string>
     <string name="verification_code">验证码</string>
     <string name="verification_code_title">Verification Code</string>

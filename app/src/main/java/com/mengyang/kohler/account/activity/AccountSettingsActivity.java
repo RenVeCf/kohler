@@ -6,12 +6,22 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
+import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
+import com.mengyang.kohler.common.net.DefaultObserver;
+import com.mengyang.kohler.common.net.IdeaApi;
+import com.mengyang.kohler.common.utils.IConstants;
+import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.view.TopView;
+import com.mengyang.kohler.module.BasicResponse;
+
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * 我的账户——设置
@@ -54,6 +64,25 @@ public class AccountSettingsActivity extends BaseActivity {
 
     }
 
+    private void UserGoOut() {
+        Map<String, String> stringMap = IdeaApi.getSign();
+
+        IdeaApi.getRequestLogin(stringMap);
+        IdeaApi.getApiService()
+                .getUserGoOut(stringMap)
+                .compose(this.<BasicResponse>bindToLifecycle())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultObserver<BasicResponse>(this, true) {
+                    @Override
+                    public void onSuccess(BasicResponse response) {
+                        SPUtil.put(App.getContext(), IConstants.IS_LOGIN, false);
+                        startActivity(new Intent(AccountSettingsActivity.this, LoginActivity.class));
+                        finish();
+                    }
+                });
+    }
+
     @OnClick({R.id.tv_account_settings_about, R.id.tv_account_settings_privacy_policy, R.id.tv_account_settings_modify_pwd, R.id.tv_account_settings_modify_bind_phone, R.id.bt_account_settings_sign_out})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -70,7 +99,8 @@ public class AccountSettingsActivity extends BaseActivity {
                 startActivity(new Intent(this, AccountBindPhoneActivity.class));
                 break;
             case R.id.bt_account_settings_sign_out:
-                startActivity(new Intent(this, LoginActivity.class));
+                if ((boolean) SPUtil.get(this, IConstants.IS_LOGIN, false))
+                    UserGoOut();
                 break;
         }
     }

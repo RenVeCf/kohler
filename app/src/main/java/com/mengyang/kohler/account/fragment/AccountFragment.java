@@ -63,7 +63,7 @@ public class AccountFragment extends BaseFragment {
     private ImageView ivAccountModifyTitleImg;
     private Button btAccountModifyTitleImgConfirm;
     //是否登录
-    private boolean is_Login = (boolean) SPUtil.get(App.getContext(), IConstants.IS_LOGIN, true);
+    private boolean is_Login = (boolean) SPUtil.get(App.getContext(), IConstants.IS_LOGIN, false);
 
     @Override
     protected int getLayoutId() {

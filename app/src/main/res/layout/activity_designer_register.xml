@@ -11,9 +11,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/y42"
         android:background="@color/white"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/y42">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -37,20 +37,20 @@
                 android:text="@string/register"
                 android:textColor="#fafafa"
                 android:textSize="10sp"/>
-            
+
             <View
                 android:layout_width="@dimen/x210"
                 android:layout_height="3dp"
-                android:layout_marginTop="@dimen/y36"
-                android:layout_marginStart="@dimen/x72"/>
+                android:layout_marginStart="@dimen/x72"
+                android:layout_marginTop="@dimen/y36"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/y36"
                 android:layout_marginStart="@dimen/x72"
-                android:textSize="10sp"
+                android:layout_marginTop="@dimen/y36"
                 android:textColor="#ffffff"
+                android:textSize="10sp"
                 tools:text="注册科勒设计师可在APP中下载精美科勒设计Brochure
 设计师注册需人工审核，请在注册后耐心等待。"/>
         </LinearLayout>

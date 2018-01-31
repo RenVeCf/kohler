@@ -7,11 +7,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IdeaApi;
+import com.mengyang.kohler.common.utils.IConstants;
+import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.utils.ToastUtil;
+import com.mengyang.kohler.main.activity.MainActivity;
 import com.mengyang.kohler.module.BasicResponse;
 
 import java.util.Map;
@@ -85,7 +89,9 @@ public class UserRegisterActivity extends BaseActivity {
                 .subscribe(new DefaultObserver<BasicResponse>(this, true) {
                     @Override
                     public void onSuccess(BasicResponse response) {
-                        ToastUtil.showToast("rmy" + response.toString());
+                        SPUtil.put(App.getContext(), IConstants.IS_LOGIN, true);
+                        startActivity(new Intent(UserRegisterActivity.this, MainActivity.class));
+                        finish();
                     }
                 });
     }

@@ -75,6 +75,42 @@
             android:inputType="phone"
             android:textSize="12sp"/>
 
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/y36"
+            android:background="@color/black"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/et_distributor_register_sms_verification_code"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/y93"
+                android:background="@null"
+                android:textSize="12sp"
+                android:hint="@string/input_sms_verification_code"/>
+
+            <Button
+                android:id="@+id/bt_distributor_register_send_out_sms"
+                android:layout_width="@dimen/x156"
+                android:layout_height="@dimen/y72"
+                android:layout_marginTop="@dimen/y93"
+                android:textSize="12sp"
+                android:background="@color/black"
+                android:textColor="@color/white"
+                android:text="@string/send_out"/>
+
+        </LinearLayout>
+
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
