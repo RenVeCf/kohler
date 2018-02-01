@@ -1,7 +1,6 @@
 package com.mengyang.kohler.main.activity;
 
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
@@ -11,6 +10,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.gyf.barlibrary.ImmersionBar;
+import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.account.fragment.AccountFragment;
@@ -27,7 +27,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity implements HomeFragment.OnFragmentInteractionListener {
@@ -74,6 +73,7 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
 
     @Override
     protected void initValues() {
+        App.getManager().addActivity(this);
         Boolean isFirstOpen = (Boolean) SPUtil.get(this, IConstants.FIRST_APP, true);
         if (isFirstOpen) {
             rlMain.openPane();

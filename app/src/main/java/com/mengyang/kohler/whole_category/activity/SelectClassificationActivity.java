@@ -3,6 +3,7 @@ package com.mengyang.kohler.whole_category.activity;
 import android.widget.ImageView;
 
 import com.gyf.barlibrary.ImmersionBar;
+import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.view.TopView;
@@ -23,6 +24,7 @@ public class SelectClassificationActivity extends BaseActivity {
 
     @Override
     protected void initValues() {
+        App.getManager().addActivity(this);
         //沉浸式状态栏初始化白色
         ImmersionBar.with(this).fitsSystemWindows(false).statusBarDarkFont(false).init();
         //防止状态栏和标题重叠

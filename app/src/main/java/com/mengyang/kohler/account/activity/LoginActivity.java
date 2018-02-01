@@ -13,6 +13,7 @@ import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.utils.IConstants;
+import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.utils.ToastUtil;
 import com.mengyang.kohler.main.activity.MainActivity;
@@ -56,7 +57,7 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void initValues() {
-
+        App.getManager().addActivity(this);
     }
 
     @Override
@@ -83,6 +84,7 @@ public class LoginActivity extends BaseActivity {
                 .subscribe(new DefaultObserver<BasicResponse<LoginBean>>(this, true) {
                     @Override
                     public void onSuccess(BasicResponse<LoginBean> response) {
+
                         SPUtil.put(App.getContext(), IConstants.IS_LOGIN, true);
                         SPUtil.put(App.getContext(), IConstants.TOKEN, response.getData().getAccessToken());
                         SPUtil.put(App.getContext(), IConstants.REFRESH_TOKEN, response.getData().getRefreshToken());
@@ -91,6 +93,14 @@ public class LoginActivity extends BaseActivity {
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         finish();
                     }
+
+                    //                    /**
+                    //                     * token刷新成功后重新请求数据,每个请求都重写
+                    //                     */
+                    //                    @Override
+                    //                    public void onTokenUpdateSuccess() {
+                    //                        super.onTokenUpdateSuccess();
+                    //                    }
                 });
     }
 
@@ -100,7 +110,7 @@ public class LoginActivity extends BaseActivity {
             case R.id.iv_lonin_go_home:
                 break;
             case R.id.tv_login_forget_pwd:
-                startActivity(new Intent(this, ForgetPasswordTwoActivity.class));
+                startActivity(new Intent(this, ForgetPasswordOneActivity.class));
                 finish();
                 break;
             case R.id.bt_login:

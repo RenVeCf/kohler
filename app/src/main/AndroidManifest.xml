@@ -95,6 +95,7 @@
                  <!--android:process=":multiprocess"-->
                  <!--tools:node="replace" >-->
         <!--</service>-->
+        <meta-data android:name="JPUSH_APPKEY" android:value="fd05fab95e99b7cbea8d2afa"/>
 
         <activity
             android:name=".home.activity.StoreMapActivity"

@@ -10,11 +10,18 @@ import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.adapter.SystemMsgAdapter;
+import com.mengyang.kohler.common.net.DefaultObserver;
+import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.view.SpacesItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
+import com.mengyang.kohler.module.BasicResponse;
+
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class SystemMsgActivity extends BaseActivity {
 
@@ -25,6 +32,7 @@ public class SystemMsgActivity extends BaseActivity {
     private SystemMsgAdapter mSystemMsgAdapter;
 
 
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_system_message;
@@ -32,6 +40,7 @@ public class SystemMsgActivity extends BaseActivity {
 
     @Override
     protected void initValues() {
+        App.getManager().addActivity(this);
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(this, tvSystemMsgTop);
         // 设置管理器
@@ -50,7 +59,23 @@ public class SystemMsgActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        //有问题（没假数据没Bean）
+        Map<String, String> stringMap = IdeaApi.getSign();
+        stringMap.put("pageNum", 0 + "");
+        stringMap.put("pageSize", 10 + "");
 
+        IdeaApi.getRequestLogin(stringMap);
+        IdeaApi.getApiService()
+                .getSystemMsg(stringMap)
+                .compose(SystemMsgActivity.this.<BasicResponse>bindToLifecycle())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultObserver<BasicResponse>(SystemMsgActivity.this, true) {
+                    @Override
+                    public void onSuccess(BasicResponse response) {
+
+                    }
+                });
     }
 
     @OnClick({R.id.iv_top_back})

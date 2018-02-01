@@ -71,6 +71,7 @@ public class CommodityDetailsActivity extends BaseActivity {
 
     @Override
     protected void initValues() {
+        App.getManager().addActivity(this);
         //沉浸式状态栏初始化白色
         ImmersionBar.with(this).fitsSystemWindows(false).statusBarDarkFont(false).init();
         //防止状态栏和标题重叠

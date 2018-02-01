@@ -36,6 +36,7 @@ public class LiveRealTimeActivity extends BaseActivity {
 
     @Override
     protected void initValues() {
+        App.getManager().addActivity(this);
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(this, tvLiveRealTimeTop);
         GridLayoutManager layoutManagerActivity = new GridLayoutManager(App.getContext(), 2);

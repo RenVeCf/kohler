@@ -9,10 +9,18 @@ import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.account.adapter.AccountMineReservationQueryAdapter;
+import com.mengyang.kohler.common.net.DefaultObserver;
+import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.view.SpacesItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
+import com.mengyang.kohler.module.BasicResponse;
+import com.mengyang.kohler.module.bean.ReservationQueryBean;
+
+import java.util.Map;
 
 import butterknife.BindView;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * 我的账户——预约查询
@@ -25,6 +33,7 @@ public class AccountMineReservationQueryActivity extends BaseActivity {
     @BindView(R.id.rv_account_reservation_query)
     RecyclerView rvAccountReservationQuery;
     private AccountMineReservationQueryAdapter mAccountMineReservationQueryAdapter;
+    private ReservationQueryBean reservationQueryBean;
 
     @Override
     protected int getLayoutId() {
@@ -33,6 +42,7 @@ public class AccountMineReservationQueryActivity extends BaseActivity {
 
     @Override
     protected void initValues() {
+        App.getManager().addActivity(this);
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(this, tvAccountReservationQueryTop);
 
@@ -52,6 +62,23 @@ public class AccountMineReservationQueryActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        Map<String, String> stringMap = IdeaApi.getSign();
+        stringMap.put("pageNum", 0 + "");
+        stringMap.put("pageSize", 10 + "");
 
+        IdeaApi.getRequestLogin(stringMap);
+        IdeaApi.getApiService()
+                .getUserReserveMsg(stringMap)
+                .compose(AccountMineReservationQueryActivity.this.<BasicResponse<ReservationQueryBean>>bindToLifecycle())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultObserver<BasicResponse<ReservationQueryBean>>(AccountMineReservationQueryActivity.this, true) {
+                    @Override
+                    public void onSuccess(BasicResponse<ReservationQueryBean> response) {
+                        reservationQueryBean = response.getData();
+                        mAccountMineReservationQueryAdapter = new AccountMineReservationQueryAdapter(reservationQueryBean);
+                        rvAccountReservationQuery.setAdapter(mAccountMineReservationQueryAdapter);
+                    }
+                });
     }
 }

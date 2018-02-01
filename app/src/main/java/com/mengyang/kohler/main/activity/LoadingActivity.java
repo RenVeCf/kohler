@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.gyf.barlibrary.ImmersionBar;
+import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.utils.DisplayUtils;
@@ -47,6 +48,7 @@ public class LoadingActivity extends BaseActivity {
 
     @Override
     protected void initValues() {
+        App.getManager().addActivity(this);
         // 判断是否是第一次开启应用
         boolean isFirstOpen = (boolean) SPUtil.get(this, IConstants.FIRST_APP, true);
         if (!isFirstOpen) {

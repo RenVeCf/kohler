@@ -3,6 +3,7 @@ package com.mengyang.kohler.main.activity;
 import android.content.Intent;
 import android.os.Handler;
 
+import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.net.DefaultObserver;
@@ -29,6 +30,7 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     protected void initValues() {
+        App.getManager().addActivity(this);
         // 判断是否是第一次开启应用
         boolean isFirstOpen = (boolean) SPUtil.get(this, IConstants.FIRST_APP, true);
         // 如果是第一次启动，则先进入功能引导页
@@ -74,7 +76,7 @@ public class SplashActivity extends BaseActivity {
                 .compose(this.<BasicResponse>bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<BasicResponse>(this, true) {
+                .subscribe(new DefaultObserver<BasicResponse>(this, false) {
                     @Override
                     public void onSuccess(BasicResponse response) {
                     }

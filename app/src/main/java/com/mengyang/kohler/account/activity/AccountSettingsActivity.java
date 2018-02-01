@@ -12,8 +12,10 @@ import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.utils.IConstants;
+import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.view.TopView;
+import com.mengyang.kohler.main.activity.MainActivity;
 import com.mengyang.kohler.module.BasicResponse;
 
 import java.util.Map;
@@ -41,7 +43,7 @@ public class AccountSettingsActivity extends BaseActivity {
     TextView tvAccountSettingsModifyBindPhone;
     @BindView(R.id.bt_account_settings_sign_out)
     Button btAccountSettingsSignOut;
-
+    MainActivity mMainActivity;
 
     @Override
     protected int getLayoutId() {
@@ -50,13 +52,13 @@ public class AccountSettingsActivity extends BaseActivity {
 
     @Override
     protected void initValues() {
+        App.getManager().addActivity(this);
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(this, tvAccountSettingsTop);
     }
 
     @Override
     protected void initListener() {
-
     }
 
     @Override
@@ -101,6 +103,10 @@ public class AccountSettingsActivity extends BaseActivity {
             case R.id.bt_account_settings_sign_out:
                 if ((boolean) SPUtil.get(this, IConstants.IS_LOGIN, false))
                     UserGoOut();
+                else {
+                    startActivity(new Intent(AccountSettingsActivity.this, LoginActivity.class));
+                    finish();
+                }
                 break;
         }
     }

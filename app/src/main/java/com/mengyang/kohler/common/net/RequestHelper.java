@@ -1,6 +1,15 @@
 package com.mengyang.kohler.common.net;
 
 import com.mengyang.kohler.BaseActivity;
+import com.mengyang.kohler.common.utils.IConstants;
+import com.mengyang.kohler.common.utils.SPUtil;
+import com.mengyang.kohler.module.BasicResponse;
+import com.mengyang.kohler.module.bean.RefreshTokenBean;
+
+import java.util.Map;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Description :
@@ -24,44 +33,27 @@ public class RequestHelper {
         this.callback = callback;
     }
 
-    //    public void login() {
-    //        LoginRequest loginRequest = new LoginRequest(activity);
-    //        IdeaApi.getApiService()
-    //                .login(loginRequest)
-    //                .subscribeOn(Schedulers.io())
-    //                .compose(activity.<BasicResponse<LoginBean>>bindToLifecycle())
-    //                .observeOn(AndroidSchedulers.mainThread())
-    //                .subscribe(new DefaultObserver<BasicResponse<LoginBean>>(activity) {
-    //                    @Override
-    //                    public void onSuccess(BasicResponse<LoginBean> response) {
-    //                        LoginBean results = response.getData();
-    //                        /**
-    //                         * 可以将这些数据存储到User中，User存储到本地数据库
-    //                         */
-    //                        SPUtil.put(App.getContext(), IConstants.TOKEN, response);
-    //                        SPUtil.put(App.getContext(), IConstants.REFRESH_TOKEN, response);
-    //                    }
-    //                });
-    //    }
+    //  刷新token
+    public void refreshToken() {
+        Map<String, String> stringMap = IdeaApi.getSign();
+        stringMap.put("refreshToken ", IConstants.REFRESH_TOKEN);
 
-
-    //    //  刷新token
-    //    public void refreshToken() {
-    //        IdeaApi.getApiService()
-    ////                .refreshToken(new RefreshTokenRequest())
-    //                .subscribeOn(Schedulers.io())
-    //                .compose(activity.<BasicResponse<RefreshTokenBean>>bindToLifecycle())
-    //                .observeOn(AndroidSchedulers.mainThread())
-    //                .subscribe(new DefaultObserver<BasicResponse<RefreshTokenBean>>(activity) {
-    //                    @Override
-    //                    public void onSuccess(BasicResponse<RefreshTokenBean> response) {
-    //                        SPUtil.put(activity, IConstants.TOKEN, response.setAccessToken());
-    //                        if (null != callback) {
-    //                            callback.onTokenUpdateSucceed();
-    //                        }
-    //                    }
-    //                });
-    //    }
+        IdeaApi.getApiService()
+                .getRefreshToken(stringMap)
+                .subscribeOn(Schedulers.io())
+                .compose(activity.<BasicResponse<RefreshTokenBean>>bindToLifecycle())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultObserver<BasicResponse<RefreshTokenBean>>(activity, false) {
+                    @Override
+                    public void onSuccess(BasicResponse<RefreshTokenBean> response) {
+                        SPUtil.put(activity, IConstants.TOKEN, response.getData().getAccessToken());
+                        SPUtil.put(activity, IConstants.REFRESH_TOKEN, response.getData().getRefreshToken());
+                        if (null != callback) {
+                            callback.onTokenUpdateSucceed();
+                        }
+                    }
+                });
+    }
 
 
     public interface RequestCallback {

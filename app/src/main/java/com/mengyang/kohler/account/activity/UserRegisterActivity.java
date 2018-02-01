@@ -61,7 +61,7 @@ public class UserRegisterActivity extends BaseActivity {
 
     @Override
     protected void initValues() {
-
+        App.getManager().addActivity(this);
     }
 
     @Override

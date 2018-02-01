@@ -66,6 +66,7 @@ public class MeetingActivity extends BaseActivity {
 
     @Override
     protected void initValues() {
+        App.getManager().addActivity(this);
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(this, tvMeetingTop);
         mMeetingPopupWindow = new PopupWindow(this);

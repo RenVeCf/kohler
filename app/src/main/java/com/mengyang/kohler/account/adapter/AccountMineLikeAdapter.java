@@ -8,6 +8,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.R;
+import com.mengyang.kohler.module.bean.LikeListBean;
 
 import java.util.List;
 
@@ -18,15 +19,15 @@ import java.util.List;
  * Time : 2018/1/29
  */
 
-public class AccountMineLikeAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
-    public AccountMineLikeAdapter(@Nullable List<String> data) {
-        super(R.layout.item_account_mine_like_adapter, data);
+public class AccountMineLikeAdapter extends BaseQuickAdapter<LikeListBean, BaseViewHolder> {
+    public AccountMineLikeAdapter(@Nullable LikeListBean data) {
+        super(R.layout.item_account_mine_like_adapter, (List<LikeListBean>) data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, String item) {
-        helper.setText(R.id.tv_account_mine_like_adapter_product_name, item.trim())
-                .setText(R.id.tv_account_mine_like_adapter_model_name, item.trim());
+    protected void convert(BaseViewHolder helper, LikeListBean item) {
+        helper.setText(R.id.tv_account_mine_like_adapter_product_name, "")
+                .setText(R.id.tv_account_mine_like_adapter_model_name, "");
         Glide.with(App.getContext()).load("").into((ImageView) helper.getView(R.id.iv_account_mine_like_adapter_item));
         helper.addOnClickListener(R.id.iv_account_mine_like_adapter_remove);
     }

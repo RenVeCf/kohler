@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.github.barteksc.pdfviewer.PDFView;
 import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
 import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
+import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.utils.SPUtil;
@@ -38,6 +39,7 @@ public class PDFActivity extends BaseActivity {
 
     @Override
     protected void initValues() {
+        App.getManager().addActivity(this);
         final int myPage = (int) SPUtil.get(PDFActivity.this, "page", 0);
         //选择pdf
         pdfHome.fromAsset("android_pdf_test.pdf")

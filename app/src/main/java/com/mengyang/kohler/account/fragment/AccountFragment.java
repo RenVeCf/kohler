@@ -23,14 +23,30 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseFragment;
 import com.mengyang.kohler.R;
+import com.mengyang.kohler.account.activity.AccountMineLikeActivity;
+import com.mengyang.kohler.account.activity.AccountMineReservationQueryActivity;
 import com.mengyang.kohler.account.activity.AccountSettingsActivity;
+import com.mengyang.kohler.common.net.DefaultObserver;
+import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.utils.IConstants;
+import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.view.CircleImageView;
 import com.mengyang.kohler.common.view.TopView;
+import com.mengyang.kohler.module.BasicResponse;
+import com.mengyang.kohler.module.bean.UploadHeadPortraitBean;
+
+import java.io.File;
+import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * 账户
@@ -158,7 +174,40 @@ public class AccountFragment extends BaseFragment {
     }
 
     //加载头像图片
-    private void showImage(String imaePath) {
+    private void showImage(final String imaePath) {
+        Map<String, String> stringMap = IdeaApi.getSign();
+        stringMap.put("portraitUrl", imaePath); // 头像URL
+
+        IdeaApi.getRequestLogin(stringMap);
+        IdeaApi.getApiService()
+                .getModifyHeadPortrait(stringMap)
+                .compose(this.<BasicResponse>bindToLifecycle())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultObserver<BasicResponse>(getActivity(), false) {
+                    @Override
+                    public void onSuccess(BasicResponse response) {
+                        // 有问题
+                        File file = new File(imaePath);
+                        RequestBody imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+                        MultipartBody.Builder builder = new MultipartBody.Builder()
+                                .setType(MultipartBody.FORM)
+                                .addFormDataPart("portraitUrl", file.getName(), imageBody);
+                        List<MultipartBody.Part> parts = builder.build().parts();
+
+                        IdeaApi.getApiService()
+                                .getUploadHeadPortrait(parts)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(new DefaultObserver<BasicResponse<UploadHeadPortraitBean>>(getActivity(), false) {
+                                    @Override
+                                    public void onSuccess(BasicResponse<UploadHeadPortraitBean> response) {
+                                        LogUtils.i("rmy", "上传成功！");
+                                    }
+                                });
+                    }
+                });
+
         Bitmap bm = BitmapFactory.decodeFile(imaePath);
         civAccountTitle.setImageBitmap(bm);
     }
@@ -187,8 +236,10 @@ public class AccountFragment extends BaseFragment {
 
                     break;
             case R.id.bt_account_like:
+                startActivity(new Intent(App.getContext(), AccountMineLikeActivity.class));
                 break;
             case R.id.bt_account_query:
+                startActivity(new Intent(App.getContext(), AccountMineReservationQueryActivity.class));
                 break;
         }
     }

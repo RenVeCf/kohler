@@ -2,7 +2,6 @@ package com.mengyang.kohler.common.net;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.text.TextUtils;
 
 import com.google.gson.JsonParseException;
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
@@ -78,10 +77,10 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
     @Override
     public void onNext(T response) {
         dismissProgress();
-        if (response.getError().equals(REQUEST_SUCCESS)) {
+        if (response.getError().equals("200")) {
             onSuccess(response);
         } else {
-            onFail(response, response.getStatus());
+            onFail(response, Integer.parseInt(response.getError()));
         }
     }
 
@@ -143,18 +142,20 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
                 break;
         }
     }
+
     //  刷新token
     private void refreshToken() {
-//        new RequestHelper((BaseActivity) activity, new RequestHelper.RequestCallback() {
-//            @Override
-//            public void onTokenUpdateSucceed() {
-//                onTokenUpdateSuccess();
-//            }
-//        }).refreshToken();
+        new RequestHelper((BaseActivity) activity, new RequestHelper.RequestCallback() {
+            @Override
+            public void onTokenUpdateSucceed() {
+                onTokenUpdateSuccess();
+            }
+        }).refreshToken();
     }
 
     //  刷新token成功，此方法需要在请求网络时重写
-    public void onTokenUpdateSuccess() {}
+    public void onTokenUpdateSuccess() {
+    }
 
     /**
      * 请求异常

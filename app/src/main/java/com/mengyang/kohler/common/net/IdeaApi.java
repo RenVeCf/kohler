@@ -98,6 +98,11 @@ public class IdeaApi {
     public static Map<String, String> getSign() {
         Map<String, String> stringMap = new HashMap<String, String>();
 
+        String token = (String) SPUtil.get(App.getContext(), IConstants.TOKEN, "");
+        if (token == null || "".equals(token)) {
+        } else {
+            stringMap.put("accessToken", token);
+        }
         stringMap.put("appVersion", "loading1.0.4");
         stringMap.put("appType", "android");
         stringMap.put("clientId", "FjyrG8VkMLntjtGi");

@@ -5,6 +5,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
 
@@ -27,7 +28,7 @@ public class DistributorVerificationCodeActivity extends BaseActivity {
 
     @Override
     protected void initValues() {
-
+        App.getManager().addActivity(this);
     }
 
     @Override
