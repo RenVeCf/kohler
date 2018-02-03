@@ -90,16 +90,12 @@
                 android:textSize="12sp"
                 android:hint="@string/input_verification_code"/>
 
-            <TextView
-                android:id="@+id/tv_user_register_verification_code"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ImageView
+                android:id="@+id/iv_user_register_verification_code"
+                android:layout_width="@dimen/x200"
+                android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
-                android:textSize="12sp"
-                android:background="@color/white"
-                android:textColor="@color/black"
-                tools:text="8596"/>
-
+                android:scaleType="fitXY"/>
         </LinearLayout>
 
         <View

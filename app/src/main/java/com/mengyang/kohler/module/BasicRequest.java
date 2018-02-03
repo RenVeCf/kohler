@@ -1,7 +1,7 @@
 package com.mengyang.kohler.module;
 
 import com.mengyang.kohler.App;
-import com.mengyang.kohler.common.utils.IConstants;
+import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.utils.SPUtil;
 
 /**

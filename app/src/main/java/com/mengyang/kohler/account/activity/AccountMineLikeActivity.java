@@ -1,15 +1,16 @@
 package com.mengyang.kohler.account.activity;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.account.adapter.AccountMineLikeAdapter;
-import com.mengyang.kohler.account.adapter.AccountMineReservationQueryAdapter;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.view.GridSpacingItemDecoration;
@@ -17,6 +18,8 @@ import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.LikeListBean;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -27,14 +30,17 @@ import io.reactivex.schedulers.Schedulers;
  * 我的账户——我的收藏
  */
 
-public class AccountMineLikeActivity extends BaseActivity {
+public class AccountMineLikeActivity extends BaseActivity implements BaseQuickAdapter.RequestLoadMoreListener {
 
     @BindView(R.id.tv_account_mine_like_top)
     TopView tvAccountMineLikeTop;
     @BindView(R.id.rv_account_mine_like)
     RecyclerView rvAccountMineLike;
+    @BindView(R.id.srl_account_mine_like)
+    SwipeRefreshLayout srlAccountMineLike;
     private AccountMineLikeAdapter mAccountMineLikeAdapter;
-    private LikeListBean likeListBean;
+    private List<LikeListBean.ResultListBean> likeListBean;
+    private int pageNum = 0; //请求页数
 
     @Override
     protected int getLayoutId() {
@@ -52,17 +58,29 @@ public class AccountMineLikeActivity extends BaseActivity {
         rvAccountMineLike.setNestedScrollingEnabled(true);
         rvAccountMineLike.setHasFixedSize(true);
         rvAccountMineLike.setItemAnimator(new DefaultItemAnimator());
+        likeListBean = new ArrayList<>();
+        mAccountMineLikeAdapter = new AccountMineLikeAdapter(likeListBean);
+        rvAccountMineLike.setAdapter(mAccountMineLikeAdapter);
     }
 
     @Override
     protected void initListener() {
-
+        srlAccountMineLike.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                pageNum = 0;
+                initData();
+                srlAccountMineLike.setRefreshing(false);
+            }
+        });
     }
 
     @Override
     protected void initData() {
         //有问题（Adapter不确定取哪个字段）
         Map<String, String> stringMap = IdeaApi.getSign();
+        stringMap.put("pageNum", 0 + "");
+        stringMap.put("pageSize", 10 + "");
 
         IdeaApi.getRequestLogin(stringMap);
         IdeaApi.getApiService()
@@ -73,10 +91,39 @@ public class AccountMineLikeActivity extends BaseActivity {
                 .subscribe(new DefaultObserver<BasicResponse<LikeListBean>>(AccountMineLikeActivity.this, true) {
                     @Override
                     public void onSuccess(BasicResponse<LikeListBean> response) {
-                        likeListBean = response.getData();
-                        mAccountMineLikeAdapter = new AccountMineLikeAdapter(likeListBean);
-                        rvAccountMineLike.setAdapter(mAccountMineLikeAdapter);
+                        if (response != null) {
+                            if (pageNum == 0) {
+                                likeListBean.clear();
+                                likeListBean.addAll(response.getData().getResultList());
+                                if (likeListBean.size() > 0) {
+                                    pageNum += 1;
+                                    mAccountMineLikeAdapter = new AccountMineLikeAdapter(likeListBean);
+                                    mAccountMineLikeAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_BOTTOM); //动画
+                                    mAccountMineLikeAdapter.isFirstOnly(false); //第一次
+                                    rvAccountMineLike.setAdapter(mAccountMineLikeAdapter);
+                                    mAccountMineLikeAdapter.setOnLoadMoreListener(AccountMineLikeActivity.this); //加载更多
+                                } else {
+                                    mAccountMineLikeAdapter.loadMoreEnd();
+                                }
+                            } else {
+                                if (response.getData().getResultList().size() > 0) {
+                                    pageNum += 1;
+                                    likeListBean.addAll(response.getData().getResultList());
+                                    mAccountMineLikeAdapter.addData(response.getData().getResultList());
+                                    mAccountMineLikeAdapter.loadMoreComplete(); //完成本次
+                                } else {
+                                    mAccountMineLikeAdapter.loadMoreEnd(); //完成所有加载
+                                }
+                            }
+                        } else {
+                            mAccountMineLikeAdapter.loadMoreEnd();
+                        }
                     }
                 });
+    }
+
+    @Override
+    public void onLoadMoreRequested() {
+        initData();
     }
 }

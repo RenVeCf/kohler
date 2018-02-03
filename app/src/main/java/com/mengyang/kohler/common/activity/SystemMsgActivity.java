@@ -1,10 +1,12 @@
 package com.mengyang.kohler.common.activity;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
@@ -15,7 +17,10 @@ import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.view.SpacesItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.module.BasicResponse;
+import com.mengyang.kohler.module.bean.SystemMsgBean;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -23,15 +28,17 @@ import butterknife.OnClick;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class SystemMsgActivity extends BaseActivity {
+public class SystemMsgActivity extends BaseActivity implements BaseQuickAdapter.RequestLoadMoreListener {
 
     @BindView(R.id.tv_system_msg_top)
     TopView tvSystemMsgTop;
     @BindView(R.id.rv_system_msg)
     RecyclerView rvSystemMsg;
+    @BindView(R.id.srl_system_msg)
+    SwipeRefreshLayout srlSystemMsg;
     private SystemMsgAdapter mSystemMsgAdapter;
-
-
+    private List<SystemMsgBean> mSystemMsgBean;
+    private int pageNum = 0; //请求页数
 
     @Override
     protected int getLayoutId() {
@@ -50,30 +57,65 @@ public class SystemMsgActivity extends BaseActivity {
         // 如果可以确定每个item的高度是固定的，设置这个选项可以提高性能
         rvSystemMsg.setHasFixedSize(true);
         rvSystemMsg.setItemAnimator(new DefaultItemAnimator());
+        mSystemMsgBean = new ArrayList<>();
+        mSystemMsgAdapter = new SystemMsgAdapter(mSystemMsgBean);
+        rvSystemMsg.setAdapter(mSystemMsgAdapter);
     }
 
     @Override
     protected void initListener() {
-
+        srlSystemMsg.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                pageNum = 0;
+                initData();
+                srlSystemMsg.setRefreshing(false);
+            }
+        });
+        mSystemMsgAdapter.setOnLoadMoreListener(SystemMsgActivity.this); //加载更多
     }
 
     @Override
     protected void initData() {
-        //有问题（没假数据没Bean）
         Map<String, String> stringMap = IdeaApi.getSign();
-        stringMap.put("pageNum", 0 + "");
+        stringMap.put("pageNum", pageNum + "");
         stringMap.put("pageSize", 10 + "");
 
         IdeaApi.getRequestLogin(stringMap);
         IdeaApi.getApiService()
                 .getSystemMsg(stringMap)
-                .compose(SystemMsgActivity.this.<BasicResponse>bindToLifecycle())
+                .compose(SystemMsgActivity.this.<BasicResponse<List<SystemMsgBean>>>bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<BasicResponse>(SystemMsgActivity.this, true) {
+                .subscribe(new DefaultObserver<BasicResponse<List<SystemMsgBean>>>(SystemMsgActivity.this, true) {
                     @Override
-                    public void onSuccess(BasicResponse response) {
-
+                    public void onSuccess(BasicResponse<List<SystemMsgBean>> response) {
+                        if (response != null) {
+                            if (pageNum == 0) {
+                                mSystemMsgBean.clear();
+                                mSystemMsgBean.addAll(response.getData());
+                                if (mSystemMsgBean.size() > 0) {
+                                    pageNum += 1;
+                                    mSystemMsgAdapter = new SystemMsgAdapter(mSystemMsgBean);
+                                    mSystemMsgAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_BOTTOM); //动画
+                                    mSystemMsgAdapter.isFirstOnly(false); //第一次
+                                    rvSystemMsg.setAdapter(mSystemMsgAdapter);
+                                } else {
+                                    mSystemMsgAdapter.loadMoreEnd();
+                                }
+                            } else {
+                                if (response.getData().size() > 0) {
+                                    pageNum += 1;
+                                    mSystemMsgBean.addAll(response.getData());
+                                    mSystemMsgAdapter.addData(response.getData());
+                                    mSystemMsgAdapter.loadMoreComplete(); //完成本次
+                                } else {
+                                    mSystemMsgAdapter.loadMoreEnd(); //完成所有加载
+                                }
+                            }
+                        } else {
+                            mSystemMsgAdapter.loadMoreEnd();
+                        }
                     }
                 });
     }
@@ -85,5 +127,10 @@ public class SystemMsgActivity extends BaseActivity {
                 finish();
                 break;
         }
+    }
+
+    @Override
+    public void onLoadMoreRequested() {
+        initData();
     }
 }

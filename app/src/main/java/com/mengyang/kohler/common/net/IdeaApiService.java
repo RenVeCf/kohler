@@ -1,12 +1,15 @@
 package com.mengyang.kohler.common.net;
 
-import com.mengyang.kohler.common.utils.Config;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.LikeListBean;
 import com.mengyang.kohler.module.bean.LoginBean;
 import com.mengyang.kohler.module.bean.RefreshTokenBean;
 import com.mengyang.kohler.module.bean.ReservationQueryBean;
+import com.mengyang.kohler.module.bean.SelectClassificationBean;
+import com.mengyang.kohler.module.bean.StoreListBean;
+import com.mengyang.kohler.module.bean.SystemMsgBean;
 import com.mengyang.kohler.module.bean.UploadHeadPortraitBean;
+import com.mengyang.kohler.module.bean.UserHomeKVBean;
 
 import java.util.List;
 import java.util.Map;
@@ -34,6 +37,21 @@ public interface IdeaApiService {
     //项目主页(正式环境)
     //    String API_SERVER_URL = "http://t-api.glor.cn/";
 
+    //普通用户首页KV图
+    @FormUrlEncoded
+    @POST(Config.USER_HOME_KV)
+    Observable<BasicResponse<List<UserHomeKVBean>>> getUserHomeKV(@FieldMap Map<String, String> map);
+
+    //经销商用户首页KV图
+    @FormUrlEncoded
+    @POST(Config.DEALER_HOME_KV)
+    Observable<BasicResponse<List<UserHomeKVBean>>> getDealerHomeKV(@FieldMap Map<String, String> map);
+
+    //设计师用户首页KV图
+    @FormUrlEncoded
+    @POST(Config.DESIGNER_HOME_KV)
+    Observable<BasicResponse<List<UserHomeKVBean>>> getDesignerHomeKV(@FieldMap Map<String, String> map);
+
     //普通用户注册
     @FormUrlEncoded
     @POST(Config.USER_REGISTER)
@@ -43,6 +61,11 @@ public interface IdeaApiService {
     @FormUrlEncoded
     @POST(Config.APP_LOGIN)
     Observable<BasicResponse<LoginBean>> getLogin(@FieldMap Map<String, String> map);
+
+    //登陆验证码
+    @FormUrlEncoded
+    @POST(Config.LOGIN_VERIFICATION_IMG)
+    Observable<BasicResponse> getLoginVerificationImg(@FieldMap Map<String, String> map);
 
     //更新access_token
     @FormUrlEncoded
@@ -77,7 +100,7 @@ public interface IdeaApiService {
     //系统消息
     @FormUrlEncoded
     @POST(Config.SYSTEM_MSG)
-    Observable<BasicResponse> getSystemMsg(@FieldMap Map<String, String> map);
+    Observable<BasicResponse<List<SystemMsgBean>>> getSystemMsg(@FieldMap Map<String, String> map);
 
     //修改头像
     @FormUrlEncoded
@@ -101,7 +124,7 @@ public interface IdeaApiService {
 
     //用户添加收藏
     @FormUrlEncoded
-    @POST(Config.AddLike)
+    @POST(Config.Add_Like)
     Observable<BasicResponse> getAddLike(@FieldMap Map<String, String> map);
 
     //用户取消收藏
@@ -111,11 +134,16 @@ public interface IdeaApiService {
 
     //用户收藏列表
     @FormUrlEncoded
-    @POST(Config.LikeList)
+    @POST(Config.Like_List)
     Observable<BasicResponse<LikeListBean>> getLikeList(@FieldMap Map<String, String> map);
 
-    //我的手册
+    //附近店铺
     @FormUrlEncoded
-    @POST(Config.BOOK_LIST)
-    Observable<BasicResponse> getBookList(@FieldMap Map<String, String> map);
+    @POST(Config.STORE_LIST)
+    Observable<BasicResponse<StoreListBean>> getStoreList(@FieldMap Map<String, String> map);
+
+    //精选分类
+    @FormUrlEncoded
+    @POST(Config.SELECT_CLASSIFICATION)
+    Observable<BasicResponse<List<SelectClassificationBean>>> getSelectClassification(@FieldMap Map<String, String> map);
 }

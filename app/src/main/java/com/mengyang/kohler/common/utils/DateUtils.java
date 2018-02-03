@@ -13,6 +13,10 @@ import java.util.Locale;
  * @description 时间转换工具类
  */
 public class DateUtils {
+    /**
+     * 根据语言环境，取当前时间
+     * @return
+     */
     public static String getTodayDateTime() {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
             return format.format(new Date());

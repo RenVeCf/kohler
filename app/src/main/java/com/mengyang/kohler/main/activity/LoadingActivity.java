@@ -13,7 +13,7 @@ import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.utils.DisplayUtils;
-import com.mengyang.kohler.common.utils.IConstants;
+import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.utils.LanguageUtil;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.main.adapter.ContentAdapter;

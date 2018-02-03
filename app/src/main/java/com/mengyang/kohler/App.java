@@ -5,11 +5,14 @@ import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
-import com.mengyang.kohler.common.utils.IConstants;
+import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.utils.SPUtil;
 
 import java.lang.ref.WeakReference;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 import java.util.Stack;
 
 import cn.jpush.android.api.JPushInterface;
@@ -28,6 +31,7 @@ public class App extends Application {
     public static String registrationId; //极光的系统注册ID
     private static App sManager;
     private Stack<WeakReference<Activity>> mActivityStack;
+    private static Map<String,Activity> destoryMap = new HashMap<>();
 
     public App() {
     }
@@ -58,6 +62,25 @@ public class App extends Application {
 
         registrationId = JPushInterface.getRegistrationID(this);
         SPUtil.put(context, IConstants.JPUSH_SYSTEM_ID, registrationId);
+    }
+
+    /**
+     * 添加到销毁队列
+     *
+     * @param activity 要销毁的activity
+     */
+
+    public static void addDestoryActivity(Activity activity,String activityName) {
+        destoryMap.put(activityName,activity);
+    }
+    /**
+     *销毁指定Activity
+     */
+    public static void destoryActivity(String activityName) {
+        Set<String> keySet=destoryMap.keySet();
+        for (String key:keySet){
+            destoryMap.get(key).finish();
+        }
     }
 
     /**

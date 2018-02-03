@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * Created by Elvira on 2016/10/10.
- * 存放tab的页面
+ * 引导页存放tab的页面
  */
 
 public class ContentAdapter extends PagerAdapter {

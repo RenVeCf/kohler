@@ -64,6 +64,8 @@ public class StoreMapActivity extends BaseActivity {
     //是否第一次定位，如果是第一次定位的话要将自己的位置显示在地图 中间
     private boolean isFirstLocation = true;
     private Marker mMarker; //坐标气球
+    private double latitude; //纬度
+    private double longitude; //经度
 
     @Override
     protected int getLayoutId() {
@@ -100,8 +102,8 @@ public class StoreMapActivity extends BaseActivity {
                 //以下只列举部分获取经纬度相关（常用）的结果信息
                 //更多结果信息获取说明，请参照类参考中BDLocation类中的说明
 
-                double latitude = bdLocation.getLatitude();    //获取纬度信息
-                double longitude = bdLocation.getLongitude();    //获取经度信息
+                latitude = bdLocation.getLatitude();    //获取纬度信息
+                longitude = bdLocation.getLongitude();    //获取经度信息
                 float radius = bdLocation.getRadius();    //获取定位精度，默认值为0.0f
 
                 String coorType = bdLocation.getCoorType();
@@ -262,7 +264,7 @@ public class StoreMapActivity extends BaseActivity {
 //                LatLng start = new LatLng(39.95676, 116.401394);
 //                LatLng end = new LatLng(36.63014,114.499574);
 //                getDistance(start, end);
-                startActivity(new Intent(this, StoreListActivity.class));
+                startActivity(new Intent(this, StoreListActivity.class).putExtra("latitude", latitude).putExtra("longitude", longitude));
                 break;
         }
     }

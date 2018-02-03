@@ -1,16 +1,18 @@
 package com.mengyang.kohler.whole_category.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.mengyang.kohler.App;
 import com.mengyang.kohler.R;
+import com.mengyang.kohler.common.utils.LogUtils;
+import com.mengyang.kohler.whole_category.activity.SelectClassificationActivity;
 
 import java.util.Arrays;
 import java.util.List;
@@ -81,10 +83,12 @@ public class StackAdapter extends RecyclerView.Adapter<StackAdapter.ViewHolder> 
             super(itemView);
             cover = (ImageView) itemView.findViewById(R.id.cover);
 //            index = (TextView) itemView.findViewById(R.id.index);
+            //全品类 item页 点击事件
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(context.getApplicationContext(), String.valueOf(getAdapterPosition()), Toast.LENGTH_SHORT).show();
+                    if (getAdapterPosition() == (datas.size() - 1))
+                        App.getContext().startActivity(new Intent(App.getContext(), SelectClassificationActivity.class));
                 }
             });
         }

@@ -6,7 +6,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.mengyang.kohler.App;
-import com.mengyang.kohler.common.utils.IConstants;
 import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.MD5Utils;
 import com.mengyang.kohler.common.utils.NetWorkUtils;
@@ -64,7 +63,6 @@ public class IdeaApi {
                 .addNetworkInterceptor(new HttpCacheInterceptor())
                 .cache(cache)
                 .build();
-
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").serializeNulls().create();
 
         retrofit = new Retrofit.Builder()
@@ -123,7 +121,7 @@ public class IdeaApi {
     }
 
     //打印请求Log
-    public static void getRequestLogin(Map<String, String> map) {
+    public static String getRequestLogin(Map<String, String> map) {
         StringBuffer sb = new StringBuffer();
         int i = 0;
         for (String key : map.keySet()) {
@@ -136,6 +134,7 @@ public class IdeaApi {
         }
         String sendBuf = sb.toString().replace("+", "%2B");
         LogUtils.i("请求参数 = " + sendBuf);
+        return sendBuf;
     }
 
     //  创建单例

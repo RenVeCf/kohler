@@ -50,6 +50,7 @@ public class HomeSearchActivity extends BaseActivity {
         rvHomeSearch.addItemDecoration(new GridSpacingItemDecoration(2, 15, false));
         rvHomeSearch.setHasFixedSize(true);
         rvHomeSearch.setItemAnimator(new DefaultItemAnimator());
+        etHomeSearchActivity.setText(getIntent().getStringExtra("etHomeSearch"));
     }
 
     @Override

@@ -22,10 +22,29 @@
         app:title="@string/kohler_store"
         app:title_color="@color/black"/>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_store_list"
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#e0e0e0"/>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/srl_store_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingStart="@dimen/x72">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_store_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <Button
+        android:id="@+id/bt_store_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/x72"/>
-
+        android:background="@color/black"
+        android:text="@string/map_visible"
+        android:textColor="@color/white"/>
 </LinearLayout>

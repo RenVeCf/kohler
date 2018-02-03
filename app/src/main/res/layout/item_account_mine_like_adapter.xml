@@ -48,6 +48,6 @@
             android:id="@+id/iv_account_mine_like_adapter_remove"
             android:layout_width="@dimen/x42"
             android:layout_height="@dimen/y48"
-            android:src="@mipmap/ic_launcher_round"/>
+            android:src="@mipmap/colletiong_delete"/>
     </LinearLayout>
 </LinearLayout>

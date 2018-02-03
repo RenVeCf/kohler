@@ -1,9 +1,8 @@
 package com.mengyang.kohler.main.activity;
 
 import android.graphics.drawable.Drawable;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.Button;
@@ -15,24 +14,19 @@ import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.account.fragment.AccountFragment;
 import com.mengyang.kohler.ar.ARFragment;
-import com.mengyang.kohler.common.utils.IConstants;
+import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.view.ResideLayout;
 import com.mengyang.kohler.home.fragment.HomeFragment;
-import com.mengyang.kohler.main.adapter.MyAdapter;
-import com.mengyang.kohler.main.view.CustomViewPager;
 import com.mengyang.kohler.whole_category.fragment.WholeCategoryFragment;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity implements HomeFragment.OnFragmentInteractionListener {
 
-    @BindView(R.id.cvp_main_viewpager)
-    CustomViewPager cvpMainViewpager;
+    @BindView(R.id.vp_main_viewpager)
+    ViewPager vpMainViewpager;
     @BindView(R.id.bt_home)
     Button btHome;
     @BindView(R.id.bt_whole_category)
@@ -64,7 +58,11 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
     @BindView(R.id.ll_bathtub)
     LinearLayout llBathtub;
 
-    private List<Fragment> list;
+    private Fragment currentFragment = new Fragment();
+    private HomeFragment mHomeFragment = new HomeFragment();
+    private WholeCategoryFragment mWholeCategoryFragment = new WholeCategoryFragment();
+    private ARFragment mARFragment = new ARFragment();
+    private AccountFragment mAccountFragment = new AccountFragment();
 
     @Override
     protected int getLayoutId() {
@@ -73,16 +71,18 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
 
     @Override
     protected void initValues() {
+        App.addDestoryActivity(this, "MainActivity");
         App.getManager().addActivity(this);
         Boolean isFirstOpen = (Boolean) SPUtil.get(this, IConstants.FIRST_APP, true);
         if (isFirstOpen) {
             rlMain.openPane();
             SPUtil.put(this, IConstants.FIRST_APP, false);
         }
-        cvpMainViewpager.setScanScroll(false);
+        switchFragment(mHomeFragment).commit();
+        //        cvpMainViewpager.setScanScroll(false);
 
-        //加载adapter
-        cvpMainViewpager.setAdapter(new MyAdapter(getSupportFragmentManager(), setfargment()));
+        //        //加载adapter
+        //        cvpMainViewpager.setAdapter(new MyAdapter(getSupportFragmentManager(), setfargment()));
     }
 
     @Override
@@ -96,7 +96,7 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
 
     @Override
     protected void initListener() {
-        cvpMainViewpager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        vpMainViewpager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             }
@@ -113,31 +113,30 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
         });
     }
 
-    /**
-     * 添加Fragment
-     */
-    private List<Fragment> setfargment() {
-        list = new ArrayList<Fragment>();
-        list.add(new HomeFragment());
-        list.add(new WholeCategoryFragment());
-        list.add(new ARFragment());
-        list.add(new AccountFragment());
-        return list;
-    }
-
     @Override
     protected void initData() {
 
     }
 
-    public class MyHandler extends Handler {
+    //Fragment优化
+    private FragmentTransaction switchFragment(Fragment targetFragment) {
 
-        public String msgContent;
+        FragmentTransaction transaction = getSupportFragmentManager()
+                .beginTransaction();
+        if (!targetFragment.isAdded()) {
+            //第一次使用switchFragment()时currentFragment为null，所以要判断一下
+            if (currentFragment != null) {
+                transaction.hide(currentFragment);
+            }
+            transaction.add(R.id.ll_main, targetFragment, targetFragment.getClass().getName());
 
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
+        } else {
+            transaction
+                    .hide(currentFragment)
+                    .show(targetFragment);
         }
+        currentFragment = targetFragment;
+        return transaction;
     }
 
     /**
@@ -179,25 +178,25 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_home:
-                cvpMainViewpager.setCurrentItem(0);
+                switchFragment(mHomeFragment).commit();
                 //沉浸式状态栏初始化黑色
                 ImmersionBar.with(this).fitsSystemWindows(false).statusBarDarkFont(true).init();
                 FragmentSelect(1);
                 break;
             case R.id.bt_whole_category:
-                cvpMainViewpager.setCurrentItem(1);
+                switchFragment(mWholeCategoryFragment).commit();
                 //沉浸式状态栏初始化白色
                 ImmersionBar.with(this).fitsSystemWindows(false).statusBarDarkFont(false).init();
                 FragmentSelect(0);
                 break;
             case R.id.bt_ar:
-                cvpMainViewpager.setCurrentItem(2);
+                switchFragment(mARFragment).commit();
                 //沉浸式状态栏初始化黑色
                 ImmersionBar.with(this).fitsSystemWindows(false).statusBarDarkFont(true).init();
                 FragmentSelect(1);
                 break;
             case R.id.bt_account:
-                cvpMainViewpager.setCurrentItem(3);
+                switchFragment(mAccountFragment).commit();
                 //沉浸式状态栏初始化黑色
                 ImmersionBar.with(this).fitsSystemWindows(false).statusBarDarkFont(true).init();
                 FragmentSelect(1);

@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.mengyang.kohler.R;
+import com.mengyang.kohler.module.bean.StoreListBean;
 
 import java.util.List;
 
@@ -15,17 +16,17 @@ import java.util.List;
  * Time : 2018/1/30
  */
 
-public class StoreListAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
+public class StoreListAdapter extends BaseQuickAdapter<StoreListBean.ResultListBean, BaseViewHolder> {
 
-    public StoreListAdapter(@Nullable List<String> data) {
+    public StoreListAdapter(@Nullable List<StoreListBean.ResultListBean> data) {
         super(R.layout.item_store_list_adapter, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, String item) {
-        helper.setText(R.id.tv_store_list_name, "")
-                .setText(R.id.tv_store_list_address, "")
-                .setText(R.id.tv_store_list_phone, "")
-                .setText(R.id.tv_store_list_distance, "");
+    protected void convert(BaseViewHolder helper, StoreListBean.ResultListBean item) {
+        helper.setText(R.id.tv_store_list_name, item.getRoomname())
+                .setText(R.id.tv_store_list_address, item.getAddress())
+                .setText(R.id.tv_store_list_phone, item.getTel())
+                .setText(R.id.tv_store_list_distance, item.getDistance() + "m");
     }
 }

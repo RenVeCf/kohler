@@ -1,9 +1,11 @@
 package com.mengyang.kohler.account.activity;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
@@ -16,6 +18,8 @@ import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.ReservationQueryBean;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -26,14 +30,17 @@ import io.reactivex.schedulers.Schedulers;
  * 我的账户——预约查询
  */
 
-public class AccountMineReservationQueryActivity extends BaseActivity {
+public class AccountMineReservationQueryActivity extends BaseActivity implements BaseQuickAdapter.RequestLoadMoreListener {
 
     @BindView(R.id.tv_account_reservation_query_top)
     TopView tvAccountReservationQueryTop;
     @BindView(R.id.rv_account_reservation_query)
     RecyclerView rvAccountReservationQuery;
+    @BindView(R.id.srl_account_reservation_query)
+    SwipeRefreshLayout srlAccountReservationQuery;
     private AccountMineReservationQueryAdapter mAccountMineReservationQueryAdapter;
-    private ReservationQueryBean reservationQueryBean;
+    private List<ReservationQueryBean.ResultListBean> reservationQueryBean;
+    private int pageNum = 0; //请求页数
 
     @Override
     protected int getLayoutId() {
@@ -53,11 +60,21 @@ public class AccountMineReservationQueryActivity extends BaseActivity {
         // 如果可以确定每个item的高度是固定的，设置这个选项可以提高性能
         rvAccountReservationQuery.setHasFixedSize(true);
         rvAccountReservationQuery.setItemAnimator(new DefaultItemAnimator());
+        reservationQueryBean = new ArrayList<>();
+        mAccountMineReservationQueryAdapter = new AccountMineReservationQueryAdapter(reservationQueryBean);
+        rvAccountReservationQuery.setAdapter(mAccountMineReservationQueryAdapter);
     }
 
     @Override
     protected void initListener() {
-
+        srlAccountReservationQuery.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                pageNum = 0;
+                initData();
+                srlAccountReservationQuery.setRefreshing(false);
+            }
+        });
     }
 
     @Override
@@ -75,10 +92,39 @@ public class AccountMineReservationQueryActivity extends BaseActivity {
                 .subscribe(new DefaultObserver<BasicResponse<ReservationQueryBean>>(AccountMineReservationQueryActivity.this, true) {
                     @Override
                     public void onSuccess(BasicResponse<ReservationQueryBean> response) {
-                        reservationQueryBean = response.getData();
-                        mAccountMineReservationQueryAdapter = new AccountMineReservationQueryAdapter(reservationQueryBean);
-                        rvAccountReservationQuery.setAdapter(mAccountMineReservationQueryAdapter);
+                        if (response != null) {
+                            if (pageNum == 0) {
+                                reservationQueryBean.clear();
+                                reservationQueryBean.addAll(response.getData().getResultList());
+                                if (reservationQueryBean.size() > 0) {
+                                    pageNum += 1;
+                                    mAccountMineReservationQueryAdapter = new AccountMineReservationQueryAdapter(reservationQueryBean);
+                                    mAccountMineReservationQueryAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_BOTTOM); //动画
+                                    mAccountMineReservationQueryAdapter.isFirstOnly(false); //第一次
+                                    rvAccountReservationQuery.setAdapter(mAccountMineReservationQueryAdapter);
+                                    mAccountMineReservationQueryAdapter.setOnLoadMoreListener(AccountMineReservationQueryActivity.this); //加载更多
+                                } else {
+                                    mAccountMineReservationQueryAdapter.loadMoreEnd();
+                                }
+                            } else {
+                                if (response.getData().getResultList().size() > 0) {
+                                    pageNum += 1;
+                                    reservationQueryBean.addAll(response.getData().getResultList());
+                                    mAccountMineReservationQueryAdapter.addData(response.getData().getResultList());
+                                    mAccountMineReservationQueryAdapter.loadMoreComplete(); //完成本次
+                                } else {
+                                    mAccountMineReservationQueryAdapter.loadMoreEnd(); //完成所有加载
+                                }
+                            }
+                        } else {
+                            mAccountMineReservationQueryAdapter.loadMoreEnd();
+                        }
                     }
                 });
+    }
+
+    @Override
+    public void onLoadMoreRequested() {
+        initData();
     }
 }

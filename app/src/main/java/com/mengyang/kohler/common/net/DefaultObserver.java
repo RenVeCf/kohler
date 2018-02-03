@@ -10,7 +10,6 @@ import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.account.activity.LoginActivity;
 import com.mengyang.kohler.common.utils.CommonDialogUtils;
-import com.mengyang.kohler.common.utils.IConstants;
 import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.utils.ToastUtil;
@@ -59,7 +58,6 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
      * refresh_token过期
      */
     public final static int REFRESH_TOKEN_EXPIRED = 203;
-
 
     public DefaultObserver(Activity activity, boolean isShowLoading) {
         this.activity = activity;

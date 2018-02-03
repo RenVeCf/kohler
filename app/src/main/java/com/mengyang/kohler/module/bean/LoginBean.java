@@ -15,10 +15,19 @@ public class LoginBean {
      * refreshToken : dBy3mG3niUdUtBI2zY2mnAJnWF5CccZ/Q1hb2iWWFyEIRwSbKqAZsEGlEEFYGMtD
      */
 
+    private String type;
     private String accessToken;
     private boolean isNew;
     private String openId;
     private String refreshToken;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getAccessToken() {
         return accessToken;

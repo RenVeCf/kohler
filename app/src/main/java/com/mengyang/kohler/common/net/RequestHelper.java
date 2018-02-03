@@ -1,7 +1,6 @@
 package com.mengyang.kohler.common.net;
 
 import com.mengyang.kohler.BaseActivity;
-import com.mengyang.kohler.common.utils.IConstants;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.RefreshTokenBean;

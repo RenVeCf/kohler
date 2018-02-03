@@ -150,4 +150,6 @@
     <string name="mine_atlas">我的图册</string>
     <string name="confirm_the_replacement">确认更换</string>
     <string name="msg_no_ok">请将信息填写完成！</string>
+    <string name="list_visible">列表显示</string>
+    <string name="map_visible">地图显示</string>
 </resources>

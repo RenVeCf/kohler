@@ -10,6 +10,7 @@ import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IdeaApi;
+import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.ToastUtil;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.module.BasicResponse;
@@ -33,8 +34,8 @@ public class ForgetPasswordTwoActivity extends BaseActivity {
     EditText etForgetPasswordTwoInputPwdAgain;
     @BindView(R.id.bt_distributor_register_two)
     Button btDistributorRegisterTwo;
-    String mMobileNo = getIntent().getStringExtra("mobileNo");
-    String mVerifyCode = getIntent().getStringExtra("verifyCode");
+    String mMobileNo;
+    String mVerifyCode;
 
     @Override
     protected int getLayoutId() {
@@ -46,6 +47,10 @@ public class ForgetPasswordTwoActivity extends BaseActivity {
         App.getManager().addActivity(this);
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(this, tvForgetPasswordTwoTop);
+        mMobileNo = getIntent().getStringExtra("mobileNo");
+        LogUtils.i("rmy", "mobileNo = " + mMobileNo);
+        mVerifyCode = getIntent().getStringExtra("verifyCode");
+        LogUtils.i("rmy", "mVerifyCode = " + mVerifyCode);
     }
 
     @Override

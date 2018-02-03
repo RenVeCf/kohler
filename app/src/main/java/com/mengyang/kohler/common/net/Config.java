@@ -1,0 +1,52 @@
+package com.mengyang.kohler.common.net;
+
+/**
+ * Description : 接口 URL
+ * Author : rmy
+ * Email : 942685687@qq.com
+ * Time : 2017/11/loading3
+ */
+
+public interface Config  {
+
+    /**
+     *  登陆
+     */
+    String USER_REGISTER = "authz/account/register"; //普通用户注册
+    String APP_LOGIN = "authz/account/login"; //登陆
+    String LOGIN_VERIFICATION_IMG = "authz/account/getCode"; //登陆验证码图片
+    String REFRESH_TOKEN = "authz/token/exchange"; // 更新access_token
+    String EQUIPMENT_REQISTRATION = "authz/device/register"; //设备注册
+    String USER_GO_OUT = "authz/account/logout"; //用户退出
+    String USER_CANCEL_BIND_PHONE = "authz/account/unbindMobile"; //用户解绑手机
+    String USER_BIND_PHONE = "authz/account/bindMobile"; //用户手机绑定
+    String USER_MODIFY_BIND_PHONE = "authz/account/updateBindMobile"; //用户换绑手机
+    String FORGET_PWD = "authz/account/forgetPwd"; //忘记密码
+
+    /**
+     * 首页
+     */
+    String STORE_LIST = "store/list"; //附近店铺
+    String SYSTEM_MSG = "system/message/list"; //系统消息列表
+    String USER_HOME_KV = "index/customerPicture"; //首页普通用户KV图
+    String DEALER_HOME_KV = "index/dealerPicture"; //首页经销商KV图
+    String DESIGNER_HOME_KV = "index/designerPicture"; //首页设计师KV图
+    String AAAA = "productSearch/searchBySku"; //商品redis查找
+
+    /**
+     * 全品类
+     */
+    String COMMODITY_SEARCH = "productSearch/searchBySku"; //商品redis查找
+    String SELECT_CLASSIFICATION = "category/selectionList"; //获得精选分类下所有分类
+    String COMMODITY_CLASSIFICATION = "category/listWithoutSelection";//获得所有非精选分类界面下的二级分类
+
+    /**
+     * 账户
+     */
+    String USER_RESERVE_MSG = "appointment/info"; //获取用户预约信息
+    String Add_Like = "product/insertFavorite"; //用户添加收藏
+    String CANCEL_Like = "product/deleteFavorite"; //用户取消收藏
+    String Like_List = "product/favoriteList"; //用户收藏列表
+    String MODIFY_HEAD_PORTRAIT = "authz/account/updatePortrait"; //修改头像
+    String UPLOAD_HEAD_PORTRAIT = "file/uploadMedia"; //上传头像
+}

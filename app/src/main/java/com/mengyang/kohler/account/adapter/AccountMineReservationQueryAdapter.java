@@ -16,16 +16,16 @@ import java.util.List;
  * Time : 2018/1/29
  */
 
-public class AccountMineReservationQueryAdapter extends BaseQuickAdapter<ReservationQueryBean, BaseViewHolder> {
+public class AccountMineReservationQueryAdapter extends BaseQuickAdapter<ReservationQueryBean.ResultListBean, BaseViewHolder> {
 
-    public AccountMineReservationQueryAdapter(@Nullable ReservationQueryBean data) {
-        super(R.layout.item_account_mine_reservation_query_adapter, (List<ReservationQueryBean>) data);
+    public AccountMineReservationQueryAdapter(@Nullable List<ReservationQueryBean.ResultListBean> data) {
+        super(R.layout.item_account_mine_reservation_query_adapter, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, ReservationQueryBean item) {
-        helper.setText(R.id.tv_reservation_query_time_of_appointment, item.getResultList().get(helper.getAdapterPosition()).getAppointmentTime())
-                .setText(R.id.tv_reservation_query_store_address, item.getResultList().get(helper.getAdapterPosition()).getStoreAddress())
-                .setText(R.id.tv_reservation_query_reservation_code, item.getResultList().get(helper.getAdapterPosition()).getCode());
+    protected void convert(BaseViewHolder helper, ReservationQueryBean.ResultListBean item) {
+        helper.setText(R.id.tv_reservation_query_time_of_appointment, item.getAppointmentTime())
+                .setText(R.id.tv_reservation_query_store_address, item.getStoreAddress())
+                .setText(R.id.tv_reservation_query_reservation_code, item.getCode());
     }
 }

@@ -26,10 +26,16 @@
         android:layout_height="1dp"
         android:background="#e0e0e0"/>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_system_msg"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/srl_system_msg"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/y72"
-        android:layout_marginStart="@dimen/x54"/>
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_system_msg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y72"
+            android:layout_marginStart="@dimen/x54"/>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

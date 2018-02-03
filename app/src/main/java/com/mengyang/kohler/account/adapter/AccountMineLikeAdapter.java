@@ -9,6 +9,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.module.bean.LikeListBean;
+import com.mengyang.kohler.module.bean.ReservationQueryBean;
 
 import java.util.List;
 
@@ -19,13 +20,13 @@ import java.util.List;
  * Time : 2018/1/29
  */
 
-public class AccountMineLikeAdapter extends BaseQuickAdapter<LikeListBean, BaseViewHolder> {
-    public AccountMineLikeAdapter(@Nullable LikeListBean data) {
-        super(R.layout.item_account_mine_like_adapter, (List<LikeListBean>) data);
+public class AccountMineLikeAdapter extends BaseQuickAdapter<LikeListBean.ResultListBean, BaseViewHolder> {
+    public AccountMineLikeAdapter(@Nullable List<LikeListBean.ResultListBean> data) {
+        super(R.layout.item_account_mine_like_adapter, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, LikeListBean item) {
+    protected void convert(BaseViewHolder helper, LikeListBean.ResultListBean item) {
         helper.setText(R.id.tv_account_mine_like_adapter_product_name, "")
                 .setText(R.id.tv_account_mine_like_adapter_model_name, "");
         Glide.with(App.getContext()).load("").into((ImageView) helper.getView(R.id.iv_account_mine_like_adapter_item));

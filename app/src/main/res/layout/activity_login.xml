@@ -100,22 +100,18 @@
             <EditText
                 android:id="@+id/et_login_verification_code"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@null"
                 android:hint="@string/input_verification_code"
                 android:textSize="12sp"/>
 
-            <TextView
-                android:id="@+id/tv_login_verification_code"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:background="@color/white"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                tools:text="8596"/>
-
+            <ImageView
+                android:id="@+id/iv_login_verification_code"
+                android:layout_width="@dimen/x200"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:layout_gravity="center_vertical"/>
         </LinearLayout>
 
         <View

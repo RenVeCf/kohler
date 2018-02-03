@@ -9,15 +9,23 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.google.gson.Gson;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseFragment;
 import com.mengyang.kohler.R;
+import com.mengyang.kohler.common.net.DefaultObserver;
+import com.mengyang.kohler.common.net.IConstants;
+import com.mengyang.kohler.common.net.IdeaApi;
+import com.mengyang.kohler.common.net.IdeaApiService;
+import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.view.SpacesItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.home.activity.HomeSearchActivity;
 import com.mengyang.kohler.home.activity.MeetingActivity;
-import com.mengyang.kohler.home.adapter.HomeBooksAdapter;
+import com.mengyang.kohler.module.BasicResponse;
+import com.mengyang.kohler.module.bean.UserHomeKVBean;
+import com.mengyang.kohler.module.bean.UserHomeKVUrlBean;
 import com.mengyang.kohler.whole_category.activity.CommodityClassificationActivity;
 import com.mengyang.kohler.whole_category.activity.CommodityDetailsActivity;
 import com.ryane.banner.AdPageInfo;
@@ -25,9 +33,13 @@ import com.ryane.banner.AdPlayBanner;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 import static com.ryane.banner.AdPlayBanner.ImageLoaderType.GLIDE;
 import static com.ryane.banner.AdPlayBanner.IndicatorType.NONE_INDICATOR;
@@ -60,9 +72,7 @@ public class HomeFragment extends BaseFragment {
     ImageView ivHomeSearch;
     //侧滑Meun键的接口回调
     private OnFragmentInteractionListener mListener;
-    ArrayList<String> mDatassssssss;
-    //我的图册
-    private HomeBooksAdapter mHomeBooksAdapter;
+    private UserHomeKVUrlBean mUserHomeKVUrlBean;
     //轮播图集合
     private List<AdPageInfo> mDatas = new ArrayList<>();
 
@@ -89,88 +99,95 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     protected void initListener() {
-        if (mDatas.size() == 0) {
-            AdPageInfo info1 = new AdPageInfo("拜仁球场冠绝全球", "http://onq81n53u.bkt.clouddn.com/photo1.jpg", "http://www.bairen.com", 1);
-            AdPageInfo info2 = new AdPageInfo("日落东单一起战斗", "http://onq81n53u.bkt.clouddn.com/photo2.jpg", "http://www.riluodongdan.com", 4);
-            AdPageInfo info3 = new AdPageInfo("香港夜景流连忘返", "http://onq81n53u.bkt.clouddn.com/photo3333.jpg", "http://www.hongkong.com", 2);
-
-            mDatas.add(info1);
-            mDatas.add(info2);
-            mDatas.add(info3);
-        }
-        abHomeLoop.setImageLoadType(GLIDE);
-        abHomeLoop.setOnPageClickListener(new AdPlayBanner.OnPageClickListener() {
-            @Override
-            public void onPageClick(AdPageInfo info, int postion) {
-                if (postion == 0)
-                    startActivity(new Intent(getActivity(), CommodityClassificationActivity.class));
-                else if (postion == 1)
-                    startActivity(new Intent(getActivity(), MeetingActivity.class));
-                else
-                    startActivity(new Intent(getActivity(), CommodityDetailsActivity.class));
-                //                ToastUtil.showToast("你点击了图片 " + info.getTitle() + "\n 跳转链接为：" + info.getClickUlr() + "\n 当前位置是：" + postion + "\n 当前优先级是：" + info.getOrder());
-            }
-        });
-        //自动滚动
-        abHomeLoop.setAutoPlay(true);
-        //页码指示器
-        abHomeLoop.setIndicatorType(NONE_INDICATOR);
-        //        //normalColor为数字没选中时的背景颜色，selectedColor为数字选中时的背景颜色，numberColor为数字的字体颜色
-        //        abHomeLoop.setNumberViewColor(0xcc00A600, 0xccea0000, 0xffffffff);
-        //间隔时间
-        abHomeLoop.setInterval(3000);
-        //标题
-        //abLoop.addTitleView(new TitleView(getContext()).setPosition(PARENT_TOP).setTitlePadding(5, 5, 5, 5).setTitleMargin(0, 0, 0, 25).setTitleSize(16).setViewBackground(0x55000000).setTitleColor(ContextCompat.getColor(getContext(), R.color.white)));
-        //背景
-        abHomeLoop.setBannerBackground(0xffffffff);
-        //        //切换动画
-        //        abHomeLoop.setPageTransformer(new FadeInFadeOutTransformer());
-        //滑动监听
-        abHomeLoop.setOnPagerChangeListener(new AdPlayBanner.OnPagerChangeListener() {
-            @Override
-            public void onPageSelected(int position) {
-                if (position == 0 && vHomeBanner1 != null && vHomeBanner2 != null && vHomeBanner3 != null) {
-                    vHomeBanner1.setBackgroundColor(getResources().getColor(R.color.black));
-                    vHomeBanner2.setBackgroundColor(getResources().getColor(R.color.home_banner_line));
-                    vHomeBanner3.setBackgroundColor(getResources().getColor(R.color.home_banner_line));
-                } else if (position == 1 && vHomeBanner1 != null && vHomeBanner2 != null && vHomeBanner3 != null) {
-                    vHomeBanner1.setBackgroundColor(getResources().getColor(R.color.home_banner_line));
-                    vHomeBanner2.setBackgroundColor(getResources().getColor(R.color.black));
-                    vHomeBanner3.setBackgroundColor(getResources().getColor(R.color.home_banner_line));
-                } else if (position == 2 && vHomeBanner1 != null && vHomeBanner2 != null && vHomeBanner3 != null) {
-                    vHomeBanner1.setBackgroundColor(getResources().getColor(R.color.home_banner_line));
-                    vHomeBanner2.setBackgroundColor(getResources().getColor(R.color.home_banner_line));
-                    vHomeBanner3.setBackgroundColor(getResources().getColor(R.color.black));
-                }
-            }
-
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-            }
-        });
-        //数据源
-        abHomeLoop.setInfoList((ArrayList<AdPageInfo>) mDatas);
-        abHomeLoop.setUp();
-    }
-
-    private void initDatas() {
-        mDatassssssss = new ArrayList<>();
-
-        for (int i = 0; i < 50; i++) {
-            mDatassssssss.add(i, i + 1 + "");
-        }
     }
 
     @Override
     protected void initData() {
-        initDatas();
-        // 设置适配器
-        mHomeBooksAdapter = new HomeBooksAdapter(mDatassssssss);
-        rvHomeBooks.setAdapter(mHomeBooksAdapter);
+        String type = SPUtil.get(App.getContext(), IConstants.TYPE, "commonUser") + "";
+        Map<String, String> stringMap = IdeaApi.getSign();
+
+        IdeaApi.getRequestLogin(stringMap);
+        IdeaApiService apiService = IdeaApi.getApiService();
+        Observable HomeKV;
+        switch (type) {
+            case "commonUser":
+                HomeKV = apiService.getUserHomeKV(stringMap);
+                break;
+            case "dealer":
+                HomeKV = apiService.getDealerHomeKV(stringMap);
+                break;
+            case "designer":
+                HomeKV = apiService.getDesignerHomeKV(stringMap);
+                break;
+            default:
+                HomeKV = apiService.getUserHomeKV(stringMap);
+                break;
+        }
+
+        HomeKV.compose(this.<BasicResponse<List<UserHomeKVBean>>>bindToLifecycle())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultObserver<BasicResponse<List<UserHomeKVBean>>>(getActivity(), true) {
+                    @Override
+                    public void onSuccess(BasicResponse<List<UserHomeKVBean>> response) {
+                        Gson gson = new Gson();
+                        for (int i = 0; i < 3; i++) {
+                            mUserHomeKVUrlBean = gson.fromJson(response.getData().get(i).getDictDesc(), UserHomeKVUrlBean.class);
+                            AdPageInfo info = new AdPageInfo("", mUserHomeKVUrlBean.getClickRedirect(), "", i + 1);
+                            mDatas.add(info);
+                        }
+                        abHomeLoop.setImageLoadType(GLIDE);
+                        abHomeLoop.setOnPageClickListener(new AdPlayBanner.OnPageClickListener() {
+                            @Override
+                            public void onPageClick(AdPageInfo info, int postion) {
+                                if (postion == 0)
+                                    startActivity(new Intent(getActivity(), CommodityClassificationActivity.class));
+                                else if (postion == 1)
+                                    startActivity(new Intent(getActivity(), MeetingActivity.class));
+                                else
+                                    startActivity(new Intent(getActivity(), CommodityDetailsActivity.class));
+                            }
+                        });
+                        //自动滚动
+                        abHomeLoop.setAutoPlay(true);
+                        //页码指示器
+                        abHomeLoop.setIndicatorType(NONE_INDICATOR);
+                        //间隔时间
+                        abHomeLoop.setInterval(3000);
+                        //背景
+                        abHomeLoop.setBannerBackground(0xffffffff);
+                        //滑动监听
+                        abHomeLoop.setOnPagerChangeListener(new AdPlayBanner.OnPagerChangeListener() {
+                            @Override
+                            public void onPageSelected(int position) {
+                                if (position == 0 && vHomeBanner1 != null && vHomeBanner2 != null && vHomeBanner3 != null) {
+                                    vHomeBanner1.setBackgroundColor(getResources().getColor(R.color.black));
+                                    vHomeBanner2.setBackgroundColor(getResources().getColor(R.color.home_banner_line));
+                                    vHomeBanner3.setBackgroundColor(getResources().getColor(R.color.home_banner_line));
+                                } else if (position == 1 && vHomeBanner1 != null && vHomeBanner2 != null && vHomeBanner3 != null) {
+                                    vHomeBanner1.setBackgroundColor(getResources().getColor(R.color.home_banner_line));
+                                    vHomeBanner2.setBackgroundColor(getResources().getColor(R.color.black));
+                                    vHomeBanner3.setBackgroundColor(getResources().getColor(R.color.home_banner_line));
+                                } else if (position == 2 && vHomeBanner1 != null && vHomeBanner2 != null && vHomeBanner3 != null) {
+                                    vHomeBanner1.setBackgroundColor(getResources().getColor(R.color.home_banner_line));
+                                    vHomeBanner2.setBackgroundColor(getResources().getColor(R.color.home_banner_line));
+                                    vHomeBanner3.setBackgroundColor(getResources().getColor(R.color.black));
+                                }
+                            }
+
+                            @Override
+                            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                            }
+
+                            @Override
+                            public void onPageScrollStateChanged(int state) {
+                            }
+                        });
+                        //数据源
+                        abHomeLoop.setInfoList((ArrayList<AdPageInfo>) mDatas);
+                        abHomeLoop.setUp();
+                    }
+                });
     }
 
     @Override
@@ -195,16 +212,15 @@ public class HomeFragment extends BaseFragment {
         void onFragmentInteraction(String data);
     }
 
-    @OnClick({R.id.et_home_search, R.id.iv_top_menu, R.id.iv_home_search})
+    @OnClick({R.id.iv_top_menu, R.id.iv_home_search})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_home_search:
-                startActivity(new Intent(getActivity(), HomeSearchActivity.class));
+                if (!etHomeSearch.getText().toString().trim().equals(""))
+                    startActivity(new Intent(getActivity(), HomeSearchActivity.class).putExtra("etHomeSearch", etHomeSearch.getText().toString().trim()));
                 break;
             case R.id.iv_top_menu:
                 mListener.onFragmentInteraction("");
-                break;
-            case R.id.et_home_search:
                 break;
         }
     }

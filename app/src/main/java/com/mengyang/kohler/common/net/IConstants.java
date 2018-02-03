@@ -1,4 +1,4 @@
-package com.mengyang.kohler.common.utils;
+package com.mengyang.kohler.common.net;
 
 /**
  * Description : 公共参数配置类
@@ -10,7 +10,6 @@ package com.mengyang.kohler.common.utils;
 public class IConstants {
     //包名
     public static final String PACKAGE_NAME = "com.mengyang.kohler";
-    public static final String FIRSTENTER = "ping_an_bank";
     /**
     * 共享参数
     */
@@ -18,6 +17,7 @@ public class IConstants {
     public static final String REFRESH_TOKEN = "refreshtoken"; //refreshtoken
     public static final String FIRST_APP = "isFirstApp"; //第一次进应用
     public static final String IS_LOGIN = "isLogin"; //已经登录
+    public static final String TYPE = "type"; //用户身份
     public static final String POEN_ID = "openId"; //用户唯一标识
     public static final String USER_ID = "userId"; //用户uid
     public static final String JPUSH_SYSTEM_ID = "registrationId"; //极光系统id

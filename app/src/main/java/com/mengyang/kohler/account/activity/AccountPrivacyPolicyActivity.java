@@ -8,6 +8,10 @@ import com.mengyang.kohler.common.view.TopView;
 
 import butterknife.BindView;
 
+/**
+ * 隐私政策
+ */
+
 public class AccountPrivacyPolicyActivity extends BaseActivity {
     @BindView(R.id.tv_account_privacy_policy_top)
     TopView tvAccountPrivacyPolicyTop;

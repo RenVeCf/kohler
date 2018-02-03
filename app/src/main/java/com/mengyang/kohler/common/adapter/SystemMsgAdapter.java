@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.mengyang.kohler.R;
+import com.mengyang.kohler.module.bean.SystemMsgBean;
 
 import java.util.List;
 
@@ -15,15 +16,15 @@ import java.util.List;
  * Time : 2018/1/29
  */
 
-public class SystemMsgAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
+public class SystemMsgAdapter extends BaseQuickAdapter<SystemMsgBean, BaseViewHolder> {
 
-    public SystemMsgAdapter(@Nullable List<String> data) {
+    public SystemMsgAdapter(@Nullable List<SystemMsgBean> data) {
         super(R.layout.item_system_msg_adapter, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, String item) {
-        helper.setText(R.id.tv_system_msg_adapter_prompt, "")
-                .setText(R.id.tv_system_msg_adapter_day_num, "");
+    protected void convert(BaseViewHolder helper, SystemMsgBean item) {
+        helper.setText(R.id.tv_system_msg_adapter_prompt, item.getMsgContent())
+                .setText(R.id.tv_system_msg_adapter_day_num, item.getCreateTime());
     }
 }
