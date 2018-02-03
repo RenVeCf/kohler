@@ -40,7 +40,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:windowSoftInputMode="adjustResize">
+        android:windowSoftInputMode="adjustPan">
         <activity
             android:name=".main.activity.SplashActivity"
             android:launchMode="singleTask">
@@ -132,26 +132,32 @@
         </activity>
         <activity
             android:name=".account.activity.AccountBindPhoneActivity"
+            android:windowSoftInputMode="adjustResize"
             android:launchMode="singleTask">
         </activity>
         <activity
             android:name=".account.activity.DesignerRegisterActivity"
+            android:windowSoftInputMode="adjustResize"
             android:launchMode="singleTask">
         </activity>
         <activity
             android:name=".account.activity.ModifyPwdActivity"
+            android:windowSoftInputMode="adjustResize"
             android:launchMode="singleTask">
         </activity>
         <activity
             android:name=".account.activity.DistributorRegisterActivity"
+            android:windowSoftInputMode="adjustResize"
             android:launchMode="singleTask">
         </activity>
         <activity
             android:name=".account.activity.DistributorVerificationCodeActivity"
+            android:windowSoftInputMode="adjustResize"
             android:launchMode="singleTask">
         </activity>
         <activity
             android:name=".common.activity.CustomerServiceActivity"
+            android:windowSoftInputMode="adjustResize"
             android:launchMode="singleTask">
         </activity>
         <activity

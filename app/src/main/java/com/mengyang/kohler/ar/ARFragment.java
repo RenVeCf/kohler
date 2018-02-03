@@ -12,8 +12,8 @@ import butterknife.BindView;
  */
 
 public class ARFragment extends BaseFragment {
-    @BindView(R.id.tv_ar_top)
-    TopView tvArTop;
+//    @BindView(R.id.tv_ar_top)
+//    TopView tvArTop;
 
     @Override
     protected int getLayoutId() {
@@ -23,7 +23,7 @@ public class ARFragment extends BaseFragment {
     @Override
     protected void initValues() {
         //防止状态栏和标题重叠
-        ImmersionBar.setTitleBar(getActivity(), tvArTop);
+//        ImmersionBar.setTitleBar(getActivity(), tvArTop);
     }
 
     @Override
