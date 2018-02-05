@@ -64,6 +64,7 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.tv_login_go_register)
     TextView tvLoginGoRegister;
     private byte[] bytes;//图片验证码进制流
+    private String time = "";
 
     @Override
     protected int getLayoutId() {
@@ -83,7 +84,9 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void initData() {
         Map<String, String> stringMap = IdeaApi.getSign();
-        stringMap.put("time", DateUtils.dataOne(DateUtils.getCurrentTime_Today()));//时间戳
+        time = DateUtils.dataOne(DateUtils.getCurrentTime_Today());
+        stringMap.put("time", time);//时间戳
+
         postAsynHttp(stringMap);
     }
 
@@ -132,9 +135,8 @@ public class LoginActivity extends BaseActivity {
         Map<String, String> stringMap = IdeaApi.getSign();
         stringMap.put("mobileNo", etLoginPhoneNum.getText().toString().trim());//手机号码
         stringMap.put("password", etLoginPwd.getText().toString().trim());//用户密码
-        stringMap.put("time", DateUtils.dataOne(DateUtils.getCurrentTime_Today()));//时间戳
+        stringMap.put("time", time);//时间戳得和图片验证码时的一样
         stringMap.put("code", etLoginVerificationCode.getText().toString().trim());//验证码
-        LogUtils.i("rmy", "code = "+ etLoginVerificationCode.getText().toString().trim());
 
         IdeaApi.getRequestLogin(stringMap);
         IdeaApi.getApiService()

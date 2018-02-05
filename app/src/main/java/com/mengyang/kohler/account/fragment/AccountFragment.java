@@ -9,13 +9,13 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Build;
 import android.provider.MediaStore;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -28,10 +28,8 @@ import com.mengyang.kohler.account.activity.AccountMineLikeActivity;
 import com.mengyang.kohler.account.activity.AccountMineReservationQueryActivity;
 import com.mengyang.kohler.account.activity.AccountSettingsActivity;
 import com.mengyang.kohler.common.net.DefaultObserver;
-import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.net.IConstants;
-import com.mengyang.kohler.common.utils.LogUtils;
-import com.mengyang.kohler.common.utils.MD5Utils;
+import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.view.CircleImageView;
 import com.mengyang.kohler.common.view.TopView;
@@ -39,7 +37,6 @@ import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.UploadHeadPortraitBean;
 
 import java.io.File;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -80,7 +77,9 @@ public class AccountFragment extends BaseFragment {
     private PopupWindow mAccountTitleNamePopupWindow;
     private View mPopNameLayout;
     private ImageView ivAccountModifyTitleImg;
-    private Button btAccountModifyTitleImgConfirm;
+    private Button btAccountModifyTitleImgConfirm; //头像PopupWindow确定键
+    private EditText etAccountPopNewName; ////名称PopupWindow输入框
+    private Button btAccountPopNewName; //名称PopupWindow确定键
     //是否登录
     private boolean is_Login = (boolean) SPUtil.get(App.getContext(), IConstants.IS_LOGIN, false);
 
@@ -148,6 +147,36 @@ public class AccountFragment extends BaseFragment {
         mAccountTitleNamePopupWindow.setBackgroundDrawable(new ColorDrawable(0x4c000000));
         mAccountTitleNamePopupWindow.setOutsideTouchable(false);
         mAccountTitleNamePopupWindow.setFocusable(true);
+        etAccountPopNewName = mPopNameLayout.findViewById(R.id.et_account_pop_new_name);
+        btAccountPopNewName = mPopNameLayout.findViewById(R.id.bt_account_pop_new_name);
+        btAccountPopNewName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //更换名称
+                if (!etAccountPopNewName.getText().toString().trim().equals("")) {
+                    getNikeName();
+                }
+            }
+        });
+    }
+
+    public void getNikeName() {
+        Map<String, String> stringMap = IdeaApi.getSign();
+        stringMap.put("nickName", etAccountPopNewName.getText().toString().trim());//昵称
+
+        IdeaApi.getRequestLogin(stringMap);
+        IdeaApi.getApiService()
+                .getModifyNikeName(stringMap)
+                .compose(this.<BasicResponse>bindToLifecycle())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultObserver<BasicResponse>(getActivity(), true) {
+                    @Override
+                    public void onSuccess(BasicResponse response) {
+                        tvAccountName.setText(etAccountPopNewName.getText().toString().trim());
+                        mAccountTitleNamePopupWindow.dismiss();
+                    }
+                });
     }
 
     @Override
@@ -190,43 +219,14 @@ public class AccountFragment extends BaseFragment {
                 .subscribe(new DefaultObserver<BasicResponse>(getActivity(), false) {
                     @Override
                     public void onSuccess(BasicResponse response) {
-                        Map<String, String> stringMap = new HashMap<String, String>();
-                        String token = (String) SPUtil.get(App.getContext(), IConstants.TOKEN, "");
-                        if (token == null || "".equals(token)) {
-                        } else {
-                            stringMap.put("accessToken", token);
-                        }
-                        stringMap.put("appVersion", "loading1.0.4");
-                        stringMap.put("appType", "android");
-                        stringMap.put("clientId", "FjyrG8VkMLntjtGi");
-                        stringMap.put("charset", "utf-8");
-                        stringMap.put("deviceId", Build.ID);
-                        stringMap.put("resultType", "json");
-                        stringMap.put("ipAddress", "192.168.0.6");
-                        stringMap.put("reqTime", System.currentTimeMillis() + "");
-                        StringBuffer sb = new StringBuffer();
-                        //设置表单参数
-                        for (String key : stringMap.keySet()) {
-                            sb.append(key + "=" + stringMap.get(key) + "&");
-                        }
-                        sb.append("Uujr6uw2QQVFKI9GFVYUfPLN5c4WKwc6");
-                        // 有问题
                         File file = new File(imaePath);
                         RequestBody imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
                         MultipartBody.Builder builder = new MultipartBody.Builder()
-                                .setType(MultipartBody.FORM)
-                                .addFormDataPart("accessToken", token)
-                                .addFormDataPart("appVersion", "loading1.0.4")
-                                .addFormDataPart("appType", "android")
-                                .addFormDataPart("clientId", "FjyrG8VkMLntjtGi")
-                                .addFormDataPart("charset", "utf-8")
-                                .addFormDataPart("deviceId", Build.ID)
-                                .addFormDataPart("resultType", "json")
-                                .addFormDataPart("ipAddress", "192.168.0.6")
-                                .addFormDataPart("reqTime", System.currentTimeMillis() + "")
-                                .addFormDataPart("sign", MD5Utils.encodeMD5(sb.toString()))
-                                .addFormDataPart("signType", "MD5")
-                                .addFormDataPart("portraitUrl", file.getName(), imageBody);
+                                .setType(MultipartBody.FORM);
+                        for (String key : IdeaApi.getSign().keySet()) {
+                            builder.addFormDataPart(key, IdeaApi.getSign().get(key));
+                        }
+                        builder.addFormDataPart("portraitUrl", file.getName(), imageBody);
                         List<MultipartBody.Part> parts = builder.build().parts();
 
                         IdeaApi.getApiService()
@@ -236,7 +236,6 @@ public class AccountFragment extends BaseFragment {
                                 .subscribe(new DefaultObserver<BasicResponse<UploadHeadPortraitBean>>(getActivity(), false) {
                                     @Override
                                     public void onSuccess(BasicResponse<UploadHeadPortraitBean> response) {
-                                        LogUtils.i("上传成功！");
                                     }
                                 });
                     }
@@ -264,11 +263,10 @@ public class AccountFragment extends BaseFragment {
                 }
                 break;
             case R.id.tv_account_name:
-                if (is_Login)
+                if (is_Login) {
                     mAccountTitleNamePopupWindow.showAsDropDown(view, 0, 0);
-                else
-
-                    break;
+                }
+                break;
             case R.id.bt_account_like:
                 if ((boolean) SPUtil.get(App.getContext(), IConstants.IS_LOGIN, false))
                     startActivity(new Intent(App.getContext(), AccountMineLikeActivity.class));

@@ -112,6 +112,7 @@ public class AccountBindPhoneActivity extends BaseActivity {
                         .subscribe(new DefaultObserver<BasicResponse>(AccountBindPhoneActivity.this, true) {
                             @Override
                             public void onSuccess(BasicResponse response) {
+                                finish();
                             }
                         });
             }

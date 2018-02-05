@@ -22,6 +22,7 @@ public interface Config  {
     String USER_BIND_PHONE = "authz/account/bindMobile"; //用户手机绑定
     String USER_MODIFY_BIND_PHONE = "authz/account/updateBindMobile"; //用户换绑手机
     String FORGET_PWD = "authz/account/forgetPwd"; //忘记密码
+    String MODIFY_PWD = "authz/account/updatePwd"; //修改密码
 
     /**
      * 首页
@@ -31,14 +32,14 @@ public interface Config  {
     String USER_HOME_KV = "index/customerPicture"; //首页普通用户KV图
     String DEALER_HOME_KV = "index/dealerPicture"; //首页经销商KV图
     String DESIGNER_HOME_KV = "index/designerPicture"; //首页设计师KV图
-    String AAAA = "productSearch/searchBySku"; //商品redis查找
+    String ALL_SEARCH = "productSearch/solrByStr"; //全文搜索
 
     /**
      * 全品类
      */
     String COMMODITY_SEARCH = "productSearch/searchBySku"; //商品redis查找
     String SELECT_CLASSIFICATION = "category/selectionList"; //获得精选分类下所有分类
-    String COMMODITY_CLASSIFICATION = "category/listWithoutSelection";//获得所有非精选分类界面下的二级分类
+    String COMMODITY_CLASSIFICATION = "category/listWithoutSelection";//获得所有非精选分类主界面
 
     /**
      * 账户
@@ -49,4 +50,5 @@ public interface Config  {
     String Like_List = "product/favoriteList"; //用户收藏列表
     String MODIFY_HEAD_PORTRAIT = "authz/account/updatePortrait"; //修改头像
     String UPLOAD_HEAD_PORTRAIT = "file/uploadMedia"; //上传头像
+    String MODIFY_NIKE_NAME = "authz/account/updateNickName"; //修改昵称
 }

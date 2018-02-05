@@ -1,8 +1,10 @@
 package com.mengyang.kohler.common.net;
 
 import com.mengyang.kohler.module.BasicResponse;
+import com.mengyang.kohler.module.bean.AllSearchBean;
 import com.mengyang.kohler.module.bean.LikeListBean;
 import com.mengyang.kohler.module.bean.LoginBean;
+import com.mengyang.kohler.module.bean.NotSelectClassificationBean;
 import com.mengyang.kohler.module.bean.RefreshTokenBean;
 import com.mengyang.kohler.module.bean.ReservationQueryBean;
 import com.mengyang.kohler.module.bean.SelectClassificationBean;
@@ -112,10 +114,20 @@ public interface IdeaApiService {
     @POST(Config.UPLOAD_HEAD_PORTRAIT)
     Observable<BasicResponse<UploadHeadPortraitBean>> getUploadHeadPortrait(@Part List<MultipartBody.Part> image);
 
+    //修改昵称
+    @FormUrlEncoded
+    @POST(Config.MODIFY_NIKE_NAME)
+    Observable<BasicResponse> getModifyNikeName(@FieldMap Map<String, String> map);
+
     //忘记密码
     @FormUrlEncoded
     @POST(Config.FORGET_PWD)
     Observable<BasicResponse> getForgetPwd(@FieldMap Map<String, String> map);
+
+    //修改密码
+    @FormUrlEncoded
+    @POST(Config.MODIFY_PWD)
+    Observable<BasicResponse> getModifyPwd(@FieldMap Map<String, String> map);
 
     //获取用户预约信息
     @FormUrlEncoded
@@ -146,4 +158,15 @@ public interface IdeaApiService {
     @FormUrlEncoded
     @POST(Config.SELECT_CLASSIFICATION)
     Observable<BasicResponse<List<SelectClassificationBean>>> getSelectClassification(@FieldMap Map<String, String> map);
+
+    //非精选分类
+    @FormUrlEncoded
+    @POST(Config.COMMODITY_CLASSIFICATION)
+    Observable<BasicResponse<List<NotSelectClassificationBean>>> getNotSelectClassification(@FieldMap Map<String, String> map);
+
+    //全文搜索
+    @FormUrlEncoded
+    @POST(Config.ALL_SEARCH)
+    Observable<BasicResponse<List<AllSearchBean>>> getAllSearch(@FieldMap Map<String, String> map);
+
 }

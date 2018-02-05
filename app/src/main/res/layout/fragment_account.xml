@@ -59,7 +59,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
         android:textColor="@color/black"
-        tools:text="GFDSGFDS"/>
+        android:text="KOHLER"/>
 
     <LinearLayout
         android:layout_width="match_parent"

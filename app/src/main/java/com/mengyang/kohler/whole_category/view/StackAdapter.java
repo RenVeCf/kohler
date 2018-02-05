@@ -12,6 +12,8 @@ import com.bumptech.glide.Glide;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.utils.LogUtils;
+import com.mengyang.kohler.module.bean.NotSelectClassificationBean;
+import com.mengyang.kohler.whole_category.activity.CommodityClassificationActivity;
 import com.mengyang.kohler.whole_category.activity.SelectClassificationActivity;
 
 import java.util.Arrays;
@@ -24,28 +26,11 @@ import java.util.List;
 public class StackAdapter extends RecyclerView.Adapter<StackAdapter.ViewHolder> {
 
     private LayoutInflater inflater;
-    private List<String> datas;
+    private List<NotSelectClassificationBean> datas;
     private Context context;
-    private List<Integer> imageUrls = Arrays.asList(
-            R.mipmap.ic_launcher_round,
-            R.mipmap.ic_launcher_round,
-            R.mipmap.ic_launcher_round,
-            R.mipmap.ic_launcher_round,
-            R.mipmap.ic_launcher_round,
-            R.mipmap.ic_launcher_round,
-            R.mipmap.ic_launcher_round,
-            R.mipmap.ic_launcher_round,
-            R.mipmap.ic_launcher_round,
-            R.mipmap.ic_launcher_round,
-            R.mipmap.ic_launcher_round,
-            R.mipmap.ic_launcher_round,
-            R.mipmap.ic_launcher_round,
-            R.mipmap.ic_launcher_round,
-            R.mipmap.ic_launcher_round
-    );
 
     private boolean vertical;
-    public StackAdapter(List<String> datas) {
+    public StackAdapter(List<NotSelectClassificationBean> datas) {
         this.datas = datas;
     }
 
@@ -67,7 +52,8 @@ public class StackAdapter extends RecyclerView.Adapter<StackAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Glide.with(context).load(imageUrls.get(position)).into(holder.cover);
+        Glide.with(context).load(datas.get(position).getKvUrl()).into(holder.cover);
+//        Glide.with(context).load(imageUrls.get(position)).into(holder.cover);
 //        holder.index.setText(datas.get(holder.getAdapterPosition()));
     }
 
@@ -89,6 +75,8 @@ public class StackAdapter extends RecyclerView.Adapter<StackAdapter.ViewHolder> 
                 public void onClick(View v) {
                     if (getAdapterPosition() == (datas.size() - 1))
                         App.getContext().startActivity(new Intent(App.getContext(), SelectClassificationActivity.class));
+                    else
+                        App.getContext().startActivity(new Intent(App.getContext(), CommodityClassificationActivity.class));
                 }
             });
         }

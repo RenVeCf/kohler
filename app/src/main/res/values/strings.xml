@@ -152,4 +152,6 @@
     <string name="msg_no_ok">请将信息填写完成！</string>
     <string name="list_visible">列表显示</string>
     <string name="map_visible">地图显示</string>
+    <string name="new_pwd_6_16">请输入6-16位字符的新密码</string>
+    <string name="new_pwd_6_16_again">请再次输入6-16位字符的新密码</string>
 </resources>
