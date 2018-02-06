@@ -175,8 +175,6 @@ public class DistributorRegisterActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_distributor_register_go_home:
-                App.destoryActivity("MainActivity");
-                startActivity(new Intent(this, MainActivity.class));
                 finish();
                 break;
             case R.id.bt_distributor_register:

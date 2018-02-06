@@ -75,27 +75,31 @@
         <!-- C5:B2:06:31:E1:7B:6A:07:9B:3E:AF:FF:9E:0F:FA:45:D3:9A:38:00 -->
         <!-- release SHA1 -->
         <!-- 38:20:70:66:55:C0:B1:47:8E:B0:8C:38:17:BB:D7:08:40:D7:B4:15 -->
-        <!-- Bai_Du App_Key -->
-        <!--f5kPNXnZXtGtEoSzoPBzRo1jTEhXGvPw-->
-        <meta-data android:name="com.baidu.lbsapi.API_KEY"
-                   android:value="f5kPNXnZXtGtEoSzoPBzRo1jTEhXGvPw"/>
+        <!-- MY Bai_Du App_Key -->
+        <!-- f5kPNXnZXtGtEoSzoPBzRo1jTEhXGvPw -->
+        <!--公司 Test-->
+        <!--ILIElSVwh90omjtyPMrggUPLcuFpeQu0-->
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="ILIElSVwh90omjtyPMrggUPLcuFpeQu0"/>
         <!-- 百度定位 -->
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote" >
+            android:process=":remote">
             <intent-filter>
-                <action
-                    android:name="com.baidu.location.service_v2.2">
+                <action android:name="com.baidu.location.service_v2.2">
                 </action>
             </intent-filter>
         </service>
 
-        <!--<service android:name="cn.jpush.android.service.PushService"-->
-                 <!--android:process=":multiprocess"-->
-                 <!--tools:node="replace" >-->
-        <!--</service>-->
-        <meta-data android:name="JPUSH_APPKEY" android:value="fd05fab95e99b7cbea8d2afa"/>
+        <!-- <service android:name="cn.jpush.android.service.PushService" -->
+        <!-- android:process=":multiprocess" -->
+        <!-- tools:node="replace" > -->
+        <!-- </service> -->
+        <meta-data
+            android:name="JPUSH_APPKEY"
+            android:value="fd05fab95e99b7cbea8d2afa"/>
 
         <activity
             android:name=".home.activity.StoreMapActivity"
@@ -132,33 +136,33 @@
         </activity>
         <activity
             android:name=".account.activity.AccountBindPhoneActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustResize">
         </activity>
         <activity
             android:name=".account.activity.DesignerRegisterActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustResize">
         </activity>
         <activity
             android:name=".account.activity.ModifyPwdActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustResize">
         </activity>
         <activity
             android:name=".account.activity.DistributorRegisterActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustResize">
         </activity>
         <activity
             android:name=".account.activity.DistributorVerificationCodeActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustResize">
         </activity>
         <activity
             android:name=".common.activity.CustomerServiceActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustResize">
         </activity>
         <activity
             android:name=".account.activity.ForgetPasswordTwoActivity"
@@ -176,20 +180,27 @@
             android:name=".home.activity.HomeSearchActivity"
             android:launchMode="singleTask">
         </activity>
-        <activity android:name=".account.activity.AccountPrivacyPolicyActivity"
-                  android:launchMode="singleTask">
+        <activity
+            android:name=".account.activity.AccountPrivacyPolicyActivity"
+            android:launchMode="singleTask">
         </activity>
-        <activity android:name=".account.activity.AccountAboutActivity"
-                  android:launchMode="singleTask">
+        <activity
+            android:name=".account.activity.AccountAboutActivity"
+            android:launchMode="singleTask">
         </activity>
-        <activity android:name=".whole_category.activity.SelectClassificationActivity"
-                  android:launchMode="singleTask">
+        <activity
+            android:name=".whole_category.activity.SelectClassificationActivity"
+            android:launchMode="singleTask">
         </activity>
-        <activity android:name=".account.activity.ForgetPasswordOneActivity"
-                  android:launchMode="singleTask">
+        <activity
+            android:name=".account.activity.ForgetPasswordOneActivity"
+            android:launchMode="singleTask">
         </activity>
-        <activity android:name=".home.activity.StoreListActivity"
-                  android:launchMode="singleTask">
+        <activity
+            android:name=".home.activity.StoreListActivity"
+            android:launchMode="singleTask">
+        </activity>
+        <activity android:name=".home.activity.DownLoaderPDFActivity">
         </activity>
     </application>
 

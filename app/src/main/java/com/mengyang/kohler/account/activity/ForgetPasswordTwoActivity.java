@@ -48,9 +48,7 @@ public class ForgetPasswordTwoActivity extends BaseActivity {
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(this, tvForgetPasswordTwoTop);
         mMobileNo = getIntent().getStringExtra("mobileNo");
-        LogUtils.i("rmy", "mobileNo = " + mMobileNo);
         mVerifyCode = getIntent().getStringExtra("verifyCode");
-        LogUtils.i("rmy", "mVerifyCode = " + mVerifyCode);
     }
 
     @Override

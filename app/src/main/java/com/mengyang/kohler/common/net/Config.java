@@ -27,12 +27,15 @@ public interface Config  {
     /**
      * 首页
      */
+    String HOME_INDEX = "index/index"; //首页
     String STORE_LIST = "store/list"; //附近店铺
     String SYSTEM_MSG = "system/message/list"; //系统消息列表
     String USER_HOME_KV = "index/customerPicture"; //首页普通用户KV图
     String DEALER_HOME_KV = "index/dealerPicture"; //首页经销商KV图
     String DESIGNER_HOME_KV = "index/designerPicture"; //首页设计师KV图
     String ALL_SEARCH = "productSearch/solrByStr"; //全文搜索
+    String MEETING = "ndc/facadeGetMeetingAndAgenda"; //经销商大会页数据
+    String BOOKS_LIST = "handBook/getHandBooks"; //手册列表
 
     /**
      * 全品类
@@ -40,12 +43,14 @@ public interface Config  {
     String COMMODITY_SEARCH = "productSearch/searchBySku"; //商品redis查找
     String SELECT_CLASSIFICATION = "category/selectionList"; //获得精选分类下所有分类
     String COMMODITY_CLASSIFICATION = "category/listWithoutSelection";//获得所有非精选分类主界面
+    String COMMODITY_CLASSIFICATION_TITLE = "category/childList";//商品分类顶部导航栏
+    String COMMODITY_CLASSIFICATION_BODY = "productSearch/searchByCate";//对应商品分类顶部导航栏的Fragment
+    String Add_Like = "product/insertFavorite"; //用户添加收藏
 
     /**
      * 账户
      */
     String USER_RESERVE_MSG = "appointment/info"; //获取用户预约信息
-    String Add_Like = "product/insertFavorite"; //用户添加收藏
     String CANCEL_Like = "product/deleteFavorite"; //用户取消收藏
     String Like_List = "product/favoriteList"; //用户收藏列表
     String MODIFY_HEAD_PORTRAIT = "authz/account/updatePortrait"; //修改头像

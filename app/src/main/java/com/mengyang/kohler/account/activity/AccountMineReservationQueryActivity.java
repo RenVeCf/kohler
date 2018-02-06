@@ -39,7 +39,7 @@ public class AccountMineReservationQueryActivity extends BaseActivity implements
     @BindView(R.id.srl_account_reservation_query)
     SwipeRefreshLayout srlAccountReservationQuery;
     private AccountMineReservationQueryAdapter mAccountMineReservationQueryAdapter;
-    private List<ReservationQueryBean.ResultListBean> reservationQueryBean;
+    private List<ReservationQueryBean.ResultListBean> mReservationQueryBean;
     private int pageNum = 0; //请求页数
 
     @Override
@@ -60,8 +60,9 @@ public class AccountMineReservationQueryActivity extends BaseActivity implements
         // 如果可以确定每个item的高度是固定的，设置这个选项可以提高性能
         rvAccountReservationQuery.setHasFixedSize(true);
         rvAccountReservationQuery.setItemAnimator(new DefaultItemAnimator());
-        reservationQueryBean = new ArrayList<>();
-        mAccountMineReservationQueryAdapter = new AccountMineReservationQueryAdapter(reservationQueryBean);
+
+        mReservationQueryBean = new ArrayList<>();
+        mAccountMineReservationQueryAdapter = new AccountMineReservationQueryAdapter(mReservationQueryBean);
         rvAccountReservationQuery.setAdapter(mAccountMineReservationQueryAdapter);
     }
 
@@ -75,6 +76,7 @@ public class AccountMineReservationQueryActivity extends BaseActivity implements
                 srlAccountReservationQuery.setRefreshing(false);
             }
         });
+        mAccountMineReservationQueryAdapter.setOnLoadMoreListener(AccountMineReservationQueryActivity.this); //加载更多
     }
 
     @Override
@@ -94,22 +96,21 @@ public class AccountMineReservationQueryActivity extends BaseActivity implements
                     public void onSuccess(BasicResponse<ReservationQueryBean> response) {
                         if (response != null) {
                             if (pageNum == 0) {
-                                reservationQueryBean.clear();
-                                reservationQueryBean.addAll(response.getData().getResultList());
-                                if (reservationQueryBean.size() > 0) {
+                                mReservationQueryBean.clear();
+                                mReservationQueryBean.addAll(response.getData().getResultList());
+                                if (mReservationQueryBean.size() > 0) {
                                     pageNum += 1;
-                                    mAccountMineReservationQueryAdapter = new AccountMineReservationQueryAdapter(reservationQueryBean);
+                                    mAccountMineReservationQueryAdapter = new AccountMineReservationQueryAdapter(mReservationQueryBean);
                                     mAccountMineReservationQueryAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_BOTTOM); //动画
                                     mAccountMineReservationQueryAdapter.isFirstOnly(false); //第一次
                                     rvAccountReservationQuery.setAdapter(mAccountMineReservationQueryAdapter);
-                                    mAccountMineReservationQueryAdapter.setOnLoadMoreListener(AccountMineReservationQueryActivity.this); //加载更多
                                 } else {
                                     mAccountMineReservationQueryAdapter.loadMoreEnd();
                                 }
                             } else {
                                 if (response.getData().getResultList().size() > 0) {
                                     pageNum += 1;
-                                    reservationQueryBean.addAll(response.getData().getResultList());
+                                    mReservationQueryBean.addAll(response.getData().getResultList());
                                     mAccountMineReservationQueryAdapter.addData(response.getData().getResultList());
                                     mAccountMineReservationQueryAdapter.loadMoreComplete(); //完成本次
                                 } else {

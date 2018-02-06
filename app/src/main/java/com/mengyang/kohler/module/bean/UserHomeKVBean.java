@@ -8,6 +8,7 @@ package com.mengyang.kohler.module.bean;
  */
 
 public class UserHomeKVBean {
+
     /**
      * dictCode : KV_CUSTOMER
      * dictDesc : {"h5Url":"http://ojd06y9cv.bkt.clouddn.com/942750628138130022d54e5ceec227e5.jpg?/0/w/1280/h/960","kvUrl":"http://www.baidu.com/942750628138130022d54e5ceec227e5.jpg?/0/w/1280/h/960","clickRedirect":"http://ojd06y9cv.bkt.clouddn.com/942750628138130022d54e5ceec227e5.jpg?/0/w/1280/h/960"}

@@ -2,9 +2,9 @@ package com.mengyang.kohler.home.activity;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.widget.TextView;
 
 import com.github.barteksc.pdfviewer.PDFView;
 import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
@@ -12,7 +12,9 @@ import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
-import com.mengyang.kohler.common.utils.SPUtil;
+import com.mengyang.kohler.common.utils.ToastUtil;
+
+import java.io.File;
 
 import butterknife.BindView;
 
@@ -24,13 +26,7 @@ public class PDFActivity extends BaseActivity {
 
     @BindView(R.id.pdf_home)
     PDFView pdfHome;
-    @BindView(R.id.pageTv1)
-    TextView pageTv1;
-    @BindView(R.id.pageTv)
-    TextView pageTv;
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
-    private int p;
-
 
     @Override
     protected int getLayoutId() {
@@ -40,9 +36,11 @@ public class PDFActivity extends BaseActivity {
     @Override
     protected void initValues() {
         App.getManager().addActivity(this);
-        final int myPage = (int) SPUtil.get(PDFActivity.this, "page", 0);
+        int myPage = 0;
+        String PdfUrl = getIntent().getStringExtra("PdfUrl");
+        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), PdfUrl.substring(PdfUrl.lastIndexOf("/") + 1));
         //选择pdf
-        pdfHome.fromAsset("android_pdf_test.pdf")
+        pdfHome.fromFile(file)
                 //                .pages(0, loading2, loading3, 4, 5); // 把0 , loading2 , loading3 , 4 , 5 过滤掉
                 //是否允许翻页，默认是允许翻页
                 .enableSwipe(true)
@@ -60,8 +58,6 @@ public class PDFActivity extends BaseActivity {
                 .onLoad(new OnLoadCompleteListener() {
                     @Override
                     public void loadComplete(int nbPages) {
-                        pageTv.setText(nbPages + "");
-                        pageTv1.setText(myPage + "/");
                     }
                 })
                 //设置翻页监听
@@ -69,14 +65,14 @@ public class PDFActivity extends BaseActivity {
 
                     @Override
                     public void onPageChanged(int page, int pageCount) {
-                        p = page;
-                        pageTv1.setText(page + "/");
+                        int pageNum = page + 1;
+                        ToastUtil.showToast(" " + pageNum + " / " + pageCount);
                     }
                 })
                 //设置页面滑动监听
                 //                .onPageScroll(onPageScrollListener)
                 //                .onError(onErrorListener)
-                // 首次提交文档后调用。
+                // 首次提交文档后调用
                 //                .onRender(onRenderListener)
                 // 渲染风格（就像注释，颜色或表单）
                 .enableAnnotationRendering(false)
@@ -123,13 +119,5 @@ public class PDFActivity extends BaseActivity {
         while ((ContextCompat.checkSelfPermission(PDFActivity.this,
                 Manifest.permission.READ_EXTERNAL_STORAGE)) != PackageManager.PERMISSION_GRANTED) {
         }
-    }
-
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        //当activity销毁的时候，保存当前的页数，下次打开的时候，直接翻到这个页
-        SPUtil.put(PDFActivity.this, "page", p);
     }
 }

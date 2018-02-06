@@ -1,26 +1,50 @@
 package com.mengyang.kohler.whole_category.fragment;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseFragment;
 import com.mengyang.kohler.R;
+import com.mengyang.kohler.common.net.DefaultObserver;
+import com.mengyang.kohler.common.net.IdeaApi;
+import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.view.GridSpacingItemDecoration;
+import com.mengyang.kohler.module.BasicResponse;
+import com.mengyang.kohler.module.bean.CommodityClassificationFragmentBean;
+import com.mengyang.kohler.whole_category.activity.CommodityClassificationActivity;
+import com.mengyang.kohler.whole_category.activity.CommodityDetailsActivity;
 import com.mengyang.kohler.whole_category.adapter.CommodityClassificationAdapter;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import butterknife.BindView;
-import butterknife.Unbinder;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * 商品分类
  */
-public class CommodityClassificationFragment extends BaseFragment {
+public class CommodityClassificationFragment extends BaseFragment implements BaseQuickAdapter.RequestLoadMoreListener {
 
     @BindView(R.id.rv_commodity_classification)
     RecyclerView rvCommodityClassification;
+    @BindView(R.id.srl_commodity_classification)
+    SwipeRefreshLayout srlCommodityClassification;
     private CommodityClassificationAdapter mCommodityClassificationAdapter;
+    private List<CommodityClassificationFragmentBean.ResultListBean> mCommodityClassificationFragmentBean;
+    private int pageNum = 0; //请求页数
+    private String mCmsId;
 
     @Override
     protected int getLayoutId() {
@@ -34,15 +58,85 @@ public class CommodityClassificationFragment extends BaseFragment {
         rvCommodityClassification.addItemDecoration(new GridSpacingItemDecoration(2, 15, false));
         rvCommodityClassification.setHasFixedSize(true);
         rvCommodityClassification.setItemAnimator(new DefaultItemAnimator());
+
+        mCommodityClassificationFragmentBean = new ArrayList<>();
+        mCommodityClassificationAdapter = new CommodityClassificationAdapter(mCommodityClassificationFragmentBean);
+        rvCommodityClassification.setAdapter(mCommodityClassificationAdapter);
     }
 
     @Override
     protected void initListener() {
-
+        srlCommodityClassification.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                pageNum = 0;
+                initData();
+                srlCommodityClassification.setRefreshing(false);
+            }
+        });
+        mCommodityClassificationAdapter.setOnLoadMoreListener(this, rvCommodityClassification); //加载更多
     }
 
     @Override
     protected void initData() {
+        Map<String, String> stringMap = IdeaApi.getSign();
+        stringMap.put("category", mCmsId);
+        stringMap.put("pageNum", 0 + "");
+        stringMap.put("pageSize", 10 + "");
 
+        IdeaApi.getRequestLogin(stringMap);
+        IdeaApi.getApiService()
+                .getCommodityClassificationBody(stringMap)
+                .compose(this.<BasicResponse<CommodityClassificationFragmentBean>>bindToLifecycle())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultObserver<BasicResponse<CommodityClassificationFragmentBean>>(getActivity(), true) {
+                    @Override
+                    public void onSuccess(BasicResponse<CommodityClassificationFragmentBean> response) {
+                        if (response != null) {
+                            if (pageNum == 0) {
+                                mCommodityClassificationFragmentBean.clear();
+                                mCommodityClassificationFragmentBean.addAll(response.getData().getResultList());
+                                if (response.getData().getTotalSize() > 0) {
+                                    pageNum += 1;
+                                    mCommodityClassificationAdapter = new CommodityClassificationAdapter(mCommodityClassificationFragmentBean);
+                                    mCommodityClassificationAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_BOTTOM); //动画
+                                    mCommodityClassificationAdapter.isFirstOnly(false); //第一次
+                                    rvCommodityClassification.setAdapter(mCommodityClassificationAdapter);
+                                } else {
+                                    mCommodityClassificationAdapter.loadMoreEnd();
+                                }
+                            } else {
+                                if (response.getData().getPageSize() > 0) {
+                                    pageNum += 1;
+                                    mCommodityClassificationFragmentBean.addAll(response.getData().getResultList());
+                                    mCommodityClassificationAdapter.addData(response.getData().getResultList());
+                                    mCommodityClassificationAdapter.loadMoreComplete(); //完成本次
+                                } else {
+                                    mCommodityClassificationAdapter.loadMoreEnd(); //完成所有加载
+                                }
+                            }
+                            mCommodityClassificationAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                                @Override
+                                public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                                    startActivity(new Intent(App.getContext(), CommodityDetailsActivity.class).putExtra("CommodityDetails", (Serializable) mCommodityClassificationFragmentBean.get(position)).putExtra("position", position));
+                                }
+                            });
+                        } else {
+                            mCommodityClassificationAdapter.loadMoreEnd();
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        mCmsId = ((CommodityClassificationActivity) activity).getCmsId();
+    }
+
+    @Override
+    public void onLoadMoreRequested() {
+        initData();
     }
 }

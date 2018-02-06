@@ -101,7 +101,7 @@ public class AccountMineLikeActivity extends BaseActivity implements BaseQuickAd
                                     mAccountMineLikeAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_BOTTOM); //动画
                                     mAccountMineLikeAdapter.isFirstOnly(false); //第一次
                                     rvAccountMineLike.setAdapter(mAccountMineLikeAdapter);
-                                    mAccountMineLikeAdapter.setOnLoadMoreListener(AccountMineLikeActivity.this); //加载更多
+                                    mAccountMineLikeAdapter.setOnLoadMoreListener(AccountMineLikeActivity.this, rvAccountMineLike); //加载更多
                                 } else {
                                     mAccountMineLikeAdapter.loadMoreEnd();
                                 }

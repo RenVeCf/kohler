@@ -2,8 +2,13 @@ package com.mengyang.kohler.common.net;
 
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.AllSearchBean;
+import com.mengyang.kohler.module.bean.BooksListBean;
+import com.mengyang.kohler.module.bean.CommodityClassificationFragmentBean;
+import com.mengyang.kohler.module.bean.CommodityClassificationTitleBean;
+import com.mengyang.kohler.module.bean.HomeIndexBean;
 import com.mengyang.kohler.module.bean.LikeListBean;
 import com.mengyang.kohler.module.bean.LoginBean;
+import com.mengyang.kohler.module.bean.MeetingBean;
 import com.mengyang.kohler.module.bean.NotSelectClassificationBean;
 import com.mengyang.kohler.module.bean.RefreshTokenBean;
 import com.mengyang.kohler.module.bean.ReservationQueryBean;
@@ -39,22 +44,22 @@ public interface IdeaApiService {
     //项目主页(正式环境)
     //    String API_SERVER_URL = "http://t-api.glor.cn/";
 
-    //普通用户首页KV图
+    //用户首页KV图
     @FormUrlEncoded
-    @POST(Config.USER_HOME_KV)
-    Observable<BasicResponse<List<UserHomeKVBean>>> getUserHomeKV(@FieldMap Map<String, String> map);
+    @POST(Config.HOME_INDEX)
+    Observable<BasicResponse<HomeIndexBean>> getUserHomeKV(@FieldMap Map<String, String> map);
 
-    //经销商用户首页KV图
-    @FormUrlEncoded
-    @POST(Config.DEALER_HOME_KV)
-    Observable<BasicResponse<List<UserHomeKVBean>>> getDealerHomeKV(@FieldMap Map<String, String> map);
+//    //经销商用户首页KV图
+//    @FormUrlEncoded
+//    @POST(Config.DEALER_HOME_KV)
+//    Observable<BasicResponse<List<UserHomeKVBean>>> getDealerHomeKV(@FieldMap Map<String, String> map);
+//
+//    //设计师用户首页KV图
+//    @FormUrlEncoded
+//    @POST(Config.DESIGNER_HOME_KV)
+//    Observable<BasicResponse<List<UserHomeKVBean>>> getDesignerHomeKV(@FieldMap Map<String, String> map);
 
-    //设计师用户首页KV图
-    @FormUrlEncoded
-    @POST(Config.DESIGNER_HOME_KV)
-    Observable<BasicResponse<List<UserHomeKVBean>>> getDesignerHomeKV(@FieldMap Map<String, String> map);
-
-    //普通用户注册
+    //用户注册
     @FormUrlEncoded
     @POST(Config.USER_REGISTER)
     Observable<BasicResponse> getUserRegister(@FieldMap Map<String, String> map);
@@ -164,9 +169,28 @@ public interface IdeaApiService {
     @POST(Config.COMMODITY_CLASSIFICATION)
     Observable<BasicResponse<List<NotSelectClassificationBean>>> getNotSelectClassification(@FieldMap Map<String, String> map);
 
+    //商品分类顶部导航栏
+    @FormUrlEncoded
+    @POST(Config.COMMODITY_CLASSIFICATION_TITLE)
+    Observable<BasicResponse<List<CommodityClassificationTitleBean>>> getCommodityClassificationTitle(@FieldMap Map<String, String> map);
+
+    //对应商品分类顶部导航栏的Fragment
+    @FormUrlEncoded
+    @POST(Config.COMMODITY_CLASSIFICATION_BODY)
+    Observable<BasicResponse<CommodityClassificationFragmentBean>> getCommodityClassificationBody(@FieldMap Map<String, String> map);
+
+    //经销商大会页数据
+    @FormUrlEncoded
+    @POST(Config.MEETING)
+    Observable<BasicResponse<MeetingBean>> getMeeting(@FieldMap Map<String, String> map);
+
     //全文搜索
     @FormUrlEncoded
     @POST(Config.ALL_SEARCH)
     Observable<BasicResponse<List<AllSearchBean>>> getAllSearch(@FieldMap Map<String, String> map);
 
+    //我的手册
+    @FormUrlEncoded
+    @POST(Config.BOOKS_LIST)
+    Observable<BasicResponse<BooksListBean>> getBooksList(@FieldMap Map<String, String> map);
 }

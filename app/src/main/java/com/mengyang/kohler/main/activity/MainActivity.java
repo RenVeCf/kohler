@@ -1,6 +1,8 @@
 package com.mengyang.kohler.main.activity;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
@@ -17,14 +19,50 @@ import com.mengyang.kohler.ar.ARFragment;
 import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.view.ResideLayout;
+import com.mengyang.kohler.home.activity.MineManualActivity;
 import com.mengyang.kohler.home.fragment.HomeFragment;
 import com.mengyang.kohler.whole_category.fragment.WholeCategoryFragment;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity implements HomeFragment.OnFragmentInteractionListener {
 
+    @BindView(R.id.ll_nearby_shops)
+    LinearLayout llNearbyShops;
+    @BindView(R.id.ll_account_manual)
+    LinearLayout llAccountManual;
+    @BindView(R.id.ll_super_toilet_seat)
+    LinearLayout llSuperToiletSeat;
+    @BindView(R.id.ll_toilet_seat)
+    LinearLayout llToiletSeat;
+    @BindView(R.id.ll_toilet_seat_cover)
+    LinearLayout llToiletSeatCover;
+    @BindView(R.id.ll_qing_shu_bao_toilet_seat)
+    LinearLayout llQingShuBaoToiletSeat;
+    @BindView(R.id.ll_shower_room_parts)
+    LinearLayout llShowerRoomParts;
+    @BindView(R.id.ll_ceramic_tile)
+    LinearLayout llCeramicTile;
+    @BindView(R.id.ll_makeup)
+    LinearLayout llMakeup;
+    @BindView(R.id.ll_shower_room_nozzle)
+    LinearLayout llShowerRoomNozzle;
+    @BindView(R.id.ll_shower_nozzle)
+    LinearLayout llShowerNozzle;
+    @BindView(R.id.ll_shower_room)
+    LinearLayout llShowerRoom;
+    @BindView(R.id.ll_steam_equipment)
+    LinearLayout llSteamEquipment;
+    @BindView(R.id.ll_bathtub)
+    LinearLayout llBathtub;
+    @BindView(R.id.ll_massage_bathtub)
+    LinearLayout llMassageBathtub;
+    @BindView(R.id.ll_commercial_products)
+    LinearLayout llCommercialProducts;
+    @BindView(R.id.ll_main)
+    LinearLayout llMain;
     @BindView(R.id.vp_main_viewpager)
     ViewPager vpMainViewpager;
     @BindView(R.id.bt_home)
@@ -35,29 +73,10 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
     Button btAr;
     @BindView(R.id.bt_account)
     Button btAccount;
-    @BindView(R.id.rl_main)
-    ResideLayout rlMain;
     @BindView(R.id.ll_main_fragment_select)
     LinearLayout llMainFragmentSelect;
-    @BindView(R.id.ll_nearby_shops)
-    LinearLayout llNearbyShops;
-    @BindView(R.id.ll_account_manual)
-    LinearLayout llAccountManual;
-    @BindView(R.id.ll_toilet_seat)
-    LinearLayout llToiletSeat;
-    @BindView(R.id.ll_shower_room_parts)
-    LinearLayout llShowerRoomParts;
-    @BindView(R.id.ll_shower_room_nozzle)
-    LinearLayout llShowerRoomNozzle;
-    @BindView(R.id.ll_shower_nozzle)
-    LinearLayout llShowerNozzle;
-    @BindView(R.id.ll_makeup)
-    LinearLayout llMakeup;
-    @BindView(R.id.ll_massage_bathtub)
-    LinearLayout llMassageBathtub;
-    @BindView(R.id.ll_bathtub)
-    LinearLayout llBathtub;
-
+    @BindView(R.id.rl_main)
+    ResideLayout rlMain;
     private Fragment currentFragment = new Fragment();
     private HomeFragment mHomeFragment = new HomeFragment();
     private WholeCategoryFragment mWholeCategoryFragment = new WholeCategoryFragment();
@@ -174,9 +193,47 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
         }
     }
 
-    @OnClick({R.id.bt_home, R.id.bt_whole_category, R.id.bt_ar, R.id.bt_account, R.id.ll_nearby_shops, R.id.ll_account_manual, R.id.ll_toilet_seat, R.id.ll_shower_room_parts, R.id.ll_shower_room_nozzle, R.id.ll_shower_nozzle, R.id.ll_makeup, R.id.ll_massage_bathtub, R.id.ll_bathtub})
+    @Override
+    public void onFragmentInteraction(String data) {
+        rlMain.openPane();
+    }
+
+    @OnClick({R.id.ll_nearby_shops, R.id.ll_account_manual, R.id.ll_super_toilet_seat, R.id.ll_toilet_seat, R.id.ll_toilet_seat_cover, R.id.ll_qing_shu_bao_toilet_seat, R.id.ll_shower_room_parts, R.id.ll_ceramic_tile, R.id.ll_makeup, R.id.ll_shower_room_nozzle, R.id.ll_shower_nozzle, R.id.ll_shower_room, R.id.ll_steam_equipment, R.id.ll_bathtub, R.id.ll_massage_bathtub, R.id.ll_commercial_products, R.id.bt_home, R.id.bt_whole_category, R.id.bt_ar, R.id.bt_account})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.ll_nearby_shops:
+                break;
+            case R.id.ll_account_manual:
+                startActivity(new Intent(this, MineManualActivity.class));
+                break;
+            case R.id.ll_super_toilet_seat:
+                break;
+            case R.id.ll_toilet_seat:
+                break;
+            case R.id.ll_toilet_seat_cover:
+                break;
+            case R.id.ll_qing_shu_bao_toilet_seat:
+                break;
+            case R.id.ll_shower_room_parts:
+                break;
+            case R.id.ll_ceramic_tile:
+                break;
+            case R.id.ll_makeup:
+                break;
+            case R.id.ll_shower_room_nozzle:
+                break;
+            case R.id.ll_shower_nozzle:
+                break;
+            case R.id.ll_shower_room:
+                break;
+            case R.id.ll_steam_equipment:
+                break;
+            case R.id.ll_bathtub:
+                break;
+            case R.id.ll_massage_bathtub:
+                break;
+            case R.id.ll_commercial_products:
+                break;
             case R.id.bt_home:
                 switchFragment(mHomeFragment).commit();
                 //沉浸式状态栏初始化黑色
@@ -201,29 +258,6 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 ImmersionBar.with(this).fitsSystemWindows(false).statusBarDarkFont(true).init();
                 FragmentSelect(1);
                 break;
-            case R.id.ll_nearby_shops:
-                break;
-            case R.id.ll_account_manual:
-                break;
-            case R.id.ll_toilet_seat:
-                break;
-            case R.id.ll_shower_room_parts:
-                break;
-            case R.id.ll_shower_room_nozzle:
-                break;
-            case R.id.ll_shower_nozzle:
-                break;
-            case R.id.ll_makeup:
-                break;
-            case R.id.ll_massage_bathtub:
-                break;
-            case R.id.ll_bathtub:
-                break;
         }
-    }
-
-    @Override
-    public void onFragmentInteraction(String data) {
-        rlMain.openPane();
     }
 }

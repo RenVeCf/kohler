@@ -3,6 +3,7 @@ package com.mengyang.kohler.whole_category.view;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
@@ -94,6 +95,9 @@ public class NavitationFollowScrollLayout extends RelativeLayout {
             TextView textView = new TextView(context);
             textView.setText(titles[i]);
             textView.setGravity(Gravity.CENTER);
+            textView.setSingleLine(true);
+            textView.setEllipsize(TextUtils.TruncateAt.END);
+            textView.setPadding(10, 0, 10, 0);
             textViews[i] = textView;
             textViews[i].setOnClickListener(new OnClickListener() {
                 @Override

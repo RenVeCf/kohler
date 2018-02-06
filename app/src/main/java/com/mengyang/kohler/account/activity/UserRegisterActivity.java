@@ -74,6 +74,7 @@ public class UserRegisterActivity extends BaseActivity {
     private Timer timer;
     private int timess;
     private byte[] bytes; //图片验证码进制流
+    private String time;
 
     @Override
     protected int getLayoutId() {
@@ -93,7 +94,8 @@ public class UserRegisterActivity extends BaseActivity {
     @Override
     protected void initData() {
         Map<String, String> stringMap = IdeaApi.getSign();
-        stringMap.put("time", DateUtils.dataOne(DateUtils.getCurrentTime_Today()));//时间戳
+        time = DateUtils.dataOne(DateUtils.getCurrentTime_Today());
+        stringMap.put("time", time);//时间戳
         postAsynHttp(stringMap);
     }
 
@@ -167,7 +169,7 @@ public class UserRegisterActivity extends BaseActivity {
                 stringMap.put("verifyCode", etUserRegisterVerificationCode.getText().toString().trim());//验证码
                 stringMap.put("password", etUserRegisterPwd.getText().toString().trim());//用户密码
                 stringMap.put("type", "commonUser");//用户类型化
-                stringMap.put("time", DateUtils.dataOne(DateUtils.getCurrentTime_Today()));//时间戳
+                stringMap.put("time", time);//时间戳
                 stringMap.put("code", etUserRegisterPwd.getText().toString().trim());//验证码
 
                 IdeaApi.getRequestLogin(stringMap);

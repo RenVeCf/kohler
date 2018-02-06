@@ -16,7 +16,6 @@ import com.mengyang.kohler.module.bean.NotSelectClassificationBean;
 import com.mengyang.kohler.whole_category.activity.CommodityClassificationActivity;
 import com.mengyang.kohler.whole_category.activity.SelectClassificationActivity;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -30,6 +29,7 @@ public class StackAdapter extends RecyclerView.Adapter<StackAdapter.ViewHolder> 
     private Context context;
 
     private boolean vertical;
+
     public StackAdapter(List<NotSelectClassificationBean> datas) {
         this.datas = datas;
     }
@@ -40,43 +40,45 @@ public class StackAdapter extends RecyclerView.Adapter<StackAdapter.ViewHolder> 
             context = parent.getContext();
             inflater = LayoutInflater.from(parent.getContext());
         }
-//        if (vertical)
-//            return new ViewHolder(inflater.inflate(R.layout.vertical_item_card, parent, false));
+        //        if (vertical)
+        //            return new ViewHolder(inflater.inflate(R.layout.vertical_item_card, parent, false));
         return new ViewHolder(inflater.inflate(R.layout.item_whole_category_card, parent, false));
     }
 
-//    public StackAdapter vertical() {
-//        this.vertical = true;
-//        return this;
-//    }
+    //    public StackAdapter vertical() {
+    //        this.vertical = true;
+    //        return this;
+    //    }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Glide.with(context).load(datas.get(position).getKvUrl()).into(holder.cover);
-//        Glide.with(context).load(imageUrls.get(position)).into(holder.cover);
-//        holder.index.setText(datas.get(holder.getAdapterPosition()));
+        //        Glide.with(context).load(imageUrls.get(position)).into(holder.cover);
+        //        holder.index.setText(datas.get(holder.getAdapterPosition()));
     }
 
     @Override
     public int getItemCount() {
         return datas == null ? 0 : datas.size();
     }
+
     class ViewHolder extends RecyclerView.ViewHolder {
         ImageView cover;
-//        TextView index;
+        //        TextView index;
 
         public ViewHolder(View itemView) {
             super(itemView);
             cover = (ImageView) itemView.findViewById(R.id.cover);
-//            index = (TextView) itemView.findViewById(R.id.index);
+            //            index = (TextView) itemView.findViewById(R.id.index);
             //全品类 item页 点击事件
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (getAdapterPosition() == (datas.size() - 1))
                         App.getContext().startActivity(new Intent(App.getContext(), SelectClassificationActivity.class));
-                    else
-                        App.getContext().startActivity(new Intent(App.getContext(), CommodityClassificationActivity.class));
+                    else {
+                        App.getContext().startActivity(new Intent(App.getContext(), CommodityClassificationActivity.class).putExtra("id", datas.get(getAdapterPosition()).getId() + ""));
+                    }
                 }
             });
         }

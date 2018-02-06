@@ -8,6 +8,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.R;
+import com.mengyang.kohler.module.BooksBean;
 
 import java.util.List;
 
@@ -18,18 +19,19 @@ import java.util.List;
  * Time : 2018/1/29
  */
 
-public class MyBrochure extends BaseQuickAdapter<String, BaseViewHolder> {
+public class MyBrochureAdapter extends BaseQuickAdapter<BooksBean, BaseViewHolder> {
 
-    public MyBrochure(@Nullable List<String> data) {
+    public MyBrochureAdapter(@Nullable List<BooksBean> data) {
         super(R.layout.item_my_brochure_adapter, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, String item) {
+    protected void convert(BaseViewHolder helper, BooksBean item) {
         if (helper.getAdapterPosition() == 0) {
             helper.getView(R.id.iv_my_brochure_adapter_remove_item_img).setPadding(5, 0, 0, 0);
         }
-        Glide.with(App.getContext()).load("").into((ImageView) helper.getView(R.id.iv_my_brochure_adapter_remove_item_img));
+        Glide.with(App.getContext()).load(item.getBookKVUrl()).into((ImageView) helper.getView(R.id.iv_my_brochure_adapter_remove_item_img));
+        helper.addOnClickListener(R.id.iv_my_brochure_adapter_remove_item_img);
         helper.addOnClickListener(R.id.iv_my_brochure_adapter_remove_item);
     }
 }

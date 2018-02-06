@@ -24,16 +24,13 @@ public class NotSelectClassificationBean {
      */
 
     private int cmsId;
-    private String createTime;
     private int id;
     private int isDeleted;
     private int isSub;
     private String kvUrl;
-    private int level;
     private String nameCn;
     private String nameEn;
     private int parentsId;
-    private String updateTime;
     private int weight;
 
     public int getCmsId() {
@@ -42,14 +39,6 @@ public class NotSelectClassificationBean {
 
     public void setCmsId(int cmsId) {
         this.cmsId = cmsId;
-    }
-
-    public String getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
     }
 
     public int getId() {
@@ -84,14 +73,6 @@ public class NotSelectClassificationBean {
         this.kvUrl = kvUrl;
     }
 
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
-    }
-
     public String getNameCn() {
         return nameCn;
     }
@@ -114,14 +95,6 @@ public class NotSelectClassificationBean {
 
     public void setParentsId(int parentsId) {
         this.parentsId = parentsId;
-    }
-
-    public String getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(String updateTime) {
-        this.updateTime = updateTime;
     }
 
     public int getWeight() {

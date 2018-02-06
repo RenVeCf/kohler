@@ -74,6 +74,7 @@ public class DesignerRegisterActivity extends BaseActivity {
     private Timer timer;
     private int timess;
     private byte[] bytes;//图片验证码进制流
+    private String time;
 
     @Override
     protected int getLayoutId() {
@@ -93,7 +94,8 @@ public class DesignerRegisterActivity extends BaseActivity {
     @Override
     protected void initData() {
         Map<String, String> stringMap = IdeaApi.getSign();
-        stringMap.put("time", DateUtils.dataOne(DateUtils.getCurrentTime_Today()));//时间戳
+        time = DateUtils.dataOne(DateUtils.getCurrentTime_Today());
+        stringMap.put("time", time);//时间戳
         postAsynHttp(stringMap);
     }
 
@@ -168,7 +170,7 @@ public class DesignerRegisterActivity extends BaseActivity {
                 stringMap.put("verifyCode", etDesignerRegisterSmsVerificationCode.getText().toString().trim());//短信验证码
                 stringMap.put("password", etDesignerRegisterPwd.getText().toString().trim());//用户密码
                 stringMap.put("type", "designer");//用户类型
-                stringMap.put("time", DateUtils.dataOne(DateUtils.getCurrentTime_Today()));//时间戳
+                stringMap.put("time", time);//时间戳
 
                 IdeaApi.getRequestLogin(stringMap);
                 IdeaApi.getApiService()
@@ -236,8 +238,6 @@ public class DesignerRegisterActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_designer_register_go_home:
-                App.destoryActivity("MainActivity");
-                startActivity(new Intent(this, MainActivity.class));
                 finish();
                 break;
             case R.id.iv_designer_register_verification_code:

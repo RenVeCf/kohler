@@ -14,7 +14,6 @@ import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IdeaApi;
-import com.mengyang.kohler.common.view.SpacesItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.SelectClassificationBean;
@@ -70,13 +69,7 @@ public class SelectClassificationActivity extends BaseActivity {
 
     @Override
     protected void initListener() {
-        mSelectClassificationAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                startActivity(new Intent(SelectClassificationActivity.this, CommodityClassificationActivity.class));
-                finish();
-            }
-        });
+
     }
 
     @Override
@@ -96,6 +89,14 @@ public class SelectClassificationActivity extends BaseActivity {
                         mSelectClassificationBean = response.getData();
                         mSelectClassificationAdapter = new SelectClassificationAdapter(mSelectClassificationBean);
                         rvWholeCategorySelectClassification.setAdapter(mSelectClassificationAdapter);
+                        mSelectClassificationAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                            @Override
+                            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                                if (mSelectClassificationBean != null) {
+                                    startActivity(new Intent(SelectClassificationActivity.this, CommodityClassificationActivity.class).putExtra("parentId", mSelectClassificationBean.get(position).getParentsId() + ""));
+                                }
+                            }
+                        });
                     }
                 });
     }

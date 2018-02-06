@@ -14,16 +14,20 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseFragment;
 import com.mengyang.kohler.R;
+import com.mengyang.kohler.account.activity.DesignerRegisterActivity;
+import com.mengyang.kohler.account.activity.LoginActivity;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.net.IdeaApiService;
+import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.view.SpacesItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.home.activity.HomeSearchActivity;
 import com.mengyang.kohler.home.activity.MeetingActivity;
 import com.mengyang.kohler.module.BasicResponse;
+import com.mengyang.kohler.module.bean.HomeIndexBean;
 import com.mengyang.kohler.module.bean.UserHomeKVBean;
 import com.mengyang.kohler.module.bean.UserHomeKVUrlBean;
 import com.mengyang.kohler.whole_category.activity.CommodityClassificationActivity;
@@ -72,7 +76,7 @@ public class HomeFragment extends BaseFragment {
     ImageView ivHomeSearch;
     //侧滑Meun键的接口回调
     private OnFragmentInteractionListener mListener;
-    private UserHomeKVUrlBean mUserHomeKVUrlBean;
+    private HomeIndexBean mHomeIndexBean;
     //轮播图集合
     private List<AdPageInfo> mDatas = new ArrayList<>();
 
@@ -103,37 +107,35 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-        String type = SPUtil.get(App.getContext(), IConstants.TYPE, "commonUser") + "";
         Map<String, String> stringMap = IdeaApi.getSign();
 
         IdeaApi.getRequestLogin(stringMap);
         IdeaApiService apiService = IdeaApi.getApiService();
         Observable HomeKV;
-        switch (type) {
-            case "commonUser":
+//        switch (type) {
+//            case "commonUser":
                 HomeKV = apiService.getUserHomeKV(stringMap);
-                break;
-            case "dealer":
-                HomeKV = apiService.getDealerHomeKV(stringMap);
-                break;
-            case "designer":
-                HomeKV = apiService.getDesignerHomeKV(stringMap);
-                break;
-            default:
-                HomeKV = apiService.getUserHomeKV(stringMap);
-                break;
-        }
+//                break;
+//            case "dealer":
+//                HomeKV = apiService.getDealerHomeKV(stringMap);
+//                break;
+//            case "designer":
+//                HomeKV = apiService.getDesignerHomeKV(stringMap);
+//                break;
+//            default:
+//                HomeKV = apiService.getUserHomeKV(stringMap);
+//                break;
+//        }
 
-        HomeKV.compose(this.<BasicResponse<List<UserHomeKVBean>>>bindToLifecycle())
+        HomeKV.compose(this.<BasicResponse<HomeIndexBean>>bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<BasicResponse<List<UserHomeKVBean>>>(getActivity(), true) {
+                .subscribe(new DefaultObserver<BasicResponse<HomeIndexBean>>(getActivity(), true) {
                     @Override
-                    public void onSuccess(BasicResponse<List<UserHomeKVBean>> response) {
-                        Gson gson = new Gson();
-                        for (int i = 0; i < 3; i++) {
-                            mUserHomeKVUrlBean = gson.fromJson(response.getData().get(i).getDictDesc(), UserHomeKVUrlBean.class);
-                            AdPageInfo info = new AdPageInfo("", mUserHomeKVUrlBean.getClickRedirect(), "", i + 1);
+                    public void onSuccess(BasicResponse<HomeIndexBean> response) {
+                        mHomeIndexBean = response.getData();
+                        for (int i = 0; i < mHomeIndexBean.getKvSize(); i++) {
+                            AdPageInfo info = new AdPageInfo("", mHomeIndexBean.getKvList().get(i).getKvUrl(), "", i + 1);
                             mDatas.add(info);
                         }
                         abHomeLoop.setImageLoadType(GLIDE);
@@ -188,6 +190,7 @@ public class HomeFragment extends BaseFragment {
                         abHomeLoop.setUp();
                     }
                 });
+//        getBooks();
     }
 
     @Override
@@ -206,6 +209,24 @@ public class HomeFragment extends BaseFragment {
         super.onDetach();
         mListener = null;
     }
+
+//    public void getBooks() {
+//        Map<String, String> stringMap = IdeaApi.getSign();
+//        stringMap.put("pageNum", "0");
+//        stringMap.put("pageSize", "10");
+//
+//        IdeaApi.getRequestLogin(stringMap);
+//        IdeaApi.getApiService()
+//                .getBooksList(stringMap)
+//                .compose(this.<BasicResponse>bindToLifecycle())
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new DefaultObserver<BasicResponse>(getActivity(), true) {
+//                    @Override
+//                    public void onSuccess(BasicResponse response) {
+//                    }
+//                });
+//    }
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name

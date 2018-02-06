@@ -22,9 +22,20 @@ public class IConstants {
     public static final String USER_ID = "userId"; //用户uid
     public static final String JPUSH_SYSTEM_ID = "registrationId"; //极光系统id
 
-
     /**
      * 请求码 从60开始
      */
-    public static final int REQUESTCODE = 60;
+    public static final int DELETE_REQUESTCODE = 60;
+
+    /**
+     * 实例化常量
+     */
+    public static final long COMMODITY_CLASSIFICATION_FRAGMENT_BEAN = 1L;
+    public static final long RESULT_LIST_BEAN = 2L;
+    public static final long PRO_DETAIL_BEAN = 3L;
+    public static final long ATTR_LIST_BEAN = 4L;
+    public static final long PDF_LIST_BEAN = 5L;
+    public static final long SKU_ATTR_LIST_BEAN = 6L;
+
+
 }

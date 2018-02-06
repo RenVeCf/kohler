@@ -80,12 +80,13 @@
             </RelativeLayout>
 
             <TextView
+                android:id="@+id/tv_meeting_desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:textColor="#000000"
                 android:textSize="14sp"
-                android:text="敢经典，敢未来。2018年科勒中国经销商大会将在三
+                tools:text="敢经典，敢未来。2018年科勒中国经销商大会将在三
 月于苏州正式拉开帷幕，届时科勒将向全国经销商伙
 伴们展示逾百款融合了科技与设计的全新卫浴产品，
 共同助力更多中国消费者的美好生活。"/>

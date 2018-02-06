@@ -40,8 +40,8 @@ public class WholeCategoryFragment extends BaseFragment {
     @BindView(R.id.iv_top_system_msg)
     ImageView ivTopSystemMsg;
     private List<NotSelectClassificationBean> mNotSelectClassificationBean;
-    private StackAdapter mStackAdapter;
     private List<NotSelectClassificationBean> mNotSelectClassificationPositiveSequenceBean;
+    private StackAdapter mStackAdapter;
 
     @Override
     protected int getLayoutId() {

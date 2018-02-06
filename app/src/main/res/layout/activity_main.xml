@@ -66,8 +66,26 @@
 
                     <TextView
                         style="@style/MenuStyle"
-                        android:text="@string/account_manual"/>
+                        android:text="@string/mine_manual"/>
                 </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_super_toilet_seat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/y120">
+
+                    <ImageView
+                        style="@style/MenuIconStyle"
+                        android:background="@mipmap/yitizuobianqi"/>
+
+                    <TextView
+                        style="@style/MenuStyle"
+                        android:text="@string/super_toilet_seat"/>
+                </LinearLayout>
+
 
                 <LinearLayout
                     android:id="@+id/ll_toilet_seat"
@@ -87,6 +105,40 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll_toilet_seat_cover"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/y120">
+
+                    <ImageView
+                        style="@style/MenuIconStyle"
+                        android:background="@mipmap/zuobianqigaiban"/>
+
+                    <TextView
+                        style="@style/MenuStyle"
+                        android:text="@string/toilet_seat_cover"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_qing_shu_bao_toilet_seat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/y120">
+
+                    <ImageView
+                        style="@style/MenuIconStyle"
+                        android:background="@mipmap/c3"/>
+
+                    <TextView
+                        style="@style/MenuStyle"
+                        android:text="@string/super_toilet_seat"/>
+                </LinearLayout>
+
+                <LinearLayout
                     android:id="@+id/ll_shower_room_parts"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -101,6 +153,40 @@
                     <TextView
                         style="@style/MenuStyle"
                         android:text="@string/shower_room_parts"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_ceramic_tile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/y120">
+
+                    <ImageView
+                        style="@style/MenuIconStyle"
+                        android:background="@mipmap/cizhuangshicai"/>
+
+                    <TextView
+                        style="@style/MenuStyle"
+                        android:text="@string/ceramic_tile"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_makeup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/y120">
+
+                    <ImageView
+                        style="@style/MenuIconStyle"
+                        android:background="@mipmap/shuzhuang"/>
+
+                    <TextView
+                        style="@style/MenuStyle"
+                        android:text="@string/makeup"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -138,7 +224,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/ll_makeup"
+                    android:id="@+id/ll_shower_room"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
@@ -147,11 +233,45 @@
 
                     <ImageView
                         style="@style/MenuIconStyle"
-                        android:background="@mipmap/shuzhuang"/>
+                        android:background="@mipmap/liyufang"/>
 
                     <TextView
                         style="@style/MenuStyle"
-                        android:text="@string/makeup"/>
+                        android:text="@string/shower_room"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_steam_equipment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/y120">
+
+                    <ImageView
+                        style="@style/MenuIconStyle"
+                        android:background="@mipmap/zhengqishebei"/>
+
+                    <TextView
+                        style="@style/MenuStyle"
+                        android:text="@string/steam_equipment"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_bathtub"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/y120">
+
+                    <ImageView
+                        style="@style/MenuIconStyle"
+                        android:background="@mipmap/yugang"/>
+
+                    <TextView
+                        style="@style/MenuStyle"
+                        android:text="@string/bathtub"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -172,7 +292,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/ll_bathtub"
+                    android:id="@+id/ll_commercial_products"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
@@ -181,11 +301,11 @@
 
                     <ImageView
                         style="@style/MenuIconStyle"
-                        android:background="@mipmap/yugang"/>
+                        android:background="@mipmap/shangyongchanpin"/>
 
                     <TextView
                         style="@style/MenuStyle"
-                        android:text="@string/bathtub"/>
+                        android:text="@string/commercial_products"/>
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>

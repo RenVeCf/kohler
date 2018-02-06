@@ -172,8 +172,6 @@ public class LoginActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_lonin_go_home:
-                App.destoryActivity("MainActivity");
-                startActivity(new Intent(this, MainActivity.class));
                 finish();
                 break;
             case R.id.tv_login_forget_pwd:

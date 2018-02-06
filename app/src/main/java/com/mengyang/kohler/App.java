@@ -6,6 +6,7 @@ import android.content.Context;
 import android.support.multidex.MultiDex;
 
 import com.mengyang.kohler.common.net.IConstants;
+import com.mengyang.kohler.common.utils.DatabaseUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
 
 import java.lang.ref.WeakReference;
@@ -58,7 +59,6 @@ public class App extends Application {
         //极光SMS
         SMSSDK.getInstance().initSdk(this);
         SMSSDK.getInstance().setIntervalTime(30*1000);
-
 
         registrationId = JPushInterface.getRegistrationID(this);
         SPUtil.put(context, IConstants.JPUSH_SYSTEM_ID, registrationId);
