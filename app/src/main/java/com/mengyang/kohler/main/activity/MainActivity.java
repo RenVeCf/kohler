@@ -20,6 +20,7 @@ import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.view.ResideLayout;
 import com.mengyang.kohler.home.activity.MineManualActivity;
+import com.mengyang.kohler.home.activity.StoreMapActivity;
 import com.mengyang.kohler.home.fragment.HomeFragment;
 import com.mengyang.kohler.whole_category.fragment.WholeCategoryFragment;
 
@@ -202,6 +203,7 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_nearby_shops:
+                startActivity(new Intent(this, StoreMapActivity.class));
                 break;
             case R.id.ll_account_manual:
                 startActivity(new Intent(this, MineManualActivity.class));
