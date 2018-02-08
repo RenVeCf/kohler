@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.utils.LogUtils;
@@ -69,7 +70,7 @@ public class StackAdapter extends RecyclerView.Adapter<StackAdapter.ViewHolder> 
         holder.cardViewTotal.setBackgroundColor(Color.TRANSPARENT);//设置透明背景去掉cardview的背景颜色
 
         if (!TextUtils.isEmpty(datasUsed.get(position).getKvUrl())) {
-            Glide.with(context).load(datasUsed.get(position).getKvUrl()).into(holder.cover);
+            Glide.with(context).load(datasUsed.get(position).getKvUrl()).apply(new RequestOptions().placeholder(R.mipmap.queshengtu)).into(holder.cover);
         } else {
 //            holder.cardViewTotal.setBackgroundColor(Color.WHITE);
         }

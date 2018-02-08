@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.mengyang.kohler.App;
@@ -34,7 +35,7 @@ public class CommodityClassificationAdapter extends BaseQuickAdapter<CommodityCl
     protected void convert(BaseViewHolder helper, CommodityClassificationFragmentBean.ResultListBean item) {
         helper.setText(R.id.tv_commodity_classification_adapter_product_name, item.getProDetail().getProductName())
                 .setText(R.id.tv_commodity_classification_adapter_model_name, item.getProDetail().getSkuCode());
-        Glide.with(App.getContext()).load(item.getProDetail().getTempListImageUrl()).into((ImageView) helper.getView(R.id.iv_commodity_classification_adapter_item));
+        Glide.with(App.getContext()).load(item.getProDetail().getTempListImageUrl()).apply(new RequestOptions().placeholder(R.mipmap.queshengtu)).into((ImageView) helper.getView(R.id.iv_commodity_classification_adapter_item));
         helper.addOnClickListener(R.id.iv_commodity_classification_adapter_item);
     }
 }

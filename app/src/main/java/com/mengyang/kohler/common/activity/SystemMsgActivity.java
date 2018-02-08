@@ -41,7 +41,7 @@ public class SystemMsgActivity extends BaseActivity implements BaseQuickAdapter.
     @BindView(R.id.srl_system_msg)
     SwipeRefreshLayout srlSystemMsg;
     private SystemMsgAdapter mSystemMsgAdapter;
-    private List<SystemMsgBean> mSystemMsgBean;
+    private List<SystemMsgBean.ResultListBean> mSystemMsgBean;
     private int pageNum = 0; //请求页数
 
     @Override
@@ -88,16 +88,16 @@ public class SystemMsgActivity extends BaseActivity implements BaseQuickAdapter.
         IdeaApi.getRequestLogin(stringMap);
         IdeaApi.getApiService()
                 .getSystemMsg(stringMap)
-                .compose(SystemMsgActivity.this.<BasicResponse<List<SystemMsgBean>>>bindToLifecycle())
+                .compose(SystemMsgActivity.this.<BasicResponse<SystemMsgBean>>bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<BasicResponse<List<SystemMsgBean>>>(SystemMsgActivity.this, true) {
+                .subscribe(new DefaultObserver<BasicResponse<SystemMsgBean>>(SystemMsgActivity.this, true) {
                     @Override
-                    public void onSuccess(BasicResponse<List<SystemMsgBean>> response) {
+                    public void onSuccess(BasicResponse<SystemMsgBean> response) {
                         if (response != null) {
                             if (pageNum == 0) {
                                 mSystemMsgBean.clear();
-                                mSystemMsgBean.addAll(response.getData());
+                                mSystemMsgBean.addAll(response.getData().getResultList());
                                 if (mSystemMsgBean.size() > 0) {
                                     pageNum += 1;
                                     mSystemMsgAdapter = new SystemMsgAdapter(mSystemMsgBean);
@@ -108,10 +108,10 @@ public class SystemMsgActivity extends BaseActivity implements BaseQuickAdapter.
                                     mSystemMsgAdapter.loadMoreEnd();
                                 }
                             } else {
-                                if (response.getData().size() > 0) {
+                                if (response.getData().getResultList().size() > 0) {
                                     pageNum += 1;
-                                    mSystemMsgBean.addAll(response.getData());
-                                    mSystemMsgAdapter.addData(response.getData());
+                                    mSystemMsgBean.addAll(response.getData().getResultList());
+                                    mSystemMsgAdapter.addData(response.getData().getResultList());
                                     mSystemMsgAdapter.loadMoreComplete(); //完成本次
                                 } else {
                                     mSystemMsgAdapter.loadMoreEnd(); //完成所有加载

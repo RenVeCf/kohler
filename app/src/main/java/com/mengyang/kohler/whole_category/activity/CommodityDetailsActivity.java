@@ -19,6 +19,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
@@ -337,7 +338,7 @@ public class CommodityDetailsActivity extends BaseActivity {
                                                 SelectColor(mCommodityDetails.get(finalI).getProDetail().getSkuCode());
                                             }
                                         });
-                                        Glide.with(App.getContext()).load(mCommodityDetails.get(i).getSkuAttrList().get(j).getSkuImageName()).into(label);
+                                        Glide.with(App.getContext()).load(mCommodityDetails.get(i).getSkuAttrList().get(j).getSkuImageName()).apply(new RequestOptions().placeholder(R.mipmap.queshengtu)).into(label);
                                         ivCommodityDetailsColorImg.addView(label);
                                     }
                                 }

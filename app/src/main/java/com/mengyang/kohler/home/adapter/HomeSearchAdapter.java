@@ -4,6 +4,7 @@ import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.mengyang.kohler.App;
@@ -29,6 +30,6 @@ public class HomeSearchAdapter extends BaseQuickAdapter<AllSearchBean, BaseViewH
     protected void convert(BaseViewHolder helper, AllSearchBean item) {
         helper.setText(R.id.tv_home_search_adapter_product_name, item.getProductName())
                 .setText(R.id.tv_home_search_adapter_model_name, item.getSkuCode());
-        Glide.with(App.getContext()).load(item.getListImageUrl()).into((ImageView) helper.getView(R.id.iv_home_search_adapter_item));
+        Glide.with(App.getContext()).load(item.getListImageUrl()).apply(new RequestOptions().placeholder(R.mipmap.queshengtu)).into((ImageView) helper.getView(R.id.iv_home_search_adapter_item));
     }
 }

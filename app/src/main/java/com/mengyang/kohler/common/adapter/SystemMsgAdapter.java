@@ -16,14 +16,14 @@ import java.util.List;
  * Time : 2018/1/29
  */
 
-public class SystemMsgAdapter extends BaseQuickAdapter<SystemMsgBean, BaseViewHolder> {
+public class SystemMsgAdapter extends BaseQuickAdapter<SystemMsgBean.ResultListBean, BaseViewHolder> {
 
-    public SystemMsgAdapter(@Nullable List<SystemMsgBean> data) {
+    public SystemMsgAdapter(@Nullable List<SystemMsgBean.ResultListBean> data) {
         super(R.layout.item_system_msg_adapter, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, SystemMsgBean item) {
+    protected void convert(BaseViewHolder helper, SystemMsgBean.ResultListBean item) {
         helper.setText(R.id.tv_system_msg_adapter_prompt, item.getMsgContent())
                 .setText(R.id.tv_system_msg_adapter_day_num, item.getCreateTime());
     }

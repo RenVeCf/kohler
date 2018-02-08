@@ -4,6 +4,7 @@ import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.mengyang.kohler.App;
@@ -27,7 +28,7 @@ public class HomeBooksAdapter extends BaseQuickAdapter<BooksBean, BaseViewHolder
 
     @Override
     protected void convert(BaseViewHolder helper, BooksBean item) {
-        Glide.with(App.getContext()).load(item.getBookKVUrl()).into((ImageView) helper.getView(R.id.iv_item_home_books));
+        Glide.with(App.getContext()).load(item.getBookKVUrl()).apply(new RequestOptions().placeholder(R.mipmap.queshengtu)).into((ImageView) helper.getView(R.id.iv_item_home_books));
         helper.addOnClickListener(R.id.iv_item_home_books);
     }
 }

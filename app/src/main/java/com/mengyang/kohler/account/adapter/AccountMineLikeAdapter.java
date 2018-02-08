@@ -4,6 +4,7 @@ import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.mengyang.kohler.App;
@@ -30,7 +31,7 @@ public class AccountMineLikeAdapter extends BaseQuickAdapter<LikeListBean.Result
     protected void convert(BaseViewHolder helper, LikeListBean.ResultListBean item) {
         helper.setText(R.id.tv_account_mine_like_adapter_product_name, item.getName())
                 .setText(R.id.tv_account_mine_like_adapter_model_name, item.getSkuCode());
-        Glide.with(App.getContext()).load(item.getPicture()).into((ImageView) helper.getView(R.id.iv_account_mine_like_adapter_item));
+        Glide.with(App.getContext()).load(item.getPicture()).apply(new RequestOptions().placeholder(R.mipmap.queshengtu)).into((ImageView) helper.getView(R.id.iv_account_mine_like_adapter_item));
         helper.addOnClickListener(R.id.iv_account_mine_like_adapter_remove);
     }
 }

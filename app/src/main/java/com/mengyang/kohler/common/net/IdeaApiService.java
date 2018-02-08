@@ -109,7 +109,7 @@ public interface IdeaApiService {
     //系统消息
     @FormUrlEncoded
     @POST(Config.SYSTEM_MSG)
-    Observable<BasicResponse<List<SystemMsgBean>>> getSystemMsg(@FieldMap Map<String, String> map);
+    Observable<BasicResponse<SystemMsgBean>> getSystemMsg(@FieldMap Map<String, String> map);
 
     //修改头像
     @FormUrlEncoded

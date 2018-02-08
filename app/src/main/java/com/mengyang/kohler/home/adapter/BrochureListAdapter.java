@@ -4,6 +4,7 @@ import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.mengyang.kohler.App;
@@ -30,7 +31,7 @@ public class BrochureListAdapter extends BaseQuickAdapter<BooksListBean.ResultLi
         if (helper.getAdapterPosition() == 0) {
             helper.getView(R.id.iv_brochure_list_adapter_download_item_img).setPadding(5, 0, 0, 0);
         }
-        Glide.with(App.getContext()).load(item.getKvUrl()).into((ImageView) helper.getView(R.id.iv_brochure_list_adapter_download_item_img));
+        Glide.with(App.getContext()).load(item.getKvUrl()).apply(new RequestOptions().placeholder(R.mipmap.queshengtu)).into((ImageView) helper.getView(R.id.iv_brochure_list_adapter_download_item_img));
         helper.addOnClickListener(R.id.iv_brochure_list_adapter_download_item_img);
         helper.addOnClickListener(R.id.iv_brochure_list_adapter_download_item);
     }
