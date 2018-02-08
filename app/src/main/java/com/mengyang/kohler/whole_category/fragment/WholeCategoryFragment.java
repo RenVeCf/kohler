@@ -10,11 +10,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
+import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseFragment;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.net.DefaultObserver;
+import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.utils.LogUtils;
+import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.NotSelectClassificationBean;
@@ -65,6 +68,10 @@ public class WholeCategoryFragment extends BaseFragment implements StackLayoutMa
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(getActivity(), tvWholeCategoryTop);
 
+        if (SPUtil.get(App.getContext(), IConstants.TYPE, "").equals("dealer"))
+            ivTopCustomerService.setVisibility(View.VISIBLE);
+        else
+            ivTopCustomerService.setVisibility(View.GONE);
         ivTopCustomerService.setImageResource(R.mipmap.kefubai);
         ivTopSystemMsg.setImageResource(R.mipmap.youxiangbai);
 

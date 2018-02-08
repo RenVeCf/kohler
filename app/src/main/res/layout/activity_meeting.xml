@@ -161,10 +161,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="@string/next_agenda"
                         android:textColor="#000000"
                         android:textSize="11sp"
-                        android:textStyle="bold"
-                        android:text="@string/next_agenda"/>
+                        android:textStyle="bold"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -257,8 +257,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/y108"
                 android:layout_marginBottom="@dimen/y168"
+                android:layout_marginTop="@dimen/y108"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -392,10 +392,10 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:text="@string/day_agenda"
                             android:textColor="#000000"
                             android:textSize="11sp"
-                            android:textStyle="bold"
-                            android:text="@string/day_agenda"/>
+                            android:textStyle="bold"/>
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -472,10 +472,10 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:text="@string/over_agenda"
                             android:textColor="#000000"
                             android:textSize="11sp"
-                            android:textStyle="bold"
-                            android:text="@string/over_agenda"/>
+                            android:textStyle="bold"/>
 
                         <LinearLayout
                             android:layout_width="match_parent"

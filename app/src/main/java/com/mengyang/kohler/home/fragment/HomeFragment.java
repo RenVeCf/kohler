@@ -18,7 +18,6 @@ import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.utils.DatabaseUtils;
-import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.view.SpacesItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
@@ -73,6 +72,9 @@ public class HomeFragment extends BaseFragment {
     TextView tvMyBrochureTop;
     @BindView(R.id.tv_my_brochure_donw)
     TextView tvMyBrochureDonw;
+    @BindView(R.id.iv_top_customer_service)
+    ImageView ivTopCustomerService;
+
     //侧滑Meun键的接口回调
     private OnFragmentInteractionListener mListener;
     private HomeIndexBean mHomeIndexBean;
@@ -90,6 +92,10 @@ public class HomeFragment extends BaseFragment {
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(getActivity(), tvHomeTop);
 
+        if (SPUtil.get(App.getContext(), IConstants.TYPE, "").equals("dealer"))
+            ivTopCustomerService.setVisibility(View.VISIBLE);
+        else
+            ivTopCustomerService.setVisibility(View.GONE);
         //必须先初始化SQLite
         DatabaseUtils.initHelper(getActivity(), "books.db");
         //轮播
@@ -102,7 +108,6 @@ public class HomeFragment extends BaseFragment {
         // 如果可以确定每个item的高度是固定的，设置这个选项可以提高性能
         rvHomeBooks.setHasFixedSize(true);
         rvHomeBooks.setItemAnimator(new DefaultItemAnimator());
-
         abHomeLoop.setImageViewScaleType(AdPlayBanner.ScaleType.CENTER_CROP);
 
         //所有下载好的PDF集合

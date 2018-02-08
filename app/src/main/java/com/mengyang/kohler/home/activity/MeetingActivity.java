@@ -2,7 +2,6 @@ package com.mengyang.kohler.home.activity;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +23,6 @@ import com.mengyang.kohler.module.bean.MeetingBean;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
