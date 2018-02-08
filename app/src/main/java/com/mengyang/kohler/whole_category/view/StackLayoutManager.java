@@ -196,7 +196,7 @@ public class StackLayoutManager extends RecyclerView.LayoutManager {
             fill(recycler, initialOffset, false);
             initial = true;
         }
-        Log.i("kohler", "position = ");
+        Log.i("kohler", "position = 1111111");
     }
 
 
@@ -748,7 +748,7 @@ public class StackLayoutManager extends RecyclerView.LayoutManager {
      */
 
     private int left(int position) {
-
+        Log.i("kohler66", "position = 1111111" +position);
 
         int curPos = mTotalOffset / mUnit;
 

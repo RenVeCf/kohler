@@ -139,12 +139,15 @@ public class WholeCategoryFragment extends BaseFragment implements StackLayoutMa
     @Override
     public void changeListenning(int position) {
         Log.i("kohler", "position = " + position+",  "+mNotSelectClassificationPositiveSequenceBean.get(position).getNameCn());
-        if (mNotSelectClassificationPositiveSequenceBean.size() - 1 == position) {
-            tv_whole_category_visible.setVisibility(View.VISIBLE);
-        } else {
-            tv_whole_category_visible.setVisibility(View.GONE);
-            tv_whole_category_gone.setText(mNotSelectClassificationPositiveSequenceBean.get(position).getNameCn());
-        }
+//        if (mNotSelectClassificationPositiveSequenceBean.size() - 1 == position) {
+//            tv_whole_category_visible.setVisibility(View.VISIBLE);
+//        } else {
+//            tv_whole_category_visible.setVisibility(View.GONE);
+//            tv_whole_category_gone.setText(mNotSelectClassificationPositiveSequenceBean.get(position).getNameCn());
+//        }
+
+
+        tv_whole_category_gone.setText(mNotSelectClassificationPositiveSequenceBean.get(position).getNameCn());
     }
 
 //    if (mChangeListenning != null) {

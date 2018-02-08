@@ -2,6 +2,7 @@ package com.mengyang.kohler.common.net;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 
 import com.google.gson.JsonParseException;
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
@@ -90,7 +91,8 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
 
     @Override
     public void onError(Throwable e) {
-        LogUtils.e("Retrofit", e.getMessage());
+//        LogUtils.e("Retrofit", e.getMessage());
+        Log.e("Retrofit", e.getMessage());
         dismissProgress();
         if (e instanceof HttpException) {     //   HTTP错误
             onException(ExceptionReason.BAD_NETWORK);

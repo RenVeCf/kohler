@@ -109,6 +109,8 @@ public class HomeFragment extends BaseFragment {
         rvHomeBooks.setHasFixedSize(true);
         rvHomeBooks.setItemAnimator(new DefaultItemAnimator());
 
+        abHomeLoop.setImageViewScaleType(AdPlayBanner.ScaleType.CENTER_CROP);
+
         //所有下载好的PDF集合
         List<BooksBean> list = DatabaseUtils.getHelper().queryAll(BooksBean.class);
 //        LogUtils.i("rmy", "list = " + list.size());
