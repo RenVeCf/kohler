@@ -6,15 +6,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.R;
-import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.module.bean.NotSelectClassificationBean;
 import com.mengyang.kohler.whole_category.activity.CommodityClassificationActivity;
 import com.mengyang.kohler.whole_category.activity.SelectClassificationActivity;
+import com.mengyang.kohler.whole_category.fragment.WholeCategoryFragment;
 
 import java.util.List;
 
@@ -26,8 +27,8 @@ public class StackAdapter extends RecyclerView.Adapter<StackAdapter.ViewHolder> 
 
     private LayoutInflater inflater;
     private List<NotSelectClassificationBean> datas;
+    private OnWholeCategoryItem mListener;
     private Context context;
-
     private boolean vertical;
 
     public StackAdapter(List<NotSelectClassificationBean> datas) {
@@ -57,6 +58,11 @@ public class StackAdapter extends RecyclerView.Adapter<StackAdapter.ViewHolder> 
         //        holder.index.setText(datas.get(holder.getAdapterPosition()));
     }
 
+    public interface OnWholeCategoryItem {
+        // TODO: Update argument type and name
+        void onWholeCategoryItem(String data);
+    }
+
     @Override
     public int getItemCount() {
         return datas == null ? 0 : datas.size();
@@ -74,9 +80,11 @@ public class StackAdapter extends RecyclerView.Adapter<StackAdapter.ViewHolder> 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (getAdapterPosition() == (datas.size() - 1))
+                    if (getAdapterPosition() == (datas.size() - 1)) {
+                        mListener.onWholeCategoryItem("科勒");
                         App.getContext().startActivity(new Intent(App.getContext(), SelectClassificationActivity.class));
-                    else {
+                    } else {
+                        mListener.onWholeCategoryItem(datas.get(getAdapterPosition()).getNameCn());
                         App.getContext().startActivity(new Intent(App.getContext(), CommodityClassificationActivity.class).putExtra("id", datas.get(getAdapterPosition()).getId() + ""));
                     }
                 }

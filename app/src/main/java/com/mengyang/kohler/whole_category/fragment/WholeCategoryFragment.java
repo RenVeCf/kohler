@@ -2,13 +2,17 @@ package com.mengyang.kohler.whole_category.fragment;
 
 import android.annotation.SuppressLint;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.BaseFragment;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IdeaApi;
+import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.NotSelectClassificationBean;
@@ -29,7 +33,7 @@ import io.reactivex.schedulers.Schedulers;
  * 全品类
  */
 
-public class WholeCategoryFragment extends BaseFragment {
+public class WholeCategoryFragment extends BaseFragment implements StackAdapter.OnWholeCategoryItem {
 
     @BindView(R.id.tv_whole_category_top)
     TopView tvWholeCategoryTop;
@@ -39,9 +43,14 @@ public class WholeCategoryFragment extends BaseFragment {
     ImageView ivTopCustomerService;
     @BindView(R.id.iv_top_system_msg)
     ImageView ivTopSystemMsg;
+    @BindView(R.id.tv_whole_category_visible)
+    TextView tv_whole_category_visible;
+    @BindView(R.id.tv_whole_category_gone)
+    TextView tv_whole_category_gone;
     private List<NotSelectClassificationBean> mNotSelectClassificationBean;
     private List<NotSelectClassificationBean> mNotSelectClassificationPositiveSequenceBean;
     private StackAdapter mStackAdapter;
+    private int xy = 0;
 
     @Override
     protected int getLayoutId() {
@@ -99,8 +108,41 @@ public class WholeCategoryFragment extends BaseFragment {
 
                             mStackAdapter = new StackAdapter(mNotSelectClassificationPositiveSequenceBean);
                             rvWholeCategory.setAdapter(mStackAdapter);
+                            StackLayoutManager StackLayoutManager = new StackLayoutManager();
+
+                            rvWholeCategory.setOnScrollListener(new RecyclerView.OnScrollListener() {
+                                @Override
+                                public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                                    super.onScrollStateChanged(recyclerView, newState);
+                                    LogUtils.i("rmy", "0000");
+                                }
+
+                                @Override
+                                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                                    super.onScrolled(recyclerView, dx, dy);
+                                    LogUtils.i("rmy", "dx = " + dx + ", dy = " + dy);
+                                    if (dx < dy) {
+                                        if (xy > 0)
+                                            xy--;
+                                    } else if (dx > dy) {
+                                        if (xy < 0)
+                                            xy ++;
+                                    }
+                                }
+                            });
                         }
                     }
                 });
+    }
+
+    @Override
+    public void onWholeCategoryItem(String data) {
+        if (data.equals("科勒")) {
+            tv_whole_category_visible.setText(data);
+            tv_whole_category_gone.setVisibility(View.VISIBLE);
+        } else {
+            tv_whole_category_visible.setText(data);
+            tv_whole_category_gone.setVisibility(View.GONE);
+        }
     }
 }

@@ -24,8 +24,8 @@
     </style>
 
     <style name="MenuIconStyle">
-        <item name="android:layout_width">@dimen/x84</item>
-        <item name="android:layout_height">@dimen/y84</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginStart">@dimen/x120</item>
         <item name="android:padding">12dp</item>
     </style>

@@ -25,5 +25,5 @@
     <dimen name="load_more_drawable_size_google">36dp</dimen>
 
     <!-- 全品类CardView间距 -->
-    <dimen name="item_space">15dp</dimen>
+    <dimen name="item_space">12dp</dimen>
 </resources>

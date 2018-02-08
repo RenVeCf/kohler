@@ -8,6 +8,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.R;
+import com.mengyang.kohler.module.BooksBean;
 
 import java.util.List;
 
@@ -18,14 +19,15 @@ import java.util.List;
  * Time : 2018/loading1/22
  */
 
-public class HomeBooksAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
+public class HomeBooksAdapter extends BaseQuickAdapter<BooksBean, BaseViewHolder> {
 
-    public HomeBooksAdapter(@Nullable List<String> data) {
+    public HomeBooksAdapter(@Nullable List<BooksBean> data) {
         super(R.layout.item_home_books_adapter, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, String item) {
-        Glide.with(App.getContext()).load("").into((ImageView) helper.getView(R.id.iv_item_home_books));
+    protected void convert(BaseViewHolder helper, BooksBean item) {
+        Glide.with(App.getContext()).load(item.getBookKVUrl()).into((ImageView) helper.getView(R.id.iv_item_home_books));
+        helper.addOnClickListener(R.id.iv_item_home_books);
     }
 }

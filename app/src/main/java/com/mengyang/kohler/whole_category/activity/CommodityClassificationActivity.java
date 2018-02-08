@@ -54,10 +54,9 @@ public class CommodityClassificationActivity extends BaseActivity {
         ImmersionBar.setTitleBar(this, tvCommodityClassificationTop);
         fragments = new ArrayList<>();
 
+        mCommodityClassificationTitleBean = new ArrayList<>();
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), fragments);
         vpCommodityClassification.setAdapter(viewPagerAdapter);
-
-        mCommodityClassificationTitleBean = new ArrayList<>();
     }
 
     @Override
@@ -87,7 +86,7 @@ public class CommodityClassificationActivity extends BaseActivity {
                             titles[i] = new String(mCommodityClassificationTitleBean.get(i).getNameCn());
                         }
 
-                        nfslCommodityClassification.setViewPager(CommodityClassificationActivity.this, titles, vpCommodityClassification, R.color.black, R.color.black, 12, 12, 24, true, R.color.splilinecolor, 1f, 17f, 17f, 80);
+                        nfslCommodityClassification.setViewPager(CommodityClassificationActivity.this, titles, vpCommodityClassification, R.color.black, R.color.black, 12, 12, 24, true, R.color.splilinecolor, 1f, 4f, 4f, 80);
                         nfslCommodityClassification.setBgLine(CommodityClassificationActivity.this, 1, R.color.white);
                         nfslCommodityClassification.setNavLine(CommodityClassificationActivity.this, 3, R.color.white);
 

@@ -65,6 +65,9 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(this, tvMineManualTop);
 
+        //必须先初始化SQLite
+        DatabaseUtils.initHelper(MineManualActivity.this, "books.db");
+
         // 下载图册设置管理器
         LinearLayoutManager layoutManager = new LinearLayoutManager(App.getContext());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -137,23 +140,27 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
                                             if (FileUtils.isFileExist(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + mBooksListBean.get(position).getPdfUrl().substring(mBooksListBean.get(position).getPdfUrl().lastIndexOf("/") + 1)))
                                                 startActivity(new Intent(MineManualActivity.this, PDFActivity.class).putExtra("PdfUrl", mBooksListBean.get(position).getPdfUrl()));
                                             else {//没找到就去下载
-                                                //必须先初始化SQLite
-                                                DatabaseUtils.initHelper(MineManualActivity.this, "books.db");
+
                                                 //图下载的pdf封面url放入SQLite
                                                 mDeletePDF = new BooksBean(mBooksListBean.get(position).getKvUrl());
                                                 //保存
                                                 DatabaseUtils.getHelper().save(mDeletePDF);
                                                 startActivity(new Intent(MineManualActivity.this, DownLoaderPDFActivity.class).putExtra("PdfUrl", mBooksListBean.get(position).getPdfUrl()));
+
+                                                //所有下载好的PDF集合
+                                                List<BooksBean> list = DatabaseUtils.getHelper().queryAll(BooksBean.class);
+                                                mMyBrochureAdapter = new MyBrochureAdapter(list);
+                                                rvMineManualMyBrochure.setAdapter(mMyBrochureAdapter);
                                             }
                                         }
                                     });
-                                    mMyBrochureAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-                                        @Override
-                                        public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                                            //删除指定pdf文件
-
-                                        }
-                                    });
+                                    //                                    mMyBrochureAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                                    //                                        @Override
+                                    //                                        public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                                    //                                            //删除指定pdf文件
+                                    //
+                                    //                                        }
+                                    //                                    });
                                 } else {
                                     mMineManualAdapter.loadMoreEnd();
                                 }

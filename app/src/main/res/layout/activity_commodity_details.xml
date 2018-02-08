@@ -49,15 +49,6 @@
                     tools:text="ESCALE® 艾思格尔"/>
 
                 <TextView
-                    android:id="@+id/tv_commodity_details_category"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/x72"
-                    android:textColor="#ffffff"
-                    android:textSize="18sp"
-                    tools:text="嵌入式泡泡浴缸（含浴枕）"/>
-
-                <TextView
                     android:id="@+id/tv_commodity_details_model"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -70,17 +61,18 @@
                     android:id="@+id/mzb_commodity_details"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/y780"
-                    android:layout_marginTop="@dimen/y96"
-                    android:layout_marginStart="@dimen/x54"
-                    android:layout_marginEnd="@dimen/x54"
                     android:layout_gravity="center_horizontal"
-                    app:middle_page_cover="true"
-                    app:open_mz_mode="true"
+                    android:layout_marginEnd="@dimen/x54"
+                    android:layout_marginStart="@dimen/x54"
+                    android:layout_marginTop="@dimen/y96"
                     app:canLoop="true"
                     app:indicatorAlign="center"
-                    app:indicatorPaddingLeft="10dp"/>
+                    app:indicatorPaddingLeft="10dp"
+                    app:middle_page_cover="true"
+                    app:open_mz_mode="true"/>
 
                 <LinearLayout
+                    android:id="@+id/ll_commodity_details"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/x72"
@@ -148,11 +140,11 @@
                     <TextView
                         android:id="@+id/tv_function"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/y300"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/y54"
-                        android:textSize="15sp"
+                        android:lineSpacingExtra="9sp"
                         android:textColor="#000000"
-                        android:lineSpacingExtra="9sp"/>
+                        android:textSize="15sp"/>
 
                     <LinearLayout
                         android:id="@+id/ll_commodity_details_purchase_inquiries"
@@ -187,22 +179,30 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/y51"
                         android:layout_marginBottom="@dimen/y36"
+                        android:layout_marginTop="@dimen/y51"
                         android:orientation="horizontal">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:text="@string/technology"
                             android:textColor="#000000"
-                            android:textStyle="bold"
-                            tools:text="@string/technology"/>
+                            android:textStyle="bold"/>
 
                         <TextView
                             android:id="@+id/tv_commodity_details_color"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="#000000"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/iv_commodity_details_color_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -220,25 +220,87 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:textColor="#000000"
-                        android:textStyle="bold"
+                        android:layout_marginBottom="@dimen/y24"
                         android:layout_marginTop="@dimen/y90"
-                        android:text="产品属性："/>
+                        android:text="@string/product_attributes"
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        android:textStyle="bold"/>
+                </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/y180"
+                    android:layout_marginStart="@dimen/x72"
+                    android:layout_marginTop="@dimen/y108"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:text="服务与支持："
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="11sp"
-                            android:textColor="#000000"
-                            android:lineSpacingExtra="7sp"
-                            tools:text="排水: "/>
-                    </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:lineSpacingExtra="7sp"
+                        android:text="如您对此产品有任何疑问请致电我们的工作人员，他们会及时给
+您答复。"
+                        android:textColor="#000000"
+                        android:textSize="11sp"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:lineSpacingExtra="7sp"
+                        android:text="手机用户请拨打："
+                        android:textColor="#000000"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:lineSpacingExtra="7sp"
+                        android:text="400-820-2628"
+                        android:textColor="#000000"
+                        android:textSize="11sp"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:lineSpacingExtra="7sp"
+                        android:text="座机用户请拨打："
+                        android:textColor="#000000"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:lineSpacingExtra="7sp"
+                        android:text="800-820-2628"
+                        android:textColor="#000000"
+                        android:textSize="11sp"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:lineSpacingExtra="7sp"
+                        android:text="上午8点至晚上10点，周一至周日全天。（法定节假日除外）"
+                        android:textColor="#000000"
+                        android:textSize="11sp"
+                        />
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>
@@ -265,7 +327,5 @@
             android:background="@color/black"
             android:text="@string/go_pay"
             android:textColor="@color/white"/>
-
     </LinearLayout>
-
 </LinearLayout>

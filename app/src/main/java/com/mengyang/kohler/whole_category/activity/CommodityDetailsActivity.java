@@ -2,7 +2,12 @@ package com.mengyang.kohler.whole_category.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
+import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,14 +17,17 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IdeaApi;
+import com.mengyang.kohler.common.utils.IOUtils;
+import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.view.TopView;
-import com.mengyang.kohler.home.activity.PDFActivity;
+import com.mengyang.kohler.home.activity.DownLoaderPDFActivity;
 import com.mengyang.kohler.home.activity.StoreMapActivity;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.CommodityClassificationFragmentBean;
@@ -27,6 +35,11 @@ import com.zhouwei.mzbanner.MZBannerView;
 import com.zhouwei.mzbanner.holder.MZHolderCreator;
 import com.zhouwei.mzbanner.holder.MZViewHolder;
 
+import java.io.BufferedInputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -48,8 +61,6 @@ public class CommodityDetailsActivity extends BaseActivity {
     ImageView ivTopBack;
     @BindView(R.id.tv_commodity_details_brand)
     TextView tvCommodityDetailsBrand;
-    @BindView(R.id.tv_commodity_details_category)
-    TextView tvCommodityDetailsCategory;
     @BindView(R.id.tv_commodity_details_model)
     TextView tvCommodityDetailsModel;
     @BindView(R.id.iv_size_diagram_download)
@@ -66,14 +77,22 @@ public class CommodityDetailsActivity extends BaseActivity {
     MZBannerView mzbCommodityDetails;
     @BindView(R.id.tv_function)
     TextView tvFunction;
+    @BindView(R.id.ll_commodity_details)
+    LinearLayout llCommodityDetails;
+    @BindView(R.id.tv_commodity_details_color)
+    TextView tvCommodityDetailsColor;
+    @BindView(R.id.iv_commodity_details_color_img)
+    LinearLayout ivCommodityDetailsColorImg;
+
     //轮播图集合
-    private List<Integer> mDatas = new ArrayList<>();
+    private List<Bitmap> mDatas = new ArrayList<>();
     private PopupWindow mDownloadPopupWindow;
     private View mPopLayout;
     private TextView tvCommodityDetailsDownloadName;
     private Button btCommodityDetailsDownloadPreview;
     private CommodityClassificationFragmentBean.ResultListBean mCommodityClassificationFragmentBean;
-    private int position;
+    private String mTianMaoUrl = "";
+    private String mPdfUrl = "";
 
     @Override
     protected int getLayoutId() {
@@ -125,33 +144,33 @@ public class CommodityDetailsActivity extends BaseActivity {
                 });
     }
 
-    //    /**
-    //     * URL to Bitmap
-    //     *
-    //     * @param url
-    //     * @return
-    //     */
-    //    private Bitmap returnBitmap(String url) {
-    //        Bitmap bm = null;
-    //        try {
-    //            URL iconUrl = new URL(url);
-    //            URLConnection conn = iconUrl.openConnection();
-    //            HttpURLConnection http = (HttpURLConnection) conn;
-    //            int length = http.getContentLength();
-    //            conn.connect();
-    //            // 获得图像的字符流
-    //            InputStream is = conn.getInputStream();
-    //            BufferedInputStream bis = new BufferedInputStream(is, length);
-    //            bm = BitmapFactory.decodeStream(bis);
-    //            bis.close();
-    //            IOUtils.close(is);// 关闭流
-    //        } catch (Exception e) {
-    //            e.printStackTrace();
-    //        }
-    //        return bm;
-    //    }
+    /**
+     * URL to Bitmap
+     *
+     * @param url
+     * @return
+     */
+    private Bitmap returnBitmap(String url) {
+        Bitmap bm = null;
+        try {
+            URL iconUrl = new URL(url);
+            URLConnection conn = iconUrl.openConnection();
+            HttpURLConnection http = (HttpURLConnection) conn;
+            int length = http.getContentLength();
+            conn.connect();
+            // 获得图像的字符流
+            InputStream is = conn.getInputStream();
+            BufferedInputStream bis = new BufferedInputStream(is, length);
+            bm = BitmapFactory.decodeStream(bis);
+            bis.close();
+            IOUtils.close(is);// 关闭流
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bm;
+    }
 
-    public static class BannerViewHolder implements MZViewHolder<Integer> {
+    public static class BannerViewHolder implements MZViewHolder<Bitmap> {
         private ImageView mImageView;
 
         @Override
@@ -163,9 +182,10 @@ public class CommodityDetailsActivity extends BaseActivity {
         }
 
         @Override
-        public void onBind(Context context, int position, Integer data) {
+        public void onBind(Context context, int position, Bitmap data) {
+            LogUtils.i("rmy", "data = " + data);
             // 数据绑定
-            mImageView.setImageResource(data);
+            mImageView.setImageBitmap(data);
         }
     }
 
@@ -187,9 +207,16 @@ public class CommodityDetailsActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 if (btCommodityDetailsDownloadPreview.getText().toString().trim().equals(App.getContext().getResources().getString(R.string.download_preview))) {
-                    startActivity(new Intent(CommodityDetailsActivity.this, PDFActivity.class));
+                    startActivity(new Intent(CommodityDetailsActivity.this, DownLoaderPDFActivity.class).putExtra("PdfUrl", mPdfUrl));
                 } else if (btCommodityDetailsDownloadPreview.getText().toString().trim().equals(App.getContext().getResources().getString(R.string.jump))) {
-
+                    if (!mTianMaoUrl.equals("")) {
+                        Intent intent = new Intent();
+                        intent.setAction("android.intent.action.VIEW");
+                        Uri content_url = Uri.parse(mTianMaoUrl);
+                        intent.setData(content_url);
+                        startActivity(intent);
+                    }
+                    mDownloadPopupWindow.dismiss();
                 } else if (btCommodityDetailsDownloadPreview.getText().toString().trim().equals(App.getContext().getResources().getString(R.string.i_know))) {
                     mDownloadPopupWindow.dismiss();
                 }
@@ -221,42 +248,26 @@ public class CommodityDetailsActivity extends BaseActivity {
     protected void initData() {
         //        getRequest();
         mCommodityClassificationFragmentBean = (CommodityClassificationFragmentBean.ResultListBean) getIntent().getSerializableExtra("CommodityDetails");
-        position = getIntent().getIntExtra("position", 0);
-        mDatas.add(R.mipmap.ic_launcher_round);
-        mDatas.add(R.mipmap.ic_launcher_round);
-        mDatas.add(R.mipmap.ic_launcher_round);
-        mDatas.add(R.mipmap.ic_launcher_round);
-        mDatas.add(R.mipmap.ic_launcher_round);
-        //        if (!mCommodityClassificationFragmentBean.getProDetail().getDetailImage1Url1().equals("")) {
-        //            mDatas.add(returnBitmap(mCommodityClassificationFragmentBean.getProDetail().getDetailImage1Url1()));
-        //        }
-        //        if (!mCommodityClassificationFragmentBean.getProDetail().getDetailImage1Url2().equals("")) {
-        //            mDatas.add(returnBitmap(mCommodityClassificationFragmentBean.getProDetail().getDetailImage1Url2()));
-        //        }
-        //        if (!mCommodityClassificationFragmentBean.getProDetail().getDetailImage1Url3().equals("")) {
-        //            mDatas.add(returnBitmap(mCommodityClassificationFragmentBean.getProDetail().getDetailImage1Url3()));
-        //        }
-        //        if (!mCommodityClassificationFragmentBean.getProDetail().getDetailImage1Url4().equals("")) {
-        //            mDatas.add(returnBitmap(mCommodityClassificationFragmentBean.getProDetail().getDetailImage1Url4()));
-        //        }
-        //        if (!mCommodityClassificationFragmentBean.getProDetail().getDetailImage1Url5().equals("")) {
-        //            mDatas.add(returnBitmap(mCommodityClassificationFragmentBean.getProDetail().getDetailImage1Url5()));
-        //        }
-        StringBuffer sb = new StringBuffer();
-        tvCommodityDetailsBrand.setText(mCommodityClassificationFragmentBean.getProDetail().getProductName());
-        tvCommodityDetailsModel.setText(mCommodityClassificationFragmentBean.getProDetail().getSkuCode());
-        for (int i = 0; i < mCommodityClassificationFragmentBean.getAttrList().size(); i++) {
-            if (mCommodityClassificationFragmentBean.getAttrList().get(i).getCategoryComAttrName().equals("亮点")) {
-                tvFunction.setText(mCommodityClassificationFragmentBean.getAttrList().get(i).getAttrValue());
-            }
+        //        mDatas.add(R.mipmap.ic_launcher_round);
+        //        mDatas.add(R.mipmap.ic_launcher_round);
+        //        mDatas.add(R.mipmap.ic_launcher_round);
+        //        mDatas.add(R.mipmap.ic_launcher_round);
+        //        mDatas.add(R.mipmap.ic_launcher_round);
+        if (!mCommodityClassificationFragmentBean.getProDetail().getTempDetailImage1Url1().equals("")) {
+            mDatas.add(returnBitmap(mCommodityClassificationFragmentBean.getProDetail().getTempDetailImage1Url1()));
         }
-        for (int i = 0; i < mCommodityClassificationFragmentBean.getSkuAttrList().size(); i++) {
-            if (mCommodityClassificationFragmentBean.getSkuAttrList().get(i).getCategorySkuAttrName().equals("颜色/表面处理工艺")) {
-                sb.append(mCommodityClassificationFragmentBean.getSkuAttrList().get(i).getAttrValue() + ", ");
-                mCommodityClassificationFragmentBean.getSkuAttrList().get(i).getSkuImageName();
-            }
+        if (!mCommodityClassificationFragmentBean.getProDetail().getTempDetailImage1Url2().equals("")) {
+            mDatas.add(returnBitmap(mCommodityClassificationFragmentBean.getProDetail().getTempDetailImage1Url2()));
         }
-
+        if (!mCommodityClassificationFragmentBean.getProDetail().getTempDetailImage1Url3().equals("")) {
+            mDatas.add(returnBitmap(mCommodityClassificationFragmentBean.getProDetail().getTempDetailImage1Url3()));
+        }
+        if (!mCommodityClassificationFragmentBean.getProDetail().getTempDetailImage1Url4().equals("")) {
+            mDatas.add(returnBitmap(mCommodityClassificationFragmentBean.getProDetail().getTempDetailImage1Url4()));
+        }
+        if (!mCommodityClassificationFragmentBean.getProDetail().getTempDetailImage1Url5().equals("")) {
+            mDatas.add(returnBitmap(mCommodityClassificationFragmentBean.getProDetail().getTempDetailImage1Url5()));
+        }
         // 设置数据
         mzbCommodityDetails.setPages(mDatas, new MZHolderCreator<BannerViewHolder>() {
             @Override
@@ -264,17 +275,66 @@ public class CommodityDetailsActivity extends BaseActivity {
                 return new BannerViewHolder();
             }
         });
+
+        StringBuffer sb = new StringBuffer();
+        tvCommodityDetailsBrand.setText(mCommodityClassificationFragmentBean.getProDetail().getProductName());
+        tvCommodityDetailsModel.setText(mCommodityClassificationFragmentBean.getProDetail().getSkuCode());
+        for (int i = 0; i < mCommodityClassificationFragmentBean.getAttrList().size(); i++) {
+            if (mCommodityClassificationFragmentBean.getAttrList().get(i).getCategoryComAttrName().equals("亮点")) {
+                tvFunction.setText(mCommodityClassificationFragmentBean.getAttrList().get(i).getAttrValue());
+            } else if (!mCommodityClassificationFragmentBean.getAttrList().get(i).getCategoryComAttrName().equals("TMALL链接") && !mCommodityClassificationFragmentBean.getAttrList().get(i).getCategoryComAttrName().equals("特征") && !mCommodityClassificationFragmentBean.getAttrList().get(i).getCategoryComAttrName().equals("pdfUrl")) {
+                LinearLayout relative = new LinearLayout(this);
+                relative.setOrientation(LinearLayout.HORIZONTAL);
+                TextView label = new TextView(this);
+                label.setText(mCommodityClassificationFragmentBean.getAttrList().get(i).getCategoryComAttrName() + ": ");
+                label.setTextColor(Color.BLACK);
+                label.setTextSize(11);
+                label.setLineSpacing(7, 0);
+                TextPaint tp = label.getPaint();
+                tp.setFakeBoldText(true);
+                relative.addView(label);
+
+                TextView attribute = new TextView(this);
+                attribute.setText(mCommodityClassificationFragmentBean.getAttrList().get(i).getAttrValue());
+                attribute.setTextColor(Color.BLACK);
+                attribute.setTextSize(11);
+                attribute.setLineSpacing(7, 0);
+                relative.addView(attribute);
+                llCommodityDetails.addView(relative);
+            } else if (mCommodityClassificationFragmentBean.getAttrList().get(i).getCategoryComAttrName().equals("TMALL链接")) {
+                mTianMaoUrl = mCommodityClassificationFragmentBean.getAttrList().get(i).getAttrValue();
+            }
+        }
+        for (int i = 0; i < mCommodityClassificationFragmentBean.getSkuAttrList().size(); i++) {
+            if (mCommodityClassificationFragmentBean.getSkuAttrList().get(i).getCategorySkuAttrName().equals("颜色/表面处理工艺")) {
+                sb.append(mCommodityClassificationFragmentBean.getSkuAttrList().get(i).getAttrValue() + ", ");
+                ImageView label = new ImageView(this);
+                Glide.with(App.getContext()).load(mCommodityClassificationFragmentBean.getSkuAttrList().get(i).getSkuImageName()).into(label);
+                ivCommodityDetailsColorImg.addView(label);
+            }
+        }
+        tvCommodityDetailsColor.setText(sb);
     }
 
     @OnClick({R.id.iv_size_diagram_download, R.id.iv_installation_instructions_download, R.id.ll_commodity_details_purchase_inquiries, R.id.bt_commodity_details_like, R.id.bt_commodity_details_pay})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_size_diagram_download:
+                for (int i = 0; i < mCommodityClassificationFragmentBean.getPdfList().size(); i++) {
+                    if (mCommodityClassificationFragmentBean.getPdfList().get(i).getProductPdfName().equals("尺寸图")) {
+                        mPdfUrl = mCommodityClassificationFragmentBean.getPdfList().get(i).getFileName();
+                    }
+                }
                 tvCommodityDetailsDownloadName.setText(App.getContext().getResources().getText(R.string.download_size_diagram));
                 btCommodityDetailsDownloadPreview.setText(App.getContext().getResources().getString(R.string.download_preview));
                 mDownloadPopupWindow.showAsDropDown(view, 0, 0);
                 break;
             case R.id.iv_installation_instructions_download:
+                for (int i = 0; i < mCommodityClassificationFragmentBean.getPdfList().size(); i++) {
+                    if (mCommodityClassificationFragmentBean.getPdfList().get(i).getProductPdfName().equals("安装说明书")) {
+                        mPdfUrl = mCommodityClassificationFragmentBean.getPdfList().get(i).getFileName();
+                    }
+                }
                 tvCommodityDetailsDownloadName.setText(App.getContext().getResources().getText(R.string.download_installation_instructions));
                 btCommodityDetailsDownloadPreview.setText(App.getContext().getResources().getString(R.string.download_preview));
                 mDownloadPopupWindow.showAsDropDown(view, 0, 0);

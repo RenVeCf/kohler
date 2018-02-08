@@ -28,12 +28,15 @@
         android:src="@mipmap/select_logo"/>
 
     <LinearLayout
+        android:id="@+id/ll_whole_category_tabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/x150"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/y50">
 
         <TextView
+            android:id="@+id/tv_whole_category_visible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/app_name"
@@ -42,6 +45,7 @@
             android:textStyle="bold"/>
 
         <TextView
+            android:id="@+id/tv_whole_category_gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/select"
@@ -55,7 +59,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="@dimen/y51"
-        android:layout_marginTop="@dimen/y50"
         android:overScrollMode="never"
         app:layoutManager="@string/stacklayoutmanager"
         tools:listitem="@layout/item_whole_category_card"/>

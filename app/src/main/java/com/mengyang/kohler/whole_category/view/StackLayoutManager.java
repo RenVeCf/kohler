@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewConfiguration;
 
 import com.mengyang.kohler.BuildConfig;
+import com.mengyang.kohler.common.utils.LogUtils;
 
 import static com.mengyang.kohler.whole_category.view.Align.BOTTOM;
 import static com.mengyang.kohler.whole_category.view.Align.LEFT;
@@ -138,15 +139,17 @@ public class StackLayoutManager extends RecyclerView.LayoutManager {
 
         measureChildWithMargins(anchorView, 0, 0);
 
-        mItemWidth = anchorView.getMeasuredWidth();
+        //调节左边宽
+        mItemWidth = 930;//anchorView.getMeasuredWidth();
 
         mItemHeight = anchorView.getMeasuredHeight();
 
-        if (canScrollHorizontally())
-
-            mUnit = mItemWidth + mSpace;
-
-        else mUnit = mItemHeight + mSpace;
+        if (canScrollHorizontally()) {
+            //调节左边动画位置
+            mUnit = 1500;//mItemWidth + mSpace;
+        } else {
+            mUnit = mItemHeight + mSpace;
+        }
 
         //because this method will be called twice
 
@@ -186,26 +189,19 @@ public class StackLayoutManager extends RecyclerView.LayoutManager {
     @Override
 
     public void onLayoutCompleted(RecyclerView.State state) {
-
         super.onLayoutCompleted(state);
 
         if (!initial) {
-
             fill(recycler, initialOffset, false);
-
             initial = true;
-
         }
-
     }
 
 
     @Override
 
     public void onAdapterChanged(RecyclerView.Adapter oldAdapter, RecyclerView.Adapter newAdapter) {
-
         initial = false;
-
         mTotalOffset = mRealOffset = 0;
 
     }
@@ -367,7 +363,6 @@ public class StackLayoutManager extends RecyclerView.LayoutManager {
         int start = curPos - maxStackCount <= 0 ? 0 : curPos - maxStackCount;
 
         int end = e >= getItemCount() ? getItemCount() - 1 : e;
-
 
         //layout view
 
@@ -849,7 +844,7 @@ public class StackLayoutManager extends RecyclerView.LayoutManager {
 
                 if (BuildConfig.DEBUG)
 
-                    Log.i(TAG, "ltr: curPos " + curPos
+                    LogUtils.i("rmy", "ltr: curPos " + curPos
 
                             + "  pos:" + position
 

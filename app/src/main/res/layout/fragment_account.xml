@@ -23,7 +23,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.5dp"
         android:layout_below="@+id/tv_account_top"
         android:background="#c4c4c4"/>
 
@@ -46,9 +46,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/y45"
             android:scaleType="centerCrop"
-            android:src="@mipmap/oval"
-            app:border_color="@color/black"
-            app:border_width="2dp"/>
+            android:src="@mipmap/oval"/>
     </RelativeLayout>
 
     <TextView
@@ -73,11 +71,13 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/x141"
+            android:layout_marginEnd="@dimen/x25"
             android:layout_weight="1"
             android:background="@drawable/account_stroke_lgoin_bt_bg"
             android:drawableStart="@mipmap/shouchan"
-            android:paddingEnd="@dimen/x21"
             android:paddingStart="@dimen/x51"
+            android:paddingEnd="@dimen/x64"
+            android:textColor="@color/black"
             android:text="@string/mine_like"/>
 
         <Button
@@ -85,17 +85,19 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/x141"
-            android:layout_marginStart="@dimen/x51"
+            android:layout_marginStart="@dimen/x25"
             android:layout_weight="1"
             android:background="@drawable/account_stroke_lgoin_bt_bg"
             android:drawableStart="@mipmap/yuyue"
-            android:paddingStart="@dimen/x74"
+            android:paddingStart="@dimen/x51"
+            android:paddingEnd="@dimen/x64"
+            android:textColor="@color/black"
             android:text="@string/reservation_query"/>
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.5dp"
         android:background="#c4c4c4"/>
 
     <TextView
@@ -105,6 +107,7 @@
         android:layout_marginTop="@dimen/y63"
         android:text="@string/viewed"
         android:textSize="22sp"
+        android:textColor="@color/black"
         android:textStyle="bold"/>
 
     <TextView

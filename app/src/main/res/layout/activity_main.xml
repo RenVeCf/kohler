@@ -321,7 +321,7 @@
             android:id="@+id/ll_main"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="?attr/actionBarSize"
+            android:layout_marginTop="45dp"
             android:orientation="vertical"/>
 
         <android.support.v4.view.ViewPager
@@ -330,17 +330,18 @@
             android:layout_height="wrap_content"/>
 
         <View
+            android:id="@+id/view"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="0.5dp"
             android:background="#e0e0e0"/>
 
         <LinearLayout
             android:id="@+id/ll_main_fragment_select"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/y150"
+            android:layout_height="@dimen/y140"
             android:background="@color/white"
             android:orientation="horizontal"
-            android:paddingTop="@dimen/y30">
+            android:paddingTop="@dimen/y15">
 
             <Button
                 android:id="@+id/bt_home"
@@ -350,7 +351,8 @@
                 android:background="@null"
                 android:drawableTop="@mipmap/icon_home"
                 android:text="@string/home"
-                android:textColor="@color/background_color"/>
+                android:textSize="11sp"
+                android:textColor="#505050"/>
 
             <Button
                 android:id="@+id/bt_whole_category"
@@ -360,7 +362,8 @@
                 android:background="@null"
                 android:drawableTop="@mipmap/category"
                 android:text="@string/whole_category"
-                android:textColor="@color/background_color"/>
+                android:textSize="11sp"
+                android:textColor="#505050"/>
 
             <Button
                 android:id="@+id/bt_ar"
@@ -370,7 +373,8 @@
                 android:background="@null"
                 android:drawableTop="@mipmap/ar"
                 android:text="@string/ar"
-                android:textColor="@color/background_color"/>
+                android:textSize="11sp"
+                android:textColor="#505050"/>
 
             <Button
                 android:id="@+id/bt_account"
@@ -380,7 +384,8 @@
                 android:background="@null"
                 android:drawableTop="@mipmap/personal"
                 android:text="@string/account"
-                android:textColor="@color/background_color"/>
+                android:textSize="11sp"
+                android:textColor="#505050"/>
         </LinearLayout>
     </LinearLayout>
 </com.mengyang.kohler.common.view.ResideLayout>

@@ -78,6 +78,9 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
     LinearLayout llMainFragmentSelect;
     @BindView(R.id.rl_main)
     ResideLayout rlMain;
+    @BindView(R.id.view)
+    View view_line;
+
     private Fragment currentFragment = new Fragment();
     private HomeFragment mHomeFragment = new HomeFragment();
     private WholeCategoryFragment mWholeCategoryFragment = new WholeCategoryFragment();
@@ -241,24 +244,28 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 //沉浸式状态栏初始化黑色
                 ImmersionBar.with(this).fitsSystemWindows(false).statusBarDarkFont(true).init();
                 FragmentSelect(1);
+                view_line.setVisibility(View.VISIBLE);
                 break;
             case R.id.bt_whole_category:
                 switchFragment(mWholeCategoryFragment).commit();
                 //沉浸式状态栏初始化白色
                 ImmersionBar.with(this).fitsSystemWindows(false).statusBarDarkFont(false).init();
                 FragmentSelect(0);
+                view_line.setVisibility(View.GONE);
                 break;
             case R.id.bt_ar:
                 switchFragment(mARFragment).commit();
                 //沉浸式状态栏初始化黑色
                 ImmersionBar.with(this).fitsSystemWindows(false).statusBarDarkFont(true).init();
                 FragmentSelect(1);
+                view_line.setVisibility(View.VISIBLE);
                 break;
             case R.id.bt_account:
                 switchFragment(mAccountFragment).commit();
                 //沉浸式状态栏初始化黑色
                 ImmersionBar.with(this).fitsSystemWindows(false).statusBarDarkFont(true).init();
                 FragmentSelect(1);
+                view_line.setVisibility(View.VISIBLE);
                 break;
         }
     }

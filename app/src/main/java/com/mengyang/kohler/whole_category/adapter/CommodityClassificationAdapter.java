@@ -34,7 +34,7 @@ public class CommodityClassificationAdapter extends BaseQuickAdapter<CommodityCl
     protected void convert(BaseViewHolder helper, CommodityClassificationFragmentBean.ResultListBean item) {
         helper.setText(R.id.tv_commodity_classification_adapter_product_name, item.getProDetail().getProductName())
                 .setText(R.id.tv_commodity_classification_adapter_model_name, item.getProDetail().getSkuCode());
-        Glide.with(App.getContext()).load(item.getProDetail().getListImageUrl()).into((ImageView) helper.getView(R.id.iv_commodity_classification_adapter_item));
+        Glide.with(App.getContext()).load(item.getProDetail().getTempListImageUrl()).into((ImageView) helper.getView(R.id.iv_commodity_classification_adapter_item));
         helper.addOnClickListener(R.id.iv_commodity_classification_adapter_item);
     }
 }

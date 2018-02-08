@@ -20,13 +20,18 @@ import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.net.IdeaApiService;
+import com.mengyang.kohler.common.utils.DatabaseUtils;
 import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.view.SpacesItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.home.activity.HomeSearchActivity;
 import com.mengyang.kohler.home.activity.MeetingActivity;
+import com.mengyang.kohler.home.activity.MineManualActivity;
+import com.mengyang.kohler.home.adapter.HomeBooksAdapter;
+import com.mengyang.kohler.home.adapter.MyBrochureAdapter;
 import com.mengyang.kohler.module.BasicResponse;
+import com.mengyang.kohler.module.BooksBean;
 import com.mengyang.kohler.module.bean.HomeIndexBean;
 import com.mengyang.kohler.module.bean.UserHomeKVBean;
 import com.mengyang.kohler.module.bean.UserHomeKVUrlBean;
@@ -79,6 +84,7 @@ public class HomeFragment extends BaseFragment {
     private HomeIndexBean mHomeIndexBean;
     //轮播图集合
     private List<AdPageInfo> mDatas = new ArrayList<>();
+    private HomeBooksAdapter mHomeBooksAdapter;
 
     @Override
     protected int getLayoutId() {
@@ -89,6 +95,9 @@ public class HomeFragment extends BaseFragment {
     protected void initValues() {
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(getActivity(), tvHomeTop);
+
+        //必须先初始化SQLite
+        DatabaseUtils.initHelper(getActivity(), "books.db");
         //轮播
         abHomeLoop.measure(0, 0);
         // 设置管理器
@@ -99,6 +108,12 @@ public class HomeFragment extends BaseFragment {
         // 如果可以确定每个item的高度是固定的，设置这个选项可以提高性能
         rvHomeBooks.setHasFixedSize(true);
         rvHomeBooks.setItemAnimator(new DefaultItemAnimator());
+
+        //所有下载好的PDF集合
+        List<BooksBean> list = DatabaseUtils.getHelper().queryAll(BooksBean.class);
+//        LogUtils.i("rmy", "list = " + list.size());
+        mHomeBooksAdapter = new HomeBooksAdapter(list);
+        rvHomeBooks.setAdapter(mHomeBooksAdapter);
     }
 
     @Override
@@ -190,7 +205,6 @@ public class HomeFragment extends BaseFragment {
                         abHomeLoop.setUp();
                     }
                 });
-//        getBooks();
     }
 
     @Override
@@ -209,24 +223,6 @@ public class HomeFragment extends BaseFragment {
         super.onDetach();
         mListener = null;
     }
-
-//    public void getBooks() {
-//        Map<String, String> stringMap = IdeaApi.getSign();
-//        stringMap.put("pageNum", "0");
-//        stringMap.put("pageSize", "10");
-//
-//        IdeaApi.getRequestLogin(stringMap);
-//        IdeaApi.getApiService()
-//                .getBooksList(stringMap)
-//                .compose(this.<BasicResponse>bindToLifecycle())
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new DefaultObserver<BasicResponse>(getActivity(), true) {
-//                    @Override
-//                    public void onSuccess(BasicResponse response) {
-//                    }
-//                });
-//    }
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name

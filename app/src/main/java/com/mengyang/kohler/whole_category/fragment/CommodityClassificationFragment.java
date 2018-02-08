@@ -119,7 +119,7 @@ public class CommodityClassificationFragment extends BaseFragment implements Bas
                             mCommodityClassificationAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
                                 @Override
                                 public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                                    startActivity(new Intent(App.getContext(), CommodityDetailsActivity.class).putExtra("CommodityDetails", (Serializable) mCommodityClassificationFragmentBean.get(position)).putExtra("position", position));
+                                    startActivity(new Intent(App.getContext(), CommodityDetailsActivity.class).putExtra("CommodityDetails", (Serializable) mCommodityClassificationFragmentBean.get(position)));
                                 }
                             });
                         } else {
