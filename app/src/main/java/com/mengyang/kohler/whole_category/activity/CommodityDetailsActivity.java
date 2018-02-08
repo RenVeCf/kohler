@@ -31,6 +31,7 @@ import com.mengyang.kohler.home.activity.DownLoaderPDFActivity;
 import com.mengyang.kohler.home.activity.StoreMapActivity;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.CommodityClassificationFragmentBean;
+import com.mengyang.kohler.module.bean.CommodityDetailsBean;
 import com.zhouwei.mzbanner.MZBannerView;
 import com.zhouwei.mzbanner.holder.MZHolderCreator;
 import com.zhouwei.mzbanner.holder.MZViewHolder;
@@ -83,7 +84,6 @@ public class CommodityDetailsActivity extends BaseActivity {
     TextView tvCommodityDetailsColor;
     @BindView(R.id.iv_commodity_details_color_img)
     LinearLayout ivCommodityDetailsColorImg;
-
     //轮播图集合
     private List<Bitmap> mDatas = new ArrayList<>();
     private PopupWindow mDownloadPopupWindow;
@@ -91,8 +91,10 @@ public class CommodityDetailsActivity extends BaseActivity {
     private TextView tvCommodityDetailsDownloadName;
     private Button btCommodityDetailsDownloadPreview;
     private CommodityClassificationFragmentBean.ResultListBean mCommodityClassificationFragmentBean;
+    private List<CommodityDetailsBean> mCommodityDetails;
     private String mTianMaoUrl = "";
     private String mPdfUrl = "";
+    private int poction = 0; //第几个商品
 
     @Override
     protected int getLayoutId() {
@@ -129,7 +131,7 @@ public class CommodityDetailsActivity extends BaseActivity {
     public void getLike() {
 
         Map<String, String> stringMap = IdeaApi.getSign();
-        stringMap.put("skuCode", "");
+        stringMap.put("skuCode", mCommodityClassificationFragmentBean.getProDetail().getSkuCode());
 
         IdeaApi.getRequestLogin(stringMap);
         IdeaApi.getApiService()
@@ -140,6 +142,7 @@ public class CommodityDetailsActivity extends BaseActivity {
                 .subscribe(new DefaultObserver<BasicResponse>(this, true) {
                     @Override
                     public void onSuccess(BasicResponse response) {
+                        LogUtils.i("rmy", "response = " + response);
                     }
                 });
     }
@@ -253,20 +256,37 @@ public class CommodityDetailsActivity extends BaseActivity {
         //        mDatas.add(R.mipmap.ic_launcher_round);
         //        mDatas.add(R.mipmap.ic_launcher_round);
         //        mDatas.add(R.mipmap.ic_launcher_round);
-        if (!mCommodityClassificationFragmentBean.getProDetail().getTempDetailImage1Url1().equals("")) {
-            mDatas.add(returnBitmap(mCommodityClassificationFragmentBean.getProDetail().getTempDetailImage1Url1()));
+
+        Map<String, String> stringMap = IdeaApi.getSign();
+        stringMap.put("skuCode", mCommodityDetails.get(poction).getProDetail().getSkuCode());
+
+        IdeaApi.getRequestLogin(stringMap);
+        IdeaApi.getApiService()
+                .getCommodityDetails(stringMap)
+                .compose(CommodityDetailsActivity.this.<BasicResponse<List<CommodityDetailsBean>>>bindToLifecycle())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultObserver<BasicResponse<List<CommodityDetailsBean>>>(this, true) {
+                    @Override
+                    public void onSuccess(BasicResponse<List<CommodityDetailsBean>> response) {
+                        mCommodityDetails = response.getData();
+                    }
+                });
+
+        if (!mCommodityDetails.get(poction).getProDetail().getTempDetailImage1Url1().equals("")) {
+            mDatas.add(returnBitmap(mCommodityDetails.get(poction).getProDetail().getTempDetailImage1Url1()));
         }
-        if (!mCommodityClassificationFragmentBean.getProDetail().getTempDetailImage1Url2().equals("")) {
-            mDatas.add(returnBitmap(mCommodityClassificationFragmentBean.getProDetail().getTempDetailImage1Url2()));
+        if (!mCommodityDetails.get(poction).getProDetail().getTempDetailImage1Url2().equals("")) {
+            mDatas.add(returnBitmap(mCommodityDetails.get(poction).getProDetail().getTempDetailImage1Url2()));
         }
-        if (!mCommodityClassificationFragmentBean.getProDetail().getTempDetailImage1Url3().equals("")) {
-            mDatas.add(returnBitmap(mCommodityClassificationFragmentBean.getProDetail().getTempDetailImage1Url3()));
+        if (!mCommodityDetails.get(poction).getProDetail().getTempDetailImage1Url3().equals("")) {
+            mDatas.add(returnBitmap(mCommodityDetails.get(poction).getProDetail().getTempDetailImage1Url3()));
         }
-        if (!mCommodityClassificationFragmentBean.getProDetail().getTempDetailImage1Url4().equals("")) {
-            mDatas.add(returnBitmap(mCommodityClassificationFragmentBean.getProDetail().getTempDetailImage1Url4()));
+        if (!mCommodityDetails.get(poction).getProDetail().getTempDetailImage1Url4().equals("")) {
+            mDatas.add(returnBitmap(mCommodityDetails.get(poction).getProDetail().getTempDetailImage1Url4()));
         }
-        if (!mCommodityClassificationFragmentBean.getProDetail().getTempDetailImage1Url5().equals("")) {
-            mDatas.add(returnBitmap(mCommodityClassificationFragmentBean.getProDetail().getTempDetailImage1Url5()));
+        if (!mCommodityDetails.get(poction).getProDetail().getTempDetailImage1Url5().equals("")) {
+            mDatas.add(returnBitmap(mCommodityDetails.get(poction).getProDetail().getTempDetailImage1Url5()));
         }
         // 设置数据
         mzbCommodityDetails.setPages(mDatas, new MZHolderCreator<BannerViewHolder>() {
@@ -277,16 +297,16 @@ public class CommodityDetailsActivity extends BaseActivity {
         });
 
         StringBuffer sb = new StringBuffer();
-        tvCommodityDetailsBrand.setText(mCommodityClassificationFragmentBean.getProDetail().getProductName());
-        tvCommodityDetailsModel.setText(mCommodityClassificationFragmentBean.getProDetail().getSkuCode());
-        for (int i = 0; i < mCommodityClassificationFragmentBean.getAttrList().size(); i++) {
-            if (mCommodityClassificationFragmentBean.getAttrList().get(i).getCategoryComAttrName().equals("亮点")) {
-                tvFunction.setText(mCommodityClassificationFragmentBean.getAttrList().get(i).getAttrValue());
-            } else if (!mCommodityClassificationFragmentBean.getAttrList().get(i).getCategoryComAttrName().equals("TMALL链接") && !mCommodityClassificationFragmentBean.getAttrList().get(i).getCategoryComAttrName().equals("特征") && !mCommodityClassificationFragmentBean.getAttrList().get(i).getCategoryComAttrName().equals("pdfUrl")) {
+        tvCommodityDetailsBrand.setText(mCommodityDetails.get(poction).getProDetail().getProductName());
+        tvCommodityDetailsModel.setText(mCommodityDetails.get(poction).getProDetail().getSkuCode());
+        for (int i = 0; i < mCommodityDetails.get(poction).getAttrList().size(); i++) {
+            if (mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName().equals("亮点")) {
+                tvFunction.setText(mCommodityDetails.get(poction).getAttrList().get(i).getAttrValue());
+            } else if (!mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName().equals("TMALL链接") && !mCommodityClassificationFragmentBean.getAttrList().get(i).getCategoryComAttrName().equals("特征") && !mCommodityClassificationFragmentBean.getAttrList().get(i).getCategoryComAttrName().equals("pdfUrl")) {
                 LinearLayout relative = new LinearLayout(this);
                 relative.setOrientation(LinearLayout.HORIZONTAL);
                 TextView label = new TextView(this);
-                label.setText(mCommodityClassificationFragmentBean.getAttrList().get(i).getCategoryComAttrName() + ": ");
+                label.setText(mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName() + ": ");
                 label.setTextColor(Color.BLACK);
                 label.setTextSize(11);
                 label.setLineSpacing(7, 0);
@@ -295,22 +315,30 @@ public class CommodityDetailsActivity extends BaseActivity {
                 relative.addView(label);
 
                 TextView attribute = new TextView(this);
-                attribute.setText(mCommodityClassificationFragmentBean.getAttrList().get(i).getAttrValue());
+                attribute.setText(mCommodityDetails.get(poction).getAttrList().get(i).getAttrValue());
                 attribute.setTextColor(Color.BLACK);
                 attribute.setTextSize(11);
                 attribute.setLineSpacing(7, 0);
                 relative.addView(attribute);
                 llCommodityDetails.addView(relative);
-            } else if (mCommodityClassificationFragmentBean.getAttrList().get(i).getCategoryComAttrName().equals("TMALL链接")) {
-                mTianMaoUrl = mCommodityClassificationFragmentBean.getAttrList().get(i).getAttrValue();
+            } else if (mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName().equals("TMALL链接")) {
+                mTianMaoUrl = mCommodityDetails.get(poction).getAttrList().get(i).getAttrValue();
             }
         }
-        for (int i = 0; i < mCommodityClassificationFragmentBean.getSkuAttrList().size(); i++) {
-            if (mCommodityClassificationFragmentBean.getSkuAttrList().get(i).getCategorySkuAttrName().equals("颜色/表面处理工艺")) {
-                sb.append(mCommodityClassificationFragmentBean.getSkuAttrList().get(i).getAttrValue() + ", ");
-                ImageView label = new ImageView(this);
-                Glide.with(App.getContext()).load(mCommodityClassificationFragmentBean.getSkuAttrList().get(i).getSkuImageName()).into(label);
-                ivCommodityDetailsColorImg.addView(label);
+        for (int i = 0; i < mCommodityDetails.size(); i++) {
+            for (int j = 0; j < mCommodityDetails.get(i).getSkuAttrList().size(); j++) {
+                if (mCommodityDetails.get(i).getSkuAttrList().get(j).getCategorySkuAttrName().equals("颜色/表面处理工艺")) {
+                    sb.append(mCommodityDetails.get(i).getSkuAttrList().get(j).getAttrValue() + "  ");
+                    ImageView label = new ImageView(this);
+                    label.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
+                    Glide.with(App.getContext()).load(mCommodityDetails.get(i).getSkuAttrList().get(j).getSkuImageName()).into(label);
+                    ivCommodityDetailsColorImg.addView(label);
+                }
             }
         }
         tvCommodityDetailsColor.setText(sb);
@@ -320,9 +348,9 @@ public class CommodityDetailsActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_size_diagram_download:
-                for (int i = 0; i < mCommodityClassificationFragmentBean.getPdfList().size(); i++) {
+                for (int i = 0; i < mCommodityDetails.get(poction).getPdfList().size(); i++) {
                     if (mCommodityClassificationFragmentBean.getPdfList().get(i).getProductPdfName().equals("尺寸图")) {
-                        mPdfUrl = mCommodityClassificationFragmentBean.getPdfList().get(i).getFileName();
+                        mPdfUrl = mCommodityDetails.get(poction).getPdfList().get(i).getFileName();
                     }
                 }
                 tvCommodityDetailsDownloadName.setText(App.getContext().getResources().getText(R.string.download_size_diagram));
@@ -330,9 +358,9 @@ public class CommodityDetailsActivity extends BaseActivity {
                 mDownloadPopupWindow.showAsDropDown(view, 0, 0);
                 break;
             case R.id.iv_installation_instructions_download:
-                for (int i = 0; i < mCommodityClassificationFragmentBean.getPdfList().size(); i++) {
-                    if (mCommodityClassificationFragmentBean.getPdfList().get(i).getProductPdfName().equals("安装说明书")) {
-                        mPdfUrl = mCommodityClassificationFragmentBean.getPdfList().get(i).getFileName();
+                for (int i = 0; i < mCommodityDetails.get(poction).getPdfList().size(); i++) {
+                    if (mCommodityDetails.get(poction).getPdfList().get(i).getProductPdfName().equals("安装说明书")) {
+                        mPdfUrl = mCommodityDetails.get(poction).getPdfList().get(i).getFileName();
                     }
                 }
                 tvCommodityDetailsDownloadName.setText(App.getContext().getResources().getText(R.string.download_installation_instructions));

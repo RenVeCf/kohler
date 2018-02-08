@@ -5,6 +5,7 @@ import com.mengyang.kohler.module.bean.AllSearchBean;
 import com.mengyang.kohler.module.bean.BooksListBean;
 import com.mengyang.kohler.module.bean.CommodityClassificationFragmentBean;
 import com.mengyang.kohler.module.bean.CommodityClassificationTitleBean;
+import com.mengyang.kohler.module.bean.CommodityDetailsBean;
 import com.mengyang.kohler.module.bean.HomeIndexBean;
 import com.mengyang.kohler.module.bean.LikeListBean;
 import com.mengyang.kohler.module.bean.LoginBean;
@@ -178,6 +179,11 @@ public interface IdeaApiService {
     @FormUrlEncoded
     @POST(Config.COMMODITY_CLASSIFICATION_BODY)
     Observable<BasicResponse<CommodityClassificationFragmentBean>> getCommodityClassificationBody(@FieldMap Map<String, String> map);
+
+    //商品详情
+    @FormUrlEncoded
+    @POST(Config.COMMODITY_DETAILS)
+    Observable<BasicResponse<List<CommodityDetailsBean>>> getCommodityDetails(@FieldMap Map<String, String> map);
 
     //经销商大会页数据
     @FormUrlEncoded

@@ -27,7 +27,6 @@ public class StackAdapter extends RecyclerView.Adapter<StackAdapter.ViewHolder> 
 
     private LayoutInflater inflater;
     private List<NotSelectClassificationBean> datas;
-    private OnWholeCategoryItem mListener;
     private Context context;
     private boolean vertical;
 
@@ -58,11 +57,6 @@ public class StackAdapter extends RecyclerView.Adapter<StackAdapter.ViewHolder> 
         //        holder.index.setText(datas.get(holder.getAdapterPosition()));
     }
 
-    public interface OnWholeCategoryItem {
-        // TODO: Update argument type and name
-        void onWholeCategoryItem(String data);
-    }
-
     @Override
     public int getItemCount() {
         return datas == null ? 0 : datas.size();
@@ -81,10 +75,8 @@ public class StackAdapter extends RecyclerView.Adapter<StackAdapter.ViewHolder> 
                 @Override
                 public void onClick(View v) {
                     if (getAdapterPosition() == (datas.size() - 1)) {
-                        mListener.onWholeCategoryItem("科勒");
                         App.getContext().startActivity(new Intent(App.getContext(), SelectClassificationActivity.class));
                     } else {
-                        mListener.onWholeCategoryItem(datas.get(getAdapterPosition()).getNameCn());
                         App.getContext().startActivity(new Intent(App.getContext(), CommodityClassificationActivity.class).putExtra("id", datas.get(getAdapterPosition()).getId() + ""));
                     }
                 }

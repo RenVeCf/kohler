@@ -71,6 +71,8 @@
                     app:middle_page_cover="true"
                     app:open_mz_mode="true"/>
 
+
+
                 <LinearLayout
                     android:id="@+id/ll_commodity_details"
                     android:layout_width="match_parent"
@@ -82,7 +84,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="技术资料下载："
+                        android:text="@string/data_download"
                         android:textColor="#000000"
                         android:textSize="13sp"
                         android:textStyle="bold"/>

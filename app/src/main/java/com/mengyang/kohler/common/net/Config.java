@@ -45,6 +45,7 @@ public interface Config  {
     String COMMODITY_CLASSIFICATION = "category/listWithoutSelection";//获得所有非精选分类主界面
     String COMMODITY_CLASSIFICATION_TITLE = "category/childList";//商品分类顶部导航栏
     String COMMODITY_CLASSIFICATION_BODY = "productSearch/searchByCate";//对应商品分类顶部导航栏的Fragment
+    String COMMODITY_DETAILS = "productSearch/searchGroupBySku";//商品详情
     String Add_Like = "product/insertFavorite"; //用户添加收藏
 
     /**

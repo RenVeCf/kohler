@@ -33,7 +33,7 @@ import io.reactivex.schedulers.Schedulers;
  * 全品类
  */
 
-public class WholeCategoryFragment extends BaseFragment implements StackAdapter.OnWholeCategoryItem {
+public class WholeCategoryFragment extends BaseFragment {
 
     @BindView(R.id.tv_whole_category_top)
     TopView tvWholeCategoryTop;
@@ -108,13 +108,11 @@ public class WholeCategoryFragment extends BaseFragment implements StackAdapter.
 
                             mStackAdapter = new StackAdapter(mNotSelectClassificationPositiveSequenceBean);
                             rvWholeCategory.setAdapter(mStackAdapter);
-                            StackLayoutManager StackLayoutManager = new StackLayoutManager();
 
                             rvWholeCategory.setOnScrollListener(new RecyclerView.OnScrollListener() {
                                 @Override
                                 public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                                     super.onScrollStateChanged(recyclerView, newState);
-                                    LogUtils.i("rmy", "0000");
                                 }
 
                                 @Override
@@ -122,12 +120,13 @@ public class WholeCategoryFragment extends BaseFragment implements StackAdapter.
                                     super.onScrolled(recyclerView, dx, dy);
                                     LogUtils.i("rmy", "dx = " + dx + ", dy = " + dy);
                                     if (dx < dy) {
-                                        if (xy > 0)
-                                            xy--;
+                                        if (xy < mNotSelectClassificationPositiveSequenceBean.size())
+                                            xy++;
                                     } else if (dx > dy) {
-                                        if (xy < 0)
-                                            xy ++;
+                                        if (xy > 0)
+                                            xy --;
                                     }
+                                    setSlide(xy);
                                 }
                             });
                         }
@@ -135,13 +134,13 @@ public class WholeCategoryFragment extends BaseFragment implements StackAdapter.
                 });
     }
 
-    @Override
-    public void onWholeCategoryItem(String data) {
-        if (data.equals("科勒")) {
-            tv_whole_category_visible.setText(data);
+    private void setSlide(int data) {
+        LogUtils.i("rmy", "data = " + data);
+        if (data == 0) {
+            tv_whole_category_visible.setText("科勒");
             tv_whole_category_gone.setVisibility(View.VISIBLE);
         } else {
-            tv_whole_category_visible.setText(data);
+            tv_whole_category_visible.setText(mNotSelectClassificationPositiveSequenceBean.get(data).getNameCn());
             tv_whole_category_gone.setVisibility(View.GONE);
         }
     }

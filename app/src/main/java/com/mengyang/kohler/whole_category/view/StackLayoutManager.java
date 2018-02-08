@@ -62,7 +62,7 @@ public class StackLayoutManager extends RecyclerView.LayoutManager {
 
     private int animateValue;
 
-    private int duration = 300;
+    private int duration = 1000;
 
     private RecyclerView.Recycler recycler;
 
@@ -916,7 +916,6 @@ public class StackLayoutManager extends RecyclerView.LayoutManager {
     @Override
 
     public int scrollHorizontallyBy(int dx, RecyclerView.Recycler recycler, RecyclerView.State state) {
-
         return fill(recycler, dx);
 
     }
