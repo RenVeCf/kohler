@@ -93,6 +93,7 @@ public class StackLayoutManager extends RecyclerView.LayoutManager {
     private int pointerId;
 
     private Align direction = LEFT;
+    private changeListenning mChangeListenning;
 
 
     public StackLayoutManager(Config config) {
@@ -842,6 +843,8 @@ public class StackLayoutManager extends RecyclerView.LayoutManager {
 
                 left = (int) (baseStart + (position - curPos - 2) * mUnit - (position - curPos - 2) * (1 - secondaryScale) * (mUnit - mSpace));
 
+
+
                 if (BuildConfig.DEBUG)
 
                     LogUtils.i("rmy", "ltr: curPos " + curPos
@@ -858,6 +861,10 @@ public class StackLayoutManager extends RecyclerView.LayoutManager {
 
             left = left <= 0 ? 0 : left;
 
+        }
+
+        if (mChangeListenning != null) {
+            mChangeListenning.changeListenning(position);
         }
 
         return left;
@@ -971,4 +978,13 @@ public class StackLayoutManager extends RecyclerView.LayoutManager {
         float left(int totalOffset, int position);
 
     }
+
+    public interface changeListenning {
+        void changeListenning(int position);
+    }
+
+    public void setChangeListenning(changeListenning changeListenning){
+        this.mChangeListenning=changeListenning;
+    }
+
 }

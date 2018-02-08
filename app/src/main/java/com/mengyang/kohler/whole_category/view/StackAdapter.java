@@ -2,7 +2,10 @@ package com.mengyang.kohler.whole_category.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +20,7 @@ import com.mengyang.kohler.whole_category.activity.CommodityClassificationActivi
 import com.mengyang.kohler.whole_category.activity.SelectClassificationActivity;
 import com.mengyang.kohler.whole_category.fragment.WholeCategoryFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,11 +31,20 @@ public class StackAdapter extends RecyclerView.Adapter<StackAdapter.ViewHolder> 
 
     private LayoutInflater inflater;
     private List<NotSelectClassificationBean> datas;
+//    private List<NotSelectClassificationBean> datasUsed = new ArrayList<>();
+    private List<NotSelectClassificationBean> datasUsed ;
+    private OnWholeCategoryItem mListener;
     private Context context;
     private boolean vertical;
 
     public StackAdapter(List<NotSelectClassificationBean> datas) {
-        this.datas = datas;
+        this.datasUsed = datas;
+//        for (int i = 0; i < datas.size(); i++) {
+//            if (!TextUtils.isEmpty(datas.get(i).getKvUrl())) {
+//                datasUsed.add(datas.get(i));
+//            }
+//        }
+
     }
 
     @Override
@@ -52,32 +65,48 @@ public class StackAdapter extends RecyclerView.Adapter<StackAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Glide.with(context).load(datas.get(position).getKvUrl()).into(holder.cover);
+        holder.cardViewTotal.setBackgroundColor(Color.TRANSPARENT);//设置透明背景去掉cardview的背景颜色
+
+        if (!TextUtils.isEmpty(datasUsed.get(position).getKvUrl())) {
+            Glide.with(context).load(datasUsed.get(position).getKvUrl()).into(holder.cover);
+        } else {
+//            holder.cardViewTotal.setBackgroundColor(Color.WHITE);
+        }
+
         //        Glide.with(context).load(imageUrls.get(position)).into(holder.cover);
-        //        holder.index.setText(datas.get(holder.getAdapterPosition()));
+        //        holder.index.setText(datasUsed.get(holder.getAdapterPosition()));
+    }
+
+    public interface OnWholeCategoryItem {
+        // TODO: Update argument type and name
+        void onWholeCategoryItem(String data);
     }
 
     @Override
     public int getItemCount() {
-        return datas == null ? 0 : datas.size();
+        return datasUsed == null ? 0 : datasUsed.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
         ImageView cover;
+        CardView cardViewTotal;
         //        TextView index;
 
         public ViewHolder(View itemView) {
             super(itemView);
             cover = (ImageView) itemView.findViewById(R.id.cover);
+            cardViewTotal = (CardView) itemView.findViewById(R.id.card_view_total);
             //            index = (TextView) itemView.findViewById(R.id.index);
             //全品类 item页 点击事件
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (getAdapterPosition() == (datas.size() - 1)) {
+                    if (getAdapterPosition() == (datasUsed.size() - 1)) {
+                        mListener.onWholeCategoryItem("科勒");
                         App.getContext().startActivity(new Intent(App.getContext(), SelectClassificationActivity.class));
                     } else {
-                        App.getContext().startActivity(new Intent(App.getContext(), CommodityClassificationActivity.class).putExtra("id", datas.get(getAdapterPosition()).getId() + ""));
+                        mListener.onWholeCategoryItem(datasUsed.get(getAdapterPosition()).getNameCn());
+                        App.getContext().startActivity(new Intent(App.getContext(), CommodityClassificationActivity.class).putExtra("id", datasUsed.get(getAdapterPosition()).getId() + ""));
                     }
                 }
             });

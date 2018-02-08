@@ -55,14 +55,14 @@
         android:layout_height="@dimen/y51"
         android:layout_below="@+id/civ_account_title"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/y27"
         android:textColor="@color/black"
         android:text="KOHLER"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/y132"
-        android:layout_marginBottom="@dimen/y54"
+        android:layout_marginBottom="@dimen/y82"
         android:layout_marginTop="@dimen/y72"
         android:orientation="horizontal">
 
@@ -75,8 +75,8 @@
             android:layout_weight="1"
             android:background="@drawable/account_stroke_lgoin_bt_bg"
             android:drawableStart="@mipmap/shouchan"
-            android:paddingStart="@dimen/x51"
-            android:paddingEnd="@dimen/x64"
+            android:paddingStart="@dimen/x61"
+            android:paddingEnd="@dimen/x41"
             android:textColor="@color/black"
             android:text="@string/mine_like"/>
 
@@ -89,8 +89,8 @@
             android:layout_weight="1"
             android:background="@drawable/account_stroke_lgoin_bt_bg"
             android:drawableStart="@mipmap/yuyue"
-            android:paddingStart="@dimen/x51"
-            android:paddingEnd="@dimen/x64"
+            android:paddingStart="@dimen/x71"
+            android:paddingEnd="@dimen/x41"
             android:textColor="@color/black"
             android:text="@string/reservation_query"/>
     </LinearLayout>

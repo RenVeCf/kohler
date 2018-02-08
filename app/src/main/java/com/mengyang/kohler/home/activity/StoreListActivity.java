@@ -118,6 +118,7 @@ public class StoreListActivity extends BaseActivity implements BaseQuickAdapter.
                                 }
                             } else {
                                 if (response.getData().getResultList().size() > 0) {
+//                                    mStoreListBean.clear();
                                     pageNum = pageNum + 1;
                                     mStoreListBean.addAll(response.getData().getResultList());
                                     mStoreListAdapter.addData(response.getData().getResultList());

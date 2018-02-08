@@ -118,7 +118,7 @@ public class TopView extends RelativeLayout implements View.OnClickListener {
                 mSharePopupWindow.showAsDropDown(view, 0, 0);
                 break;
             case R.id.iv_top_customer_service:
-                App.getContext().startActivity(new Intent(App.getContext(), CustomerServiceActivity.class));
+                App.getContext().startActivity(new Intent(App.getContext(), CustomerServiceActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                 break;
             case R.id.iv_top_system_msg:
                 App.getContext().startActivity(new Intent(App.getContext(), SystemMsgActivity.class));
