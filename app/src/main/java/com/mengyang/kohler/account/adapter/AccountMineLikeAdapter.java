@@ -8,6 +8,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.R;
+import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.module.bean.LikeListBean;
 import com.mengyang.kohler.module.bean.ReservationQueryBean;
 
@@ -27,9 +28,9 @@ public class AccountMineLikeAdapter extends BaseQuickAdapter<LikeListBean.Result
 
     @Override
     protected void convert(BaseViewHolder helper, LikeListBean.ResultListBean item) {
-        helper.setText(R.id.tv_account_mine_like_adapter_product_name, "")
-                .setText(R.id.tv_account_mine_like_adapter_model_name, "");
-        Glide.with(App.getContext()).load("").into((ImageView) helper.getView(R.id.iv_account_mine_like_adapter_item));
+        helper.setText(R.id.tv_account_mine_like_adapter_product_name, item.getName())
+                .setText(R.id.tv_account_mine_like_adapter_model_name, item.getSkuCode());
+        Glide.with(App.getContext()).load(item.getPicture()).into((ImageView) helper.getView(R.id.iv_account_mine_like_adapter_item));
         helper.addOnClickListener(R.id.iv_account_mine_like_adapter_remove);
     }
 }

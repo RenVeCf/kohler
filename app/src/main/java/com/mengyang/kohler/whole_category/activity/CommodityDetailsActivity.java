@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.SystemClock;
 import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,7 @@ import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IdeaApi;
+import com.mengyang.kohler.common.utils.CommonDialogUtils;
 import com.mengyang.kohler.common.utils.IOUtils;
 import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.view.TopView;
@@ -95,6 +97,10 @@ public class CommodityDetailsActivity extends BaseActivity {
     private String mTianMaoUrl = "";
     private String mPdfUrl = "";
     private int poction = 0; //第几个商品
+    private String mSelectColorSKU = ""; //选择颜色的SKU
+    private int mSelectColorNum = 0; //只有第一次进才动态new控件
+    private int j = 0;
+    private CommonDialogUtils dialogUtils;
 
     @Override
     protected int getLayoutId() {
@@ -109,6 +115,8 @@ public class CommodityDetailsActivity extends BaseActivity {
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(this, tvCommodityDetailsTop);
         ivTopBack.setImageResource(R.mipmap.fanhuibai);
+        dialogUtils = new CommonDialogUtils();
+        dialogUtils.showProgress(this, "Loading...");
 
         //设置是否显式指示器
         mzbCommodityDetails.setIndicatorVisible(false);
@@ -126,12 +134,20 @@ public class CommodityDetailsActivity extends BaseActivity {
         mDownloadPopupWindow.setFocusable(true);
         tvCommodityDetailsDownloadName = mPopLayout.findViewById(R.id.tv_commodity_details_download_name);
         btCommodityDetailsDownloadPreview = mPopLayout.findViewById(R.id.bt_commodity_details_download_preview);
+
+        mCommodityDetails = new ArrayList<>();
+        if (getIntent().getSerializableExtra("CommodityDetails") != null) {
+            mCommodityClassificationFragmentBean = (CommodityClassificationFragmentBean.ResultListBean) getIntent().getSerializableExtra("CommodityDetails");
+            mSelectColorSKU = mCommodityClassificationFragmentBean.getProDetail().getSkuCode();
+        } else {
+            mSelectColorSKU = getIntent().getStringExtra("CommodityDetails");
+        }
     }
 
     public void getLike() {
 
         Map<String, String> stringMap = IdeaApi.getSign();
-        stringMap.put("skuCode", mCommodityClassificationFragmentBean.getProDetail().getSkuCode());
+        stringMap.put("skuCode", mSelectColorSKU);
 
         IdeaApi.getRequestLogin(stringMap);
         IdeaApi.getApiService()
@@ -142,7 +158,6 @@ public class CommodityDetailsActivity extends BaseActivity {
                 .subscribe(new DefaultObserver<BasicResponse>(this, true) {
                     @Override
                     public void onSuccess(BasicResponse response) {
-                        LogUtils.i("rmy", "response = " + response);
                     }
                 });
     }
@@ -186,7 +201,6 @@ public class CommodityDetailsActivity extends BaseActivity {
 
         @Override
         public void onBind(Context context, int position, Bitmap data) {
-            LogUtils.i("rmy", "data = " + data);
             // 数据绑定
             mImageView.setImageBitmap(data);
         }
@@ -227,38 +241,10 @@ public class CommodityDetailsActivity extends BaseActivity {
         });
     }
 
-    //    //同步get方式提交
-    //    private void getRequest() {
-    //        new Thread(new Runnable() {
-    //            @Override
-    //            public void run() {
-    //                try {
-    //                    final OkHttpClient client = new OkHttpClient();
-    //                    String url = "http://s7d4.scene7.com/is/image/kohlerchina/232x200%2D1?$232x200$&$Gradient=kohlerchina%2Fgradient%20%2D%20232x200&$Shadow=kohlerchina%2FBlank%20%2D%202&defaultImage=defaultsquare4&$Product=is{kohlerchina%2FK-8423T-0_01}&$Badge=kohlerchina%2FBlank%20%2D%202";
-    //                    Request request = new Request.Builder().url(url).build();
-    //                    Response response = client.newCall(request).execute();
-    //                    if (response.isSuccessful()) {
-    //                    } else {
-    //                    }
-    //                } catch (IOException e) {
-    //                    e.printStackTrace();
-    //                }
-    //            }
-    //        }).start();
-    //    }
-
     @Override
     protected void initData() {
-        //        getRequest();
-        mCommodityClassificationFragmentBean = (CommodityClassificationFragmentBean.ResultListBean) getIntent().getSerializableExtra("CommodityDetails");
-        //        mDatas.add(R.mipmap.ic_launcher_round);
-        //        mDatas.add(R.mipmap.ic_launcher_round);
-        //        mDatas.add(R.mipmap.ic_launcher_round);
-        //        mDatas.add(R.mipmap.ic_launcher_round);
-        //        mDatas.add(R.mipmap.ic_launcher_round);
-
         Map<String, String> stringMap = IdeaApi.getSign();
-        stringMap.put("skuCode", mCommodityDetails.get(poction).getProDetail().getSkuCode());
+        stringMap.put("skuCode", mSelectColorSKU);
 
         IdeaApi.getRequestLogin(stringMap);
         IdeaApi.getApiService()
@@ -269,79 +255,103 @@ public class CommodityDetailsActivity extends BaseActivity {
                 .subscribe(new DefaultObserver<BasicResponse<List<CommodityDetailsBean>>>(this, true) {
                     @Override
                     public void onSuccess(BasicResponse<List<CommodityDetailsBean>> response) {
+                        mCommodityDetails.clear();
                         mCommodityDetails = response.getData();
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (!mCommodityDetails.get(poction).getProDetail().getTempDetailImage1Url1().equals("")) {
+                                    mDatas.add(returnBitmap(mCommodityDetails.get(poction).getProDetail().getTempDetailImage1Url1()));
+                                }
+                                if (!mCommodityDetails.get(poction).getProDetail().getTempDetailImage1Url2().equals("")) {
+                                    mDatas.add(returnBitmap(mCommodityDetails.get(poction).getProDetail().getTempDetailImage1Url2()));
+                                }
+                                if (!mCommodityDetails.get(poction).getProDetail().getTempDetailImage1Url3().equals("")) {
+                                    mDatas.add(returnBitmap(mCommodityDetails.get(poction).getProDetail().getTempDetailImage1Url3()));
+                                }
+                                if (!mCommodityDetails.get(poction).getProDetail().getTempDetailImage1Url4().equals("")) {
+                                    mDatas.add(returnBitmap(mCommodityDetails.get(poction).getProDetail().getTempDetailImage1Url4()));
+                                }
+                                if (!mCommodityDetails.get(poction).getProDetail().getTempDetailImage1Url5().equals("")) {
+                                    mDatas.add(returnBitmap(mCommodityDetails.get(poction).getProDetail().getTempDetailImage1Url5()));
+                                }
+                            }
+                        }).start();
+                        SystemClock.sleep(2000);
+
+                        if (mDatas != null) {
+                            if (dialogUtils != null) {
+                                dialogUtils.dismissProgress();
+                            }
+                            // 设置数据
+                            mzbCommodityDetails.setPages(mDatas, new MZHolderCreator<BannerViewHolder>() {
+                                @Override
+                                public BannerViewHolder createViewHolder() {
+                                    return new BannerViewHolder();
+                                }
+                            });
+                        }
+
+                        tvCommodityDetailsBrand.setText(mCommodityDetails.get(poction).getProDetail().getProductName());
+                        tvCommodityDetailsModel.setText(mCommodityDetails.get(poction).getProDetail().getSkuCode());
+                        if (mSelectColorNum == 0) {
+                            StringBuffer sb = new StringBuffer();
+                            for (int i = 0; i < mCommodityDetails.get(poction).getAttrList().size(); i++) {
+                                if (mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName().equals("亮点")) {
+                                    tvFunction.setText(mCommodityDetails.get(poction).getAttrList().get(i).getAttrValue());
+                                } else if (!mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName().equals("TMALL链接") && !mCommodityClassificationFragmentBean.getAttrList().get(i).getCategoryComAttrName().equals("特征") && !mCommodityClassificationFragmentBean.getAttrList().get(i).getCategoryComAttrName().equals("pdfUrl")) {
+                                    LinearLayout relative = new LinearLayout(CommodityDetailsActivity.this);
+                                    relative.setOrientation(LinearLayout.HORIZONTAL);
+                                    TextView label = new TextView(CommodityDetailsActivity.this);
+                                    label.setText(mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName() + ": ");
+                                    label.setTextColor(Color.BLACK);
+                                    label.setTextSize(11);
+                                    label.setLineSpacing(7, 0);
+                                    TextPaint tp = label.getPaint();
+                                    tp.setFakeBoldText(true);
+                                    relative.addView(label);
+
+                                    TextView attribute = new TextView(CommodityDetailsActivity.this);
+                                    attribute.setText(mCommodityDetails.get(poction).getAttrList().get(i).getAttrValue());
+                                    attribute.setTextColor(Color.BLACK);
+                                    attribute.setTextSize(11);
+                                    attribute.setLineSpacing(7, 0);
+                                    relative.addView(attribute);
+                                    llCommodityDetails.addView(relative);
+                                } else if (mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName().equals("TMALL链接")) {
+                                    mTianMaoUrl = mCommodityDetails.get(poction).getAttrList().get(i).getAttrValue();
+                                }
+                            }
+
+                            for (int i = 0; i < mCommodityDetails.size(); i++) {
+                                for (j = 0; j < mCommodityDetails.get(i).getSkuAttrList().size(); j++) {
+                                    if (mCommodityDetails.get(i).getSkuAttrList().get(j).getCategorySkuAttrName().equals("颜色/表面处理工艺")) {
+                                        sb.append(mCommodityDetails.get(i).getSkuAttrList().get(j).getAttrValue() + "  ");
+                                        ImageView label = new ImageView(CommodityDetailsActivity.this);
+                                        final int finalI = i;
+                                        label.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                poction = finalI;
+                                                LogUtils.i("rmy", "poction 0000 = " + poction);
+                                                SelectColor(mCommodityDetails.get(finalI).getProDetail().getSkuCode());
+                                            }
+                                        });
+                                        Glide.with(App.getContext()).load(mCommodityDetails.get(i).getSkuAttrList().get(j).getSkuImageName()).into(label);
+                                        ivCommodityDetailsColorImg.addView(label);
+                                    }
+                                }
+                            }
+                            tvCommodityDetailsColor.setText(sb);
+                        }
                     }
                 });
+    }
 
-        if (!mCommodityDetails.get(poction).getProDetail().getTempDetailImage1Url1().equals("")) {
-            mDatas.add(returnBitmap(mCommodityDetails.get(poction).getProDetail().getTempDetailImage1Url1()));
-        }
-        if (!mCommodityDetails.get(poction).getProDetail().getTempDetailImage1Url2().equals("")) {
-            mDatas.add(returnBitmap(mCommodityDetails.get(poction).getProDetail().getTempDetailImage1Url2()));
-        }
-        if (!mCommodityDetails.get(poction).getProDetail().getTempDetailImage1Url3().equals("")) {
-            mDatas.add(returnBitmap(mCommodityDetails.get(poction).getProDetail().getTempDetailImage1Url3()));
-        }
-        if (!mCommodityDetails.get(poction).getProDetail().getTempDetailImage1Url4().equals("")) {
-            mDatas.add(returnBitmap(mCommodityDetails.get(poction).getProDetail().getTempDetailImage1Url4()));
-        }
-        if (!mCommodityDetails.get(poction).getProDetail().getTempDetailImage1Url5().equals("")) {
-            mDatas.add(returnBitmap(mCommodityDetails.get(poction).getProDetail().getTempDetailImage1Url5()));
-        }
-        // 设置数据
-        mzbCommodityDetails.setPages(mDatas, new MZHolderCreator<BannerViewHolder>() {
-            @Override
-            public BannerViewHolder createViewHolder() {
-                return new BannerViewHolder();
-            }
-        });
-
-        StringBuffer sb = new StringBuffer();
-        tvCommodityDetailsBrand.setText(mCommodityDetails.get(poction).getProDetail().getProductName());
-        tvCommodityDetailsModel.setText(mCommodityDetails.get(poction).getProDetail().getSkuCode());
-        for (int i = 0; i < mCommodityDetails.get(poction).getAttrList().size(); i++) {
-            if (mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName().equals("亮点")) {
-                tvFunction.setText(mCommodityDetails.get(poction).getAttrList().get(i).getAttrValue());
-            } else if (!mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName().equals("TMALL链接") && !mCommodityClassificationFragmentBean.getAttrList().get(i).getCategoryComAttrName().equals("特征") && !mCommodityClassificationFragmentBean.getAttrList().get(i).getCategoryComAttrName().equals("pdfUrl")) {
-                LinearLayout relative = new LinearLayout(this);
-                relative.setOrientation(LinearLayout.HORIZONTAL);
-                TextView label = new TextView(this);
-                label.setText(mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName() + ": ");
-                label.setTextColor(Color.BLACK);
-                label.setTextSize(11);
-                label.setLineSpacing(7, 0);
-                TextPaint tp = label.getPaint();
-                tp.setFakeBoldText(true);
-                relative.addView(label);
-
-                TextView attribute = new TextView(this);
-                attribute.setText(mCommodityDetails.get(poction).getAttrList().get(i).getAttrValue());
-                attribute.setTextColor(Color.BLACK);
-                attribute.setTextSize(11);
-                attribute.setLineSpacing(7, 0);
-                relative.addView(attribute);
-                llCommodityDetails.addView(relative);
-            } else if (mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName().equals("TMALL链接")) {
-                mTianMaoUrl = mCommodityDetails.get(poction).getAttrList().get(i).getAttrValue();
-            }
-        }
-        for (int i = 0; i < mCommodityDetails.size(); i++) {
-            for (int j = 0; j < mCommodityDetails.get(i).getSkuAttrList().size(); j++) {
-                if (mCommodityDetails.get(i).getSkuAttrList().get(j).getCategorySkuAttrName().equals("颜色/表面处理工艺")) {
-                    sb.append(mCommodityDetails.get(i).getSkuAttrList().get(j).getAttrValue() + "  ");
-                    ImageView label = new ImageView(this);
-                    label.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-
-                        }
-                    });
-                    Glide.with(App.getContext()).load(mCommodityDetails.get(i).getSkuAttrList().get(j).getSkuImageName()).into(label);
-                    ivCommodityDetailsColorImg.addView(label);
-                }
-            }
-        }
-        tvCommodityDetailsColor.setText(sb);
+    private void SelectColor(String selectColor) {
+        mSelectColorNum = 1;
+        mSelectColorSKU = selectColor;
+        initData();
     }
 
     @OnClick({R.id.iv_size_diagram_download, R.id.iv_installation_instructions_download, R.id.ll_commodity_details_purchase_inquiries, R.id.bt_commodity_details_like, R.id.bt_commodity_details_pay})

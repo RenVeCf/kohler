@@ -28,6 +28,10 @@ import butterknife.OnClick;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
+/**
+ * 系统消息
+ */
+
 public class SystemMsgActivity extends BaseActivity implements BaseQuickAdapter.RequestLoadMoreListener {
 
     @BindView(R.id.tv_system_msg_top)
@@ -72,7 +76,7 @@ public class SystemMsgActivity extends BaseActivity implements BaseQuickAdapter.
                 srlSystemMsg.setRefreshing(false);
             }
         });
-        mSystemMsgAdapter.setOnLoadMoreListener(SystemMsgActivity.this); //加载更多
+        mSystemMsgAdapter.setOnLoadMoreListener(SystemMsgActivity.this, rvSystemMsg); //加载更多
     }
 
     @Override

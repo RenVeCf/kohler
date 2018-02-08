@@ -17,6 +17,7 @@ import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.net.IdeaApiService;
 import com.mengyang.kohler.common.net.Config;
 import com.mengyang.kohler.common.utils.DateUtils;
+import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.ToastUtil;
 import com.mengyang.kohler.main.activity.MainActivity;
 import com.mengyang.kohler.module.BasicResponse;
@@ -101,6 +102,7 @@ public class UserRegisterActivity extends BaseActivity {
 
     /**
      * 获取验证码图片
+     *
      * @param map
      */
     private void postAsynHttp(Map map) {
@@ -161,38 +163,38 @@ public class UserRegisterActivity extends BaseActivity {
     }
 
     private void ModifyBindPhone() {
-        SMSSDK.getInstance().checkSmsCodeAsyn(etUserRegisterPhoneNum.getText().toString().trim(), etUserRegisterSmsVerificationCode.getText().toString().trim(), new SmscheckListener() {
-            @Override
-            public void checkCodeSuccess(final String code) {
-                Map<String, String> stringMap = IdeaApi.getSign();
-                stringMap.put("mobileNo", etUserRegisterPhoneNum.getText().toString().trim());//手机号码
-                stringMap.put("verifyCode", etUserRegisterVerificationCode.getText().toString().trim());//验证码
-                stringMap.put("password", etUserRegisterPwd.getText().toString().trim());//用户密码
-                stringMap.put("type", "commonUser");//用户类型化
-                stringMap.put("time", time);//时间戳
-                stringMap.put("code", etUserRegisterPwd.getText().toString().trim());//验证码
+        //        SMSSDK.getInstance().checkSmsCodeAsyn(etUserRegisterPhoneNum.getText().toString().trim(), etUserRegisterSmsVerificationCode.getText().toString().trim(), new SmscheckListener() {
+        //            @Override
+        //            public void checkCodeSuccess(final String code) {
+        Map<String, String> stringMap = IdeaApi.getSign();
+        stringMap.put("mobileNo", etUserRegisterPhoneNum.getText().toString().trim());//手机号码
+        stringMap.put("code", etUserRegisterVerificationCode.getText().toString().trim());//图片验证码
+        stringMap.put("password", etUserRegisterPwd.getText().toString().trim());//用户密码
+        stringMap.put("type", "commonUser");//用户类型化
+        stringMap.put("time", time);//时间戳
+        stringMap.put("verifyCode", etUserRegisterPwd.getText().toString().trim());//验证码
 
-                IdeaApi.getRequestLogin(stringMap);
-                IdeaApi.getApiService()
-                        .getUserRegister(stringMap)
-                        .compose(UserRegisterActivity.this.<BasicResponse>bindToLifecycle())
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new DefaultObserver<BasicResponse>(UserRegisterActivity.this, true) {
-                            @Override
-                            public void onSuccess(BasicResponse response) {
-                                startActivity(new Intent(UserRegisterActivity.this, LoginActivity.class));
-                                finish();
-                            }
-                        });
-            }
-
-            @Override
-            public void checkCodeFail(int errCode, final String errmsg) {
-                ToastUtil.showToast(errmsg);
-            }
-        });
+        IdeaApi.getRequestLogin(stringMap);
+        IdeaApi.getApiService()
+                .getUserRegister(stringMap)
+                .compose(UserRegisterActivity.this.<BasicResponse>bindToLifecycle())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultObserver<BasicResponse>(UserRegisterActivity.this, true) {
+                    @Override
+                    public void onSuccess(BasicResponse response) {
+                        startActivity(new Intent(UserRegisterActivity.this, LoginActivity.class));
+                        finish();
+                    }
+                });
     }
+
+    //            @Override
+    //            public void checkCodeFail(int errCode, final String errmsg) {
+    //                ToastUtil.showToast(errmsg);
+    //            }
+    //        });
+    //    }
 
     private void startTimer() {
         timess = (int) (SMSSDK.getInstance().getIntervalTime() / 1000);
@@ -238,8 +240,6 @@ public class UserRegisterActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_user_register_go_home:
-                App.destoryActivity("MainActivity");
-                startActivity(new Intent(this, MainActivity.class));
                 finish();
                 break;
             case R.id.iv_user_register_verification_code:
@@ -247,8 +247,8 @@ public class UserRegisterActivity extends BaseActivity {
                 break;
             case R.id.bt_user_register_send_out_sms:
                 if (!etUserRegisterPhoneNum.getText().toString().trim().equals(""))
-                    SendSMS();
-                break;
+                    //                    SendSMS();
+                    break;
             case R.id.bt_user_register:
                 if (!etUserRegisterPhoneNum.getText().toString().trim().equals("") && !etUserRegisterVerificationCode.getText().toString().trim().equals("") && !etUserRegisterPwd.getText().toString().trim().equals("")) {
                     ModifyBindPhone();

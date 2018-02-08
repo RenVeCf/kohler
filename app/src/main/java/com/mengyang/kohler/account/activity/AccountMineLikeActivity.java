@@ -4,6 +4,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gyf.barlibrary.ImmersionBar;
@@ -73,11 +74,11 @@ public class AccountMineLikeActivity extends BaseActivity implements BaseQuickAd
                 srlAccountMineLike.setRefreshing(false);
             }
         });
+        mAccountMineLikeAdapter.setOnLoadMoreListener(AccountMineLikeActivity.this, rvAccountMineLike); //加载更多
     }
 
     @Override
     protected void initData() {
-        //有问题（Adapter不确定取哪个字段）
         Map<String, String> stringMap = IdeaApi.getSign();
         stringMap.put("pageNum", 0 + "");
         stringMap.put("pageSize", 10 + "");
@@ -101,7 +102,26 @@ public class AccountMineLikeActivity extends BaseActivity implements BaseQuickAd
                                     mAccountMineLikeAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_BOTTOM); //动画
                                     mAccountMineLikeAdapter.isFirstOnly(false); //第一次
                                     rvAccountMineLike.setAdapter(mAccountMineLikeAdapter);
-                                    mAccountMineLikeAdapter.setOnLoadMoreListener(AccountMineLikeActivity.this, rvAccountMineLike); //加载更多
+                                    mAccountMineLikeAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                                        @Override
+                                        public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                                            Map<String, String> stringMap = IdeaApi.getSign();
+                                            stringMap.put("id", likeListBean.get(position).getId() + "");
+
+                                            IdeaApi.getRequestLogin(stringMap);
+                                            IdeaApi.getApiService()
+                                                    .getCancelLike(stringMap)
+                                                    .compose(AccountMineLikeActivity.this.<BasicResponse>bindToLifecycle())
+                                                    .subscribeOn(Schedulers.io())
+                                                    .observeOn(AndroidSchedulers.mainThread())
+                                                    .subscribe(new DefaultObserver<BasicResponse>(AccountMineLikeActivity.this, true) {
+                                                        @Override
+                                                        public void onSuccess(BasicResponse response) {
+                                                            initData();
+                                                        }
+                                                    });
+                                        }
+                                    });
                                 } else {
                                     mAccountMineLikeAdapter.loadMoreEnd();
                                 }

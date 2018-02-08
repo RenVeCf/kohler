@@ -161,9 +161,9 @@ public class DesignerRegisterActivity extends BaseActivity {
     }
 
     private void ModifyBindPhone() {
-        SMSSDK.getInstance().checkSmsCodeAsyn(etDesignerRegisterPhoneNum.getText().toString().trim(), etDesignerRegisterSmsVerificationCode.getText().toString().trim(), new SmscheckListener() {
-            @Override
-            public void checkCodeSuccess(final String code) {
+//        SMSSDK.getInstance().checkSmsCodeAsyn(etDesignerRegisterPhoneNum.getText().toString().trim(), etDesignerRegisterSmsVerificationCode.getText().toString().trim(), new SmscheckListener() {
+//            @Override
+//            public void checkCodeSuccess(final String code) {
                 Map<String, String> stringMap = IdeaApi.getSign();
                 stringMap.put("mobileNo", etDesignerRegisterPhoneNum.getText().toString().trim());//手机号码
                 stringMap.put("inviteCode", etDesignerRegisterVerificationCode.getText().toString().trim());//验证码
@@ -186,13 +186,13 @@ public class DesignerRegisterActivity extends BaseActivity {
                             }
                         });
             }
-
-            @Override
-            public void checkCodeFail(int errCode, final String errmsg) {
-                ToastUtil.showToast(errmsg);
-            }
-        });
-    }
+//
+//            @Override
+//            public void checkCodeFail(int errCode, final String errmsg) {
+//                ToastUtil.showToast(errmsg);
+//            }
+//        });
+//    }
 
     private void startTimer() {
         timess = (int) (SMSSDK.getInstance().getIntervalTime() / 1000);
@@ -245,7 +245,7 @@ public class DesignerRegisterActivity extends BaseActivity {
                 break;
             case R.id.bt_designer_register_send_out_sms:
                 if (!etDesignerRegisterPhoneNum.getText().toString().trim().equals(""))
-                    SendSMS();
+//                    SendSMS();
                 break;
             case R.id.bt_designer_register:
                 if (!etDesignerRegisterPhoneNum.getText().toString().trim().equals("") && !etDesignerRegisterVerificationCode.getText().toString().trim().equals("") && !etDesignerRegisterSmsVerificationCode.getText().toString().trim().equals("") && !etDesignerRegisterPwd.getText().toString().trim().equals("")) {

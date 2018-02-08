@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.R;
+import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.module.bean.NotSelectClassificationBean;
 import com.mengyang.kohler.whole_category.activity.CommodityClassificationActivity;
 import com.mengyang.kohler.whole_category.activity.SelectClassificationActivity;

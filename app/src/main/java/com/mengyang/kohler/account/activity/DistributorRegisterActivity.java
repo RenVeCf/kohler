@@ -98,9 +98,9 @@ public class DistributorRegisterActivity extends BaseActivity {
     }
 
     private void ModifyBindPhone() {
-        SMSSDK.getInstance().checkSmsCodeAsyn(etDistributorRegisterPhoneNum.getText().toString().trim(), etDistributorRegisterSmsVerificationCode.getText().toString().trim(), new SmscheckListener() {
-            @Override
-            public void checkCodeSuccess(final String code) {
+//        SMSSDK.getInstance().checkSmsCodeAsyn(etDistributorRegisterPhoneNum.getText().toString().trim(), etDistributorRegisterSmsVerificationCode.getText().toString().trim(), new SmscheckListener() {
+//            @Override
+//            public void checkCodeSuccess(final String code) {
                 Map<String, String> stringMap = IdeaApi.getSign();
                 stringMap.put("mobileNo", etDistributorRegisterPhoneNum.getText().toString().trim());//手机号码
                 stringMap.put("verifyCode", etDistributorRegisterSmsVerificationCode.getText().toString().trim());//短信验证码
@@ -123,13 +123,13 @@ public class DistributorRegisterActivity extends BaseActivity {
                             }
                         });
             }
-
-            @Override
-            public void checkCodeFail(int errCode, final String errmsg) {
-                ToastUtil.showToast(errmsg);
-            }
-        });
-    }
+//
+//            @Override
+//            public void checkCodeFail(int errCode, final String errmsg) {
+//                ToastUtil.showToast(errmsg);
+//            }
+//        });
+//    }
 
     private void startTimer() {
         timess = (int) (SMSSDK.getInstance().getIntervalTime() / 1000);
@@ -192,7 +192,7 @@ public class DistributorRegisterActivity extends BaseActivity {
                 break;
             case R.id.bt_distributor_register_send_out_sms:
                 if (!etDistributorRegisterPhoneNum.getText().toString().trim().equals(""))
-                    SendSMS();
+//                    SendSMS();
                 break;
         }
     }

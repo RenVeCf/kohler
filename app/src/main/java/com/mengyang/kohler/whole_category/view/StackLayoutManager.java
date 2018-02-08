@@ -196,7 +196,6 @@ public class StackLayoutManager extends RecyclerView.LayoutManager {
             fill(recycler, initialOffset, false);
             initial = true;
         }
-        Log.i("kohler", "position = 1111111");
     }
 
 

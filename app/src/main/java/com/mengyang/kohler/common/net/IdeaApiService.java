@@ -6,6 +6,7 @@ import com.mengyang.kohler.module.bean.BooksListBean;
 import com.mengyang.kohler.module.bean.CommodityClassificationFragmentBean;
 import com.mengyang.kohler.module.bean.CommodityClassificationTitleBean;
 import com.mengyang.kohler.module.bean.CommodityDetailsBean;
+import com.mengyang.kohler.module.bean.FootPrintBean;
 import com.mengyang.kohler.module.bean.HomeIndexBean;
 import com.mengyang.kohler.module.bean.LikeListBean;
 import com.mengyang.kohler.module.bean.LoginBean;
@@ -142,18 +143,23 @@ public interface IdeaApiService {
 
     //用户添加收藏
     @FormUrlEncoded
-    @POST(Config.Add_Like)
+    @POST(Config.ADD_LIKE)
     Observable<BasicResponse> getAddLike(@FieldMap Map<String, String> map);
 
     //用户取消收藏
     @FormUrlEncoded
-    @POST(Config.CANCEL_Like)
+    @POST(Config.CANCEL_LIKE)
     Observable<BasicResponse> getCancelLike(@FieldMap Map<String, String> map);
 
     //用户收藏列表
     @FormUrlEncoded
-    @POST(Config.Like_List)
+    @POST(Config.LIKE_LIST)
     Observable<BasicResponse<LikeListBean>> getLikeList(@FieldMap Map<String, String> map);
+
+    //足迹列表
+    @FormUrlEncoded
+    @POST(Config.FOOT_PRINT)
+    Observable<BasicResponse<List<FootPrintBean>>> getFootPrint(@FieldMap Map<String, String> map);
 
     //附近店铺
     @FormUrlEncoded

@@ -46,15 +46,16 @@ public interface Config  {
     String COMMODITY_CLASSIFICATION_TITLE = "category/childList";//商品分类顶部导航栏
     String COMMODITY_CLASSIFICATION_BODY = "productSearch/searchByCate";//对应商品分类顶部导航栏的Fragment
     String COMMODITY_DETAILS = "productSearch/searchGroupBySku";//商品详情
-    String Add_Like = "product/insertFavorite"; //用户添加收藏
+    String ADD_LIKE = "product/insertFavorite"; //用户添加收藏
 
     /**
      * 账户
      */
     String USER_RESERVE_MSG = "appointment/info"; //获取用户预约信息
-    String CANCEL_Like = "product/deleteFavorite"; //用户取消收藏
-    String Like_List = "product/favoriteList"; //用户收藏列表
+    String CANCEL_LIKE = "product/deleteFavorite"; //用户取消收藏
+    String LIKE_LIST = "product/favoriteList"; //用户收藏列表
     String MODIFY_HEAD_PORTRAIT = "authz/account/updatePortrait"; //修改头像
     String UPLOAD_HEAD_PORTRAIT = "file/uploadMedia"; //上传头像
     String MODIFY_NIKE_NAME = "authz/account/updateNickName"; //修改昵称
+    String FOOT_PRINT = "product/recordList"; //足迹列表
 }

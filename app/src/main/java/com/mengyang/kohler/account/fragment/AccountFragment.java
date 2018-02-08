@@ -10,6 +10,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseFragment;
@@ -27,16 +30,21 @@ import com.mengyang.kohler.R;
 import com.mengyang.kohler.account.activity.AccountMineLikeActivity;
 import com.mengyang.kohler.account.activity.AccountMineReservationQueryActivity;
 import com.mengyang.kohler.account.activity.AccountSettingsActivity;
+import com.mengyang.kohler.account.adapter.FootPrintAdapter;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.view.CircleImageView;
+import com.mengyang.kohler.common.view.SpacesItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.module.BasicResponse;
+import com.mengyang.kohler.module.bean.FootPrintBean;
 import com.mengyang.kohler.module.bean.UploadHeadPortraitBean;
+import com.mengyang.kohler.whole_category.activity.CommodityDetailsActivity;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -80,6 +88,9 @@ public class AccountFragment extends BaseFragment {
     private Button btAccountModifyTitleImgConfirm; //头像PopupWindow确定键
     private EditText etAccountPopNewName; ////名称PopupWindow输入框
     private Button btAccountPopNewName; //名称PopupWindow确定键
+    private List<FootPrintBean> mFootPrintBean;
+    private FootPrintAdapter mFootPrintAdapter;
+    private int pageNum = 0;
     //是否登录
     private boolean is_Login = (boolean) SPUtil.get(App.getContext(), IConstants.IS_LOGIN, false);
 
@@ -92,6 +103,18 @@ public class AccountFragment extends BaseFragment {
     protected void initValues() {
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(getActivity(), tvAccountTop);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(App.getContext());
+        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        rvAccountBrowsing.setLayoutManager(layoutManager);
+        rvAccountBrowsing.addItemDecoration(new SpacesItemDecoration(13));
+        // 如果可以确定每个item的高度是固定的，设置这个选项可以提高性能
+        rvAccountBrowsing.setHasFixedSize(true);
+        rvAccountBrowsing.setItemAnimator(new DefaultItemAnimator());
+        mFootPrintBean = new ArrayList<>();
+        mFootPrintAdapter = new FootPrintAdapter(mFootPrintBean);
+        rvAccountBrowsing.setAdapter(mFootPrintAdapter);
+
         if (is_Login) {
             final Drawable DrawableLeftLike = getResources().getDrawable(R.mipmap.shouchan);
             final Drawable DrawableLeftQuery = getResources().getDrawable(R.mipmap.yuyue);
@@ -186,7 +209,51 @@ public class AccountFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-
+//        Map<String, String> stringMap = IdeaApi.getSign();
+//        stringMap.put("pageNum", 0 + "");
+//        stringMap.put("pageSize", 3 + "");
+//
+//        IdeaApi.getRequestLogin(stringMap);
+//        IdeaApi.getApiService()
+//                .getFootPrint(stringMap)
+//                .compose(this.<BasicResponse<List<FootPrintBean>>>bindToLifecycle())
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new DefaultObserver<BasicResponse<List<FootPrintBean>>>(getActivity(), true) {
+//                    @Override
+//                    public void onSuccess(BasicResponse<List<FootPrintBean>> response) {
+//                        if (response != null) {
+//                            if (pageNum == 0) {
+//                                mFootPrintBean.clear();
+//                                mFootPrintBean.addAll(response.getData());
+//                                if (mFootPrintBean.size() > 0) {
+//                                    pageNum += 1;
+//                                    mFootPrintAdapter = new FootPrintAdapter(mFootPrintBean);
+//                                    rvAccountBrowsing.setAdapter(mFootPrintAdapter);
+//                                    mFootPrintAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+//                                        @Override
+//                                        public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+//                                            startActivity(new Intent(getActivity(), CommodityDetailsActivity.class).putExtra("CommodityDetails", mFootPrintBean.get(position).getResultList().get(position).getSkuCode()));
+//                                        }
+//                                    });
+//                                } else {
+//                                    mFootPrintAdapter.loadMoreEnd();
+//                                }
+//                            } else {
+//                                if (response.getData().size() > 0) {
+//                                    pageNum += 1;
+//                                    mFootPrintBean.addAll(response.getData());
+//                                    mFootPrintAdapter.addData(response.getData());
+//                                    mFootPrintAdapter.loadMoreComplete(); //完成本次
+//                                } else {
+//                                    mFootPrintAdapter.loadMoreEnd(); //完成所有加载
+//                                }
+//                            }
+//                        } else {
+//                            mFootPrintAdapter.loadMoreEnd();
+//                        }
+//                    }
+//                });
     }
 
     @Override
