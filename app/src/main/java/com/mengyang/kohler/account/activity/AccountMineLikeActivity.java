@@ -74,13 +74,12 @@ public class AccountMineLikeActivity extends BaseActivity implements BaseQuickAd
                 srlAccountMineLike.setRefreshing(false);
             }
         });
-        mAccountMineLikeAdapter.setOnLoadMoreListener(AccountMineLikeActivity.this, rvAccountMineLike); //加载更多
     }
 
     @Override
     protected void initData() {
         Map<String, String> stringMap = IdeaApi.getSign();
-        stringMap.put("pageNum", 0 + "");
+        stringMap.put("pageNum", pageNum + "");
         stringMap.put("pageSize", 10 + "");
 
         IdeaApi.getRequestLogin(stringMap);
@@ -102,6 +101,7 @@ public class AccountMineLikeActivity extends BaseActivity implements BaseQuickAd
                                     mAccountMineLikeAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_BOTTOM); //动画
                                     mAccountMineLikeAdapter.isFirstOnly(false); //第一次
                                     rvAccountMineLike.setAdapter(mAccountMineLikeAdapter);
+                                    mAccountMineLikeAdapter.setOnLoadMoreListener(AccountMineLikeActivity.this, rvAccountMineLike); //加载更多
                                     mAccountMineLikeAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
                                         @Override
                                         public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {

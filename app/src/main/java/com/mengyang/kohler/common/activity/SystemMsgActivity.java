@@ -76,7 +76,6 @@ public class SystemMsgActivity extends BaseActivity implements BaseQuickAdapter.
                 srlSystemMsg.setRefreshing(false);
             }
         });
-        mSystemMsgAdapter.setOnLoadMoreListener(SystemMsgActivity.this, rvSystemMsg); //加载更多
     }
 
     @Override
@@ -104,6 +103,7 @@ public class SystemMsgActivity extends BaseActivity implements BaseQuickAdapter.
                                     mSystemMsgAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_BOTTOM); //动画
                                     mSystemMsgAdapter.isFirstOnly(false); //第一次
                                     rvSystemMsg.setAdapter(mSystemMsgAdapter);
+                                    mSystemMsgAdapter.setOnLoadMoreListener(SystemMsgActivity.this, rvSystemMsg); //加载更多
                                 } else {
                                     mSystemMsgAdapter.loadMoreEnd();
                                 }

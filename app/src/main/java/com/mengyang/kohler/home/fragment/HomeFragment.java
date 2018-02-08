@@ -8,35 +8,25 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseFragment;
 import com.mengyang.kohler.R;
-import com.mengyang.kohler.account.activity.DesignerRegisterActivity;
-import com.mengyang.kohler.account.activity.LoginActivity;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.net.IdeaApi;
-import com.mengyang.kohler.common.net.IdeaApiService;
 import com.mengyang.kohler.common.utils.DatabaseUtils;
-import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.view.SpacesItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.home.activity.HomeSearchActivity;
 import com.mengyang.kohler.home.activity.MeetingActivity;
-import com.mengyang.kohler.home.activity.MineManualActivity;
 import com.mengyang.kohler.home.adapter.HomeBooksAdapter;
-import com.mengyang.kohler.home.adapter.MyBrochureAdapter;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.BooksBean;
 import com.mengyang.kohler.module.bean.HomeIndexBean;
-import com.mengyang.kohler.module.bean.UserHomeKVBean;
-import com.mengyang.kohler.module.bean.UserHomeKVUrlBean;
-import com.mengyang.kohler.whole_category.activity.CommodityClassificationActivity;
-import com.mengyang.kohler.whole_category.activity.CommodityDetailsActivity;
 import com.ryane.banner.AdPageInfo;
 import com.ryane.banner.AdPlayBanner;
 
@@ -46,7 +36,6 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -79,6 +68,10 @@ public class HomeFragment extends BaseFragment {
     ImageView ivTopMenu;
     @BindView(R.id.iv_home_search)
     ImageView ivHomeSearch;
+    @BindView(R.id.tv_my_brochure_top)
+    TextView tvMyBrochureTop;
+    @BindView(R.id.tv_my_brochure_donw)
+    TextView tvMyBrochureDonw;
     //侧滑Meun键的接口回调
     private OnFragmentInteractionListener mListener;
     private HomeIndexBean mHomeIndexBean;
@@ -113,8 +106,16 @@ public class HomeFragment extends BaseFragment {
 
         //所有下载好的PDF集合
         List<BooksBean> list = DatabaseUtils.getHelper().queryAll(BooksBean.class);
-//        LogUtils.i("rmy", "list = " + list.size());
         mHomeBooksAdapter = new HomeBooksAdapter(list);
+        if (list == null) {
+            rvHomeBooks.setVisibility(View.GONE);
+            tvMyBrochureTop.setVisibility(View.INVISIBLE);
+            tvMyBrochureDonw.setVisibility(View.INVISIBLE);
+        } else {
+            rvHomeBooks.setVisibility(View.VISIBLE);
+            tvMyBrochureTop.setVisibility(View.VISIBLE);
+            tvMyBrochureDonw.setVisibility(View.VISIBLE);
+        }
         rvHomeBooks.setAdapter(mHomeBooksAdapter);
     }
 
@@ -127,24 +128,9 @@ public class HomeFragment extends BaseFragment {
         Map<String, String> stringMap = IdeaApi.getSign();
 
         IdeaApi.getRequestLogin(stringMap);
-        IdeaApiService apiService = IdeaApi.getApiService();
-        Observable HomeKV;
-//        switch (type) {
-//            case "commonUser":
-                HomeKV = apiService.getUserHomeKV(stringMap);
-//                break;
-//            case "dealer":
-//                HomeKV = apiService.getDealerHomeKV(stringMap);
-//                break;
-//            case "designer":
-//                HomeKV = apiService.getDesignerHomeKV(stringMap);
-//                break;
-//            default:
-//                HomeKV = apiService.getUserHomeKV(stringMap);
-//                break;
-//        }
-
-        HomeKV.compose(this.<BasicResponse<HomeIndexBean>>bindToLifecycle())
+        IdeaApi.getApiService()
+                .getUserHomeKV(stringMap)
+                .compose(this.<BasicResponse<HomeIndexBean>>bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse<HomeIndexBean>>(getActivity(), true) {
@@ -159,12 +145,9 @@ public class HomeFragment extends BaseFragment {
                         abHomeLoop.setOnPageClickListener(new AdPlayBanner.OnPageClickListener() {
                             @Override
                             public void onPageClick(AdPageInfo info, int postion) {
-                                if (postion == 0)
-                                    startActivity(new Intent(getActivity(), CommodityClassificationActivity.class));
-                                else if (postion == 1)
+                                if (postion == 1 && SPUtil.get(getActivity(), IConstants.TYPE, "").equals("dealer")) {
                                     startActivity(new Intent(getActivity(), MeetingActivity.class));
-                                else
-                                    startActivity(new Intent(getActivity(), CommodityDetailsActivity.class));
+                                }
                             }
                         });
                         //自动滚动

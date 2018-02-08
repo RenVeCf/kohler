@@ -74,14 +74,13 @@ public class CommodityClassificationFragment extends BaseFragment implements Bas
                 srlCommodityClassification.setRefreshing(false);
             }
         });
-        mCommodityClassificationAdapter.setOnLoadMoreListener(this, rvCommodityClassification); //加载更多
     }
 
     @Override
     protected void initData() {
         Map<String, String> stringMap = IdeaApi.getSign();
         stringMap.put("category", mCmsId);
-        stringMap.put("pageNum", 0 + "");
+        stringMap.put("pageNum", pageNum + "");
         stringMap.put("pageSize", 10 + "");
 
         IdeaApi.getRequestLogin(stringMap);
@@ -103,6 +102,7 @@ public class CommodityClassificationFragment extends BaseFragment implements Bas
                                     mCommodityClassificationAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_BOTTOM); //动画
                                     mCommodityClassificationAdapter.isFirstOnly(false); //第一次
                                     rvCommodityClassification.setAdapter(mCommodityClassificationAdapter);
+                                    mCommodityClassificationAdapter.setOnLoadMoreListener(CommodityClassificationFragment.this, rvCommodityClassification); //加载更多
                                 } else {
                                     mCommodityClassificationAdapter.loadMoreEnd();
                                 }

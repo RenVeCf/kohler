@@ -62,9 +62,9 @@ public class ForgetPasswordTwoActivity extends BaseActivity {
     }
 
     private void Next() {
-        SMSSDK.getInstance().checkSmsCodeAsyn(mMobileNo, mVerifyCode, new SmscheckListener() {
-            @Override
-            public void checkCodeSuccess(final String code) {
+//        SMSSDK.getInstance().checkSmsCodeAsyn(mMobileNo, mVerifyCode, new SmscheckListener() {
+//            @Override
+//            public void checkCodeSuccess(final String code) {
                 Map<String, String> stringMap = IdeaApi.getSign();
                 stringMap.put("mobileNo", mMobileNo); //访问凭证
                 stringMap.put("verifyCode", mVerifyCode); //验证码
@@ -86,12 +86,12 @@ public class ForgetPasswordTwoActivity extends BaseActivity {
                         });
             }
 
-            @Override
-            public void checkCodeFail(int errCode, final String errmsg) {
-                ToastUtil.showToast(errmsg);
-            }
-        });
-    }
+//            @Override
+//            public void checkCodeFail(int errCode, final String errmsg) {
+//                ToastUtil.showToast(errmsg);
+//            }
+//        });
+//    }
 
     @OnClick(R.id.bt_distributor_register_two)
     public void onViewClicked() {

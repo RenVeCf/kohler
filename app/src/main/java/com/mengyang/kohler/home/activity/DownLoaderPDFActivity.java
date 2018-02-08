@@ -1,15 +1,11 @@
 package com.mengyang.kohler.home.activity;
 
-import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Canvas;
-import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.widget.ProgressBar;
 
 import com.github.barteksc.pdfviewer.PDFView;

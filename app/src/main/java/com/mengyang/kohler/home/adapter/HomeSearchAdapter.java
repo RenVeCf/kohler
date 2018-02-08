@@ -20,14 +20,14 @@ import java.util.List;
  * Time : 2018/1/29
  */
 
-public class HomeSearchAdapter extends BaseQuickAdapter<AllSearchBean, BaseViewHolder> {
+public class HomeSearchAdapter extends BaseQuickAdapter<AllSearchBean.ResultListBean, BaseViewHolder> {
 
-    public HomeSearchAdapter(@Nullable List<AllSearchBean> data) {
+    public HomeSearchAdapter(@Nullable List<AllSearchBean.ResultListBean> data) {
         super(R.layout.item_home_search_adapter, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, AllSearchBean item) {
+    protected void convert(BaseViewHolder helper, AllSearchBean.ResultListBean item) {
         helper.setText(R.id.tv_home_search_adapter_product_name, item.getProductName())
                 .setText(R.id.tv_home_search_adapter_model_name, item.getSkuCode());
         Glide.with(App.getContext()).load(item.getListImageUrl()).apply(new RequestOptions().placeholder(R.mipmap.queshengtu)).into((ImageView) helper.getView(R.id.iv_home_search_adapter_item));

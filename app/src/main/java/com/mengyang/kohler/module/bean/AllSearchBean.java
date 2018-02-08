@@ -1,5 +1,7 @@
 package com.mengyang.kohler.module.bean;
 
+import java.util.List;
+
 /**
  * Description :
  * Author : rmy
@@ -8,37 +10,94 @@ package com.mengyang.kohler.module.bean;
  */
 
 public class AllSearchBean {
+
     /**
-     * productName : KATHRYN®凯瑟琳
-     * skuCode : K-3940-0
-     * listImageUrl : http://s7d4.scene7.com/is/image/kohlerchina/232x200%2D1?$232x200$&$Gradient=kohlerchina%2Fgradient%20%2D%20232x200&$Shadow=kohlerchina%2FBlank%20%2D%202&defaultImage=defaultsquare4&$Product=is{kohlerchina%2FK-3940-0_01}&$Badge=kohlerchina%2FBlank%20%2D%202
+     * pageNum : 0
+     * pageSize : 3
+     * resultList : [{"productName":"ADAIR™艾迪儿丽裙版4.0升五级旋风绿能分体座便器","skuCode":" K-77244T-0","listImageUrl":"http://s7d4.scene7.com/is/image/kohlerchina/K-77244T-0_01"},{"productName":"OBLO® 欧宝 缸边式浴缸龙头","skuCode":"K-10059T-9-CP","listImageUrl":"http://s7d4.scene7.com/is/image/kohlerchina/K-10059T-9-CP_01"},{"productName":"OBLO® 欧宝 双把单孔脸盆龙头","skuCode":"K-10085T-9-CP","listImageUrl":"http://s7d4.scene7.com/is/image/kohlerchina/K-10085T-9-CP_01"}]
+     * totalPage : 1176
+     * totalSize : 3528
      */
 
-    private String productName;
-    private String skuCode;
-    private String listImageUrl;
+    private int pageNum;
+    private int pageSize;
+    private int totalPage;
+    private int totalSize;
+    private List<ResultListBean> resultList;
 
-    public String getProductName() {
-        return productName;
+    public int getPageNum() {
+        return pageNum;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setPageNum(int pageNum) {
+        this.pageNum = pageNum;
     }
 
-    public String getSkuCode() {
-        return skuCode;
+    public int getPageSize() {
+        return pageSize;
     }
 
-    public void setSkuCode(String skuCode) {
-        this.skuCode = skuCode;
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
     }
 
-    public String getListImageUrl() {
-        return listImageUrl;
+    public int getTotalPage() {
+        return totalPage;
     }
 
-    public void setListImageUrl(String listImageUrl) {
-        this.listImageUrl = listImageUrl;
+    public void setTotalPage(int totalPage) {
+        this.totalPage = totalPage;
+    }
+
+    public int getTotalSize() {
+        return totalSize;
+    }
+
+    public void setTotalSize(int totalSize) {
+        this.totalSize = totalSize;
+    }
+
+    public List<ResultListBean> getResultList() {
+        return resultList;
+    }
+
+    public void setResultList(List<ResultListBean> resultList) {
+        this.resultList = resultList;
+    }
+
+    public static class ResultListBean {
+        /**
+         * productName : ADAIR™艾迪儿丽裙版4.0升五级旋风绿能分体座便器
+         * skuCode :  K-77244T-0
+         * listImageUrl : http://s7d4.scene7.com/is/image/kohlerchina/K-77244T-0_01
+         */
+
+        private String productName;
+        private String skuCode;
+        private String listImageUrl;
+
+        public String getProductName() {
+            return productName;
+        }
+
+        public void setProductName(String productName) {
+            this.productName = productName;
+        }
+
+        public String getSkuCode() {
+            return skuCode;
+        }
+
+        public void setSkuCode(String skuCode) {
+            this.skuCode = skuCode;
+        }
+
+        public String getListImageUrl() {
+            return listImageUrl;
+        }
+
+        public void setListImageUrl(String listImageUrl) {
+            this.listImageUrl = listImageUrl;
+        }
     }
 }

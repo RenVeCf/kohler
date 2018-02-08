@@ -334,7 +334,6 @@ public class CommodityDetailsActivity extends BaseActivity {
                                             @Override
                                             public void onClick(View view) {
                                                 poction = finalI;
-                                                LogUtils.i("rmy", "poction 0000 = " + poction);
                                                 SelectColor(mCommodityDetails.get(finalI).getProDetail().getSkuCode());
                                             }
                                         });

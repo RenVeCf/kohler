@@ -2,7 +2,6 @@ package com.mengyang.kohler.main.activity;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
@@ -14,6 +13,7 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
+import com.mengyang.kohler.account.activity.LoginActivity;
 import com.mengyang.kohler.account.fragment.AccountFragment;
 import com.mengyang.kohler.ar.ARFragment;
 import com.mengyang.kohler.common.net.IConstants;
@@ -25,7 +25,6 @@ import com.mengyang.kohler.home.fragment.HomeFragment;
 import com.mengyang.kohler.whole_category.fragment.WholeCategoryFragment;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity implements HomeFragment.OnFragmentInteractionListener {
@@ -209,7 +208,12 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 startActivity(new Intent(this, StoreMapActivity.class));
                 break;
             case R.id.ll_account_manual:
-                startActivity(new Intent(this, MineManualActivity.class));
+                if (((boolean)SPUtil.get(this, IConstants.IS_LOGIN, false)) == true) {
+                    if (SPUtil.get(this, IConstants.TYPE, "").equals("dealer"))
+                        startActivity(new Intent(this, MineManualActivity.class));
+                } else {
+                    startActivity(new Intent(this, LoginActivity.class));
+                }
                 break;
             case R.id.ll_super_toilet_seat:
                 break;

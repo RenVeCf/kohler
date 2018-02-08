@@ -1,5 +1,7 @@
 package com.mengyang.kohler.module.bean;
 
+import java.util.List;
+
 /**
  * Description :
  * Author : rmy
@@ -8,19 +10,18 @@ package com.mengyang.kohler.module.bean;
  */
 
 public class MeetingBean {
+
     /**
+     * agendaList : [{"agendaDesc":"kohler准备于18年上市的全新产品，主打智能、便捷，引领厨卫新时尚","agendaType":0,"briefDateStr":"02月05日 09:28-21:28","dateStr":"2018-02-05","id":3,"kvUrl":"","place":"11号会议室","timeSlot":"09:28~21:28","title":"新品上市"},{"agendaDesc":"所有经销商齐聚一堂，一起交流经验和这一年的感悟","agendaType":0,"briefDateStr":"02月05日 16:25-16:25","dateStr":"2018-02-05","id":2,"kvUrl":"","place":"兰花厅","timeSlot":"16:25~16:25","title":"年会午餐"},{"agendaDesc":"用户可以通过官网在线预约功能向直接预\r\n约门店访问和微装的上门访问，该议程将详细阐\r\n述在线预约系统的功能和实际应用方法。","agendaType":2,"briefDateStr":"02月08日 01:33-20:33","dateStr":"2018-02-08","id":4,"kvUrl":"","place":"多功能厅","timeSlot":"01:33~20:33","title":"在线预约功能详解中"},{"agendaDesc":"用户可以通过官网在线预约功能向直接预\r\n约门店访问和微装的上门访问，该议程将详细阐\r\n述在线预约系统的功能和实际应用方法。","agendaType":3,"briefDateStr":"02月08日 01:33-20:33","dateStr":"2018-02-08","id":4,"kvUrl":"","place":"多功能厅","timeSlot":"01:33~20:33","title":"在线预约功能详解中"},{"agendaDesc":"在线预约功能向直接预\r\n约门店访问和微装的上门访问，该议程将详细阐\r\n述在线预约系统的功能和实际应用方法。","agendaType":3,"briefDateStr":"02月08日 17:57-20:27","dateStr":"2018-02-08","id":5,"kvUrl":"","place":"兰花厅","timeSlot":"17:57~20:27","title":"在线预约功能详解下"}]
      * id : 1
      * invitationH5Url : http://k.glor.cn/invitation/kele_jxs/index.html
      * invitationKvUrl :
      * kvUrl :
-     * lastAgenda : {"agendaDesc":"所有经销商齐聚一堂，一起交流经验和这一年的感悟","briefDateStr":"02月01日 16:25-16:25","dateStr":"2018-02-01","id":2,"kvUrl":"","place":"兰花厅","timeSlot":"16:25~16:25","title":"年会午餐"}
      * meetingDesc : 敢经典，敢未来。2018年科勒中国经销商大会将在三
      月于苏州正式拉开帷幕，届时科勒将向全国经销商伙
      伴们展示逾百款融合了科技与设计的全新卫浴产品，
      共同助力更多中国消费者的美好生活。
-     * nextAgenda : {"agendaDesc":"kohler准备于18年上市的全新产品，主打智能、便捷，引领厨卫新时尚","briefDateStr":"02月02日 09:28-21:28","dateStr":"2018-02-02","id":3,"kvUrl":"","place":"11号会议室","timeSlot":"09:28~21:28","title":"新品上市"}
      * title : 科勒中国经销商大会
-     * tomorrowAgenda : {"agendaDesc":"在线预约功能向直接预\r\n约门店访问和微装的上门访问，该议程将详细阐\r\n述在线预约系统的功能和实际应用方法。","briefDateStr":"02月03日 16:33-16:33","dateStr":"2018-02-03","id":5,"kvUrl":"","place":"兰花厅","timeSlot":"16:33~16:33","title":"在线预约功能详解下"}
      * weight : 9999
      */
 
@@ -28,12 +29,10 @@ public class MeetingBean {
     private String invitationH5Url;
     private String invitationKvUrl;
     private String kvUrl;
-    private LastAgendaBean lastAgenda;
     private String meetingDesc;
-    private NextAgendaBean nextAgenda;
     private String title;
-    private TomorrowAgendaBean tomorrowAgenda;
     private int weight;
+    private List<AgendaListBean> agendaList;
 
     public int getId() {
         return id;
@@ -67,28 +66,12 @@ public class MeetingBean {
         this.kvUrl = kvUrl;
     }
 
-    public LastAgendaBean getLastAgenda() {
-        return lastAgenda;
-    }
-
-    public void setLastAgenda(LastAgendaBean lastAgenda) {
-        this.lastAgenda = lastAgenda;
-    }
-
     public String getMeetingDesc() {
         return meetingDesc;
     }
 
     public void setMeetingDesc(String meetingDesc) {
         this.meetingDesc = meetingDesc;
-    }
-
-    public NextAgendaBean getNextAgenda() {
-        return nextAgenda;
-    }
-
-    public void setNextAgenda(NextAgendaBean nextAgenda) {
-        this.nextAgenda = nextAgenda;
     }
 
     public String getTitle() {
@@ -99,14 +82,6 @@ public class MeetingBean {
         this.title = title;
     }
 
-    public TomorrowAgendaBean getTomorrowAgenda() {
-        return tomorrowAgenda;
-    }
-
-    public void setTomorrowAgenda(TomorrowAgendaBean tomorrowAgenda) {
-        this.tomorrowAgenda = tomorrowAgenda;
-    }
-
     public int getWeight() {
         return weight;
     }
@@ -115,97 +90,20 @@ public class MeetingBean {
         this.weight = weight;
     }
 
-    public static class LastAgendaBean {
-        /**
-         * agendaDesc : 所有经销商齐聚一堂，一起交流经验和这一年的感悟
-         * briefDateStr : 02月01日 16:25-16:25
-         * dateStr : 2018-02-01
-         * id : 2
-         * kvUrl :
-         * place : 兰花厅
-         * timeSlot : 16:25~16:25
-         * title : 年会午餐
-         */
-
-        private String agendaDesc;
-        private String briefDateStr;
-        private String dateStr;
-        private int id;
-        private String kvUrl;
-        private String place;
-        private String timeSlot;
-        private String title;
-
-        public String getAgendaDesc() {
-            return agendaDesc;
-        }
-
-        public void setAgendaDesc(String agendaDesc) {
-            this.agendaDesc = agendaDesc;
-        }
-
-        public String getBriefDateStr() {
-            return briefDateStr;
-        }
-
-        public void setBriefDateStr(String briefDateStr) {
-            this.briefDateStr = briefDateStr;
-        }
-
-        public String getDateStr() {
-            return dateStr;
-        }
-
-        public void setDateStr(String dateStr) {
-            this.dateStr = dateStr;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public String getKvUrl() {
-            return kvUrl;
-        }
-
-        public void setKvUrl(String kvUrl) {
-            this.kvUrl = kvUrl;
-        }
-
-        public String getPlace() {
-            return place;
-        }
-
-        public void setPlace(String place) {
-            this.place = place;
-        }
-
-        public String getTimeSlot() {
-            return timeSlot;
-        }
-
-        public void setTimeSlot(String timeSlot) {
-            this.timeSlot = timeSlot;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
+    public List<AgendaListBean> getAgendaList() {
+        return agendaList;
     }
 
-    public static class NextAgendaBean {
+    public void setAgendaList(List<AgendaListBean> agendaList) {
+        this.agendaList = agendaList;
+    }
+
+    public static class AgendaListBean {
         /**
          * agendaDesc : kohler准备于18年上市的全新产品，主打智能、便捷，引领厨卫新时尚
-         * briefDateStr : 02月02日 09:28-21:28
-         * dateStr : 2018-02-02
+         * agendaType : 0
+         * briefDateStr : 02月05日 09:28-21:28
+         * dateStr : 2018-02-05
          * id : 3
          * kvUrl :
          * place : 11号会议室
@@ -214,6 +112,7 @@ public class MeetingBean {
          */
 
         private String agendaDesc;
+        private int agendaType;
         private String briefDateStr;
         private String dateStr;
         private int id;
@@ -230,92 +129,12 @@ public class MeetingBean {
             this.agendaDesc = agendaDesc;
         }
 
-        public String getBriefDateStr() {
-            return briefDateStr;
+        public int getAgendaType() {
+            return agendaType;
         }
 
-        public void setBriefDateStr(String briefDateStr) {
-            this.briefDateStr = briefDateStr;
-        }
-
-        public String getDateStr() {
-            return dateStr;
-        }
-
-        public void setDateStr(String dateStr) {
-            this.dateStr = dateStr;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public String getKvUrl() {
-            return kvUrl;
-        }
-
-        public void setKvUrl(String kvUrl) {
-            this.kvUrl = kvUrl;
-        }
-
-        public String getPlace() {
-            return place;
-        }
-
-        public void setPlace(String place) {
-            this.place = place;
-        }
-
-        public String getTimeSlot() {
-            return timeSlot;
-        }
-
-        public void setTimeSlot(String timeSlot) {
-            this.timeSlot = timeSlot;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
-    }
-
-    public static class TomorrowAgendaBean {
-        /**
-         * agendaDesc : 在线预约功能向直接预
-         约门店访问和微装的上门访问，该议程将详细阐
-         述在线预约系统的功能和实际应用方法。
-         * briefDateStr : 02月03日 16:33-16:33
-         * dateStr : 2018-02-03
-         * id : 5
-         * kvUrl :
-         * place : 兰花厅
-         * timeSlot : 16:33~16:33
-         * title : 在线预约功能详解下
-         */
-
-        private String agendaDesc;
-        private String briefDateStr;
-        private String dateStr;
-        private int id;
-        private String kvUrl;
-        private String place;
-        private String timeSlot;
-        private String title;
-
-        public String getAgendaDesc() {
-            return agendaDesc;
-        }
-
-        public void setAgendaDesc(String agendaDesc) {
-            this.agendaDesc = agendaDesc;
+        public void setAgendaType(int agendaType) {
+            this.agendaType = agendaType;
         }
 
         public String getBriefDateStr() {

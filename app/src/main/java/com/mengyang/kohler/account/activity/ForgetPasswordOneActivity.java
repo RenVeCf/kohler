@@ -129,7 +129,7 @@ public class ForgetPasswordOneActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.bt_forget_password_one_send_phone_num:
                 if (!etForgetPasswordOnePhoneNum.getText().toString().trim().equals(""))
-                    SendSMS();
+//                    SendSMS();
                 break;
             case R.id.bt_forget_password_one_next:
                 if (!etForgetPasswordOnePhoneNum.getText().toString().trim().equals("") && !etForgetPasswordOneVerificationCode.getText().toString().trim().equals("")) {

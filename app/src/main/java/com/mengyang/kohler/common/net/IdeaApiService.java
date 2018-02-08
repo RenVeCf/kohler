@@ -199,7 +199,7 @@ public interface IdeaApiService {
     //全文搜索
     @FormUrlEncoded
     @POST(Config.ALL_SEARCH)
-    Observable<BasicResponse<List<AllSearchBean>>> getAllSearch(@FieldMap Map<String, String> map);
+    Observable<BasicResponse<AllSearchBean>> getAllSearch(@FieldMap Map<String, String> map);
 
     //我的手册
     @FormUrlEncoded

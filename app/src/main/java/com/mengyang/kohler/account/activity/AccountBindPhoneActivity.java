@@ -93,13 +93,13 @@ public class AccountBindPhoneActivity extends BaseActivity {
     }
 
     private void ModifyBindPhone() {
-        SMSSDK.getInstance().checkSmsCodeAsyn(etModifyBindPhoneNewNum.getText().toString().trim(), etModifyBindPhoneVerificationCode.getText().toString().trim(), new SmscheckListener() {
-            @Override
-            public void checkCodeSuccess(final String code) {
-                //有问题
+//        SMSSDK.getInstance().checkSmsCodeAsyn(etModifyBindPhoneNewNum.getText().toString().trim(), etModifyBindPhoneVerificationCode.getText().toString().trim(), new SmscheckListener() {
+//            @Override
+//            public void checkCodeSuccess(final String code) {
+//                //有问题
                 Map<String, String> stringMap = IdeaApi.getSign();
                 stringMap.put("mobileNo", etModifyBindPhoneOldNum.getText().toString().trim());//原手机号码
-                stringMap.put("verifyCode", code);//换绑时的验证码
+                stringMap.put("verifyCode", etModifyBindPhoneVerificationCode.getText().toString().trim());//换绑时的验证码
                 stringMap.put("newMobileNo", etModifyBindPhoneNewNum.getText().toString().trim());//新手机号码
                 stringMap.put("newVerifyCode", etModifyBindPhonePwd.getText().toString().trim());//密码
 
@@ -116,13 +116,13 @@ public class AccountBindPhoneActivity extends BaseActivity {
                             }
                         });
             }
-
-            @Override
-            public void checkCodeFail(int errCode, final String errmsg) {
-                ToastUtil.showToast(errmsg);
-            }
-        });
-    }
+//
+//            @Override
+//            public void checkCodeFail(int errCode, final String errmsg) {
+//                ToastUtil.showToast(errmsg);
+//            }
+//        });
+//    }
 
     private void startTimer() {
         timess = (int) (SMSSDK.getInstance().getIntervalTime() / 1000);
@@ -169,7 +169,7 @@ public class AccountBindPhoneActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.bt_modify_bind_phone_send_out_new_num:
                 if (!etModifyBindPhoneNewNum.getText().toString().trim().equals(""))
-                    SendSMS();
+//                    SendSMS();
                 break;
             case R.id.bt_modify_bind_phone_determine:
                 if (!etModifyBindPhoneOldNum.getText().toString().trim().equals("") && !etModifyBindPhoneNewNum.getText().toString().trim().equals("") && !etModifyBindPhoneVerificationCode.getText().toString().trim().equals("") && !etModifyBindPhonePwd.getText().toString().trim().equals(""))

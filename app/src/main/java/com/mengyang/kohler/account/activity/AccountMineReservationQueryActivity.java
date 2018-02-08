@@ -76,13 +76,12 @@ public class AccountMineReservationQueryActivity extends BaseActivity implements
                 srlAccountReservationQuery.setRefreshing(false);
             }
         });
-        mAccountMineReservationQueryAdapter.setOnLoadMoreListener(AccountMineReservationQueryActivity.this); //加载更多
     }
 
     @Override
     protected void initData() {
         Map<String, String> stringMap = IdeaApi.getSign();
-        stringMap.put("pageNum", 0 + "");
+        stringMap.put("pageNum", pageNum + "");
         stringMap.put("pageSize", 10 + "");
 
         IdeaApi.getRequestLogin(stringMap);
@@ -104,6 +103,7 @@ public class AccountMineReservationQueryActivity extends BaseActivity implements
                                     mAccountMineReservationQueryAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_BOTTOM); //动画
                                     mAccountMineReservationQueryAdapter.isFirstOnly(false); //第一次
                                     rvAccountReservationQuery.setAdapter(mAccountMineReservationQueryAdapter);
+                                    mAccountMineReservationQueryAdapter.setOnLoadMoreListener(AccountMineReservationQueryActivity.this, rvAccountReservationQuery); //加载更多
                                 } else {
                                     mAccountMineReservationQueryAdapter.loadMoreEnd();
                                 }

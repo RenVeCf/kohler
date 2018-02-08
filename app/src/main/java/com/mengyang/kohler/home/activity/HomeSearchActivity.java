@@ -45,7 +45,7 @@ public class HomeSearchActivity extends BaseActivity implements BaseQuickAdapter
     @BindView(R.id.rv_home_search)
     RecyclerView rvHomeSearch;
     private HomeSearchAdapter mHomeSearchAdapter;
-    private List<AllSearchBean> mAllSearchBean;
+    private List<AllSearchBean.ResultListBean> mAllSearchBean;
     private int pageNum = 0; //请求页数
 
     @Override
@@ -71,44 +71,45 @@ public class HomeSearchActivity extends BaseActivity implements BaseQuickAdapter
 
     @Override
     protected void initListener() {
-        mHomeSearchAdapter.setOnLoadMoreListener(HomeSearchActivity.this); //加载更多
+
     }
 
     @Override
     protected void initData() {
         Map<String, String> stringMap = IdeaApi.getSign();
-//        stringMap.put("pageNum", pageNum + "");
-//        stringMap.put("pageSize", 10 + "");
+        stringMap.put("pageNum", pageNum + "");
+        stringMap.put("pageSize", 10 + "");
         stringMap.put("queryStr", etHomeSearchActivity.getText().toString().trim());
 
 
         IdeaApi.getRequestLogin(stringMap);
         IdeaApi.getApiService()
                 .getAllSearch(stringMap)
-                .compose(HomeSearchActivity.this.<BasicResponse<List<AllSearchBean>>>bindToLifecycle())
+                .compose(HomeSearchActivity.this.<BasicResponse<AllSearchBean>>bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<BasicResponse<List<AllSearchBean>>>(HomeSearchActivity.this, true) {
+                .subscribe(new DefaultObserver<BasicResponse<AllSearchBean>>(HomeSearchActivity.this, true) {
                     @Override
-                    public void onSuccess(BasicResponse<List<AllSearchBean>> response) {
+                    public void onSuccess(BasicResponse<AllSearchBean> response) {
                         if (response != null) {
                             if (pageNum == 0) {
                                 mAllSearchBean.clear();
-                                mAllSearchBean.addAll(response.getData());
+                                mAllSearchBean.addAll(response.getData().getResultList());
                                 if (mAllSearchBean.size() > 0) {
                                     pageNum += 1;
                                     mHomeSearchAdapter = new HomeSearchAdapter(mAllSearchBean);
                                     mHomeSearchAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_BOTTOM); //动画
                                     mHomeSearchAdapter.isFirstOnly(false); //第一次
                                     rvHomeSearch.setAdapter(mHomeSearchAdapter);
+                                    mHomeSearchAdapter.setOnLoadMoreListener(HomeSearchActivity.this, rvHomeSearch); //加载更多
                                 } else {
                                     mHomeSearchAdapter.loadMoreEnd();
                                 }
                             } else {
-                                if (response.getData().size() > 0) {
+                                if (response.getData().getResultList().size() > 0) {
                                     pageNum += 1;
-                                    mAllSearchBean.addAll(response.getData());
-                                    mHomeSearchAdapter.addData(response.getData());
+                                    mAllSearchBean.addAll(response.getData().getResultList());
+                                    mHomeSearchAdapter.addData(response.getData().getResultList());
                                     mHomeSearchAdapter.loadMoreComplete(); //完成本次
                                 } else {
                                     mHomeSearchAdapter.loadMoreEnd(); //完成所有加载
@@ -133,8 +134,10 @@ public class HomeSearchActivity extends BaseActivity implements BaseQuickAdapter
                 etHomeSearchActivity.setText("");
                 break;
             case R.id.iv_home_search:
-                pageNum = 0;
-                initData();
+                if (!etHomeSearchActivity.getText().toString().trim().equals("")) {
+                    pageNum = 0;
+                    initData();
+                }
                 break;
         }
     }
