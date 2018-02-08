@@ -8,14 +8,17 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.SystemClock;
+import android.text.InputType;
 import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -29,6 +32,7 @@ import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.utils.CommonDialogUtils;
 import com.mengyang.kohler.common.utils.IOUtils;
 import com.mengyang.kohler.common.utils.LogUtils;
+import com.mengyang.kohler.common.view.AutoSplitTextView;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.home.activity.DownLoaderPDFActivity;
 import com.mengyang.kohler.home.activity.StoreMapActivity;
@@ -302,6 +306,7 @@ public class CommodityDetailsActivity extends BaseActivity {
                                     tvFunction.setText(mCommodityDetails.get(poction).getAttrList().get(i).getAttrValue());
                                 } else if (!mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName().equals("TMALL链接") && !mCommodityClassificationFragmentBean.getAttrList().get(i).getCategoryComAttrName().equals("特征") && !mCommodityClassificationFragmentBean.getAttrList().get(i).getCategoryComAttrName().equals("pdfUrl")) {
                                     LinearLayout relative = new LinearLayout(CommodityDetailsActivity.this);
+
                                     relative.setOrientation(LinearLayout.HORIZONTAL);
                                     TextView label = new TextView(CommodityDetailsActivity.this);
                                     label.setText(mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName() + ": ");
@@ -313,6 +318,8 @@ public class CommodityDetailsActivity extends BaseActivity {
                                     relative.addView(label);
 
                                     TextView attribute = new TextView(CommodityDetailsActivity.this);
+                                    attribute.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+
                                     attribute.setText(mCommodityDetails.get(poction).getAttrList().get(i).getAttrValue());
                                     attribute.setTextColor(Color.BLACK);
                                     attribute.setTextSize(11);
@@ -338,7 +345,9 @@ public class CommodityDetailsActivity extends BaseActivity {
                                             }
                                         });
                                         Glide.with(App.getContext()).load(mCommodityDetails.get(i).getSkuAttrList().get(j).getSkuImageName()).apply(new RequestOptions().placeholder(R.mipmap.queshengtu)).into(label);
-                                        ivCommodityDetailsColorImg.addView(label);
+                                        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(150, 150);
+                                        layoutParams.setMargins(0,0,20,0);
+                                        ivCommodityDetailsColorImg.addView(label,layoutParams);
                                     }
                                 }
                             }

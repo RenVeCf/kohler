@@ -3,6 +3,8 @@ package com.mengyang.kohler;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
+import android.view.KeyEvent;
+import android.widget.Toast;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
@@ -19,7 +21,7 @@ import butterknife.ButterKnife;
 public abstract class BaseActivity extends RxAppCompatActivity {
 
     public Bundle savedInstanceState;
-
+    private long exitTime;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //防止getFragment为null
@@ -68,4 +70,19 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         //沉浸式状态栏注销
         ImmersionBar.with(this).destroy(); //不调用该方法，如果界面bar发生改变，在不关闭app的情况下，退出此界面再进入将记忆最后一次bar改变的状态
     }
+
+   /* @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            if ((System.currentTimeMillis() - exitTime) > 2000) {
+                Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                exitTime = System.currentTimeMillis();
+            } else {
+                finish();
+//                System.exit(0);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }*/
 }

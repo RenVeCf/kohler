@@ -127,6 +127,7 @@ public class WholeCategoryFragment extends BaseFragment implements StackLayoutMa
 
                             mStackAdapter = new StackAdapter(mNotSelectClassificationPositiveSequenceBean);
                             rvWholeCategory.setAdapter(mStackAdapter);
+                            // TODO: 2018/2/8 ,条目点击事件看看
                         }
                     }
                 });
