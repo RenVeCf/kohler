@@ -33,7 +33,7 @@ public class StackAdapter extends RecyclerView.Adapter<StackAdapter.ViewHolder> 
     private List<NotSelectClassificationBean> datas;
 //    private List<NotSelectClassificationBean> datasUsed = new ArrayList<>();
     private List<NotSelectClassificationBean> datasUsed ;
-    private OnWholeCategoryItem mListener;
+//    private OnWholeCategoryItem mListener;
     private Context context;
     private boolean vertical;
 
@@ -73,14 +73,12 @@ public class StackAdapter extends RecyclerView.Adapter<StackAdapter.ViewHolder> 
 //            holder.cardViewTotal.setBackgroundColor(Color.WHITE);
         }
 
-        //        Glide.with(context).load(imageUrls.get(position)).into(holder.cover);
-        //        holder.index.setText(datasUsed.get(holder.getAdapterPosition()));
     }
 
-    public interface OnWholeCategoryItem {
-        // TODO: Update argument type and name
-        void onWholeCategoryItem(String data);
-    }
+//    public interface OnWholeCategoryItem {
+//        // TODO: Update argument type and name
+//        void onWholeCategoryItem(String data);
+//    }
 
     @Override
     public int getItemCount() {
@@ -102,10 +100,10 @@ public class StackAdapter extends RecyclerView.Adapter<StackAdapter.ViewHolder> 
                 @Override
                 public void onClick(View v) {
                     if (getAdapterPosition() == (datasUsed.size() - 1)) {
-                        mListener.onWholeCategoryItem("科勒");
+//                        mListener.onWholeCategoryItem("科勒");
                         App.getContext().startActivity(new Intent(App.getContext(), SelectClassificationActivity.class));
                     } else {
-                        mListener.onWholeCategoryItem(datasUsed.get(getAdapterPosition()).getNameCn());
+//                        mListener.onWholeCategoryItem(datasUsed.get(getAdapterPosition()).getNameCn());
                         App.getContext().startActivity(new Intent(App.getContext(), CommodityClassificationActivity.class).putExtra("id", datasUsed.get(getAdapterPosition()).getId() + ""));
                     }
                 }

@@ -62,7 +62,7 @@ public class StackLayoutManager extends RecyclerView.LayoutManager {
 
     private int animateValue;
 
-    private int duration = 1000;
+    private int duration = 500;
 
     private RecyclerView.Recycler recycler;
 
@@ -196,6 +196,7 @@ public class StackLayoutManager extends RecyclerView.LayoutManager {
             fill(recycler, initialOffset, false);
             initial = true;
         }
+        Log.i("kohler", "position = ");
     }
 
 
@@ -823,11 +824,10 @@ public class StackLayoutManager extends RecyclerView.LayoutManager {
 
         } else {
 
-            if (position == curPos + 1)
-
+            if (position == curPos + 1) {
                 left = mSpace * maxStackCount + mUnit - tail;
 
-            else {
+            } else {
 
                 float closestBaseItemScale = scale(curPos + 1);
 
@@ -843,7 +843,9 @@ public class StackLayoutManager extends RecyclerView.LayoutManager {
 
                 left = (int) (baseStart + (position - curPos - 2) * mUnit - (position - curPos - 2) * (1 - secondaryScale) * (mUnit - mSpace));
 
-
+                if (mChangeListenning != null) {
+                    mChangeListenning.changeListenning(position);
+                }
 
                 if (BuildConfig.DEBUG)
 
@@ -863,9 +865,7 @@ public class StackLayoutManager extends RecyclerView.LayoutManager {
 
         }
 
-        if (mChangeListenning != null) {
-            mChangeListenning.changeListenning(position);
-        }
+
 
         return left;
 

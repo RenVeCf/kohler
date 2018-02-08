@@ -3,6 +3,7 @@ package com.mengyang.kohler.whole_category.fragment;
 import android.annotation.SuppressLint;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -34,7 +35,7 @@ import io.reactivex.schedulers.Schedulers;
  * 全品类
  */
 
-public class WholeCategoryFragment extends BaseFragment implements StackAdapter.OnWholeCategoryItem, StackLayoutManager.changeListenning {
+public class WholeCategoryFragment extends BaseFragment implements StackLayoutManager.changeListenning {
 
     @BindView(R.id.tv_whole_category_top)
     TopView tvWholeCategoryTop;
@@ -100,30 +101,31 @@ public class WholeCategoryFragment extends BaseFragment implements StackAdapter.
                                 if (!TextUtils.isEmpty(mNotSelectClassificationBean.get(i).getKvUrl())) {
                                     mNotSelectClassificationPositiveSequenceBean.add(mNotSelectClassificationBean.get(i));
                                 }
+                            }
 
                             Config config = new Config();
                             config.secondaryScale = 0f;
                             config.scaleRatio = 0.2f;//上一层堆叠与下层堆叠的 marginBottom
                             config.maxStackCount = 3;//边缘显示的堆叠层数
-                            config.initialStackCount = mNotSelectClassificationBean.size() - 1;
+                            config.initialStackCount = mNotSelectClassificationPositiveSequenceBean.size() - 1;
                             config.space = getResources().getDimensionPixelOffset(R.dimen.item_space);//上一层图片与下一层的距离
 
                             config.align = Align.RIGHT;//堆叠显示的方向
 
 
-                            StackLayoutManager StackLayoutManager = new StackLayoutManager(config);
-                            StackLayoutManager.setChangeListenning(WholeCategoryFragment.this);
+                            StackLayoutManager stackLayoutManager = new StackLayoutManager(config);
+                            stackLayoutManager.setChangeListenning(WholeCategoryFragment.this);
 
-                            rvWholeCategory.setLayoutManager(StackLayoutManager);
+                            rvWholeCategory.setLayoutManager(stackLayoutManager);
 
                             mStackAdapter = new StackAdapter(mNotSelectClassificationPositiveSequenceBean);
                             rvWholeCategory.setAdapter(mStackAdapter);
                         }
-                    }}
+                    }
                 });
     }
 
-    @Override
+/*    @Override
     public void onWholeCategoryItem(String data) {
         if (data.equals("科勒")) {
             tv_whole_category_visible.setText(data);
@@ -132,11 +134,20 @@ public class WholeCategoryFragment extends BaseFragment implements StackAdapter.
             tv_whole_category_visible.setText(data);
             tv_whole_category_gone.setVisibility(View.GONE);
         }
-    }
+    }*/
 
     @Override
     public void changeListenning(int position) {
-        LogUtils.i("kohler6","11111");
-        tv_whole_category_gone.setText(mNotSelectClassificationPositiveSequenceBean.get(position).getNameCn());
+        Log.i("kohler", "position = " + position+",  "+mNotSelectClassificationPositiveSequenceBean.get(position).getNameCn());
+        if (mNotSelectClassificationPositiveSequenceBean.size() - 1 == position) {
+            tv_whole_category_visible.setVisibility(View.VISIBLE);
+        } else {
+            tv_whole_category_visible.setVisibility(View.GONE);
+            tv_whole_category_gone.setText(mNotSelectClassificationPositiveSequenceBean.get(position).getNameCn());
+        }
     }
+
+//    if (mChangeListenning != null) {
+//        mChangeListenning.changeListenning(position);
+//    }
 }

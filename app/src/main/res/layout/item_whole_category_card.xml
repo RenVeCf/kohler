@@ -15,7 +15,7 @@
         android:foreground="?android:attr/selectableItemBackground"
         android:stateListAnimator="@anim/item_animator"
         app:cardPreventCornerOverlap="false"
-
+        app:cardUseCompatPadding="true"
         tools:targetApi="lollipop">
 
         <ImageView
