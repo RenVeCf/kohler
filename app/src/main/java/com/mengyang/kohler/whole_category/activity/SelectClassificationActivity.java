@@ -14,6 +14,7 @@ import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IdeaApi;
+import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.SelectClassificationBean;
@@ -93,7 +94,7 @@ public class SelectClassificationActivity extends BaseActivity {
                             @Override
                             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                                 if (mSelectClassificationBean != null) {
-                                    startActivity(new Intent(SelectClassificationActivity.this, CommodityClassificationActivity.class).putExtra("parentId", mSelectClassificationBean.get(position).getParentsId() + ""));
+                                    startActivity(new Intent(SelectClassificationActivity.this, CommodityClassificationActivity.class).putExtra("id", mSelectClassificationBean.get(position).getId() +""));
                                 }
                             }
                         });

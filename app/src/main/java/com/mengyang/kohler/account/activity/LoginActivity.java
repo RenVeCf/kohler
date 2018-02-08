@@ -148,12 +148,12 @@ public class LoginActivity extends BaseActivity {
                     @Override
                     public void onSuccess(BasicResponse<LoginBean> response) {
                         App.destoryActivity("MainActivity");
-                        SPUtil.put(App.getContext(), IConstants.IS_LOGIN, true);
-                        SPUtil.put(App.getContext(), IConstants.TOKEN, response.getData().getAccessToken());
-                        SPUtil.put(App.getContext(), IConstants.REFRESH_TOKEN, response.getData().getRefreshToken());
-                        SPUtil.put(App.getContext(), IConstants.TYPE, response.getData().getType());
-                        SPUtil.put(App.getContext(), IConstants.POEN_ID, response.getData().getOpenId());
-                        SPUtil.put(App.getContext(), IConstants.USER_ID, response.getData().getOpenId());
+                        SPUtil.put(LoginActivity.this, IConstants.IS_LOGIN, true);
+                        SPUtil.put(LoginActivity.this, IConstants.TOKEN, response.getData().getAccessToken());
+                        SPUtil.put(LoginActivity.this, IConstants.REFRESH_TOKEN, response.getData().getRefreshToken());
+                        SPUtil.put(LoginActivity.this, IConstants.TYPE, response.getData().getType());
+                        SPUtil.put(LoginActivity.this, IConstants.POEN_ID, response.getData().getOpenId());
+                        SPUtil.put(LoginActivity.this, IConstants.USER_ID, response.getData().getOpenId());
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         finish();
                     }
