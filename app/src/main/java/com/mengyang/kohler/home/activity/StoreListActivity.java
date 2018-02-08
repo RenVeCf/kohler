@@ -88,7 +88,7 @@ public class StoreListActivity extends BaseActivity implements BaseQuickAdapter.
     protected void initData() {
         Map<String, String> stringMap = IdeaApi.getSign();
         //接口有问题
-        stringMap.put("pageNum", 0 + "");
+        stringMap.put("pageNum", pageNum + "");
         stringMap.put("pageSize", 10 + "");
         stringMap.put("latitude", "30.628679");
         stringMap.put("longitude", "114.289438");
@@ -106,6 +106,7 @@ public class StoreListActivity extends BaseActivity implements BaseQuickAdapter.
                             if (pageNum == 0) {
                                 mStoreListBean.clear();
                                 mStoreListBean.addAll(response.getData().getResultList());
+
                                 if (mStoreListBean.size() > 0) {
                                     pageNum = pageNum + 1;
                                     mStoreListAdapter = new StoreListAdapter(mStoreListBean);
@@ -128,7 +129,7 @@ public class StoreListActivity extends BaseActivity implements BaseQuickAdapter.
                                 }
                             }
                         } else {
-                            mStoreListAdapter.loadMoreEnd();
+//                            mStoreListAdapter.loadMoreEnd();
                         }
                     }
                 });

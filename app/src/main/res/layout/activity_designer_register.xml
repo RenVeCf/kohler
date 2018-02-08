@@ -10,7 +10,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/y450"
         android:background="@mipmap/register_bg"
         android:orientation="horizontal"
         android:paddingBottom="@dimen/y42">
@@ -39,8 +39,9 @@
                 android:textSize="10sp"/>
 
             <View
+                android:background="#ffffff"
                 android:layout_width="@dimen/x210"
-                android:layout_height="3dp"
+                android:layout_height="2dp"
                 android:layout_marginStart="@dimen/x72"
                 android:layout_marginTop="@dimen/y36"/>
 
@@ -51,7 +52,7 @@
                 android:layout_marginTop="@dimen/y36"
                 android:textColor="#ffffff"
                 android:textSize="10sp"
-                tools:text="注册科勒设计师可在APP中下载精美科勒设计Brochure
+                android:text="注册科勒设计师可在APP中下载精美科勒设计Brochure
 设计师注册需人工审核，请在注册后耐心等待。"/>
         </LinearLayout>
 
@@ -61,12 +62,12 @@
             android:layout_height="@dimen/y48"
             android:layout_marginEnd="@dimen/x72"
             android:layout_marginTop="@dimen/y129"
-            android:src="@mipmap/kohler_exit"/>
+            android:src="@mipmap/kohler_exit_whrite"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/x120"
         android:layout_marginStart="@dimen/x120"
         android:orientation="vertical">
@@ -204,12 +205,19 @@
                 android:layout_marginTop="1dp"
                 android:background="@color/black"/>
         </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
 
         <LinearLayout
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/y51"
+            android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/y48"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/y201"
+            android:layout_centerHorizontal="true"
             android:orientation="horizontal">
 
             <TextView
@@ -233,7 +241,7 @@
                 android:layout_weight="1"
                 android:layout_marginStart="@dimen/x60"
                 android:textSize="12sp"
-                android:text="@string/distributor_register"/>
+                android:text="经销商用户注册"/>
         </LinearLayout>
-    </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>

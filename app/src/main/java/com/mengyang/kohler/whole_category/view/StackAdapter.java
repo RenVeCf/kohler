@@ -103,10 +103,10 @@ public class StackAdapter extends RecyclerView.Adapter<StackAdapter.ViewHolder> 
                 public void onClick(View v) {
                     if (getAdapterPosition() == (datasUsed.size() - 1)) {
 //                        mListener.onWholeCategoryItem("科勒");
-                        App.getContext().startActivity(new Intent(App.getContext(), SelectClassificationActivity.class));
+                        App.getContext().startActivity(new Intent(App.getContext(), SelectClassificationActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                     } else {
 //                        mListener.onWholeCategoryItem(datasUsed.get(getAdapterPosition()).getNameCn());
-                        App.getContext().startActivity(new Intent(App.getContext(), CommodityClassificationActivity.class).putExtra("id", datasUsed.get(getAdapterPosition()).getId() + ""));
+                        App.getContext().startActivity(new Intent(App.getContext(), CommodityClassificationActivity.class).putExtra("id", datasUsed.get(getAdapterPosition()).getId() + "").addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                     }
                 }
             });

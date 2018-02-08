@@ -131,6 +131,7 @@ public class AccountFragment extends BaseFragment {
             final Drawable DrawableLeftQuery = getResources().getDrawable(R.mipmap.icon_inquiry);
             tvAccountBrowsingNoLogin.setVisibility(View.VISIBLE);
             rvAccountBrowsing.setVisibility(View.GONE);
+            civAccountTitle.setScaleType(ImageView.ScaleType.CENTER_CROP);
             civAccountTitle.setImageResource(R.mipmap.oval);
             tvAccountName.setText(App.getContext().getResources().getString(R.string.login_or_register));
             btAccountLike.setCompoundDrawablesWithIntrinsicBounds(DrawableLeftLike, null, null, null);

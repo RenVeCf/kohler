@@ -747,7 +747,6 @@ public class StackLayoutManager extends RecyclerView.LayoutManager {
      */
 
     private int left(int position) {
-        Log.i("kohler66", "position = 1111111" +position);
 
         int curPos = mTotalOffset / mUnit;
 
@@ -790,6 +789,12 @@ public class StackLayoutManager extends RecyclerView.LayoutManager {
      */
 
     private int rtl(int position, int curPos, int tail, float x) {
+
+        if (mChangeListenning != null) {
+            mChangeListenning.changeListenning(position);
+        }
+
+        Log.i("kohler66", "position = 222" +position);
 
         //虽然是做对称变换，但是必须考虑到scale给 对称变换带来的影响
 
@@ -842,9 +847,7 @@ public class StackLayoutManager extends RecyclerView.LayoutManager {
 
                 left = (int) (baseStart + (position - curPos - 2) * mUnit - (position - curPos - 2) * (1 - secondaryScale) * (mUnit - mSpace));
 
-                if (mChangeListenning != null) {
-                    mChangeListenning.changeListenning(position);
-                }
+
 
                 if (BuildConfig.DEBUG)
 

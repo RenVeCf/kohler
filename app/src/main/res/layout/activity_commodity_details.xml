@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/chanpinbg"
     android:orientation="vertical"
     tools:context="com.mengyang.kohler.whole_category.activity.CommodityDetailsActivity">
 
@@ -29,6 +28,7 @@
             app:title_color="@color/white"/>
 
         <ScrollView
+            android:background="@mipmap/chanpinbg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="none">
