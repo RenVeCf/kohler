@@ -98,8 +98,6 @@ public class HomeSearchActivity extends BaseActivity implements BaseQuickAdapter
                                 if (mAllSearchBean.size() > 0) {
                                     pageNum += 1;
                                     mHomeSearchAdapter = new HomeSearchAdapter(mAllSearchBean);
-                                    mHomeSearchAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_BOTTOM); //动画
-                                    mHomeSearchAdapter.isFirstOnly(false); //第一次
                                     rvHomeSearch.setAdapter(mHomeSearchAdapter);
                                     mHomeSearchAdapter.setOnLoadMoreListener(HomeSearchActivity.this, rvHomeSearch); //加载更多
                                 } else {

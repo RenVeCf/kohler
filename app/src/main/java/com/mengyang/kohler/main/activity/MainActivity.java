@@ -95,11 +95,11 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
     protected void initValues() {
         App.addDestoryActivity(this, "MainActivity");
         App.getManager().addActivity(this);
-        Boolean isFirstOpen = (Boolean) SPUtil.get(this, IConstants.FIRST_APP, true);
-        if (isFirstOpen) {
-            rlMain.openPane();
-            SPUtil.put(this, IConstants.FIRST_APP, false);
-        }
+        //        Boolean isFirstOpen = (Boolean) SPUtil.get(this, IConstants.FIRST_APP, true);
+        //        if (isFirstOpen) {
+        //            rlMain.openPane();
+        SPUtil.put(this, IConstants.FIRST_APP, false);
+        //        }
         switchFragment(mHomeFragment).commit();
         //        cvpMainViewpager.setScanScroll(false);
 
@@ -208,7 +208,7 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 startActivity(new Intent(this, StoreMapActivity.class));
                 break;
             case R.id.ll_account_manual:
-                if (((boolean)SPUtil.get(this, IConstants.IS_LOGIN, false)) == true) {
+                if (((boolean) SPUtil.get(this, IConstants.IS_LOGIN, false)) == true) {
                     if (SPUtil.get(this, IConstants.TYPE, "").equals("dealer"))
                         startActivity(new Intent(this, MineManualActivity.class));
                 } else {

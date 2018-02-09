@@ -46,5 +46,6 @@ public class MeetingAdapter extends BaseQuickAdapter<MeetingBean.AgendaListBean,
                 .setText(R.id.tv_meeting_next_agenda_time, item.getTimeSlot())
                 .setText(R.id.tv_meeting_next_agenda_position, item.getPlace())
                 .setText(R.id.tv_meeting_next_agenda_name, item.getTitle());
+        helper.addOnClickListener(R.id.tv_meeting_next_agenda_time);
     }
 }

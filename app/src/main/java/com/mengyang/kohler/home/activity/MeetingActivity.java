@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
@@ -71,6 +72,12 @@ public class MeetingActivity extends BaseActivity {
     private MeetingBean mMeetingBean;
     private List<MeetingBean.AgendaListBean> mMeetingAdapterBean;
     private MeetingAdapter mMeetingAdapter;
+    //popupwindow 控件
+    private TextView tvPopMeetingDate;
+    private TextView tvPopMeetingTime;
+    private TextView tvPopMeetingPosition;
+    private TextView tvPopMeetingName;
+    private TextView tvPopMeetingAbstract;
 
     @Override
     protected int getLayoutId() {
@@ -92,12 +99,18 @@ public class MeetingActivity extends BaseActivity {
         mMeetingPopupWindow.setOutsideTouchable(false);
         mMeetingPopupWindow.setFocusable(true);
 
+        tvPopMeetingDate = mPopLayout.findViewById(R.id.tv_pop_meeting_date);
+        tvPopMeetingTime = mPopLayout.findViewById(R.id.tv_pop_meeting_time);
+        tvPopMeetingPosition = mPopLayout.findViewById(R.id.tv_pop_meeting_position);
+        tvPopMeetingName = mPopLayout.findViewById(R.id.tv_pop_meeting_name);
+        tvPopMeetingAbstract = mPopLayout.findViewById(R.id.tv_pop_meeting_abstract);
+
         GridLayoutManager layoutManagerActivity = new GridLayoutManager(App.getContext(), 2);
         rvMeeting.setLayoutManager(layoutManagerActivity);
         rvMeeting.addItemDecoration(new GridSpacingItemDecoration(2, 35, false));
         rvMeeting.setHasFixedSize(true);
         rvMeeting.setItemAnimator(new DefaultItemAnimator());
-        //        rvMeeting.setNestedScrollingEnabled(false);
+        rvMeeting.setNestedScrollingEnabled(false);
 
         mMeetingAdapterBean = new ArrayList<>();
         mMeetingAdapter = new MeetingAdapter(mMeetingAdapterBean);
@@ -126,10 +139,31 @@ public class MeetingActivity extends BaseActivity {
                         mMeetingBean = response.getData();
                         tvMeetingDesc.setText(mMeetingBean.getMeetingDesc());
                         Glide.with(App.getContext()).load(mMeetingBean.getKvUrl()).apply(new RequestOptions().placeholder(R.mipmap.queshengtu)).into(ivRealTimeDynamic);
+                        tvMeetingNextAgendaTime.setText(mMeetingBean.getAgendaList().get(0).getTimeSlot());
+                        tvMeetingNextAgendaPosition.setText(mMeetingBean.getAgendaList().get(0).getPlace());
+                        tvMeetingNextAgendaName.setText(mMeetingBean.getAgendaList().get(0).getTitle());
+
+                        tvPopMeetingDate.setText(mMeetingBean.getAgendaList().get(0).getDateStr());
+                        tvPopMeetingTime.setText(mMeetingBean.getAgendaList().get(0).getTimeSlot());
+                        tvPopMeetingPosition.setText(mMeetingBean.getAgendaList().get(0).getPlace());
+                        tvPopMeetingName.setText(mMeetingBean.getAgendaList().get(0).getTitle());
+                        tvPopMeetingAbstract.setText(mMeetingBean.getAgendaList().get(0).getAgendaDesc());
+
                         mMeetingAdapterBean.clear();
                         mMeetingAdapterBean.addAll(mMeetingBean.getAgendaList());
                         mMeetingAdapter = new MeetingAdapter(mMeetingAdapterBean);
                         rvMeeting.setAdapter(mMeetingAdapter);
+                        mMeetingAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                            @Override
+                            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                                tvPopMeetingDate.setText(mMeetingBean.getAgendaList().get(position).getDateStr());
+                                tvPopMeetingTime.setText(mMeetingBean.getAgendaList().get(position).getTimeSlot());
+                                tvPopMeetingPosition.setText(mMeetingBean.getAgendaList().get(position).getPlace());
+                                tvPopMeetingName.setText(mMeetingBean.getAgendaList().get(position).getTitle());
+                                tvPopMeetingAbstract.setText(mMeetingBean.getAgendaList().get(position).getAgendaDesc());
+                                mMeetingPopupWindow.showAsDropDown(view, 0, 0);
+                            }
+                        });
                     }
                 });
     }
@@ -152,19 +186,18 @@ public class MeetingActivity extends BaseActivity {
                 });
     }
 
-    @OnClick({R.id.tv_meeting_next_agenda_time, R.id.tv_meeting_next_agenda_position, R.id.tv_meeting_next_agenda_name, R.id.iv_real_time_dynamic, R.id.ll_meeting_next, R.id.rl_invitation_h5, R.id.ll_meeting_msg_reminder_push})
+    @OnClick({R.id.iv_real_time_dynamic, R.id.ll_meeting_next, R.id.rl_invitation_h5, R.id.ll_meeting_msg_reminder_push})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.tv_meeting_next_agenda_time:
-                break;
-            case R.id.tv_meeting_next_agenda_position:
-                break;
-            case R.id.tv_meeting_next_agenda_name:
-                break;
             case R.id.iv_real_time_dynamic:
                 startActivity(new Intent(this, LiveRealTimeActivity.class));
                 break;
             case R.id.ll_meeting_next:
+                tvPopMeetingDate.setText(mMeetingBean.getAgendaList().get(0).getDateStr());
+                tvPopMeetingTime.setText(mMeetingBean.getAgendaList().get(0).getTimeSlot());
+                tvPopMeetingPosition.setText(mMeetingBean.getAgendaList().get(0).getPlace());
+                tvPopMeetingName.setText(mMeetingBean.getAgendaList().get(0).getTitle());
+                tvPopMeetingAbstract.setText(mMeetingBean.getAgendaList().get(0).getAgendaDesc());
                 mMeetingPopupWindow.showAsDropDown(view, 0, 0);
                 break;
             case R.id.rl_invitation_h5:

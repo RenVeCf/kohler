@@ -32,5 +32,6 @@ public class FootPrintAdapter extends BaseQuickAdapter<FootPrintBean.ResultListB
         helper.setText(R.id.tv_foot_print_top, item.getName())
                 .setText(R.id.tv_foot_print_donw, item.getSkuCode());
         Glide.with(App.getContext()).load(item.getPicture()).apply(new RequestOptions().placeholder(R.mipmap.queshengtu)).into((ImageView) helper.getView(R.id.iv_foot_print));
+        helper.addOnClickListener(R.id.tv_foot_print_top);
     }
 }

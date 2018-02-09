@@ -847,17 +847,17 @@ public class StackLayoutManager extends RecyclerView.LayoutManager {
 
 
 
-                if (BuildConfig.DEBUG)
-
-                    LogUtils.i("rmy", "ltr: curPos " + curPos
-
-                            + "  pos:" + position
-
-                            + "  left:" + left
-
-                            + "   baseStart" + baseStart
-
-                            + " curPos+1:" + left(curPos + 1));
+//                if (BuildConfig.DEBUG)
+//
+//                    LogUtils.i("rmy", "ltr: curPos " + curPos
+//
+//                            + "  pos:" + position
+//
+//                            + "  left:" + left
+//
+//                            + "   baseStart" + baseStart
+//
+//                            + " curPos+1:" + left(curPos + 1));
 
             }
 

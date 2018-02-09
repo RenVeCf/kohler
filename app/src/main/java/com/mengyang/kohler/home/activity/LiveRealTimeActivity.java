@@ -13,6 +13,7 @@ import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IdeaApi;
+import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.view.GridSpacingItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.home.adapter.LiveRealTimeAdapter;
@@ -44,7 +45,7 @@ public class LiveRealTimeActivity extends BaseActivity {// implements BaseQuickA
     SwipeRefreshLayout srlLiveRealTime;
     private LiveRealTimeAdapter mLiveRealTimeAdapter;
     private List<LiveRealTimeBean> mLiveRealTimeBean;
-//    private int pageNum = 0;
+    //    private int pageNum = 0;
 
     @Override
     protected int getLayoutId() {
@@ -92,14 +93,16 @@ public class LiveRealTimeActivity extends BaseActivity {// implements BaseQuickA
                 .subscribe(new DefaultObserver<BasicResponse<List<LiveRealTimeBean>>>(LiveRealTimeActivity.this, true) {
                     @Override
                     public void onSuccess(BasicResponse<List<LiveRealTimeBean>> response) {
+                        LogUtils.i("rny", "response " + response);
                         //                        if (response != null) {
                         //                            if (pageNum == 0) {
-                        mLiveRealTimeBean.clear();
-                        mLiveRealTimeBean.addAll(response.getData());
-                        //                                if (mLiveRealTimeBean.size() > 0) {
-                        //                                    pageNum += 1;
-                        mLiveRealTimeAdapter = new LiveRealTimeAdapter(mLiveRealTimeBean);
-                        rvLiveRealTime.setAdapter(mLiveRealTimeAdapter);
+//                        mLiveRealTimeBean.clear();
+//                        mLiveRealTimeBean = response.getData();
+////                        mLiveRealTimeBean.addAll(response.getData());
+//                        //                                if (mLiveRealTimeBean.size() > 0) {
+//                        //                                    pageNum += 1;
+//                        mLiveRealTimeAdapter = new LiveRealTimeAdapter(mLiveRealTimeBean);
+//                        rvLiveRealTime.setAdapter(mLiveRealTimeAdapter);
                         //                                    mLiveRealTimeAdapter.setOnLoadMoreListener(LiveRealTimeActivity.this, rvSystemMsg); //加载更多
                         //                                } else {
                         //                                    mLiveRealTimeAdapter.loadMoreEnd();

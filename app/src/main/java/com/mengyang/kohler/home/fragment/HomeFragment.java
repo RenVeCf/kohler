@@ -241,6 +241,7 @@ public class HomeFragment extends BaseFragment {
                     startActivity(new Intent(getActivity(), HomeSearchActivity.class).putExtra("etHomeSearch", etHomeSearch.getText().toString().trim()));
                 break;
             case R.id.iv_top_menu:
+//                abHomeLoop.setAutoPlay(false);
                 mListener.onFragmentInteraction("");
                 break;
         }

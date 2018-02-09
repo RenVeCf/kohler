@@ -145,7 +145,7 @@ public class CommodityDetailsActivity extends BaseActivity {
             mCommodityClassificationFragmentBean = (CommodityClassificationFragmentBean.ResultListBean) getIntent().getSerializableExtra("CommodityDetails");
             mSelectColorSKU = mCommodityClassificationFragmentBean.getProDetail().getSkuCode();
         } else {
-            mSelectColorSKU = getIntent().getStringExtra("CommodityDetails");
+            mSelectColorSKU = getIntent().getStringExtra("CommodityDetails_two");
         }
     }
 
@@ -304,7 +304,7 @@ public class CommodityDetailsActivity extends BaseActivity {
                             for (int i = 0; i < mCommodityDetails.get(poction).getAttrList().size(); i++) {
                                 if (mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName().equals("亮点")) {
                                     tvFunction.setText(mCommodityDetails.get(poction).getAttrList().get(i).getAttrValue());
-                                } else if (!mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName().equals("TMALL链接") && !mCommodityClassificationFragmentBean.getAttrList().get(i).getCategoryComAttrName().equals("特征") && !mCommodityClassificationFragmentBean.getAttrList().get(i).getCategoryComAttrName().equals("pdfUrl")) {
+                                } else if (!mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName().equals("TMALL链接") && !mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName().equals("特征") && !mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName().equals("pdfUrl")) {
                                     LinearLayout relative = new LinearLayout(CommodityDetailsActivity.this);
 
                                     relative.setOrientation(LinearLayout.HORIZONTAL);

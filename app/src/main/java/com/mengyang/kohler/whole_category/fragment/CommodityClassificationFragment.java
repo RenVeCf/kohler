@@ -99,15 +99,13 @@ public class CommodityClassificationFragment extends BaseFragment implements Bas
                                 if (response.getData().getTotalSize() > 0) {
                                     pageNum += 1;
                                     mCommodityClassificationAdapter = new CommodityClassificationAdapter(mCommodityClassificationFragmentBean);
-                                    mCommodityClassificationAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_BOTTOM); //动画
-                                    mCommodityClassificationAdapter.isFirstOnly(false); //第一次
                                     rvCommodityClassification.setAdapter(mCommodityClassificationAdapter);
                                     mCommodityClassificationAdapter.setOnLoadMoreListener(CommodityClassificationFragment.this, rvCommodityClassification); //加载更多
                                 } else {
                                     mCommodityClassificationAdapter.loadMoreEnd();
                                 }
                             } else {
-                                if (response.getData().getPageSize() > 0) {
+                                if (response.getData().getResultList().size() > 0) {
                                     pageNum += 1;
                                     mCommodityClassificationFragmentBean.addAll(response.getData().getResultList());
                                     mCommodityClassificationAdapter.addData(response.getData().getResultList());

@@ -9,7 +9,9 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -35,7 +37,6 @@ import com.mengyang.kohler.account.adapter.FootPrintAdapter;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.net.IdeaApi;
-import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.view.CircleImageView;
 import com.mengyang.kohler.common.view.SpacesItemDecoration;
@@ -44,6 +45,7 @@ import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.FootPrintBean;
 import com.mengyang.kohler.module.bean.UploadHeadPortraitBean;
 import com.mengyang.kohler.whole_category.activity.CommodityDetailsActivity;
+import com.mengyang.kohler.whole_category.fragment.CommodityClassificationFragment;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -51,7 +53,9 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
@@ -82,6 +86,8 @@ public class AccountFragment extends BaseFragment implements BaseQuickAdapter.Re
     RecyclerView rvAccountBrowsing;
     //调用系统相册-选择图片数量
     private static final int IMAGE_NUM = 1;
+    @BindView(R.id.srl_account_browsing)
+    SwipeRefreshLayout srlAccountBrowsing;
     private PopupWindow mAccountTitleImgPopupWindow;
     private View mPopImgLayout;
     private PopupWindow mAccountTitleNamePopupWindow;
@@ -207,7 +213,14 @@ public class AccountFragment extends BaseFragment implements BaseQuickAdapter.Re
 
     @Override
     protected void initListener() {
-
+        srlAccountBrowsing.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                pageNum = 0;
+                initData();
+                srlAccountBrowsing.setRefreshing(false);
+            }
+        });
     }
 
     @Override
@@ -233,10 +246,11 @@ public class AccountFragment extends BaseFragment implements BaseQuickAdapter.Re
                                     pageNum += 1;
                                     mFootPrintAdapter = new FootPrintAdapter(mFootPrintBean);
                                     rvAccountBrowsing.setAdapter(mFootPrintAdapter);
+                                    mFootPrintAdapter.setOnLoadMoreListener(AccountFragment.this, rvAccountBrowsing); //加载更多
                                     mFootPrintAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
                                         @Override
                                         public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                                            startActivity(new Intent(getActivity(), CommodityDetailsActivity.class).putExtra("CommodityDetails", mFootPrintBean.get(position).getSkuCode()));
+                                            startActivity(new Intent(getActivity(), CommodityDetailsActivity.class).putExtra("CommodityDetails_two", mFootPrintBean.get(position).getSkuCode()));
                                         }
                                     });
                                 } else {
