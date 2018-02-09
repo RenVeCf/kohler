@@ -106,7 +106,6 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
                 srlMineManual.setRefreshing(false);
             }
         });
-        mMineManualAdapter.setOnLoadMoreListener(MineManualActivity.this, rvMineManualMyBrochure); //加载更多
         //        mMyBrochureAdapter.setOnLoadMoreListener(MineManualActivity.this, rvMineManualMyBrochure); //加载更多
     }
 
@@ -133,6 +132,7 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
                                     pageNum += 1;
                                     mMineManualAdapter = new BrochureListAdapter(mBooksListBean);
                                     rvMineManualBrochureList.setAdapter(mMineManualAdapter);
+                                    mMineManualAdapter.setOnLoadMoreListener(MineManualActivity.this, rvMineManualMyBrochure); //加载更多
                                     mMineManualAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
                                         @Override
                                         public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {

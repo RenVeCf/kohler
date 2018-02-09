@@ -9,7 +9,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -45,7 +44,6 @@ import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.FootPrintBean;
 import com.mengyang.kohler.module.bean.UploadHeadPortraitBean;
 import com.mengyang.kohler.whole_category.activity.CommodityDetailsActivity;
-import com.mengyang.kohler.whole_category.fragment.CommodityClassificationFragment;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -53,9 +51,7 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
