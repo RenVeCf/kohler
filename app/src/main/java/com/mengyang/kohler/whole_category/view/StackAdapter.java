@@ -6,11 +6,13 @@ import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -71,10 +73,14 @@ public class StackAdapter extends RecyclerView.Adapter<StackAdapter.ViewHolder> 
 
         if (!TextUtils.isEmpty(datasUsed.get(position).getKvUrl())) {
             Glide.with(context).load(datasUsed.get(position).getKvUrl()).apply(new RequestOptions().placeholder(R.mipmap.queshengtu)).into(holder.cover);
+
+
+
         } else {
 //            holder.cardViewTotal.setBackgroundColor(Color.WHITE);
         }
 
+        Log.i("kohler66", "position = " +position +"name = "+datasUsed.get(position).getNameCn());
     }
 
 //    public interface OnWholeCategoryItem {
@@ -90,12 +96,14 @@ public class StackAdapter extends RecyclerView.Adapter<StackAdapter.ViewHolder> 
     class ViewHolder extends RecyclerView.ViewHolder {
         ImageView cover;
         CardView cardViewTotal;
+//        TextView textTitle;
         //        TextView index;
 
         public ViewHolder(View itemView) {
             super(itemView);
             cover = (ImageView) itemView.findViewById(R.id.cover);
             cardViewTotal = (CardView) itemView.findViewById(R.id.card_view_total);
+//            textTitle = (TextView) itemView.findViewById(R.id.tv_whole_category_visible);
             //            index = (TextView) itemView.findViewById(R.id.index);
             //全品类 item页 点击事件
             itemView.setOnClickListener(new View.OnClickListener() {

@@ -3,6 +3,7 @@ package com.mengyang.kohler.whole_category.view;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
+import android.support.v4.view.AsyncLayoutInflater;
 import android.support.v4.view.VelocityTrackerCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -273,6 +274,7 @@ public class StackLayoutManager extends RecyclerView.LayoutManager {
         }
 
         int curPos = mTotalOffset / mUnit;
+        Log.i("kohler88", "position = " +curPos);
 
         int leavingSpace = getHeight() - (left(curPos) + mUnit);
 
@@ -627,6 +629,7 @@ public class StackLayoutManager extends RecyclerView.LayoutManager {
 
                 lastAnimateValue = 0;
 
+//                Log.i("kohler66", "position = " +position);
             }
 
 
@@ -747,7 +750,6 @@ public class StackLayoutManager extends RecyclerView.LayoutManager {
      */
 
     private int left(int position) {
-
         int curPos = mTotalOffset / mUnit;
 
         int tail = mTotalOffset % mUnit;
@@ -789,13 +791,6 @@ public class StackLayoutManager extends RecyclerView.LayoutManager {
      */
 
     private int rtl(int position, int curPos, int tail, float x) {
-
-        if (mChangeListenning != null) {
-            mChangeListenning.changeListenning(position);
-        }
-
-        Log.i("kohler66", "position = 222" +position);
-
         //虽然是做对称变换，但是必须考虑到scale给 对称变换带来的影响
 
         float scale = scale(position);
@@ -809,6 +804,9 @@ public class StackLayoutManager extends RecyclerView.LayoutManager {
 
     private int ltr(int position, int curPos, int tail, float x) {
 
+        if (mChangeListenning != null) {
+            mChangeListenning.changeListenning(position);
+        }
         int left;
 
 

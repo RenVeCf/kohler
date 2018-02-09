@@ -21,11 +21,28 @@
         app:title="@string/whole_category"
         app:title_color="@color/white"/>
 
-    <ImageView
-        android:layout_width="@dimen/x312"
-        android:layout_height="@dimen/y117"
+    <!--android:layout_width="@dimen/x312"
+        android:layout_height="@dimen/y117"-->
+    <RelativeLayout
         android:layout_marginStart="@dimen/x96"
-        android:src="@mipmap/select_logo"/>
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/y117"
+        >
+        <ImageView
+            android:id="@+id/iv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@mipmap/select_logo" />
+        <TextView
+            android:textColor="#ffffff"
+            android:id="@+id/tv_title_en"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+
 
     <LinearLayout
         android:id="@+id/ll_whole_category_tabel"
@@ -45,6 +62,7 @@
             android:textStyle="bold"/>
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/tv_whole_category_gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

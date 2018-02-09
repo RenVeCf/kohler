@@ -52,6 +52,11 @@ public class WholeCategoryFragment extends BaseFragment implements StackLayoutMa
     TextView tv_whole_category_visible;
     @BindView(R.id.tv_whole_category_gone)
     TextView tv_whole_category_gone;
+    @BindView(R.id.tv_title_en)
+    TextView mTvTitleEn;
+    @BindView(R.id.iv_title)
+    ImageView mIvTitle;
+
     private List<NotSelectClassificationBean> mNotSelectClassificationBean;
     private List<NotSelectClassificationBean> mNotSelectClassificationPositiveSequenceBean;
     private StackAdapter mStackAdapter;
@@ -146,19 +151,20 @@ public class WholeCategoryFragment extends BaseFragment implements StackLayoutMa
 
     @Override
     public void changeListenning(int position) {
-        Log.i("kohler", "position = " + position+",  "+mNotSelectClassificationPositiveSequenceBean.get(position).getNameCn());
-//        if (mNotSelectClassificationPositiveSequenceBean.size() - 1 == position) {
-//            tv_whole_category_visible.setVisibility(View.VISIBLE);
-//        } else {
-//            tv_whole_category_visible.setVisibility(View.GONE);
-//            tv_whole_category_gone.setText(mNotSelectClassificationPositiveSequenceBean.get(position).getNameCn());
-//        }
+        Log.i("kohler66", "position = " +position);
+        if (position >= 1) {
+            tv_whole_category_visible.setText(mNotSelectClassificationPositiveSequenceBean.get(position - 1).getNameCn());
+            mTvTitleEn.setText(mNotSelectClassificationPositiveSequenceBean.get(position - 1).getNameEn());
+            mIvTitle.setVisibility(View.GONE);
+            mTvTitleEn.setVisibility(View.VISIBLE);
+        }
 
+        if ((mNotSelectClassificationPositiveSequenceBean.size() - 1) == position) {
+            mIvTitle.setVisibility(View.VISIBLE);
+            mTvTitleEn.setVisibility(View.GONE);
 
-        tv_whole_category_gone.setText(mNotSelectClassificationPositiveSequenceBean.get(position).getNameCn());
+            tv_whole_category_visible.setText("科勒精选");
+//            mTvTitleEn.setText(mNotSelectClassificationPositiveSequenceBean.get(position).getNameEn());
+        }
     }
-
-//    if (mChangeListenning != null) {
-//        mChangeListenning.changeListenning(position);
-//    }
 }

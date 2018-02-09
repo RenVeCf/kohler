@@ -91,7 +91,7 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
 
     @Override
     public void onError(Throwable e) {
-        LogUtils.e("Retrofit", e.getMessage());
+//        LogUtils.e("Retrofit", e.getMessage());
         dismissProgress();
         if (e instanceof HttpException) {     //   HTTP错误
             onException(ExceptionReason.BAD_NETWORK);

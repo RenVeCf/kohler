@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
+    android:id="@+id/card_view"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="@dimen/x960"
-    android:layout_height="@dimen/y1650"
+    android:layout_height="wrap_content"
     android:padding="0dp">
 
-    <!--app:cardUseCompatPadding="true"-->
+
     <android.support.v7.widget.CardView
+        android:layout_below="@id/ll_whole_category_tabel"
         android:id="@+id/card_view_total"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -20,9 +22,9 @@
 
         <ImageView
             android:id="@+id/cover"
+            android:scaleType="centerCrop"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop"
             android:src="@color/colorPrimary"/>
     </android.support.v7.widget.CardView>
 </RelativeLayout>

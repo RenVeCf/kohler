@@ -8,6 +8,9 @@ import com.mengyang.kohler.common.view.TopView;
 
 import butterknife.BindView;
 
+/**
+ * 客服
+ */
 public class CustomerServiceActivity extends BaseActivity {
 
     @BindView(R.id.tv_customer_service_top)
