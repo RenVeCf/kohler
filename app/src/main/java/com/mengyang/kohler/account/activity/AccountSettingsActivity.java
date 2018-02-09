@@ -10,8 +10,8 @@ import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.net.DefaultObserver;
-import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.net.IConstants;
+import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.main.activity.MainActivity;
@@ -42,7 +42,7 @@ public class AccountSettingsActivity extends BaseActivity {
     TextView tvAccountSettingsModifyBindPhone;
     @BindView(R.id.bt_account_settings_sign_out)
     Button btAccountSettingsSignOut;
-    MainActivity mMainActivity;
+    private boolean is_Login = (boolean) SPUtil.get(App.getContext(), IConstants.IS_LOGIN, false);
 
     @Override
     protected int getLayoutId() {
@@ -54,6 +54,13 @@ public class AccountSettingsActivity extends BaseActivity {
         App.getManager().addActivity(this);
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(this, tvAccountSettingsTop);
+        if (is_Login) {
+            btAccountSettingsSignOut.setText(App.getContext().getResources().getString(R.string.login));
+            tvAccountSettingsModifyPwd.setClickable(true);
+            tvAccountSettingsModifyPwd.setTextColor(App.getContext().getResources().getColor(R.color.pwd));
+            tvAccountSettingsModifyBindPhone.setClickable(true);
+            tvAccountSettingsModifyBindPhone.setTextColor(App.getContext().getResources().getColor(R.color.pwd));
+        }
     }
 
     @Override

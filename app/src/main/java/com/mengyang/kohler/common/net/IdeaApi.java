@@ -101,7 +101,7 @@ public class IdeaApi {
         } else {
             stringMap.put("accessToken", token);
         }
-        stringMap.put("appVersion", "loading1.0.4");
+        stringMap.put("appVersion", "1.0");
         stringMap.put("appType", "android");
         stringMap.put("clientId", "FjyrG8VkMLntjtGi");
         stringMap.put("charset", "utf-8");

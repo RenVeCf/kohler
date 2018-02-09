@@ -42,6 +42,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/x60"
+                    android:layout_marginBottom="@dimen/y186"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -132,7 +133,6 @@
                     android:id="@+id/tv_my_brochure_top"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/y186"
                     android:text="@string/my_brochure"
                     android:textColor="#252525"
                     android:textSize="22sp"/>

@@ -110,7 +110,8 @@
     <string name="time_">时间：</string>
     <string name="ndc">NDC</string>
     <string name="kohler_china_meeting">科勒中国经销商大会</string>
-    <string name="msg_reminder_push">点击开启议程消息提醒推送</string>
+    <string name="msg_reminder_push_open">点击开启议程消息提醒推送</string>
+    <string name="msg_reminder_push_off">点击关闭议程消息提醒推送</string>
     <string name="next_agenda">下一议程</string>
     <string name="position_">位置：</string>
     <string name="name_">名称：</string>

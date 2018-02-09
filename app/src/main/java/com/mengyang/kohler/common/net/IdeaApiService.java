@@ -9,6 +9,7 @@ import com.mengyang.kohler.module.bean.CommodityDetailsBean;
 import com.mengyang.kohler.module.bean.FootPrintBean;
 import com.mengyang.kohler.module.bean.HomeIndexBean;
 import com.mengyang.kohler.module.bean.LikeListBean;
+import com.mengyang.kohler.module.bean.LiveRealTimeBean;
 import com.mengyang.kohler.module.bean.LoginBean;
 import com.mengyang.kohler.module.bean.MeetingBean;
 import com.mengyang.kohler.module.bean.NotSelectClassificationBean;
@@ -159,7 +160,7 @@ public interface IdeaApiService {
     //足迹列表
     @FormUrlEncoded
     @POST(Config.FOOT_PRINT)
-    Observable<BasicResponse<List<FootPrintBean>>> getFootPrint(@FieldMap Map<String, String> map);
+    Observable<BasicResponse<FootPrintBean>> getFootPrint(@FieldMap Map<String, String> map);
 
     //附近店铺
     @FormUrlEncoded
@@ -195,6 +196,16 @@ public interface IdeaApiService {
     @FormUrlEncoded
     @POST(Config.MEETING)
     Observable<BasicResponse<MeetingBean>> getMeeting(@FieldMap Map<String, String> map);
+
+    //获取经销商大会推送是否开启的用户设置
+    @FormUrlEncoded
+    @POST(Config.MEETING_USER_SETTINGS)
+    Observable<BasicResponse> getMeetingUserSettings(@FieldMap Map<String, String> map);
+
+    //经销商大会现场实时投票
+    @FormUrlEncoded
+    @POST(Config.MEETING_LIVE_REAL_TIME)
+    Observable<BasicResponse<List<LiveRealTimeBean>>> getMeetingLiveRealTime(@FieldMap Map<String, String> map);
 
     //全文搜索
     @FormUrlEncoded

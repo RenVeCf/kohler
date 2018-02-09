@@ -31,6 +31,8 @@
         <item>@color/colorBlueGreyPrimary</item>
     </array>
 
+    <color name="pwd">#666666</color>
+
     <!--basic color-->
     <color name="white">#ffffff</color>
     <color name="black">#040404</color>

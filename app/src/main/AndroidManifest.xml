@@ -16,8 +16,7 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
     <!-- 允许程序设置内置sd卡的写权限 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <!-- 获取手机唯一标识需要用到的权限 -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
@@ -32,7 +31,6 @@
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
     <!-- 保存SD卡 -->
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
-
 
     <application
         android:name=".App"
@@ -68,9 +66,7 @@
             android:name=".main.activity.MainActivity"
             android:launchMode="singleTask">
         </activity>
-        <activity
-            android:name=".whole_category.activity.CommodityClassificationActivity"
-            >
+        <activity android:name=".whole_category.activity.CommodityClassificationActivity">
         </activity>
 
         <!-- debug SHA1 -->
@@ -79,8 +75,8 @@
         <!-- 38:20:70:66:55:C0:B1:47:8E:B0:8C:38:17:BB:D7:08:40:D7:B4:15 -->
         <!-- MY Bai_Du App_Key -->
         <!-- f5kPNXnZXtGtEoSzoPBzRo1jTEhXGvPw -->
-        <!--公司 Test-->
-        <!--ILIElSVwh90omjtyPMrggUPLcuFpeQu0-->
+        <!-- 公司 Test -->
+        <!-- ILIElSVwh90omjtyPMrggUPLcuFpeQu0 -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="ILIElSVwh90omjtyPMrggUPLcuFpeQu0"/>
@@ -190,9 +186,7 @@
             android:name=".account.activity.AccountAboutActivity"
             android:launchMode="singleTask">
         </activity>
-        <activity
-            android:name=".whole_category.activity.SelectClassificationActivity"
-            >
+        <activity android:name=".whole_category.activity.SelectClassificationActivity">
         </activity>
         <activity
             android:name=".account.activity.ForgetPasswordOneActivity"
@@ -203,6 +197,8 @@
             android:launchMode="singleTask">
         </activity>
         <activity android:name=".home.activity.DownLoaderPDFActivity">
+        </activity>
+        <activity android:name=".home.activity.MeetingWebActivity">
         </activity>
     </application>
 

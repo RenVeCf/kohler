@@ -318,7 +318,7 @@ public class CommodityDetailsActivity extends BaseActivity {
                                     relative.addView(label);
 
                                     TextView attribute = new TextView(CommodityDetailsActivity.this);
-                                    attribute.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+//                                    attribute.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
 
                                     attribute.setText(mCommodityDetails.get(poction).getAttrList().get(i).getAttrValue());
                                     attribute.setTextColor(Color.BLACK);

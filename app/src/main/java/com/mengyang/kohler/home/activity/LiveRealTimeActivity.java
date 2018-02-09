@@ -1,5 +1,7 @@
 package com.mengyang.kohler.home.activity;
 
+import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,17 +11,28 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
+import com.mengyang.kohler.common.net.DefaultObserver;
+import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.view.GridSpacingItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.home.adapter.LiveRealTimeAdapter;
+import com.mengyang.kohler.module.BasicResponse;
+import com.mengyang.kohler.module.bean.LiveRealTimeBean;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * 现场实时投票
  */
 
-public class LiveRealTimeActivity extends BaseActivity {
+public class LiveRealTimeActivity extends BaseActivity {// implements BaseQuickAdapter.RequestLoadMoreListener {
 
     @BindView(R.id.tv_live_real_time_top)
     TopView tvLiveRealTimeTop;
@@ -27,7 +40,11 @@ public class LiveRealTimeActivity extends BaseActivity {
     TextView tvLiveRealTimePrize;
     @BindView(R.id.rv_live_real_time)
     RecyclerView rvLiveRealTime;
+    @BindView(R.id.srl_live_real_time)
+    SwipeRefreshLayout srlLiveRealTime;
     private LiveRealTimeAdapter mLiveRealTimeAdapter;
+    private List<LiveRealTimeBean> mLiveRealTimeBean;
+//    private int pageNum = 0;
 
     @Override
     protected int getLayoutId() {
@@ -41,19 +58,78 @@ public class LiveRealTimeActivity extends BaseActivity {
         ImmersionBar.setTitleBar(this, tvLiveRealTimeTop);
         GridLayoutManager layoutManagerActivity = new GridLayoutManager(App.getContext(), 2);
         rvLiveRealTime.setLayoutManager(layoutManagerActivity);
-        rvLiveRealTime.addItemDecoration(new GridSpacingItemDecoration(2, 15, false));
+        rvLiveRealTime.addItemDecoration(new GridSpacingItemDecoration(2, 15, true));
         rvLiveRealTime.setNestedScrollingEnabled(false);
         rvLiveRealTime.setHasFixedSize(true);
         rvLiveRealTime.setItemAnimator(new DefaultItemAnimator());
+
+        mLiveRealTimeBean = new ArrayList<>();
+        mLiveRealTimeAdapter = new LiveRealTimeAdapter(mLiveRealTimeBean);
+        rvLiveRealTime.setAdapter(mLiveRealTimeAdapter);
     }
 
     @Override
     protected void initListener() {
-
+        srlLiveRealTime.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                initData();
+                srlLiveRealTime.setRefreshing(false);
+            }
+        });
     }
 
     @Override
     protected void initData() {
+        Map<String, String> stringMap = IdeaApi.getSign();
 
+        IdeaApi.getRequestLogin(stringMap);
+        IdeaApi.getApiService()
+                .getMeetingLiveRealTime(stringMap)
+                .compose(LiveRealTimeActivity.this.<BasicResponse<List<LiveRealTimeBean>>>bindToLifecycle())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultObserver<BasicResponse<List<LiveRealTimeBean>>>(LiveRealTimeActivity.this, true) {
+                    @Override
+                    public void onSuccess(BasicResponse<List<LiveRealTimeBean>> response) {
+                        //                        if (response != null) {
+                        //                            if (pageNum == 0) {
+                        mLiveRealTimeBean.clear();
+                        mLiveRealTimeBean.addAll(response.getData());
+                        //                                if (mLiveRealTimeBean.size() > 0) {
+                        //                                    pageNum += 1;
+                        mLiveRealTimeAdapter = new LiveRealTimeAdapter(mLiveRealTimeBean);
+                        rvLiveRealTime.setAdapter(mLiveRealTimeAdapter);
+                        //                                    mLiveRealTimeAdapter.setOnLoadMoreListener(LiveRealTimeActivity.this, rvSystemMsg); //加载更多
+                        //                                } else {
+                        //                                    mLiveRealTimeAdapter.loadMoreEnd();
+                        //                                }
+                        //                            } else {
+                        //                                if (response.getData().size() > 0) {
+                        //                                    pageNum += 1;
+                        //                                    mLiveRealTimeBean.addAll(response.getData());
+                        //                                    mLiveRealTimeAdapter.addData(response.getData());
+                        //                                    mLiveRealTimeAdapter.loadMoreComplete(); //完成本次
+                        //                                } else {
+                        //                                    mLiveRealTimeAdapter.loadMoreEnd(); //完成所有加载
+                        //                                }
+                        //                            }
+                        //                        } else {
+                        //                            mLiveRealTimeAdapter.loadMoreEnd();
+                        //                        }
+                    }
+                });
     }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
+    //
+    //    @Override
+    //    public void onLoadMoreRequested() {
+    //        initData();
+    //    }
 }

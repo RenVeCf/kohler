@@ -30,11 +30,9 @@ public interface Config  {
     String HOME_INDEX = "index/index"; //首页
     String STORE_LIST = "store/list"; //附近店铺
     String SYSTEM_MSG = "system/message/list"; //系统消息列表
-    String USER_HOME_KV = "index/customerPicture"; //首页普通用户KV图
-    String DEALER_HOME_KV = "index/dealerPicture"; //首页经销商KV图
-    String DESIGNER_HOME_KV = "index/designerPicture"; //首页设计师KV图
     String ALL_SEARCH = "productSearch/solrByStr"; //全文搜索
     String MEETING = "ndc/facadeGetMeetingAndAgenda"; //经销商大会页数据
+    String MEETING_LIVE_REAL_TIME = "ndc/getPictureList"; //经销商大会现场实时投票
     String BOOKS_LIST = "handBook/getHandBooks"; //手册列表
 
     /**
@@ -58,4 +56,5 @@ public interface Config  {
     String UPLOAD_HEAD_PORTRAIT = "file/uploadMedia"; //上传头像
     String MODIFY_NIKE_NAME = "authz/account/updateNickName"; //修改昵称
     String FOOT_PRINT = "product/recordList"; //足迹列表
+    String MEETING_USER_SETTINGS = "/data/get"; //获取经销商大会用户设置
 }

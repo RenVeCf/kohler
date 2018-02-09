@@ -27,54 +27,60 @@
         android:layout_height="1dp"
         android:background="#e0e0e0"/>
 
-    <LinearLayout
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/srl_live_real_time"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginEnd="@dimen/x72"
-        android:layout_marginStart="@dimen/x72"
-        android:orientation="vertical">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/y36"
-            android:scaleType="fitXY"
-            android:src="@mipmap/ic_launcher_round"/>
+        android:layout_marginStart="@dimen/x72">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/y87"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <ImageView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/livevote_icon1"/>
+                android:layout_marginTop="@dimen/y36"
+                android:scaleType="fitXY"
+                android:src="@mipmap/ic_launcher_round"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y87"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/livevote_icon1"/>
+
+                <TextView
+                    android:id="@+id/tv_live_real_time_prize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="@string/please_vote"
+                    android:textColor="#000000"
+                    android:textSize="14sp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/tv_live_real_time_prize"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:textColor="#000000"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                tools:text="@string/please_vote"/>
+                android:layout_marginTop="2dp"
+                android:text="@string/voting_cannot_be_withdrawn"
+                android:textColor="#b1b1b1"
+                android:textSize="10sp"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_live_real_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"/>
         </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:textSize="10sp"
-            android:textColor="#b1b1b1"
-            android:text="@string/voting_cannot_be_withdrawn"/>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_live_real_time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"/>
-    </LinearLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

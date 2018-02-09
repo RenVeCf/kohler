@@ -2,6 +2,7 @@ package com.mengyang.kohler.home.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +19,7 @@ import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.utils.DatabaseUtils;
+import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.view.SpacesItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
@@ -74,13 +76,13 @@ public class HomeFragment extends BaseFragment {
     TextView tvMyBrochureDonw;
     @BindView(R.id.iv_top_customer_service)
     ImageView ivTopCustomerService;
-
     //侧滑Meun键的接口回调
     private OnFragmentInteractionListener mListener;
     private HomeIndexBean mHomeIndexBean;
     //轮播图集合
     private List<AdPageInfo> mDatas = new ArrayList<>();
     private HomeBooksAdapter mHomeBooksAdapter;
+    private String mH5_URL = "";
 
     @Override
     protected int getLayoutId() {
@@ -115,8 +117,8 @@ public class HomeFragment extends BaseFragment {
         mHomeBooksAdapter = new HomeBooksAdapter(list);
         if (list == null) {
             rvHomeBooks.setVisibility(View.GONE);
-            tvMyBrochureTop.setVisibility(View.INVISIBLE);
-            tvMyBrochureDonw.setVisibility(View.INVISIBLE);
+            tvMyBrochureTop.setVisibility(View.GONE);
+            tvMyBrochureDonw.setVisibility(View.GONE);
         } else {
             rvHomeBooks.setVisibility(View.VISIBLE);
             tvMyBrochureTop.setVisibility(View.VISIBLE);
@@ -153,6 +155,17 @@ public class HomeFragment extends BaseFragment {
                             public void onPageClick(AdPageInfo info, int postion) {
                                 if (postion == 1 && SPUtil.get(getActivity(), IConstants.TYPE, "").equals("dealer")) {
                                     startActivity(new Intent(getActivity(), MeetingActivity.class));
+                                } else {
+                                    if (mHomeIndexBean.getKvList().get(postion).getClickRedirect() != null && !mHomeIndexBean.getKvList().get(postion).getClickRedirect().equals("")) {
+                                        mH5_URL = mHomeIndexBean.getKvList().get(postion).getClickRedirect() + "";
+                                    } else if (mHomeIndexBean.getKvList().get(postion).getH5Url() != null && !mHomeIndexBean.getKvList().get(postion).getH5Url().equals("")) {
+                                        mH5_URL = mHomeIndexBean.getKvList().get(postion).getH5Url() + "";
+                                    }
+                                    Intent intent = new Intent();
+                                    intent.setAction("android.intent.action.VIEW");
+                                    Uri content_url = Uri.parse(mH5_URL);
+                                    intent.setData(content_url);
+                                    getActivity().startActivity(intent);
                                 }
                             }
                         });

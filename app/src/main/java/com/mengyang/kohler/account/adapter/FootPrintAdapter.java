@@ -21,16 +21,16 @@ import java.util.List;
  * Time : 2018/1/29
  */
 
-public class FootPrintAdapter extends BaseQuickAdapter<FootPrintBean, BaseViewHolder> {
+public class FootPrintAdapter extends BaseQuickAdapter<FootPrintBean.ResultListBean, BaseViewHolder> {
 
-    public FootPrintAdapter(@Nullable List<FootPrintBean> data) {
+    public FootPrintAdapter(@Nullable List<FootPrintBean.ResultListBean> data) {
         super(R.layout.item_foot_print_adapter, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, FootPrintBean item) {
-        helper.setText(R.id.tv_foot_print_top, "")
-                .setText(R.id.tv_foot_print_donw, "");
-        Glide.with(App.getContext()).load("").apply(new RequestOptions().placeholder(R.mipmap.queshengtu)).into((ImageView) helper.getView(R.id.iv_foot_print));
+    protected void convert(BaseViewHolder helper, FootPrintBean.ResultListBean item) {
+        helper.setText(R.id.tv_foot_print_top, item.getName())
+                .setText(R.id.tv_foot_print_donw, item.getSkuCode());
+        Glide.with(App.getContext()).load(item.getPicture()).apply(new RequestOptions().placeholder(R.mipmap.queshengtu)).into((ImageView) helper.getView(R.id.iv_foot_print));
     }
 }

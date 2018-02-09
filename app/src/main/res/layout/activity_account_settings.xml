@@ -64,6 +64,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/y72"
             android:layout_marginTop="@dimen/y72"
+            android:clickable="false"
+            android:textColor="#cccccc"
             android:text="@string/modify_pwd"/>
 
         <View
@@ -77,6 +79,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/y72"
             android:layout_marginTop="@dimen/y72"
+            android:clickable="false"
+            android:textColor="#cccccc"
             android:text="@string/modify_bind_phone"/>
 
         <View

@@ -30,10 +30,12 @@ import com.mengyang.kohler.R;
 import com.mengyang.kohler.account.activity.AccountMineLikeActivity;
 import com.mengyang.kohler.account.activity.AccountMineReservationQueryActivity;
 import com.mengyang.kohler.account.activity.AccountSettingsActivity;
+import com.mengyang.kohler.account.activity.LoginActivity;
 import com.mengyang.kohler.account.adapter.FootPrintAdapter;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.net.IdeaApi;
+import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.view.CircleImageView;
 import com.mengyang.kohler.common.view.SpacesItemDecoration;
@@ -60,7 +62,7 @@ import okhttp3.RequestBody;
  * 账户
  */
 
-public class AccountFragment extends BaseFragment {
+public class AccountFragment extends BaseFragment implements BaseQuickAdapter.RequestLoadMoreListener {
 
     @BindView(R.id.tv_account_top)
     TopView tvAccountTop;
@@ -88,7 +90,7 @@ public class AccountFragment extends BaseFragment {
     private Button btAccountModifyTitleImgConfirm; //头像PopupWindow确定键
     private EditText etAccountPopNewName; ////名称PopupWindow输入框
     private Button btAccountPopNewName; //名称PopupWindow确定键
-    private List<FootPrintBean> mFootPrintBean;
+    private List<FootPrintBean.ResultListBean> mFootPrintBean;
     private FootPrintAdapter mFootPrintAdapter;
     private int pageNum = 0;
     //是否登录
@@ -210,51 +212,51 @@ public class AccountFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-//        Map<String, String> stringMap = IdeaApi.getSign();
-//        stringMap.put("pageNum", pageNum + "");
-//        stringMap.put("pageSize", 3 + "");
-//
-//        IdeaApi.getRequestLogin(stringMap);
-//        IdeaApi.getApiService()
-//                .getFootPrint(stringMap)
-//                .compose(this.<BasicResponse<List<FootPrintBean>>>bindToLifecycle())
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new DefaultObserver<BasicResponse<List<FootPrintBean>>>(getActivity(), true) {
-//                    @Override
-//                    public void onSuccess(BasicResponse<List<FootPrintBean>> response) {
-//                        if (response != null) {
-//                            if (pageNum == 0) {
-//                                mFootPrintBean.clear();
-//                                mFootPrintBean.addAll(response.getData());
-//                                if (mFootPrintBean.size() > 0) {
-//                                    pageNum += 1;
-//                                    mFootPrintAdapter = new FootPrintAdapter(mFootPrintBean);
-//                                    rvAccountBrowsing.setAdapter(mFootPrintAdapter);
-//                                    mFootPrintAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-//                                        @Override
-//                                        public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-//                                            startActivity(new Intent(getActivity(), CommodityDetailsActivity.class).putExtra("CommodityDetails", mFootPrintBean.get(position).getResultList().get(position).getSkuCode()));
-//                                        }
-//                                    });
-//                                } else {
-//                                    mFootPrintAdapter.loadMoreEnd();
-//                                }
-//                            } else {
-//                                if (response.getData().size() > 0) {
-//                                    pageNum += 1;
-//                                    mFootPrintBean.addAll(response.getData());
-//                                    mFootPrintAdapter.addData(response.getData());
-//                                    mFootPrintAdapter.loadMoreComplete(); //完成本次
-//                                } else {
-//                                    mFootPrintAdapter.loadMoreEnd(); //完成所有加载
-//                                }
-//                            }
-//                        } else {
-//                            mFootPrintAdapter.loadMoreEnd();
-//                        }
-//                    }
-//                });
+        Map<String, String> stringMap = IdeaApi.getSign();
+        stringMap.put("pageNum", pageNum + "");
+        stringMap.put("pageSize", 3 + "");
+
+        IdeaApi.getRequestLogin(stringMap);
+        IdeaApi.getApiService()
+                .getFootPrint(stringMap)
+                .compose(this.<BasicResponse<FootPrintBean>>bindToLifecycle())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultObserver<BasicResponse<FootPrintBean>>(getActivity(), true) {
+                    @Override
+                    public void onSuccess(BasicResponse<FootPrintBean> response) {
+                        if (response != null) {
+                            if (pageNum == 0) {
+                                mFootPrintBean.clear();
+                                mFootPrintBean.addAll(response.getData().getResultList());
+                                if (mFootPrintBean.size() > 0) {
+                                    pageNum += 1;
+                                    mFootPrintAdapter = new FootPrintAdapter(mFootPrintBean);
+                                    rvAccountBrowsing.setAdapter(mFootPrintAdapter);
+                                    mFootPrintAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                                        @Override
+                                        public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                                            startActivity(new Intent(getActivity(), CommodityDetailsActivity.class).putExtra("CommodityDetails", mFootPrintBean.get(position).getSkuCode()));
+                                        }
+                                    });
+                                } else {
+                                    mFootPrintAdapter.loadMoreEnd();
+                                }
+                            } else {
+                                if (response.getData().getResultList().size() > 0) {
+                                    pageNum += 1;
+                                    mFootPrintBean.addAll(response.getData().getResultList());
+                                    mFootPrintAdapter.addData(response.getData().getResultList());
+                                    mFootPrintAdapter.loadMoreComplete(); //完成本次
+                                } else {
+                                    mFootPrintAdapter.loadMoreEnd(); //完成所有加载
+                                }
+                            }
+                        } else {
+                            mFootPrintAdapter.loadMoreEnd();
+                        }
+                    }
+                });
     }
 
     @Override
@@ -327,12 +329,14 @@ public class AccountFragment extends BaseFragment {
                     civAccountTitle.setDrawingCacheEnabled(false);
                     mAccountTitleImgPopupWindow.showAsDropDown(view, 0, 0);
                 } else {
-
+                    startActivity(new Intent(getActivity(), LoginActivity.class));
                 }
                 break;
             case R.id.tv_account_name:
                 if (is_Login) {
                     mAccountTitleNamePopupWindow.showAsDropDown(view, 0, 0);
+                } else {
+                    startActivity(new Intent(getActivity(), LoginActivity.class));
                 }
                 break;
             case R.id.bt_account_like:
@@ -344,5 +348,10 @@ public class AccountFragment extends BaseFragment {
                     startActivity(new Intent(App.getContext(), AccountMineReservationQueryActivity.class));
                 break;
         }
+    }
+
+    @Override
+    public void onLoadMoreRequested() {
+        initData();
     }
 }
