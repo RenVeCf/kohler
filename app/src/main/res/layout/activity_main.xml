@@ -25,6 +25,7 @@
             android:src="@mipmap/logobai"/>
 
         <ScrollView
+            android:id="@+id/scroll_view_mian"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -135,7 +136,7 @@
 
                     <TextView
                         style="@style/MenuStyle"
-                        android:text="@string/super_toilet_seat"/>
+                        android:text="@string/super_toilet_seat_c3"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -289,6 +290,23 @@
                     <TextView
                         style="@style/MenuStyle"
                         android:text="@string/massage_bathtub"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_toilet_heater"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/y120">
+
+                    <ImageView
+                        style="@style/MenuIconStyle"
+                        android:background="@mipmap/anmoyugang"/>
+
+                    <TextView
+                        style="@style/MenuStyle"
+                        android:text="@string/toilet_heater"/>
                 </LinearLayout>
 
                 <LinearLayout

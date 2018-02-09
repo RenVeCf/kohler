@@ -95,6 +95,8 @@ public class StackLayoutManager extends RecyclerView.LayoutManager {
 
     private Align direction = LEFT;
     private changeListenning mChangeListenning;
+    private int mCurPosition;
+    private int mPosition;
 
 
     public StackLayoutManager(Config config) {
@@ -355,6 +357,7 @@ public class StackLayoutManager extends RecyclerView.LayoutManager {
 
 
         int curPos = mTotalOffset / mUnit;
+        mCurPosition = curPos;
 
         int leavingSpace = left(curPos);
 
@@ -434,6 +437,7 @@ public class StackLayoutManager extends RecyclerView.LayoutManager {
 
 
         int curPos = mTotalOffset / mUnit;
+        mCurPosition = curPos;
 
         int leavingSpace = getWidth() - (left(curPos) + mUnit);
 
@@ -629,7 +633,11 @@ public class StackLayoutManager extends RecyclerView.LayoutManager {
 
                 lastAnimateValue = 0;
 
-//                Log.i("kohler66", "position = " +position);
+
+                if (mChangeListenning != null) {
+                    mChangeListenning.changeListenning(mCurPosition);
+                }
+                Log.i("kohler99", "position = " +mPosition +", mCurPosition = " +mCurPosition);
             }
 
 
@@ -693,7 +701,7 @@ public class StackLayoutManager extends RecyclerView.LayoutManager {
 
 
     private float scaleDefault(int position) {
-
+        mPosition = position;
 
         float scale;
 
@@ -751,6 +759,8 @@ public class StackLayoutManager extends RecyclerView.LayoutManager {
 
     private int left(int position) {
         int curPos = mTotalOffset / mUnit;
+        mCurPosition = curPos;
+        mPosition = position;
 
         int tail = mTotalOffset % mUnit;
 
@@ -803,10 +813,6 @@ public class StackLayoutManager extends RecyclerView.LayoutManager {
 
 
     private int ltr(int position, int curPos, int tail, float x) {
-
-        if (mChangeListenning != null) {
-            mChangeListenning.changeListenning(position);
-        }
         int left;
 
 
@@ -865,7 +871,7 @@ public class StackLayoutManager extends RecyclerView.LayoutManager {
 
         }
 
-
+        mPosition = position;
 
         return left;
 

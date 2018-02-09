@@ -24,13 +24,15 @@
     <string name="response_return_error">服务器返回数据失败</string>
     <string name="refresh">刷新</string>
 
-    <string name="commercial_products">商品产品</string>
+    <string name="commercial_products">商用产品</string>
     <string name="steam_equipment">蒸汽设备</string>
     <string name="shower_room">淋浴房</string>
     <string name="ceramic_tile">瓷砖石材</string>
     <string name="qing_shu_bao_toilet_seat">C³清舒宝智能座便盖</string>
     <string name="toilet_seat_cover">座便器盖板</string>
+    <string name="super_toilet_seat_c3">C³清舒宝智能座便盖</string>
     <string name="super_toilet_seat">一体超感座便器</string>
+    <string name="toilet_heater">浴室净•暖机（浴霸）</string>
     <string name="toilet_seat">座便器</string>
     <string name="shower_room_parts">浴室配件</string>
     <string name="shower_room_nozzle">浴室龙头</string>

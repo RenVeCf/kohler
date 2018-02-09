@@ -121,7 +121,7 @@ public class CommodityClassificationFragment extends BaseFragment implements Bas
                                 }
                             });
                         } else {
-                            mCommodityClassificationAdapter.loadMoreEnd();
+//                            mCommodityClassificationAdapter.loadMoreEnd();
                         }
                     }
                 });

@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.App;
@@ -79,6 +80,8 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
     ResideLayout rlMain;
     @BindView(R.id.view)
     View view_line;
+    @BindView(R.id.scroll_view_mian)
+    ScrollView scroll_view_mian;
 
     private Fragment currentFragment = new Fragment();
     private HomeFragment mHomeFragment = new HomeFragment();
@@ -105,6 +108,7 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
 
         //        //加载adapter
         //        cvpMainViewpager.setAdapter(new MyAdapter(getSupportFragmentManager(), setfargment()));
+
     }
 
     @Override

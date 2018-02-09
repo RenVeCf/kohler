@@ -73,10 +73,12 @@ public class WholeCategoryFragment extends BaseFragment implements StackLayoutMa
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(getActivity(), tvWholeCategoryTop);
 
-        if (SPUtil.get(App.getContext(), IConstants.TYPE, "").equals("dealer"))
-            ivTopCustomerService.setVisibility(View.VISIBLE);
-        else
-            ivTopCustomerService.setVisibility(View.GONE);
+        ivTopCustomerService.setVisibility(View.VISIBLE);
+
+//        if (SPUtil.get(App.getContext(), IConstants.TYPE, "").equals("dealer"))
+//            ivTopCustomerService.setVisibility(View.VISIBLE);
+//        else
+//            ivTopCustomerService.setVisibility(View.GONE);
         ivTopCustomerService.setImageResource(R.mipmap.kefubai);
         ivTopSystemMsg.setImageResource(R.mipmap.youxiangbai);
 
@@ -153,10 +155,7 @@ public class WholeCategoryFragment extends BaseFragment implements StackLayoutMa
     public void changeListenning(int position) {
         Log.i("kohler66", "position = " +position);
         if (position >= 1) {
-            tv_whole_category_visible.setText(mNotSelectClassificationPositiveSequenceBean.get(position - 1).getNameCn());
-            mTvTitleEn.setText(mNotSelectClassificationPositiveSequenceBean.get(position - 1).getNameEn());
-            mIvTitle.setVisibility(View.GONE);
-            mTvTitleEn.setVisibility(View.VISIBLE);
+
         }
 
         if ((mNotSelectClassificationPositiveSequenceBean.size() - 1) == position) {
@@ -165,6 +164,11 @@ public class WholeCategoryFragment extends BaseFragment implements StackLayoutMa
 
             tv_whole_category_visible.setText("科勒精选");
 //            mTvTitleEn.setText(mNotSelectClassificationPositiveSequenceBean.get(position).getNameEn());
+        } else {
+            tv_whole_category_visible.setText(mNotSelectClassificationPositiveSequenceBean.get(position).getNameCn());
+            mTvTitleEn.setText(mNotSelectClassificationPositiveSequenceBean.get(position).getNameEn());
+            mIvTitle.setVisibility(View.GONE);
+            mTvTitleEn.setVisibility(View.VISIBLE);
         }
     }
 }

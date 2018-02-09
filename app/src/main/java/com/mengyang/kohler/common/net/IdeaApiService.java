@@ -13,6 +13,7 @@ import com.mengyang.kohler.module.bean.LiveRealTimeBean;
 import com.mengyang.kohler.module.bean.LoginBean;
 import com.mengyang.kohler.module.bean.MeetingBean;
 import com.mengyang.kohler.module.bean.NotSelectClassificationBean;
+import com.mengyang.kohler.module.bean.QuestionSearchBean;
 import com.mengyang.kohler.module.bean.RefreshTokenBean;
 import com.mengyang.kohler.module.bean.ReservationQueryBean;
 import com.mengyang.kohler.module.bean.SelectClassificationBean;
@@ -216,4 +217,9 @@ public interface IdeaApiService {
     @FormUrlEncoded
     @POST(Config.BOOKS_LIST)
     Observable<BasicResponse<BooksListBean>> getBooksList(@FieldMap Map<String, String> map);
+
+    //问题搜索
+    @FormUrlEncoded
+    @POST(Config.QUESTION_SEARCH)
+    Observable<BasicResponse<QuestionSearchBean>> questionSearch(@FieldMap Map<String, String> map);
 }

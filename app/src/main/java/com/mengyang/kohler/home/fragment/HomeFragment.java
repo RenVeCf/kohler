@@ -2,19 +2,23 @@ package com.mengyang.kohler.home.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseFragment;
 import com.mengyang.kohler.R;
+import com.mengyang.kohler.common.activity.CustomerServiceActivity;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.net.IdeaApi;
@@ -60,12 +64,6 @@ public class HomeFragment extends BaseFragment {
     RecyclerView rvHomeVideo;
     @BindView(R.id.rv_home_books)
     RecyclerView rvHomeBooks;
-    @BindView(R.id.v_home_banner1)
-    View vHomeBanner1;
-    @BindView(R.id.v_home_banner2)
-    View vHomeBanner2;
-    @BindView(R.id.v_home_banner3)
-    View vHomeBanner3;
     @BindView(R.id.iv_top_menu)
     ImageView ivTopMenu;
     @BindView(R.id.iv_home_search)
@@ -76,6 +74,8 @@ public class HomeFragment extends BaseFragment {
     TextView tvMyBrochureDonw;
     @BindView(R.id.iv_top_customer_service)
     ImageView ivTopCustomerService;
+    @BindView(R.id.ll_indicator)
+    LinearLayout mLlIndicator;
     //侧滑Meun键的接口回调
     private OnFragmentInteractionListener mListener;
     private HomeIndexBean mHomeIndexBean;
@@ -83,6 +83,7 @@ public class HomeFragment extends BaseFragment {
     private List<AdPageInfo> mDatas = new ArrayList<>();
     private HomeBooksAdapter mHomeBooksAdapter;
     private String mH5_URL = "";
+    private int prevousPosition;
 
     @Override
     protected int getLayoutId() {
@@ -94,10 +95,10 @@ public class HomeFragment extends BaseFragment {
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(getActivity(), tvHomeTop);
 
-        if (SPUtil.get(App.getContext(), IConstants.TYPE, "").equals("dealer"))
+//        if (SPUtil.get(App.getContext(), IConstants.TYPE, "").equals("dealer"))
             ivTopCustomerService.setVisibility(View.VISIBLE);
-        else
-            ivTopCustomerService.setVisibility(View.GONE);
+//        else
+//            ivTopCustomerService.setVisibility(View.GONE);
         //必须先初始化SQLite
         DatabaseUtils.initHelper(getActivity(), "books.db");
         //轮播
@@ -110,7 +111,6 @@ public class HomeFragment extends BaseFragment {
         // 如果可以确定每个item的高度是固定的，设置这个选项可以提高性能
         rvHomeBooks.setHasFixedSize(true);
         rvHomeBooks.setItemAnimator(new DefaultItemAnimator());
-        abHomeLoop.setImageViewScaleType(AdPlayBanner.ScaleType.CENTER_CROP);
 
         //所有下载好的PDF集合
         List<BooksBean> list = DatabaseUtils.getHelper().queryAll(BooksBean.class);
@@ -125,6 +125,8 @@ public class HomeFragment extends BaseFragment {
             tvMyBrochureDonw.setVisibility(View.VISIBLE);
         }
         rvHomeBooks.setAdapter(mHomeBooksAdapter);
+
+        abHomeLoop.setImageViewScaleType(AdPlayBanner.ScaleType.CENTER_CROP);
     }
 
     @Override
@@ -145,6 +147,23 @@ public class HomeFragment extends BaseFragment {
                     @Override
                     public void onSuccess(BasicResponse<HomeIndexBean> response) {
                         mHomeIndexBean = response.getData();
+
+                        for (int i = 0; i < mHomeIndexBean.getKvList().size(); i++) {
+                            ImageView point = new ImageView(getActivity());
+                            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(75, 9);
+
+                            if (i != 0) {
+                                layoutParams.leftMargin = 6;//layout_marginleft= 6
+                                point.setEnabled(false);
+                            }
+
+                            point.setLayoutParams(layoutParams);
+                            point.setBackgroundColor(Color.parseColor("#e3e3e3"));
+                            mLlIndicator.addView(point);
+
+                        }
+
+
                         for (int i = 0; i < mHomeIndexBean.getKvSize(); i++) {
                             AdPageInfo info = new AdPageInfo("", mHomeIndexBean.getKvList().get(i).getKvUrl(), "", i + 1);
                             mDatas.add(info);
@@ -181,19 +200,16 @@ public class HomeFragment extends BaseFragment {
                         abHomeLoop.setOnPagerChangeListener(new AdPlayBanner.OnPagerChangeListener() {
                             @Override
                             public void onPageSelected(int position) {
-                                if (position == 0 && vHomeBanner1 != null && vHomeBanner2 != null && vHomeBanner3 != null) {
-                                    vHomeBanner1.setBackgroundColor(getResources().getColor(R.color.black));
-                                    vHomeBanner2.setBackgroundColor(getResources().getColor(R.color.home_banner_line));
-                                    vHomeBanner3.setBackgroundColor(getResources().getColor(R.color.home_banner_line));
-                                } else if (position == 1 && vHomeBanner1 != null && vHomeBanner2 != null && vHomeBanner3 != null) {
-                                    vHomeBanner1.setBackgroundColor(getResources().getColor(R.color.home_banner_line));
-                                    vHomeBanner2.setBackgroundColor(getResources().getColor(R.color.black));
-                                    vHomeBanner3.setBackgroundColor(getResources().getColor(R.color.home_banner_line));
-                                } else if (position == 2 && vHomeBanner1 != null && vHomeBanner2 != null && vHomeBanner3 != null) {
-                                    vHomeBanner1.setBackgroundColor(getResources().getColor(R.color.home_banner_line));
-                                    vHomeBanner2.setBackgroundColor(getResources().getColor(R.color.home_banner_line));
-                                    vHomeBanner3.setBackgroundColor(getResources().getColor(R.color.black));
-                                }
+
+                                //当前页面选中时，先将上一次选中的位置设置为未选中，并将当前的位置记录下来为下一次移动做准备
+//                                mLlIndicator.getChildAt(prevousPosition).setEnabled(false);
+                                mLlIndicator.getChildAt(prevousPosition).setBackgroundColor(Color.parseColor("#e3e3e3"));
+                                prevousPosition = position;
+
+                                //要让对应角标的小圆点选中
+                                View childAt = mLlIndicator.getChildAt(position);
+//                                childAt.setEnabled(true);
+                                childAt.setBackgroundColor(Color.BLACK);
                             }
 
                             @Override
@@ -207,6 +223,7 @@ public class HomeFragment extends BaseFragment {
                         //数据源
                         abHomeLoop.setInfoList((ArrayList<AdPageInfo>) mDatas);
                         abHomeLoop.setUp();
+
                     }
                 });
     }
@@ -233,7 +250,7 @@ public class HomeFragment extends BaseFragment {
         void onFragmentInteraction(String data);
     }
 
-    @OnClick({R.id.iv_top_menu, R.id.iv_home_search})
+    @OnClick({R.id.iv_top_menu, R.id.iv_home_search,R.id.iv_top_customer_service})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_home_search:
@@ -243,6 +260,12 @@ public class HomeFragment extends BaseFragment {
             case R.id.iv_top_menu:
 //                abHomeLoop.setAutoPlay(false);
                 mListener.onFragmentInteraction("");
+                break;
+            case R.id.iv_top_customer_service:
+//                startActivity(new Intent(getContext(), CustomerServiceActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                startActivity(new Intent(getContext(), CustomerServiceActivity.class));
+                break;
+            default:
                 break;
         }
     }

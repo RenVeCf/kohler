@@ -57,4 +57,10 @@ public interface Config  {
     String MODIFY_NIKE_NAME = "authz/account/updateNickName"; //修改昵称
     String FOOT_PRINT = "product/recordList"; //足迹列表
     String MEETING_USER_SETTINGS = "/data/get"; //获取经销商大会用户设置
+
+
+    /**
+     * 客服
+     */
+    String QUESTION_SEARCH = "question/search"; //问题搜索
 }
