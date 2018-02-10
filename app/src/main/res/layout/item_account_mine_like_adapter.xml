@@ -2,16 +2,18 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="@dimen/x468"
     android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/y30"
+    android:layout_marginBottom="@dimen/y30"
     android:orientation="vertical">
 
     <ImageView
         android:id="@+id/iv_account_mine_like_adapter_item"
-        android:layout_width="@dimen/x468"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/y411"
         android:src="@mipmap/ic_launcher_round"
-        android:scaleType="fitXY"/>
+        android:scaleType="centerCrop"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -48,6 +50,7 @@
             android:id="@+id/iv_account_mine_like_adapter_remove"
             android:layout_width="@dimen/x42"
             android:layout_height="@dimen/y48"
+            android:layout_marginEnd="@dimen/x30"
             android:src="@mipmap/colletiong_delete"/>
     </LinearLayout>
 </LinearLayout>

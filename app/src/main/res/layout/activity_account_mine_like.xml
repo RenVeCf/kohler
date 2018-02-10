@@ -29,16 +29,14 @@
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/srl_account_mine_like"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginEnd="@dimen/x72"
+        android:layout_marginStart="@dimen/x72"
+        android:layout_marginTop="@dimen/y60">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_account_mine_like"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="@dimen/x72"
-            android:layout_marginStart="@dimen/x72"
-            android:layout_marginTop="@dimen/y60"/>
+            android:layout_height="match_parent"/>
     </android.support.v4.widget.SwipeRefreshLayout>
-
-
 </LinearLayout>

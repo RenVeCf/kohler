@@ -24,6 +24,7 @@ import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.net.IdeaApi;
+import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.view.GridSpacingItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
@@ -174,14 +175,13 @@ public class MeetingActivity extends BaseActivity {
 
         IdeaApi.getRequestLogin(stringMap);
         IdeaApi.getApiService()
-                .getMeetingUserSettings(stringMap)
+                .getMeetingUserSettingsModify(stringMap)
                 .compose(MeetingActivity.this.<BasicResponse>bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<BasicResponse>(MeetingActivity.this, true) {
+                .subscribe(new DefaultObserver<BasicResponse>(MeetingActivity.this, false) {
                     @Override
                     public void onSuccess(BasicResponse response) {
-
                     }
                 });
     }

@@ -183,7 +183,7 @@ public class HomeFragment extends BaseFragment {
                                     Intent intent = new Intent();
                                     intent.setAction("android.intent.action.VIEW");
                                     Uri content_url = Uri.parse(mH5_URL);
-                                    intent.setData(content_url);
+                                    intent.setData(content_url).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                     getActivity().startActivity(intent);
                                 }
                             }

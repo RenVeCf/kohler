@@ -14,11 +14,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -31,8 +29,7 @@ import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.utils.CommonDialogUtils;
 import com.mengyang.kohler.common.utils.IOUtils;
-import com.mengyang.kohler.common.utils.LogUtils;
-import com.mengyang.kohler.common.view.AutoSplitTextView;
+import com.mengyang.kohler.common.utils.ToastUtil;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.home.activity.DownLoaderPDFActivity;
 import com.mengyang.kohler.home.activity.StoreMapActivity;
@@ -284,7 +281,8 @@ public class CommodityDetailsActivity extends BaseActivity {
                         }).start();
                         SystemClock.sleep(2000);
 
-                        if (mDatas != null) {
+                        //防止用户点击已下架的商品
+                        if (mDatas != null && mDatas.size() > 0) {
                             if (dialogUtils != null) {
                                 dialogUtils.dismissProgress();
                             }
@@ -295,39 +293,41 @@ public class CommodityDetailsActivity extends BaseActivity {
                                     return new BannerViewHolder();
                                 }
                             });
+                        } else {
+                            ToastUtil.showToast("商品已下架！");
+                            finish();
                         }
 
                         tvCommodityDetailsBrand.setText(mCommodityDetails.get(poction).getProDetail().getProductName());
                         tvCommodityDetailsModel.setText(mCommodityDetails.get(poction).getProDetail().getSkuCode());
                         if (mSelectColorNum == 0) {
                             StringBuffer sb = new StringBuffer();
-                            for (int i = 0; i < mCommodityDetails.get(poction).getAttrList().size(); i++) {
-                                if (mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName().equals("亮点")) {
-                                    tvFunction.setText(mCommodityDetails.get(poction).getAttrList().get(i).getAttrValue());
-                                } else if (!mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName().equals("TMALL链接") && !mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName().equals("特征") && !mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName().equals("pdfUrl")) {
-                                    LinearLayout relative = new LinearLayout(CommodityDetailsActivity.this);
+                            if (mCommodityDetails.get(poction).getAttrList() != null) {
+                                for (int i = 0; i < mCommodityDetails.get(poction).getAttrList().size(); i++) {
+                                    if (mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName().equals("亮点")) {
+                                        tvFunction.setText(mCommodityDetails.get(poction).getAttrList().get(i).getAttrValue());
+                                    } else if (!mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName().equals("TMALL链接") && !mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName().equals("特征") && !mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName().equals("pdfUrl")) {
+                                        LinearLayout relative = new LinearLayout(CommodityDetailsActivity.this);
+                                        relative.setOrientation(LinearLayout.HORIZONTAL);
+                                        TextView label = new TextView(CommodityDetailsActivity.this);
+                                        label.setText(mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName() + ": ");
+                                        label.setTextColor(Color.BLACK);
+                                        label.setTextSize(11);
+                                        label.setLineSpacing(7, 0);
+                                        TextPaint tp = label.getPaint();
+                                        tp.setFakeBoldText(true);
+                                        relative.addView(label);
 
-                                    relative.setOrientation(LinearLayout.HORIZONTAL);
-                                    TextView label = new TextView(CommodityDetailsActivity.this);
-                                    label.setText(mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName() + ": ");
-                                    label.setTextColor(Color.BLACK);
-                                    label.setTextSize(11);
-                                    label.setLineSpacing(7, 0);
-                                    TextPaint tp = label.getPaint();
-                                    tp.setFakeBoldText(true);
-                                    relative.addView(label);
-
-                                    TextView attribute = new TextView(CommodityDetailsActivity.this);
-//                                    attribute.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
-
-                                    attribute.setText(mCommodityDetails.get(poction).getAttrList().get(i).getAttrValue());
-                                    attribute.setTextColor(Color.BLACK);
-                                    attribute.setTextSize(11);
-                                    attribute.setLineSpacing(7, 0);
-                                    relative.addView(attribute);
-                                    llCommodityDetails.addView(relative);
-                                } else if (mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName().equals("TMALL链接")) {
-                                    mTianMaoUrl = mCommodityDetails.get(poction).getAttrList().get(i).getAttrValue();
+                                        TextView attribute = new TextView(CommodityDetailsActivity.this);
+                                        attribute.setText(mCommodityDetails.get(poction).getAttrList().get(i).getAttrValue());
+                                        attribute.setTextColor(Color.BLACK);
+                                        attribute.setTextSize(11);
+                                        attribute.setLineSpacing(7, 0);
+                                        relative.addView(attribute);
+                                        llCommodityDetails.addView(relative);
+                                    } else if (mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName().equals("TMALL链接")) {
+                                        mTianMaoUrl = mCommodityDetails.get(poction).getAttrList().get(i).getAttrValue();
+                                    }
                                 }
                             }
 
@@ -346,8 +346,8 @@ public class CommodityDetailsActivity extends BaseActivity {
                                         });
                                         Glide.with(App.getContext()).load(mCommodityDetails.get(i).getSkuAttrList().get(j).getSkuImageName()).apply(new RequestOptions().placeholder(R.mipmap.queshengtu)).into(label);
                                         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(150, 150);
-                                        layoutParams.setMargins(0,0,20,0);
-                                        ivCommodityDetailsColorImg.addView(label,layoutParams);
+                                        layoutParams.setMargins(0, 0, 20, 0);
+                                        ivCommodityDetailsColorImg.addView(label, layoutParams);
                                     }
                                 }
                             }

@@ -21,6 +21,7 @@ import com.mengyang.kohler.module.bean.StoreListBean;
 import com.mengyang.kohler.module.bean.SystemMsgBean;
 import com.mengyang.kohler.module.bean.UploadHeadPortraitBean;
 import com.mengyang.kohler.module.bean.UserHomeKVBean;
+import com.mengyang.kohler.module.bean.UserMsgBean;
 
 import java.util.List;
 import java.util.Map;
@@ -200,13 +201,13 @@ public interface IdeaApiService {
 
     //获取经销商大会推送是否开启的用户设置
     @FormUrlEncoded
-    @POST(Config.MEETING_USER_SETTINGS)
-    Observable<BasicResponse> getMeetingUserSettings(@FieldMap Map<String, String> map);
+    @POST(Config.MEETING_USER_SETTINGS_MODIFY)
+    Observable<BasicResponse> getMeetingUserSettingsModify(@FieldMap Map<String, String> map);
 
     //经销商大会现场实时投票
     @FormUrlEncoded
     @POST(Config.MEETING_LIVE_REAL_TIME)
-    Observable<BasicResponse<List<LiveRealTimeBean>>> getMeetingLiveRealTime(@FieldMap Map<String, String> map);
+    Observable<BasicResponse<LiveRealTimeBean>> getMeetingLiveRealTime(@FieldMap Map<String, String> map);
 
     //全文搜索
     @FormUrlEncoded
@@ -222,4 +223,9 @@ public interface IdeaApiService {
     @FormUrlEncoded
     @POST(Config.QUESTION_SEARCH)
     Observable<BasicResponse<QuestionSearchBean>> questionSearch(@FieldMap Map<String, String> map);
+
+    //用户信息
+    @FormUrlEncoded
+    @POST(Config.USER_MSG)
+    Observable<BasicResponse<UserMsgBean>> getUserMsg(@FieldMap Map<String, String> map);
 }

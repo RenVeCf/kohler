@@ -55,7 +55,7 @@ public class AccountSettingsActivity extends BaseActivity {
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(this, tvAccountSettingsTop);
         if (is_Login) {
-            btAccountSettingsSignOut.setText(App.getContext().getResources().getString(R.string.login));
+            btAccountSettingsSignOut.setText(App.getContext().getResources().getString(R.string.sign_out));
             tvAccountSettingsModifyPwd.setClickable(true);
             tvAccountSettingsModifyPwd.setTextColor(App.getContext().getResources().getColor(R.color.pwd));
             tvAccountSettingsModifyBindPhone.setClickable(true);

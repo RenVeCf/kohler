@@ -23,6 +23,8 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.App;
@@ -36,6 +38,7 @@ import com.mengyang.kohler.account.adapter.FootPrintAdapter;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.net.IdeaApi;
+import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.view.CircleImageView;
 import com.mengyang.kohler.common.view.SpacesItemDecoration;
@@ -43,6 +46,7 @@ import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.FootPrintBean;
 import com.mengyang.kohler.module.bean.UploadHeadPortraitBean;
+import com.mengyang.kohler.module.bean.UserMsgBean;
 import com.mengyang.kohler.whole_category.activity.CommodityDetailsActivity;
 
 import java.io.File;
@@ -94,6 +98,7 @@ public class AccountFragment extends BaseFragment implements BaseQuickAdapter.Re
     private Button btAccountPopNewName; //名称PopupWindow确定键
     private List<FootPrintBean.ResultListBean> mFootPrintBean;
     private FootPrintAdapter mFootPrintAdapter;
+    private UserMsgBean mUserMsgBean;
     private int pageNum = 0;
     //是否登录
     private boolean is_Login = (boolean) SPUtil.get(App.getContext(), IConstants.IS_LOGIN, false);
@@ -221,6 +226,33 @@ public class AccountFragment extends BaseFragment implements BaseQuickAdapter.Re
 
     @Override
     protected void initData() {
+        //用户信息
+        getUserMsg();
+        //浏览足迹
+        getFootPrint();
+    }
+
+    private void getUserMsg() {
+        Map<String, String> stringMap = IdeaApi.getSign();
+
+        IdeaApi.getRequestLogin(stringMap);
+        IdeaApi.getApiService()
+                .getUserMsg(stringMap)
+                .compose(this.<BasicResponse<UserMsgBean>>bindToLifecycle())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultObserver<BasicResponse<UserMsgBean>>(getActivity(), false) {
+                    @Override
+                    public void onSuccess(BasicResponse<UserMsgBean> response) {
+                        mUserMsgBean = response.getData();
+                        tvAccountName.setText(mUserMsgBean.getNickName());
+                        Glide.with(App.getContext()).load(mUserMsgBean.getPortraitUrl()).apply(new RequestOptions().placeholder(R.mipmap.oval)).into(civAccountTitle);
+                        SPUtil.put(App.getContext(), IConstants.MEETING_PUSH_MSG, mUserMsgBean.isPushMsg());
+                    }
+                });
+    }
+
+    private void getFootPrint() {
         Map<String, String> stringMap = IdeaApi.getSign();
         stringMap.put("pageNum", pageNum + "");
         stringMap.put("pageSize", 3 + "");

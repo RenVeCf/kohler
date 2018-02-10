@@ -14,6 +14,7 @@ import com.mengyang.kohler.R;
 import com.mengyang.kohler.account.adapter.AccountMineLikeAdapter;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IdeaApi;
+import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.view.GridSpacingItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.module.BasicResponse;
@@ -98,13 +99,12 @@ public class AccountMineLikeActivity extends BaseActivity implements BaseQuickAd
                                 if (likeListBean.size() > 0) {
                                     pageNum += 1;
                                     mAccountMineLikeAdapter = new AccountMineLikeAdapter(likeListBean);
-                                    mAccountMineLikeAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_BOTTOM); //动画
-                                    mAccountMineLikeAdapter.isFirstOnly(false); //第一次
                                     rvAccountMineLike.setAdapter(mAccountMineLikeAdapter);
                                     mAccountMineLikeAdapter.setOnLoadMoreListener(AccountMineLikeActivity.this, rvAccountMineLike); //加载更多
                                     mAccountMineLikeAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
                                         @Override
                                         public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                                            //取消收藏
                                             Map<String, String> stringMap = IdeaApi.getSign();
                                             stringMap.put("id", likeListBean.get(position).getId() + "");
 
@@ -117,6 +117,7 @@ public class AccountMineLikeActivity extends BaseActivity implements BaseQuickAd
                                                     .subscribe(new DefaultObserver<BasicResponse>(AccountMineLikeActivity.this, true) {
                                                         @Override
                                                         public void onSuccess(BasicResponse response) {
+                                                            pageNum = 0;
                                                             initData();
                                                         }
                                                     });

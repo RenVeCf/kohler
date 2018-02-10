@@ -96,6 +96,6 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/y141"
         android:background="@color/black"
-        android:text="@string/sign_out"
+        android:text="@string/login"
         android:textColor="@color/white"/>
 </LinearLayout>

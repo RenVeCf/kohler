@@ -2,14 +2,14 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="@dimen/x468"
+    android:layout_width="match_parent"
     android:layout_height="@dimen/y600">
 
     <ImageView
         android:id="@+id/iv_live_real_time_item_img"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         android:src="@mipmap/ic_launcher_round"/>
 
     <LinearLayout
@@ -43,6 +43,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="@dimen/x24"
         android:layout_marginBottom="@dimen/y24"
+        android:paddingTop="@dimen/y9"
         android:paddingBottom="2dp"
         android:gravity="center_horizontal"
         android:background="@color/black"
@@ -53,11 +54,11 @@
             android:layout_height="wrap_content"
             android:textSize="10sp"
             android:textColor="#ffffff"
-            tools:text="投TA一票"/>
+            android:text="投TA一票"/>
 
         <View
             android:layout_width="wrap_content"
-            android:layout_height="3dp"
+            android:layout_height="2dp"
             android:layout_marginStart="@dimen/x21"
             android:layout_marginEnd="@dimen/x21"
             android:background="@color/white"/>

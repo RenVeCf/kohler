@@ -20,15 +20,15 @@ import java.util.List;
  * Time : 2018/1/29
  */
 
-public class LiveRealTimeAdapter extends BaseQuickAdapter<LiveRealTimeBean, BaseViewHolder> {
+public class LiveRealTimeAdapter extends BaseQuickAdapter<LiveRealTimeBean.ResultListBean, BaseViewHolder> {
 
-    public LiveRealTimeAdapter(@Nullable List<LiveRealTimeBean> data) {
+    public LiveRealTimeAdapter(@Nullable List<LiveRealTimeBean.ResultListBean> data) {
         super(R.layout.item_live_real_time_adapter, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, LiveRealTimeBean item) {
-        helper.setText(R.id.tv_live_real_time_vote_num, "");
-        Glide.with(App.getContext()).load("").apply(new RequestOptions().placeholder(R.mipmap.queshengtu)).into((ImageView) helper.getView(R.id.iv_live_real_time_item_img));
+    protected void convert(BaseViewHolder helper, LiveRealTimeBean.ResultListBean item) {
+        helper.setText(R.id.tv_live_real_time_vote_num, item.getLikeCount() + "");
+        Glide.with(App.getContext()).load(item.getPicUrl()).apply(new RequestOptions().placeholder(R.mipmap.queshengtu)).into((ImageView) helper.getView(R.id.iv_live_real_time_item_img));
     }
 }

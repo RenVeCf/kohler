@@ -14,6 +14,7 @@ import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IdeaApi;
+import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.view.SpacesItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.home.adapter.StoreListAdapter;
@@ -87,11 +88,10 @@ public class StoreListActivity extends BaseActivity implements BaseQuickAdapter.
     @Override
     protected void initData() {
         Map<String, String> stringMap = IdeaApi.getSign();
-        //接口有问题
         stringMap.put("pageNum", pageNum + "");
         stringMap.put("pageSize", 10 + "");
-        stringMap.put("latitude", "30.628679");
-        stringMap.put("longitude", "114.289438");
+        stringMap.put("latitude", latitude + ""); //假数据 30.628679
+        stringMap.put("longitude", longitude + ""); //114.289438
 
         IdeaApi.getRequestLogin(stringMap);
         IdeaApi.getApiService()
@@ -102,6 +102,7 @@ public class StoreListActivity extends BaseActivity implements BaseQuickAdapter.
                 .subscribe(new DefaultObserver<BasicResponse<StoreListBean>>(StoreListActivity.this, true) {
                     @Override
                     public void onSuccess(BasicResponse<StoreListBean> response) {
+                        LogUtils.i("rmy", "response.getData() = " + response.toString());
                         if (response != null) {
                             if (pageNum == 0) {
                                 mStoreListBean.clear();
@@ -110,16 +111,13 @@ public class StoreListActivity extends BaseActivity implements BaseQuickAdapter.
                                 if (mStoreListBean.size() > 0) {
                                     pageNum = pageNum + 1;
                                     mStoreListAdapter = new StoreListAdapter(mStoreListBean);
-                                    mStoreListAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_BOTTOM); //动画
-//                                    mStoreListAdapter.isFirstOnly(false); //第一次
                                     rvStoreList.setAdapter(mStoreListAdapter);
-                                    mStoreListAdapter.setOnLoadMoreListener(StoreListActivity.this); //加载更多
+                                    mStoreListAdapter.setOnLoadMoreListener(StoreListActivity.this, rvStoreList); //加载更多
                                 } else {
                                     mStoreListAdapter.loadMoreEnd();
                                 }
                             } else {
                                 if (response.getData().getResultList().size() > 0) {
-//                                    mStoreListBean.clear();
                                     pageNum = pageNum + 1;
                                     mStoreListBean.addAll(response.getData().getResultList());
                                     mStoreListAdapter.addData(response.getData().getResultList());
@@ -129,7 +127,7 @@ public class StoreListActivity extends BaseActivity implements BaseQuickAdapter.
                                 }
                             }
                         } else {
-//                            mStoreListAdapter.loadMoreEnd();
+                            mStoreListAdapter.loadMoreEnd();
                         }
                     }
                 });

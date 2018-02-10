@@ -34,6 +34,9 @@ public interface Config  {
     String MEETING = "ndc/facadeGetMeetingAndAgenda"; //经销商大会页数据
     String MEETING_LIVE_REAL_TIME = "ndc/getPictureList"; //经销商大会现场实时投票
     String BOOKS_LIST = "handBook/getHandBooks"; //手册列表
+    String MEETING_USER_SETTINGS = "user/data/get"; //获取经销商大会用户设置
+    String MEETING_USER_SETTINGS_MODIFY = "user/data/update"; //修改销商大会用户设置
+
 
     /**
      * 全品类
@@ -56,8 +59,7 @@ public interface Config  {
     String UPLOAD_HEAD_PORTRAIT = "file/uploadMedia"; //上传头像
     String MODIFY_NIKE_NAME = "authz/account/updateNickName"; //修改昵称
     String FOOT_PRINT = "product/recordList"; //足迹列表
-    String MEETING_USER_SETTINGS = "/data/get"; //获取经销商大会用户设置
-
+    String USER_MSG = "authz/account/getUserInfo"; //用户信息
 
     /**
      * 客服
