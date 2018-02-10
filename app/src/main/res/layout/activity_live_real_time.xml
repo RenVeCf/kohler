@@ -43,13 +43,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/y36"
-                android:scaleType="fitXY"
-                android:src="@mipmap/ic_launcher_round"/>
+                android:scaleType="centerCrop"
+                android:src="@mipmap/queshengtu"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/y87"
+                android:layout_marginTop="@dimen/y90"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -80,7 +80,7 @@
                 android:id="@+id/rv_live_real_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"/>
+                android:layout_marginTop="@dimen/y12"/>
         </LinearLayout>
     </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

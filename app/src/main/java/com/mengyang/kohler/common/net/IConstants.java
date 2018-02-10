@@ -22,6 +22,8 @@ public class IConstants {
     public static final String USER_ID = "userId"; //用户uid
     public static final String JPUSH_SYSTEM_ID = "registrationId"; //极光系统id
     public static final String MEETING_PUSH_MSG = "true"; //获取经销商大会用户设置
+    public static final String USER_NIKE_NAME = ""; //用户昵称
+    public static final String USER_HEAD_PORTRAIT = ""; //用户头像URL
 
     /**
      * 请求码 从60开始

@@ -4,6 +4,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -13,6 +14,7 @@ import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IdeaApi;
+import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.view.GridSpacingItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.home.adapter.LiveRealTimeAdapter;
@@ -101,6 +103,12 @@ public class LiveRealTimeActivity extends BaseActivity implements BaseQuickAdapt
                                     mLiveRealTimeAdapter = new LiveRealTimeAdapter(mLiveRealTimeBean);
                                     rvLiveRealTime.setAdapter(mLiveRealTimeAdapter);
                                     mLiveRealTimeAdapter.setOnLoadMoreListener(LiveRealTimeActivity.this, rvLiveRealTime); //加载更多
+                                    mLiveRealTimeAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                                        @Override
+                                        public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+
+                                        }
+                                    });
                                 } else {
                                     mLiveRealTimeAdapter.loadMoreEnd();
                                 }

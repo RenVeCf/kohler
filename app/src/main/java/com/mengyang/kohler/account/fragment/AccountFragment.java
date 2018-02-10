@@ -247,6 +247,8 @@ public class AccountFragment extends BaseFragment implements BaseQuickAdapter.Re
                         mUserMsgBean = response.getData();
                         tvAccountName.setText(mUserMsgBean.getNickName());
                         Glide.with(App.getContext()).load(mUserMsgBean.getPortraitUrl()).apply(new RequestOptions().placeholder(R.mipmap.oval)).into(civAccountTitle);
+                        SPUtil.put(App.getContext(), IConstants.USER_NIKE_NAME, mUserMsgBean.getNickName());
+                        SPUtil.put(App.getContext(), IConstants.USER_HEAD_PORTRAIT, mUserMsgBean.getPortraitUrl());
                         SPUtil.put(App.getContext(), IConstants.MEETING_PUSH_MSG, mUserMsgBean.isPushMsg());
                     }
                 });
