@@ -24,7 +24,7 @@
     <!--android:layout_width="@dimen/x312"
         android:layout_height="@dimen/y117"-->
     <RelativeLayout
-        android:layout_marginStart="@dimen/x96"
+        android:layout_marginStart="@dimen/x140"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/y117"
         >
@@ -48,7 +48,7 @@
         android:id="@+id/ll_whole_category_tabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/x150"
+        android:layout_marginStart="@dimen/x140"
         android:orientation="horizontal"
         android:paddingBottom="@dimen/y50">
 

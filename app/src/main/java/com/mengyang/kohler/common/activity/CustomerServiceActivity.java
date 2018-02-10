@@ -1,12 +1,16 @@
 package com.mengyang.kohler.common.activity;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
@@ -14,6 +18,7 @@ import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.adapter.UserServiceAdapter;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IdeaApi;
+import com.mengyang.kohler.common.utils.ToastUtil;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.QuestionSearchBean;
@@ -37,13 +42,12 @@ public class CustomerServiceActivity extends BaseActivity {
     TopView tvCustomerServiceTop;
     @BindView(R.id.btn_send_message)
     Button mBtnSendMessage;
-    @BindView(R.id.recycler_view_service)
+    @BindView(R.id.recycler_view_service11)
     RecyclerView mRecyclerViewService;
     @BindView(R.id.et_question)
     EditText mEtQuestion;
 
-    private List<UserMsg> mDataList = new ArrayList<>();
-    private List<QuestionSearchBean> mResponse = new ArrayList<>();
+    private List<QuestionSearchBean> mDataList = new ArrayList<>();
     private String mQuestionContent;
     private UserServiceAdapter mUserServiceAdapter;
 
@@ -54,14 +58,20 @@ public class CustomerServiceActivity extends BaseActivity {
 
     @Override
     protected void initValues() {
+//        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         App.getManager().addActivity(this);
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(this, tvCustomerServiceTop);
+        initAdapter();
 
-        mRecyclerViewService.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        mDataList.add(new UserMsg("1235213",1));
+    }
+
+    private void initAdapter() {
+        mRecyclerViewService.setLayoutManager(new LinearLayoutManager(this));
+        mDataList.add(new QuestionSearchBean("您好，我是科勒机器人客服，请提问或输入关键词查询。", 0));
         mUserServiceAdapter = new UserServiceAdapter(mDataList);
         mRecyclerViewService.setAdapter(mUserServiceAdapter);
+
     }
 
     @Override
@@ -75,25 +85,27 @@ public class CustomerServiceActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.recycler_view_service, R.id.btn_send_message})
+    @OnClick({R.id.recycler_view_service11, R.id.btn_send_message})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.recycler_view_service:
+            case R.id.recycler_view_service11:
 
                 break;
             case R.id.btn_send_message:
                 mQuestionContent = mEtQuestion.getText().toString().trim();
 
-                mDataList.add(new UserMsg(mQuestionContent,1));
+                if (!TextUtils.isEmpty(mQuestionContent)) {
+                    QuestionSearchBean questionSearchBean = new QuestionSearchBean(mQuestionContent,1);
+//                    mDataList.add(questionSearchBean);
 
-                searchQuestion(mQuestionContent);
-
-
-//                                        mDataList.clear();
-
+                    mUserServiceAdapter.addData(questionSearchBean);
+                    searchQuestion(mQuestionContent);
+                } else {
+                    ToastUtil.showToast("输入内容不能为空");
+                }
                 break;
-                default:
-                    break;
+            default:
+                break;
         }
     }
 
@@ -109,19 +121,25 @@ public class CustomerServiceActivity extends BaseActivity {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse<QuestionSearchBean>>(this,true) {
                     @Override
-                    public void onSuccess(BasicResponse<QuestionSearchBean> response) {
-                        Log.i("666",response.getData().toString());
-//                        mResponse = response.getData();
+                    public void onSuccess(final BasicResponse<QuestionSearchBean> response) {
+                        QuestionSearchBean questionSearchBean = new QuestionSearchBean("",0);
+                        if (response.getData() != null) {
+                            questionSearchBean = response.getData();
+                            mUserServiceAdapter.addData(questionSearchBean);
 
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-
-                                mUserServiceAdapter.addData(mDataList);
-//                                mUserServiceAdapter.notifyDataSetChanged();
-                            }
-                        });
-
+                            mUserServiceAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                                @Override
+                                public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                                    switch (view.getId()) {
+                                        case R.id.tv_service_list:
+                                            startActivity(new Intent(CustomerServiceActivity.this,WebViewActivity.class).putExtra("h5url",response.getData().getH5Url()));
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                }
+                            });
+                        }
                     }
 
                     @Override

@@ -1,10 +1,12 @@
 package com.mengyang.kohler.module.bean;
 
+import com.chad.library.adapter.base.entity.MultiItemEntity;
+
 /**
  * Created by liusong on 2018/2/9.
  */
 
-public class QuestionSearchBean {
+public class QuestionSearchBean implements MultiItemEntity {
 
     /**
      * h5Url : http://www.baidu.com
@@ -12,9 +14,17 @@ public class QuestionSearchBean {
      * isTable : true
      */
 
+
+
     private String h5Url;
     private String description;
     private boolean isTable;
+    private int itemType;
+
+    public QuestionSearchBean(String description, int itemType) {
+        this.description = description;
+        this.itemType = itemType;
+    }
 
     public String getH5Url() {
         return h5Url;
@@ -38,5 +48,10 @@ public class QuestionSearchBean {
 
     public void setIsTable(boolean isTable) {
         this.isTable = isTable;
+    }
+
+    @Override
+    public int getItemType() {
+        return itemType;
     }
 }

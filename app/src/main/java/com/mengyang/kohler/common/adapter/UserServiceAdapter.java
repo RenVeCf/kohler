@@ -3,83 +3,117 @@ package com.mengyang.kohler.common.adapter;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.mengyang.kohler.App;
 import com.mengyang.kohler.R;
+import com.mengyang.kohler.common.net.IConstants;
+import com.mengyang.kohler.common.utils.SPUtil;
+import com.mengyang.kohler.module.bean.QuestionSearchBean;
 import com.mengyang.kohler.module.bean.UserMsg;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by liusong on 2018/2/9.
  */
 
-//public class UserServiceAdapter extends RecyclerView.Adapter<UserServiceAdapter.MyViewHolder> {
-public class UserServiceAdapter extends BaseQuickAdapter<UserMsg, BaseViewHolder> {
+public class UserServiceAdapter extends BaseMultiItemQuickAdapter<QuestionSearchBean, BaseViewHolder> {
 
-    public UserServiceAdapter(List<UserMsg> data) {
-        super(R.layout.item_service_user,data);
+    private SimpleDateFormat mDateformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");;
+    private int mHour;
+
+    /**
+     * Same as QuickAdapter#QuickAdapter(Context,int) but with
+     * some initialization data.
+     *
+     * @param data A new list is created out of this one to avoid mutable list
+     */
+    public UserServiceAdapter(List<QuestionSearchBean> data) {
+        super(data);
+        addItemType(0, R.layout.item_service_company);  //必须设置Item类型,否则空职指针异常
+        addItemType(1,R.layout.item_service_user);
     }
-
 
     @Override
-    protected void convert(BaseViewHolder helper, UserMsg item) {
-        helper.setText(R.id.tv_service_message,item.getContent());
-    }
+    protected void convert(BaseViewHolder helper, QuestionSearchBean item) {
+        switch (item.getItemType()) {
+            case 0: //标题:
+                helper.setText(R.id.tv_serviec_user, "科勒机器人")
+                .setText(R.id.tv_service_time, parseTiem())
+                .setText(R.id.tv_service_message, item.getDescription());
+                helper.setText(R.id.tv_service_list, item.getH5Url());
+                if (mHour >= 0 && mHour < 12) {
+                    helper.setText(R.id.tv_flag, "AM");
+                } else {
+                    helper.setText(R.id.tv_flag, "PM");
+                }
+
+//                if (!TextUtils.isEmpty(item.getH5Url())) {
+//                    helper.setText(R.id.tv_service_list, item.getH5Url());
+//                    helper.setVisible(R.id.tv_service_list, true);
+//                } else {
+//                    helper.setVisible(R.id.tv_service_list, View.GONE);
+//                }
 
 
+                break;
+            case 1: //内容
+                helper.setText(R.id.tv_serviec_user_name, (CharSequence) SPUtil.get(App.getContext(), IConstants.USER_NIKE_NAME, ""))
+                .setText(R.id.tv_service_time, parseTiem())
+                .setText(R.id.tv_service_message, item.getDescription());
+            //设置头像
+//                Glide.with(App.getContext()).load(SPUtil.get(App.getContext(), IConstants.USER_HEAD_PORTRAIT, ""))
+//                        .apply(new RequestOptions().placeholder(R.mipmap.oval)).into((ImageView) helper.getView(R.id.iv_service_photo));
 
-
-
-
-
-
-
-
-/*    @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (inflater == null) {
-            inflater = LayoutInflater.from(parent.getContext());
+                if (mHour >= 0 && mHour < 12) {
+                    helper.setText(R.id.tv_flag, "AM");
+                } else {
+                    helper.setText(R.id.tv_flag, "PM");
+                }
+                break;
+                default:
+                    break;
         }
-        return new UserServiceAdapter.MyViewHolder(inflater.inflate(R.layout.item_service_user, parent, false));
     }
 
-    @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
-        holder.mTvServiecUser.setText("liusong");
-        holder.mTvServiceTime.setText("16:16");
-        holder.mTvServiceMessage.setText(mData.get(position));
+    private String parseTiem() {
+        long time=System.currentTimeMillis();
+        final Calendar mCalendar=Calendar.getInstance();
+        mCalendar.setTimeInMillis(time);
+        //		 取得小时：
+        mHour = mCalendar.get(Calendar.HOUR_OF_DAY);
+        //		 取得分钟：
+        int mMinuts=mCalendar.get(Calendar.MINUTE);
+        String mMinString = null;
+        String mHourString = null;
+        if (mMinuts<10){
+            mMinString = "0"+mMinuts;
+        }else{
+            mMinString = ""+mMinuts;
+        }
+
+//        if (mHour<10){
+//            mHourString = "0"+mHour;
+//        }else{
+//            mHourString = ""+mHour;
+//        }
+        return mHour +":"+mMinString;
     }
-
-    @Override
-    protected void convert(MyViewHolder helper, List<String> item) {
-
-    }
-
-    @Override
-    public int getItemCount() {
-        return mData.size();
-    }
-
-    class MyViewHolder extends RecyclerView.ViewHolder {
-
-        private TextView mTvServiecUser;
-        private TextView mTvServiceTime;
-        private TextView mTvServiceMessage;
-        private RecyclerView mRecyclerViewServiceList;
-
-        public MyViewHolder(View itemView) {
-           super(itemView);
-
-            mTvServiecUser = itemView.findViewById(R.id.tv_serviec_user);
-            mTvServiceTime = itemView.findViewById(R.id.tv_service_time);
-            mTvServiceMessage = itemView.findViewById(R.id.tv_service_message);
-            mRecyclerViewServiceList = itemView.findViewById(R.id.recycler_view_service_list);
-       }
-   }*/
 }

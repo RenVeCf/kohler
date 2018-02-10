@@ -402,4 +402,5 @@ public class CommodityDetailsActivity extends BaseActivity {
                 break;
         }
     }
+
 }
