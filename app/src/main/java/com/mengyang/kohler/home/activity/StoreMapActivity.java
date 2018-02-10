@@ -1,8 +1,6 @@
 package com.mengyang.kohler.home.activity;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.View;
 import android.widget.Button;
 
@@ -23,30 +21,25 @@ import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
-import com.baidu.mapapi.search.core.PoiInfo;
-import com.baidu.mapapi.search.core.SearchResult;
-import com.baidu.mapapi.search.poi.OnGetPoiSearchResultListener;
-import com.baidu.mapapi.search.poi.PoiDetailResult;
-import com.baidu.mapapi.search.poi.PoiDetailSearchOption;
-import com.baidu.mapapi.search.poi.PoiIndoorResult;
-import com.baidu.mapapi.search.poi.PoiNearbySearchOption;
-import com.baidu.mapapi.search.poi.PoiResult;
-import com.baidu.mapapi.search.poi.PoiSearch;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
+import com.mengyang.kohler.common.net.DefaultObserver;
+import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.utils.LogUtils;
-import com.mengyang.kohler.common.utils.ToastUtil;
 import com.mengyang.kohler.common.view.TopView;
-import com.mengyang.kohler.home.view.PoiOverlay;
+import com.mengyang.kohler.module.BasicResponse;
+import com.mengyang.kohler.module.bean.StoreListBean;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-
-import static com.baidu.mapapi.utils.DistanceUtil.getDistance;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * 门店列表
@@ -64,8 +57,13 @@ public class StoreMapActivity extends BaseActivity {
     //是否第一次定位，如果是第一次定位的话要将自己的位置显示在地图 中间
     private boolean isFirstLocation = true;
     private Marker mMarker; //坐标气球
-    private double latitude; //纬度
-    private double longitude; //经度
+    private MapStatus mMapStatus;
+    private List<StoreListBean.ResultListBean> mStoreListBean;
+    private double mMineLatitude; //我的纬度
+    private double mMineLongitude; //我的经度
+    private double mStoreLatitude; //气球图标纬度
+    private double mStoreLongitude; //气球图标经度
+
 
     @Override
     protected int getLayoutId() {
@@ -85,8 +83,19 @@ public class StoreMapActivity extends BaseActivity {
         // 不显示百度地图Logo
         mapView.removeViewAt(1);
 
-        // 改变地图状态，使地图显示在恰当的缩放大小
-        MapStatus mMapStatus = new MapStatus.Builder().zoom(15).build();
+        isFirstLocation = getIntent().getBooleanExtra("isFirstLocation", true);
+        mStoreLatitude = getIntent().getDoubleExtra("store_latitude", 0);
+        mStoreLongitude = getIntent().getDoubleExtra("store_longitude", 0);
+        mStoreListBean = new ArrayList<>();
+
+        if (isFirstLocation == false) {
+            LatLng balloon = new LatLng(mStoreLatitude, mStoreLongitude);
+            // 改变地图状态，使地图显示在恰当的缩放大小
+            mMapStatus = new MapStatus.Builder().target(balloon).zoom(15).build();
+        } else {
+            // 改变地图状态，使地图显示在恰当的缩放大小
+            mMapStatus = new MapStatus.Builder().zoom(15).build();
+        }
         MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
         mBaiduMap.setMapStatus(mMapStatusUpdate);
 
@@ -102,8 +111,13 @@ public class StoreMapActivity extends BaseActivity {
                 //以下只列举部分获取经纬度相关（常用）的结果信息
                 //更多结果信息获取说明，请参照类参考中BDLocation类中的说明
 
-                latitude = bdLocation.getLatitude();    //获取纬度信息
-                longitude = bdLocation.getLongitude();    //获取经度信息
+                mMineLatitude = bdLocation.getLatitude();    //获取定位纬度信息
+                mMineLongitude = bdLocation.getLongitude();    //获取定位经度信息
+
+                AllMarkerOptions();
+                if (isFirstLocation == false)
+                    getMarkerOptions(mStoreLatitude, mStoreLongitude);
+
                 float radius = bdLocation.getRadius();    //获取定位精度，默认值为0.0f
 
                 String coorType = bdLocation.getCoorType();
@@ -165,7 +179,7 @@ public class StoreMapActivity extends BaseActivity {
         //bd09：百度墨卡托坐标；
         //海外地区定位，无需设置坐标类型，统一返回wgs84类型坐标
 
-        option.setScanSpan(1000);
+        option.setScanSpan(0);
         //可选，设置发起定位请求的间隔，int类型，单位ms
         //如果设置为0，则代表单次定位，即仅定位一次，默认为0
         //如果设置非0，需设置1000ms以上才有效
@@ -196,21 +210,52 @@ public class StoreMapActivity extends BaseActivity {
         //如果开发者需要获得当前点的地址信息，此处必须为true
 
         mLocationClient.setLocOption(option);
+    }
 
-//        /**
-//         * 绘制Marker，地图上常见的类似气球形状的图层
-//         */
-//        MarkerOptions markerOptions = new MarkerOptions();//参数设置类
-//        markerOptions.position(经纬度);//marker坐标位置
-//        BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher_round);
-//        markerOptions.icon(bitmap);//marker图标，可以自定义
-//        markerOptions.draggable(false);//是否可拖拽，默认不可拖拽
-//        markerOptions.anchor(0.5f, 1.0f);//设置 marker覆盖物与位置点的位置关系，默认（0.5f, 1.0f）水平居中，垂直下对齐
-//        markerOptions.alpha(0.8f);//marker图标透明度，0~1.0，默认为1.0
+    private void AllMarkerOptions() {
+        Map<String, String> stringMap = IdeaApi.getSign();
+        stringMap.put("pageNum", 0 + "");
+        stringMap.put("pageSize", 10 + "");
+        stringMap.put("latitude", mMineLatitude + "");
+        stringMap.put("longitude", mMineLongitude + "");
+
+        IdeaApi.getRequestLogin(stringMap);
+        IdeaApi.getApiService()
+                .getStoreList(stringMap)
+                .compose(this.<BasicResponse<StoreListBean>>bindToLifecycle())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultObserver<BasicResponse<StoreListBean>>(this, false) {
+                    @Override
+                    public void onSuccess(BasicResponse<StoreListBean> response) {
+                        if (response != null) {
+                            mStoreListBean.clear();
+                            mStoreListBean.addAll(response.getData().getResultList());
+                            for (int i = 0; i < mStoreListBean.size(); i++) {
+                                getMarkerOptions(mStoreListBean.get(i).getLatitude(), mStoreListBean.get(i).getLongitude());
+                            }
+                        }
+                    }
+                });
+    }
+
+    private void getMarkerOptions(double latitude, double longitude) {
+        /**
+         * 绘制Marker，地图上常见的类似气球形状的图层
+         */
+        MarkerOptions markerOptions = new MarkerOptions();//参数设置类
+        LatLng balloon = new LatLng(latitude, longitude);
+        //        LatLng balloon = new LatLng(31.194388, 121.423831);
+        markerOptions.position(balloon);//marker坐标位置
+        BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.mipmap.pin);
+        markerOptions.icon(bitmap);//marker图标，可以自定义
+        markerOptions.draggable(false);//是否可拖拽，默认不可拖拽
+        markerOptions.anchor(0.5f, 1.0f);//设置 marker覆盖物与位置点的位置关系，默认（0.5f, 1.0f）水平居中，垂直下对齐
+        markerOptions.alpha(0.8f);//marker图标透明度，0~1.0，默认为1.0
 //        markerOptions.animateType(MarkerOptions.MarkerAnimateType.drop);//marker出现的方式，从天上掉下
-//        markerOptions.flat(false);//marker突变是否平贴地面
-//        markerOptions.zIndex(1);//index
-//        mMarker = (Marker) mBaiduMap.addOverlay(markerOptions);//在地图上增加mMarker图层
+        markerOptions.flat(false);//marker突变是否平贴地面
+        markerOptions.zIndex(1);//index
+        mMarker = (Marker) mBaiduMap.addOverlay(markerOptions);//在地图上增加mMarker图层
     }
 
     @Override
@@ -261,10 +306,11 @@ public class StoreMapActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.bt_store_map:
                 //测距
-//                LatLng start = new LatLng(39.95676, 116.401394);
-//                LatLng end = new LatLng(36.63014,114.499574);
-//                getDistance(start, end);
-                startActivity(new Intent(this, StoreListActivity.class).putExtra("latitude", latitude).putExtra("longitude", longitude));
+                //                LatLng start = new LatLng(39.95676, 116.401394);
+                //                LatLng end = new LatLng(36.63014,114.499574);
+                //                getDistance(start, end);
+                startActivity(new Intent(this, StoreListActivity.class).putExtra("mine_latitude", mMineLatitude).putExtra("mine_longitude", mMineLongitude));
+                finish();
                 break;
         }
     }

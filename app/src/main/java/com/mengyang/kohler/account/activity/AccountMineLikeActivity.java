@@ -14,7 +14,6 @@ import com.mengyang.kohler.R;
 import com.mengyang.kohler.account.adapter.AccountMineLikeAdapter;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IdeaApi;
-import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.view.GridSpacingItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.module.BasicResponse;
@@ -104,23 +103,30 @@ public class AccountMineLikeActivity extends BaseActivity implements BaseQuickAd
                                     mAccountMineLikeAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
                                         @Override
                                         public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                                            //取消收藏
-                                            Map<String, String> stringMap = IdeaApi.getSign();
-                                            stringMap.put("id", likeListBean.get(position).getId() + "");
+                                            switch (view.getId()) {
+                                                case R.id.iv_account_mine_like_adapter_item:
+                                                    //跳转到该商品详情
+                                                    break;
+                                                case R.id.iv_account_mine_like_adapter_remove:
+                                                    //取消收藏
+                                                    Map<String, String> stringMap = IdeaApi.getSign();
+                                                    stringMap.put("id", likeListBean.get(position).getId() + "");
 
-                                            IdeaApi.getRequestLogin(stringMap);
-                                            IdeaApi.getApiService()
-                                                    .getCancelLike(stringMap)
-                                                    .compose(AccountMineLikeActivity.this.<BasicResponse>bindToLifecycle())
-                                                    .subscribeOn(Schedulers.io())
-                                                    .observeOn(AndroidSchedulers.mainThread())
-                                                    .subscribe(new DefaultObserver<BasicResponse>(AccountMineLikeActivity.this, true) {
-                                                        @Override
-                                                        public void onSuccess(BasicResponse response) {
-                                                            pageNum = 0;
-                                                            initData();
-                                                        }
-                                                    });
+                                                    IdeaApi.getRequestLogin(stringMap);
+                                                    IdeaApi.getApiService()
+                                                            .getCancelLike(stringMap)
+                                                            .compose(AccountMineLikeActivity.this.<BasicResponse>bindToLifecycle())
+                                                            .subscribeOn(Schedulers.io())
+                                                            .observeOn(AndroidSchedulers.mainThread())
+                                                            .subscribe(new DefaultObserver<BasicResponse>(AccountMineLikeActivity.this, true) {
+                                                                @Override
+                                                                public void onSuccess(BasicResponse response) {
+                                                                    pageNum = 0;
+                                                                    initData();
+                                                                }
+                                                            });
+                                                    break;
+                                            }
                                         }
                                     });
                                 } else {

@@ -31,7 +31,8 @@
         <item>@color/colorBlueGreyPrimary</item>
     </array>
 
-    <color name="pwd">#666666</color>
+    <color name="is_login_settings">#666666</color>
+    <color name="no_login_settings">#cccccc</color>
 
     <!--basic color-->
     <color name="white">#ffffff</color>

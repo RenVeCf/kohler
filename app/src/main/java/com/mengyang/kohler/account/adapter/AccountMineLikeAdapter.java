@@ -33,5 +33,6 @@ public class AccountMineLikeAdapter extends BaseQuickAdapter<LikeListBean.Result
                 .setText(R.id.tv_account_mine_like_adapter_model_name, item.getSkuCode());
         Glide.with(App.getContext()).load(item.getPicture()).apply(new RequestOptions().placeholder(R.mipmap.queshengtu)).into((ImageView) helper.getView(R.id.iv_account_mine_like_adapter_item));
         helper.addOnClickListener(R.id.iv_account_mine_like_adapter_remove);
+        helper.addOnClickListener(R.id.iv_account_mine_like_adapter_item);
     }
 }

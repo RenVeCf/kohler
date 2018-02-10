@@ -166,4 +166,6 @@
     <string name="technology">颜色/表面处理工艺：</string>
     <string name="product_attributes">产品属性：</string>
     <string name="data_download">技术资料下载：</string>
+    <string name="vote">Vote</string>
+    <string name="wonderful_collection">精彩集锦</string>
 </resources>

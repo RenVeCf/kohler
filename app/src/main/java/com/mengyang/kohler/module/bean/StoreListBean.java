@@ -13,9 +13,9 @@ public class StoreListBean {
     /**
      * pageNum : 0
      * pageSize : 10
-     * resultList : [{"address":"武汉市江岸区花桥街黄孝河特1号","distance":0,"roomname":"红星美凯龙竹叶山店","storeId":843,"tel":"027-51838168"},{"address":"湖北省武汉市江汉区汉口火车站西侧欧亚达国际广场A14-17","distance":2948,"roomname":"汉口欧亚达设计中心","storeId":842,"tel":"027-85308007"},{"address":"湖北省武汉市江汉区常青路284号居然之家武汉店","distance":3366,"roomname":"汉口居然旗舰店","storeId":848,"tel":"027-83568826"}]
+     * resultList : [{"address":"徐虹中路21号","distance":777,"latitude":31.194329,"longitude":121.431996,"roomname":"徐汇设计中心","storeId":932,"tel":"64867200"},{"address":"宜山路407号","distance":1108,"latitude":31.192982,"longitude":121.435359,"roomname":"喜盈门国际馆","storeId":933,"tel":"64867200"},{"address":"宜山路450号","distance":996,"latitude":31.190264,"longitude":121.433119,"roomname":"家饰佳","storeId":931,"tel":"64382548"},{"address":"漕溪路198号","distance":2340,"latitude":31.179596,"longitude":121.441297,"roomname":"好饰家装饰精品城","storeId":927,"tel":"64872224"}]
      * totalPage : 1
-     * totalSize : 3
+     * totalSize : 4
      */
 
     private int pageNum;
@@ -66,15 +66,19 @@ public class StoreListBean {
 
     public static class ResultListBean {
         /**
-         * address : 武汉市江岸区花桥街黄孝河特1号
-         * distance : 0
-         * roomname : 红星美凯龙竹叶山店
-         * storeId : 843
-         * tel : 027-51838168
+         * address : 徐虹中路21号
+         * distance : 777
+         * latitude : 31.194329
+         * longitude : 121.431996
+         * roomname : 徐汇设计中心
+         * storeId : 932
+         * tel : 64867200
          */
 
         private String address;
         private int distance;
+        private double latitude;
+        private double longitude;
         private String roomname;
         private int storeId;
         private String tel;
@@ -93,6 +97,22 @@ public class StoreListBean {
 
         public void setDistance(int distance) {
             this.distance = distance;
+        }
+
+        public double getLatitude() {
+            return latitude;
+        }
+
+        public void setLatitude(double latitude) {
+            this.latitude = latitude;
+        }
+
+        public double getLongitude() {
+            return longitude;
+        }
+
+        public void setLongitude(double longitude) {
+            this.longitude = longitude;
         }
 
         public String getRoomname() {

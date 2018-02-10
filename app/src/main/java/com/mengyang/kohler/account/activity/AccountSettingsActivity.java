@@ -57,9 +57,15 @@ public class AccountSettingsActivity extends BaseActivity {
         if (is_Login) {
             btAccountSettingsSignOut.setText(App.getContext().getResources().getString(R.string.sign_out));
             tvAccountSettingsModifyPwd.setClickable(true);
-            tvAccountSettingsModifyPwd.setTextColor(App.getContext().getResources().getColor(R.color.pwd));
+            tvAccountSettingsModifyPwd.setTextColor(App.getContext().getResources().getColor(R.color.is_login_settings));
             tvAccountSettingsModifyBindPhone.setClickable(true);
-            tvAccountSettingsModifyBindPhone.setTextColor(App.getContext().getResources().getColor(R.color.pwd));
+            tvAccountSettingsModifyBindPhone.setTextColor(App.getContext().getResources().getColor(R.color.is_login_settings));
+        } else {
+            btAccountSettingsSignOut.setText(App.getContext().getResources().getString(R.string.login));
+            tvAccountSettingsModifyPwd.setClickable(false);
+            tvAccountSettingsModifyPwd.setTextColor(App.getContext().getResources().getColor(R.color.no_login_settings));
+            tvAccountSettingsModifyBindPhone.setClickable(false);
+            tvAccountSettingsModifyBindPhone.setTextColor(App.getContext().getResources().getColor(R.color.no_login_settings));
         }
     }
 

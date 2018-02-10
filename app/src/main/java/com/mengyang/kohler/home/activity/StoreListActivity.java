@@ -5,6 +5,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.Button;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -14,7 +15,6 @@ import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IdeaApi;
-import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.view.SpacesItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.home.adapter.StoreListAdapter;
@@ -69,8 +69,8 @@ public class StoreListActivity extends BaseActivity implements BaseQuickAdapter.
         mStoreListBean = new ArrayList<>();
         mStoreListAdapter = new StoreListAdapter(mStoreListBean);
         rvStoreList.setAdapter(mStoreListAdapter);
-        latitude = getIntent().getDoubleExtra("latitude", 0);
-        longitude = getIntent().getDoubleExtra("longitude", 0);
+        latitude = getIntent().getDoubleExtra("mine_latitude", 0);
+        longitude = getIntent().getDoubleExtra("mine_longitude", 0);
     }
 
     @Override
@@ -102,17 +102,22 @@ public class StoreListActivity extends BaseActivity implements BaseQuickAdapter.
                 .subscribe(new DefaultObserver<BasicResponse<StoreListBean>>(StoreListActivity.this, true) {
                     @Override
                     public void onSuccess(BasicResponse<StoreListBean> response) {
-                        LogUtils.i("rmy", "response.getData() = " + response.toString());
                         if (response != null) {
                             if (pageNum == 0) {
                                 mStoreListBean.clear();
                                 mStoreListBean.addAll(response.getData().getResultList());
-
                                 if (mStoreListBean.size() > 0) {
                                     pageNum = pageNum + 1;
                                     mStoreListAdapter = new StoreListAdapter(mStoreListBean);
                                     rvStoreList.setAdapter(mStoreListAdapter);
                                     mStoreListAdapter.setOnLoadMoreListener(StoreListActivity.this, rvStoreList); //加载更多
+                                    mStoreListAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                                        @Override
+                                        public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                                            startActivity(new Intent(StoreListActivity.this, StoreMapActivity.class).putExtra("store_latitude", mStoreListBean.get(position).getLatitude()).putExtra("store_longitude", mStoreListBean.get(position).getLongitude()).putExtra("isFirstLocation", false));
+                                            finish();
+                                        }
+                                    });
                                 } else {
                                     mStoreListAdapter.loadMoreEnd();
                                 }
@@ -140,7 +145,7 @@ public class StoreListActivity extends BaseActivity implements BaseQuickAdapter.
 
     @OnClick(R.id.bt_store_list)
     public void onViewClicked() {
-        startActivity(new Intent(this, StoreMapActivity.class));
+        startActivity(new Intent(this, StoreMapActivity.class).putExtra("isFirstLocation", true));
         finish();
     }
 }

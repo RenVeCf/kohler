@@ -8,7 +8,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.SystemClock;
-import android.text.InputType;
 import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -367,24 +366,28 @@ public class CommodityDetailsActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_size_diagram_download:
-                for (int i = 0; i < mCommodityDetails.get(poction).getPdfList().size(); i++) {
-                    if (mCommodityClassificationFragmentBean.getPdfList().get(i).getProductPdfName().equals("尺寸图")) {
-                        mPdfUrl = mCommodityDetails.get(poction).getPdfList().get(i).getFileName();
+                if (mCommodityDetails.get(poction).getPdfList() != null) {
+                    for (int i = 0; i < mCommodityDetails.get(poction).getPdfList().size(); i++) {
+                        if (mCommodityClassificationFragmentBean.getPdfList().get(i).getProductPdfName().equals("尺寸图")) {
+                            mPdfUrl = mCommodityDetails.get(poction).getPdfList().get(i).getFileName();
+                        }
                     }
+                    tvCommodityDetailsDownloadName.setText(App.getContext().getResources().getText(R.string.download_size_diagram));
+                    btCommodityDetailsDownloadPreview.setText(App.getContext().getResources().getString(R.string.download_preview));
+                    mDownloadPopupWindow.showAsDropDown(view, 0, 0);
                 }
-                tvCommodityDetailsDownloadName.setText(App.getContext().getResources().getText(R.string.download_size_diagram));
-                btCommodityDetailsDownloadPreview.setText(App.getContext().getResources().getString(R.string.download_preview));
-                mDownloadPopupWindow.showAsDropDown(view, 0, 0);
                 break;
             case R.id.iv_installation_instructions_download:
-                for (int i = 0; i < mCommodityDetails.get(poction).getPdfList().size(); i++) {
-                    if (mCommodityDetails.get(poction).getPdfList().get(i).getProductPdfName().equals("安装说明书")) {
-                        mPdfUrl = mCommodityDetails.get(poction).getPdfList().get(i).getFileName();
+                if (mCommodityDetails.get(poction).getPdfList() != null) {
+                    for (int i = 0; i < mCommodityDetails.get(poction).getPdfList().size(); i++) {
+                        if (mCommodityDetails.get(poction).getPdfList().get(i).getProductPdfName().equals("安装说明书")) {
+                            mPdfUrl = mCommodityDetails.get(poction).getPdfList().get(i).getFileName();
+                        }
                     }
+                    tvCommodityDetailsDownloadName.setText(App.getContext().getResources().getText(R.string.download_installation_instructions));
+                    btCommodityDetailsDownloadPreview.setText(App.getContext().getResources().getString(R.string.download_preview));
+                    mDownloadPopupWindow.showAsDropDown(view, 0, 0);
                 }
-                tvCommodityDetailsDownloadName.setText(App.getContext().getResources().getText(R.string.download_installation_instructions));
-                btCommodityDetailsDownloadPreview.setText(App.getContext().getResources().getString(R.string.download_preview));
-                mDownloadPopupWindow.showAsDropDown(view, 0, 0);
                 break;
             case R.id.ll_commodity_details_purchase_inquiries:
                 startActivity(new Intent(this, StoreMapActivity.class));
