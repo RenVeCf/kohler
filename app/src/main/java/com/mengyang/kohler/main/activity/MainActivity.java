@@ -17,16 +17,24 @@ import com.mengyang.kohler.R;
 import com.mengyang.kohler.account.activity.LoginActivity;
 import com.mengyang.kohler.account.fragment.AccountFragment;
 import com.mengyang.kohler.ar.ARFragment;
+import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IConstants;
+import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.view.ResideLayout;
 import com.mengyang.kohler.home.activity.MineManualActivity;
 import com.mengyang.kohler.home.activity.StoreMapActivity;
 import com.mengyang.kohler.home.fragment.HomeFragment;
+import com.mengyang.kohler.module.BasicResponse;
+import com.mengyang.kohler.module.bean.UserMsgBean;
 import com.mengyang.kohler.whole_category.fragment.WholeCategoryFragment;
+
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends BaseActivity implements HomeFragment.OnFragmentInteractionListener {
 
@@ -82,7 +90,7 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
     View view_line;
     @BindView(R.id.scroll_view_mian)
     ScrollView scroll_view_mian;
-
+    private UserMsgBean mUserMsgBean;
     private Fragment currentFragment = new Fragment();
     private HomeFragment mHomeFragment = new HomeFragment();
     private WholeCategoryFragment mWholeCategoryFragment = new WholeCategoryFragment();
@@ -141,7 +149,25 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
 
     @Override
     protected void initData() {
+        if (((boolean) SPUtil.get(App.getContext(), IConstants.IS_LOGIN, false)) == true) {
+            Map<String, String> stringMap = IdeaApi.getSign();
 
+            IdeaApi.getRequestLogin(stringMap);
+            IdeaApi.getApiService()
+                    .getUserMsg(stringMap)
+                    .compose(this.<BasicResponse<UserMsgBean>>bindToLifecycle())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new DefaultObserver<BasicResponse<UserMsgBean>>(this, false) {
+                        @Override
+                        public void onSuccess(BasicResponse<UserMsgBean> response) {
+                            mUserMsgBean = response.getData();
+                            SPUtil.put(App.getContext(), IConstants.USER_NIKE_NAME, mUserMsgBean.getNickName());
+                            SPUtil.put(App.getContext(), IConstants.USER_HEAD_PORTRAIT, mUserMsgBean.getPortraitUrl());
+                            SPUtil.put(App.getContext(), IConstants.MEETING_PUSH_MSG, mUserMsgBean.isPushMsg());
+                        }
+                    });
+        }
     }
 
     //Fragment优化
