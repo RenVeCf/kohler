@@ -140,8 +140,8 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".common.activity.CustomerServiceActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".account.activity.ForgetPasswordTwoActivity"
             android:launchMode="singleTask" />
@@ -169,7 +169,8 @@
             android:launchMode="singleTask" />
         <activity android:name=".home.activity.DownLoaderPDFActivity" />
         <activity android:name=".home.activity.MeetingWebActivity" />
-        <activity android:name=".common.activity.WebViewActivity"></activity>
+        <activity android:name=".common.activity.WebViewActivity" />
+        <activity android:name=".common.activity.TestActivity"></activity>
     </application>
 
 </manifest>

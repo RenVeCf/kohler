@@ -5,10 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
-
-
-
 
     <com.mengyang.kohler.common.view.TopView
         android:id="@+id/tv_customer_service_top"
@@ -28,59 +26,53 @@
         android:layout_height="1dp"
         android:background="#e0e0e0"/>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:orientation="vertical"
+    <!--<ScrollView-->
+        <!--android:layout_weight="1"-->
+        <!--android:fillViewport="true"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp">-->
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:orientation="vertical">-->
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view_service11"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#c4c4c4"/>
+            <LinearLayout
+                android:paddingTop="@dimen/y15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/y12"
+                android:orientation="horizontal">
 
+                <EditText
+                    android:id="@+id/et_question"
+                    android:layout_marginLeft="@dimen/x24"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_bg_service"/>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view_service11"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"/>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="#c4c4c4"/>
-
-    <LinearLayout
-        android:paddingTop="@dimen/y15"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/y12"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/et_question"
-            android:layout_marginLeft="@dimen/x24"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/shape_bg_service"/>
-
-        <Button
-            android:id="@+id/btn_send_message"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/x18"
-            android:layout_marginEnd="@dimen/x24"
-            android:background="@color/black"
-            android:textColor="@color/white"
-            android:text="send"/>
-
-    </LinearLayout>
-
+                <Button
+                    android:id="@+id/btn_send_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/x18"
+                    android:layout_marginEnd="@dimen/x24"
+                    android:background="@color/black"
+                    android:textColor="@color/white"
+                    android:text="send"/>
             </LinearLayout>
-        </RelativeLayout>
-    </ScrollView>
 
+        <!--</LinearLayout>-->
+    <!--</ScrollView>-->
 </LinearLayout>

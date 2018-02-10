@@ -49,6 +49,7 @@ public class UserServiceAdapter extends BaseMultiItemQuickAdapter<QuestionSearch
         super(data);
         addItemType(0, R.layout.item_service_company);  //必须设置Item类型,否则空职指针异常
         addItemType(1,R.layout.item_service_user);
+        addItemType(3,R.layout.item_service_company_head);
     }
 
     @Override
@@ -65,17 +66,17 @@ public class UserServiceAdapter extends BaseMultiItemQuickAdapter<QuestionSearch
                     helper.setText(R.id.tv_flag, "PM");
                 }
 
-//                if (!TextUtils.isEmpty(item.getH5Url())) {
-//                    helper.setText(R.id.tv_service_list, item.getH5Url());
-//                    helper.setVisible(R.id.tv_service_list, true);
-//                } else {
-//                    helper.setVisible(R.id.tv_service_list, View.GONE);
-//                }
+                if (!TextUtils.isEmpty(item.getH5Url())) {
+                    helper.setText(R.id.tv_service_list, item.getH5Url());
+                    helper.setVisible(R.id.tv_service_list, true);
+                } else {
+                    helper.setGone(R.id.tv_service_list, true);
+                }
 
 
                 break;
             case 1: //内容
-                helper.setText(R.id.tv_serviec_user_name, (CharSequence) SPUtil.get(App.getContext(), IConstants.USER_NIKE_NAME, ""))
+                helper.setText(R.id.tv_serviec_user_name, (String) SPUtil.get(App.getContext(), IConstants.USER_NIKE_NAME, ""))
                 .setText(R.id.tv_service_time, parseTiem())
                 .setText(R.id.tv_service_message, item.getDescription());
             //设置头像
@@ -88,8 +89,18 @@ public class UserServiceAdapter extends BaseMultiItemQuickAdapter<QuestionSearch
                     helper.setText(R.id.tv_flag, "PM");
                 }
                 break;
-                default:
-                    break;
+            case 3:
+                helper.setText(R.id.tv_serviec_user, "科勒机器人")
+                        .setText(R.id.tv_service_time, parseTiem())
+                        .setText(R.id.tv_service_message, item.getDescription());
+                if (mHour >= 0 && mHour < 12) {
+                    helper.setText(R.id.tv_flag, "AM");
+                } else {
+                    helper.setText(R.id.tv_flag, "PM");
+                }
+                break;
+            default:
+                break;
         }
     }
 
@@ -109,11 +120,11 @@ public class UserServiceAdapter extends BaseMultiItemQuickAdapter<QuestionSearch
             mMinString = ""+mMinuts;
         }
 
-//        if (mHour<10){
-//            mHourString = "0"+mHour;
-//        }else{
-//            mHourString = ""+mHour;
-//        }
-        return mHour +":"+mMinString;
+        if (mHour == 0) {
+            mHourString = "0" + mHour;
+        } else {
+            mHourString = "" + mHour;
+        }
+        return mHourString +":"+mMinString;
     }
 }

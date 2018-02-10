@@ -35,6 +35,8 @@ import com.mengyang.kohler.home.activity.StoreMapActivity;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.CommodityClassificationFragmentBean;
 import com.mengyang.kohler.module.bean.CommodityDetailsBean;
+import com.mengyang.kohler.whole_category.view.MyLinearLayout;
+import com.mengyang.kohler.whole_category.view.MyTextView;
 import com.zhouwei.mzbanner.MZBannerView;
 import com.zhouwei.mzbanner.holder.MZHolderCreator;
 import com.zhouwei.mzbanner.holder.MZViewHolder;
@@ -306,9 +308,20 @@ public class CommodityDetailsActivity extends BaseActivity {
                                     if (mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName().equals("亮点")) {
                                         tvFunction.setText(mCommodityDetails.get(poction).getAttrList().get(i).getAttrValue());
                                     } else if (!mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName().equals("TMALL链接") && !mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName().equals("特征") && !mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName().equals("pdfUrl")) {
+
+//                                        LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+//
+//                                        relative.setLayoutParams(params);
                                         LinearLayout relative = new LinearLayout(CommodityDetailsActivity.this);
                                         relative.setOrientation(LinearLayout.HORIZONTAL);
-                                        TextView label = new TextView(CommodityDetailsActivity.this);
+
+//                                        TextView label = new TextView(CommodityDetailsActivity.this);
+                                        MyTextView label = new MyTextView(CommodityDetailsActivity.this);
+
+
+                                        label.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+
+
                                         label.setText(mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName() + ": ");
                                         label.setTextColor(Color.BLACK);
                                         label.setTextSize(11);
@@ -318,6 +331,12 @@ public class CommodityDetailsActivity extends BaseActivity {
                                         relative.addView(label);
 
                                         TextView attribute = new TextView(CommodityDetailsActivity.this);
+                                        attribute.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+
+
+                                        attribute.setMaxLines(5);
+
+
                                         attribute.setText(mCommodityDetails.get(poction).getAttrList().get(i).getAttrValue());
                                         attribute.setTextColor(Color.BLACK);
                                         attribute.setTextSize(11);

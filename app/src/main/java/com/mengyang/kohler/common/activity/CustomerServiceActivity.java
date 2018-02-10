@@ -58,7 +58,7 @@ public class CustomerServiceActivity extends BaseActivity {
 
     @Override
     protected void initValues() {
-//        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         App.getManager().addActivity(this);
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(this, tvCustomerServiceTop);
@@ -68,7 +68,7 @@ public class CustomerServiceActivity extends BaseActivity {
 
     private void initAdapter() {
         mRecyclerViewService.setLayoutManager(new LinearLayoutManager(this));
-        mDataList.add(new QuestionSearchBean("您好，我是科勒机器人客服，请提问或输入关键词查询。", 0));
+        mDataList.add(new QuestionSearchBean("您好，我是科勒机器人客服，请提问或输入关键词查询。", 3));
         mUserServiceAdapter = new UserServiceAdapter(mDataList);
         mRecyclerViewService.setAdapter(mUserServiceAdapter);
 
@@ -93,11 +93,11 @@ public class CustomerServiceActivity extends BaseActivity {
                 break;
             case R.id.btn_send_message:
                 mQuestionContent = mEtQuestion.getText().toString().trim();
+                mEtQuestion.getText().clear();
+                mEtQuestion.setFocusable(true);
 
                 if (!TextUtils.isEmpty(mQuestionContent)) {
                     QuestionSearchBean questionSearchBean = new QuestionSearchBean(mQuestionContent,1);
-//                    mDataList.add(questionSearchBean);
-
                     mUserServiceAdapter.addData(questionSearchBean);
                     searchQuestion(mQuestionContent);
                 } else {
@@ -119,13 +119,14 @@ public class CustomerServiceActivity extends BaseActivity {
                 .compose(this.<BasicResponse<QuestionSearchBean>>bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<BasicResponse<QuestionSearchBean>>(this,true) {
+                .subscribe(new DefaultObserver<BasicResponse<QuestionSearchBean>>(this,false) {
                     @Override
                     public void onSuccess(final BasicResponse<QuestionSearchBean> response) {
                         QuestionSearchBean questionSearchBean = new QuestionSearchBean("",0);
                         if (response.getData() != null) {
                             questionSearchBean = response.getData();
                             mUserServiceAdapter.addData(questionSearchBean);
+                            mRecyclerViewService.scrollToPosition(mUserServiceAdapter.getItemCount() - 1);
 
                             mUserServiceAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
                                 @Override
