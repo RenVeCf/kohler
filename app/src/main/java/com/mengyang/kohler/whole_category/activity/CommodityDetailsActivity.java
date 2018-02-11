@@ -36,7 +36,6 @@ import com.mengyang.kohler.home.activity.StoreMapActivity;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.CommodityClassificationFragmentBean;
 import com.mengyang.kohler.module.bean.CommodityDetailsBean;
-import com.mengyang.kohler.whole_category.view.FlexBoxLayout;
 import com.zhouwei.mzbanner.MZBannerView;
 import com.zhouwei.mzbanner.holder.MZHolderCreator;
 import com.zhouwei.mzbanner.holder.MZViewHolder;
@@ -89,8 +88,6 @@ public class CommodityDetailsActivity extends BaseActivity {
     TextView tvCommodityDetailsColor;
     @BindView(R.id.iv_commodity_details_color_img)
     LinearLayout ivCommodityDetailsColorImg;
-    @BindView(R.id.flowlayout)
-    FlexBoxLayout mFlowlayout;
     //轮播图集合
     private List<Bitmap> mDatas = new ArrayList<>();
     private PopupWindow mDownloadPopupWindow;
@@ -311,11 +308,11 @@ public class CommodityDetailsActivity extends BaseActivity {
                                         tvFunction.setText(mCommodityDetails.get(poction).getAttrList().get(i).getAttrValue());
                                     } else if (!mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName().equals("TMALL链接") && !mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName().equals("特征") && !mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName().equals("pdfUrl")) {
 
-//                                        LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-//
-//                                        relative.setLayoutParams(params);
+                                        //                                        LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                                        //
+                                        //                                        relative.setLayoutParams(params);
                                         LinearLayout relative = new LinearLayout(CommodityDetailsActivity.this);
-//                                        relative.setOrientation(LinearLayout.HORIZONTAL);
+                                        //                                        relative.setOrientation(LinearLayout.HORIZONTAL);
 
                                         TextView label = new TextView(CommodityDetailsActivity.this);
 
@@ -344,7 +341,7 @@ public class CommodityDetailsActivity extends BaseActivity {
                                         attribute.setLineSpacing(7, 0);
                                         relative.addView(attribute);
                                         llCommodityDetails.addView(relative);
-//                                        mFlowlayout.addView(relative);
+                                        //                                        mFlowlayout.addView(relative);
                                     } else if (mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName().equals("TMALL链接")) {
                                         mTianMaoUrl = mCommodityDetails.get(poction).getAttrList().get(i).getAttrValue();
                                     }

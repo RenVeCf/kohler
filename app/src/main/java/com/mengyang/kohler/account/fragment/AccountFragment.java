@@ -201,7 +201,7 @@ public class AccountFragment extends BaseFragment implements BaseQuickAdapter.Re
                 .compose(this.<BasicResponse>bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<BasicResponse>(getActivity(), true) {
+                .subscribe(new DefaultObserver<BasicResponse>(getActivity(), false) {
                     @Override
                     public void onSuccess(BasicResponse response) {
                         tvAccountName.setText(etAccountPopNewName.getText().toString().trim());
@@ -231,7 +231,7 @@ public class AccountFragment extends BaseFragment implements BaseQuickAdapter.Re
     }
 
     private void getUserMsg() {
-        tvAccountName.setText(SPUtil.get(App.getContext(), IConstants.USER_NIKE_NAME, "") + "");
+        tvAccountName.setText(SPUtil.get(App.getContext(), IConstants.USER_NIKE_NAME, App.getContext().getResources().getString(R.string.login_or_register)) + "");
         Glide.with(App.getContext()).load(SPUtil.get(App.getContext(), IConstants.USER_HEAD_PORTRAIT, "") + "").apply(new RequestOptions().placeholder(R.mipmap.oval)).into(civAccountTitle);
     }
 

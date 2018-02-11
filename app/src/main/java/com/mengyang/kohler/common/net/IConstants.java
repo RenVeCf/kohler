@@ -1,5 +1,8 @@
 package com.mengyang.kohler.common.net;
 
+import com.mengyang.kohler.App;
+import com.mengyang.kohler.R;
+
 /**
  * Description : 公共参数配置类
  * Author : rmy
@@ -22,7 +25,7 @@ public class IConstants {
     public static final String USER_ID = "userId"; //用户uid
     public static final String JPUSH_SYSTEM_ID = "registrationId"; //极光系统id
     public static final String MEETING_PUSH_MSG = "true"; //获取经销商大会用户设置
-    public static final String USER_NIKE_NAME = ""; //用户昵称
+    public static final String USER_NIKE_NAME = App.getContext().getResources().getString(R.string.login_or_register); //用户昵称
     public static final String USER_HEAD_PORTRAIT = ""; //用户头像URL
 
     /**

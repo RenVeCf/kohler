@@ -12,6 +12,7 @@ import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.net.IdeaApi;
+import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.main.activity.MainActivity;
@@ -91,6 +92,8 @@ public class AccountSettingsActivity extends BaseActivity {
                     @Override
                     public void onSuccess(BasicResponse response) {
                         SPUtil.put(App.getContext(), IConstants.IS_LOGIN, false);
+                        SPUtil.put(App.getContext(), IConstants.USER_NIKE_NAME, App.getContext().getResources().getString(R.string.login_or_register));
+                        SPUtil.put(App.getContext(), IConstants.USER_HEAD_PORTRAIT, "");
                         App.destoryActivity("MainActivity");
                         startActivity(new Intent(AccountSettingsActivity.this, LoginActivity.class));
                         finish();
