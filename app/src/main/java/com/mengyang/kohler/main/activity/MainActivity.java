@@ -264,12 +264,12 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 startActivity(new Intent(this, StoreMapActivity.class));
                 break;
             case R.id.ll_account_manual:
-                if (((boolean) SPUtil.get(this, IConstants.IS_LOGIN, false)) == true) {
-                    if (SPUtil.get(this, IConstants.TYPE, "").equals("dealer") && SPUtil.get(this, IConstants.TYPE, "").equals("designer"))
+//                if (((boolean) SPUtil.get(this, IConstants.IS_LOGIN, false)) == true) {
+//                    if (SPUtil.get(this, IConstants.TYPE, "").equals("dealer") && SPUtil.get(this, IConstants.TYPE, "").equals("designer"))
                         startActivity(new Intent(this, MineManualActivity.class));
-                } else {
-                    startActivity(new Intent(this, LoginActivity.class));
-                }
+//                } else {
+//                    startActivity(new Intent(this, LoginActivity.class));
+//                }
                 break;
             case R.id.ll_super_toilet_seat:
                 //一体超感座便器

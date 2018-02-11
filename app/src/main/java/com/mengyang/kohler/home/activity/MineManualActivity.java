@@ -36,6 +36,7 @@ import com.mengyang.kohler.module.BooksBean3;
 import com.mengyang.kohler.module.PdfBean;
 import com.mengyang.kohler.module.bean.BooksListBean;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -141,8 +142,8 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
                         //删除指定pdf文件
                         switch (view.getId()) {
                             case R.id.iv_my_brochure_adapter_remove_item_img:
-                                if (FileUtils.isFileExist(mUserPdfListBeans.get(position).getPathUrl())) {
-                                    startActivity(new Intent(MineManualActivity.this, PDFActivity.class).putExtra("PdfUrl", mUserPdfListBeans.get(position).getBookKVUrl()));
+                                if (FileUtils.isFileExist(mPdfBean3List.get(position).getPathUrl())) {
+                                    startActivity(new Intent(MineManualActivity.this, PDFActivity.class).putExtra("PdfUrl", mPdfBean3List.get(position).getPathUrl()));
                                 }
                                 break;
                             case R.id.iv_my_brochure_adapter_remove_item:
@@ -153,10 +154,31 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
 
 //                                mPdfBean3List.remove(position);
 
-                                SPUtil.put(App.getContext(),IConstants.USER_PDF_DATA_TEMP,"");// TODO: 2018/2/11 ,删除还没有做
+
+
+
+
+                                try {
+                                    File file = new File(mPdfBean3List.get(position).getPathUrl());
+                                    if (!file.exists()) {
+                                        file.mkdirs();
+                                    }
+                                    file.delete();
+//                                    if (file.isDirectory()) { //目录
+//                                        File files[] = file.listFiles();
+//                                        for (int i = 0; i < files.length; i++) {
+//                                            deleteFolderFile(files[i].getAbsolutePath(), true);
+//                                        }
+//                                    }
+
+                                } catch (Exception e) {
+                                    // TODO Auto-generated catch block
+                                    e.printStackTrace();
+                                }
 
                                 mMyBrochureAdapter3.remove(position);
-                                break;
+                        SPUtil.put(App.getContext(),IConstants.USER_PDF_DATA_TEMP,"");// TODO: 2018/2/11 ,删除还没有做
+                        break;
                             default:
                                 break;
                         }
@@ -275,12 +297,14 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
 //            if (data.getStringExtra("pdfPath") != null) {
 //                mPdfPathSuccess = data.getStringExtra("pdfPath");
 //            }
-
+            BooksBean3 booksBean3 = new BooksBean3(mBooksListBean.get(mCurPosition).getKvUrl(), mPdfTotalPath);
             mapUrl.put(mBooksListBean.get(mCurPosition).getKvUrl(),mPdfTotalPath);
 
             Gson gson = new Gson();
             String jsonStr=gson.toJson(mapUrl); //将List转换成Json
             SPUtil.put(App.getContext(),IConstants.USER_PDF_DATA_TEMP,jsonStr);
+
+            mMyBrochureAdapter3.addData(booksBean3);
 
 
 /*            PdfBean pdfBean = new PdfBean();
