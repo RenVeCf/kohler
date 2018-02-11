@@ -1,5 +1,7 @@
 package com.mengyang.kohler.module.bean;
 
+import com.chad.library.adapter.base.entity.MultiItemEntity;
+
 import java.util.List;
 
 /**
@@ -98,7 +100,7 @@ public class MeetingBean {
         this.agendaList = agendaList;
     }
 
-    public static class AgendaListBean {
+    public static class AgendaListBean implements MultiItemEntity {
         /**
          * agendaDesc : kohler准备于18年上市的全新产品，主打智能、便捷，引领厨卫新时尚
          * agendaType : 0
@@ -110,7 +112,7 @@ public class MeetingBean {
          * timeSlot : 09:28~21:28
          * title : 新品上市
          */
-
+        private int itemType;
         private String agendaDesc;
         private int agendaType;
         private String briefDateStr;
@@ -191,6 +193,15 @@ public class MeetingBean {
 
         public void setTitle(String title) {
             this.title = title;
+        }
+
+        public void setItemType(int itemType) {
+            this.itemType = itemType;
+        }
+
+        @Override
+        public int getItemType() {
+            return itemType;
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.mengyang.kohler.whole_category.adapter;
 
+import android.annotation.SuppressLint;
 import android.support.annotation.Nullable;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -38,9 +39,6 @@ public class MeetingAdapter extends BaseQuickAdapter<MeetingBean.AgendaListBean,
             case 3:
                 agendaType = "明日议程";
                 break;
-        }
-        if (helper.getAdapterPosition() == 1) {
-//            helper.getView()
         }
         helper.setText(R.id.tv_agenda, agendaType)
                 .setText(R.id.tv_meeting_next_agenda_time, item.getTimeSlot())

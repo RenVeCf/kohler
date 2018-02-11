@@ -14,6 +14,7 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
+import com.mengyang.kohler.account.activity.LoginActivity;
 import com.mengyang.kohler.account.fragment.AccountFragment;
 import com.mengyang.kohler.ar.ARFragment;
 import com.mengyang.kohler.common.net.DefaultObserver;
@@ -21,6 +22,7 @@ import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.view.ResideLayout;
+import com.mengyang.kohler.home.activity.MineManualActivity;
 import com.mengyang.kohler.home.activity.StoreMapActivity;
 import com.mengyang.kohler.home.fragment.HomeFragment;
 import com.mengyang.kohler.module.BasicResponse;
@@ -236,12 +238,12 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 startActivity(new Intent(this, StoreMapActivity.class));
                 break;
             case R.id.ll_account_manual:
-                //                if (((boolean) SPUtil.get(this, IConstants.IS_LOGIN, false)) == true) {
-                //                    if (SPUtil.get(this, IConstants.TYPE, "").equals("dealer"))
-                //                        startActivity(new Intent(this, MineManualActivity.class));
-                //                } else {
-                //                    startActivity(new Intent(this, LoginActivity.class));
-                //                }
+                if (((boolean) SPUtil.get(this, IConstants.IS_LOGIN, false)) == true) {
+                    if (SPUtil.get(this, IConstants.TYPE, "").equals("dealer"))
+                        startActivity(new Intent(this, MineManualActivity.class));
+                } else {
+                    startActivity(new Intent(this, LoginActivity.class));
+                }
                 break;
             case R.id.ll_super_toilet_seat:
                 break;

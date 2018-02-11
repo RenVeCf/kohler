@@ -20,12 +20,12 @@ public class IConstants {
     public static final String REFRESH_TOKEN = "refreshtoken"; //refreshtoken
     public static final String FIRST_APP = "isFirstApp"; //第一次进应用
     public static final String IS_LOGIN = "isLogin"; //已经登录
-    public static final String TYPE = "no_type"; //用户身份
+    public static final String TYPE = "no_type"; //用户身份  commonUser 普通用户   dealer 经销商    designer 设计师
     public static final String POEN_ID = "openId"; //用户唯一标识
     public static final String USER_ID = "userId"; //用户uid
     public static final String JPUSH_SYSTEM_ID = "registrationId"; //极光系统id
     public static final String MEETING_PUSH_MSG = "true"; //获取经销商大会用户设置
-    public static final String USER_NIKE_NAME = App.getContext().getResources().getString(R.string.login_or_register); //用户昵称
+    public static final String USER_NIKE_NAME = "KOHLER"; //用户昵称
     public static final String USER_HEAD_PORTRAIT = ""; //用户头像URL
 
     /**

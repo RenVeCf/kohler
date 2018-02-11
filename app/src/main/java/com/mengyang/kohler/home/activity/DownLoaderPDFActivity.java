@@ -58,7 +58,7 @@ public class DownLoaderPDFActivity extends BaseActivity implements OnPageChangeL
             }
         }
     };
-    private Response mResponse;
+//    private Response mResponse;
 
     @Override
     protected int getLayoutId() {
@@ -81,12 +81,32 @@ public class DownLoaderPDFActivity extends BaseActivity implements OnPageChangeL
 
     @Override
     protected void initData() {
-//        if (Build.VERSION.SDK_INT >= 23) {
-//            ActivityCompat.requestPermissions(DownLoaderPDFActivity.this,
-//                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-//                    MY_PERMISSIONS_REQUEST_READ);
+////        if (Build.VERSION.SDK_INT >= 23) {
+////            ActivityCompat.requestPermissions(DownLoaderPDFActivity.this,
+////                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+////                    MY_PERMISSIONS_REQUEST_READ);
+////
+////        }
 //
-//        }
+//        dialogUtils = new CommonDialogUtils();
+//        dialogUtils.showProgress(this, "Loading...");
+//        okHttpClient = new OkHttpClient();
+//        Request request = new Request.Builder().url(url).build();
+//        okHttpClient.newCall(request).enqueue(new Callback() {
+//
+//            @Override
+//            public void onFailure(Call call, IOException e) {
+//                LogUtils.i("kohler6","网络请求失败"+e);
+//            }
+//
+//            @Override
+//            public void onResponse(Call call, Response response) throws IOException {
+//                mResponse = response;
+//
+//                saveFile(response);
+//
+//            }
+//        });
 
         dialogUtils = new CommonDialogUtils();
         dialogUtils.showProgress(this, "Loading...");
@@ -96,15 +116,45 @@ public class DownLoaderPDFActivity extends BaseActivity implements OnPageChangeL
 
             @Override
             public void onFailure(Call call, IOException e) {
-                LogUtils.i("kohler6","网络请求失败"+e);
+
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                mResponse = response;
-
-                saveFile(response);
-
+                InputStream is = null;
+                byte[] buf = new byte[2048];
+                int len = 0;
+                FileOutputStream fos = null;
+                String SDPath = Environment.getExternalStorageDirectory().getAbsolutePath();
+                try {
+                    is = response.body().byteStream();
+                    long total = response.body().contentLength();
+                    File file = new File(SDPath, url.substring(url.lastIndexOf("/") + 1));
+                    fos = new FileOutputStream(file);
+                    long sum = 0;
+                    while ((len = is.read(buf)) != -1) {
+                        fos.write(buf, 0, len);
+                        sum += len;
+                        int progress = (int) (sum * 1.0f / total * 100);
+                        Message msg = handler.obtainMessage();
+                        msg.what = 1;
+                        msg.arg1 = progress;
+                        handler.sendMessage(msg);
+                    }
+                    fos.flush();
+                } catch (Exception e) {
+                } finally {
+                    try {
+                        if (is != null)
+                            is.close();
+                    } catch (IOException e) {
+                    }
+                    try {
+                        if (fos != null)
+                            fos.close();
+                    } catch (IOException e) {
+                    }
+                }
             }
         });
     }

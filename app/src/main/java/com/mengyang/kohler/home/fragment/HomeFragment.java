@@ -7,7 +7,6 @@ import android.net.Uri;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -23,8 +22,8 @@ import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.utils.DatabaseUtils;
-import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
+import com.mengyang.kohler.common.utils.VerifyUtils;
 import com.mengyang.kohler.common.view.SpacesItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.home.activity.HomeSearchActivity;
@@ -95,10 +94,10 @@ public class HomeFragment extends BaseFragment {
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(getActivity(), tvHomeTop);
 
-//        if (SPUtil.get(App.getContext(), IConstants.TYPE, "").equals("dealer"))
-            ivTopCustomerService.setVisibility(View.VISIBLE);
-//        else
-//            ivTopCustomerService.setVisibility(View.GONE);
+        //        if (SPUtil.get(App.getContext(), IConstants.TYPE, "").equals("dealer"))
+        ivTopCustomerService.setVisibility(View.VISIBLE);
+        //        else
+        //            ivTopCustomerService.setVisibility(View.GONE);
         //必须先初始化SQLite
         DatabaseUtils.initHelper(getActivity(), "books.db");
         //轮播
@@ -182,9 +181,11 @@ public class HomeFragment extends BaseFragment {
                                     }
                                     Intent intent = new Intent();
                                     intent.setAction("android.intent.action.VIEW");
-                                    Uri content_url = Uri.parse(mH5_URL);
-                                    intent.setData(content_url).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    getActivity().startActivity(intent);
+                                    if (VerifyUtils.isUrl(mH5_URL)) {
+                                        Uri content_url = Uri.parse(mH5_URL);
+                                        intent.setData(content_url).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        getActivity().startActivity(intent);
+                                    }
                                 }
                             }
                         });
@@ -202,13 +203,13 @@ public class HomeFragment extends BaseFragment {
                             public void onPageSelected(int position) {
 
                                 //当前页面选中时，先将上一次选中的位置设置为未选中，并将当前的位置记录下来为下一次移动做准备
-//                                mLlIndicator.getChildAt(prevousPosition).setEnabled(false);
+                                //                                mLlIndicator.getChildAt(prevousPosition).setEnabled(false);
                                 mLlIndicator.getChildAt(prevousPosition).setBackgroundColor(Color.parseColor("#e3e3e3"));
                                 prevousPosition = position;
 
                                 //要让对应角标的小圆点选中
                                 View childAt = mLlIndicator.getChildAt(position);
-//                                childAt.setEnabled(true);
+                                //                                childAt.setEnabled(true);
                                 childAt.setBackgroundColor(Color.BLACK);
                             }
 
@@ -250,7 +251,7 @@ public class HomeFragment extends BaseFragment {
         void onFragmentInteraction(String data);
     }
 
-    @OnClick({R.id.iv_top_menu, R.id.iv_home_search,R.id.iv_top_customer_service})
+    @OnClick({R.id.iv_top_menu, R.id.iv_home_search, R.id.iv_top_customer_service})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_home_search:
@@ -258,11 +259,11 @@ public class HomeFragment extends BaseFragment {
                     startActivity(new Intent(getActivity(), HomeSearchActivity.class).putExtra("etHomeSearch", etHomeSearch.getText().toString().trim()));
                 break;
             case R.id.iv_top_menu:
-//                abHomeLoop.setAutoPlay(false);
+                //                abHomeLoop.setAutoPlay(false);
                 mListener.onFragmentInteraction("");
                 break;
             case R.id.iv_top_customer_service:
-//                startActivity(new Intent(getContext(), CustomerServiceActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                //                startActivity(new Intent(getContext(), CustomerServiceActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                 startActivity(new Intent(getContext(), CustomerServiceActivity.class));
                 break;
             default:

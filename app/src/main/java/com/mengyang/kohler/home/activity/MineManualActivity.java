@@ -51,7 +51,7 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
     private BrochureListAdapter mMineManualAdapter;
     private List<BooksListBean.ResultListBean> mBooksListBean;
     private MyBrochureAdapter mMyBrochureAdapter;
-    private BooksBean mDeletePDF;
+//    private BooksBean mDeletePDF;
     private int pageNum = 0; //请求页数
 
     @Override
@@ -65,8 +65,8 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(this, tvMineManualTop);
 
-        //必须先初始化SQLite
-        DatabaseUtils.initHelper(MineManualActivity.this, "books.db");
+//        //必须先初始化SQLite
+//        DatabaseUtils.initHelper(MineManualActivity.this, "books.db");
 
         // 下载图册设置管理器
         LinearLayoutManager layoutManager = new LinearLayoutManager(App.getContext());
@@ -141,16 +141,16 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
                                                 startActivity(new Intent(MineManualActivity.this, PDFActivity.class).putExtra("PdfUrl", mBooksListBean.get(position).getPdfUrl()));
                                             else {//没找到就去下载
 
-                                                //图下载的pdf封面url放入SQLite
-                                                mDeletePDF = new BooksBean(mBooksListBean.get(position).getKvUrl());
-                                                //保存
-                                                DatabaseUtils.getHelper().save(mDeletePDF);
+//                                                //图下载的pdf封面url放入SQLite
+//                                                mDeletePDF = new BooksBean(mBooksListBean.get(position).getKvUrl());
+//                                                //保存
+//                                                DatabaseUtils.getHelper().save(mDeletePDF);
                                                 startActivity(new Intent(MineManualActivity.this, DownLoaderPDFActivity.class).putExtra("PdfUrl", mBooksListBean.get(position).getPdfUrl()));
 
-                                                //所有下载好的PDF集合
-                                                List<BooksBean> list = DatabaseUtils.getHelper().queryAll(BooksBean.class);
-                                                mMyBrochureAdapter = new MyBrochureAdapter(list);
-                                                rvMineManualMyBrochure.setAdapter(mMyBrochureAdapter);
+//                                                //所有下载好的PDF集合
+//                                                List<BooksBean> list = DatabaseUtils.getHelper().queryAll(BooksBean.class);
+//                                                mMyBrochureAdapter = new MyBrochureAdapter(list);
+//                                                rvMineManualMyBrochure.setAdapter(mMyBrochureAdapter);
                                             }
                                         }
                                     });

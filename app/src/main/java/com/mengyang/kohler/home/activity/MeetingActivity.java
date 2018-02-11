@@ -2,6 +2,7 @@ package com.mengyang.kohler.home.activity;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,7 +25,6 @@ import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.net.IdeaApi;
-import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.view.GridSpacingItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
@@ -37,6 +37,7 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -56,8 +57,8 @@ public class MeetingActivity extends BaseActivity {
     TextView tvMeetingNextAgendaPosition;
     @BindView(R.id.tv_meeting_next_agenda_name)
     TextView tvMeetingNextAgendaName;
-    @BindView(R.id.iv_real_time_dynamic)
-    ImageView ivRealTimeDynamic;
+    @BindView(R.id.iv_meeting_highlights)
+    ImageView ivMeetingHighlights;
     @BindView(R.id.ll_meeting_next)
     LinearLayout llMeetingNext;
     @BindView(R.id.tv_meeting_desc)
@@ -68,6 +69,20 @@ public class MeetingActivity extends BaseActivity {
     RecyclerView rvMeeting;
     @BindView(R.id.tv_meeting_msg_reminder_push)
     TextView tvMeetingMsgReminderPush;
+    @BindView(R.id.rl_meeting_vote)
+    ImageView rlMeetingVote;
+    @BindView(R.id.rl_meeting_chat_wall)
+    ImageView rlMeetingChatWall;
+    @BindView(R.id.tv_meeting_position_zero_agenda_type)
+    TextView tvMeetingPositionZeroAgendaType;
+    @BindView(R.id.tv_meeting_position_zero_agenda_time)
+    TextView tvMeetingPositionZeroAgendaTime;
+    @BindView(R.id.tv_meeting_position_zero_agenda_position)
+    TextView tvMeetingPositionZeroAgendaPosition;
+    @BindView(R.id.tv_meeting_position_zero_agenda_name)
+    TextView tvMeetingPositionZeroAgendaName;
+    @BindView(R.id.ll_meeting_position_zero)
+    LinearLayout llMeetingPositionZero;
     private PopupWindow mMeetingPopupWindow;
     private View mPopLayout;
     private MeetingBean mMeetingBean;
@@ -116,7 +131,6 @@ public class MeetingActivity extends BaseActivity {
         mMeetingAdapterBean = new ArrayList<>();
         mMeetingAdapter = new MeetingAdapter(mMeetingAdapterBean);
         rvMeeting.setAdapter(mMeetingAdapter);
-
     }
 
     @Override
@@ -139,16 +153,36 @@ public class MeetingActivity extends BaseActivity {
                     public void onSuccess(BasicResponse<MeetingBean> response) {
                         mMeetingBean = response.getData();
                         tvMeetingDesc.setText(mMeetingBean.getMeetingDesc());
-                        Glide.with(App.getContext()).load(mMeetingBean.getKvUrl()).apply(new RequestOptions().placeholder(R.mipmap.queshengtu)).into(ivRealTimeDynamic);
+                        Glide.with(App.getContext()).load(mMeetingBean.getKvUrl()).apply(new RequestOptions().placeholder(R.mipmap.queshengtu)).into(ivMeetingHighlights);
                         tvMeetingNextAgendaTime.setText(mMeetingBean.getAgendaList().get(0).getTimeSlot());
                         tvMeetingNextAgendaPosition.setText(mMeetingBean.getAgendaList().get(0).getPlace());
                         tvMeetingNextAgendaName.setText(mMeetingBean.getAgendaList().get(0).getTitle());
 
-                        tvPopMeetingDate.setText(mMeetingBean.getAgendaList().get(0).getDateStr());
-                        tvPopMeetingTime.setText(mMeetingBean.getAgendaList().get(0).getTimeSlot());
-                        tvPopMeetingPosition.setText(mMeetingBean.getAgendaList().get(0).getPlace());
-                        tvPopMeetingName.setText(mMeetingBean.getAgendaList().get(0).getTitle());
-                        tvPopMeetingAbstract.setText(mMeetingBean.getAgendaList().get(0).getAgendaDesc());
+                        String agendaType = "";
+                        switch (mMeetingBean.getAgendaList().get(0).getAgendaType()) {
+                            case 0:
+                                agendaType = "过期议程";
+                                break;
+                            case 1:
+                                agendaType = "当前议程";
+                                break;
+                            case 2:
+                                agendaType = "下一议程";
+                                break;
+                            case 3:
+                                agendaType = "明日议程";
+                                break;
+                        }
+
+                        tvMeetingPositionZeroAgendaType.setText(agendaType);
+                        tvMeetingPositionZeroAgendaTime.setText(mMeetingBean.getAgendaList().get(0).getTimeSlot());
+                        tvMeetingPositionZeroAgendaPosition.setText(mMeetingBean.getAgendaList().get(0).getPlace());
+                        tvMeetingPositionZeroAgendaName.setText(mMeetingBean.getAgendaList().get(0).getTitle());
+                        //                        tvPopMeetingDate.setText(mMeetingBean.getAgendaList().get(0).getDateStr());
+                        //                        tvPopMeetingTime.setText(mMeetingBean.getAgendaList().get(0).getTimeSlot());
+                        //                        tvPopMeetingPosition.setText(mMeetingBean.getAgendaList().get(0).getPlace());
+                        //                        tvPopMeetingName.setText(mMeetingBean.getAgendaList().get(0).getTitle());
+                        //                        tvPopMeetingAbstract.setText(mMeetingBean.getAgendaList().get(0).getAgendaDesc());
 
                         mMeetingAdapterBean.clear();
                         mMeetingAdapterBean.addAll(mMeetingBean.getAgendaList());
@@ -186,12 +220,9 @@ public class MeetingActivity extends BaseActivity {
                 });
     }
 
-    @OnClick({R.id.iv_real_time_dynamic, R.id.ll_meeting_next, R.id.rl_invitation_h5, R.id.ll_meeting_msg_reminder_push})
+    @OnClick({R.id.ll_meeting_position_zero, R.id.iv_meeting_highlights, R.id.ll_meeting_next, R.id.rl_invitation_h5, R.id.ll_meeting_msg_reminder_push, R.id.rl_meeting_vote, R.id.rl_meeting_chat_wall})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.iv_real_time_dynamic:
-                startActivity(new Intent(this, LiveRealTimeActivity.class));
-                break;
             case R.id.ll_meeting_next:
                 tvPopMeetingDate.setText(mMeetingBean.getAgendaList().get(0).getDateStr());
                 tvPopMeetingTime.setText(mMeetingBean.getAgendaList().get(0).getTimeSlot());
@@ -213,6 +244,16 @@ public class MeetingActivity extends BaseActivity {
                     AgendaMsgPush(true);
                     SPUtil.put(App.getContext(), IConstants.MEETING_PUSH_MSG, true);
                 }
+                break;
+            case R.id.rl_meeting_vote:
+                //投票
+                startActivity(new Intent(this, LiveRealTimeActivity.class));
+                break;
+            case R.id.rl_meeting_chat_wall:
+                //弹幕
+                break;
+            case R.id.iv_meeting_highlights:
+                //集锦
                 break;
         }
     }

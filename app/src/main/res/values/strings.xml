@@ -120,7 +120,6 @@
     <string name="live">Live</string>
     <string name="real_time_dynamic">现场实时投票</string>
     <string name="conference_agenda">会议议程</string>
-    <string name="agenda">Agenda</string>
     <string name="now_agenda">当前议程</string>
     <string name="day_agenda">每日议程</string>
     <string name="over_agenda">过期议程</string>
@@ -168,4 +167,5 @@
     <string name="data_download">技术资料下载：</string>
     <string name="vote">Vote</string>
     <string name="wonderful_collection">精彩集锦</string>
+    <string name="agenda">Agenda</string>
 </resources>
