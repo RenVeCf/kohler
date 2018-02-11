@@ -45,7 +45,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/invitation_english"
                 android:textColor="#252525"
-                android:textSize="22sp"/>
+                android:textSize="22sp"
+                android:textStyle="bold"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -143,7 +144,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="2dp"
-                            android:text="@string/msg_reminder_push_open"
                             android:textColor="#ffffff"
                             android:textSize="9sp"/>
 
@@ -240,7 +240,8 @@
                 android:layout_marginTop="@dimen/y108"
                 android:text="@string/vote"
                 android:textColor="#252525"
-                android:textSize="22sp"/>
+                android:textSize="22sp"
+                android:textStyle="bold"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -263,7 +264,8 @@
                 android:layout_marginTop="@dimen/y108"
                 android:text="Chat Wall"
                 android:textColor="#252525"
-                android:textSize="22sp"/>
+                android:textSize="22sp"
+                android:textStyle="bold"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -401,7 +403,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:layout_marginStart="@dimen/x10"
-                    android:background="@color/black"
+                    android:background="@mipmap/meeting_bg2"
                     android:orientation="vertical">
 
                     <TextView

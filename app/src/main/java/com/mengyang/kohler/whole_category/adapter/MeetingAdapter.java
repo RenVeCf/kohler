@@ -1,6 +1,5 @@
 package com.mengyang.kohler.whole_category.adapter;
 
-import android.annotation.SuppressLint;
 import android.support.annotation.Nullable;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
