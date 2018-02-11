@@ -38,6 +38,7 @@
             <!--android:orientation="vertical">-->
 
             <android.support.v7.widget.RecyclerView
+                android:layout_marginTop="@dimen/y45"
                 android:id="@+id/recycler_view_service11"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"

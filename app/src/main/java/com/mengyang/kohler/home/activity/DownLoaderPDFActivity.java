@@ -1,11 +1,13 @@
 package com.mengyang.kohler.home.activity;
 
+import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.graphics.Canvas;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.widget.ProgressBar;
 
 import com.github.barteksc.pdfviewer.PDFView;
@@ -23,6 +25,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+
+import javax.xml.transform.Result;
 
 import butterknife.BindView;
 import okhttp3.Call;
@@ -43,6 +47,8 @@ public class DownLoaderPDFActivity extends BaseActivity implements OnPageChangeL
     private OkHttpClient okHttpClient;
     private String url = "";
     private CommonDialogUtils dialogUtils;
+
+    @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -52,8 +58,13 @@ public class DownLoaderPDFActivity extends BaseActivity implements OnPageChangeL
                     //进度条的值
                     int i = msg.arg1;
                     pbPdf.setProgress(i);
+                    break;
+                default:
+                    break;
             }
+
             if (msg.arg1 == 100) {
+                setResult(RESULT_OK);
                 displayFromFile(new File(Environment.getExternalStorageDirectory().getAbsolutePath(), url.substring(url.lastIndexOf("/") + 1)));
             }
         }
@@ -139,6 +150,7 @@ public class DownLoaderPDFActivity extends BaseActivity implements OnPageChangeL
                         Message msg = handler.obtainMessage();
                         msg.what = 1;
                         msg.arg1 = progress;
+                        Log.i("6666","progress = "+progress );
                         handler.sendMessage(msg);
                     }
                     fos.flush();
@@ -157,51 +169,6 @@ public class DownLoaderPDFActivity extends BaseActivity implements OnPageChangeL
                 }
             }
         });
-    }
-
-    private void saveFile(Response response) {
-        InputStream is = null;
-        byte[] buf = new byte[2048];
-        int len = 0;
-        FileOutputStream fos = null;
-        try {
-            is = response.body().byteStream();
-            long total = response.body().contentLength();
-
-            String SDPath = Environment.getExternalStorageDirectory().getAbsolutePath();
-            File file = new File(SDPath, url.substring(url.lastIndexOf("/") + 1));
-            if (!file.exists()) {
-                file.mkdirs();
-            }
-            fos = new FileOutputStream(file);
-            long sum = 0;
-
-            while ((len = is.read(buf)) != -1) {
-                fos.write(buf, 0, len);
-                sum += len;
-                int progress = (int) (sum * 1.0f / total * 100);
-                Message msg = handler.obtainMessage();
-                msg.what = 1;
-                msg.arg1 = progress;
-                handler.sendMessage(msg);
-            }
-            fos.flush();
-        } catch (Exception e) {
-            dialogUtils.dismissProgress();
-            LogUtils.i("kohler6","出错了"+e);
-        } finally {
-            dialogUtils.dismissProgress();
-            try {
-                if (is != null)
-                    is.close();
-            } catch (IOException e) {
-            }
-            try {
-                if (fos != null)
-                    fos.close();
-            } catch (IOException e) {
-            }
-        }
     }
 
     private void displayFromFile(File file) {

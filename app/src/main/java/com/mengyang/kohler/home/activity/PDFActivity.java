@@ -24,6 +24,8 @@ import butterknife.BindView;
 
 public class PDFActivity extends BaseActivity {
 
+    String SDPath = Environment.getExternalStorageDirectory().getAbsolutePath();
+
     @BindView(R.id.pdf_home)
     PDFView pdfHome;
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
@@ -38,7 +40,13 @@ public class PDFActivity extends BaseActivity {
         App.getManager().addActivity(this);
         int myPage = 0;
         String PdfUrl = getIntent().getStringExtra("PdfUrl");
-        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), PdfUrl.substring(PdfUrl.lastIndexOf("/") + 1));
+
+        File file2 = new File(SDPath);
+        if (!file2.exists()) {
+            file2.mkdirs();
+        }
+
+        File file = new File(file2, PdfUrl.substring(PdfUrl.lastIndexOf("/") + 1));
         //选择pdf
         pdfHome.fromFile(file)
                 //                .pages(0, loading2, loading3, 4, 5); // 把0 , loading2 , loading3 , 4 , 5 过滤掉

@@ -27,6 +27,7 @@ public class IConstants {
     public static final String MEETING_PUSH_MSG = "true"; //获取经销商大会用户设置
     public static final String USER_NIKE_NAME = "KOHLER"; //用户昵称
     public static final String USER_HEAD_PORTRAIT = ""; //用户头像URL
+    public static final String USER_PDF_DATA = "userPdfData"; //用户头像URL
 
     /**
      * 请求码 从60开始
@@ -43,5 +44,9 @@ public class IConstants {
     public static final long PDF_LIST_BEAN = 5L;
     public static final long SKU_ATTR_LIST_BEAN = 6L;
 
+    /**
+     * 请求码
+     */
+    public static final int REQUEST_CODE_DOWN_LOAD = 100; //用户头像URL
 
 }
