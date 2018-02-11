@@ -50,6 +50,7 @@
         </LinearLayout>
 
         <TextView
+            android:paddingRight="@dimen/x20"
             android:textColor="#000000"
             android:id="@+id/tv_service_message"
             android:text="您好，我是科勒机器人客服，请提问或输入关键词查询。"

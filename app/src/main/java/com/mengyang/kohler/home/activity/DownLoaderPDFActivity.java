@@ -1,6 +1,7 @@
 package com.mengyang.kohler.home.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Canvas;
 import android.os.Environment;
@@ -38,7 +39,7 @@ import okhttp3.Response;
 public class DownLoaderPDFActivity extends BaseActivity implements OnPageChangeListener, OnLoadCompleteListener, OnDrawListener {
     /* 请求识别码 */
     private static final int MY_PERMISSIONS_REQUEST_READ = 6;
-
+    String SDPath = Environment.getExternalStorageDirectory().getAbsolutePath();
 
     @BindView(R.id.pdf_view)
     PDFView pdfView;
@@ -64,12 +65,15 @@ public class DownLoaderPDFActivity extends BaseActivity implements OnPageChangeL
             }
 
             if (msg.arg1 == 100) {
+                Intent intent = new Intent();
+                intent.putExtra("pdfPath", mFileAbsolutePath);
                 setResult(RESULT_OK);
                 displayFromFile(new File(Environment.getExternalStorageDirectory().getAbsolutePath(), url.substring(url.lastIndexOf("/") + 1)));
             }
         }
     };
-//    private Response mResponse;
+    private String mFileAbsolutePath;
+    //    private Response mResponse;
 
     @Override
     protected int getLayoutId() {
@@ -92,32 +96,6 @@ public class DownLoaderPDFActivity extends BaseActivity implements OnPageChangeL
 
     @Override
     protected void initData() {
-////        if (Build.VERSION.SDK_INT >= 23) {
-////            ActivityCompat.requestPermissions(DownLoaderPDFActivity.this,
-////                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-////                    MY_PERMISSIONS_REQUEST_READ);
-////
-////        }
-//
-//        dialogUtils = new CommonDialogUtils();
-//        dialogUtils.showProgress(this, "Loading...");
-//        okHttpClient = new OkHttpClient();
-//        Request request = new Request.Builder().url(url).build();
-//        okHttpClient.newCall(request).enqueue(new Callback() {
-//
-//            @Override
-//            public void onFailure(Call call, IOException e) {
-//                LogUtils.i("kohler6","网络请求失败"+e);
-//            }
-//
-//            @Override
-//            public void onResponse(Call call, Response response) throws IOException {
-//                mResponse = response;
-//
-//                saveFile(response);
-//
-//            }
-//        });
 
         dialogUtils = new CommonDialogUtils();
         dialogUtils.showProgress(this, "Loading...");
@@ -136,11 +114,12 @@ public class DownLoaderPDFActivity extends BaseActivity implements OnPageChangeL
                 byte[] buf = new byte[2048];
                 int len = 0;
                 FileOutputStream fos = null;
-                String SDPath = Environment.getExternalStorageDirectory().getAbsolutePath();
+
                 try {
                     is = response.body().byteStream();
                     long total = response.body().contentLength();
                     File file = new File(SDPath, url.substring(url.lastIndexOf("/") + 1));
+                    mFileAbsolutePath = file.getAbsolutePath();
                     fos = new FileOutputStream(file);
                     long sum = 0;
                     while ((len = is.read(buf)) != -1) {
@@ -150,11 +129,13 @@ public class DownLoaderPDFActivity extends BaseActivity implements OnPageChangeL
                         Message msg = handler.obtainMessage();
                         msg.what = 1;
                         msg.arg1 = progress;
-                        Log.i("6666","progress = "+progress );
+                        Log.i("66666","progress = "+progress );
                         handler.sendMessage(msg);
                     }
                     fos.flush();
                 } catch (Exception e) {
+                    dialogUtils.dismissProgress();
+                    LogUtils.i("kohler6","出错了"+e);
                 } finally {
                     try {
                         if (is != null)
