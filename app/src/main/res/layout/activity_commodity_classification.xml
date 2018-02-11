@@ -26,7 +26,7 @@
     <com.mengyang.kohler.whole_category.view.NavitationFollowScrollLayout
         android:id="@+id/nfsl_commodity_classification"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/y48"
         android:background="#ffffff"/>
 
     <View

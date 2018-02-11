@@ -43,12 +43,6 @@ public class StackAdapter extends RecyclerView.Adapter<StackAdapter.ViewHolder> 
 
     public StackAdapter(List<NotSelectClassificationBean> datas) {
         this.datasUsed = datas;
-//        for (int i = 0; i < datas.size(); i++) {
-//            if (!TextUtils.isEmpty(datas.get(i).getKvUrl())) {
-//                datasUsed.add(datas.get(i));
-//            }
-//        }
-
     }
 
     @Override
@@ -57,15 +51,8 @@ public class StackAdapter extends RecyclerView.Adapter<StackAdapter.ViewHolder> 
             context = parent.getContext();
             inflater = LayoutInflater.from(parent.getContext());
         }
-        //        if (vertical)
-        //            return new ViewHolder(inflater.inflate(R.layout.vertical_item_card, parent, false));
         return new ViewHolder(inflater.inflate(R.layout.item_whole_category_card, parent, false));
     }
-
-    //    public StackAdapter vertical() {
-    //        this.vertical = true;
-    //        return this;
-    //    }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
@@ -80,7 +67,6 @@ public class StackAdapter extends RecyclerView.Adapter<StackAdapter.ViewHolder> 
 //            holder.cardViewTotal.setBackgroundColor(Color.WHITE);
         }
 
-        Log.i("kohler66", "position = " +position +"name = "+datasUsed.get(position).getNameCn());
     }
 
 //    public interface OnWholeCategoryItem {

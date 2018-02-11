@@ -233,6 +233,12 @@
                         android:textSize="16sp"
                         android:textStyle="bold"/>
                 </LinearLayout>
+                <com.mengyang.kohler.whole_category.view.FlexBoxLayout
+                    android:id="@+id/flowlayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </com.mengyang.kohler.whole_category.view.FlexBoxLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"

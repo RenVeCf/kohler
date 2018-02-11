@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.SystemClock;
+import android.text.InputType;
 import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,8 +36,7 @@ import com.mengyang.kohler.home.activity.StoreMapActivity;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.CommodityClassificationFragmentBean;
 import com.mengyang.kohler.module.bean.CommodityDetailsBean;
-import com.mengyang.kohler.whole_category.view.MyLinearLayout;
-import com.mengyang.kohler.whole_category.view.MyTextView;
+import com.mengyang.kohler.whole_category.view.FlexBoxLayout;
 import com.zhouwei.mzbanner.MZBannerView;
 import com.zhouwei.mzbanner.holder.MZHolderCreator;
 import com.zhouwei.mzbanner.holder.MZViewHolder;
@@ -89,6 +89,8 @@ public class CommodityDetailsActivity extends BaseActivity {
     TextView tvCommodityDetailsColor;
     @BindView(R.id.iv_commodity_details_color_img)
     LinearLayout ivCommodityDetailsColorImg;
+    @BindView(R.id.flowlayout)
+    FlexBoxLayout mFlowlayout;
     //轮播图集合
     private List<Bitmap> mDatas = new ArrayList<>();
     private PopupWindow mDownloadPopupWindow;
@@ -313,10 +315,9 @@ public class CommodityDetailsActivity extends BaseActivity {
 //
 //                                        relative.setLayoutParams(params);
                                         LinearLayout relative = new LinearLayout(CommodityDetailsActivity.this);
-                                        relative.setOrientation(LinearLayout.HORIZONTAL);
+//                                        relative.setOrientation(LinearLayout.HORIZONTAL);
 
-//                                        TextView label = new TextView(CommodityDetailsActivity.this);
-                                        MyTextView label = new MyTextView(CommodityDetailsActivity.this);
+                                        TextView label = new TextView(CommodityDetailsActivity.this);
 
 
                                         label.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
@@ -343,6 +344,7 @@ public class CommodityDetailsActivity extends BaseActivity {
                                         attribute.setLineSpacing(7, 0);
                                         relative.addView(attribute);
                                         llCommodityDetails.addView(relative);
+//                                        mFlowlayout.addView(relative);
                                     } else if (mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName().equals("TMALL链接")) {
                                         mTianMaoUrl = mCommodityDetails.get(poction).getAttrList().get(i).getAttrValue();
                                     }

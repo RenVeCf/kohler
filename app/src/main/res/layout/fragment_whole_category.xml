@@ -34,9 +34,10 @@
             android:layout_height="match_parent"
             android:src="@mipmap/select_logo" />
         <TextView
+            android:gravity="bottom"
             android:textColor="#ffffff"
             android:id="@+id/tv_title_en"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             android:layout_centerVertical="true"
             android:layout_width="wrap_content"
