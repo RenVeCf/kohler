@@ -239,7 +239,7 @@ public class MeetingActivity extends BaseActivity {
                 startActivity(new Intent(this, MeetingWebActivity.class).putExtra("meeting_web", mMeetingBean.getInvitationH5Url()));
                 break;
             case R.id.ll_meeting_msg_reminder_push:
-                if ((SPUtil.get(App.getContext(), IConstants.MEETING_PUSH_MSG, true) + "").equals("true")) {
+                if ((SPUtil.get(App.getContext(), IConstants.MEETING_PUSH_MSG, "true") + "").equals("true")) {
                     tvMeetingMsgReminderPush.setText(getResources().getString(R.string.msg_reminder_push_open));
                     AgendaMsgPush(false);
                     SPUtil.put(App.getContext(), IConstants.MEETING_PUSH_MSG, false + "");
