@@ -308,18 +308,11 @@ public class CommodityDetailsActivity extends BaseActivity {
                                         tvFunction.setText(mCommodityDetails.get(poction).getAttrList().get(i).getAttrValue());
                                     } else if (!mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName().equals("TMALL链接") && !mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName().equals("特征") && !mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName().equals("pdfUrl")) {
 
-                                        //                                        LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                                        //
-                                        //                                        relative.setLayoutParams(params);
+                                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                                         LinearLayout relative = new LinearLayout(CommodityDetailsActivity.this);
-                                        //                                        relative.setOrientation(LinearLayout.HORIZONTAL);
-
+                                        relative.setLayoutParams(params);
+                                        relative.setOrientation(LinearLayout.HORIZONTAL);
                                         TextView label = new TextView(CommodityDetailsActivity.this);
-
-
-                                        label.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
-
-
                                         label.setText(mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName() + ": ");
                                         label.setTextColor(Color.BLACK);
                                         label.setTextSize(11);
@@ -330,18 +323,13 @@ public class CommodityDetailsActivity extends BaseActivity {
 
                                         TextView attribute = new TextView(CommodityDetailsActivity.this);
                                         attribute.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
-
-
-                                        attribute.setMaxLines(5);
-
-
+                                        attribute.setMaxLines(2);
                                         attribute.setText(mCommodityDetails.get(poction).getAttrList().get(i).getAttrValue());
                                         attribute.setTextColor(Color.BLACK);
                                         attribute.setTextSize(11);
                                         attribute.setLineSpacing(7, 0);
                                         relative.addView(attribute);
                                         llCommodityDetails.addView(relative);
-                                        //                                        mFlowlayout.addView(relative);
                                     } else if (mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName().equals("TMALL链接")) {
                                         mTianMaoUrl = mCommodityDetails.get(poction).getAttrList().get(i).getAttrValue();
                                     }

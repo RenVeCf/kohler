@@ -5,25 +5,20 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
-import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseFragment;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.net.DefaultObserver;
-import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.net.IdeaApi;
-import com.mengyang.kohler.common.utils.LogUtils;
-import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.NotSelectClassificationBean;
 import com.mengyang.kohler.whole_category.view.Align;
 import com.mengyang.kohler.whole_category.view.Config;
-import com.mengyang.kohler.whole_category.view.StackAdapter;
+import com.mengyang.kohler.whole_category.adapter.StackAdapter;
 import com.mengyang.kohler.whole_category.view.StackLayoutManager;
 
 import java.util.ArrayList;
