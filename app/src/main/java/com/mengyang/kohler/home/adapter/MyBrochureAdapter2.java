@@ -30,7 +30,7 @@ public class MyBrochureAdapter2 extends BaseQuickAdapter<PdfBean.userPdfListBean
     @Override
     protected void convert(BaseViewHolder helper, PdfBean.userPdfListBean item) {
         if (helper.getAdapterPosition() == 0) {
-            helper.getView(R.id.iv_my_brochure_adapter_remove_item_img).setPadding(5, 0, 0, 0);
+            helper.getView(R.id.iv_my_brochure_adapter_remove_item_img).setPadding(15, 0, 0, 0);
         }
         Glide.with(App.getContext()).load(item.getBookKVUrl()).apply(new RequestOptions().placeholder(R.mipmap.queshengtu)).into((ImageView) helper.getView(R.id.iv_my_brochure_adapter_remove_item_img));
         helper.addOnClickListener(R.id.iv_my_brochure_adapter_remove_item_img);

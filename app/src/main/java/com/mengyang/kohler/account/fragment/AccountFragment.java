@@ -26,6 +26,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.loadmore.LoadMoreView;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseFragment;
@@ -110,7 +111,6 @@ public class AccountFragment extends BaseFragment implements BaseQuickAdapter.Re
     protected void initValues() {
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(getActivity(), tvAccountTop);
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(App.getContext());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         rvAccountBrowsing.setLayoutManager(layoutManager);
@@ -258,6 +258,35 @@ public class AccountFragment extends BaseFragment implements BaseQuickAdapter.Re
                                     mFootPrintAdapter = new FootPrintAdapter(mFootPrintBean);
                                     rvAccountBrowsing.setAdapter(mFootPrintAdapter);
                                     mFootPrintAdapter.setOnLoadMoreListener(AccountFragment.this, rvAccountBrowsing); //加载更多
+                                    mFootPrintAdapter.setLoadMoreView(new LoadMoreView() {
+                                        @Override
+                                        public int getLayoutId() {
+                                            return R.layout.load_more_null_layout;
+                                        }
+
+                                        /**
+                                         * 如果返回true，数据全部加载完毕后会隐藏加载更多
+                                         * 如果返回false，数据全部加载完毕后会显示getLoadEndViewId()布局
+                                         */
+                                        @Override public boolean isLoadEndGone() {
+                                            return true;
+                                        }
+
+                                        @Override
+                                        protected int getLoadingViewId() {
+                                            return R.id.load_more_loading_view;
+                                        }
+
+                                        @Override
+                                        protected int getLoadFailViewId() {
+                                            return R.id.load_more_load_fail_view;
+                                        }
+
+                                        @Override
+                                        protected int getLoadEndViewId() {
+                                            return 0;
+                                        }
+                                    });
                                     mFootPrintAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
                                         @Override
                                         public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {

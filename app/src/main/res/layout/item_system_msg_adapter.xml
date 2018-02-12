@@ -22,6 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/x48"
             android:layout_marginTop="@dimen/y20"
+            android:layout_marginEnd="@dimen/x60"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -30,12 +31,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
+                android:textColor="@color/black"
                 tools:text="为了给家人营造更加轻松舒适的环境，我们都在不断寻求更好的解决方案并希望与更多同样的爱家人士分享交流发现。"/>
 
             <TextView
                 android:id="@+id/tv_system_msg_adapter_day_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y12"
                 android:textColor="#c2c2c2"
                 android:textSize="10sp"
                 tools:text="57天前"/>

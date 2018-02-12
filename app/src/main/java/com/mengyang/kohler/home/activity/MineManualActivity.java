@@ -3,6 +3,7 @@ package com.mengyang.kohler.home.activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Environment;
+import android.os.SystemClock;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,18 +21,14 @@ import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.net.IdeaApi;
-import com.mengyang.kohler.common.utils.DatabaseUtils;
 import com.mengyang.kohler.common.utils.FileUtils;
-import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.view.SpacesItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.home.adapter.BrochureListAdapter;
-import com.mengyang.kohler.home.adapter.MyBrochureAdapter;
 import com.mengyang.kohler.home.adapter.MyBrochureAdapter2;
 import com.mengyang.kohler.home.adapter.MyBrochureAdapter3;
 import com.mengyang.kohler.module.BasicResponse;
-import com.mengyang.kohler.module.BooksBean;
 import com.mengyang.kohler.module.BooksBean3;
 import com.mengyang.kohler.module.PdfBean;
 import com.mengyang.kohler.module.bean.BooksListBean;
@@ -54,7 +51,6 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
     String mRootPath = Environment.getExternalStorageDirectory().getAbsolutePath();
 
 
-
     @BindView(R.id.tv_mine_manual_top)
     TopView tvMineManualTop;
     @BindView(R.id.rv_mine_manual_brochure_list)
@@ -70,7 +66,7 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
 
     private List<PdfBean> mPdfBeanList = new ArrayList<>();
     private List<BooksBean3> mPdfBean3List = new ArrayList<>();
-//    private BooksBean mDeletePDF;
+    //    private BooksBean mDeletePDF;
     private int pageNum = 0; //请求页数
     private String mPdfTotalPath;
     private List<PdfBean.userPdfListBean> mUserPdfListBeans;
@@ -91,8 +87,8 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(this, tvMineManualTop);
 
-//        //必须先初始化SQLite
-//        DatabaseUtils.initHelper(MineManualActivity.this, "books.db");
+        //        //必须先初始化SQLite
+        //        DatabaseUtils.initHelper(MineManualActivity.this, "books.db");
 
         // 下载图册设置管理器
         LinearLayoutManager layoutManager = new LinearLayoutManager(App.getContext());
@@ -107,7 +103,6 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
         rvMineManualBrochureList.setAdapter(mMineManualAdapter);
 
 
-
         // 删除图册设置管理器
         LinearLayoutManager layoutManager_delete = new LinearLayoutManager(App.getContext());
         layoutManager_delete.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -118,11 +113,7 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
         rvMineManualMyBrochure.setItemAnimator(new DefaultItemAnimator());
 
 
-
-
-
-
-//        int itemCount = mMineManualAdapter.getItemCount();
+        //        int itemCount = mMineManualAdapter.getItemCount();
         String pefData2 = (String) SPUtil.get(App.getContext(), IConstants.USER_PDF_DATA_TEMP, "");
         if (!TextUtils.isEmpty(pefData2)) {
             Gson gson = new Gson();
@@ -130,7 +121,7 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
 
             if (!pefDataList.entrySet().isEmpty()) {
                 for (Map.Entry<String, String> stringStringEntry : pefDataList.entrySet()) {
-                    mPdfBean3List.add(new BooksBean3(stringStringEntry.getKey(),stringStringEntry.getValue()));
+                    mPdfBean3List.add(new BooksBean3(stringStringEntry.getKey(), stringStringEntry.getValue()));
                 }
 
                 mMyBrochureAdapter3 = new MyBrochureAdapter3(mPdfBean3List);
@@ -298,6 +289,7 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
 //                mPdfPathSuccess = data.getStringExtra("pdfPath");
 //            }
             BooksBean3 booksBean3 = new BooksBean3(mBooksListBean.get(mCurPosition).getKvUrl(), mPdfTotalPath);
+            SystemClock.sleep(300);
             mapUrl.put(mBooksListBean.get(mCurPosition).getKvUrl(),mPdfTotalPath);
 
             Gson gson = new Gson();

@@ -14,6 +14,7 @@ import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.adapter.SystemMsgAdapter;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IdeaApi;
+import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.view.SpacesItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.module.BasicResponse;
@@ -61,6 +62,7 @@ public class SystemMsgActivity extends BaseActivity implements BaseQuickAdapter.
         // 如果可以确定每个item的高度是固定的，设置这个选项可以提高性能
         rvSystemMsg.setHasFixedSize(true);
         rvSystemMsg.setItemAnimator(new DefaultItemAnimator());
+
         mSystemMsgBean = new ArrayList<>();
         mSystemMsgAdapter = new SystemMsgAdapter(mSystemMsgBean);
         rvSystemMsg.setAdapter(mSystemMsgAdapter);
@@ -93,15 +95,14 @@ public class SystemMsgActivity extends BaseActivity implements BaseQuickAdapter.
                 .subscribe(new DefaultObserver<BasicResponse<SystemMsgBean>>(SystemMsgActivity.this, true) {
                     @Override
                     public void onSuccess(BasicResponse<SystemMsgBean> response) {
-                        if (response != null) {
+                        LogUtils.i("rmy", response.getData().getResultList() + "");
+                        if (response.getData().getResultList().size() != 0) {
                             if (pageNum == 0) {
                                 mSystemMsgBean.clear();
                                 mSystemMsgBean.addAll(response.getData().getResultList());
                                 if (mSystemMsgBean.size() > 0) {
                                     pageNum += 1;
                                     mSystemMsgAdapter = new SystemMsgAdapter(mSystemMsgBean);
-                                    mSystemMsgAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_BOTTOM); //动画
-                                    mSystemMsgAdapter.isFirstOnly(false); //第一次
                                     rvSystemMsg.setAdapter(mSystemMsgAdapter);
                                     mSystemMsgAdapter.setOnLoadMoreListener(SystemMsgActivity.this, rvSystemMsg); //加载更多
                                 } else {
@@ -118,7 +119,7 @@ public class SystemMsgActivity extends BaseActivity implements BaseQuickAdapter.
                                 }
                             }
                         } else {
-                            mSystemMsgAdapter.loadMoreEnd();
+                            mSystemMsgAdapter.setEmptyView(R.layout.null_layout, rvSystemMsg);
                         }
                     }
                 });

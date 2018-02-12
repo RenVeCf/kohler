@@ -29,13 +29,13 @@
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/srl_mine_manual"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/x72"
+        android:layout_marginTop="@dimen/y59">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/x72"
-            android:layout_marginTop="@dimen/y69"
             android:orientation="vertical">
 
             <TextView
@@ -61,7 +61,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/y108"
+                android:layout_marginTop="@dimen/y68"
                 android:textColor="#252525"
                 android:textSize="22sp"
                 android:text="@string/my_brochure"/>

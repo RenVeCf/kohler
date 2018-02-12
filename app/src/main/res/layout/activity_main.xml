@@ -20,7 +20,7 @@
             android:layout_height="@dimen/y84"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/x120"
-            android:layout_marginTop="@dimen/y270"
+            android:layout_marginTop="@dimen/y220"
             android:gravity="bottom"
             android:src="@mipmap/logobai"/>
 
@@ -370,7 +370,7 @@
                 android:drawableTop="@mipmap/icon_home"
                 android:text="@string/home"
                 android:textSize="11sp"
-                android:textColor="#505050"/>
+                android:textColor="@color/background_color"/>
 
             <Button
                 android:id="@+id/bt_whole_category"
@@ -381,7 +381,7 @@
                 android:drawableTop="@mipmap/category"
                 android:text="@string/whole_category"
                 android:textSize="11sp"
-                android:textColor="#505050"/>
+                android:textColor="@color/background_color"/>
 
             <Button
                 android:id="@+id/bt_ar"
@@ -392,7 +392,7 @@
                 android:drawableTop="@mipmap/ar"
                 android:text="@string/ar"
                 android:textSize="11sp"
-                android:textColor="#505050"/>
+                android:textColor="@color/background_color"/>
 
             <Button
                 android:id="@+id/bt_account"
@@ -403,7 +403,7 @@
                 android:drawableTop="@mipmap/personal"
                 android:text="@string/account"
                 android:textSize="11sp"
-                android:textColor="#505050"/>
+                android:textColor="@color/background_color"/>
         </LinearLayout>
     </LinearLayout>
 </com.mengyang.kohler.common.view.ResideLayout>

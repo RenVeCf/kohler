@@ -208,13 +208,13 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
             final Drawable arDrawableTop = getResources().getDrawable(R.mipmap.arbai);
             final Drawable accountDrawableTop = getResources().getDrawable(R.mipmap.zhanghubai);
             llMainFragmentSelect.setBackgroundResource(R.mipmap.bg2);
-            btHome.setTextColor(getResources().getColor(R.color.background_color));
+            btHome.setTextColor(getResources().getColor(R.color.white));
             btHome.setCompoundDrawablesWithIntrinsicBounds(null, homeDrawableTop, null, null);
-            btWholeCategory.setTextColor(getResources().getColor(R.color.background_color));
+            btWholeCategory.setTextColor(getResources().getColor(R.color.white));
             btWholeCategory.setCompoundDrawablesWithIntrinsicBounds(null, wholeCategoryDrawableTop, null, null);
-            btAr.setTextColor(getResources().getColor(R.color.background_color));
+            btAr.setTextColor(getResources().getColor(R.color.white));
             btAr.setCompoundDrawablesWithIntrinsicBounds(null, arDrawableTop, null, null);
-            btAccount.setTextColor(getResources().getColor(R.color.background_color));
+            btAccount.setTextColor(getResources().getColor(R.color.white));
             btAccount.setCompoundDrawablesWithIntrinsicBounds(null, accountDrawableTop, null, null);
         } else {
             final Drawable homeDrawableTop = getResources().getDrawable(R.mipmap.icon_home);
@@ -264,12 +264,12 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 startActivity(new Intent(this, StoreMapActivity.class));
                 break;
             case R.id.ll_account_manual:
-//                if (((boolean) SPUtil.get(this, IConstants.IS_LOGIN, false)) == true) {
-//                    if (SPUtil.get(this, IConstants.TYPE, "").equals("dealer") && SPUtil.get(this, IConstants.TYPE, "").equals("designer"))
+                if (((boolean) SPUtil.get(this, IConstants.IS_LOGIN, false)) == true) {
+                    if (SPUtil.get(this, IConstants.TYPE, "").equals("dealer") || SPUtil.get(this, IConstants.TYPE, "").equals("designer"))
                         startActivity(new Intent(this, MineManualActivity.class));
-//                } else {
-//                    startActivity(new Intent(this, LoginActivity.class));
-//                }
+                } else {
+                    startActivity(new Intent(this, LoginActivity.class));
+                }
                 break;
             case R.id.ll_super_toilet_seat:
                 //一体超感座便器

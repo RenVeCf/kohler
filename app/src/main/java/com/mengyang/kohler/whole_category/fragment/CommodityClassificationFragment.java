@@ -1,7 +1,6 @@
 package com.mengyang.kohler.whole_category.fragment;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -20,7 +19,6 @@ import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.view.GridSpacingItemDecoration;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.CommodityClassificationFragmentBean;
-import com.mengyang.kohler.whole_category.activity.CommodityClassificationActivity;
 import com.mengyang.kohler.whole_category.activity.CommodityDetailsActivity;
 import com.mengyang.kohler.whole_category.adapter.CommodityClassificationAdapter;
 
@@ -102,7 +100,8 @@ public class CommodityClassificationFragment extends BaseFragment implements Bas
                 .subscribe(new DefaultObserver<BasicResponse<CommodityClassificationFragmentBean>>(getActivity(), true) {
                     @Override
                     public void onSuccess(BasicResponse<CommodityClassificationFragmentBean> response) {
-                        if (response != null) {
+
+                        if (response.getData().getResultList().size() > 0) {
                             if (pageNum == 0) {
                                 mCommodityClassificationFragmentBean.clear();
                                 mCommodityClassificationFragmentBean.addAll(response.getData().getResultList());
@@ -115,6 +114,7 @@ public class CommodityClassificationFragment extends BaseFragment implements Bas
                                     mCommodityClassificationAdapter.loadMoreEnd();
                                 }
                             } else {
+                                LogUtils.i("rmy", "response = " + response.getData().getResultList().size());
                                 if (response.getData().getResultList().size() > 0) {
                                     pageNum += 1;
                                     mCommodityClassificationFragmentBean.addAll(response.getData().getResultList());
@@ -131,7 +131,8 @@ public class CommodityClassificationFragment extends BaseFragment implements Bas
                                 }
                             });
                         } else {
-//                            mCommodityClassificationAdapter.loadMoreEnd();
+                            mCommodityClassificationAdapter.loadMoreEnd(); //完成所有加载
+                            mCommodityClassificationAdapter.setEmptyView(R.layout.null_commodity_classification_fragment, rvCommodityClassification);
                         }
                     }
                 });
@@ -140,7 +141,7 @@ public class CommodityClassificationFragment extends BaseFragment implements Bas
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-//        mCmsId = ((CommodityClassificationActivity) activity).getCmsId();
+        //        mCmsId = ((CommodityClassificationActivity) activity).getCmsId();
     }
 
     @Override
