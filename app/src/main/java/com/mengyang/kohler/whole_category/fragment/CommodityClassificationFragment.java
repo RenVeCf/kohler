@@ -114,7 +114,6 @@ public class CommodityClassificationFragment extends BaseFragment implements Bas
                                     mCommodityClassificationAdapter.loadMoreEnd();
                                 }
                             } else {
-                                LogUtils.i("rmy", "response = " + response.getData().getResultList().size());
                                 if (response.getData().getResultList().size() > 0) {
                                     pageNum += 1;
                                     mCommodityClassificationFragmentBean.addAll(response.getData().getResultList());

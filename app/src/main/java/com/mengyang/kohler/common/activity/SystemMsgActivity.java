@@ -95,7 +95,6 @@ public class SystemMsgActivity extends BaseActivity implements BaseQuickAdapter.
                 .subscribe(new DefaultObserver<BasicResponse<SystemMsgBean>>(SystemMsgActivity.this, true) {
                     @Override
                     public void onSuccess(BasicResponse<SystemMsgBean> response) {
-                        LogUtils.i("rmy", response.getData().getResultList() + "");
                         if (response.getData().getResultList().size() != 0) {
                             if (pageNum == 0) {
                                 mSystemMsgBean.clear();
