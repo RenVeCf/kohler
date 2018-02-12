@@ -343,6 +343,7 @@ public class AccountFragment extends BaseFragment implements BaseQuickAdapter.Re
                 .subscribe(new DefaultObserver<BasicResponse>(getActivity(), false) {
                     @Override
                     public void onSuccess(BasicResponse response) {
+                        //上传图片
                         File file = new File(imaePath);
                         RequestBody imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
                         MultipartBody.Builder builder = new MultipartBody.Builder()

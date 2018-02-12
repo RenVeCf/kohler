@@ -171,7 +171,7 @@ public class HomeFragment extends BaseFragment {
                         abHomeLoop.setOnPageClickListener(new AdPlayBanner.OnPageClickListener() {
                             @Override
                             public void onPageClick(AdPageInfo info, int postion) {
-                                if (postion == 1 && SPUtil.get(getActivity(), IConstants.TYPE, "").equals("dealer")) {
+                                if (postion == 0 && SPUtil.get(getActivity(), IConstants.TYPE, "").equals("dealer")) {
                                     startActivity(new Intent(getActivity(), MeetingActivity.class));
                                 } else {
                                     if (mHomeIndexBean.getKvList().get(postion).getClickRedirect() != null && !mHomeIndexBean.getKvList().get(postion).getClickRedirect().equals("")) {
