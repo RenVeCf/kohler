@@ -3,6 +3,7 @@ package com.mengyang.kohler.whole_category.fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -46,6 +47,14 @@ public class CommodityClassificationFragment extends BaseFragment implements Bas
     private int pageNum = 0; //请求页数
     private String mCmsId;
 
+    public static CommodityClassificationFragment newInstance(String cmsId) {
+        CommodityClassificationFragment frag = new CommodityClassificationFragment();
+        Bundle args = new Bundle();
+        args.putString("cmsId", cmsId);
+        frag.setArguments(args);
+        return frag;
+    }
+
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_commodity_classification;
@@ -53,6 +62,7 @@ public class CommodityClassificationFragment extends BaseFragment implements Bas
 
     @Override
     protected void initValues() {
+        mCmsId = getArguments().getString("cmsId");
         GridLayoutManager layoutManagerActivity = new GridLayoutManager(App.getContext(), 2);
         rvCommodityClassification.setLayoutManager(layoutManagerActivity);
         rvCommodityClassification.addItemDecoration(new GridSpacingItemDecoration(2, 15, false));
@@ -130,7 +140,7 @@ public class CommodityClassificationFragment extends BaseFragment implements Bas
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        mCmsId = ((CommodityClassificationActivity) activity).getCmsId();
+//        mCmsId = ((CommodityClassificationActivity) activity).getCmsId();
     }
 
     @Override

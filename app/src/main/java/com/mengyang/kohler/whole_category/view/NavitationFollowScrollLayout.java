@@ -2,6 +2,7 @@ package com.mengyang.kohler.whole_category.view;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -119,7 +120,8 @@ public class NavitationFollowScrollLayout extends RelativeLayout {
             titleLayout.addView(textView, params);
             if (i < titles.length - 1) {
                 View view = new View(context);
-                view.setBackgroundColor(splilinecolor);
+//                view.setBackgroundColor(Color.parseColor(splilinecolor+""));
+                view.setBackgroundColor(Color.GRAY);
                 titleLayout.addView(view, lp);
             }
         }

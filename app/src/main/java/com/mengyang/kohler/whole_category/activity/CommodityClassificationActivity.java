@@ -1,7 +1,10 @@
 package com.mengyang.kohler.whole_category.activity;
 
+import android.graphics.Color;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.widget.TableLayout;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.App;
@@ -13,6 +16,7 @@ import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.CommodityClassificationTitleBean;
 import com.mengyang.kohler.whole_category.adapter.ViewPagerAdapter;
+import com.mengyang.kohler.whole_category.adapter.ViewPagerAdapter2;
 import com.mengyang.kohler.whole_category.fragment.CommodityClassificationFragment;
 import com.mengyang.kohler.whole_category.view.NavitationFollowScrollLayout;
 
@@ -36,11 +40,13 @@ public class CommodityClassificationActivity extends BaseActivity {
     NavitationFollowScrollLayout nfslCommodityClassification;
     @BindView(R.id.vp_commodity_classification)
     ViewPager vpCommodityClassification;
+    @BindView(R.id.table_layout)
+    TabLayout mTableLayout;
     private List<CommodityClassificationTitleBean> mCommodityClassificationTitleBean;
     private String[] titles;
     private ViewPagerAdapter viewPagerAdapter;
+    private ViewPagerAdapter2 viewPagerAdapter2;
     private List<Fragment> fragments;
-    private String mCmsId;
 
     @Override
     protected int getLayoutId() {
@@ -55,8 +61,13 @@ public class CommodityClassificationActivity extends BaseActivity {
         fragments = new ArrayList<>();
 
         mCommodityClassificationTitleBean = new ArrayList<>();
+
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), fragments);
         vpCommodityClassification.setAdapter(viewPagerAdapter);
+
+//        viewPagerAdapter2 = new ViewPagerAdapter2(getSupportFragmentManager(), fragments,titles);
+//        vpCommodityClassification.setAdapter(viewPagerAdapter2);
+//        mTableLayout.setupWithViewPager(vpCommodityClassification);
     }
 
     @Override
@@ -86,22 +97,18 @@ public class CommodityClassificationActivity extends BaseActivity {
                             titles[i] = new String(mCommodityClassificationTitleBean.get(i).getNameCn());
                         }
 
+
                         nfslCommodityClassification.setViewPager(CommodityClassificationActivity.this, titles, vpCommodityClassification, R.color.black, R.color.black, 12, 12, 24, true, R.color.splilinecolor, 1f, 4f, 4f, 80);
                         nfslCommodityClassification.setBgLine(CommodityClassificationActivity.this, 1, R.color.white);
-                        nfslCommodityClassification.setNavLine(CommodityClassificationActivity.this, 3, R.color.white);
+                        nfslCommodityClassification.setNavLine(CommodityClassificationActivity.this, 2, R.color.white);
 
                         for (int i = 0; i < mCommodityClassificationTitleBean.size(); i++) {
-                            mCmsId = mCommodityClassificationTitleBean.get(i).getCmsId() + "";
-                            fragments.add(new CommodityClassificationFragment());
+                            fragments.add(CommodityClassificationFragment.newInstance(mCommodityClassificationTitleBean.get(i).getCmsId() + ""));
                         }
 
                         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), fragments);
                         vpCommodityClassification.setAdapter(viewPagerAdapter);
                     }
                 });
-    }
-
-    public String getCmsId() {
-        return mCmsId;
     }
 }
