@@ -106,7 +106,7 @@ public class LiveRealTimeActivity extends BaseActivity implements BaseQuickAdapt
                                     mLiveRealTimeAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                                         @Override
                                         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                                            startActivity(new Intent(LiveRealTimeActivity.this, MeetingBigPhotoActivity.class).putExtra("num", mLiveRealTimeBean.get(position).getLikeCount()).putExtra("url", mLiveRealTimeBean.get(position).getPicUrl()).putExtra("id", mLiveRealTimeBean.get(position).getId()));
+//                                            startActivity(new Intent(LiveRealTimeActivity.this, MeetingBigPhotoActivity.class).putExtra("num", mLiveRealTimeBean.get(position).getLikeCount()).putExtra("url", mLiveRealTimeBean.get(position).getPicUrl()).putExtra("id", mLiveRealTimeBean.get(position).getId()));
                                         }
                                     });
                                     mLiveRealTimeAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {

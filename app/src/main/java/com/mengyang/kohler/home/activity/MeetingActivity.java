@@ -160,7 +160,7 @@ public class MeetingActivity extends BaseActivity {
                     public void onSuccess(BasicResponse<MeetingBean> response) {
                         mMeetingBean = response.getData();
                         tvMeetingDesc.setText(mMeetingBean.getMeetingDesc());
-                        Glide.with(App.getContext()).load(mMeetingBean.getKvUrl()).apply(new RequestOptions().placeholder(R.mipmap.queshengtu)).into(ivMeetingHighlights);
+//                        Glide.with(App.getContext()).load(mMeetingBean.getKvUrl()).apply(new RequestOptions().placeholder(R.mipmap.queshengtu)).into();
                         tvMeetingNextAgendaTime.setText(mMeetingBean.getAgendaList().get(0).getTimeSlot());
                         tvMeetingNextAgendaPosition.setText(mMeetingBean.getAgendaList().get(0).getPlace());
                         tvMeetingNextAgendaName.setText(mMeetingBean.getAgendaList().get(0).getTitle());
