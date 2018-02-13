@@ -168,4 +168,6 @@
     <string name="vote">Vote</string>
     <string name="wonderful_collection">精彩集锦</string>
     <string name="agenda">Agenda</string>
+    <string name="vote_chinese">投TA一票</string>
+    <string name="no_jurisdictuon">您暂时没有访问权限</string>
 </resources>

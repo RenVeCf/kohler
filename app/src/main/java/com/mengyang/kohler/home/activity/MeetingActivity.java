@@ -195,11 +195,11 @@ public class MeetingActivity extends BaseActivity {
                         mMeetingAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                             @Override
                             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                                tvPopMeetingDate.setText(mMeetingBean.getAgendaList().get(position).getDateStr());
-                                tvPopMeetingTime.setText(mMeetingBean.getAgendaList().get(position).getTimeSlot());
-                                tvPopMeetingPosition.setText(mMeetingBean.getAgendaList().get(position).getPlace());
-                                tvPopMeetingName.setText(mMeetingBean.getAgendaList().get(position).getTitle());
-                                tvPopMeetingAbstract.setText(mMeetingBean.getAgendaList().get(position).getAgendaDesc());
+                                tvPopMeetingDate.setText(mMeetingBean.getAgendaList().get(position + 1).getDateStr());
+                                tvPopMeetingTime.setText(mMeetingBean.getAgendaList().get(position + 1).getTimeSlot());
+                                tvPopMeetingPosition.setText(mMeetingBean.getAgendaList().get(position + 1).getPlace());
+                                tvPopMeetingName.setText(mMeetingBean.getAgendaList().get(position + 1).getTitle());
+                                tvPopMeetingAbstract.setText(mMeetingBean.getAgendaList().get(position + 1).getAgendaDesc());
                                 mMeetingPopupWindow.showAsDropDown(view, 0, 0);
                             }
                         });

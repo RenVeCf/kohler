@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mengyang.kohler">
+          package="com.mengyang.kohler">
 
     <!-- 用于访问GPS定位 -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <!-- 用于进行网络定位 -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.GET_TASKS" />
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
     <!-- 允许程序访问WiFi网络信息 -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <!-- 允许程序获取网络状态 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <!-- 用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
     <!-- 允许程序设置内置sd卡的写权限 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <!-- 获取手机唯一标识需要用到的权限 -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <!-- 用于申请获取蓝牙信息进行室内定位 -->
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
     <!-- 相机 -->
-    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.CAMERA"/>
     <!-- 允许程序打开网络套接字 -->
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
     <!-- 用于申请调用A-GPS模块 -->
-    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
     <!-- 保存SD卡 -->
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
 
     <application
         android:name=".App"
@@ -45,24 +45,24 @@
             android:name=".main.activity.SplashActivity"
             android:launchMode="singleTask">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
             android:name=".whole_category.activity.CommodityDetailsActivity"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"/>
         <activity
             android:name=".home.activity.MeetingActivity"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"/>
         <activity
             android:name=".home.activity.PDFActivity"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"/>
         <activity
             android:name=".main.activity.MainActivity"
-            android:launchMode="singleTask" />
-        <activity android:name=".whole_category.activity.CommodityClassificationActivity" />
+            android:launchMode="singleTask"/>
+        <activity android:name=".whole_category.activity.CommodityClassificationActivity"/>
 
         <!-- debug SHA1 -->
         <!-- C5:B2:06:31:E1:7B:6A:07:9B:3E:AF:FF:9E:0F:FA:45:D3:9A:38:00 -->
@@ -74,14 +74,14 @@
         <!-- ILIElSVwh90omjtyPMrggUPLcuFpeQu0 -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="ILIElSVwh90omjtyPMrggUPLcuFpeQu0" />
+            android:value="ILIElSVwh90omjtyPMrggUPLcuFpeQu0"/>
         <!-- 百度定位 -->
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote">
             <intent-filter>
-                <action android:name="com.baidu.location.service_v2.2" />
+                <action android:name="com.baidu.location.service_v2.2"/>
             </intent-filter>
         </service>
 
@@ -91,86 +91,88 @@
         <!-- </service> -->
         <meta-data
             android:name="JPUSH_APPKEY"
-            android:value="fd05fab95e99b7cbea8d2afa" />
+            android:value="fd05fab95e99b7cbea8d2afa"/>
 
         <activity
             android:name=".home.activity.StoreMapActivity"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"/>
         <activity
             android:name=".account.activity.LoginActivity"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"/>
         <activity
             android:name=".main.activity.LoadingActivity"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"/>
         <activity
             android:name=".account.activity.AccountSettingsActivity"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"/>
         <activity
             android:name=".common.activity.SystemMsgActivity"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"/>
         <activity
             android:name=".account.activity.AccountMineLikeActivity"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"/>
         <activity
             android:name=".account.activity.AccountMineReservationQueryActivity"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"/>
         <activity
             android:name=".account.activity.UserRegisterActivity"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".account.activity.AccountBindPhoneActivity"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".account.activity.DesignerRegisterActivity"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".account.activity.ModifyPwdActivity"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".account.activity.DistributorRegisterActivity"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".account.activity.DistributorVerificationCodeActivity"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".common.activity.CustomerServiceActivity"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity
             android:name=".account.activity.ForgetPasswordTwoActivity"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"/>
         <activity
             android:name=".home.activity.MineManualActivity"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"/>
         <activity
             android:name=".home.activity.LiveRealTimeActivity"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"/>
         <activity
             android:name=".home.activity.HomeSearchActivity"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"/>
         <activity
             android:name=".account.activity.AccountPrivacyPolicyActivity"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"/>
         <activity
             android:name=".account.activity.AccountAboutActivity"
-            android:launchMode="singleTask" />
-        <activity android:name=".whole_category.activity.SelectClassificationActivity" />
+            android:launchMode="singleTask"/>
+        <activity android:name=".whole_category.activity.SelectClassificationActivity"/>
         <activity
             android:name=".account.activity.ForgetPasswordOneActivity"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"/>
         <activity
             android:name=".home.activity.StoreListActivity"
-            android:launchMode="singleTask" />
-        <activity android:name=".home.activity.DownLoaderPDFActivity" />
-        <activity android:name=".home.activity.MeetingWebActivity" />
-        <activity android:name=".common.activity.WebViewActivity" />
-        <activity android:name=".common.activity.TestActivity"></activity>
+            android:launchMode="singleTask"/>
+        <activity android:name=".home.activity.DownLoaderPDFActivity"/>
+        <activity android:name=".home.activity.MeetingWebActivity"/>
+        <activity android:name=".common.activity.WebViewActivity"/>
+        <activity android:name=".common.activity.TestActivity"/>
+        <activity android:name=".home.activity.MeetingBigPhotoActivity">
+        </activity>
     </application>
 
 </manifest>

@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/y600">
+    android:layout_height="@dimen/y554">
 
     <ImageView
         android:id="@+id/iv_live_real_time_item_img"
@@ -42,9 +42,9 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="@dimen/x24"
-        android:layout_marginBottom="@dimen/y24"
+        android:layout_marginBottom="@dimen/y14"
         android:paddingTop="@dimen/y9"
-        android:paddingBottom="2dp"
+        android:paddingBottom="3dp"
         android:gravity="center_horizontal"
         android:background="@color/black"
         android:orientation="vertical">

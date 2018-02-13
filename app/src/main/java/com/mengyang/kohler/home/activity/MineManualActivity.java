@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.loadmore.LoadMoreView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.gyf.barlibrary.ImmersionBar;
@@ -236,6 +237,35 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
                                     mMineManualAdapter = new BrochureListAdapter(mBooksListBean);
                                     rvMineManualBrochureList.setAdapter(mMineManualAdapter);
                                     mMineManualAdapter.setOnLoadMoreListener(MineManualActivity.this, rvMineManualMyBrochure); //加载更多
+                                    mMineManualAdapter.setLoadMoreView(new LoadMoreView() {
+                                        @Override
+                                        public int getLayoutId() {
+                                            return R.layout.load_more_null_layout;
+                                        }
+
+                                        /**
+                                         * 如果返回true，数据全部加载完毕后会隐藏加载更多
+                                         * 如果返回false，数据全部加载完毕后会显示getLoadEndViewId()布局
+                                         */
+                                        @Override public boolean isLoadEndGone() {
+                                            return true;
+                                        }
+
+                                        @Override
+                                        protected int getLoadingViewId() {
+                                            return R.id.load_more_loading_view;
+                                        }
+
+                                        @Override
+                                        protected int getLoadFailViewId() {
+                                            return R.id.load_more_load_fail_view;
+                                        }
+
+                                        @Override
+                                        protected int getLoadEndViewId() {
+                                            return 0;
+                                        }
+                                    });
 
                                     mMineManualAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
                                         @Override

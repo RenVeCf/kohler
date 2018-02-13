@@ -3,25 +3,29 @@ package com.mengyang.kohler.home.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseFragment;
 import com.mengyang.kohler.R;
+import com.mengyang.kohler.account.activity.LoginActivity;
 import com.mengyang.kohler.common.activity.CustomerServiceActivity;
 import com.mengyang.kohler.common.activity.WebViewActivity;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.net.IdeaApi;
-import com.mengyang.kohler.common.utils.DatabaseUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.view.SpacesItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
@@ -29,7 +33,6 @@ import com.mengyang.kohler.home.activity.HomeSearchActivity;
 import com.mengyang.kohler.home.activity.MeetingActivity;
 import com.mengyang.kohler.home.adapter.HomeBooksAdapter;
 import com.mengyang.kohler.module.BasicResponse;
-import com.mengyang.kohler.module.BooksBean;
 import com.mengyang.kohler.module.bean.HomeIndexBean;
 import com.ryane.banner.AdPageInfo;
 import com.ryane.banner.AdPlayBanner;
@@ -82,6 +85,8 @@ public class HomeFragment extends BaseFragment {
     private HomeBooksAdapter mHomeBooksAdapter;
     private String mH5_URL = "";
     private int prevousPosition;
+    private PopupWindow mNoJurisdictionPopupWindow;
+    private View mPopLayout;
 
     @Override
     protected int getLayoutId() {
@@ -93,12 +98,12 @@ public class HomeFragment extends BaseFragment {
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(getActivity(), tvHomeTop);
 
-        //        if (SPUtil.get(App.getContext(), IConstants.TYPE, "").equals("dealer"))
-        ivTopCustomerService.setVisibility(View.VISIBLE);
-        //        else
-        //            ivTopCustomerService.setVisibility(View.GONE);
-//        //必须先初始化SQLite
-//        DatabaseUtils.initHelper(getActivity(), "books.db");
+        if (SPUtil.get(App.getContext(), IConstants.TYPE, "").equals("dealer"))
+            ivTopCustomerService.setVisibility(View.VISIBLE);
+        else
+            ivTopCustomerService.setVisibility(View.GONE);
+        //        //必须先初始化SQLite
+        //        DatabaseUtils.initHelper(getActivity(), "books.db");
         //轮播
         abHomeLoop.measure(0, 0);
         // 设置管理器
@@ -110,21 +115,26 @@ public class HomeFragment extends BaseFragment {
         rvHomeBooks.setHasFixedSize(true);
         rvHomeBooks.setItemAnimator(new DefaultItemAnimator());
 
-        //所有下载好的PDF集合
-        List<BooksBean> list = DatabaseUtils.getHelper().queryAll(BooksBean.class);
-        mHomeBooksAdapter = new HomeBooksAdapter(list);
-        if (list == null) {
-            rvHomeBooks.setVisibility(View.GONE);
-            tvMyBrochureTop.setVisibility(View.GONE);
-            tvMyBrochureDonw.setVisibility(View.GONE);
-        } else {
+        if (SPUtil.get(getActivity(), IConstants.TYPE, "").equals("dealer") || SPUtil.get(getActivity(), IConstants.TYPE, "").equals("designer")) {
             rvHomeBooks.setVisibility(View.VISIBLE);
             tvMyBrochureTop.setVisibility(View.VISIBLE);
             tvMyBrochureDonw.setVisibility(View.VISIBLE);
+        } else {
+            rvHomeBooks.setVisibility(View.GONE);
+            tvMyBrochureTop.setVisibility(View.GONE);
+            tvMyBrochureDonw.setVisibility(View.GONE);
         }
-        rvHomeBooks.setAdapter(mHomeBooksAdapter);
-
         abHomeLoop.setImageViewScaleType(AdPlayBanner.ScaleType.CENTER_CROP);
+
+        mNoJurisdictionPopupWindow = new PopupWindow(getActivity());
+        mNoJurisdictionPopupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
+        mNoJurisdictionPopupWindow.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
+        LayoutInflater inflater = LayoutInflater.from(App.getContext());
+        mPopLayout = inflater.inflate(R.layout.popup_window_no_jurisdictuon, null);
+        mNoJurisdictionPopupWindow.setContentView(mPopLayout);
+        mNoJurisdictionPopupWindow.setBackgroundDrawable(new ColorDrawable(0x4c000000));
+        mNoJurisdictionPopupWindow.setOutsideTouchable(false);
+        mNoJurisdictionPopupWindow.setFocusable(true);
     }
 
     @Override
@@ -172,13 +182,21 @@ public class HomeFragment extends BaseFragment {
                             public void onPageClick(AdPageInfo info, int postion) {
                                 if (postion == 0 && SPUtil.get(getActivity(), IConstants.TYPE, "").equals("dealer")) {
                                     startActivity(new Intent(getActivity(), MeetingActivity.class));
+                                } else if (postion == 0 && SPUtil.get(getActivity(), IConstants.TYPE, "").equals("commonUser")) {
+                                    mNoJurisdictionPopupWindow.showAsDropDown(getView(), 0, 0);
+                                } else if (postion == 0 && SPUtil.get(getActivity(), IConstants.TYPE, "").equals("designer")) {
+                                    mNoJurisdictionPopupWindow.showAsDropDown(getView(), 0, 0);
                                 } else {
-                                    if (mHomeIndexBean.getKvList().get(postion).getClickRedirect() != null && !mHomeIndexBean.getKvList().get(postion).getClickRedirect().equals("")) {
-                                        mH5_URL = mHomeIndexBean.getKvList().get(postion).getClickRedirect() + "";
-                                    } else if (mHomeIndexBean.getKvList().get(postion).getH5Url() != null && !mHomeIndexBean.getKvList().get(postion).getH5Url().equals("")) {
-                                        mH5_URL = mHomeIndexBean.getKvList().get(postion).getH5Url() + "";
+                                    if (postion == 0) {
+                                        startActivity(new Intent(getActivity(), LoginActivity.class));
+                                    } else {
+                                        if (mHomeIndexBean.getKvList().get(postion).getClickRedirect() != null && !mHomeIndexBean.getKvList().get(postion).getClickRedirect().equals("")) {
+                                            mH5_URL = mHomeIndexBean.getKvList().get(postion).getClickRedirect() + "";
+                                        } else if (mHomeIndexBean.getKvList().get(postion).getH5Url() != null && !mHomeIndexBean.getKvList().get(postion).getH5Url().equals("")) {
+                                            mH5_URL = mHomeIndexBean.getKvList().get(postion).getH5Url() + "";
+                                        }
+                                        startActivity(new Intent(getActivity(), WebViewActivity.class).putExtra("h5url", mH5_URL));
                                     }
-                                    startActivity(new Intent(getActivity(), WebViewActivity.class).putExtra("h5url", mH5_URL));
                                 }
                             }
                         });

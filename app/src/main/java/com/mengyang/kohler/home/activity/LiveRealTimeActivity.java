@@ -1,5 +1,6 @@
 package com.mengyang.kohler.home.activity;
 
+import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -14,7 +15,6 @@ import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IdeaApi;
-import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.view.GridSpacingItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.home.adapter.LiveRealTimeAdapter;
@@ -59,7 +59,7 @@ public class LiveRealTimeActivity extends BaseActivity implements BaseQuickAdapt
         ImmersionBar.setTitleBar(this, tvLiveRealTimeTop);
         GridLayoutManager layoutManagerActivity = new GridLayoutManager(App.getContext(), 2);
         rvLiveRealTime.setLayoutManager(layoutManagerActivity);
-        rvLiveRealTime.addItemDecoration(new GridSpacingItemDecoration(2, 45, false));
+        rvLiveRealTime.addItemDecoration(new GridSpacingItemDecoration(2, 35, false));
         rvLiveRealTime.setNestedScrollingEnabled(false);
         rvLiveRealTime.setHasFixedSize(true);
         rvLiveRealTime.setItemAnimator(new DefaultItemAnimator());
@@ -106,7 +106,28 @@ public class LiveRealTimeActivity extends BaseActivity implements BaseQuickAdapt
                                     mLiveRealTimeAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                                         @Override
                                         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                                            startActivity(new Intent(LiveRealTimeActivity.this, MeetingBigPhotoActivity.class).putExtra("num", mLiveRealTimeBean.get(position).getLikeCount()).putExtra("url", mLiveRealTimeBean.get(position).getPicUrl()).putExtra("id", mLiveRealTimeBean.get(position).getId()));
+                                        }
+                                    });
+                                    mLiveRealTimeAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                                        @Override
+                                        public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                                            Map<String, String> stringMap = IdeaApi.getSign();
+                                            stringMap.put("id", mLiveRealTimeBean.get(position).getId() + "");
 
+                                            IdeaApi.getRequestLogin(stringMap);
+                                            IdeaApi.getApiService()
+                                                    .getMeetingLikePicture(stringMap)
+                                                    .compose(LiveRealTimeActivity.this.<BasicResponse>bindToLifecycle())
+                                                    .subscribeOn(Schedulers.io())
+                                                    .observeOn(AndroidSchedulers.mainThread())
+                                                    .subscribe(new DefaultObserver<BasicResponse>(LiveRealTimeActivity.this, true) {
+                                                        @Override
+                                                        public void onSuccess(BasicResponse response) {
+                                                            mLiveRealTimeAdapter.notifyDataSetChanged();
+                                                            rvLiveRealTime.setAdapter(mLiveRealTimeAdapter);
+                                                        }
+                                                    });
                                         }
                                     });
                                 } else {

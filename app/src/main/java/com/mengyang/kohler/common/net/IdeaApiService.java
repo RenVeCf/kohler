@@ -209,6 +209,11 @@ public interface IdeaApiService {
     @POST(Config.MEETING_LIVE_REAL_TIME)
     Observable<BasicResponse<LiveRealTimeBean>> getMeetingLiveRealTime(@FieldMap Map<String, String> map);
 
+    //销商大会照片点赞
+    @FormUrlEncoded
+    @POST(Config.MEETING_LIKE_PICTURE)
+    Observable<BasicResponse> getMeetingLikePicture(@FieldMap Map<String, String> map);
+
     //全文搜索
     @FormUrlEncoded
     @POST(Config.ALL_SEARCH)

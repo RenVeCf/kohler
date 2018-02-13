@@ -2,7 +2,6 @@ package com.mengyang.kohler.common.net;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.util.Log;
 
 import com.google.gson.JsonParseException;
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
@@ -11,7 +10,6 @@ import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.account.activity.LoginActivity;
 import com.mengyang.kohler.common.utils.CommonDialogUtils;
-import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.utils.ToastUtil;
 import com.mengyang.kohler.module.BasicResponse;
@@ -58,7 +56,7 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
     /**
      * refresh_token过期
      */
-    public final static int REFRESH_TOKEN_EXPIRED = 203;
+    public final static int REFRESH_TOKEN_EXPIRED = 100006;
 
     public DefaultObserver(Activity activity, boolean isShowLoading) {
         this.activity = activity;
@@ -79,7 +77,10 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
         if (response.getError().equals("200")) {
             onSuccess(response);
         } else {
-            onFail(response, Integer.parseInt(response.getError()));
+            if (response.getError().equals(""))
+                onFail(response, 12345);
+            else
+                onFail(response, Integer.parseInt(response.getError()));
         }
     }
 
@@ -91,7 +92,7 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
 
     @Override
     public void onError(Throwable e) {
-//        LogUtils.e("Retrofit", e.getMessage());
+        //        LogUtils.e("Retrofit", e.getMessage());
         dismissProgress();
         if (e instanceof HttpException) {     //   HTTP错误
             onException(ExceptionReason.BAD_NETWORK);

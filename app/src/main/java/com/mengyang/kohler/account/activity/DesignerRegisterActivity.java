@@ -238,6 +238,7 @@ public class DesignerRegisterActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_designer_register_go_home:
+                startActivity(new Intent(this, MainActivity.class));
                 finish();
                 break;
             case R.id.iv_designer_register_verification_code:

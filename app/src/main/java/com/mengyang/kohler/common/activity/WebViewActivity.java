@@ -9,6 +9,7 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
+import com.mengyang.kohler.common.view.TopView;
 
 import butterknife.BindView;
 
@@ -16,6 +17,8 @@ public class WebViewActivity extends BaseActivity {
 
     @BindView(R.id.wv_service)
     WebView mWvService;
+    @BindView(R.id.tv_webview_top)
+    TopView tvWebviewTop;
 
     @Override
     protected int getLayoutId() {
@@ -25,8 +28,8 @@ public class WebViewActivity extends BaseActivity {
     @Override
     protected void initValues() {
         App.getManager().addActivity(this);
-        //沉浸式状态栏初始化白色
-        ImmersionBar.with(this).fitsSystemWindows(false).statusBarDarkFont(true).init();
+        //防止状态栏和标题重叠
+        ImmersionBar.setTitleBar(this, tvWebviewTop);
     }
 
     @Override
