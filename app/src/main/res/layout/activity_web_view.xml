@@ -1,15 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.mengyang.kohler.common.activity.WebViewActivity">
+
+    <com.mengyang.kohler.common.view.TopView
+        android:id="@+id/tv_webview_top"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white"
+        app:is_back="true"
+        app:is_customer_service="true"
+        app:is_iv_top_title="true"
+        app:is_menu="true"
+        app:is_share="true"
+        app:is_system_msg="true"
+        app:title_color="@color/black"/>
 
     <WebView
         android:id="@+id/wv_service"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </WebView>
-</RelativeLayout>
+        android:layout_height="match_parent"/>
+</LinearLayout>

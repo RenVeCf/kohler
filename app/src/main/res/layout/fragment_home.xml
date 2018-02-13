@@ -17,7 +17,7 @@
             android:id="@+id/tv_home_top"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:layout_marginBottom="@dimen/y128"
+            android:layout_marginBottom="@dimen/y80"
             android:background="@color/white"
             app:is_back="true"
             app:is_customer_service="false"

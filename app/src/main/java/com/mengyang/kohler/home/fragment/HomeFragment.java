@@ -3,7 +3,6 @@ package com.mengyang.kohler.home.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,12 +17,12 @@ import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseFragment;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.activity.CustomerServiceActivity;
+import com.mengyang.kohler.common.activity.WebViewActivity;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.utils.DatabaseUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
-import com.mengyang.kohler.common.utils.VerifyUtils;
 import com.mengyang.kohler.common.view.SpacesItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.home.activity.HomeSearchActivity;
@@ -98,8 +97,8 @@ public class HomeFragment extends BaseFragment {
         ivTopCustomerService.setVisibility(View.VISIBLE);
         //        else
         //            ivTopCustomerService.setVisibility(View.GONE);
-        //必须先初始化SQLite
-        DatabaseUtils.initHelper(getActivity(), "books.db");
+//        //必须先初始化SQLite
+//        DatabaseUtils.initHelper(getActivity(), "books.db");
         //轮播
         abHomeLoop.measure(0, 0);
         // 设置管理器
@@ -179,13 +178,7 @@ public class HomeFragment extends BaseFragment {
                                     } else if (mHomeIndexBean.getKvList().get(postion).getH5Url() != null && !mHomeIndexBean.getKvList().get(postion).getH5Url().equals("")) {
                                         mH5_URL = mHomeIndexBean.getKvList().get(postion).getH5Url() + "";
                                     }
-                                    Intent intent = new Intent();
-                                    intent.setAction("android.intent.action.VIEW");
-                                    if (VerifyUtils.isUrl(mH5_URL)) {
-                                        Uri content_url = Uri.parse(mH5_URL);
-                                        intent.setData(content_url).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        getActivity().startActivity(intent);
-                                    }
+                                    startActivity(new Intent(getActivity(), WebViewActivity.class).putExtra("h5url", mH5_URL));
                                 }
                             }
                         });

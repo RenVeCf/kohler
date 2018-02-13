@@ -307,7 +307,6 @@ public class CommodityDetailsActivity extends BaseActivity {
                                     if (mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName().equals("亮点")) {
                                         tvFunction.setText(mCommodityDetails.get(poction).getAttrList().get(i).getAttrValue());
                                     } else if (!mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName().equals("TMALL链接") && !mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName().equals("特征") && !mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName().equals("pdfUrl")) {
-
                                         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                                         LinearLayout relative = new LinearLayout(CommodityDetailsActivity.this);
                                         relative.setLayoutParams(params);

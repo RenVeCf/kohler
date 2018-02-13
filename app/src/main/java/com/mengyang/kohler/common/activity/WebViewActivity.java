@@ -5,6 +5,8 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.gyf.barlibrary.ImmersionBar;
+import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
 
@@ -22,8 +24,9 @@ public class WebViewActivity extends BaseActivity {
 
     @Override
     protected void initValues() {
-
-
+        App.getManager().addActivity(this);
+        //沉浸式状态栏初始化白色
+        ImmersionBar.with(this).fitsSystemWindows(false).statusBarDarkFont(true).init();
     }
 
     @Override
