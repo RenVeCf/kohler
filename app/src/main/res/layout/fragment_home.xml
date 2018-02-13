@@ -78,7 +78,7 @@
                         android:id="@+id/ab_home_loop"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/y1380"
-                        android:layout_marginTop="@dimen/y36"/>
+                        android:layout_marginTop="@dimen/y15"/>
 
                     <LinearLayout
                         android:id="@+id/ll_indicator"

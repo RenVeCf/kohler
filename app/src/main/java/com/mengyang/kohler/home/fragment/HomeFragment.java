@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,9 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseFragment;
@@ -31,8 +35,10 @@ import com.mengyang.kohler.common.view.SpacesItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.home.activity.HomeSearchActivity;
 import com.mengyang.kohler.home.activity.MeetingActivity;
+import com.mengyang.kohler.home.activity.PDFActivity;
 import com.mengyang.kohler.home.adapter.HomeBooksAdapter;
 import com.mengyang.kohler.module.BasicResponse;
+import com.mengyang.kohler.module.PdfBean;
 import com.mengyang.kohler.module.bean.HomeIndexBean;
 import com.ryane.banner.AdPageInfo;
 import com.ryane.banner.AdPlayBanner;
@@ -87,6 +93,9 @@ public class HomeFragment extends BaseFragment {
     private int prevousPosition;
     private PopupWindow mNoJurisdictionPopupWindow;
     private View mPopLayout;
+    private PdfBean mPdfBean;
+    private String mUserName = (String) SPUtil.get(App.getContext(), IConstants.USER_NIKE_NAME, "");
+    private List<PdfBean.UserNameBean.UserPdfItemBean> mPdfItemList;
 
     @Override
     protected int getLayoutId() {
@@ -98,10 +107,11 @@ public class HomeFragment extends BaseFragment {
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(getActivity(), tvHomeTop);
 
-        if (SPUtil.get(App.getContext(), IConstants.TYPE, "").equals("dealer"))
+        if (SPUtil.get(App.getContext(), IConstants.TYPE, "").equals("dealer")) {
             ivTopCustomerService.setVisibility(View.VISIBLE);
-        else
+        } else {
             ivTopCustomerService.setVisibility(View.GONE);
+        }
         //        //必须先初始化SQLite
         //        DatabaseUtils.initHelper(getActivity(), "books.db");
         //轮播
@@ -135,6 +145,61 @@ public class HomeFragment extends BaseFragment {
         mNoJurisdictionPopupWindow.setBackgroundDrawable(new ColorDrawable(0x4c000000));
         mNoJurisdictionPopupWindow.setOutsideTouchable(false);
         mNoJurisdictionPopupWindow.setFocusable(true);
+        abHomeLoop.setImageViewScaleType(AdPlayBanner.ScaleType.CENTER_CROP);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        String pefData2 = (String) SPUtil.get(App.getContext(), IConstants.USER_PDF_DATA, "");
+        if (!TextUtils.isEmpty(pefData2)) {
+            Gson gson = new Gson();
+            mPdfBean = gson.fromJson(pefData2, new TypeToken<PdfBean>() { }.getType());
+            if (mPdfBean.getList() != null) {
+                for (int i = 0; i < mPdfBean.getList().size(); i++) {
+                    if (mPdfBean.getList().get(i).getUserName().equals(mUserName)) {
+                        if (mPdfBean.getList().get(i).getPdfItemList() != null && mPdfBean.getList().get(i).getPdfItemList().size()>0) {
+                            mPdfItemList = mPdfBean.getList().get(i).getPdfItemList();
+                        } else {
+                            hideItem();
+                            return;
+                        }
+                    }
+                }
+
+                mHomeBooksAdapter = new HomeBooksAdapter(mPdfItemList);
+                if (mPdfItemList == null) {
+                    hideItem();
+                } else {
+                    rvHomeBooks.setVisibility(View.VISIBLE);
+                    tvMyBrochureTop.setVisibility(View.VISIBLE);
+                    tvMyBrochureDonw.setVisibility(View.VISIBLE);
+                }
+                rvHomeBooks.setAdapter(mHomeBooksAdapter);
+                mHomeBooksAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                    @Override
+                    public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                        // TODO: 2018/2/12 ,每次从sp 中获取，进行使用
+                        startActivity(new Intent(getActivity(), PDFActivity.class).putExtra("PdfUrl", mPdfItemList.get(position).getPathUrl()));
+                    }
+                });
+
+            } else {
+                //隐藏条目
+                hideItem();
+            }
+        }
+
+    }
+
+    /**
+     * 隐藏条目
+     */
+    private void hideItem() {
+        rvHomeBooks.setVisibility(View.GONE);
+        tvMyBrochureTop.setVisibility(View.GONE);
+        tvMyBrochureDonw.setVisibility(View.GONE);
     }
 
     @Override
@@ -266,8 +331,9 @@ public class HomeFragment extends BaseFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_home_search:
-                if (!etHomeSearch.getText().toString().trim().equals(""))
+                if (!etHomeSearch.getText().toString().trim().equals("")) {
                     startActivity(new Intent(getActivity(), HomeSearchActivity.class).putExtra("etHomeSearch", etHomeSearch.getText().toString().trim()));
+                }
                 break;
             case R.id.iv_top_menu:
                 //                abHomeLoop.setAutoPlay(false);

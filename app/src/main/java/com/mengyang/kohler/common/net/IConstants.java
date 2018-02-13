@@ -28,7 +28,6 @@ public class IConstants {
     public static final String USER_NIKE_NAME = "KOHLER"; //用户昵称
     public static final String USER_HEAD_PORTRAIT = ""; //用户头像URL
     public static final String USER_PDF_DATA = "userPdfData"; //用户头像URL
-    public static final String USER_PDF_DATA_TEMP = "userPdfDataTemp"; //用户头像URL
 
     /**
      * 请求码 从60开始

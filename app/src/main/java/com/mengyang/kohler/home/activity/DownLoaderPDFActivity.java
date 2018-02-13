@@ -111,7 +111,7 @@ public class DownLoaderPDFActivity extends BaseActivity implements OnPageChangeL
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 InputStream is = null;
-                byte[] buf = new byte[2048];
+                byte[] buf = new byte[1024*10];
                 int len = 0;
                 FileOutputStream fos = null;
 
@@ -129,22 +129,24 @@ public class DownLoaderPDFActivity extends BaseActivity implements OnPageChangeL
                         Message msg = handler.obtainMessage();
                         msg.what = 1;
                         msg.arg1 = progress;
-                        Log.i("66666","progress = "+progress );
+                        Log.i("kohler","下载PDF，progress = "+progress );
                         handler.sendMessage(msg);
                     }
                     fos.flush();
                 } catch (Exception e) {
                     dialogUtils.dismissProgress();
-                    LogUtils.i("kohler6","出错了"+e);
+                    Log.i("kohler","下载PDF，出错了 = "+e );
                 } finally {
                     try {
-                        if (is != null)
+                        if (is != null) {
                             is.close();
+                        }
                     } catch (IOException e) {
                     }
                     try {
-                        if (fos != null)
+                        if (fos != null) {
                             fos.close();
+                        }
                     } catch (IOException e) {
                     }
                 }

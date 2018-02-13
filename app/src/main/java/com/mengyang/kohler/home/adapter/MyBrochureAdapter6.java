@@ -9,7 +9,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.R;
-import com.mengyang.kohler.module.BooksBean;
+import com.mengyang.kohler.module.BooksBean3;
 import com.mengyang.kohler.module.PdfBean;
 
 import java.util.List;
@@ -21,14 +21,14 @@ import java.util.List;
  * Time : 2018/1/29
  */
 
-public class MyBrochureAdapter2 extends BaseQuickAdapter<PdfBean.userPdfListBean, BaseViewHolder> {
+public class MyBrochureAdapter6 extends BaseQuickAdapter<PdfBean.UserNameBean.UserPdfItemBean, BaseViewHolder> {
 
-    public MyBrochureAdapter2(@Nullable List<PdfBean.userPdfListBean> data) {
+    public MyBrochureAdapter6(@Nullable List<PdfBean.UserNameBean.UserPdfItemBean> data) {
         super(R.layout.item_my_brochure_adapter, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, PdfBean.userPdfListBean item) {
+    protected void convert(BaseViewHolder helper, PdfBean.UserNameBean.UserPdfItemBean item) {
         if (helper.getAdapterPosition() == 0) {
             helper.getView(R.id.iv_my_brochure_adapter_remove_item_img).setPadding(15, 0, 0, 0);
         }
