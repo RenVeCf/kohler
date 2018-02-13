@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="13sp"
+        android:textColor="#ffffff"
+        android:text="@string/deleteing"/>
+
+    <TextView
+        android:id="@+id/tv_popup_window_account_mine_like"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y5"
+        android:textSize="13sp"
+        android:textColor="#ffffff"/>
+
+    <Button
+        android:id="@+id/bt_popup_window_account_mine_like"
+        android:layout_width="@dimen/x552"
+        android:layout_height="@dimen/y144"
+        android:layout_marginTop="@dimen/y75"
+        android:background="@color/black"
+        android:textColor="@color/white"
+        android:text="@string/is_delete"/>
+</LinearLayout>

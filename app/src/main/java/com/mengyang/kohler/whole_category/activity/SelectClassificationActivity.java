@@ -94,7 +94,7 @@ public class SelectClassificationActivity extends BaseActivity {
                             @Override
                             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                                 if (mSelectClassificationBean != null) {
-                                    startActivity(new Intent(SelectClassificationActivity.this, CommodityClassificationActivity.class).putExtra("id", mSelectClassificationBean.get(position).getId() +""));
+                                    startActivity(new Intent(SelectClassificationActivity.this, CommodityClassificationActivity.class).putExtra("id", mSelectClassificationBean.get(position).getId() +"").putExtra("classification_title", mSelectClassificationBean.get(position).getNameCn()));
                                 }
                             }
                         });

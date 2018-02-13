@@ -246,7 +246,7 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                     @Override
                     public void onSuccess(BasicResponse<List<NotSelectClassificationBean>> response) {
                         if (response != null) {
-                            startActivity(new Intent(MainActivity.this, CommodityClassificationActivity.class).putExtra("id", response.getData().get(position).getId() + "").addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                            startActivity(new Intent(MainActivity.this, CommodityClassificationActivity.class).putExtra("id", response.getData().get(position).getId() + "").putExtra("classification_title", response.getData().get(position).getNameCn()).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                         }
                     }
                 });

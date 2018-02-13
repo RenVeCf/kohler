@@ -6,7 +6,7 @@
     android:background="#f5f5f5"
     android:orientation="vertical"
     android:paddingBottom="@dimen/y33"
-    android:paddingStart="@dimen/x90"
+    android:paddingStart="@dimen/x48"
     android:paddingTop="@dimen/x48">
 
     <TextView

@@ -55,7 +55,6 @@ public class WholeCategoryFragment extends BaseFragment implements StackLayoutMa
     private List<NotSelectClassificationBean> mNotSelectClassificationBean;
     private List<NotSelectClassificationBean> mNotSelectClassificationPositiveSequenceBean;
     private StackAdapter mStackAdapter;
-    private int xy = 0;
 
     @Override
     protected int getLayoutId() {

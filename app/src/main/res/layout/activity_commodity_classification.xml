@@ -20,7 +20,6 @@
         app:is_menu="true"
         app:is_share="true"
         app:is_system_msg="true"
-        app:title="@string/commodity_classification"
         app:title_color="@color/black"/>
 
     <com.mengyang.kohler.whole_category.view.NavitationFollowScrollLayout

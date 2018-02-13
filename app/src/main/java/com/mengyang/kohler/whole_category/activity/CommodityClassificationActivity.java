@@ -1,10 +1,9 @@
 package com.mengyang.kohler.whole_category.activity;
 
-import android.graphics.Color;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.widget.TableLayout;
+import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.App;
@@ -16,7 +15,6 @@ import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.CommodityClassificationTitleBean;
 import com.mengyang.kohler.whole_category.adapter.ViewPagerAdapter;
-import com.mengyang.kohler.whole_category.adapter.ViewPagerAdapter2;
 import com.mengyang.kohler.whole_category.fragment.CommodityClassificationFragment;
 import com.mengyang.kohler.whole_category.view.NavitationFollowScrollLayout;
 
@@ -42,10 +40,11 @@ public class CommodityClassificationActivity extends BaseActivity {
     ViewPager vpCommodityClassification;
     @BindView(R.id.table_layout)
     TabLayout mTableLayout;
+    @BindView(R.id.tv_top_title)
+    TextView tvTopTitle;
     private List<CommodityClassificationTitleBean> mCommodityClassificationTitleBean;
     private String[] titles;
     private ViewPagerAdapter viewPagerAdapter;
-    private ViewPagerAdapter2 viewPagerAdapter2;
     private List<Fragment> fragments;
 
     @Override
@@ -58,16 +57,11 @@ public class CommodityClassificationActivity extends BaseActivity {
         App.getManager().addActivity(this);
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(this, tvCommodityClassificationTop);
+        tvTopTitle.setText(getIntent().getStringExtra("classification_title"));
         fragments = new ArrayList<>();
-
         mCommodityClassificationTitleBean = new ArrayList<>();
-
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), fragments);
         vpCommodityClassification.setAdapter(viewPagerAdapter);
-
-//        viewPagerAdapter2 = new ViewPagerAdapter2(getSupportFragmentManager(), fragments,titles);
-//        vpCommodityClassification.setAdapter(viewPagerAdapter2);
-//        mTableLayout.setupWithViewPager(vpCommodityClassification);
     }
 
     @Override

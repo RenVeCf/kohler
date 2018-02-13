@@ -1,10 +1,16 @@
 package com.mengyang.kohler.account.activity;
 
+import android.graphics.drawable.ColorDrawable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gyf.barlibrary.ImmersionBar;
@@ -41,7 +47,12 @@ public class AccountMineLikeActivity extends BaseActivity implements BaseQuickAd
     SwipeRefreshLayout srlAccountMineLike;
     private AccountMineLikeAdapter mAccountMineLikeAdapter;
     private List<LikeListBean.ResultListBean> likeListBean;
+    private PopupWindow mAccountMineLikePopupWindow;
+    private TextView tvPopupWindowAccountMineLike;
+    private Button btPopupWindowAccountMineLike;
+    private View mPopImgLayout;
     private int pageNum = 0; //请求页数
+    private String mId = "";
 
     @Override
     protected int getLayoutId() {
@@ -62,6 +73,40 @@ public class AccountMineLikeActivity extends BaseActivity implements BaseQuickAd
         likeListBean = new ArrayList<>();
         mAccountMineLikeAdapter = new AccountMineLikeAdapter(likeListBean);
         rvAccountMineLike.setAdapter(mAccountMineLikeAdapter);
+
+        mAccountMineLikePopupWindow = new PopupWindow(App.getContext());
+        mAccountMineLikePopupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
+        mAccountMineLikePopupWindow.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
+        LayoutInflater inflater_img = LayoutInflater.from(App.getContext());
+        mPopImgLayout = inflater_img.inflate(R.layout.popup_window_account_mine_like, null);
+        mAccountMineLikePopupWindow.setContentView(mPopImgLayout);
+        mAccountMineLikePopupWindow.setBackgroundDrawable(new ColorDrawable(0x4c000000));
+        mAccountMineLikePopupWindow.setOutsideTouchable(false);
+        mAccountMineLikePopupWindow.setFocusable(true);
+        tvPopupWindowAccountMineLike = mPopImgLayout.findViewById(R.id.tv_popup_window_account_mine_like);
+        btPopupWindowAccountMineLike = mPopImgLayout.findViewById(R.id.bt_popup_window_account_mine_like);
+        btPopupWindowAccountMineLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Map<String, String> stringMap = IdeaApi.getSign();
+                stringMap.put("id", mId);
+
+                IdeaApi.getRequestLogin(stringMap);
+                IdeaApi.getApiService()
+                        .getCancelLike(stringMap)
+                        .compose(AccountMineLikeActivity.this.<BasicResponse>bindToLifecycle())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new DefaultObserver<BasicResponse>(AccountMineLikeActivity.this, true) {
+                            @Override
+                            public void onSuccess(BasicResponse response) {
+                                pageNum = 0;
+                                initData();
+                                mAccountMineLikePopupWindow.dismiss();
+                            }
+                        });
+            }
+        });
     }
 
     @Override
@@ -109,27 +154,16 @@ public class AccountMineLikeActivity extends BaseActivity implements BaseQuickAd
                                                     break;
                                                 case R.id.iv_account_mine_like_adapter_remove:
                                                     //取消收藏
-                                                    Map<String, String> stringMap = IdeaApi.getSign();
-                                                    stringMap.put("id", likeListBean.get(position).getId() + "");
-
-                                                    IdeaApi.getRequestLogin(stringMap);
-                                                    IdeaApi.getApiService()
-                                                            .getCancelLike(stringMap)
-                                                            .compose(AccountMineLikeActivity.this.<BasicResponse>bindToLifecycle())
-                                                            .subscribeOn(Schedulers.io())
-                                                            .observeOn(AndroidSchedulers.mainThread())
-                                                            .subscribe(new DefaultObserver<BasicResponse>(AccountMineLikeActivity.this, true) {
-                                                                @Override
-                                                                public void onSuccess(BasicResponse response) {
-                                                                    pageNum = 0;
-                                                                    initData();
-                                                                }
-                                                            });
+                                                    mId = likeListBean.get(position).getId() + "";
+                                                    tvPopupWindowAccountMineLike.setText(likeListBean.get(position).getName());
+                                                    mAccountMineLikePopupWindow.showAsDropDown(view, 0, 0);
                                                     break;
                                             }
                                         }
                                     });
                                 } else {
+                                    mAccountMineLikeAdapter.notifyDataSetChanged();
+                                    rvAccountMineLike.setAdapter(mAccountMineLikeAdapter);
                                     mAccountMineLikeAdapter.loadMoreEnd();
                                 }
                             } else {

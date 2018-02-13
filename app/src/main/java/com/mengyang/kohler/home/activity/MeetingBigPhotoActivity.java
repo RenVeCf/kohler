@@ -52,7 +52,7 @@ public class MeetingBigPhotoActivity extends BaseActivity {
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(this, tvMeetingBigPhotoTop);
         mNum = getIntent().getIntExtra("num", 0);
-        tvMeetingBigPhotoNum.setText(mNum);
+        tvMeetingBigPhotoNum.setText(mNum + "");
         mUrl = getIntent().getStringExtra("url");
         Glide.with(App.getContext()).load(mUrl).apply(new RequestOptions().placeholder(R.mipmap.queshengtu)).into(ivMeetingBigPhoto);
         mId = getIntent().getIntExtra("id", 0);

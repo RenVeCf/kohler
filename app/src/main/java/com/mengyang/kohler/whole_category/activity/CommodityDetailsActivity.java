@@ -374,7 +374,10 @@ public class CommodityDetailsActivity extends BaseActivity {
                 if (mCommodityDetails.get(poction).getPdfList() != null) {
                     for (int i = 0; i < mCommodityDetails.get(poction).getPdfList().size(); i++) {
                         if (mCommodityClassificationFragmentBean.getPdfList().get(i).getProductPdfName().equals("尺寸图")) {
-                            mPdfUrl = mCommodityDetails.get(poction).getPdfList().get(i).getFileName();
+                            if (mCommodityDetails.get(poction).getPdfList() != null)
+                                mPdfUrl = mCommodityDetails.get(poction).getPdfList().get(i).getFileName();
+                            else
+                                ToastUtil.showToast("暂未有尺寸图");
                         }
                     }
                     tvCommodityDetailsDownloadName.setText(App.getContext().getResources().getText(R.string.download_size_diagram));
@@ -386,7 +389,10 @@ public class CommodityDetailsActivity extends BaseActivity {
                 if (mCommodityDetails.get(poction).getPdfList() != null) {
                     for (int i = 0; i < mCommodityDetails.get(poction).getPdfList().size(); i++) {
                         if (mCommodityDetails.get(poction).getPdfList().get(i).getProductPdfName().equals("安装说明书")) {
-                            mPdfUrl = mCommodityDetails.get(poction).getPdfList().get(i).getFileName();
+                            if (mCommodityDetails.get(poction).getPdfList() != null)
+                                mPdfUrl = mCommodityDetails.get(poction).getPdfList().get(i).getFileName();
+                            else
+                                ToastUtil.showToast("暂未有安装说明书");
                         }
                     }
                     tvCommodityDetailsDownloadName.setText(App.getContext().getResources().getText(R.string.download_installation_instructions));
