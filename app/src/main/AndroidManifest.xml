@@ -174,7 +174,8 @@
         <activity android:name=".common.activity.WebViewActivity"/>
         <activity android:name=".home.activity.MeetingBigPhotoActivity">
         </activity>
-        <activity android:name=".home.activity.BarrageActivity">
+        <activity android:name=".home.activity.BarrageActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize">
         </activity>
     </application>
 

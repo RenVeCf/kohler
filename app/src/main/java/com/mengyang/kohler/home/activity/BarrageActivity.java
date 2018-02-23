@@ -1,18 +1,37 @@
 package com.mengyang.kohler.home.activity;
 
+import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
+
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
+import com.mengyang.kohler.common.adapter.UserServiceAdapter;
 import com.mengyang.kohler.common.net.Config;
+import com.mengyang.kohler.common.utils.ToastUtil;
 import com.mengyang.kohler.common.view.TopView;
+import com.mengyang.kohler.home.adapter.BarrageAdapter;
+import com.mengyang.kohler.module.bean.QuestionSearchBean;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -26,8 +45,18 @@ import okhttp3.Response;
  */
 
 public class BarrageActivity extends BaseActivity {
+    private List<String> mDataList = new ArrayList<>();
+
     @BindView(R.id.tv_barrage_top)
     TopView tvBarrageTop;
+    @BindView(R.id.btn_barrage_send)
+    Button mBtnBarrageSend;
+    @BindView(R.id.recycler_view_barrage)
+    RecyclerView mRecyclerViewBarrage;
+    @BindView(R.id.et_barrage)
+    EditText mEtBarrage;
+    private String mContent;
+    private BarrageAdapter mBarrageAdapter;
 
     @Override
     protected int getLayoutId() {
@@ -36,9 +65,14 @@ public class BarrageActivity extends BaseActivity {
 
     @Override
     protected void initValues() {
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         App.getManager().addActivity(this);
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(this, tvBarrageTop);
+
+        mRecyclerViewBarrage.setLayoutManager(new LinearLayoutManager(this));
+        mBarrageAdapter = new BarrageAdapter(mDataList);
+        mRecyclerViewBarrage.setAdapter(mBarrageAdapter);
     }
 
     @Override
@@ -51,7 +85,27 @@ public class BarrageActivity extends BaseActivity {
 
     }
 
-    private void SendBarrage() {
+    @OnClick({R.id.btn_barrage_send})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.btn_barrage_send:
+                mContent = mEtBarrage.getText().toString().trim();
+                mEtBarrage.getText().clear();
+                mEtBarrage.setFocusable(true);
+
+                if (!TextUtils.isEmpty(mContent)) {
+                    mBarrageAdapter.addData(mContent);
+                    SendBarrage(mContent);
+                } else {
+                    ToastUtil.showToast("输入内容不能为空");
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void SendBarrage(final String content) {
         new Thread() {
             @Override
             public void run() {
@@ -60,7 +114,7 @@ public class BarrageActivity extends BaseActivity {
                 JSONObject json = new JSONObject();
 
                 try {
-                    json.put("content", "ttuututututututututtututututututu");
+                    json.put("content", content);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -83,13 +137,22 @@ public class BarrageActivity extends BaseActivity {
                 okHttpClient.newCall(request).enqueue(new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
+                        Log.i("123456", "请求失败");
                     }
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
+                        Log.i("123456", "请求成功");
                     }
                 });
             }
         }.start();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }
