@@ -127,12 +127,6 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
 
     @Override
     protected void initValues() {
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[3] == 3) {
-                Log.i("123", "123");
-            }
-        }
-
         App.addDestoryActivity(this, "MainActivity");
         App.getManager().addActivity(this);
         //        Boolean isFirstOpen = (Boolean) SPUtil.get(this, IConstants.FIRST_APP, true);
