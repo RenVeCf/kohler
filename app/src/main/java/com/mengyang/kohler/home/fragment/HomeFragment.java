@@ -45,6 +45,7 @@ import com.mengyang.kohler.module.bean.HomeIndexBean;
 import com.ryane.banner.AdPageInfo;
 import com.ryane.banner.AdPlayBanner;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -96,7 +97,7 @@ public class HomeFragment extends BaseFragment {
     private PopupWindow mNoJurisdictionPopupWindow;
     private View mPopLayout;
     private PdfBean mPdfBean;
-    private String mUserName = (String) SPUtil.get(App.getContext(), IConstants.USER_NIKE_NAME, "");
+    private String mUserName;
     private List<PdfBean.UserNameBean.UserPdfItemBean> mPdfItemList;
 
     @Override
@@ -155,20 +156,30 @@ public class HomeFragment extends BaseFragment {
         super.onResume();
         // TODO: 2018/2/23 ,若是用户手动删除了手机上的文件，还没有做处理
 
+        mUserName = (String) SPUtil.get(App.getContext(), IConstants.USER_NIKE_NAME, "");
+
         String pefData2 = (String) SPUtil.get(App.getContext(), IConstants.USER_PDF_DATA, "");
-//        SystemClock.sleep(300);
-        Log.i("123456", "111");
         if (!TextUtils.isEmpty(pefData2)) {
-            Log.i("123456", "222");
             Gson gson = new Gson();
             mPdfBean = gson.fromJson(pefData2, new TypeToken<PdfBean>() {
             }.getType());
             if (mPdfBean.getList() != null) {
-                Log.i("123456", "333");
                 for (int i = 0; i < mPdfBean.getList().size(); i++) {
                     if (mPdfBean.getList().get(i).getUserName().equals(mUserName)) {
                         if (mPdfBean.getList().get(i).getPdfItemList() != null && mPdfBean.getList().get(i).getPdfItemList().size() > 0) {
                             mPdfItemList = mPdfBean.getList().get(i).getPdfItemList();
+
+                            // TODO: 2018/2/23 ,有可能用户手动将文件删除了，所以这边需要在进行判断文件是否存在
+                            boolean exists = false;
+                            for (int i1 = 0; i1 < mPdfItemList.size(); i1++) {
+                                String bookPathUrl = mPdfItemList.get(i1).getPathUrl();
+                                File file = new File(bookPathUrl);
+                                exists = file.exists();
+                                if (!exists) {
+                                    mPdfItemList.remove(i1);
+                                }
+                            }
+
                         } else {
                             hideItem();
                             return;
@@ -177,7 +188,7 @@ public class HomeFragment extends BaseFragment {
                 }
 
                 mHomeBooksAdapter = new HomeBooksAdapter(mPdfItemList);
-                if (mPdfItemList == null) {
+                if (mPdfItemList == null || mPdfItemList.size() == 0) {
                     hideItem();
                 } else {
                     rvHomeBooks.setVisibility(View.VISIBLE);

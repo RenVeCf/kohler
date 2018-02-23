@@ -42,8 +42,8 @@
 
         <com.mengyang.kohler.common.view.CircleImageView
             android:id="@+id/civ_account_title"
-            android:layout_width="@dimen/x243"
-            android:layout_height="@dimen/y243"
+            android:layout_width="@dimen/x250"
+            android:layout_height="@dimen/y250"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/y45"
             android:src="@mipmap/oval"/>

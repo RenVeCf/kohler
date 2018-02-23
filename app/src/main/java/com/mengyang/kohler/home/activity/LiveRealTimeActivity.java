@@ -64,6 +64,25 @@ public class LiveRealTimeActivity extends BaseActivity implements BaseQuickAdapt
         rvLiveRealTime.setHasFixedSize(true);
         rvLiveRealTime.setItemAnimator(new DefaultItemAnimator());
 
+        //解决SwipeRefreshLayout和RecyclerView的滑动冲突
+        rvLiveRealTime.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+//                super.onScrolled(recyclerView, dx, dy);
+                //计算Recyclerview第一个item的位置是否可见
+                int topRowVerticalPosition =
+                        (recyclerView == null || recyclerView.getChildCount() == 0) ? 0 : recyclerView.getChildAt(0).getTop();
+
+                //当第一个item不可见时，设置SwipeRefreshLayout不可用
+                srlLiveRealTime.setEnabled(topRowVerticalPosition >= 0);
+            }
+        });
+
         mLiveRealTimeBean = new ArrayList<>();
         mLiveRealTimeAdapter = new LiveRealTimeAdapter(mLiveRealTimeBean);
         rvLiveRealTime.setAdapter(mLiveRealTimeAdapter);

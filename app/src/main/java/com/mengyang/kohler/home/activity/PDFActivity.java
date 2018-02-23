@@ -5,8 +5,10 @@ import android.content.pm.PackageManager;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 
 import com.github.barteksc.pdfviewer.PDFView;
+import com.github.barteksc.pdfviewer.listener.OnErrorListener;
 import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
 import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
 import com.mengyang.kohler.App;
@@ -46,7 +48,7 @@ public class PDFActivity extends BaseActivity {
             file2.mkdirs();
         }
 
-        File file = new File(file2, PdfUrl.substring(PdfUrl.lastIndexOf("/") + 1));
+        final File file = new File(file2, PdfUrl.substring(PdfUrl.lastIndexOf("/") + 1));
         //选择pdf
         pdfHome.fromFile(file)
                 //                .pages(0, loading2, loading3, 4, 5); // 把0 , loading2 , loading3 , 4 , 5 过滤掉
@@ -67,6 +69,7 @@ public class PDFActivity extends BaseActivity {
                     @Override
                     public void loadComplete(int nbPages) {
                     }
+
                 })
                 //设置翻页监听
                 .onPageChange(new OnPageChangeListener() {
@@ -75,6 +78,17 @@ public class PDFActivity extends BaseActivity {
                     public void onPageChanged(int page, int pageCount) {
                         int pageNum = page + 1;
                         ToastUtil.showToast(" " + pageNum + " / " + pageCount);
+                    }
+                })
+                .onError(new OnErrorListener() {
+                    @Override
+                    public void onError(Throwable t) {
+                        if (file.exists()) {
+                            file.delete();
+                        }
+
+                        ToastUtil.showToast("PDF文件出错，请重新下载。");
+                        Log.i("123456 onError", t+"");
                     }
                 })
                 //设置页面滑动监听

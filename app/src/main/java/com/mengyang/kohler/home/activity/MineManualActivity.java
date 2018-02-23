@@ -25,7 +25,6 @@ import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.view.SpacesItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.home.adapter.BrochureListAdapter;
-import com.mengyang.kohler.home.adapter.MyBrochureAdapter3;
 import com.mengyang.kohler.home.adapter.MyBrochureAdapter6;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.PdfBean;
@@ -46,6 +45,7 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class MineManualActivity extends BaseActivity implements BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemChildClickListener {
+//    String mRootPath = Environment.getExternalStorageDirectory().getAbsolutePath()+File.separator+ "kohlerPdf";
     String mRootPath = Environment.getExternalStorageDirectory().getAbsolutePath();
 
 
@@ -59,7 +59,6 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
     SwipeRefreshLayout srlMineManual;
     private BrochureListAdapter mMineManualAdapter;
     private List<BooksListBean.ResultListBean> mBooksListBean;
-    private MyBrochureAdapter3 mMyBrochureAdapter3;
 
 
     private List<PdfBean> mPdfBeanList = new ArrayList<>();
@@ -128,6 +127,20 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
                 if (mPdfBean.getList().get(i).getUserName().equals((String) SPUtil.get(App.getContext(), IConstants.USER_NIKE_NAME, ""))) {
                     mPdfItemList = new ArrayList<>();
                     mPdfItemList = mPdfBean.getList().get(i).getPdfItemList();
+
+                    // TODO: 2018/2/23 ,有可能用户手动将文件删除了，所以这边需要在进行判断文件是否存在
+                    boolean exists = false;
+                    for (int i1 = 0; i1 < mPdfItemList.size(); i1++) {
+                        String bookPathUrl = mPdfItemList.get(i1).getPathUrl();
+                        File file = new File(bookPathUrl);
+                        exists = file.exists();
+                        if (!exists) {
+                            mPdfItemList.remove(i1);
+                        }
+
+                    }
+
+
 
                     if (mMyBrochureAdapter6 == null) {
                         mMyBrochureAdapter6 = new MyBrochureAdapter6(mPdfItemList);

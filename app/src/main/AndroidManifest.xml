@@ -172,7 +172,6 @@
         <activity android:name=".home.activity.DownLoaderPDFActivity"/>
         <activity android:name=".home.activity.MeetingWebActivity"/>
         <activity android:name=".common.activity.WebViewActivity"/>
-        <activity android:name=".common.activity.TestActivity"/>
         <activity android:name=".home.activity.MeetingBigPhotoActivity">
         </activity>
         <activity android:name=".home.activity.BarrageActivity">

@@ -9,6 +9,7 @@
     tools:context="com.mengyang.kohler.common.activity.WebViewActivity">
 
     <com.mengyang.kohler.common.view.TopView
+        android:visibility="gone"
         android:id="@+id/tv_webview_top"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -22,6 +23,7 @@
         app:title_color="@color/black"/>
 
     <WebView
+        android:layout_marginTop="@dimen/y50"
         android:id="@+id/wv_service"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

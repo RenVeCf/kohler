@@ -63,7 +63,8 @@
             android:id="@+id/tv_service_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:textColor="#364ebd"
+            android:textSize="12sp"
             android:visibility="gone" />
     </LinearLayout>
 
