@@ -172,4 +172,5 @@
     <string name="no_jurisdictuon">您暂时没有访问权限</string>
     <string name="is_delete">确认删除</string>
     <string name="deleteing">您将删除</string>
+    <string name="barrage">我要爬墙</string>
 </resources>

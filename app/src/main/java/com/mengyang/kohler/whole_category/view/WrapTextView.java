@@ -53,7 +53,7 @@ public class WrapTextView extends View {
     public void setText(String text) {
         mTextList = new ArrayList<String>();
         //获取自定义属性的值
-        mText = "115111313515131531513514415315315315531351351448438418341413153135135";
+        mText = "1234567891011121314151617181920212223242526272829303132";
         mPaint = new Paint();
         mPaint.setTextSize(35);
         mPaint.setColor(App.getContext().getResources().getColor(R.color.black));

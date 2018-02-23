@@ -62,21 +62,21 @@
                 android:layout_marginTop="8dp"
                 android:background="@mipmap/jinxiaodahui">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/x60"
-                    android:layout_marginTop="@dimen/y102"
-                    android:text="@string/ndc"
-                    android:textColor="#ffffff"
-                    android:textSize="24sp"/>
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginStart="@dimen/x60"-->
+                    <!--android:layout_marginTop="@dimen/y102"-->
+                    <!--android:text="@string/ndc"-->
+                    <!--android:textColor="#ffffff"-->
+                    <!--android:textSize="24sp"/>-->
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/y102"
                     android:layout_marginStart="@dimen/x60"
-                    android:layout_marginTop="@dimen/y208"
+                    android:layout_marginTop="@dimen/y158"
                     android:text="@string/kohler_china_meeting"
                     android:textColor="#ffffff"
                     android:textSize="14sp"/>
@@ -234,18 +234,19 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/y108"
-                android:text="@string/vote"
-                android:textColor="#252525"
-                android:textSize="22sp"
-                android:textStyle="bold"/>
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="@dimen/y108"-->
+                <!--android:text="@string/vote"-->
+                <!--android:textColor="#252525"-->
+                <!--android:textSize="22sp"-->
+                <!--android:textStyle="bold"/>-->
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y108"
                 android:text="@string/live_real_time"
                 android:textColor="#9e9e9e"
                 android:textSize="10sp"/>
@@ -258,19 +259,20 @@
                 android:scaleType="centerCrop"
                 android:src="@mipmap/vote_test"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/y108"
-                android:text="Chat Wall"
-                android:textColor="#252525"
-                android:textSize="22sp"
-                android:textStyle="bold"/>
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="@dimen/y108"-->
+                <!--android:text="Chat Wall"-->
+                <!--android:textColor="#252525"-->
+                <!--android:textSize="22sp"-->
+                <!--android:textStyle="bold"/>-->
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="我要爬墙"
+                android:layout_marginTop="@dimen/y108"
+                android:text="@string/barrage"
                 android:textColor="#9e9e9e"
                 android:textSize="10sp"/>
 
@@ -282,19 +284,19 @@
                 android:scaleType="centerCrop"
                 android:src="@mipmap/highlights_test"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/y108"
-                android:text="@string/live"
-                android:textColor="#252525"
-                android:textSize="22sp"
-                android:textStyle="bold"/>
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="@dimen/y108"-->
+                <!--android:text="@string/live"-->
+                <!--android:textColor="#252525"-->
+                <!--android:textSize="22sp"-->
+                <!--android:textStyle="bold"/>-->
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="@dimen/y108"
                 android:text="@string/wonderful_collection"
                 android:textColor="#9e9e9e"
                 android:textSize="10sp"/>
