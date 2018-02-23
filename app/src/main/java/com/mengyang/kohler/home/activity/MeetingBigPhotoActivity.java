@@ -23,6 +23,10 @@ import butterknife.OnClick;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
+/**
+ * 现场实时投票大图
+ */
+
 public class MeetingBigPhotoActivity extends BaseActivity {
 
     @BindView(R.id.tv_meeting_big_photo_top)

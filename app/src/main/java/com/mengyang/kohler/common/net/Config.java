@@ -34,8 +34,9 @@ public interface Config  {
     String MEETING_LIVE_REAL_TIME = "ndc/getPictureList"; //经销商大会现场实时投票
     String BOOKS_LIST = "handBook/getHandBooks"; //手册列表
     String MEETING_USER_SETTINGS = "user/data/get"; //获取经销商大会用户设置
-    String MEETING_USER_SETTINGS_MODIFY = "user/data/update"; //修改销商大会用户设置
-    String MEETING_LIKE_PICTURE = "ndc/likePicture"; //销商大会照片点赞
+    String MEETING_USER_SETTINGS_MODIFY = "user/data/update"; //修改经销商大会用户设置
+    String MEETING_LIKE_PICTURE = "ndc/likePicture"; //经销商大会照片点赞
+    String MEETING_BARRAGE = "http://106.15.92.74/api/v1/danmu/send?access_token="; //弹幕
 
     /**
      * 全品类

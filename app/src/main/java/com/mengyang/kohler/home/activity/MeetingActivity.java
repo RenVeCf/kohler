@@ -67,10 +67,10 @@ public class MeetingActivity extends BaseActivity {
     RecyclerView rvMeeting;
     @BindView(R.id.tv_meeting_msg_reminder_push)
     TextView tvMeetingMsgReminderPush;
-    @BindView(R.id.rl_meeting_vote)
-    ImageView rlMeetingVote;
-    @BindView(R.id.rl_meeting_chat_wall)
-    ImageView rlMeetingChatWall;
+    @BindView(R.id.iv_meeting_vote)
+    ImageView ivMeetingVote;
+    @BindView(R.id.iv_meeting_chat_wall)
+    ImageView ivMeetingChatWall;
     @BindView(R.id.tv_meeting_position_zero_agenda_type)
     TextView tvMeetingPositionZeroAgendaType;
     @BindView(R.id.tv_meeting_position_zero_agenda_time)
@@ -224,7 +224,7 @@ public class MeetingActivity extends BaseActivity {
                 });
     }
 
-    @OnClick({R.id.ll_meeting_position_zero, R.id.iv_meeting_highlights, R.id.ll_meeting_next, R.id.rl_invitation_h5, R.id.ll_meeting_msg_reminder_push, R.id.rl_meeting_vote, R.id.rl_meeting_chat_wall})
+    @OnClick({R.id.ll_meeting_position_zero, R.id.iv_meeting_highlights, R.id.ll_meeting_next, R.id.rl_invitation_h5, R.id.ll_meeting_msg_reminder_push, R.id.iv_meeting_vote, R.id.iv_meeting_chat_wall})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_meeting_next:
@@ -249,12 +249,13 @@ public class MeetingActivity extends BaseActivity {
                     SPUtil.put(App.getContext(), IConstants.MEETING_PUSH_MSG, true + "");
                 }
                 break;
-            case R.id.rl_meeting_vote:
+            case R.id.iv_meeting_vote:
                 //投票
                 startActivity(new Intent(this, LiveRealTimeActivity.class));
                 break;
-            case R.id.rl_meeting_chat_wall:
+            case R.id.iv_meeting_chat_wall:
                 //弹幕
+                startActivity(new Intent(this, BarrageActivity.class));
                 break;
             case R.id.iv_meeting_highlights:
                 //集锦
