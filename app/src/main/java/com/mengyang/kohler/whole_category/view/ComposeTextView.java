@@ -25,34 +25,32 @@ public class ComposeTextView extends View {
     // 总高度、宽度
     private int sumHeight = 0;
     private int maxWidth = 0;
-    //前面Text的宽
-    private int textWidth = 0;
     // 一些属性
     private int textColor = getResources().getColor(android.R.color.black);
     private int textSize = 11;
-    private int lineSpace = 5;  //行间距
+    private int lineSpace = 2;  //行间距
     private int typeFace = 0;
     private String text = "";
     private int maxLine = Integer.MAX_VALUE; //最大行数
     // 上下左右的距离
     private int left_Margin = 10;
-    private int right_Margin = 100;
+    private int right_Margin = 35;
     private int top_Margin = 0;
     private int bottom_Margin = 0;
 
     private Paint mPaint;
 
-    public ComposeTextView(Context context) {
+    public ComposeTextView(Context context, int textWidth) {
         super(context);
-        init();
+        init(textWidth);
     }
 
-    public ComposeTextView(Context context, AttributeSet attrs) {
+    public ComposeTextView(Context context, AttributeSet attrs, int textWidth) {
         super(context, attrs, 0);
-        init();
+        init(textWidth);
     }
 
-    private void init() {
+    private void init(int textWidth) {
         DisplayMetrics dm = getResources().getDisplayMetrics();
         //为属性定义单位
         textSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, textSize, dm);
@@ -63,8 +61,7 @@ public class ComposeTextView extends View {
         bottom_Margin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, bottom_Margin, dm);
 
         int width = dm.widthPixels;
-        LogUtils.i("rmy" , "width = " + width + ", left_Margin = " + left_Margin + ", right_Margin = " + right_Margin + ", getTextWidth() = " + getTextWidth());
-        maxWidth = width - left_Margin - right_Margin - getTextWidth();
+        maxWidth = width - left_Margin - right_Margin - textWidth;
 
         mPaint = new Paint();
         mPaint.setAntiAlias(true);// 抗锯齿
@@ -330,13 +327,5 @@ public class ComposeTextView extends View {
 
     public void setMaxLine(int maxLine) {
         this.maxLine = maxLine;
-    }
-
-    public int getTextWidth() {
-        return textWidth;
-    }
-
-    public void setTextWidth(int textWidth) {
-        this.textWidth = textWidth;
     }
 }

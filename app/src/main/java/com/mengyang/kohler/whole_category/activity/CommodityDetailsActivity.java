@@ -323,9 +323,7 @@ public class CommodityDetailsActivity extends BaseActivity {
                                         relative.addView(label);
                                         int textWidth = Math.round(label.getPaint().measureText(label.getText().toString()));
 
-                                        ComposeTextView attribute = new ComposeTextView(CommodityDetailsActivity.this);
-                                        LogUtils.i("rmy", "textWidth = " + textWidth);
-                                        attribute.setTextWidth(textWidth);
+                                        ComposeTextView attribute = new ComposeTextView(CommodityDetailsActivity.this, textWidth);
                                         attribute.setText(mCommodityDetails.get(poction).getAttrList().get(i).getAttrValue());
                                         relative.addView(attribute);
                                         llCommodityDetails.addView(relative);
