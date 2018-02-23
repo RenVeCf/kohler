@@ -77,10 +77,11 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
         if (response.getError().equals("200")) {
             onSuccess(response);
         } else {
-            if (response.getError().equals(""))
+            if (response.getError().equals("")) {
                 onFail(response, 12345);
-            else
+            } else {
                 onFail(response, Integer.parseInt(response.getError()));
+            }
         }
     }
 

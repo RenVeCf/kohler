@@ -1,6 +1,7 @@
 package com.mengyang.kohler.main.activity;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
@@ -11,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -51,6 +53,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends BaseActivity implements HomeFragment.OnFragmentInteractionListener {
+    private static final int PERMISSON_REQUESTCODE = 0;
     private String[] needPermissions = {
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -142,37 +145,6 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
 
 
         checkPermissions();//检查权限
-    }
-
-    /**
-     * 数据统计需要的动态权限
-     */
-    private void checkPermissions() {
-        List<String> needRequestPermissonList = new ArrayList<String>();
-        for (String perm : needPermissions) {
-
-            if (ContextCompat.checkSelfPermission(this, perm) == PackageManager.PERMISSION_GRANTED) {
-
-                Log.i("cohler","check permission [" + perm + "]: PERMISSION_GRANTED");//有权限了
-
-            } else {
-                Log.i("cohler","check permission [" + perm + "]: PERMISSION_DENIED");//没有权限
-
-                //判断是否需要显示申请原因
-                if (true == ActivityCompat.shouldShowRequestPermissionRationale(this, perm)) {
-                    //ConsoleLog.debug("shouldShowRequestPermissionRationale == true");
-                } else {
-                    //ConsoleLog.debug("shouldShowRequestPermissionRationale == false");
-                }
-                needRequestPermissonList.add(perm);
-            }
-        }
-
-//        if (needRequestPermissonList.size() > 0) {
-//            ActivityCompat.requestPermissions(this,
-//                    needRequestPermissonList.toArray(new String[needRequestPermissonList.size()]),
-//                    PERMISSON_REQUESTCODE);
-//        }
     }
 
     @Override
@@ -435,5 +407,92 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == PERMISSON_REQUESTCODE) {
+            boolean allGranted = true;
+            for (int i = 0; i < permissions.length; ++i) {
+                String perm = permissions[i];
+                int req = grantResults[i];
+
+                if (req == PackageManager.PERMISSION_GRANTED) {
+                    Log.i("cohler","onRequestPermissionsResult [" + perm + "]: PERMISSION_GRANTED");
+
+                } else {
+                    Log.i("cohler","onRequestPermissionsResult [" + perm + "]: PERMISSION_DENIED");
+                }
+
+                if (req == PackageManager.PERMISSION_DENIED) {// 权限被用户拒绝
+                    allGranted = false;
+                    break;
+                }
+            }
+            if (false == allGranted) {
+                showMissingPermissionDialog();
+            }
+        }
+    }
+
+
+    /**
+     * 数据统计需要的动态权限
+     */
+    private void checkPermissions() {
+        List<String> needRequestPermissonList = new ArrayList<String>();
+        for (String perm : needPermissions) {
+
+            if (ContextCompat.checkSelfPermission(this, perm) == PackageManager.PERMISSION_GRANTED) {
+
+                Log.i("cohler","check permission [" + perm + "]: PERMISSION_GRANTED");//有权限了
+
+            } else {
+                Log.i("cohler","check permission [" + perm + "]: PERMISSION_DENIED");//没有权限
+
+                //判断是否需要显示申请原因
+                if (true == ActivityCompat.shouldShowRequestPermissionRationale(this, perm)) {
+                    //ConsoleLog.debug("shouldShowRequestPermissionRationale == true");
+                } else {
+                    //ConsoleLog.debug("shouldShowRequestPermissionRationale == false");
+                }
+                needRequestPermissonList.add(perm);
+            }
+        }
+
+        if (needRequestPermissonList.size() > 0) {
+            ActivityCompat.requestPermissions(this,
+                    needRequestPermissonList.toArray(new String[needRequestPermissonList.size()]),
+                    PERMISSON_REQUESTCODE);
+        }
+    }
+
+    private void showMissingPermissionDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("提示");
+        builder.setMessage("当前应用缺少必要权限。请点击\"设置\"-\"权限\"-打开所需权限。");
+
+        // 拒绝, 退出应用
+        builder.setNegativeButton("取消",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                });
+
+        builder.setPositiveButton("设置",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+//                        startAppSettings();
+                    }
+                });
+
+        builder.setCancelable(false);
+
+        builder.show();
     }
 }

@@ -4,10 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.SystemClock;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -90,7 +92,7 @@ public class HomeFragment extends BaseFragment {
     private List<AdPageInfo> mDatas = new ArrayList<>();
     private HomeBooksAdapter mHomeBooksAdapter;
     private String mH5_URL = "";
-    private int prevousPosition;
+    private int prevousPosition = 0;
     private PopupWindow mNoJurisdictionPopupWindow;
     private View mPopLayout;
     private PdfBean mPdfBean;
@@ -151,13 +153,18 @@ public class HomeFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+        // TODO: 2018/2/23 ,若是用户手动删除了手机上的文件，还没有做处理
 
         String pefData2 = (String) SPUtil.get(App.getContext(), IConstants.USER_PDF_DATA, "");
+//        SystemClock.sleep(300);
+        Log.i("123456", "111");
         if (!TextUtils.isEmpty(pefData2)) {
+            Log.i("123456", "222");
             Gson gson = new Gson();
             mPdfBean = gson.fromJson(pefData2, new TypeToken<PdfBean>() {
             }.getType());
             if (mPdfBean.getList() != null) {
+                Log.i("123456", "333");
                 for (int i = 0; i < mPdfBean.getList().size(); i++) {
                     if (mPdfBean.getList().get(i).getUserName().equals(mUserName)) {
                         if (mPdfBean.getList().get(i).getPdfItemList() != null && mPdfBean.getList().get(i).getPdfItemList().size() > 0) {
@@ -194,12 +201,14 @@ public class HomeFragment extends BaseFragment {
             hideItem();
         }
 
+
     }
 
     /**
      * 隐藏条目
      */
     private void hideItem() {
+        Log.i("123456", "隐藏item");
         rvHomeBooks.setVisibility(View.GONE);
         tvMyBrochureTop.setVisibility(View.GONE);
         tvMyBrochureDonw.setVisibility(View.GONE);
@@ -283,8 +292,11 @@ public class HomeFragment extends BaseFragment {
 
                                 //当前页面选中时，先将上一次选中的位置设置为未选中，并将当前的位置记录下来为下一次移动做准备
                                 //                                mLlIndicator.getChildAt(prevousPosition).setEnabled(false);
-                                mLlIndicator.getChildAt(prevousPosition).setBackgroundColor(Color.parseColor("#e3e3e3"));
-                                prevousPosition = position;
+                                if (mLlIndicator.getChildAt(prevousPosition) != null) {
+                                    mLlIndicator.getChildAt(prevousPosition).setBackgroundColor(Color.parseColor("#e3e3e3"));
+                                    prevousPosition = position;
+                                }
+
 
                                 //要让对应角标的小圆点选中
                                 View childAt = mLlIndicator.getChildAt(position);
