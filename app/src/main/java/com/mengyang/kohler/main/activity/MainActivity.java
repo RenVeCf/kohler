@@ -1,15 +1,22 @@
 package com.mengyang.kohler.main.activity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.Toast;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.App;
@@ -32,6 +39,7 @@ import com.mengyang.kohler.module.bean.UserMsgBean;
 import com.mengyang.kohler.whole_category.activity.CommodityClassificationActivity;
 import com.mengyang.kohler.whole_category.fragment.WholeCategoryFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -42,6 +50,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends BaseActivity implements HomeFragment.OnFragmentInteractionListener {
+    private String[] needPermissions = {
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+    };
 
     @BindView(R.id.ll_nearby_shops)
     LinearLayout llNearbyShops;
@@ -103,6 +115,7 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
     private WholeCategoryFragment mWholeCategoryFragment = new WholeCategoryFragment();
     private ARFragment mARFragment = new ARFragment();
     private AccountFragment mAccountFragment = new AccountFragment();
+    private long exitTime;
 
     @Override
     protected int getLayoutId() {
@@ -124,6 +137,39 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
         //        //加载adapter
         //        cvpMainViewpager.setAdapter(new MyAdapter(getSupportFragmentManager(), setfargment()));
 
+
+        checkPermissions();//检查权限
+    }
+
+    /**
+     * 数据统计需要的动态权限
+     */
+    private void checkPermissions() {
+        List<String> needRequestPermissonList = new ArrayList<String>();
+        for (String perm : needPermissions) {
+
+            if (ContextCompat.checkSelfPermission(this, perm) == PackageManager.PERMISSION_GRANTED) {
+
+                Log.i("cohler","check permission [" + perm + "]: PERMISSION_GRANTED");//有权限了
+
+            } else {
+                Log.i("cohler","check permission [" + perm + "]: PERMISSION_DENIED");//没有权限
+
+                //判断是否需要显示申请原因
+                if (true == ActivityCompat.shouldShowRequestPermissionRationale(this, perm)) {
+                    //ConsoleLog.debug("shouldShowRequestPermissionRationale == true");
+                } else {
+                    //ConsoleLog.debug("shouldShowRequestPermissionRationale == false");
+                }
+                needRequestPermissonList.add(perm);
+            }
+        }
+
+//        if (needRequestPermissonList.size() > 0) {
+//            ActivityCompat.requestPermissions(this,
+//                    needRequestPermissonList.toArray(new String[needRequestPermissonList.size()]),
+//                    PERMISSON_REQUESTCODE);
+//        }
     }
 
     @Override
@@ -369,5 +415,22 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
+    }
+
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            if ((System.currentTimeMillis() - exitTime) > 2000) {
+                Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                exitTime = System.currentTimeMillis();
+            } else {
+                finish();
+//                System.exit(0);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

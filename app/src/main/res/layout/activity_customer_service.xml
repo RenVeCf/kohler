@@ -37,14 +37,14 @@
             <!--android:layout_height="match_parent"-->
             <!--android:orientation="vertical">-->
 
-            <android.support.v7.widget.RecyclerView
-                android:layout_marginTop="@dimen/y45"
-                android:id="@+id/recycler_view_service11"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view_service11"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/y45"
+        android:layout_weight="1" />
 
-        <View
+    <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:background="#c4c4c4"/>

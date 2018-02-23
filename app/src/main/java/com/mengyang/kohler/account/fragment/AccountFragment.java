@@ -14,12 +14,14 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -62,13 +64,15 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 /**
- * 账户
+ * 我的账户
  */
 
 public class AccountFragment extends BaseFragment implements BaseQuickAdapter.RequestLoadMoreListener {
 
     @BindView(R.id.tv_account_top)
     TopView tvAccountTop;
+    @BindView(R.id.ll_root)
+    LinearLayout mLlRoot;
     @BindView(R.id.iv_account_settings)
     ImageView ivAccountSettings;
     @BindView(R.id.civ_account_title)
@@ -395,12 +399,16 @@ public class AccountFragment extends BaseFragment implements BaseQuickAdapter.Re
                 }
                 break;
             case R.id.bt_account_like:
-                if ((boolean) SPUtil.get(App.getContext(), IConstants.IS_LOGIN, false))
+                if ((boolean) SPUtil.get(App.getContext(), IConstants.IS_LOGIN, false)) {
                     startActivity(new Intent(App.getContext(), AccountMineLikeActivity.class));
+                }
                 break;
             case R.id.bt_account_query:
-                if ((boolean) SPUtil.get(App.getContext(), IConstants.IS_LOGIN, false))
+                if ((boolean) SPUtil.get(App.getContext(), IConstants.IS_LOGIN, false)) {
                     startActivity(new Intent(App.getContext(), AccountMineReservationQueryActivity.class));
+                }
+                break;
+            default:
                 break;
         }
     }

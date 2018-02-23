@@ -155,11 +155,12 @@ public class HomeFragment extends BaseFragment {
         String pefData2 = (String) SPUtil.get(App.getContext(), IConstants.USER_PDF_DATA, "");
         if (!TextUtils.isEmpty(pefData2)) {
             Gson gson = new Gson();
-            mPdfBean = gson.fromJson(pefData2, new TypeToken<PdfBean>() { }.getType());
+            mPdfBean = gson.fromJson(pefData2, new TypeToken<PdfBean>() {
+            }.getType());
             if (mPdfBean.getList() != null) {
                 for (int i = 0; i < mPdfBean.getList().size(); i++) {
                     if (mPdfBean.getList().get(i).getUserName().equals(mUserName)) {
-                        if (mPdfBean.getList().get(i).getPdfItemList() != null && mPdfBean.getList().get(i).getPdfItemList().size()>0) {
+                        if (mPdfBean.getList().get(i).getPdfItemList() != null && mPdfBean.getList().get(i).getPdfItemList().size() > 0) {
                             mPdfItemList = mPdfBean.getList().get(i).getPdfItemList();
                         } else {
                             hideItem();
@@ -189,6 +190,8 @@ public class HomeFragment extends BaseFragment {
                 //隐藏条目
                 hideItem();
             }
+        } else {
+            hideItem();
         }
 
     }
