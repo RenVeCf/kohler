@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -117,6 +118,8 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
     private AccountFragment mAccountFragment = new AccountFragment();
     private long exitTime;
 
+    private int[] arr = {1,2,3};
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_main;
@@ -124,6 +127,12 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
 
     @Override
     protected void initValues() {
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[3] == 3) {
+                Log.i("123", "123");
+            }
+        }
+
         App.addDestoryActivity(this, "MainActivity");
         App.getManager().addActivity(this);
         //        Boolean isFirstOpen = (Boolean) SPUtil.get(this, IConstants.FIRST_APP, true);

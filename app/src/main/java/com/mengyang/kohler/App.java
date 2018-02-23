@@ -8,6 +8,7 @@ import android.support.multidex.MultiDex;
 import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.utils.DatabaseUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
@@ -62,6 +63,8 @@ public class App extends Application {
 
         registrationId = JPushInterface.getRegistrationID(this);
         SPUtil.put(context, IConstants.JPUSH_SYSTEM_ID, registrationId);
+
+        CrashReport.initCrashReport(getApplicationContext(), "4390a5fb6e", true);
     }
 
     /**
