@@ -111,7 +111,8 @@ public class TopView extends RelativeLayout implements View.OnClickListener {
             case R.id.iv_top_back:
                 if (mContext instanceof Activity) {
                     ((Activity) mContext).finish();
-                    ((InputMethodManager)mContext.getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(((Activity)mContext).getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                    if (((Activity) mContext).getCurrentFocus() != null)
+                        ((InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(((Activity) mContext).getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                 }
                 break;
             case R.id.iv_top_menu:

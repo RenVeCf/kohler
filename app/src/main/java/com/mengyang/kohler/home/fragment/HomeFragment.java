@@ -219,7 +219,6 @@ public class HomeFragment extends BaseFragment {
      * 隐藏条目
      */
     private void hideItem() {
-        Log.i("123456", "隐藏item");
         rvHomeBooks.setVisibility(View.GONE);
         tvMyBrochureTop.setVisibility(View.GONE);
         tvMyBrochureDonw.setVisibility(View.GONE);
