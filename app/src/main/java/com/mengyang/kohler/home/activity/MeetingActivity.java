@@ -61,8 +61,8 @@ public class MeetingActivity extends BaseActivity {
     LinearLayout llMeetingNext;
     @BindView(R.id.tv_meeting_desc)
     TextView tvMeetingDesc;
-    @BindView(R.id.rl_invitation_h5)
-    RelativeLayout rlInvitationH5;
+    @BindView(R.id.iv_invitation_h5)
+    ImageView ivInvitationH5;
     @BindView(R.id.rv_meeting)
     RecyclerView rvMeeting;
     @BindView(R.id.tv_meeting_msg_reminder_push)
@@ -224,7 +224,7 @@ public class MeetingActivity extends BaseActivity {
                 });
     }
 
-    @OnClick({R.id.ll_meeting_position_zero, R.id.iv_meeting_highlights, R.id.ll_meeting_next, R.id.rl_invitation_h5, R.id.ll_meeting_msg_reminder_push, R.id.iv_meeting_vote, R.id.iv_meeting_chat_wall})
+    @OnClick({R.id.ll_meeting_position_zero, R.id.iv_meeting_highlights, R.id.ll_meeting_next, R.id.iv_invitation_h5, R.id.ll_meeting_msg_reminder_push, R.id.iv_meeting_vote, R.id.iv_meeting_chat_wall})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_meeting_next:
@@ -235,7 +235,7 @@ public class MeetingActivity extends BaseActivity {
                 tvPopMeetingAbstract.setText(mMeetingBean.getAgendaList().get(0).getAgendaDesc());
                 mMeetingPopupWindow.showAsDropDown(view, 0, 0);
                 break;
-            case R.id.rl_invitation_h5:
+            case R.id.iv_invitation_h5:
                 startActivity(new Intent(this, MeetingWebActivity.class).putExtra("meeting_web", mMeetingBean.getInvitationH5Url()));
                 break;
             case R.id.ll_meeting_msg_reminder_push:

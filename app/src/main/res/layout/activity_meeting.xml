@@ -55,14 +55,13 @@
                 android:textColor="#9e9e9e"
                 android:textSize="10sp"/>
 
-            <RelativeLayout
-                android:id="@+id/rl_invitation_h5"
+            <ImageView
+                android:id="@+id/iv_invitation_h5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:background="@mipmap/jinxiaodahui">
-
-            </RelativeLayout>
+                android:scaleType="centerCrop"
+                android:src="@mipmap/jinxiaodahui"/>
 
             <TextView
                 android:id="@+id/tv_meeting_desc"

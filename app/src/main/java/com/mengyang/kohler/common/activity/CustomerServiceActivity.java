@@ -1,14 +1,11 @@
 package com.mengyang.kohler.common.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -24,7 +21,6 @@ import com.mengyang.kohler.common.utils.ToastUtil;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.QuestionSearchBean;
-import com.mengyang.kohler.module.bean.UserMsg;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,10 +56,10 @@ public class CustomerServiceActivity extends BaseActivity {
 
     @Override
     protected void initValues() {
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         App.getManager().addActivity(this);
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(this, tvCustomerServiceTop);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         initAdapter();
     }
 
@@ -72,7 +68,6 @@ public class CustomerServiceActivity extends BaseActivity {
         mDataList.add(new QuestionSearchBean("您好，我是科勒机器人客服，请提问或输入关键词查询。", 3));
         mUserServiceAdapter = new UserServiceAdapter(mDataList);
         mRecyclerViewService.setAdapter(mUserServiceAdapter);
-
     }
 
     @Override
@@ -98,7 +93,7 @@ public class CustomerServiceActivity extends BaseActivity {
                 mEtQuestion.setFocusable(true);
 
                 if (!TextUtils.isEmpty(mQuestionContent)) {
-                    QuestionSearchBean questionSearchBean = new QuestionSearchBean(mQuestionContent,1);
+                    QuestionSearchBean questionSearchBean = new QuestionSearchBean(mQuestionContent, 1);
                     mUserServiceAdapter.addData(questionSearchBean);
                     searchQuestion(mQuestionContent);
                 } else {
@@ -110,7 +105,7 @@ public class CustomerServiceActivity extends BaseActivity {
         }
     }
 
-    private void searchQuestion( String question) {
+    private void searchQuestion(String question) {
         Map<String, String> stringMap = IdeaApi.getSign();
         stringMap.put("keyWord", question); // 头像URL
 
@@ -120,10 +115,10 @@ public class CustomerServiceActivity extends BaseActivity {
                 .compose(this.<BasicResponse<QuestionSearchBean>>bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<BasicResponse<QuestionSearchBean>>(this,false) {
+                .subscribe(new DefaultObserver<BasicResponse<QuestionSearchBean>>(this, false) {
                     @Override
                     public void onSuccess(final BasicResponse<QuestionSearchBean> response) {
-                        QuestionSearchBean questionSearchBean = new QuestionSearchBean("",0);
+                        QuestionSearchBean questionSearchBean = new QuestionSearchBean("", 0);
                         if (response.getData() != null) {
                             questionSearchBean = response.getData();
                             mUserServiceAdapter.addData(questionSearchBean);
@@ -134,7 +129,7 @@ public class CustomerServiceActivity extends BaseActivity {
                                 public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                                     switch (view.getId()) {
                                         case R.id.tv_service_list:
-                                            startActivity(new Intent(CustomerServiceActivity.this,WebViewActivity.class).putExtra("h5url",response.getData().getH5Url()));
+                                            startActivity(new Intent(CustomerServiceActivity.this, WebViewActivity.class).putExtra("h5url", response.getData().getH5Url()));
                                             break;
                                         default:
                                             break;
@@ -150,6 +145,5 @@ public class CustomerServiceActivity extends BaseActivity {
 
                     }
                 });
-
     }
 }
