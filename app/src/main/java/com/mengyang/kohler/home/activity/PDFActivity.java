@@ -21,7 +21,7 @@ import java.io.File;
 import butterknife.BindView;
 
 /**
- * PDF
+ * 打开PDF
  */
 
 public class PDFActivity extends BaseActivity {

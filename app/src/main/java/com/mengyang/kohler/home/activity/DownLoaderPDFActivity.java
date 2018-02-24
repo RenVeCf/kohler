@@ -36,6 +36,10 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+/**
+ * 下载PDF
+ */
+
 public class DownLoaderPDFActivity extends BaseActivity implements OnPageChangeListener, OnLoadCompleteListener, OnDrawListener {
     /* 请求识别码 */
     private static final int MY_PERMISSIONS_REQUEST_READ = 6;
@@ -85,9 +89,6 @@ public class DownLoaderPDFActivity extends BaseActivity implements OnPageChangeL
     protected void initValues() {
         App.getManager().addActivity(this);
         url = getIntent().getStringExtra("PdfUrl");
-
-
-
     }
 
     @Override
@@ -97,7 +98,6 @@ public class DownLoaderPDFActivity extends BaseActivity implements OnPageChangeL
 
     @Override
     protected void initData() {
-
         dialogUtils = new CommonDialogUtils();
         dialogUtils.showProgress(this, "Loading...");
         okHttpClient = new OkHttpClient();
@@ -130,13 +130,11 @@ public class DownLoaderPDFActivity extends BaseActivity implements OnPageChangeL
                         Message msg = handler.obtainMessage();
                         msg.what = 1;
                         msg.arg1 = progress;
-                        Log.i("kohler","下载PDF，progress = "+progress );
                         handler.sendMessage(msg);
                     }
                     fos.flush();
                 } catch (Exception e) {
                     dialogUtils.dismissProgress();
-                    Log.i("kohler","下载PDF，出错了 = "+e );
                 } finally {
                     try {
                         if (is != null) {
@@ -157,7 +155,7 @@ public class DownLoaderPDFActivity extends BaseActivity implements OnPageChangeL
 
     private void displayFromFile(File file) {
         pdfView.fromFile(file)//设置pdf文件地址
-                .defaultPage(1)//设置默认显示第1页
+                .defaultPage(0)//设置默认显示第1页
                 .onPageChange(this)//设置翻页监听
                 .onLoad(this)//设置加载监听
                 .onDraw(this)//绘图监听
