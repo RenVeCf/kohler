@@ -1,6 +1,7 @@
 package com.mengyang.kohler.account.activity;
 
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -29,6 +30,7 @@ public class DistributorVerificationCodeActivity extends BaseActivity {
     @Override
     protected void initValues() {
         App.getManager().addActivity(this);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
     }
 
     @Override

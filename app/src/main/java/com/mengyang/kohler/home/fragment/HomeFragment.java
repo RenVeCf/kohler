@@ -4,12 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.SystemClock;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -110,13 +108,11 @@ public class HomeFragment extends BaseFragment {
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(getActivity(), tvHomeTop);
 
-        if (SPUtil.get(App.getContext(), IConstants.TYPE, "").equals("dealer")) {
+//        if (SPUtil.get(App.getContext(), IConstants.TYPE, "").equals("dealer")) {
             ivTopCustomerService.setVisibility(View.VISIBLE);
-        } else {
-            ivTopCustomerService.setVisibility(View.GONE);
-        }
-        //        //必须先初始化SQLite
-        //        DatabaseUtils.initHelper(getActivity(), "books.db");
+//        } else {
+//            ivTopCustomerService.setVisibility(View.GONE);
+//        }
         //轮播
         abHomeLoop.measure(0, 0);
         // 设置管理器
@@ -306,8 +302,6 @@ public class HomeFragment extends BaseFragment {
                                     mLlIndicator.getChildAt(prevousPosition).setBackgroundColor(Color.parseColor("#e3e3e3"));
                                     prevousPosition = position;
                                 }
-
-
                                 //要让对应角标的小圆点选中
                                 View childAt = mLlIndicator.getChildAt(position);
                                 //                                childAt.setEnabled(true);

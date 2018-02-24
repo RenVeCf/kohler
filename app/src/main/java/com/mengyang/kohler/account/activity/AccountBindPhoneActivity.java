@@ -1,6 +1,7 @@
 package com.mengyang.kohler.account.activity;
 
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -61,6 +62,7 @@ public class AccountBindPhoneActivity extends BaseActivity {
         App.getManager().addActivity(this);
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(this, tvAccountBindPhoneTop);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
     }
 
     @Override

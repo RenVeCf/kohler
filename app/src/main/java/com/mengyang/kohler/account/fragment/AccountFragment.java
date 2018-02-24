@@ -250,7 +250,7 @@ public class AccountFragment extends BaseFragment implements BaseQuickAdapter.Re
                 .compose(this.<BasicResponse<FootPrintBean>>bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<BasicResponse<FootPrintBean>>(getActivity(), true) {
+                .subscribe(new DefaultObserver<BasicResponse<FootPrintBean>>(getActivity(), false) {
                     @Override
                     public void onSuccess(BasicResponse<FootPrintBean> response) {
                         if (response != null) {

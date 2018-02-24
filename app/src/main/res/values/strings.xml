@@ -13,6 +13,32 @@
         <item>账户</item>
     </array>
 
+    <array name="permissions">
+        <item>@string/permission_recode_audio_hint</item>
+        <item>@string/permission_get_accounts_hint</item>
+        <item>@string/permission_read_phone_hint</item>
+        <item>@string/permission_call_phone_hint</item>
+        <item>@string/permission_camera_hint</item>
+        <item>@string/permission_access_fine_location_hint</item>
+        <item>@string/permission_access_coarse_location_hint</item>
+        <item>@string/permission_read_external_hint</item>
+        <item>@string/permission_white_external_hint</item>
+    </array>
+
+    <string name="permission_get_accounts_hint">没有此权限，无法开启这个功能，请开启权限。PERMISSION_GET_ACCOUNTS</string>
+    <string name="permission_read_phone_hint">没有此权限，无法开启这个功能，请开启权限。PERMISSION_READ_PHONE_STATE</string>
+    <string name="permission_call_phone_hint">没有此权限，无法开启这个功能，请开启权限。PERMISSION_CALL_PHONE</string>
+    <string name="permission_camera_hint">没有此权限，无法开启这个功能，请开启权限。PERMISSION_CAMERA</string>
+    <string name="permission_access_fine_location_hint">没有此权限，无法开启这个功能，请开启权限。PERMISSION_ACCESS_FINE_LOCATION</string>
+    <string name="permission_access_coarse_location_hint">没有此权限，无法开启这个功能，请开启权限。PERMISSION_ACCESS_COARSE_LOCATION</string>
+    <string name="permission_read_external_hint">没有此权限，无法开启这个功能，请开启权限。PERMISSION_READ_EXTERNAL_STORAGE</string>
+    <string name="permission_white_external_hint">没有此权限，无法开启这个功能，请开启权限。PERMISSION_WRITE_EXTERNAL_STORAGE</string>
+    <string name="permission_recode_audio_hint">没有此权限，无法开启这个功能，请开启权限。PERMISSION_RECORD_AUDIO</string>
+
+    <string name="Dialog_Multi_Permission">多个权限</string>
+    <string name="permission_illegal_code">非法权限</string>
+    <string name="Toast_permission">权限</string>
+
     <!-- 这条不是翻译，是 Recyclerview 管理类调用 （用法：包名.类名） -->
     <string name="stacklayoutmanager">com.mengyang.kohler.whole_category.view.StackLayoutManager</string>
 
@@ -43,6 +69,7 @@
     <string name="search">Search SKU</string>
     <string name="art_design"><![CDATA[Art&Design]]></string>
     <string name="brand_selection">科勒品牌精选</string>
+    <string name="kohler_selection">科勒精选</string>
     <string name="editor_selection">Editor Selection</string>
     <string name="special_recommendation">特别推荐</string>
     <string name="view_all">View All</string>

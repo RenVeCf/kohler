@@ -16,9 +16,9 @@ import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.NotSelectClassificationBean;
+import com.mengyang.kohler.whole_category.adapter.StackAdapter;
 import com.mengyang.kohler.whole_category.view.Align;
 import com.mengyang.kohler.whole_category.view.Config;
-import com.mengyang.kohler.whole_category.adapter.StackAdapter;
 import com.mengyang.kohler.whole_category.view.StackLayoutManager;
 
 import java.util.ArrayList;
@@ -67,20 +67,15 @@ public class WholeCategoryFragment extends BaseFragment implements StackLayoutMa
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(getActivity(), tvWholeCategoryTop);
 
+        //        if (SPUtil.get(App.getContext(), IConstants.TYPE, "").equals("dealer"))
         ivTopCustomerService.setVisibility(View.VISIBLE);
-
-//        if (SPUtil.get(App.getContext(), IConstants.TYPE, "").equals("dealer"))
-//            ivTopCustomerService.setVisibility(View.VISIBLE);
-//        else
-//            ivTopCustomerService.setVisibility(View.GONE);
+        //        else
+        //            ivTopCustomerService.setVisibility(View.GONE);
         ivTopCustomerService.setImageResource(R.mipmap.kefubai);
         ivTopSystemMsg.setImageResource(R.mipmap.youxiangbai);
 
         mNotSelectClassificationBean = new ArrayList<>();
         mNotSelectClassificationPositiveSequenceBean = new ArrayList<>();
-
-
-
     }
 
     @Override
@@ -133,20 +128,8 @@ public class WholeCategoryFragment extends BaseFragment implements StackLayoutMa
                 });
     }
 
-/*    @Override
-    public void onWholeCategoryItem(String data) {
-        if (data.equals("科勒")) {
-            tv_whole_category_visible.setText(data);
-            tv_whole_category_gone.setVisibility(View.VISIBLE);
-        } else {
-            tv_whole_category_visible.setText(data);
-            tv_whole_category_gone.setVisibility(View.GONE);
-        }
-    }*/
-
     @Override
     public void changeListenning(int position) {
-        Log.i("kohler66", "position = " +position);
         if (position >= 1) {
 
         }
@@ -156,7 +139,7 @@ public class WholeCategoryFragment extends BaseFragment implements StackLayoutMa
             mTvTitleEn.setVisibility(View.GONE);
 
             tv_whole_category_visible.setText("科勒精选");
-//            mTvTitleEn.setText(mNotSelectClassificationPositiveSequenceBean.get(position).getNameEn());
+            //            mTvTitleEn.setText(mNotSelectClassificationPositiveSequenceBean.get(position).getNameEn());
         } else {
             tv_whole_category_visible.setText(mNotSelectClassificationPositiveSequenceBean.get(position).getNameCn());
             mTvTitleEn.setText(mNotSelectClassificationPositiveSequenceBean.get(position).getNameEn());

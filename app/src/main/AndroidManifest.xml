@@ -119,27 +119,27 @@
         <activity
             android:name=".account.activity.UserRegisterActivity"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity
             android:name=".account.activity.AccountBindPhoneActivity"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity
             android:name=".account.activity.DesignerRegisterActivity"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity
             android:name=".account.activity.ModifyPwdActivity"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity
             android:name=".account.activity.DistributorRegisterActivity"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity
             android:name=".account.activity.DistributorVerificationCodeActivity"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity
             android:name=".common.activity.CustomerServiceActivity"
             android:launchMode="singleTask"

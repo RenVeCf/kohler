@@ -28,6 +28,7 @@ import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.utils.LogUtils;
+import com.mengyang.kohler.common.utils.PermissionUtils;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.StoreListBean;
@@ -42,7 +43,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * 门店列表
+ * 门店地图
  */
 
 public class StoreMapActivity extends BaseActivity {
@@ -76,6 +77,14 @@ public class StoreMapActivity extends BaseActivity {
         App.getManager().addActivity(this);
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(this, tvStoreMapTop);
+
+        setOnPermissionListener(new OnPermissionListener() {
+            @Override
+            public void openIntent() {
+                //设置权限监听之后，执行自己的操作
+            }
+        });
+        openPermission(new int[]{PermissionUtils.CODE_LOCATION});//请求权限
         //百度地图
         mBaiduMap = mapView.getMap();
         // 不显示缩放比例尺

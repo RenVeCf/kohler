@@ -3,10 +3,10 @@ package com.mengyang.kohler;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
-import android.view.KeyEvent;
-import android.widget.Toast;
+import android.support.annotation.NonNull;
 
 import com.gyf.barlibrary.ImmersionBar;
+import com.mengyang.kohler.common.utils.PermissionUtils;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import butterknife.ButterKnife;
@@ -19,8 +19,9 @@ import butterknife.ButterKnife;
  */
 
 public abstract class BaseActivity extends RxAppCompatActivity {
-
+    PermissionUtils.PermissionGrant mPermissionGrant;
     public Bundle savedInstanceState;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //防止getFragment为null
@@ -43,10 +44,48 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         initData();
     }
 
+    //权限回调
+    private OnPermissionListener OnPermissionListener;
+
+    public void setOnPermissionListener(OnPermissionListener OnPermissionListener) {
+        this.OnPermissionListener = OnPermissionListener;
+    }
+
+    public interface OnPermissionListener {
+        void openIntent();
+    }
+
+    //权限请求
+    public void openPermission(int[] code_permission) {
+        mPermissionGrant = new PermissionUtils.PermissionGrant() {
+            @Override
+            public void onPermissionGranted(int requestCode) {
+                if (OnPermissionListener != null) {
+                    OnPermissionListener.openIntent();
+                }
+            }
+        };
+        if (code_permission.length <= 0) {
+            return;
+        } else if (code_permission.length == 1) {
+            PermissionUtils.requestPermission(BaseActivity.this, code_permission[0], mPermissionGrant);
+        } else {
+            PermissionUtils.requestMultiPermissions(BaseActivity.this, code_permission, mPermissionGrant);
+        }
+    }
+
+    //请求权限回调方法（必须实现OnRequestPermissionsResultCallback接口)
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        PermissionUtils.requestPermissionsResult(BaseActivity.this, requestCode, permissions, grantResults, mPermissionGrant);
+    }
+
     /**
      * @return 返回xml布局 R.layout.xxx  布局文件
      */
-    protected abstract @LayoutRes int getLayoutId();
+    protected abstract @LayoutRes
+    int getLayoutId();
 
     /**
      * 初始化本地数据 比如List等 new出来
