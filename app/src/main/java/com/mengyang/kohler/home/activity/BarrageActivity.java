@@ -82,7 +82,6 @@ public class BarrageActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-
     }
 
     @OnClick({R.id.btn_barrage_send})

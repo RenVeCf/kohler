@@ -175,7 +175,7 @@
         <activity android:name=".home.activity.MeetingBigPhotoActivity">
         </activity>
         <activity android:name=".home.activity.BarrageActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize">
+            android:windowSoftInputMode="adjustPan">
         </activity>
     </application>
 
