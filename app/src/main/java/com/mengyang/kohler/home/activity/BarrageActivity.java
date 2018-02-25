@@ -94,6 +94,7 @@ public class BarrageActivity extends BaseActivity {
 
                 if (!TextUtils.isEmpty(mContent)) {
                     mBarrageAdapter.addData(mContent);
+                    mRecyclerViewBarrage.scrollToPosition(mBarrageAdapter.getItemCount() - 1);
                     SendBarrage(mContent);
                 } else {
                     ToastUtil.showToast("输入内容不能为空");

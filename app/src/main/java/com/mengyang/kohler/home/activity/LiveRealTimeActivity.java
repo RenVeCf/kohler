@@ -1,6 +1,8 @@
 package com.mengyang.kohler.home.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -21,6 +23,7 @@ import com.mengyang.kohler.home.adapter.LiveRealTimeAdapter;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.LiveRealTimeBean;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -93,7 +96,7 @@ public class LiveRealTimeActivity extends BaseActivity implements BaseQuickAdapt
         srlLiveRealTime.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                pageNum = 0;
+//                pageNum = 0;
                 initData();
                 srlLiveRealTime.setRefreshing(false);
             }
@@ -103,6 +106,7 @@ public class LiveRealTimeActivity extends BaseActivity implements BaseQuickAdapt
     @Override
     protected void initData() {
         Map<String, String> stringMap = IdeaApi.getSign();
+        stringMap.put("pageNum", pageNum+"");
 
         IdeaApi.getRequestLogin(stringMap);
         IdeaApi.getApiService()
@@ -125,7 +129,12 @@ public class LiveRealTimeActivity extends BaseActivity implements BaseQuickAdapt
                                     mLiveRealTimeAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                                         @Override
                                         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                                            startActivity(new Intent(LiveRealTimeActivity.this, MeetingBigPhotoActivity.class).putExtra("num", mLiveRealTimeBean.get(position).getLikeCount()).putExtra("url", mLiveRealTimeBean.get(position).getPicUrl()).putExtra("id", mLiveRealTimeBean.get(position).getId()));
+//                                            startActivity(new Intent(LiveRealTimeActivity.this, MeetingBigPhotoActivity.class).putExtra("data", mLiveRealTimeBean.get(position).getLikeCount()).putExtra("url", mLiveRealTimeBean.get(position).getPicUrl()).putExtra("id", mLiveRealTimeBean.get(position).getId()));
+                                            Intent intent = new Intent(LiveRealTimeActivity.this, MeetingBigPhotoActivity.class);
+//                                            Bundle bundle = new Bundle();
+//                                            bundle.putSerializable("data", (Serializable) mLiveRealTimeBean);
+//                                            intent.putExtras(bundle);
+                                            startActivity(intent);
                                         }
                                     });
                                     mLiveRealTimeAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
