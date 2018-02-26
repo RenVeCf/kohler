@@ -1,9 +1,11 @@
 package com.mengyang.kohler;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
 import com.mengyang.kohler.common.utils.LogUtils;
 import com.trello.rxlifecycle2.components.support.RxFragment;
@@ -42,6 +44,8 @@ public abstract class BaseFragment extends RxFragment {
         initListener();
         //初始化网络数据
         initData();
+
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
     }
 
     /**
@@ -68,5 +72,25 @@ public abstract class BaseFragment extends RxFragment {
     public void onDestroyView() {
         unbinder.unbind();
         super.onDestroyView();
+    }
+
+    /**
+     * 获取状态栏高度
+     * @return
+     */
+    public int getStatusBarHeight()
+    {
+        try
+        {
+            Resources resource = App.getInstance().getResources();
+            int resourceId = resource.getIdentifier("status_bar_height", "dimen", "Android");
+            if (resourceId != 0)
+            {
+                return resource.getDimensionPixelSize(resourceId);
+            }
+        } catch (Exception e)
+        {
+        }
+        return 0;
     }
 }

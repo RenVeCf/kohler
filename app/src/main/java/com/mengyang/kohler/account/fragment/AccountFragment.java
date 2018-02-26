@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -386,7 +387,13 @@ public class AccountFragment extends BaseFragment implements BaseQuickAdapter.Re
                     Bitmap obmp = Bitmap.createBitmap(civAccountTitle.getDrawingCache());
                     ivAccountModifyTitleImg.setImageBitmap(obmp);
                     civAccountTitle.setDrawingCacheEnabled(false);
-                    mAccountTitleImgPopupWindow.showAsDropDown(view, 0, 0);
+//                    mAccountTitleImgPopupWindow.showAsDropDown(view, 0, 0);
+
+                    if (Build.VERSION.SDK_INT == 24){//android7.0需要单独做适配
+                        mAccountTitleImgPopupWindow.showAtLocation(view, Gravity.NO_GRAVITY, 0, getStatusBarHeight());
+                    } else {
+                        mAccountTitleImgPopupWindow.showAtLocation(view, Gravity.NO_GRAVITY,0, 0);
+                    }
                 } else {
                     startActivity(new Intent(getActivity(), LoginActivity.class));
                 }

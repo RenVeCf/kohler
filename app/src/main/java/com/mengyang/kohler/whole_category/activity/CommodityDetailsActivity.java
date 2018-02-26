@@ -2,13 +2,16 @@ package com.mengyang.kohler.whole_category.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.SystemClock;
 import android.text.TextPaint;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -227,7 +230,7 @@ public class CommodityDetailsActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 if (btCommodityDetailsDownloadPreview.getText().toString().trim().equals(App.getContext().getResources().getString(R.string.download_preview))) {
-                    startActivity(new Intent(CommodityDetailsActivity.this, DownLoaderPDFActivity.class).putExtra("PdfUrl", mPdfUrl));
+                    startActivity(new Intent(CommodityDetailsActivity.this, DownLoaderPDFActivity.class).putExtra("PdfUrl", mPdfUrl).putExtra("isPreview",true));
                 } else if (btCommodityDetailsDownloadPreview.getText().toString().trim().equals(App.getContext().getResources().getString(R.string.jump))) {
                     if (!mTianMaoUrl.equals("")) {
                         Intent intent = new Intent();
@@ -372,30 +375,33 @@ public class CommodityDetailsActivity extends BaseActivity {
                 if (mCommodityDetails.get(poction).getPdfList() != null) {
                     for (int i = 0; i < mCommodityDetails.get(poction).getPdfList().size(); i++) {
                         if (mCommodityClassificationFragmentBean.getPdfList().get(i).getProductPdfName().equals("尺寸图")) {
-                            if (mCommodityDetails.get(poction).getPdfList() != null)
+                            if (mCommodityDetails.get(poction).getPdfList() != null) {
                                 mPdfUrl = mCommodityDetails.get(poction).getPdfList().get(i).getFileName();
-                            else
+                            } else {
                                 ToastUtil.showToast("暂未有尺寸图");
+                            }
                         }
                     }
                     tvCommodityDetailsDownloadName.setText(App.getContext().getResources().getText(R.string.download_size_diagram));
                     btCommodityDetailsDownloadPreview.setText(App.getContext().getResources().getString(R.string.download_preview));
-                    mDownloadPopupWindow.showAsDropDown(view, 0, 0);
+                    setPupWindow(view);
                 }
                 break;
             case R.id.iv_installation_instructions_download:
                 if (mCommodityDetails.get(poction).getPdfList() != null) {
                     for (int i = 0; i < mCommodityDetails.get(poction).getPdfList().size(); i++) {
                         if (mCommodityDetails.get(poction).getPdfList().get(i).getProductPdfName().equals("安装说明书")) {
-                            if (mCommodityDetails.get(poction).getPdfList() != null)
+                            if (mCommodityDetails.get(poction).getPdfList() != null) {
                                 mPdfUrl = mCommodityDetails.get(poction).getPdfList().get(i).getFileName();
-                            else
+                            } else {
                                 ToastUtil.showToast("暂未有安装说明书");
+                            }
                         }
                     }
                     tvCommodityDetailsDownloadName.setText(App.getContext().getResources().getText(R.string.download_installation_instructions));
                     btCommodityDetailsDownloadPreview.setText(App.getContext().getResources().getString(R.string.download_preview));
-                    mDownloadPopupWindow.showAsDropDown(view, 0, 0);
+
+                    setPupWindow(view);
                 }
                 break;
             case R.id.ll_commodity_details_purchase_inquiries:
@@ -405,14 +411,23 @@ public class CommodityDetailsActivity extends BaseActivity {
                 getLike();
                 tvCommodityDetailsDownloadName.setText(App.getContext().getResources().getText(R.string.you_can_cancel));
                 btCommodityDetailsDownloadPreview.setText(App.getContext().getResources().getString(R.string.i_know));
-                mDownloadPopupWindow.showAsDropDown(view, 0, 0);
+                setPupWindow(view);
                 break;
             case R.id.bt_commodity_details_pay:
                 tvCommodityDetailsDownloadName.setText(App.getContext().getResources().getText(R.string.jump_tianmao));
                 btCommodityDetailsDownloadPreview.setText(App.getContext().getResources().getString(R.string.jump));
-                mDownloadPopupWindow.showAsDropDown(view, 0, 0);
+                setPupWindow(view);
+                break;
+            default:
                 break;
         }
     }
 
+    private void setPupWindow(View view) {
+        if (Build.VERSION.SDK_INT == 24){//android7.0需要单独做适配
+            mDownloadPopupWindow.showAtLocation(view, Gravity.NO_GRAVITY, 0, getStatusBarHeight());
+        } else {
+            mDownloadPopupWindow.showAtLocation(view, Gravity.NO_GRAVITY,0, 0);
+        }
+    }
 }

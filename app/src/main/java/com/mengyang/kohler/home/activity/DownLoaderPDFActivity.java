@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Canvas;
+import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
@@ -13,6 +14,7 @@ import android.widget.ProgressBar;
 
 import com.github.barteksc.pdfviewer.PDFView;
 import com.github.barteksc.pdfviewer.listener.OnDrawListener;
+import com.github.barteksc.pdfviewer.listener.OnErrorListener;
 import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
 import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
 import com.mengyang.kohler.App;
@@ -40,7 +42,7 @@ import okhttp3.Response;
  * 下载PDF
  */
 
-public class DownLoaderPDFActivity extends BaseActivity implements OnPageChangeListener, OnLoadCompleteListener, OnDrawListener {
+public class DownLoaderPDFActivity extends BaseActivity implements OnPageChangeListener, OnLoadCompleteListener, OnDrawListener, OnErrorListener {
     /* 请求识别码 */
     private static final int MY_PERMISSIONS_REQUEST_READ = 6;
 //    String SDPath = Environment.getExternalStorageDirectory().getAbsolutePath()+File.separator+ "kohlerPdf";
@@ -78,6 +80,7 @@ public class DownLoaderPDFActivity extends BaseActivity implements OnPageChangeL
         }
     };
     private String mFileAbsolutePath;
+    private boolean mIsOnlyPreview;//是否只是预览
     //    private Response mResponse;
 
     @Override
@@ -89,6 +92,7 @@ public class DownLoaderPDFActivity extends BaseActivity implements OnPageChangeL
     protected void initValues() {
         App.getManager().addActivity(this);
         url = getIntent().getStringExtra("PdfUrl");
+        mIsOnlyPreview = getIntent().getBooleanExtra("isPreview", false);
     }
 
     @Override
@@ -102,6 +106,7 @@ public class DownLoaderPDFActivity extends BaseActivity implements OnPageChangeL
         dialogUtils.showProgress(this, "Loading...");
         okHttpClient = new OkHttpClient();
         Request request = new Request.Builder().url(url).build();
+//        Request request = new Request.Builder().url("http://ojd06y9cv.bkt.clouddn.com/619820641c5890217b99e5cc968e526c.pdf").build();
         okHttpClient.newCall(request).enqueue(new Callback() {
 
             @Override
@@ -111,46 +116,59 @@ public class DownLoaderPDFActivity extends BaseActivity implements OnPageChangeL
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                InputStream is = null;
-                byte[] buf = new byte[1024*10];
-                int len = 0;
-                FileOutputStream fos = null;
+                if (mIsOnlyPreview) {
+                    byte[] bytes = response.body().bytes();
+                    displayFromFile2(bytes);
+                } else {
+                    dismiss();
 
-                try {
-                    is = response.body().byteStream();
-                    long total = response.body().contentLength();
-                    File file = new File(SDPath, url.substring(url.lastIndexOf("/") + 1));
-                    mFileAbsolutePath = file.getAbsolutePath();
-                    fos = new FileOutputStream(file);
-                    long sum = 0;
-                    while ((len = is.read(buf)) != -1) {
-                        fos.write(buf, 0, len);
-                        sum += len;
-                        int progress = (int) (sum * 1.0f / total * 100);
-                        Message msg = handler.obtainMessage();
-                        msg.what = 1;
-                        msg.arg1 = progress;
-                        handler.sendMessage(msg);
-                    }
-                    fos.flush();
-                } catch (Exception e) {
-                    dialogUtils.dismissProgress();
-                } finally {
+                    InputStream is = null;
+                    byte[] buf = new byte[1024*10];
+                    int len = 0;
+                    FileOutputStream fos = null;
+
                     try {
-                        if (is != null) {
-                            is.close();
+                        is = response.body().byteStream();
+                        long total = response.body().contentLength();
+                        File file = new File(SDPath, url.substring(url.lastIndexOf("/") + 1));
+                        mFileAbsolutePath = file.getAbsolutePath();
+                        fos = new FileOutputStream(file);
+                        long sum = 0;
+                        while ((len = is.read(buf)) != -1) {
+                            fos.write(buf, 0, len);
+                            sum += len;
+                            int progress = (int) (sum * 1.0f / total * 100);
+                            Message msg = handler.obtainMessage();
+                            msg.what = 1;
+                            msg.arg1 = progress;
+                            handler.sendMessage(msg);
                         }
-                    } catch (IOException e) {
-                    }
-                    try {
-                        if (fos != null) {
-                            fos.close();
+                        fos.flush();
+                    } catch (Exception e) {
+                        dialogUtils.dismissProgress();
+                    } finally {
+                        try {
+                            if (is != null) {
+                                is.close();
+                            }
+                        } catch (IOException e) {
                         }
-                    } catch (IOException e) {
+                        try {
+                            if (fos != null) {
+                                fos.close();
+                            }
+                        } catch (IOException e) {
+                        }
                     }
                 }
             }
         });
+    }
+
+    private void dismiss() {
+        if (dialogUtils != null) {
+            dialogUtils.dismissProgress();
+        }
     }
 
     private void displayFromFile(File file) {
@@ -163,6 +181,21 @@ public class DownLoaderPDFActivity extends BaseActivity implements OnPageChangeL
                 .enableSwipe(true)//是否允许翻页，默认是允许翻
                 .scrollHandle(null)
                 .enableAntialiasing(true)// 改善低分辨率屏幕上的渲染
+                .onError(this)
+                .load();
+    }
+
+    private void displayFromFile2(byte[] bytes) {
+        pdfView.fromBytes(bytes)//设置pdf文件地址
+                .defaultPage(0)//设置默认显示第1页
+                .onPageChange(this)//设置翻页监听
+                .onLoad(this)//设置加载监听
+                .onDraw(this)//绘图监听
+                .swipeHorizontal(true)//pdf文档翻页是否是垂直翻页，默认是左右滑动翻页
+                .enableSwipe(true)//是否允许翻页，默认是允许翻
+                .scrollHandle(null)
+                .enableAntialiasing(true)// 改善低分辨率屏幕上的渲染
+                .onError(this)
                 .load();
     }
 
@@ -173,16 +206,16 @@ public class DownLoaderPDFActivity extends BaseActivity implements OnPageChangeL
 
     @Override
     public void loadComplete(int nbPages) {
-        if (dialogUtils != null) {
-            dialogUtils.dismissProgress();
-        }
+        dismiss();
         ToastUtil.showToast("加载完成" + nbPages);
+        Log.i("123", "nbPages = " + nbPages);
     }
 
     @Override
     public void onPageChanged(int page, int pageCount) {
         int pageNum = page + 1;
         ToastUtil.showToast(" " + pageNum + " / " + pageCount);
+        Log.i("123", "pageCount = " + pageCount);
     }
 
     @Override
@@ -197,5 +230,10 @@ public class DownLoaderPDFActivity extends BaseActivity implements OnPageChangeL
             }
             return;
         }
+    }
+
+    @Override
+    public void onError(Throwable t) {
+        Log.i("123", "onError = 出错了" + t);
     }
 }

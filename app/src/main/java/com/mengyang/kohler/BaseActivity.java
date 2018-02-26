@@ -1,9 +1,11 @@
 package com.mengyang.kohler;
 
 import android.content.pm.ActivityInfo;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.view.WindowManager;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.common.utils.PermissionUtils;
@@ -42,6 +44,8 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         initListener();
         //初始化网络数据
         initData();
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
     }
 
     //权限回调
@@ -107,6 +111,27 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         super.onDestroy();
         //沉浸式状态栏注销
         ImmersionBar.with(this).destroy(); //不调用该方法，如果界面bar发生改变，在不关闭app的情况下，退出此界面再进入将记忆最后一次bar改变的状态
+    }
+
+
+    /**
+     * 获取状态栏高度
+     * @return
+     */
+    public int getStatusBarHeight()
+    {
+        try
+        {
+            Resources resource = App.getInstance().getResources();
+            int resourceId = resource.getIdentifier("status_bar_height", "dimen", "Android");
+            if (resourceId != 0)
+            {
+                return resource.getDimensionPixelSize(resourceId);
+            }
+        } catch (Exception e)
+        {
+        }
+        return 0;
     }
 
 }
