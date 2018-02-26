@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
@@ -57,8 +56,8 @@ public class CustomerServiceActivity extends BaseActivity {
     @Override
     protected void initValues() {
         App.getManager().addActivity(this);
-        //防止状态栏和标题重叠
-        ImmersionBar.setTitleBar(this, tvCustomerServiceTop);
+        //        //防止状态栏和标题重叠
+        //        ImmersionBar.setTitleBar(this, tvCustomerServiceTop);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         initAdapter();
     }
@@ -137,12 +136,6 @@ public class CustomerServiceActivity extends BaseActivity {
                                 }
                             });
                         }
-                    }
-
-                    @Override
-                    public void onFail(BasicResponse<QuestionSearchBean> response, int code) {
-                        super.onFail(response, code);
-
                     }
                 });
     }

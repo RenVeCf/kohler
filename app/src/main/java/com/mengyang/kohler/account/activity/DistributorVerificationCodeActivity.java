@@ -30,7 +30,6 @@ public class DistributorVerificationCodeActivity extends BaseActivity {
     @Override
     protected void initValues() {
         App.getManager().addActivity(this);
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
     }
 
     @Override

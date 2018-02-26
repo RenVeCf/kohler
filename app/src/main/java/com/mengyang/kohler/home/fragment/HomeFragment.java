@@ -108,11 +108,11 @@ public class HomeFragment extends BaseFragment {
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(getActivity(), tvHomeTop);
 
-//        if (SPUtil.get(App.getContext(), IConstants.TYPE, "").equals("dealer")) {
-            ivTopCustomerService.setVisibility(View.VISIBLE);
-//        } else {
-//            ivTopCustomerService.setVisibility(View.GONE);
-//        }
+        //        if (SPUtil.get(App.getContext(), IConstants.TYPE, "").equals("dealer")) {
+        ivTopCustomerService.setVisibility(View.VISIBLE);
+        //        } else {
+        //            ivTopCustomerService.setVisibility(View.GONE);
+        //        }
         //轮播
         abHomeLoop.measure(0, 0);
         // 设置管理器
@@ -175,7 +175,6 @@ public class HomeFragment extends BaseFragment {
                                     mPdfItemList.remove(i1);
                                 }
                             }
-
                         } else {
                             hideItem();
                             return;
@@ -199,7 +198,6 @@ public class HomeFragment extends BaseFragment {
                         startActivity(new Intent(getActivity(), PDFActivity.class).putExtra("PdfUrl", mPdfItemList.get(position).getPathUrl()));
                     }
                 });
-
             } else {
                 //隐藏条目
                 hideItem();
@@ -207,8 +205,6 @@ public class HomeFragment extends BaseFragment {
         } else {
             hideItem();
         }
-
-
     }
 
     /**
@@ -234,7 +230,7 @@ public class HomeFragment extends BaseFragment {
                 .compose(this.<BasicResponse<HomeIndexBean>>bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<BasicResponse<HomeIndexBean>>(getActivity(), true) {
+                .subscribe(new DefaultObserver<BasicResponse<HomeIndexBean>>(getActivity(), false) {
                     @Override
                     public void onSuccess(BasicResponse<HomeIndexBean> response) {
                         mHomeIndexBean = response.getData();
@@ -295,7 +291,6 @@ public class HomeFragment extends BaseFragment {
                         abHomeLoop.setOnPagerChangeListener(new AdPlayBanner.OnPagerChangeListener() {
                             @Override
                             public void onPageSelected(int position) {
-
                                 //当前页面选中时，先将上一次选中的位置设置为未选中，并将当前的位置记录下来为下一次移动做准备
                                 //                                mLlIndicator.getChildAt(prevousPosition).setEnabled(false);
                                 if (mLlIndicator.getChildAt(prevousPosition) != null) {
@@ -319,7 +314,6 @@ public class HomeFragment extends BaseFragment {
                         //数据源
                         abHomeLoop.setInfoList((ArrayList<AdPageInfo>) mDatas);
                         abHomeLoop.setUp();
-
                     }
                 });
     }
@@ -355,11 +349,9 @@ public class HomeFragment extends BaseFragment {
                 }
                 break;
             case R.id.iv_top_menu:
-                //                abHomeLoop.setAutoPlay(false);
                 mListener.onFragmentInteraction("");
                 break;
             case R.id.iv_top_customer_service:
-                //                startActivity(new Intent(getContext(), CustomerServiceActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                 startActivity(new Intent(getContext(), CustomerServiceActivity.class));
                 break;
             default:

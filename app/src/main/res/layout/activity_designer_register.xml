@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context="com.mengyang.kohler.account.activity.DesignerRegisterActivity">
 
     <LinearLayout
@@ -40,21 +39,21 @@
                 android:textSize="10sp"/>
 
             <View
-                android:background="#ffffff"
                 android:layout_width="@dimen/x210"
                 android:layout_height="2dp"
                 android:layout_marginStart="@dimen/x72"
-                android:layout_marginTop="@dimen/y36"/>
+                android:layout_marginTop="@dimen/y36"
+                android:background="#ffffff"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/x72"
                 android:layout_marginTop="@dimen/y36"
-                android:textColor="#ffffff"
-                android:textSize="10sp"
                 android:text="注册科勒设计师可在APP中下载精美科勒设计Brochure
-设计师注册需人工审核，请在注册后耐心等待。"/>
+设计师注册需人工审核，请在注册后耐心等待。"
+                android:textColor="#ffffff"
+                android:textSize="10sp"/>
         </LinearLayout>
 
         <ImageView
@@ -65,6 +64,10 @@
             android:layout_marginTop="@dimen/y129"
             android:src="@mipmap/kohler_exit_whrite"/>
     </LinearLayout>
+
+    <!--<ScrollView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content">-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -85,9 +88,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/y111"
             android:background="@null"
-            android:textSize="12sp"
             android:hint="@string/input_phone_num"
-            android:inputType="phone"/>
+            android:inputType="phone"
+            android:textSize="12sp"/>
 
         <View
             android:layout_width="match_parent"
@@ -107,8 +110,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@null"
-                android:textSize="12sp"
-                android:hint="@string/input_verification_code"/>
+                android:hint="@string/input_verification_code"
+                android:textSize="12sp"/>
 
             <ImageView
                 android:id="@+id/iv_designer_register_verification_code"
@@ -133,21 +136,21 @@
                 android:id="@+id/et_designer_register_sms_verification_code"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginTop="@dimen/y93"
+                android:layout_weight="1"
                 android:background="@null"
-                android:textSize="12sp"
-                android:hint="@string/input_sms_verification_code"/>
+                android:hint="@string/input_sms_verification_code"
+                android:textSize="12sp"/>
 
             <Button
                 android:id="@+id/bt_designer_register_send_out_sms"
                 android:layout_width="@dimen/x156"
                 android:layout_height="@dimen/y72"
                 android:layout_marginTop="@dimen/y93"
-                android:textSize="12sp"
                 android:background="@color/black"
+                android:text="@string/send_out"
                 android:textColor="@color/white"
-                android:text="@string/send_out"/>
+                android:textSize="12sp"/>
 
         </LinearLayout>
 
@@ -164,9 +167,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/y93"
             android:background="@null"
-            android:textSize="12sp"
             android:hint="@string/login_pwd"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword"
+            android:textSize="12sp"/>
 
         <View
             android:layout_width="match_parent"
@@ -195,10 +198,10 @@
                 android:id="@+id/tv_designer_register_go_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
+                android:text="@string/go_login"
                 android:textColor="@color/black"
-                android:textStyle="bold"
-                android:text="@string/go_login"/>
+                android:textSize="12sp"
+                android:textStyle="bold"/>
 
             <View
                 android:layout_width="match_parent"
@@ -208,41 +211,36 @@
         </LinearLayout>
     </LinearLayout>
 
-    <RelativeLayout
-        android:layout_weight="1"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp">
+        android:layout_height="@dimen/y48"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/y110"
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="@dimen/y51"
+        <TextView
+            android:id="@+id/tv_designer_register_go_user_register"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:layout_centerHorizontal="true"
-            android:orientation="horizontal">
+            android:layout_marginEnd="@dimen/x60"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="@string/user_register"
+            android:textSize="12sp"/>
 
-            <TextView
-                android:id="@+id/tv_designer_register_go_user_register"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:layout_marginEnd="@dimen/x60"
-                android:textSize="12sp"
-                android:text="@string/user_register"/>
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/black"/>
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/black"/>
 
-            <TextView
-                android:id="@+id/tv_designer_register_go_distributor_register"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="@dimen/x60"
-                android:textSize="12sp"
-                android:text="经销商用户注册"/>
-        </LinearLayout>
-    </RelativeLayout>
+        <TextView
+            android:id="@+id/tv_designer_register_go_distributor_register"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/x60"
+            android:layout_weight="1"
+            android:text="@string/distributor_register"
+            android:textSize="12sp"/>
+    </LinearLayout>
+    <!--</ScrollView>-->
 </LinearLayout>

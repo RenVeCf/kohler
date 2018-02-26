@@ -357,9 +357,9 @@
             android:id="@+id/ll_main_fragment_select"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y140"
-
             android:orientation="horizontal"
-            android:paddingTop="@dimen/y15">
+            android:paddingTop="@dimen/y15"
+            android:background="@color/white">
 
             <Button
                 android:id="@+id/bt_home"

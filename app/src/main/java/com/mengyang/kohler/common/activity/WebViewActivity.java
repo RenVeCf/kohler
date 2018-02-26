@@ -56,7 +56,6 @@ public class WebViewActivity extends BaseActivity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                Log.i("123456","加載完畢");
 
                 if (dialogUtils != null) {
                     dialogUtils.dismissProgress();
@@ -74,7 +73,6 @@ public class WebViewActivity extends BaseActivity {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
-                Log.i("123456","newProgress:"+newProgress);
             }
 
             //获取当前网页的标题

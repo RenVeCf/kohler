@@ -21,6 +21,7 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
+import com.mengyang.kohler.common.activity.WebViewActivity;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.net.IdeaApi;
@@ -85,7 +86,6 @@ public class MeetingActivity extends BaseActivity {
     private View mPopLayout;
     private MeetingBean mMeetingBean;
     private List<MeetingBean.AgendaListBean> mMeetingAdapterBean;
-    //    private List<MeetingBean.AgendaListBean> mMeetingAdapterPositionOneBean;
     private MeetingAdapter mMeetingAdapter;
     //popupwindow 控件
     private TextView tvPopMeetingDate;
@@ -259,6 +259,7 @@ public class MeetingActivity extends BaseActivity {
                 break;
             case R.id.iv_meeting_highlights:
                 //集锦
+                startActivity(new Intent(this, WebViewActivity.class).putExtra("h5url", "http://vphotos.cn/HQJs"));
                 break;
             case R.id.ll_meeting_position_zero:
                 tvPopMeetingDate.setText(mMeetingBean.getAgendaList().get(0).getDateStr());

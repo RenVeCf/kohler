@@ -121,6 +121,7 @@ public class AccountSettingsActivity extends BaseActivity {
                     UserGoOut();
                 else {
                     startActivity(new Intent(AccountSettingsActivity.this, LoginActivity.class));
+                    finish();
                 }
                 break;
         }

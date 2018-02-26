@@ -5,8 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -47,7 +45,6 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -120,8 +117,9 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
     private ARFragment mARFragment = new ARFragment();
     private AccountFragment mAccountFragment = new AccountFragment();
     private long exitTime;
+    private boolean mIsUnableToDrag = true;
 
-    private int[] arr = {1,2,3};
+    private int[] arr = {1, 2, 3};
 
     @Override
     protected int getLayoutId() {
@@ -138,6 +136,7 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
         SPUtil.put(this, IConstants.FIRST_APP, false);
         //        }
         switchFragment(mHomeFragment).commit();
+        mIsUnableToDrag = true;
         //        cvpMainViewpager.setScanScroll(false);
 
         //        //加载adapter
@@ -357,6 +356,8 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 //沉浸式状态栏初始化黑色
                 ImmersionBar.with(this).fitsSystemWindows(false).statusBarDarkFont(true).init();
                 FragmentSelect(1);
+                mIsUnableToDrag = false;
+                new ResideLayout(this, mIsUnableToDrag);
                 view_line.setVisibility(View.VISIBLE);
                 break;
             case R.id.bt_whole_category:
@@ -364,6 +365,8 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 //沉浸式状态栏初始化白色
                 ImmersionBar.with(this).fitsSystemWindows(false).statusBarDarkFont(false).init();
                 FragmentSelect(0);
+                mIsUnableToDrag = true;
+                new ResideLayout(this, mIsUnableToDrag);
                 view_line.setVisibility(View.GONE);
                 break;
             case R.id.bt_ar:
@@ -371,28 +374,26 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 //沉浸式状态栏初始化黑色
                 ImmersionBar.with(this).fitsSystemWindows(false).statusBarDarkFont(true).init();
                 FragmentSelect(1);
+                mIsUnableToDrag = true;
+                new ResideLayout(this, mIsUnableToDrag);
                 view_line.setVisibility(View.VISIBLE);
+                //                Intent intent = new Intent(this, UnityPlayerActivity.class);
+                //                intent.putExtra("flag", "9");
+                //                startActivity(intent);
                 break;
             case R.id.bt_account:
                 switchFragment(mAccountFragment).commit();
                 //沉浸式状态栏初始化黑色
                 ImmersionBar.with(this).fitsSystemWindows(false).statusBarDarkFont(true).init();
                 FragmentSelect(1);
+                mIsUnableToDrag = true;
+                new ResideLayout(this, mIsUnableToDrag);
                 view_line.setVisibility(View.VISIBLE);
                 break;
             default:
                 break;
         }
     }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
-
-
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -402,7 +403,7 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 exitTime = System.currentTimeMillis();
             } else {
                 finish();
-//                System.exit(0);
+                //                System.exit(0);
             }
             return true;
         }
@@ -420,10 +421,10 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 int req = grantResults[i];
 
                 if (req == PackageManager.PERMISSION_GRANTED) {
-                    Log.i("cohler","onRequestPermissionsResult [" + perm + "]: PERMISSION_GRANTED");
+                    Log.i("cohler", "onRequestPermissionsResult [" + perm + "]: PERMISSION_GRANTED");
 
                 } else {
-                    Log.i("cohler","onRequestPermissionsResult [" + perm + "]: PERMISSION_DENIED");
+                    Log.i("cohler", "onRequestPermissionsResult [" + perm + "]: PERMISSION_DENIED");
                 }
 
                 if (req == PackageManager.PERMISSION_DENIED) {// 权限被用户拒绝
@@ -447,10 +448,10 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
 
             if (ContextCompat.checkSelfPermission(this, perm) == PackageManager.PERMISSION_GRANTED) {
 
-                Log.i("cohler","check permission [" + perm + "]: PERMISSION_GRANTED");//有权限了
+                Log.i("cohler", "check permission [" + perm + "]: PERMISSION_GRANTED");//有权限了
 
             } else {
-                Log.i("cohler","check permission [" + perm + "]: PERMISSION_DENIED");//没有权限
+                Log.i("cohler", "check permission [" + perm + "]: PERMISSION_DENIED");//没有权限
 
                 //判断是否需要显示申请原因
                 if (true == ActivityCompat.shouldShowRequestPermissionRationale(this, perm)) {
@@ -487,7 +488,7 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-//                        startAppSettings();
+                        //                        startAppSettings();
                     }
                 });
 

@@ -2,7 +2,6 @@ package com.mengyang.kohler.common.view;
 
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -30,9 +29,7 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.accessibility.AccessibilityEvent;
 
-import com.gyf.barlibrary.ImmersionBar;
-import com.mengyang.kohler.App;
-import com.mengyang.kohler.main.activity.MainActivity;
+import com.mengyang.kohler.common.utils.LogUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -123,6 +120,7 @@ public class ResideLayout extends ViewGroup {
      * is preventing a drag.
      */
     private boolean mIsUnableToDrag;
+    private boolean mIsUnable;
 
     /**
      * Distance in pixels to parallax the fixed pane by when fully closed
@@ -209,8 +207,10 @@ public class ResideLayout extends ViewGroup {
         }
     }
 
-    public ResideLayout(Context context) {
+    public ResideLayout(Context context, boolean mIsUnable) {
         this(context, null);
+        LogUtils.i("rmy", "mIsUnable 1111 = " + mIsUnable);
+        this.mIsUnable = mIsUnable;
     }
 
     public ResideLayout(Context context, AttributeSet attrs) {
@@ -688,6 +688,7 @@ public class ResideLayout extends ViewGroup {
             }
         }
 
+        LogUtils.i("rmy", "mIsUnableToDrag = " + mIsUnableToDrag);
         if (!mCanSlide || (mIsUnableToDrag && action != MotionEvent.ACTION_DOWN)) {
             mDragHelper.cancel();
             return super.onInterceptTouchEvent(ev);
@@ -702,14 +703,15 @@ public class ResideLayout extends ViewGroup {
 
         switch (action) {
             case MotionEvent.ACTION_DOWN: {
-                mIsUnableToDrag = false;
+                // true为不让滑动
+                LogUtils.i("rmy", "mIsUnable 222 = " + mIsUnable);
+                mIsUnableToDrag = mIsUnable;
                 final float x = ev.getX();
                 final float y = ev.getY();
                 mInitialMotionX = x;
                 mInitialMotionY = y;
 
-                if (mDragHelper.isViewUnder(mSlideableView, (int) x, (int) y) &&
-                        isDimmed(mSlideableView)) {
+                if (mDragHelper.isViewUnder(mSlideableView, (int) x, (int) y) && isDimmed(mSlideableView)) {
                     interceptTap = true;
                 }
                 break;
@@ -723,8 +725,9 @@ public class ResideLayout extends ViewGroup {
                 final int slop = mDragHelper.getTouchSlop();
                 if (adx > slop && ady > adx) {
                     mDragHelper.cancel();
-                    mIsUnableToDrag = true;
-                    return false;
+                    LogUtils.i("rmy", "mIsUnable 333 = " + mIsUnable);
+                    mIsUnableToDrag = mIsUnable;
+                    return true;
                 }
             }
         }
@@ -807,7 +810,7 @@ public class ResideLayout extends ViewGroup {
      */
     public boolean openPane() {
         //沉浸式状态栏初始化
-//        ImmersionBar.with(App.getActivity()).fitsSystemWindows(false).statusBarDarkFont(false).init();
+        //        ImmersionBar.with(App.getActivity()).fitsSystemWindows(false).statusBarDarkFont(false).init();
         return openPane(mSlideableView, 0);
     }
 
@@ -827,7 +830,7 @@ public class ResideLayout extends ViewGroup {
      */
     public boolean closePane() {
         //沉浸式状态栏初始化
-//        ImmersionBar.with(App.getInstance()).fitsSystemWindows(false).statusBarDarkFont(true).init();
+        //        ImmersionBar.with(App.getInstance()).fitsSystemWindows(false).statusBarDarkFont(true).init();
         return closePane(mSlideableView, 0);
     }
 

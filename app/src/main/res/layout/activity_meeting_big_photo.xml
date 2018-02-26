@@ -20,50 +20,11 @@
         app:title="@string/dealers_meeting"
         app:title_color="@color/black"/>
 
-    <FrameLayout
-        android:layout_below="@id/tv_meeting_big_photo_top"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/view_pager_big"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </android.support.v4.view.ViewPager>
-
-        <RelativeLayout
-            android:id="@+id/rl_arrows"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/x48"
-            android:layout_marginRight="@dimen/x48">
-
-            <ImageView
-                android:id="@+id/iv_meeting_big_photo_left"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:src="@mipmap/arrows_left" />
-
-            <ImageView
-                android:id="@+id/iv_meeting_big_photo_right"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:src="@mipmap/arrows_right"/>
-
-        </RelativeLayout>
-
-    </FrameLayout>
-
     <ImageView
-        android:visibility="gone"
         android:id="@+id/iv_meeting_big_photo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/y190"
         android:scaleType="centerCrop"
         android:src="@mipmap/queshengtu"/>
 
@@ -71,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/x90"
-        android:layout_marginTop="@dimen/y90"
+        android:layout_marginTop="@dimen/y250"
         android:orientation="horizontal">
 
         <ImageView
@@ -89,6 +50,23 @@
             android:textSize="18sp"
             tools:text="120"/>
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_meeting_big_photo_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/x48"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/arrows_left"/>
+
+    <ImageView
+        android:id="@+id/iv_meeting_big_photo_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/x48"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:src="@mipmap/arrows_right"/>
 
     <Button
         android:id="@+id/bt_meeting_big_photo_vote"
