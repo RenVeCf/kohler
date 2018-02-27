@@ -233,7 +233,7 @@
                 android:layout_marginTop="@dimen/y108"
                 android:textSize="16sp"
                 android:textColor="#000000"
-                android:text="@string/barrage"/>
+                android:text="@string/barrage_talbe"/>
 
             <ImageView
                 android:id="@+id/iv_meeting_chat_wall"

@@ -2,7 +2,6 @@ package com.mengyang.kohler.whole_category.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -230,7 +229,9 @@ public class CommodityDetailsActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 if (btCommodityDetailsDownloadPreview.getText().toString().trim().equals(App.getContext().getResources().getString(R.string.download_preview))) {
-                    startActivity(new Intent(CommodityDetailsActivity.this, DownLoaderPDFActivity.class).putExtra("PdfUrl", mPdfUrl).putExtra("isPreview",true));
+                    if (!mPdfUrl.toString().trim().equals(""))
+                        startActivity(new Intent(CommodityDetailsActivity.this, DownLoaderPDFActivity.class).putExtra("PdfUrl", mPdfUrl).putExtra("isPreview", true));
+                    mDownloadPopupWindow.dismiss();
                 } else if (btCommodityDetailsDownloadPreview.getText().toString().trim().equals(App.getContext().getResources().getString(R.string.jump))) {
                     if (!mTianMaoUrl.equals("")) {
                         Intent intent = new Intent();
@@ -374,7 +375,7 @@ public class CommodityDetailsActivity extends BaseActivity {
             case R.id.iv_size_diagram_download:
                 if (mCommodityDetails.get(poction).getPdfList() != null) {
                     for (int i = 0; i < mCommodityDetails.get(poction).getPdfList().size(); i++) {
-                        if (mCommodityClassificationFragmentBean.getPdfList().get(i).getProductPdfName().equals("尺寸图")) {
+                        if (mCommodityDetails.get(poction).getPdfList().get(i).getProductPdfName().equals("尺寸图")) {
                             if (mCommodityDetails.get(poction).getPdfList() != null) {
                                 mPdfUrl = mCommodityDetails.get(poction).getPdfList().get(i).getFileName();
                             } else {
@@ -409,9 +410,9 @@ public class CommodityDetailsActivity extends BaseActivity {
                 break;
             case R.id.bt_commodity_details_like:
                 getLike();
-//                tvCommodityDetailsDownloadName.setText(App.getContext().getResources().getText(R.string.you_can_cancel));
-//                btCommodityDetailsDownloadPreview.setText(App.getContext().getResources().getString(R.string.i_know));
-//                setPupWindow(view);
+                //                tvCommodityDetailsDownloadName.setText(App.getContext().getResources().getText(R.string.you_can_cancel));
+                //                btCommodityDetailsDownloadPreview.setText(App.getContext().getResources().getString(R.string.i_know));
+                //                setPupWindow(view);
                 break;
             case R.id.bt_commodity_details_pay:
                 tvCommodityDetailsDownloadName.setText(App.getContext().getResources().getText(R.string.jump_tianmao));
@@ -424,10 +425,10 @@ public class CommodityDetailsActivity extends BaseActivity {
     }
 
     private void setPupWindow(View view) {
-        if (Build.VERSION.SDK_INT == 24){//android7.0需要单独做适配
+        if (Build.VERSION.SDK_INT == 24) {//android7.0需要单独做适配
             mDownloadPopupWindow.showAtLocation(view, Gravity.NO_GRAVITY, 0, getStatusBarHeight());
         } else {
-            mDownloadPopupWindow.showAtLocation(view, Gravity.NO_GRAVITY,0, 0);
+            mDownloadPopupWindow.showAtLocation(view, Gravity.NO_GRAVITY, 0, 0);
         }
     }
 }
