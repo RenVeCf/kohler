@@ -56,6 +56,9 @@
         <attr name="secondary_scale" format="float"/>
     </declare-styleable>
 
-
+    <style name="CommentItemDelete" parent="android:Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/transparency</item>
+    </style>
 
 </resources>

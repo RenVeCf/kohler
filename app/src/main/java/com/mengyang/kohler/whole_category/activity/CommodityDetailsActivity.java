@@ -1,5 +1,6 @@
 package com.mengyang.kohler.whole_category.activity;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -9,6 +10,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.SystemClock;
+import android.support.v4.app.ActivityCompat;
 import android.text.TextPaint;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -31,6 +33,7 @@ import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.utils.CommonDialogUtils;
 import com.mengyang.kohler.common.utils.IOUtils;
 import com.mengyang.kohler.common.utils.LogUtils;
+import com.mengyang.kohler.common.utils.ShareUtils;
 import com.mengyang.kohler.common.utils.ToastUtil;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.home.activity.DownLoaderPDFActivity;
@@ -39,6 +42,7 @@ import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.CommodityClassificationFragmentBean;
 import com.mengyang.kohler.module.bean.CommodityDetailsBean;
 import com.mengyang.kohler.whole_category.view.ComposeTextView;
+import com.umeng.socialize.UMShareAPI;
 import com.zhouwei.mzbanner.MZBannerView;
 import com.zhouwei.mzbanner.holder.MZHolderCreator;
 import com.zhouwei.mzbanner.holder.MZViewHolder;
@@ -61,7 +65,7 @@ import io.reactivex.schedulers.Schedulers;
  * 商品详情
  */
 
-public class CommodityDetailsActivity extends BaseActivity {
+public class CommodityDetailsActivity extends BaseActivity implements TopView.ItemClickListenner {
 
     @BindView(R.id.tv_commodity_details_top)
     TopView tvCommodityDetailsTop;
@@ -147,6 +151,13 @@ public class CommodityDetailsActivity extends BaseActivity {
         } else {
             mSelectColorSKU = getIntent().getStringExtra("CommodityDetails_two");
         }
+
+        tvCommodityDetailsTop.setItemClickListenner(this);
+
+        /*if(Build.VERSION.SDK_INT>=23){
+            String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.CALL_PHONE,Manifest.permission.READ_LOGS,Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.SET_DEBUG_APP,Manifest.permission.SYSTEM_ALERT_WINDOW,Manifest.permission.GET_ACCOUNTS,Manifest.permission.WRITE_APN_SETTINGS};
+            ActivityCompat.requestPermissions(this,mPermissionList,123);
+        }*/
     }
 
     public void getLike() {
@@ -191,6 +202,13 @@ public class CommodityDetailsActivity extends BaseActivity {
             e.printStackTrace();
         }
         return bm;
+    }
+
+    @Override
+    public void onItemClick() {
+        //                ShareUtils shareUtils= new ShareUtils(this,Config.SHARE_GOODS_DETAILS+foodId);
+        ShareUtils shareUtils= new ShareUtils(this,"http://www.kohler.com.cn/");
+        shareUtils.popShare("科勒");
     }
 
     public static class BannerViewHolder implements MZViewHolder<Bitmap> {
@@ -430,5 +448,17 @@ public class CommodityDetailsActivity extends BaseActivity {
         } else {
             mDownloadPopupWindow.showAtLocation(view, Gravity.NO_GRAVITY, 0, 0);
         }
+    }
+
+
+/*    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+    }*/
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode,resultCode,data);//完成回调
     }
 }

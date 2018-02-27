@@ -19,6 +19,7 @@ import com.mengyang.kohler.App;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.activity.CustomerServiceActivity;
 import com.mengyang.kohler.common.activity.SystemMsgActivity;
+import com.mengyang.kohler.common.utils.ShareUtils;
 
 /**
  * Description : 标题栏
@@ -45,6 +46,8 @@ public class TopView extends RelativeLayout implements View.OnClickListener {
     private Context mContext;
     private PopupWindow mSharePopupWindow;
     private View mPopLayout;
+    private View mShare;
+    private ItemClickListenner mItemClickListenner;
 
     public TopView(Context context) {
         super(context);
@@ -81,6 +84,8 @@ public class TopView extends RelativeLayout implements View.OnClickListener {
         mSharePopupWindow.setBackgroundDrawable(new ColorDrawable(0x4c000000));
         mSharePopupWindow.setOutsideTouchable(false);
         mSharePopupWindow.setFocusable(true);
+        mShare = mPopLayout.findViewById(R.id.iv_share_winxi);
+//        mShare.setOnClickListener(this);
     }
 
     public TopView(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -111,14 +116,18 @@ public class TopView extends RelativeLayout implements View.OnClickListener {
             case R.id.iv_top_back:
                 if (mContext instanceof Activity) {
                     ((Activity) mContext).finish();
-                    if (((Activity) mContext).getCurrentFocus() != null)
+                    if (((Activity) mContext).getCurrentFocus() != null) {
                         ((InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(((Activity) mContext).getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                    }
                 }
                 break;
             case R.id.iv_top_menu:
                 break;
             case R.id.iv_top_share:
-                mSharePopupWindow.showAsDropDown(view, 0, 0);
+//                mSharePopupWindow.showAsDropDown(view, 0, 0);
+                if (mItemClickListenner != null) {
+                    mItemClickListenner.onItemClick();
+                }
                 break;
             case R.id.iv_top_customer_service:
                 App.getContext().startActivity(new Intent(App.getContext(), CustomerServiceActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
@@ -126,6 +135,20 @@ public class TopView extends RelativeLayout implements View.OnClickListener {
             case R.id.iv_top_system_msg:
                 App.getContext().startActivity(new Intent(App.getContext(), SystemMsgActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                 break;
+            case R.id.iv_share_winxi:
+
+            break;
+            default:
+                break;
         }
+    }
+
+    public interface ItemClickListenner{
+        void onItemClick();
+    }
+
+    public  void setItemClickListenner(ItemClickListenner itemClickListenner) {
+        mItemClickListenner = itemClickListenner;
+        mItemClickListenner = itemClickListenner;
     }
 }

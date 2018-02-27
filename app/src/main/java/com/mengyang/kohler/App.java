@@ -7,6 +7,10 @@ import android.content.Context;
 import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.tencent.bugly.crashreport.CrashReport;
+import com.umeng.commonsdk.UMConfigure;
+import com.umeng.socialize.Config;
+import com.umeng.socialize.PlatformConfig;
+import com.umeng.socialize.UMShareAPI;
 
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
@@ -17,6 +21,7 @@ import java.util.Stack;
 
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.sms.SMSSDK;
+import android.app.Activity;
 
 /**
  * Description : 全局
@@ -32,6 +37,7 @@ public class App extends Application {
     private static App sManager;
     private Stack<WeakReference<Activity>> mActivityStack;
     private static Map<String,Activity> destoryMap = new HashMap<>();
+    private Activity currentActivity;
 
     public App() {
     }
@@ -50,6 +56,9 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        Config.DEBUG = true;// TODO: 2017/12/1 ,用于友盟的log跟踪,请勿删除
+        UMShareAPI.get(this);
         instance = this;
         context = getApplicationContext();
 
@@ -64,6 +73,15 @@ public class App extends Application {
 
         CrashReport.initCrashReport(getApplicationContext(), "4390a5fb6e", true);
     }
+
+    /**
+     * 配置三方平台的appkey
+     */
+    {
+//        PlatformConfig.setWeixin("wx3a3e72f3c0cf486c", "afc866a07ef9b96734d3e5b1ab061eb5");
+        PlatformConfig.setWeixin("wx3a3e72f3c0cf486c", "2e8c62fa24ea6184660a703c9609d056");
+    }
+
 
     /**
      * 添加到销毁队列
@@ -209,6 +227,14 @@ public class App extends Application {
 
     public static Context getContext() {
         return context;
+    }
+
+    public  Activity getCurrentActivity() {
+        return currentActivity;
+    }
+
+    public void setCurrentActivity(Activity currentActivity) {
+        this.currentActivity = currentActivity;
     }
 
 

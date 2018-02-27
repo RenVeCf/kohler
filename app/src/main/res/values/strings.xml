@@ -202,4 +202,6 @@
     <string name="barrage">我要爬墙</string>
     <string name="barrage_talbe">我要爬墙&amp;提问</string>
     <string name="send_barrage">您好!您在这里输入的文字，会在大屏幕上显示哦！赶快来 输入吧！</string>
+    <string name="share_describe">分享</string>
+    <string name="share_success">分享成功</string>
 </resources>

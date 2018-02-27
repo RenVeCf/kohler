@@ -1,6 +1,7 @@
 package com.kohler.arscan;
 
 import android.app.DownloadManager;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Environment;
@@ -158,13 +159,13 @@ public class PlayActivity extends AppCompatActivity {
     public void notebook() {
         finish();
 
-        //        if (((boolean) SPUtil.get(this, IConstants.IS_LOGIN, false))) {
-        //            if (SPUtil.get(this, IConstants.TYPE, "").equals("dealer")) {
-        //                startActivity(new Intent(this, MineManualActivity.class));
-        //            }
-        //        } else {
-        //            startActivity(new Intent(this, LoginActivity.class));
-        //        }
+//                if (((boolean) SPUtil.get(this, IConstants.IS_LOGIN, false))) {
+//                    if (SPUtil.get(this, IConstants.TYPE, "").equals("dealer")) {
+//                        startActivity(new Intent(this, MineManualActivity.class));
+//                    }
+//                } else {
+//                    startActivity(new Intent(this, LoginActivity.class));
+//                }
     }
 
 }
