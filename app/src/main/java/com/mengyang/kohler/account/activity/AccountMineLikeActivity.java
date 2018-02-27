@@ -1,5 +1,6 @@
 package com.mengyang.kohler.account.activity;
 
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -24,6 +25,7 @@ import com.mengyang.kohler.common.view.GridSpacingItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.LikeListBean;
+import com.mengyang.kohler.whole_category.activity.CommodityDetailsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -151,6 +153,7 @@ public class AccountMineLikeActivity extends BaseActivity implements BaseQuickAd
                                             switch (view.getId()) {
                                                 case R.id.iv_account_mine_like_adapter_item:
                                                     //跳转到该商品详情
+                                                    startActivity(new Intent(AccountMineLikeActivity.this, CommodityDetailsActivity.class).putExtra("CommodityDetails_two", likeListBean.get(position).getSkuCode()));
                                                     break;
                                                 case R.id.iv_account_mine_like_adapter_remove:
                                                     //取消收藏

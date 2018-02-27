@@ -1,5 +1,6 @@
 package com.mengyang.kohler.home.activity;
 
+import android.content.Intent;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,6 +20,7 @@ import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.home.adapter.HomeSearchAdapter;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.AllSearchBean;
+import com.mengyang.kohler.whole_category.activity.CommodityDetailsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -100,6 +102,12 @@ public class HomeSearchActivity extends BaseActivity implements BaseQuickAdapter
                                     mHomeSearchAdapter = new HomeSearchAdapter(mAllSearchBean);
                                     rvHomeSearch.setAdapter(mHomeSearchAdapter);
                                     mHomeSearchAdapter.setOnLoadMoreListener(HomeSearchActivity.this, rvHomeSearch); //加载更多
+                                    mHomeSearchAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                                        @Override
+                                        public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                                            startActivity(new Intent(HomeSearchActivity.this, CommodityDetailsActivity.class).putExtra("CommodityDetails_two", mAllSearchBean.get(position).getSkuCode()));
+                                        }
+                                    });
                                 } else {
                                     mHomeSearchAdapter.loadMoreEnd();
                                 }
