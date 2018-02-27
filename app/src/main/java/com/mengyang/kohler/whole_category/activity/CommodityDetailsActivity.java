@@ -409,9 +409,9 @@ public class CommodityDetailsActivity extends BaseActivity {
                 break;
             case R.id.bt_commodity_details_like:
                 getLike();
-                tvCommodityDetailsDownloadName.setText(App.getContext().getResources().getText(R.string.you_can_cancel));
-                btCommodityDetailsDownloadPreview.setText(App.getContext().getResources().getString(R.string.i_know));
-                setPupWindow(view);
+//                tvCommodityDetailsDownloadName.setText(App.getContext().getResources().getText(R.string.you_can_cancel));
+//                btCommodityDetailsDownloadPreview.setText(App.getContext().getResources().getString(R.string.i_know));
+//                setPupWindow(view);
                 break;
             case R.id.bt_commodity_details_pay:
                 tvCommodityDetailsDownloadName.setText(App.getContext().getResources().getText(R.string.jump_tianmao));
