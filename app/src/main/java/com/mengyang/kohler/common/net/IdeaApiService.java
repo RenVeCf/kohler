@@ -233,4 +233,9 @@ public interface IdeaApiService {
     @FormUrlEncoded
     @POST(Config.USER_MSG)
     Observable<BasicResponse<UserMsgBean>> getUserMsg(@FieldMap Map<String, String> map);
+
+    //登录短信验证
+    @FormUrlEncoded
+    @POST(Config.LOGIN_SMS)
+    Observable<BasicResponse> getLoginSMS(@FieldMap Map<String, String> map);
 }

@@ -4,10 +4,15 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 
 import com.kohler.arscan.adapter.SearchAdapter;
 import com.kohler.arscan.bean.SearchItem;
@@ -17,17 +22,17 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity implements OnClickListener {
 
     private final static String TAG = SearchActivity.class.getSimpleName();
 
-    @BindView(R2.id.iv_top_scan)
-    ImageView iv_top_scan;
     @BindView(R2.id.gv_search)
     GridView gv_search;
 
     private List<SearchItem> itemList;
+    private PopupWindow notebookPop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +42,16 @@ public class SearchActivity extends AppCompatActivity {
 
         initData();
         initView();
+        initPop();
+    }
+
+    private void initPop() {
+        View view = LayoutInflater.from(this).inflate(R.layout.notebook_pop, null);
+
+        view.findViewById(R.id.tv_notebook_download).setOnClickListener(this);
+        view.findViewById(R.id.iv_notebook_cancel).setOnClickListener(this);
+
+        notebookPop = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
     }
 
     private void initData() {
@@ -60,8 +75,6 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        iv_top_scan.setVisibility(View.GONE);
-
         SearchAdapter adapter = new SearchAdapter(this, itemList);
         gv_search.setAdapter(adapter);
         gv_search.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -72,5 +85,40 @@ public class SearchActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @OnClick(R2.id.iv_top_back)
+    public void back() {
+        finish();
+    }
+
+    @OnClick(R2.id.ll_main)
+    public void main() {
+        //        if (position == 1 && SPUtil.get(this, IConstants.TYPE, "").equals("dealer")) {
+        //            startActivity(new Intent(this, MineManualActivity.class));
+        //        }
+    }
+
+    @OnClick(R2.id.ll_notebook)
+    public void notebook() {
+        notebookPop.showAtLocation(gv_search, Gravity.NO_GRAVITY, 0, 0);
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        if (id == R.id.iv_notebook_cancel) {
+            notebookPop.dismiss();
+        } else if (id == R.id.tv_notebook_download) {
+            notebookPop.dismiss();
+
+            //        if (((boolean) SPUtil.get(this, IConstants.IS_LOGIN, false))) {
+            //            if (SPUtil.get(this, IConstants.TYPE, "").equals("dealer")) {
+            //                startActivity(new Intent(this, MineManualActivity.class));
+            //            }
+            //        } else {
+            //            startActivity(new Intent(this, LoginActivity.class));
+            //        }
+        }
     }
 }

@@ -25,7 +25,6 @@ import java.util.TimerTask;
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.jpush.sms.SMSSDK;
-import cn.jpush.sms.listener.SmscheckListener;
 import cn.jpush.sms.listener.SmscodeListener;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -99,39 +98,56 @@ public class DistributorRegisterActivity extends BaseActivity {
         });
     }
 
-    private void ModifyBindPhone() {
-//        SMSSDK.getInstance().checkSmsCodeAsyn(etDistributorRegisterPhoneNum.getText().toString().trim(), etDistributorRegisterSmsVerificationCode.getText().toString().trim(), new SmscheckListener() {
-//            @Override
-//            public void checkCodeSuccess(final String code) {
-                Map<String, String> stringMap = IdeaApi.getSign();
-                stringMap.put("mobileNo", etDistributorRegisterPhoneNum.getText().toString().trim());//手机号码
-                stringMap.put("verifyCode", etDistributorRegisterSmsVerificationCode.getText().toString().trim());//短信验证码
-                stringMap.put("inviteCode", etDistributorRegisterDistributorCode.getText().toString().trim());//专用码
-                stringMap.put("password", etDistributorRegisterLoginPwd.getText().toString().trim());//用户密码
-                stringMap.put("type", "dealer");//用户类型
-                stringMap.put("time", DateUtils.dataOne(DateUtils.getCurrentTime_Today()));//时间戳
+    private void LoginSMS() {
+        Map<String, String> stringMap = IdeaApi.getSign();
+        stringMap.put("mobileNo", etDistributorRegisterPhoneNum.getText().toString().trim());//手机号码
 
-                IdeaApi.getRequestLogin(stringMap);
-                IdeaApi.getApiService()
-                        .getUserRegister(stringMap)
-                        .compose(DistributorRegisterActivity.this.<BasicResponse>bindToLifecycle())
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new DefaultObserver<BasicResponse>(DistributorRegisterActivity.this, true) {
-                            @Override
-                            public void onSuccess(BasicResponse response) {
-                                startActivity(new Intent(DistributorRegisterActivity.this, LoginActivity.class));
-                                finish();
-                            }
-                        });
-            }
-//
-//            @Override
-//            public void checkCodeFail(int errCode, final String errmsg) {
-//                ToastUtil.showToast(errmsg);
-//            }
-//        });
-//    }
+        IdeaApi.getRequestLogin(stringMap);
+        IdeaApi.getApiService()
+                .getLoginSMS(stringMap)
+                .compose(DistributorRegisterActivity.this.<BasicResponse>bindToLifecycle())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultObserver<BasicResponse>(DistributorRegisterActivity.this, false) {
+                    @Override
+                    public void onSuccess(BasicResponse response) {
+                    }
+                });
+    }
+
+    private void ModifyBindPhone() {
+        //        SMSSDK.getInstance().checkSmsCodeAsyn(etDistributorRegisterPhoneNum.getText().toString().trim(), etDistributorRegisterSmsVerificationCode.getText().toString().trim(), new SmscheckListener() {
+        //            @Override
+        //            public void checkCodeSuccess(final String code) {
+        Map<String, String> stringMap = IdeaApi.getSign();
+        stringMap.put("mobileNo", etDistributorRegisterPhoneNum.getText().toString().trim());//手机号码
+        stringMap.put("verifyCode", "111111");//etDistributorRegisterSmsVerificationCode.getText().toString().trim());//短信验证码
+        stringMap.put("inviteCode", etDistributorRegisterDistributorCode.getText().toString().trim());//专用码
+        stringMap.put("password", etDistributorRegisterLoginPwd.getText().toString().trim());//用户密码
+        stringMap.put("type", "dealer");//用户类型
+        stringMap.put("time", DateUtils.dataOne(DateUtils.getCurrentTime_Today()));//时间戳
+
+        IdeaApi.getRequestLogin(stringMap);
+        IdeaApi.getApiService()
+                .getUserRegister(stringMap)
+                .compose(DistributorRegisterActivity.this.<BasicResponse>bindToLifecycle())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultObserver<BasicResponse>(DistributorRegisterActivity.this, true) {
+                    @Override
+                    public void onSuccess(BasicResponse response) {
+                        startActivity(new Intent(DistributorRegisterActivity.this, LoginActivity.class));
+                        finish();
+                    }
+                });
+    }
+    //
+    //            @Override
+    //            public void checkCodeFail(int errCode, final String errmsg) {
+    //                ToastUtil.showToast(errmsg);
+    //            }
+    //        });
+    //    }
 
     private void startTimer() {
         timess = (int) (SMSSDK.getInstance().getIntervalTime() / 1000);
@@ -195,7 +211,10 @@ public class DistributorRegisterActivity extends BaseActivity {
                 break;
             case R.id.bt_distributor_register_send_out_sms:
                 if (!etDistributorRegisterPhoneNum.getText().toString().trim().equals(""))
-//                    SendSMS();
+                    LoginSMS();
+                else
+                    ToastUtil.showToast(getString(R.string.msg_no_ok));
+                //                    SendSMS();
                 break;
         }
     }

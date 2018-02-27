@@ -2,17 +2,81 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_play"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black"
     tools:context="com.kohler.arscan.PlayActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="45dp"
+        android:background="@android:color/black">
+
+        <View
+            android:id="@+id/view_sep"
+            android:layout_width="1dp"
+            android:layout_height="35dp"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="6dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="6dp"
+            android:background="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/tv_zh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="9dp"
+            android:layout_marginTop="7dp"
+            android:layout_toEndOf="@id/view_sep"
+            android:text="亲悦 浴室家具"
+            android:textColor="#FFFFFF"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/tv_en"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_zh"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="9dp"
+            android:layout_marginTop="2dp"
+            android:layout_toEndOf="@id/view_sep"
+            android:text="亲悦 浴室家具"
+            android:textColor="#FFFFFF"
+            android:textSize="11sp" />
+
+        <ImageView
+            android:id="@+id/iv_play_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:src="@drawable/alert_cancel" />
+    </RelativeLayout>
 
     <com.xiuyukeji.pictureplayerview.PicturePlayerView
         android:id="@+id/play_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:picture_opaque="false"
         app:picture_antiAlias="true"
+        app:picture_opaque="false"
         app:picture_source="file" />
+
+    <TextView
+        android:id="@+id/tv_more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40dp"
+        android:background="@android:color/black"
+        android:padding="5dp"
+        android:text="更多极致诱惑"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:visibility="gone" />
 
 </RelativeLayout>

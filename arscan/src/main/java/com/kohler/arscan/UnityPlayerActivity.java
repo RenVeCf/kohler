@@ -1,14 +1,24 @@
 package com.kohler.arscan;
 
+import com.kohler.arscan.constant.Config;
+import com.kohler.arscan.util.DensityUtil;
+import com.kohler.arscan.util.LogManager;
+import com.kohler.arscan.util.SharePreUtil;
 import com.unity3d.player.*;
+import com.xiuyukeji.pictureplayerview.PicturePlayerView;
+import com.xiuyukeji.pictureplayerview.interfaces.OnStopListener;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,19 +26,34 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.io.File;
+import java.io.FilenameFilter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class UnityPlayerActivity extends Activity {
+public class UnityPlayerActivity extends Activity implements View.OnClickListener {
 
     private final static String TAG = UnityPlayerActivity.class.getSimpleName();
 
-    @BindView(R2.id.iv_top_scan)
-    ImageView iv_top_scan;
-
+    public static UnityPlayerActivity mActivity;
     protected UnityPlayer mUnityPlayer; // don't change the name of this variable; referenced from native code
+    private String flag;
+
+    private PopupWindow playPop;
+    private RelativeLayout rl_play;
+    private TextView tv_zh;
+    private TextView tv_en;
+    private PicturePlayerView play_view;
+
+    @BindView(R2.id.rl_unity_view)
+    RelativeLayout rl_unity_view;
 
     // Setup activity layout
     @Override
@@ -41,20 +66,147 @@ public class UnityPlayerActivity extends Activity {
         setContentView(R.layout.unity_view);
         ButterKnife.bind(this);
 
-        String flag = getIntent().getStringExtra("flag");
-        UnityPlayer.UnitySendMessage("LogicManager", "ConfirmIndex", flag);
+        mActivity = this;
+
+        flag = getIntent().getStringExtra("flag");
         Log.e(TAG, "flag: " + flag);
 
         initView();
+        initPop();
+    }
+
+    private void initPop() {
+        View view = LayoutInflater.from(this).inflate(R.layout.activity_play, null);
+        view.findViewById(R.id.iv_play_cancel).setOnClickListener(this);
+        rl_play = view.findViewById(R.id.rl_play);
+        tv_zh = view.findViewById(R.id.tv_zh);
+        tv_en = view.findViewById(R.id.tv_en);
+        play_view = view.findViewById(R.id.play_view);
+
+        playPop = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
     }
 
     private void initView() {
-        iv_top_scan.setVisibility(View.GONE);
-
         LinearLayout ll_unity = findViewById(R.id.ll_unity);
         mUnityPlayer = new UnityPlayer(this);
-        ll_unity.addView(mUnityPlayer, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        ll_unity.addView(mUnityPlayer);
         mUnityPlayer.requestFocus();
+    }
+
+    public void NoteBook(String string) {
+        LogManager.e(TAG, "NoteBook: " + string);
+        //        if (((boolean) SPUtil.get(this, IConstants.IS_LOGIN, false))) {
+        //            if (SPUtil.get(this, IConstants.TYPE, "").equals("dealer")) {
+        //                startActivity(new Intent(this, MineManualActivity.class));
+        //            }
+        //        } else {
+        //            startActivity(new Intent(this, LoginActivity.class));
+        //        }
+    }
+
+    //unity调用android方法，初始化参数
+    public void InitUnity(String string) {
+        LogManager.e(TAG, "InitUnity: " + string);
+        UnityPlayer.UnitySendMessage("LogicManager", "ConfirmIndex", flag);
+    }
+
+    private String startWith;
+    private String zhName;
+    private String enName;
+
+    //unity调用android方法，播放序列帧
+    public void StartAnim(int id) {
+        LogManager.e(TAG, "StartAnim: " + id);
+        switch (id) {
+            case 0:
+                startWith = "0_";
+                zhName = "亲悦 浴室家具";
+                enName = "FAMILY CARE BATHROOM FURNITURE";
+                break;
+            case 1:
+                startWith = "1_";
+                zhName = "星朗 一体超感座便器";
+                enName = "INNATE Intelligent Toilet";
+                break;
+            case 2:
+                startWith = "2_";
+                zhName = "C3 -420 清舒宝智能便盖";
+                enName = "C3-420 Smart Seat";
+                break;
+            case 3:
+                startWith = "3_";
+                zhName = "悦明 镜柜";
+                enName = "Grooming Mirrored Cabinet";
+                break;
+            case 4:
+                startWith = "4_";
+                zhName = "维亚 时尚台盆";
+                enName = "VEIL Vessels";
+                break;
+            case 5:
+                startWith = "5_";
+                zhName = "圣苏西 3/4.5L五级旋风360连体座便器";
+                enName = "SAN SOUCI 3/4.5L Rimless One-piece Toilet";
+                break;
+            case 6:
+                startWith = "6_";
+                zhName = "艺廷 臻彩幻色 龙头系列";
+                enName = "Component OMBRE Graphic Faucet";
+                break;
+            case 7:
+                startWith = "7_";
+                zhName = "多功能一体台盆";
+                enName = "WATERFOIL Tri Lavatory";
+                break;
+        }
+
+        rl_play.setBackgroundColor(0xD9000000);
+        tv_zh.setText(zhName);
+        tv_en.setText(enName);
+
+        File file = new File(Environment.getExternalStorageDirectory() + "/resource/image/");
+
+        if (file.exists()) {
+            FilenameFilter filter = new FilenameFilter() {
+                @Override
+                public boolean accept(File dir, String name) {
+                    return name.startsWith(startWith);
+                }
+            };
+            File[] files = file.listFiles(filter);
+            String[] paths = new String[files.length];
+            for (int i = 0; i < files.length; i++) {
+                paths[i] = files[i].getAbsolutePath();
+                Log.e(TAG, "path: " + paths[i]);
+            }
+
+            play_view.setDataSource(paths, files.length * 1000 / 16);
+            play_view.start();
+            //            play_view.setOnStopListener(new OnStopListener() {
+            //                @Override
+            //                public void onStop() {
+            //                    LogManager.e(TAG, "onStop");
+            //                    playPop.dismiss();
+            //                    UnityPlayer.UnitySendMessage("LogicManager", "CloseARButton", "");
+            //                }
+            //            });
+
+            playPop.showAtLocation(mUnityPlayer, Gravity.NO_GRAVITY, 0, 0);
+        } else {
+            SharePreUtil.getInstance(this).saveConfig(Config.RESOURCE_STATUS, false);
+            Toast.makeText(this, "资源包损坏，请重新进入APP下载", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        if (id == R.id.iv_play_cancel) {
+            LogManager.e(TAG, "iv_play_cancel");
+            playPop.dismiss();
+            UnityPlayer.UnitySendMessage("LogicManager", "CloseARButton", "");
+        }
     }
 
     @OnClick(R2.id.iv_top_back)
@@ -163,4 +315,5 @@ public class UnityPlayerActivity extends Activity {
     public boolean onGenericMotionEvent(MotionEvent event) {
         return mUnityPlayer.injectEvent(event);
     }
+
 }

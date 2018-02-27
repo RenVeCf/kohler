@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">arscan</string>
+    <string name="download_alert">下载<u>AR资源包</u>，用黑科技探索产品魅力</string>
+    <string name="notebook_alert">下载<u>产品手册</u>，了解科勒2018全系列新品</string>
 </resources>

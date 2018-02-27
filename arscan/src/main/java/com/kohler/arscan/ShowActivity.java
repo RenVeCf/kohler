@@ -1,44 +1,42 @@
 package com.kohler.arscan;
 
 import android.annotation.SuppressLint;
-import android.app.DownloadManager;
 import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.Enumeration;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
+import com.kohler.arscan.util.DensityUtil;
+import com.kohler.arscan.util.LogManager;
+import com.kohler.arscan.view.ColourImageBaseLayerView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ShowActivity extends AppCompatActivity {
+public class ShowActivity extends AppCompatActivity implements View.OnClickListener {
 
     private final static String TAG = ShowActivity.class.getSimpleName();
 
-    private DownloadManager downloadManager;
-    private long downloadId;
-    private Timer timer;
-    private TimerTask timerTask;
+    @BindView(R2.id.iv_top_scan)
+    ImageView iv_top_scan;
+    @BindView(R2.id.map_view)
+    ColourImageBaseLayerView map_view;
+    @BindView(R2.id.rl_icon)
+    RelativeLayout rl_icon;
+
+    private PopupWindow armodePop;
+    private PopupWindow alertPop;
+    private PopupWindow notebookPop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +44,56 @@ public class ShowActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show);
         ButterKnife.bind(this);
 
-        downZip();
+        initView();
+        initPop();
+    }
+
+    private ImageView iv_alert_icon;
+    private TextView tv_zh;
+    private TextView tv_en;
+    private TextView tv_alert_content;
+    private TextView tv_go_scan;
+
+    private void initPop() {
+        View view = LayoutInflater.from(this).inflate(R.layout.armode_pop, null);
+        view.findViewById(R.id.tv_know).setOnClickListener(this);
+
+        armodePop = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                armodePop.showAtLocation(iv_top_scan, Gravity.NO_GRAVITY, 0, 0);
+            }
+        }, 100);
+
+
+        view = LayoutInflater.from(this).inflate(R.layout.map_alert_pop, null);
+
+        view.findViewById(R.id.iv_alert_cancel).setOnClickListener(this);
+        tv_go_scan = view.findViewById(R.id.tv_go_scan);
+        tv_go_scan.setOnClickListener(this);
+
+        iv_alert_icon = view.findViewById(R.id.iv_alert_icon);
+        tv_zh = view.findViewById(R.id.tv_zh);
+        tv_en = view.findViewById(R.id.tv_en);
+        tv_alert_content = view.findViewById(R.id.tv_alert_content);
+
+        alertPop = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+
+        view = LayoutInflater.from(this).inflate(R.layout.notebook_pop, null);
+
+        view.findViewById(R.id.tv_notebook_download).setOnClickListener(this);
+        view.findViewById(R.id.iv_notebook_cancel).setOnClickListener(this);
+
+        notebookPop = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+    }
+
+    private void initView() {
+        iv_top_scan.setVisibility(View.VISIBLE);
+
+        map_view.initPop(handler);
     }
 
     @SuppressLint("HandlerLeak")
@@ -54,211 +101,116 @@ public class ShowActivity extends AppCompatActivity {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            Bundle bundle = msg.getData();
-            int pro = bundle.getInt("pro");
-            Log.e(TAG, "progress: " + pro);
+            switch (msg.what) {
+                case 0:
+                    rl_icon.setVisibility(View.GONE);
+                    break;
+                case 1:
+                    setAlert(msg.arg1);
+
+                    alertPop.showAtLocation(map_view, Gravity.NO_GRAVITY, 0, 0);
+                    break;
+            }
         }
     };
 
-    private void downZip() {
-        String zipUrl = "http://p4n3tf891.bkt.clouddn.com/resource.zip";
-
-        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(zipUrl));
-
-        request.setDestinationInExternalFilesDir(this, Environment.DIRECTORY_DOWNLOADS, "resource.zip");
-
-        /*
-         * 设置在通知栏是否显示下载通知(下载进度), 有 3 个值可选:
-         *    VISIBILITY_VISIBLE:                   下载过程中可见, 下载完后自动消失 (默认)
-         *    VISIBILITY_VISIBLE_NOTIFY_COMPLETED:  下载过程中和下载完成后均可见
-         *    VISIBILITY_HIDDEN:                    始终不显示通知
-         */
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_HIDDEN);
-
-        //设置通知栏中下载通知的显示样式
-        request.setMimeType("application/x-zip-compressed");
-
-       /*
-        * 设置允许使用的网络类型, 可选值:
-        *     NETWORK_MOBILE:      移动网络
-        *     NETWORK_WIFI:        WIFI网络
-        *     NETWORK_BLUETOOTH:   蓝牙网络
-        * 默认为所有网络都允许
-        */
-        // request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI);
-
-        downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
-
-        //将下载请求加入下载队列, 返回一个下载ID，通过此ID可以查询数据。
-        downloadId = downloadManager.enqueue(request);
-        Log.e(TAG, "downloadId: " + downloadId);
-
-        // 如果中途想取消下载, 可以调用remove方法, 根据返回的下载ID取消下载, 取消下载后下载保存的文件将被删除
-        // downloadManager.remove(downloadId);
-
-        final DownloadManager.Query query = new DownloadManager.Query();
-
-        timer = new Timer();
-        timerTask = new TimerTask() {
-            @Override
-            public void run() {
-                Cursor cursor = downloadManager.query(query.setFilterById(downloadId));
-                if (cursor != null && cursor.moveToFirst()) {
-                    if (cursor.getInt(
-                            cursor.getColumnIndex(DownloadManager.COLUMN_STATUS)) == DownloadManager.STATUS_SUCCESSFUL) {
-                        boolean unZip = unZip(cursor.getString(cursor.getColumnIndex(DownloadManager.COLUMN_LOCAL_FILENAME)));
-                        Log.e(TAG, "解压: " + unZip);
-                        timerTask.cancel();
-                    }
-                    //下载的文件到本地的目录
-//                    String address = cursor.getString(cursor.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI));
-                    //已经下载的字节数
-                    long bytes_downloaded = cursor.getLong(cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR));
-                    //总需下载的字节数
-                    long bytes_total = cursor.getLong(cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES));
-                    //Notification 标题
-//                    String title = cursor.getString(cursor.getColumnIndex(DownloadManager.COLUMN_TITLE));
-                    //描述
-//                    String description = cursor.getString(cursor.getColumnIndex(DownloadManager.COLUMN_DESCRIPTION));
-                    //下载对应id
-//                    long id = cursor.getLong(cursor.getColumnIndex(DownloadManager.COLUMN_ID));
-                    //下载文件名称
-//                    String filename = cursor.getString(cursor.getColumnIndex(DownloadManager.COLUMN_LOCAL_FILENAME));
-                    //下载文件的URL链接
-//                    String url = cursor.getString(cursor.getColumnIndex(DownloadManager.COLUMN_URI));
-
-                    //address: file:///storage/emulated/0/Android/data/com.kohler.ar/files/Download/resource-1.zip
-                    // --title: resource-1.zip
-                    // --description:
-                    // --id: 639
-                    // --filename: /storage/emulated/0/Android/data/com.kohler.ar/files/Download/resource-1.zip
-                    // --url: http://p4n3tf891.bkt.clouddn.com/resource.zip
-
-//                    Log.e(TAG, "address: " + address + "--title: " + title
-//                            + "--description: " + description + "--id: " + id
-//                            + "--filename: " + filename + "--url: " + url);
-
-                    Log.e(TAG, "bytes_downloaded: " + bytes_downloaded + "--bytes_total: " + bytes_total);
-                    int pro = (int) ((bytes_downloaded * 100) / bytes_total);
-                    Message msg = Message.obtain();
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("pro", pro);
-                    msg.setData(bundle);
-                    handler.sendMessage(msg);
-                }
-                cursor.close();
-            }
-        };
-        timer.schedule(timerTask, 0, 1000);
+    private void setAlert(int selected) {
+        int icon = 0;
+        String zh = null;
+        String en = null;
+        String content = null;
+        String go = null;
+        switch (selected) {
+            case 0:
+                icon = R.drawable.a_alert;
+                zh = "145周年 美式套间";
+                en = "145 ANNIVERSARY SUITE";
+                content = "沿袭美式经典风格，融入现代优雅生活。致敬科勒145\n年历史传承，145周年套件以优雅大气的设计语言，集\n中展现了科勒“代表每个时代的最高水准”的追求与承\n诺";
+                go = "前往145周年套间，体验科勒美式优雅生活";
+                break;
+            case 1:
+                icon = R.drawable.b_alert;
+                zh = "智能生活";
+                en = "SMART HOME SUITE";
+                content = "云技术、大数据、物联网、人工智能......科勒将这些复\n杂的尖端科技运用在浴室和卫生间，为您提供舒适贴心\n的生活体验。";
+                go = "前往智能生活套间，体验科勒现代科技生活";
+                break;
+            case 2:
+                icon = R.drawable.c_alert;
+                zh = "维亚套间";
+                en = "VEIL SUITE";
+                content = "感应灯光与科勒云境系统创造性地融合，灯随人动，光\n随时变，打造远离尘嚣、静谧疗愈的光感体验。";
+                go = "前往维亚套间，体验科勒光影魅力";
+                break;
+            case 3:
+                icon = R.drawable.d_alert;
+                zh = "科勒精选 为美执着";
+                en = "KOHLER EXQUISITE SUITE";
+                content = "凝聚145年品牌精粹，科勒精选代表着科勒顶级品质，\n每一件都是百年匠心与艺术美学的杰作。";
+                go = "前往科勒精选间，体验科勒匠心精粹";
+                break;
+            case 4:
+                icon = R.drawable.e_alert;
+                zh = "极净空间";
+                en = "HYGIENE AND CLEAN SUITE";
+                content = "多重革新技术，极致清洁体验，卫浴空间的每一件“贴\n身”用品，都应该洁净入微。";
+                go = "前往极净空间，感受科勒洁净科技";
+                break;
+            case 5:
+                icon = R.drawable.f_alert;
+                zh = "敢创设计";
+                en = "SELF EXPRESSION SUITE";
+                content = "伟大的设计始于独特的创造性、丰富的经验和对艺术的\n执着和创新的坚持。我们不断在艺术的世界中寻找灵感\n，以简约流畅的线条，多样化的风格，打造一件件令人\n惊艳的卫浴产品。";
+                go = "前往敢闯设计套间，感受科勒独特创意";
+                break;
+            case 6:
+                icon = R.drawable.g_alert;
+                zh = "关爱家";
+                en = "FAMILY CARE SUITE";
+                content = "用环保材质和体贴细节，科勒创造一个真正属于全家人\n的浴室，安全、易用、健康，处处给孩子与老人贴身宠\n爱，让浴室充满温馨的天伦之情。 ";
+                go = "前往关爱家套间，发现科勒细致之美";
+                break;
+            case 7:
+                icon = R.drawable.h_alert;
+                zh = "爱厨房";
+                en = "KITCHEN";
+                content = "优雅的造型、人性化的设计、健康安全的材质、坚固耐\n用的质量，科勒助您享受料理乐趣，在厨房大显身手。";
+                go = "前往爱厨房套间，体验有爱科勒";
+                break;
+        }
+        iv_alert_icon.setImageResource(icon);
+        tv_zh.setText(zh);
+        tv_en.setText(en);
+        tv_alert_content.setText(content);
+        tv_go_scan.setText(go);
     }
 
-    private boolean unZip(String path) {
-        Log.e(TAG, "unZip: " + path);
-        String folderPath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator;
-        File file = new File(path);
-        ZipFile zFile = null;
-        try {
-            zFile = new ZipFile(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-        Enumeration zList = zFile.entries();
-        ZipEntry zipEntry = null;
-        byte[] buf = new byte[1024];
-        while (zList.hasMoreElements()) {
-            zipEntry = (ZipEntry) zList.nextElement();
-            Log.e(TAG, "zipEntry: " + zipEntry.getName());
-            // 列举的压缩文件里面的各个文件，判断是否为目录
-            if (zipEntry.isDirectory()) {
-                String dirstr = folderPath + zipEntry.getName();
-                Log.e(TAG, "dirstr: " + dirstr);
-                dirstr.trim();
-                File f = new File(dirstr);
-                f.mkdir();
-                continue;
-            }
-            OutputStream os = null;
-            FileOutputStream fos = null;
-            // zipEntry.getName()会返回 script/start.script这样的，是为了返回实体的File
-            File realFile = getRealFileName(folderPath, zipEntry.getName());
-            try {
-                fos = new FileOutputStream(realFile);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-                return false;
-            }
-            os = new BufferedOutputStream(fos);
-            InputStream is = null;
-            try {
-                is = new BufferedInputStream(zFile.getInputStream(zipEntry));
-            } catch (IOException e) {
-                e.printStackTrace();
-                return false;
-            }
-            int readLen = 0;
-            // 进行一些内容复制操作
-            try {
-                while ((readLen = is.read(buf, 0, 1024)) != -1) {
-                    os.write(buf, 0, readLen);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-                return false;
-            }
-            try {
-                is.close();
-                os.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-                return false;
-            }
-        }
-        try {
-            zFile.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        if (id == R.id.tv_know) {
+            armodePop.dismiss();
+        } else if (id == R.id.iv_alert_cancel) {
+            alertPop.dismiss();
+        } else if (id == R.id.tv_go_scan) {
+            alertPop.dismiss();
 
-        if (file.exists()) {
-            boolean delete = file.delete();
-            Log.e(TAG, "删除: " + delete);
-        }
-        return true;
-    }
+            Intent intent = new Intent(this, UnityPlayerActivity.class);
+            intent.putExtra("flag", "9");
+            startActivity(intent);
+        } else if (id == R.id.iv_notebook_cancel) {
+            notebookPop.dismiss();
+        } else if (id == R.id.tv_notebook_download) {
+            notebookPop.dismiss();
 
-    /**
-     * 给定根目录，返回一个相对路径所对应的实际文件名.
-     *
-     * @param baseDir     指定根目录
-     * @param absFileName 相对路径名，来自于ZipEntry中的name
-     * @return java.io.File 实际的文件
-     */
-    public static File getRealFileName(String baseDir, String absFileName) {
-        Log.e(TAG, "baseDir=" + baseDir + "------absFileName="
-                + absFileName);
-        absFileName = absFileName.replace("\\", "/");
-        Log.e(TAG, "absFileName=" + absFileName);
-        String[] dirs = absFileName.split("/");
-        Log.e(TAG, "dirs=" + dirs.toString());
-        File ret = new File(baseDir);
-        String substr = null;
-        if (dirs.length > 1) {
-            for (int i = 0; i < dirs.length - 1; i++) {
-                substr = dirs[i];
-                ret = new File(ret, substr);
-            }
-
-            if (!ret.exists())
-                ret.mkdirs();
-            substr = dirs[dirs.length - 1];
-            ret = new File(ret, substr);
-            return ret;
-        } else {
-            ret = new File(ret, absFileName);
+            //        if (((boolean) SPUtil.get(this, IConstants.IS_LOGIN, false))) {
+            //            if (SPUtil.get(this, IConstants.TYPE, "").equals("dealer")) {
+            //                startActivity(new Intent(this, MineManualActivity.class));
+            //            }
+            //        } else {
+            //            startActivity(new Intent(this, LoginActivity.class));
+            //        }
         }
-        return ret;
     }
 
     @OnClick(R2.id.iv_top_back)
@@ -288,13 +240,7 @@ public class ShowActivity extends AppCompatActivity {
 
     @OnClick(R2.id.ll_notebook)
     public void notebook() {
-        //        if (((boolean) SPUtil.get(this, IConstants.IS_LOGIN, false))) {
-        //            if (SPUtil.get(this, IConstants.TYPE, "").equals("dealer")) {
-        //                startActivity(new Intent(this, MineManualActivity.class));
-        //            }
-        //        } else {
-        //            startActivity(new Intent(this, LoginActivity.class));
-        //        }
+        notebookPop.showAtLocation(map_view, Gravity.NO_GRAVITY, 0, 0);
     }
 
 }

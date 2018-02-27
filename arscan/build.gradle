@@ -5,7 +5,7 @@ android {
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 26
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
     }
@@ -22,7 +22,7 @@ android {
     }
 
     aaptOptions {
-        noCompress '.unity3d', '.ress', '.resource', '.obb','lotusmanagerconfig.txt','bin/data/33e1e6d5418aa3749b74e837ffafd123.resource','hiar/c3-420.xml','hiar/duogongnengtaipen.xml','hiar/longtou.xml','hiar/qinyue.xml','hiar/sample.xml','hiar/weiyashishangtaipen.xml','hiar/xinglang.xml','hiar/yuemingjinggui.xml','hiar/zuobianqi.xml','hiar/c3-420/72f8310c3394bd86fe52b3ed18e500f9.db','hiar/duogongnengtaipen/fa4948014df6514a9d729d9645e07170.db','hiar/longtou/abc90e04b2bc2fd0b6f4086f3d43732f.db','hiar/qinyue/ff3826e4c3c62d98a5b2bd13d789d2ec.db','hiar/sample/2799d80c498feb62a8876bffb011b034.db','hiar/sample/485512d531f52364a97b4b1cf7446b67.db','hiar/sample/e58931b38b636696f65caafb0ed80f0b.db','hiar/sample/e75bddbf1bdced0446bac8d6b57cb0eb.db','hiar/weiyashishangtaipen/866759885983e7a14a376a28993e0529.db','hiar/xinglang/a0c77f608eba6e475b44f8b61f67bb88.db','hiar/yuemingjinggui/131b287e84dd3981794acc3f803cbe20.db','hiar/zuobianqi/498a7cd91f7d25cbc419449ff9b964a5.db'
+        noCompress '.unity3d', '.ress', '.resource', '.obb'
     }
 
 }
@@ -34,19 +34,9 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     /* Butter Knife */
-    implementation 'com.jakewharton:butterknife:8.8.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    implementation 'com.jakewharton:butterknife:8.4.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     implementation 'com.xiuyukeji.pictureplayerview:pictureplayerview:0.1.3'
-    implementation files('libs/android4remote.jar')
-    implementation files('libs/apprtc.jar')
-    implementation files('libs/autobanh.jar')
-    implementation files('libs/AVProVideo.jar')
-    implementation files('libs/EasyAR.jar')
-    implementation files('libs/gson-2.2.4.jar')
     implementation files('libs/hiarplayer.jar')
-    implementation files('libs/libjingle_peerconnection.jar')
-    implementation files('libs/Lotus.jar')
     implementation files('libs/unity-classes.jar')
-    implementation files('libs/zip_file.jar')
 }
-

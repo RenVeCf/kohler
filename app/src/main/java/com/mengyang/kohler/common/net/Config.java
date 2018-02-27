@@ -23,6 +23,7 @@ public interface Config  {
     String USER_MODIFY_BIND_PHONE = "authz/account/updateBindMobile"; //用户换绑手机
     String FORGET_PWD = "authz/account/forgetPwd"; //忘记密码
     String MODIFY_PWD = "authz/account/updatePwd"; //修改密码
+    String LOGIN_SMS = "authz/smscode/doSend"; //登陆短信验证
 
     /**
      * 首页

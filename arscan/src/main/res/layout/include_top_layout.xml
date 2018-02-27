@@ -27,6 +27,7 @@
         android:layout_centerVertical="true"
         android:layout_marginEnd="10dp"
         android:padding="10dp"
-        android:src="@drawable/top_scan" />
+        android:src="@drawable/top_scan"
+        android:visibility="gone" />
 
 </RelativeLayout>

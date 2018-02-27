@@ -164,6 +164,23 @@ public class UserRegisterActivity extends BaseActivity {
         });
     }
 
+    private void LoginSMS() {
+        Map<String, String> stringMap = IdeaApi.getSign();
+        stringMap.put("mobileNo", etUserRegisterPhoneNum.getText().toString().trim());//手机号码
+
+        IdeaApi.getRequestLogin(stringMap);
+        IdeaApi.getApiService()
+                .getLoginSMS(stringMap)
+                .compose(UserRegisterActivity.this.<BasicResponse>bindToLifecycle())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultObserver<BasicResponse>(UserRegisterActivity.this, false) {
+                    @Override
+                    public void onSuccess(BasicResponse response) {
+                    }
+                });
+    }
+
     private void ModifyBindPhone() {
         //        SMSSDK.getInstance().checkSmsCodeAsyn(etUserRegisterPhoneNum.getText().toString().trim(), etUserRegisterSmsVerificationCode.getText().toString().trim(), new SmscheckListener() {
         //            @Override
@@ -174,7 +191,7 @@ public class UserRegisterActivity extends BaseActivity {
         stringMap.put("password", etUserRegisterPwd.getText().toString().trim());//用户密码
         stringMap.put("type", "commonUser");//用户类型化
         stringMap.put("time", time);//时间戳
-        stringMap.put("verifyCode", etUserRegisterPwd.getText().toString().trim());//验证码
+        stringMap.put("verifyCode", "111111");//etUserRegisterSmsVerificationCode.getText().toString().trim());//验证码
 
         IdeaApi.getRequestLogin(stringMap);
         IdeaApi.getApiService()
@@ -250,6 +267,9 @@ public class UserRegisterActivity extends BaseActivity {
                 break;
             case R.id.bt_user_register_send_out_sms:
                 if (!etUserRegisterPhoneNum.getText().toString().trim().equals(""))
+                    LoginSMS();
+                else
+                    ToastUtil.showToast(getString(R.string.msg_no_ok));
                     //                    SendSMS();
                     break;
             case R.id.bt_user_register:

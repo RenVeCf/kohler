@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/panomap_bg"
     tools:context="com.kohler.arscan.ShowActivity">
 
     <include
@@ -20,9 +21,16 @@
         android:layout_above="@id/include_bottom_layout"
         android:layout_below="@id/include_top_layout"
         android:layout_centerInParent="true"
-        android:background="@drawable/map_list" />
+        android:src="@drawable/map_list"
+        android:visibility="visible" />
+
+    <!--<com.kohler.arscan.view.ZoomImageView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:src="@drawable/map_list"/>-->
 
     <RelativeLayout
+        android:id="@+id/rl_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@id/include_bottom_layout"
@@ -30,56 +38,56 @@
         android:layout_alignStart="@id/map_view"
         android:layout_below="@id/include_top_layout">
 
-        <ImageView
+        <com.kohler.arscan.view.JumpImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="174.14dp"
             android:layout_marginTop="17.86dp"
             android:src="@drawable/a_icon" />
 
-        <ImageView
+        <com.kohler.arscan.view.JumpImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="289.86dp"
             android:layout_marginTop="74.86dp"
             android:src="@drawable/b_icon" />
 
-        <ImageView
+        <com.kohler.arscan.view.JumpImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="106.14dp"
             android:layout_marginTop="135.14dp"
             android:src="@drawable/c_icon" />
 
-        <ImageView
+        <com.kohler.arscan.view.JumpImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="264.57dp"
             android:layout_marginTop="155.14dp"
             android:src="@drawable/d_icon" />
 
-        <ImageView
+        <com.kohler.arscan.view.JumpImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="91.14dp"
             android:layout_marginTop="223.43dp"
             android:src="@drawable/e_icon" />
 
-        <ImageView
+        <com.kohler.arscan.view.JumpImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="43.14dp"
             android:layout_marginTop="256.86dp"
             android:src="@drawable/f_icon" />
 
-        <ImageView
+        <com.kohler.arscan.view.JumpImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="280.57dp"
             android:layout_marginTop="265.14dp"
             android:src="@drawable/g_icon" />
 
-        <ImageView
+        <com.kohler.arscan.view.JumpImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="103.14dp"
