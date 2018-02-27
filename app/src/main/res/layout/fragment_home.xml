@@ -46,11 +46,14 @@
                     android:orientation="vertical">
 
                     <LinearLayout
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
                         <EditText
+                            android:focusable="false"
                             android:id="@+id/et_home_search"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/y60"

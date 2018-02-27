@@ -4,13 +4,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -145,6 +148,8 @@ public class HomeFragment extends BaseFragment {
         mNoJurisdictionPopupWindow.setOutsideTouchable(false);
         mNoJurisdictionPopupWindow.setFocusable(true);
         abHomeLoop.setImageViewScaleType(AdPlayBanner.ScaleType.CENTER_CROP);
+
+
     }
 
     @Override
@@ -218,6 +223,13 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     protected void initListener() {
+        clearFocus();
+    }
+
+    private void clearFocus() {
+//        etHomeSearch.clearFocus();
+//        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+//        imm.hideSoftInputFromWindow(etHomeSearch.getWindowToken(),0);
     }
 
     @Override
@@ -233,6 +245,10 @@ public class HomeFragment extends BaseFragment {
                 .subscribe(new DefaultObserver<BasicResponse<HomeIndexBean>>(getActivity(), false) {
                     @Override
                     public void onSuccess(BasicResponse<HomeIndexBean> response) {
+                        clearFocus();
+                        etHomeSearch.setFocusable(true);
+                        etHomeSearch.setFocusableInTouchMode(true);
+
                         mHomeIndexBean = response.getData();
 
                         for (int i = 0; i < mHomeIndexBean.getKvList().size(); i++) {
@@ -293,14 +309,16 @@ public class HomeFragment extends BaseFragment {
                             public void onPageSelected(int position) {
                                 //当前页面选中时，先将上一次选中的位置设置为未选中，并将当前的位置记录下来为下一次移动做准备
                                 //                                mLlIndicator.getChildAt(prevousPosition).setEnabled(false);
-                                if (mLlIndicator.getChildAt(prevousPosition) != null) {
-                                    mLlIndicator.getChildAt(prevousPosition).setBackgroundColor(Color.parseColor("#e3e3e3"));
-                                    prevousPosition = position;
+                                if (mLlIndicator != null) {
+                                    if (mLlIndicator.getChildAt(prevousPosition) != null) {
+                                        mLlIndicator.getChildAt(prevousPosition).setBackgroundColor(Color.parseColor("#e3e3e3"));
+                                        prevousPosition = position;
+                                    }
+                                    //要让对应角标的小圆点选中
+                                    View childAt = mLlIndicator.getChildAt(position);
+                                    //                                childAt.setEnabled(true);
+                                    childAt.setBackgroundColor(Color.BLACK);
                                 }
-                                //要让对应角标的小圆点选中
-                                View childAt = mLlIndicator.getChildAt(position);
-                                //                                childAt.setEnabled(true);
-                                childAt.setBackgroundColor(Color.BLACK);
                             }
 
                             @Override
@@ -314,6 +332,9 @@ public class HomeFragment extends BaseFragment {
                         //数据源
                         abHomeLoop.setInfoList((ArrayList<AdPageInfo>) mDatas);
                         abHomeLoop.setUp();
+
+
+
                     }
                 });
     }
@@ -358,4 +379,5 @@ public class HomeFragment extends BaseFragment {
                 break;
         }
     }
+
 }

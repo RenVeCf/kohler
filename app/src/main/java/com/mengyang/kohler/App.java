@@ -3,10 +3,8 @@ package com.mengyang.kohler;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
-import android.support.multidex.MultiDex;
 
 import com.mengyang.kohler.common.net.IConstants;
-import com.mengyang.kohler.common.utils.DatabaseUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.tencent.bugly.crashreport.CrashReport;
 
@@ -213,9 +211,5 @@ public class App extends Application {
         return context;
     }
 
-    @Override
-    protected void attachBaseContext(Context base) {
-        super.attachBaseContext(base);
-        MultiDex.install(this);
-    }
+
 }

@@ -1,17 +1,22 @@
 package com.mengyang.kohler;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 
 import com.mengyang.kohler.common.utils.LogUtils;
 import com.trello.rxlifecycle2.components.support.RxFragment;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
+import static android.content.Context.INPUT_METHOD_SERVICE;
 
 /**
  * Created by zhpan on 2017/4/22.
@@ -32,6 +37,21 @@ public abstract class BaseFragment extends RxFragment {
 //        if (parent != null) {
 //            parent.removeView(rootView);
 //        }
+
+
+
+        rootView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                InputMethodManager manager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                    if(getActivity().getCurrentFocus()!=null && getActivity().getCurrentFocus().getWindowToken()!=null){
+                        manager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                    }
+                }
+                return false;
+            }
+        });
         return rootView;
     }
 
@@ -45,7 +65,7 @@ public abstract class BaseFragment extends RxFragment {
         //初始化网络数据
         initData();
 
-        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+//        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
     }
 
     /**
@@ -93,4 +113,5 @@ public abstract class BaseFragment extends RxFragment {
         }
         return 0;
     }
+
 }
