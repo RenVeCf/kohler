@@ -26,8 +26,6 @@ import butterknife.ButterKnife;
 public abstract class BaseActivity extends RxAppCompatActivity {
     PermissionUtils.PermissionGrant mPermissionGrant;
     public Bundle savedInstanceState;
-//    private String mMacthRule = "^(?![0-9]*$)(?![a-zA-Z]*$)[0-9a-zA-Z]{6,16}$";
-    private String mMacthRule = "^^[a-zA-Z\\d+]{6,16}$";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,13 +147,6 @@ public abstract class BaseActivity extends RxAppCompatActivity {
             return mInputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
         }
         return super.onTouchEvent(event);
-    }
-
-    public boolean checkPwd(String value) {
-        if (value.matches(mMacthRule)) {
-            return false;
-        }
-        return true;
     }
 
 }

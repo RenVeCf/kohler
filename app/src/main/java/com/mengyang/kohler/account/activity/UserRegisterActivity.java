@@ -3,6 +3,8 @@ package com.mengyang.kohler.account.activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -13,13 +15,13 @@ import android.widget.TextView;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
+import com.mengyang.kohler.common.net.Config;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.net.IdeaApiService;
-import com.mengyang.kohler.common.net.Config;
 import com.mengyang.kohler.common.utils.DateUtils;
-import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.ToastUtil;
+import com.mengyang.kohler.common.utils.VerifyUtils;
 import com.mengyang.kohler.main.activity.MainActivity;
 import com.mengyang.kohler.module.BasicResponse;
 
@@ -31,9 +33,6 @@ import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import cn.jpush.sms.SMSSDK;
-import cn.jpush.sms.listener.SmscheckListener;
-import cn.jpush.sms.listener.SmscodeListener;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.Call;
@@ -91,7 +90,28 @@ public class UserRegisterActivity extends BaseActivity {
 
     @Override
     protected void initListener() {
+        etUserRegisterPhoneNum.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                //输入文本之前的状态
+            }
 
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                //输入文字中的状态，count是一次性输入字符数
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                //输入文字后的状态
+                if (etUserRegisterPhoneNum.getText().toString().trim().length() == 11 && VerifyUtils.isMobileNumber(etUserRegisterPhoneNum.getText().toString().trim())) {
+
+                } else {
+                    ToastUtil.showToast("请输入正确的手机号码！");
+                    etUserRegisterPhoneNum.setText("");
+                }
+            }
+        });
     }
 
     @Override
@@ -144,26 +164,6 @@ public class UserRegisterActivity extends BaseActivity {
         });
     }
 
-    //发送短信验证码
-    private void SendSMS() {
-        btUserRegisterSendOutSms.setClickable(false);
-        //开始倒计时
-        startTimer();
-        SMSSDK.getInstance().getSmsCodeAsyn(etUserRegisterPhoneNum.getText().toString().trim(), 1 + "", new SmscodeListener() {
-            @Override
-            public void getCodeSuccess(final String uuid) {
-                ToastUtil.showToast(uuid);
-            }
-
-            @Override
-            public void getCodeFail(int errCode, final String errmsg) {
-                //失败后停止计时
-                stopTimer();
-                ToastUtil.showToast(errmsg);
-            }
-        });
-    }
-
     private void LoginSMS() {
         Map<String, String> stringMap = IdeaApi.getSign();
         stringMap.put("mobileNo", etUserRegisterPhoneNum.getText().toString().trim());//手机号码
@@ -182,9 +182,6 @@ public class UserRegisterActivity extends BaseActivity {
     }
 
     private void ModifyBindPhone() {
-        //        SMSSDK.getInstance().checkSmsCodeAsyn(etUserRegisterPhoneNum.getText().toString().trim(), etUserRegisterSmsVerificationCode.getText().toString().trim(), new SmscheckListener() {
-        //            @Override
-        //            public void checkCodeSuccess(final String code) {
         Map<String, String> stringMap = IdeaApi.getSign();
         stringMap.put("mobileNo", etUserRegisterPhoneNum.getText().toString().trim());//手机号码
         stringMap.put("code", etUserRegisterVerificationCode.getText().toString().trim());//图片验证码
@@ -208,53 +205,6 @@ public class UserRegisterActivity extends BaseActivity {
                 });
     }
 
-    //            @Override
-    //            public void checkCodeFail(int errCode, final String errmsg) {
-    //                ToastUtil.showToast(errmsg);
-    //            }
-    //        });
-    //    }
-
-    private void startTimer() {
-        timess = (int) (SMSSDK.getInstance().getIntervalTime() / 1000);
-        btUserRegisterSendOutSms.setText(timess + "s");
-        if (timerTask == null) {
-            timerTask = new TimerTask() {
-                @Override
-                public void run() {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            timess--;
-                            if (timess <= 0) {
-                                stopTimer();
-                                return;
-                            }
-                            btUserRegisterSendOutSms.setText(timess + "s");
-                        }
-                    });
-                }
-            };
-        }
-        if (timer == null) {
-            timer = new Timer();
-        }
-        timer.schedule(timerTask, 1000, 1000);
-    }
-
-    private void stopTimer() {
-        if (timer != null) {
-            timer.cancel();
-            timer = null;
-        }
-        if (timerTask != null) {
-            timerTask.cancel();
-            timerTask = null;
-        }
-        btUserRegisterSendOutSms.setText("重新获取");
-        btUserRegisterSendOutSms.setClickable(true);
-    }
-
     @OnClick({R.id.iv_user_register_go_home, R.id.iv_user_register_verification_code, R.id.bt_user_register_send_out_sms, R.id.bt_user_register, R.id.tv_user_register_go_login, R.id.tv_user_register_go_designer_register, R.id.tv_user_register_go_distributor_register})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -266,29 +216,16 @@ public class UserRegisterActivity extends BaseActivity {
                 initData();
                 break;
             case R.id.bt_user_register_send_out_sms:
-                if (!etUserRegisterPhoneNum.getText().toString().trim().equals("")) {
+                if (!etUserRegisterPhoneNum.getText().toString().trim().equals(""))
                     LoginSMS();
-                } else {
+                else
                     ToastUtil.showToast(getString(R.string.msg_no_ok));
-                }
-                    //                    SendSMS();
-                    break;
+                break;
             case R.id.bt_user_register:
-                String phoneNum = etUserRegisterPhoneNum.getText().toString().trim();
-                String verficationCode = etUserRegisterVerificationCode.getText().toString().trim();
-                String registerPwd = etUserRegisterPwd.getText().toString().trim();
-                String smsCode = etUserRegisterSmsVerificationCode.getText().toString().trim();
-
-                if (checkPwd(registerPwd)) {
-                    ToastUtil.showToast("密码格式不正确");
-                    return;
-                }
-
-                if (!phoneNum.equals("") && !verficationCode.equals("") && !registerPwd.equals("") && !smsCode.equals("")) {
+                if (!etUserRegisterPhoneNum.getText().toString().trim().equals("") && !etUserRegisterVerificationCode.getText().toString().trim().equals("") && !etUserRegisterPwd.getText().toString().trim().equals("")) {
                     ModifyBindPhone();
                 } else {
                     ToastUtil.showToast(getString(R.string.msg_no_ok));
-                    return;
                 }
                 break;
             case R.id.tv_user_register_go_login:
@@ -299,8 +236,6 @@ public class UserRegisterActivity extends BaseActivity {
                 break;
             case R.id.tv_user_register_go_distributor_register:
                 startActivity(new Intent(this, DistributorRegisterActivity.class));
-                break;
-            default:
                 break;
         }
     }

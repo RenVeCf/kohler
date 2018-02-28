@@ -5,13 +5,13 @@
     android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context="com.mengyang.kohler.account.activity.UserRegisterActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/y327"
-        android:background="@color/white"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -64,7 +64,6 @@
                 android:src="@mipmap/kohler_logo"/>
 
             <EditText
-                android:maxLength="11"
                 android:id="@+id/et_user_register_phone_num"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -87,7 +86,6 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:maxLength="6"
                     android:id="@+id/et_user_register_verification_code"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -145,7 +143,6 @@
                 android:background="@color/black"/>
 
             <EditText
-                android:digits="@string/pwd_format"
                 android:id="@+id/et_user_register_pwd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
