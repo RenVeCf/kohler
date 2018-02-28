@@ -7,7 +7,6 @@ import android.content.Context;
 import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.tencent.bugly.crashreport.CrashReport;
-import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.Config;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
@@ -21,7 +20,6 @@ import java.util.Stack;
 
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.sms.SMSSDK;
-import android.app.Activity;
 
 /**
  * Description : 全局
@@ -76,9 +74,8 @@ public class App extends Application {
 
     /**
      * 配置三方平台的appkey
-     */
-    {
-//        PlatformConfig.setWeixin("wx3a3e72f3c0cf486c", "afc866a07ef9b96734d3e5b1ab061eb5");
+     */ {
+        //        PlatformConfig.setWeixin("wx3a3e72f3c0cf486c", "afc866a07ef9b96734d3e5b1ab061eb5");
         PlatformConfig.setWeixin("wx3a3e72f3c0cf486c", "2e8c62fa24ea6184660a703c9609d056");
     }
 
@@ -240,7 +237,7 @@ public class App extends Application {
         return context;
     }
 
-    public  Activity getCurrentActivity() {
+    public Activity getCurrentActivity() {
         return currentActivity;
     }
 
