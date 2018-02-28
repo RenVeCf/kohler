@@ -20,7 +20,6 @@ import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.gyf.barlibrary.ImmersionBar;
-import com.kohler.arscan.DownloadActivity;
 import com.kohler.arscan.UnityPlayerActivity;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
@@ -31,6 +30,7 @@ import com.mengyang.kohler.ar.ARFragment;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.net.IdeaApi;
+import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.view.ResideLayout;
 import com.mengyang.kohler.home.activity.MineManualActivity;
@@ -379,9 +379,9 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 mIsUnableToDrag = true;
                 new ResideLayout(this, mIsUnableToDrag);
                 view_line.setVisibility(View.VISIBLE);
-                Intent intent = new Intent(this, DownloadActivity.class);
-//                intent.putExtra("flag", "9");
-                startActivity(intent);
+                Intent intent = new Intent(this, UnityPlayerActivity.class);
+                intent.putExtra("flag", "9");
+                startActivityForResult(intent, IConstants.DELETE_REQUESTCODE);
                 break;
             case R.id.bt_account:
                 switchFragment(mAccountFragment).commit();
@@ -394,6 +394,24 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 break;
             default:
                 break;
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == 0) {
+            switch (requestCode) {
+                case IConstants.DELETE_REQUESTCODE:
+                    switchFragment(mHomeFragment).commit();
+                    //沉浸式状态栏初始化黑色
+                    ImmersionBar.with(this).fitsSystemWindows(false).statusBarDarkFont(true).init();
+                    FragmentSelect(1);
+                    mIsUnableToDrag = false;
+                    new ResideLayout(this, mIsUnableToDrag);
+                    view_line.setVisibility(View.VISIBLE);
+                    break;
+            }
         }
     }
 

@@ -24,6 +24,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.gyf.barlibrary.ImmersionBar;
+import com.kohler.arscan.DownloadActivity;
+import com.kohler.arscan.UnityPlayerActivity;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseFragment;
 import com.mengyang.kohler.R;
@@ -266,7 +268,6 @@ public class HomeFragment extends BaseFragment {
 
                         }
 
-
                         for (int i = 0; i < mHomeIndexBean.getKvSize(); i++) {
                             AdPageInfo info = new AdPageInfo("", mHomeIndexBean.getKvList().get(i).getKvUrl(), "", i + 1);
                             mDatas.add(info);
@@ -285,12 +286,14 @@ public class HomeFragment extends BaseFragment {
                                     if (postion == 0) {
                                         startActivity(new Intent(getActivity(), LoginActivity.class));
                                     } else {
-                                        if (mHomeIndexBean.getKvList().get(postion).getClickRedirect() != null && !mHomeIndexBean.getKvList().get(postion).getClickRedirect().equals("")) {
-                                            mH5_URL = mHomeIndexBean.getKvList().get(postion).getClickRedirect() + "";
-                                        } else if (mHomeIndexBean.getKvList().get(postion).getH5Url() != null && !mHomeIndexBean.getKvList().get(postion).getH5Url().equals("")) {
-                                            mH5_URL = mHomeIndexBean.getKvList().get(postion).getH5Url() + "";
-                                        }
-                                        startActivity(new Intent(getActivity(), WebViewActivity.class).putExtra("h5url", mH5_URL));
+                                        Intent intent = new Intent(getActivity(), DownloadActivity.class);
+                                        startActivity(intent);
+//                                        if (mHomeIndexBean.getKvList().get(postion).getClickRedirect() != null && !mHomeIndexBean.getKvList().get(postion).getClickRedirect().equals("")) {
+//                                            mH5_URL = mHomeIndexBean.getKvList().get(postion).getClickRedirect() + "";
+//                                        } else if (mHomeIndexBean.getKvList().get(postion).getH5Url() != null && !mHomeIndexBean.getKvList().get(postion).getH5Url().equals("")) {
+//                                            mH5_URL = mHomeIndexBean.getKvList().get(postion).getH5Url() + "";
+//                                        }
+//                                        startActivity(new Intent(getActivity(), WebViewActivity.class).putExtra("h5url", mH5_URL));
                                     }
                                 }
                             }

@@ -225,6 +225,7 @@ public class UnityPlayerActivity extends Activity implements View.OnClickListene
     // Quit Unity
     @Override
     protected void onDestroy() {
+        setResult(RESULT_OK);
         mUnityPlayer.quit();
         super.onDestroy();
     }
