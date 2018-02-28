@@ -12,7 +12,7 @@ public interface Config  {
     /**
      *  登录
      */
-    String USER_REGISTER = "authz/account/register"; //普通用户注册
+    String USER_REGISTER = "authz/account/register"; //用户注册
     String APP_LOGIN = "authz/account/login"; //登录
     String LOGIN_VERIFICATION_IMG = "authz/account/getCode"; //登录验证码图片
     String REFRESH_TOKEN = "authz/token/exchange"; // 更新access_token

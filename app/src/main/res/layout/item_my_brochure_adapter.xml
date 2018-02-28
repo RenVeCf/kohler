@@ -1,20 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="@dimen/x386"
-    android:layout_height="@dimen/y500">
+    android:layout_width="@dimen/x516"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/iv_my_brochure_adapter_remove_item_img"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/y500"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/ic_launcher_round"/>
+    <RelativeLayout
+        android:layout_width="@dimen/x516"
+        android:layout_height="@dimen/y650">
 
-    <ImageView
-        android:id="@+id/iv_my_brochure_adapter_remove_item"
+        <ImageView
+            android:id="@+id/iv_my_brochure_adapter_remove_item_img"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y600"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/queshengtu"/>
+
+        <ImageView
+            android:id="@+id/iv_my_brochure_adapter_remove_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:src="@mipmap/pics_delete"/>
+    </RelativeLayout>
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:src="@mipmap/pics_delete"/>
-</RelativeLayout>
+        android:layout_below="@id/iv_brochure_list_adapter_download_item_img"
+        android:layout_marginTop="@dimen/y36"
+        android:text="2018科勒中国经销商大会新品手册"
+        android:textColor="#252525"
+        android:textSize="12sp"/>
+</LinearLayout>

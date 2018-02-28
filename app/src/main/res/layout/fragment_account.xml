@@ -105,8 +105,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/x78"
         android:layout_marginTop="@dimen/y63"
-        android:text="@string/viewed"
-        android:textSize="22sp"
+        android:text="@string/your_browsing"
+        android:textSize="18sp"
         android:textColor="@color/black"
         android:textStyle="bold"/>
 
@@ -114,9 +114,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/x78"
-        android:text="@string/your_browsing"
-        android:textColor="#7c7c7c"
-        android:textSize="10sp"/>
+        android:text="@string/viewed"
+        android:textSize="10sp"
+        android:textColor="#7c7c7c"/>
 
     <RelativeLayout
         android:layout_width="match_parent"

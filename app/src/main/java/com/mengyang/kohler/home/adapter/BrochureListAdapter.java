@@ -28,9 +28,9 @@ public class BrochureListAdapter extends BaseQuickAdapter<BooksListBean.ResultLi
 
     @Override
     protected void convert(BaseViewHolder helper, BooksListBean.ResultListBean item) {
-        if (helper.getAdapterPosition() == 0) {
-            helper.getView(R.id.iv_brochure_list_adapter_download_item_img).setPadding(15, 0, 0, 0);
-        }
+//        if (helper.getAdapterPosition() == 0) {
+//            helper.getView(R.id.iv_brochure_list_adapter_download_item_img).setPadding(15, 0, 0, 0);
+//        }
         Glide.with(App.getContext()).load(item.getKvUrl()).apply(new RequestOptions().placeholder(R.mipmap.queshengtu)).into((ImageView) helper.getView(R.id.iv_brochure_list_adapter_download_item_img));
         helper.addOnClickListener(R.id.iv_brochure_list_adapter_download_item_img);
         helper.addOnClickListener(R.id.iv_brochure_list_adapter_download_item);

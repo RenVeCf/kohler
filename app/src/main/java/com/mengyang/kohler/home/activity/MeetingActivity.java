@@ -11,16 +11,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
+import com.mengyang.kohler.common.activity.CustomerServiceActivity;
 import com.mengyang.kohler.common.activity.WebViewActivity;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IConstants;
@@ -82,6 +80,8 @@ public class MeetingActivity extends BaseActivity {
     TextView tvMeetingPositionZeroAgendaName;
     @BindView(R.id.ll_meeting_position_zero)
     LinearLayout llMeetingPositionZero;
+    @BindView(R.id.iv_meeting_search_table_number)
+    ImageView ivMeetingSearchTableNumber;
     private PopupWindow mMeetingPopupWindow;
     private View mPopLayout;
     private MeetingBean mMeetingBean;
@@ -160,7 +160,7 @@ public class MeetingActivity extends BaseActivity {
                     public void onSuccess(BasicResponse<MeetingBean> response) {
                         mMeetingBean = response.getData();
                         tvMeetingDesc.setText(mMeetingBean.getMeetingDesc());
-//                        Glide.with(App.getContext()).load(mMeetingBean.getKvUrl()).apply(new RequestOptions().placeholder(R.mipmap.queshengtu)).into();
+                        //                        Glide.with(App.getContext()).load(mMeetingBean.getKvUrl()).apply(new RequestOptions().placeholder(R.mipmap.queshengtu)).into();
                         tvMeetingNextAgendaTime.setText(mMeetingBean.getAgendaList().get(0).getTimeSlot());
                         tvMeetingNextAgendaPosition.setText(mMeetingBean.getAgendaList().get(0).getPlace());
                         tvMeetingNextAgendaName.setText(mMeetingBean.getAgendaList().get(0).getTitle());
@@ -224,7 +224,7 @@ public class MeetingActivity extends BaseActivity {
                 });
     }
 
-    @OnClick({R.id.ll_meeting_position_zero, R.id.iv_meeting_highlights, R.id.ll_meeting_next, R.id.iv_invitation_h5, R.id.ll_meeting_msg_reminder_push, R.id.iv_meeting_vote, R.id.iv_meeting_chat_wall})
+    @OnClick({R.id.iv_meeting_search_table_number, R.id.ll_meeting_position_zero, R.id.iv_meeting_highlights, R.id.ll_meeting_next, R.id.iv_invitation_h5, R.id.ll_meeting_msg_reminder_push, R.id.iv_meeting_vote, R.id.iv_meeting_chat_wall})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_meeting_next:
@@ -268,6 +268,9 @@ public class MeetingActivity extends BaseActivity {
                 tvPopMeetingName.setText(mMeetingBean.getAgendaList().get(0).getTitle());
                 tvPopMeetingAbstract.setText(mMeetingBean.getAgendaList().get(0).getAgendaDesc());
                 mMeetingPopupWindow.showAsDropDown(view, 0, 0);
+                break;
+            case R.id.iv_meeting_search_table_number:
+                startActivity(new Intent(this, CustomerServiceActivity.class));
                 break;
         }
     }

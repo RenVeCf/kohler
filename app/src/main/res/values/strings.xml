@@ -2,8 +2,8 @@
     <string name="app_name">科勒</string>
     <string name="app_name_english">KHOLER.</string>
     <string name="home">首页</string>
-    <string name="whole_category">全品类</string>
-    <string name="ar">AR</string>KOHLER
+    <string name="whole_category">产品清单</string>
+    <string name="ar">AR扫一扫</string>KOHLER
     <string name="account">账户</string>
 
     <array name="tab_main_title">
@@ -66,7 +66,7 @@
     <string name="makeup">梳妆</string>
     <string name="massage_bathtub">按摩浴缸</string>
     <string name="bathtub">浴缸</string>
-    <string name="search">Search SKU</string>
+    <string name="search">产品搜索Search SKU</string>
     <string name="art_design"><![CDATA[Art&Design]]></string>
     <string name="brand_selection">科勒品牌精选</string>
     <string name="kohler_selection">科勒精选</string>
@@ -74,18 +74,18 @@
     <string name="special_recommendation">特别推荐</string>
     <string name="view_all">View All</string>
     <string name="my_brochure">My Brochure</string>
-    <string name="books">图册</string>
+    <string name="books">我的图册</string>
     <string name="where_to_buy">Where to Buy</string>
     <string name="find_shop">查找店铺</string>
     <string name="mine_account">我的账户</string>
     <string name="mine_like">我的收藏</string>
     <string name="reservation_query">预约查询</string>
     <string name="viewed">Viewed</string>
-    <string name="your_browsing">您的浏览</string>
+    <string name="your_browsing">我的浏览</string>
     <string name="commodity_details">商品详情</string>
     <string name="like">收藏</string>
     <string name="go_pay">去购买</string>
-    <string name="dealers_meeting">经销商大会</string>
+    <string name="dealers_meeting">2018科勒中国经销商大会</string>
     <string name="login">登录</string>
     <string name="forget_the_password">忘记密码？</string>
     <string name="input_pwd">请输入密码</string>
@@ -128,7 +128,7 @@
     <string name="name">名字</string>
     <string name="input_name">请输入姓名</string>
     <string name="done">完成</string>
-    <string name="mine_manual">我的手册</string>
+    <string name="mine_manual">我的图册</string>
     <string name="size_diagram">尺寸图</string>
     <string name="installation_instructions">安装说明书</string>
     <string name="purchase_inquiries">购买查询</string>
@@ -136,7 +136,7 @@
     <string name="invitation">邀请函</string>
     <string name="invitation_english">Invitation</string>
     <string name="reminder">Reminder</string>
-    <string name="timed_remind">定点提醒功能</string>
+    <string name="timed_remind">议程提醒</string>
     <string name="time_">时间：</string>
     <string name="ndc">NDC</string>
     <string name="kohler_china_meeting">科勒中国经销商大会</string>
@@ -181,7 +181,7 @@
     <string name="time_of_appointment">预约时间</string>
     <string name="store_address">店铺地址</string>
     <string name="reservation_code">预约码</string>
-    <string name="list_of_books">图册清单</string>
+    <string name="list_of_books">图册列表</string>
     <string name="brochure_list">Brochure List</string>
     <string name="mine_atlas">我的图册</string>
     <string name="confirm_the_replacement">确认更换</string>

@@ -91,7 +91,7 @@ public class VerifyUtils {
 
     /**
      * verify whether letter is only contained
-     * 核实信是否包含
+     * 核实信息是否包含某字符串
      *
      * @param data
      * @return

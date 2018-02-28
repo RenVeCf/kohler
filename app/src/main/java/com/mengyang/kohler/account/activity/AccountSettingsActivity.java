@@ -92,6 +92,9 @@ public class AccountSettingsActivity extends BaseActivity {
                     @Override
                     public void onSuccess(BasicResponse response) {
                         SPUtil.put(App.getContext(), IConstants.IS_LOGIN, false);
+                        SPUtil.put(App.getContext(), IConstants.TOKEN, "");
+                        SPUtil.put(App.getContext(), IConstants.REFRESH_TOKEN, "");
+                        SPUtil.put(App.getContext(), IConstants.TYPE, "");
                         SPUtil.put(App.getContext(), IConstants.USER_NIKE_NAME, App.getContext().getResources().getString(R.string.login_or_register));
                         SPUtil.put(App.getContext(), IConstants.USER_HEAD_PORTRAIT, "");
                         App.destoryActivity("MainActivity");

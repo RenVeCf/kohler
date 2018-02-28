@@ -24,15 +24,15 @@
     <!--android:layout_width="@dimen/x312"
         android:layout_height="@dimen/y117"-->
     <RelativeLayout
-        android:layout_marginStart="@dimen/x140"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/y117"
-        >
+        android:layout_marginStart="@dimen/x100">
+
         <ImageView
             android:id="@+id/iv_title"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@mipmap/select_logo" />
+            android:src="@mipmap/select_logo"/>
 
         <TextView
             android:id="@+id/tv_title_en"
@@ -41,16 +41,16 @@
             android:layout_centerVertical="true"
             android:gravity="bottom"
             android:textColor="#ffffff"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textSize="18sp"
+            android:textStyle="bold"/>
     </RelativeLayout>
-
 
     <LinearLayout
         android:id="@+id/ll_whole_category_tabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/x140"
+        android:layout_marginTop="@dimen/y15"
+        android:layout_marginStart="@dimen/x100"
         android:orientation="horizontal"
         android:paddingBottom="@dimen/y50">
 
@@ -64,14 +64,14 @@
             android:textStyle="bold"/>
 
         <TextView
-            android:visibility="gone"
             android:id="@+id/tv_whole_category_gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/select"
             android:textColor="#ffffff"
             android:textSize="16sp"
-            android:typeface="sans"/>
+            android:typeface="sans"
+            android:visibility="gone"/>
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView

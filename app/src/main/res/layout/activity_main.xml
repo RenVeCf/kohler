@@ -71,7 +71,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/ll_super_toilet_seat"
+                    android:id="@+id/ll_whole_category"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
@@ -80,6 +80,31 @@
 
                     <ImageView
                         style="@style/MenuIconStyle"
+                        android:background="@mipmap/side_category"/>
+
+                    <TextView
+                        style="@style/MenuStyle"
+                        android:text="@string/whole_category"/>
+
+                    <ImageView
+                        android:id="@+id/iv_whole_category"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/x180"
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/arrow_down"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_super_toilet_seat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/y120">
+
+                    <ImageView
+                        style="@style/MenuIconStyle_item"
                         android:background="@mipmap/yitizuobianqi"/>
 
                     <TextView
@@ -97,7 +122,7 @@
                     android:paddingBottom="@dimen/y120">
 
                     <ImageView
-                        style="@style/MenuIconStyle"
+                        style="@style/MenuIconStyle_item"
                         android:background="@mipmap/zuobianqi"/>
 
                     <TextView
@@ -114,7 +139,7 @@
                     android:paddingBottom="@dimen/y120">
 
                     <ImageView
-                        style="@style/MenuIconStyle"
+                        style="@style/MenuIconStyle_item"
                         android:background="@mipmap/zuobianqigaiban"/>
 
                     <TextView
@@ -131,7 +156,7 @@
                     android:paddingBottom="@dimen/y120">
 
                     <ImageView
-                        style="@style/MenuIconStyle"
+                        style="@style/MenuIconStyle_item"
                         android:background="@mipmap/c3"/>
 
                     <TextView
@@ -148,7 +173,7 @@
                     android:paddingBottom="@dimen/y120">
 
                     <ImageView
-                        style="@style/MenuIconStyle"
+                        style="@style/MenuIconStyle_item"
                         android:background="@mipmap/yushipeijian"/>
 
                     <TextView
@@ -165,7 +190,7 @@
                     android:paddingBottom="@dimen/y120">
 
                     <ImageView
-                        style="@style/MenuIconStyle"
+                        style="@style/MenuIconStyle_item"
                         android:background="@mipmap/cizhuangshicai"/>
 
                     <TextView
@@ -182,7 +207,7 @@
                     android:paddingBottom="@dimen/y120">
 
                     <ImageView
-                        style="@style/MenuIconStyle"
+                        style="@style/MenuIconStyle_item"
                         android:background="@mipmap/shuzhuang"/>
 
                     <TextView
@@ -199,7 +224,7 @@
                     android:paddingBottom="@dimen/y120">
 
                     <ImageView
-                        style="@style/MenuIconStyle"
+                        style="@style/MenuIconStyle_item"
                         android:background="@mipmap/yushilongtou"/>
 
                     <TextView
@@ -216,7 +241,7 @@
                     android:paddingBottom="@dimen/y120">
 
                     <ImageView
-                        style="@style/MenuIconStyle"
+                        style="@style/MenuIconStyle_item"
                         android:background="@mipmap/liyulongtou"/>
 
                     <TextView
@@ -233,7 +258,7 @@
                     android:paddingBottom="@dimen/y120">
 
                     <ImageView
-                        style="@style/MenuIconStyle"
+                        style="@style/MenuIconStyle_item"
                         android:background="@mipmap/liyufang"/>
 
                     <TextView
@@ -250,7 +275,7 @@
                     android:paddingBottom="@dimen/y120">
 
                     <ImageView
-                        style="@style/MenuIconStyle"
+                        style="@style/MenuIconStyle_item"
                         android:background="@mipmap/zhengqishebei"/>
 
                     <TextView
@@ -267,7 +292,7 @@
                     android:paddingBottom="@dimen/y120">
 
                     <ImageView
-                        style="@style/MenuIconStyle"
+                        style="@style/MenuIconStyle_item"
                         android:background="@mipmap/yugang"/>
 
                     <TextView
@@ -284,7 +309,7 @@
                     android:paddingBottom="@dimen/y120">
 
                     <ImageView
-                        style="@style/MenuIconStyle"
+                        style="@style/MenuIconStyle_item"
                         android:background="@mipmap/anmoyugang"/>
 
                     <TextView
@@ -301,7 +326,7 @@
                     android:paddingBottom="@dimen/y120">
 
                     <ImageView
-                        style="@style/MenuIconStyle"
+                        style="@style/MenuIconStyle_item"
                         android:background="@mipmap/anmoyugang"/>
 
                     <TextView
@@ -318,7 +343,7 @@
                     android:paddingBottom="@dimen/y120">
 
                     <ImageView
-                        style="@style/MenuIconStyle"
+                        style="@style/MenuIconStyle_item"
                         android:background="@mipmap/shangyongchanpin"/>
 
                     <TextView

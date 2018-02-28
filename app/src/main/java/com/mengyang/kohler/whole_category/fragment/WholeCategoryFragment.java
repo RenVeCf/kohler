@@ -3,7 +3,6 @@ package com.mengyang.kohler.whole_category.fragment;
 import android.annotation.SuppressLint;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -68,9 +67,9 @@ public class WholeCategoryFragment extends BaseFragment implements StackLayoutMa
         ImmersionBar.setTitleBar(getActivity(), tvWholeCategoryTop);
 
         //        if (SPUtil.get(App.getContext(), IConstants.TYPE, "").equals("dealer"))
-        ivTopCustomerService.setVisibility(View.VISIBLE);
+        //            ivTopCustomerService.setVisibility(View.VISIBLE);
         //        else
-        //            ivTopCustomerService.setVisibility(View.GONE);
+        ivTopCustomerService.setVisibility(View.GONE);
         ivTopCustomerService.setImageResource(R.mipmap.kefubai);
         ivTopSystemMsg.setImageResource(R.mipmap.youxiangbai);
 
@@ -141,8 +140,8 @@ public class WholeCategoryFragment extends BaseFragment implements StackLayoutMa
             tv_whole_category_visible.setText("科勒精选");
             //            mTvTitleEn.setText(mNotSelectClassificationPositiveSequenceBean.get(position).getNameEn());
         } else {
-            tv_whole_category_visible.setText(mNotSelectClassificationPositiveSequenceBean.get(position).getNameCn());
-            mTvTitleEn.setText(mNotSelectClassificationPositiveSequenceBean.get(position).getNameEn());
+            tv_whole_category_visible.setText(mNotSelectClassificationPositiveSequenceBean.get(position).getNameEn());
+            mTvTitleEn.setText(mNotSelectClassificationPositiveSequenceBean.get(position).getNameCn());
             mIvTitle.setVisibility(View.GONE);
             mTvTitleEn.setVisibility(View.VISIBLE);
         }

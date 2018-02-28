@@ -273,7 +273,8 @@ public class AccountFragment extends BaseFragment implements BaseQuickAdapter.Re
                                          * 如果返回true，数据全部加载完毕后会隐藏加载更多
                                          * 如果返回false，数据全部加载完毕后会显示getLoadEndViewId()布局
                                          */
-                                        @Override public boolean isLoadEndGone() {
+                                        @Override
+                                        public boolean isLoadEndGone() {
                                             return true;
                                         }
 
@@ -292,9 +293,9 @@ public class AccountFragment extends BaseFragment implements BaseQuickAdapter.Re
                                             return 0;
                                         }
                                     });
-                                    mFootPrintAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                                    mFootPrintAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                                         @Override
-                                        public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                                        public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                                             startActivity(new Intent(getActivity(), CommodityDetailsActivity.class).putExtra("CommodityDetails_two", mFootPrintBean.get(position).getSkuCode()));
                                         }
                                     });
@@ -387,12 +388,12 @@ public class AccountFragment extends BaseFragment implements BaseQuickAdapter.Re
                     Bitmap obmp = Bitmap.createBitmap(civAccountTitle.getDrawingCache());
                     ivAccountModifyTitleImg.setImageBitmap(obmp);
                     civAccountTitle.setDrawingCacheEnabled(false);
-//                    mAccountTitleImgPopupWindow.showAsDropDown(view, 0, 0);
+                    //                    mAccountTitleImgPopupWindow.showAsDropDown(view, 0, 0);
 
-                    if (Build.VERSION.SDK_INT == 24){//android7.0需要单独做适配
+                    if (Build.VERSION.SDK_INT == 24) {//android7.0需要单独做适配
                         mAccountTitleImgPopupWindow.showAtLocation(view, Gravity.NO_GRAVITY, 0, getStatusBarHeight());
                     } else {
-                        mAccountTitleImgPopupWindow.showAtLocation(view, Gravity.NO_GRAVITY,0, 0);
+                        mAccountTitleImgPopupWindow.showAtLocation(view, Gravity.NO_GRAVITY, 0, 0);
                     }
                 } else {
                     startActivity(new Intent(getActivity(), LoginActivity.class));

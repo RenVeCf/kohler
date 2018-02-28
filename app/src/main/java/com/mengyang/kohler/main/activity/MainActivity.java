@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -13,9 +14,13 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
@@ -30,7 +35,6 @@ import com.mengyang.kohler.ar.ARFragment;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.net.IdeaApi;
-import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.view.ResideLayout;
 import com.mengyang.kohler.home.activity.MineManualActivity;
@@ -57,7 +61,10 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE,
     };
-
+    @BindView(R.id.iv_whole_category)
+    ImageView ivWholeCategory;
+    @BindView(R.id.ll_whole_category)
+    LinearLayout llWholeCategory;
     @BindView(R.id.ll_nearby_shops)
     LinearLayout llNearbyShops;
     @BindView(R.id.ll_account_manual)
@@ -120,6 +127,9 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
     private AccountFragment mAccountFragment = new AccountFragment();
     private long exitTime;
     private boolean mIsUnableToDrag = true;
+    private PopupWindow mNoJurisdictionPopupWindow;
+    private View mPopLayout;
+    private int mFlag = 0;
 
     private int[] arr = {1, 2, 3};
 
@@ -143,7 +153,15 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
 
         //        //加载adapter
         //        cvpMainViewpager.setAdapter(new MyAdapter(getSupportFragmentManager(), setfargment()));
-
+        mNoJurisdictionPopupWindow = new PopupWindow(this);
+        mNoJurisdictionPopupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
+        mNoJurisdictionPopupWindow.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
+        LayoutInflater inflater = LayoutInflater.from(App.getContext());
+        mPopLayout = inflater.inflate(R.layout.popup_window_no_jurisdictuon, null);
+        mNoJurisdictionPopupWindow.setContentView(mPopLayout);
+        mNoJurisdictionPopupWindow.setBackgroundDrawable(new ColorDrawable(0x4c000000));
+        mNoJurisdictionPopupWindow.setOutsideTouchable(false);
+        mNoJurisdictionPopupWindow.setFocusable(true);
 
         checkPermissions();//检查权限
     }
@@ -279,7 +297,7 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
         rlMain.openPane();
     }
 
-    @OnClick({R.id.ll_toilet_heater, R.id.ll_nearby_shops, R.id.ll_account_manual, R.id.ll_super_toilet_seat, R.id.ll_toilet_seat, R.id.ll_toilet_seat_cover, R.id.ll_qing_shu_bao_toilet_seat, R.id.ll_shower_room_parts, R.id.ll_ceramic_tile, R.id.ll_makeup, R.id.ll_shower_room_nozzle, R.id.ll_shower_nozzle, R.id.ll_shower_room, R.id.ll_steam_equipment, R.id.ll_bathtub, R.id.ll_massage_bathtub, R.id.ll_commercial_products, R.id.bt_home, R.id.bt_whole_category, R.id.bt_ar, R.id.bt_account})
+    @OnClick({R.id.ll_whole_category, R.id.ll_toilet_heater, R.id.ll_nearby_shops, R.id.ll_account_manual, R.id.ll_super_toilet_seat, R.id.ll_toilet_seat, R.id.ll_toilet_seat_cover, R.id.ll_qing_shu_bao_toilet_seat, R.id.ll_shower_room_parts, R.id.ll_ceramic_tile, R.id.ll_makeup, R.id.ll_shower_room_nozzle, R.id.ll_shower_nozzle, R.id.ll_shower_room, R.id.ll_steam_equipment, R.id.ll_bathtub, R.id.ll_massage_bathtub, R.id.ll_commercial_products, R.id.bt_home, R.id.bt_whole_category, R.id.bt_ar, R.id.bt_account})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_nearby_shops:
@@ -289,6 +307,8 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 if (((boolean) SPUtil.get(this, IConstants.IS_LOGIN, false)) == true) {
                     if (SPUtil.get(this, IConstants.TYPE, "").equals("dealer") || SPUtil.get(this, IConstants.TYPE, "").equals("designer"))
                         startActivity(new Intent(this, MineManualActivity.class));
+                    else
+                        mNoJurisdictionPopupWindow.showAsDropDown(view, 0, 0);
                 } else {
                     startActivity(new Intent(this, LoginActivity.class));
                 }
@@ -391,6 +411,45 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 mIsUnableToDrag = true;
                 new ResideLayout(this, mIsUnableToDrag);
                 view_line.setVisibility(View.VISIBLE);
+                break;
+            case R.id.ll_whole_category:
+                if (mFlag == 0) {
+                    ivWholeCategory.setImageDrawable(getResources().getDrawable(R.mipmap.arrow));
+                    llSuperToiletSeat.setVisibility(View.GONE);
+                    llToiletSeat.setVisibility(View.GONE);
+                    llToiletSeatCover.setVisibility(View.GONE);
+                    llQingShuBaoToiletSeat.setVisibility(View.GONE);
+                    llShowerRoomParts.setVisibility(View.GONE);
+                    llCeramicTile.setVisibility(View.GONE);
+                    llMakeup.setVisibility(View.GONE);
+                    llShowerRoomNozzle.setVisibility(View.GONE);
+                    llShowerNozzle.setVisibility(View.GONE);
+                    llSteamEquipment.setVisibility(View.GONE);
+                    llBathtub.setVisibility(View.GONE);
+                    llMassageBathtub.setVisibility(View.GONE);
+                    llToiletHeater.setVisibility(View.GONE);
+                    llCommercialProducts.setVisibility(View.GONE);
+                    llShowerRoom.setVisibility(View.GONE);
+                    mFlag = 1;
+                } else {
+                    ivWholeCategory.setImageDrawable(getResources().getDrawable(R.mipmap.arrow_down));
+                    llSuperToiletSeat.setVisibility(View.VISIBLE);
+                    llToiletSeat.setVisibility(View.VISIBLE);
+                    llToiletSeatCover.setVisibility(View.VISIBLE);
+                    llQingShuBaoToiletSeat.setVisibility(View.VISIBLE);
+                    llShowerRoomParts.setVisibility(View.VISIBLE);
+                    llCeramicTile.setVisibility(View.VISIBLE);
+                    llMakeup.setVisibility(View.VISIBLE);
+                    llShowerRoomNozzle.setVisibility(View.VISIBLE);
+                    llShowerNozzle.setVisibility(View.VISIBLE);
+                    llSteamEquipment.setVisibility(View.VISIBLE);
+                    llBathtub.setVisibility(View.VISIBLE);
+                    llMassageBathtub.setVisibility(View.VISIBLE);
+                    llToiletHeater.setVisibility(View.VISIBLE);
+                    llCommercialProducts.setVisibility(View.VISIBLE);
+                    llShowerRoom.setVisibility(View.VISIBLE);
+                    mFlag = 0;
+                }
                 break;
             default:
                 break;
@@ -515,5 +574,9 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
         builder.setCancelable(false);
 
         builder.show();
+    }
+
+    @OnClick()
+    public void onViewClicked() {
     }
 }

@@ -42,15 +42,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#252525"
-                android:textSize="22sp"
-                android:text="@string/brochure_list"/>
+                android:textSize="18sp"
+                android:text="@string/list_of_books"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#9e9e9e"
                 android:textSize="10sp"
-                android:text="@string/list_of_books"/>
+                android:text="@string/brochure_list"/>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_mine_manual_brochure_list"
@@ -63,15 +63,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/y68"
                 android:textColor="#252525"
-                android:textSize="22sp"
-                android:text="@string/my_brochure"/>
+                android:textSize="18sp"
+                android:text="@string/mine_atlas"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#9e9e9e"
                 android:textSize="10sp"
-                android:text="@string/mine_atlas"/>
+                android:text="@string/my_brochure"/>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_mine_manual_my_brochure"

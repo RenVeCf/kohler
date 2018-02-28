@@ -8,7 +8,8 @@
     <ImageView
         android:id="@+id/iv_foot_print"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y237"/>
+        android:layout_height="@dimen/y237"
+        android:scaleType="centerCrop"/>
 
     <TextView
         android:id="@+id/tv_foot_print_top"

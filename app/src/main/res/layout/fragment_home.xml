@@ -117,17 +117,17 @@
                     android:id="@+id/tv_my_brochure_top"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/my_brochure"
-                    android:textColor="#252525"
-                    android:textSize="22sp"/>
+                    android:text="@string/books"
+                    android:textSize="18sp"
+                    android:textColor="#252525"/>
 
                 <TextView
                     android:id="@+id/tv_my_brochure_donw"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/books"
-                    android:textColor="#9e9e9e"
-                    android:textSize="10sp"/>
+                    android:text="@string/my_brochure"
+                    android:textSize="10sp"
+                    android:textColor="#9e9e9e"/>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_home_books"

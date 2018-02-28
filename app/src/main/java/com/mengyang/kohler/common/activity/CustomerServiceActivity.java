@@ -57,8 +57,8 @@ public class CustomerServiceActivity extends BaseActivity {
     @Override
     protected void initValues() {
         App.getManager().addActivity(this);
-        //防止状态栏和标题重叠
-        ImmersionBar.setTitleBar(this, tvCustomerServiceTop);
+//        //防止状态栏和标题重叠
+//        ImmersionBar.setTitleBar(this, tvCustomerServiceTop);
         initAdapter();
     }
 

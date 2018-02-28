@@ -4,16 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -25,7 +22,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.gyf.barlibrary.ImmersionBar;
 import com.kohler.arscan.DownloadActivity;
-import com.kohler.arscan.UnityPlayerActivity;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseFragment;
 import com.mengyang.kohler.R;
@@ -113,11 +109,11 @@ public class HomeFragment extends BaseFragment {
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(getActivity(), tvHomeTop);
 
-        //        if (SPUtil.get(App.getContext(), IConstants.TYPE, "").equals("dealer")) {
-        ivTopCustomerService.setVisibility(View.VISIBLE);
-        //        } else {
-        //            ivTopCustomerService.setVisibility(View.GONE);
-        //        }
+//        if (SPUtil.get(App.getContext(), IConstants.TYPE, "").equals("dealer")) {
+//            ivTopCustomerService.setVisibility(View.VISIBLE);
+//        } else {
+            ivTopCustomerService.setVisibility(View.GONE);
+//        }
         //轮播
         abHomeLoop.measure(0, 0);
         // 设置管理器
@@ -229,9 +225,9 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void clearFocus() {
-//        etHomeSearch.clearFocus();
-//        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-//        imm.hideSoftInputFromWindow(etHomeSearch.getWindowToken(),0);
+        //        etHomeSearch.clearFocus();
+        //        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        //        imm.hideSoftInputFromWindow(etHomeSearch.getWindowToken(),0);
     }
 
     @Override
@@ -285,15 +281,16 @@ public class HomeFragment extends BaseFragment {
                                 } else {
                                     if (postion == 0) {
                                         startActivity(new Intent(getActivity(), LoginActivity.class));
-                                    } else {
+                                    } else if (postion == 1) {
                                         Intent intent = new Intent(getActivity(), DownloadActivity.class);
                                         startActivity(intent);
-//                                        if (mHomeIndexBean.getKvList().get(postion).getClickRedirect() != null && !mHomeIndexBean.getKvList().get(postion).getClickRedirect().equals("")) {
-//                                            mH5_URL = mHomeIndexBean.getKvList().get(postion).getClickRedirect() + "";
-//                                        } else if (mHomeIndexBean.getKvList().get(postion).getH5Url() != null && !mHomeIndexBean.getKvList().get(postion).getH5Url().equals("")) {
-//                                            mH5_URL = mHomeIndexBean.getKvList().get(postion).getH5Url() + "";
-//                                        }
-//                                        startActivity(new Intent(getActivity(), WebViewActivity.class).putExtra("h5url", mH5_URL));
+                                    } else {
+                                        if (mHomeIndexBean.getKvList().get(postion).getClickRedirect() != null && !mHomeIndexBean.getKvList().get(postion).getClickRedirect().equals("")) {
+                                            mH5_URL = mHomeIndexBean.getKvList().get(postion).getClickRedirect() + "";
+                                        } else if (mHomeIndexBean.getKvList().get(postion).getH5Url() != null && !mHomeIndexBean.getKvList().get(postion).getH5Url().equals("")) {
+                                            mH5_URL = mHomeIndexBean.getKvList().get(postion).getH5Url() + "";
+                                        }
+                                        startActivity(new Intent(getActivity(), WebViewActivity.class).putExtra("h5url", mH5_URL));
                                     }
                                 }
                             }
@@ -335,7 +332,6 @@ public class HomeFragment extends BaseFragment {
                         //数据源
                         abHomeLoop.setInfoList((ArrayList<AdPageInfo>) mDatas);
                         abHomeLoop.setUp();
-
 
 
                     }
