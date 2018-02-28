@@ -75,7 +75,7 @@ public class AccountBindPhoneActivity extends BaseActivity {
                 //输入文字后的状态
                 if (etModifyBindPhoneOldNum.getText().toString().trim().length() == 11 && VerifyUtils.isMobileNumber(etModifyBindPhoneOldNum.getText().toString().trim())) {
 
-                } else {
+                } else if (etModifyBindPhoneOldNum.getText().toString().trim().length() == 11){
                     ToastUtil.showToast("请输入正确的手机号码！");
                     etModifyBindPhoneOldNum.setText("");
                 }
@@ -159,7 +159,7 @@ public class AccountBindPhoneActivity extends BaseActivity {
                     ToastUtil.showToast(getString(R.string.msg_no_ok));
                 break;
             case R.id.bt_modify_bind_phone_determine:
-                if (!etModifyBindPhoneOldNum.getText().toString().trim().equals("") && !etModifyBindPhoneNewNum.getText().toString().trim().equals("") && !etModifyBindPhoneVerificationCode.getText().toString().trim().equals("") && !etModifyBindPhonePwd.getText().toString().trim().equals(""))
+                if (!etModifyBindPhoneOldNum.getText().toString().trim().equals("") && !etModifyBindPhoneNewNum.getText().toString().trim().equals("") && !etModifyBindPhoneVerificationCode.getText().toString().trim().equals("") && !etModifyBindPhonePwd.getText().toString().trim().equals("") && etModifyBindPhoneOldNum.getText().toString().trim().length() == 11)
                     ModifyBindPhone();
                 else
                     ToastUtil.showToast(getString(R.string.msg_no_ok));

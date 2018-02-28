@@ -97,7 +97,7 @@ public class LoginActivity extends BaseActivity {
                 //输入文字后的状态
                 if (etLoginPhoneNum.getText().toString().trim().length() == 11 && VerifyUtils.isMobileNumber(etLoginPhoneNum.getText().toString().trim())) {
 
-                } else {
+                } else if (etLoginPhoneNum.getText().toString().trim().length() == 11) {
                     ToastUtil.showToast("请输入正确的手机号码！");
                     etLoginPhoneNum.setText("");
                 }
@@ -204,7 +204,7 @@ public class LoginActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.bt_login:
-                if (!etLoginPhoneNum.getText().toString().trim().equals("") && !etLoginPwd.getText().toString().trim().equals("") && !etLoginVerificationCode.getText().toString().trim().equals("")) {
+                if (!etLoginPhoneNum.getText().toString().trim().equals("") && !etLoginPwd.getText().toString().trim().equals("") && !etLoginVerificationCode.getText().toString().trim().equals("") && etLoginPhoneNum.getText().toString().trim().length() == 11) {
                     Login();
                 } else {
                     ToastUtil.showToast(getString(R.string.msg_no_ok));

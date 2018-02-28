@@ -80,7 +80,7 @@ public class DistributorRegisterActivity extends BaseActivity {
                 //输入文字后的状态
                 if (etDistributorRegisterPhoneNum.getText().toString().trim().length() == 11 && VerifyUtils.isMobileNumber(etDistributorRegisterPhoneNum.getText().toString().trim())) {
 
-                } else {
+                } else if (etDistributorRegisterPhoneNum.getText().toString().trim().length() == 11){
                     ToastUtil.showToast("请输入正确的手机号码！");
                     etDistributorRegisterPhoneNum.setText("");
                 }
@@ -125,7 +125,7 @@ public class DistributorRegisterActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.bt_distributor_register:
-                if (!etDistributorRegisterPhoneNum.getText().toString().trim().equals("") && !etDistributorRegisterPhoneNumAgain.getText().toString().trim().equals("") && !etDistributorRegisterDistributorCode.getText().toString().trim().equals("") && !etDistributorRegisterLoginPwd.getText().toString().trim().equals("")) {
+                if (!etDistributorRegisterPhoneNum.getText().toString().trim().equals("") && !etDistributorRegisterPhoneNumAgain.getText().toString().trim().equals("") && !etDistributorRegisterDistributorCode.getText().toString().trim().equals("") && !etDistributorRegisterLoginPwd.getText().toString().trim().equals("") && etDistributorRegisterPhoneNum.getText().toString().trim().length() == 11) {
                     if (etDistributorRegisterPhoneNum.getText().toString().trim().equals(etDistributorRegisterPhoneNumAgain.getText().toString().trim()))
                         ModifyBindPhone();
                     else

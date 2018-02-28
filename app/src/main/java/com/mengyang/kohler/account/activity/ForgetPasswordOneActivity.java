@@ -73,7 +73,7 @@ public class ForgetPasswordOneActivity extends BaseActivity {
                 //输入文字后的状态
                 if (etForgetPasswordOnePhoneNum.getText().toString().trim().length() == 11 && VerifyUtils.isMobileNumber(etForgetPasswordOnePhoneNum.getText().toString().trim())) {
 
-                } else {
+                } else if (etForgetPasswordOnePhoneNum.getText().toString().trim().length() == 11){
                     ToastUtil.showToast("请输入正确的手机号码！");
                     etForgetPasswordOnePhoneNum.setText("");
                 }
@@ -107,13 +107,13 @@ public class ForgetPasswordOneActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_forget_password_one_send_phone_num:
-                if (!etForgetPasswordOnePhoneNum.getText().toString().trim().equals(""))
+                if (!etForgetPasswordOnePhoneNum.getText().toString().trim().equals("") && etForgetPasswordOnePhoneNum.getText().toString().trim().length() == 11)
                     LoginSMS();
                 else
                     ToastUtil.showToast(getString(R.string.msg_no_ok));
                 break;
             case R.id.bt_forget_password_one_next:
-                if (!etForgetPasswordOnePhoneNum.getText().toString().trim().equals("") && !etForgetPasswordOneVerificationCode.getText().toString().trim().equals("")) {
+                if (!etForgetPasswordOnePhoneNum.getText().toString().trim().equals("") && !etForgetPasswordOneVerificationCode.getText().toString().trim().equals("") && etForgetPasswordOnePhoneNum.getText().toString().trim().length() == 11) {
                     startActivity(new Intent(ForgetPasswordOneActivity.this, ForgetPasswordTwoActivity.class).putExtra("mobileNo", etForgetPasswordOnePhoneNum.getText().toString().trim() + "").putExtra("verifyCode", etForgetPasswordOneVerificationCode.getText().toString().trim() + ""));
                     finish();
                 }

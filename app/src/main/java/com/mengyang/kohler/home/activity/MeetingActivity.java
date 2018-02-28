@@ -109,6 +109,12 @@ public class MeetingActivity extends BaseActivity {
         mMeetingPopupWindow.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
         LayoutInflater inflater = LayoutInflater.from(App.getContext());
         mPopLayout = inflater.inflate(R.layout.popup_window_meeting, null);
+        mPopLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mMeetingPopupWindow.dismiss();
+        }
+        });
         mMeetingPopupWindow.setContentView(mPopLayout);
         mMeetingPopupWindow.setBackgroundDrawable(new ColorDrawable(0x4c000000));
         mMeetingPopupWindow.setOutsideTouchable(false);

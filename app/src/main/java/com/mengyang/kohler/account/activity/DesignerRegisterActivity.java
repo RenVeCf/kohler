@@ -103,7 +103,7 @@ public class DesignerRegisterActivity extends BaseActivity {
                 //输入文字后的状态
                 if (etDesignerRegisterPhoneNum.getText().toString().trim().length() == 11 && VerifyUtils.isMobileNumber(etDesignerRegisterPhoneNum.getText().toString().trim())) {
 
-                } else {
+                } else if (etDesignerRegisterPhoneNum.getText().toString().trim().length() == 11){
                     ToastUtil.showToast("请输入正确的手机号码！");
                     etDesignerRegisterPhoneNum.setText("");
                 }
@@ -213,14 +213,13 @@ public class DesignerRegisterActivity extends BaseActivity {
                 initData();
                 break;
             case R.id.bt_designer_register_send_out_sms:
-                if (!etDesignerRegisterPhoneNum.getText().toString().trim().equals(""))
+                if (!etDesignerRegisterPhoneNum.getText().toString().trim().equals("") && etDesignerRegisterPhoneNum.getText().toString().trim().length() == 11)
                     LoginSMS();
                 else
                     ToastUtil.showToast(getString(R.string.msg_no_ok));
-                //                    SendSMS();
                 break;
             case R.id.bt_designer_register:
-                if (!etDesignerRegisterPhoneNum.getText().toString().trim().equals("") && !etDesignerRegisterVerificationCode.getText().toString().trim().equals("") && !etDesignerRegisterSmsVerificationCode.getText().toString().trim().equals("") && !etDesignerRegisterPwd.getText().toString().trim().equals("")) {
+                if (!etDesignerRegisterPhoneNum.getText().toString().trim().equals("") && !etDesignerRegisterVerificationCode.getText().toString().trim().equals("") && !etDesignerRegisterSmsVerificationCode.getText().toString().trim().equals("") && !etDesignerRegisterPwd.getText().toString().trim().equals("") && etDesignerRegisterPhoneNum.getText().toString().trim().length() == 11) {
                     ModifyBindPhone();
                 } else {
                     ToastUtil.showToast(getString(R.string.msg_no_ok));
