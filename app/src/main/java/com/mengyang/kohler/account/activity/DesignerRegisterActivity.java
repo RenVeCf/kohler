@@ -3,8 +3,6 @@ package com.mengyang.kohler.account.activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -21,7 +19,6 @@ import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.net.IdeaApiService;
 import com.mengyang.kohler.common.utils.DateUtils;
 import com.mengyang.kohler.common.utils.ToastUtil;
-import com.mengyang.kohler.common.utils.VerifyUtils;
 import com.mengyang.kohler.main.activity.MainActivity;
 import com.mengyang.kohler.module.BasicResponse;
 
@@ -33,6 +30,8 @@ import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.jpush.sms.SMSSDK;
+import cn.jpush.sms.listener.SmscodeListener;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.Call;
@@ -71,6 +70,9 @@ public class DesignerRegisterActivity extends BaseActivity {
     TextView tvDesignerRegisterGoUserRegister;
     @BindView(R.id.tv_designer_register_go_distributor_register)
     TextView tvDesignerRegisterGoDistributorRegister;
+    private TimerTask timerTask;
+    private Timer timer;
+    private int timess;
     private byte[] bytes;//图片验证码进制流
     private String time;
 
@@ -87,28 +89,7 @@ public class DesignerRegisterActivity extends BaseActivity {
 
     @Override
     protected void initListener() {
-        etDesignerRegisterPhoneNum.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                //输入文本之前的状态
-            }
 
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                //输入文字中的状态，count是一次性输入字符数
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                //输入文字后的状态
-                if (etDesignerRegisterPhoneNum.getText().toString().trim().length() == 11 && VerifyUtils.isMobileNumber(etDesignerRegisterPhoneNum.getText().toString().trim())) {
-
-                } else if (etDesignerRegisterPhoneNum.getText().toString().trim().length() == 11){
-                    ToastUtil.showToast("请输入正确的手机号码！");
-                    etDesignerRegisterPhoneNum.setText("");
-                }
-            }
-        });
     }
 
     @Override
@@ -161,6 +142,26 @@ public class DesignerRegisterActivity extends BaseActivity {
         });
     }
 
+    //发送短信验证码
+    private void SendSMS() {
+        btDesignerRegisterSendOutSms.setClickable(false);
+        //开始倒计时
+        startTimer();
+        SMSSDK.getInstance().getSmsCodeAsyn(etDesignerRegisterPhoneNum.getText().toString().trim(), 1 + "", new SmscodeListener() {
+            @Override
+            public void getCodeSuccess(final String uuid) {
+                ToastUtil.showToast(uuid);
+            }
+
+            @Override
+            public void getCodeFail(int errCode, final String errmsg) {
+                //失败后停止计时
+                stopTimer();
+                ToastUtil.showToast(errmsg);
+            }
+        });
+    }
+
     private void LoginSMS() {
         Map<String, String> stringMap = IdeaApi.getSign();
         stringMap.put("mobileNo", etDesignerRegisterPhoneNum.getText().toString().trim());//手机号码
@@ -179,9 +180,12 @@ public class DesignerRegisterActivity extends BaseActivity {
     }
 
     private void ModifyBindPhone() {
+        //        SMSSDK.getInstance().checkSmsCodeAsyn(etDesignerRegisterPhoneNum.getText().toString().trim(), etDesignerRegisterSmsVerificationCode.getText().toString().trim(), new SmscheckListener() {
+        //            @Override
+        //            public void checkCodeSuccess(final String code) {
         Map<String, String> stringMap = IdeaApi.getSign();
         stringMap.put("mobileNo", etDesignerRegisterPhoneNum.getText().toString().trim());//手机号码
-        stringMap.put("code", etDesignerRegisterVerificationCode.getText().toString().trim());//验证码
+        stringMap.put("inviteCode", etDesignerRegisterVerificationCode.getText().toString().trim());//验证码
         stringMap.put("verifyCode", "111111");//etDesignerRegisterSmsVerificationCode.getText().toString().trim());//短信验证码
         stringMap.put("password", etDesignerRegisterPwd.getText().toString().trim());//用户密码
         stringMap.put("type", "designer");//用户类型
@@ -201,6 +205,53 @@ public class DesignerRegisterActivity extends BaseActivity {
                     }
                 });
     }
+    //
+    //            @Override
+    //            public void checkCodeFail(int errCode, final String errmsg) {
+    //                ToastUtil.showToast(errmsg);
+    //            }
+    //        });
+    //    }
+
+    private void startTimer() {
+        timess = (int) (SMSSDK.getInstance().getIntervalTime() / 1000);
+        btDesignerRegisterSendOutSms.setText(timess + "s");
+        if (timerTask == null) {
+            timerTask = new TimerTask() {
+                @Override
+                public void run() {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            timess--;
+                            if (timess <= 0) {
+                                stopTimer();
+                                return;
+                            }
+                            btDesignerRegisterSendOutSms.setText(timess + "s");
+                        }
+                    });
+                }
+            };
+        }
+        if (timer == null) {
+            timer = new Timer();
+        }
+        timer.schedule(timerTask, 1000, 1000);
+    }
+
+    private void stopTimer() {
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
+        }
+        if (timerTask != null) {
+            timerTask.cancel();
+            timerTask = null;
+        }
+        btDesignerRegisterSendOutSms.setText("重新获取");
+        btDesignerRegisterSendOutSms.setClickable(true);
+    }
 
     @OnClick({R.id.iv_designer_register_go_home, R.id.iv_designer_register_verification_code, R.id.bt_designer_register_send_out_sms, R.id.bt_designer_register, R.id.tv_designer_register_go_login, R.id.tv_designer_register_go_user_register, R.id.tv_designer_register_go_distributor_register})
     public void onViewClicked(View view) {
@@ -213,16 +264,29 @@ public class DesignerRegisterActivity extends BaseActivity {
                 initData();
                 break;
             case R.id.bt_designer_register_send_out_sms:
-                if (!etDesignerRegisterPhoneNum.getText().toString().trim().equals("") && etDesignerRegisterPhoneNum.getText().toString().trim().length() == 11)
+                if (!etDesignerRegisterPhoneNum.getText().toString().trim().equals("")) {
                     LoginSMS();
-                else
+                } else {
                     ToastUtil.showToast(getString(R.string.msg_no_ok));
+                }
+                //                    SendSMS();
                 break;
             case R.id.bt_designer_register:
-                if (!etDesignerRegisterPhoneNum.getText().toString().trim().equals("") && !etDesignerRegisterVerificationCode.getText().toString().trim().equals("") && !etDesignerRegisterSmsVerificationCode.getText().toString().trim().equals("") && !etDesignerRegisterPwd.getText().toString().trim().equals("") && etDesignerRegisterPhoneNum.getText().toString().trim().length() == 11) {
+                String phoneNum = etDesignerRegisterPhoneNum.getText().toString().trim();
+                String verificationCode = etDesignerRegisterVerificationCode.getText().toString().trim();
+                String smsCode = etDesignerRegisterSmsVerificationCode.getText().toString().trim();
+                String registerPwd = etDesignerRegisterPwd.getText().toString().trim();
+
+                if (checkPwd(registerPwd)) {
+                    ToastUtil.showToast("密码格式不正确");
+                    return;
+                }
+
+                if (!phoneNum.equals("") && !verificationCode.equals("") && !smsCode.equals("") && !registerPwd.equals("")) {
                     ModifyBindPhone();
                 } else {
                     ToastUtil.showToast(getString(R.string.msg_no_ok));
+                    return;
                 }
                 break;
             case R.id.tv_designer_register_go_login:
@@ -236,6 +300,8 @@ public class DesignerRegisterActivity extends BaseActivity {
             case R.id.tv_designer_register_go_distributor_register:
                 startActivity(new Intent(this, DistributorRegisterActivity.class));
                 finish();
+                break;
+            default:
                 break;
         }
     }

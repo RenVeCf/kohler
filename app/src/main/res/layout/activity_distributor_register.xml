@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:background="@color/white"
     android:orientation="vertical"
     tools:context="com.mengyang.kohler.account.activity.DistributorRegisterActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/y327"
+        android:background="@color/white"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -71,6 +71,7 @@
                 android:src="@mipmap/kohler_logo"/>
 
             <EditText
+                android:maxLength="11"
                 android:id="@+id/et_distributor_register_phone_num"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -93,15 +94,27 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/et_distributor_register_phone_num_again"
+                    android:id="@+id/et_distributor_register_sms_verification_code"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginTop="@dimen/y93"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:hint="@string/input_phone_num_again"
+                    android:hint="@string/input_sms_verification_code"
                     android:textSize="12sp"/>
+
+                <Button
+                    android:id="@+id/bt_distributor_register_send_out_sms"
+                    android:layout_width="@dimen/x156"
+                    android:layout_height="@dimen/y72"
+                    android:layout_marginTop="@dimen/y93"
+                    android:background="@color/black"
+                    android:text="@string/send_out"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"/>
+
             </LinearLayout>
+
 
             <View
                 android:layout_width="match_parent"
@@ -125,6 +138,7 @@
                 android:background="@color/black"/>
 
             <EditText
+                android:digits="@string/pwd_format"
                 android:id="@+id/et_distributor_register_login_pwd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

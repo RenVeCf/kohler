@@ -3,8 +3,7 @@ package com.mengyang.kohler.account.activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,7 +22,6 @@ import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.utils.ToastUtil;
-import com.mengyang.kohler.common.utils.VerifyUtils;
 import com.mengyang.kohler.main.activity.MainActivity;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.LoginBean;
@@ -81,28 +79,7 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void initListener() {
-        etLoginPhoneNum.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                //输入文本之前的状态
-            }
 
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                //输入文字中的状态，count是一次性输入字符数
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                //输入文字后的状态
-                if (etLoginPhoneNum.getText().toString().trim().length() == 11 && VerifyUtils.isMobileNumber(etLoginPhoneNum.getText().toString().trim())) {
-
-                } else if (etLoginPhoneNum.getText().toString().trim().length() == 11) {
-                    ToastUtil.showToast("请输入正确的手机号码！");
-                    etLoginPhoneNum.setText("");
-                }
-            }
-        });
     }
 
     @Override
@@ -204,18 +181,30 @@ public class LoginActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.bt_login:
-                if (!etLoginPhoneNum.getText().toString().trim().equals("") && !etLoginPwd.getText().toString().trim().equals("") && !etLoginVerificationCode.getText().toString().trim().equals("") && etLoginPhoneNum.getText().toString().trim().length() == 11) {
+                String phoneNum = etLoginPhoneNum.getText().toString().trim();
+                String loginPwd = etLoginPwd.getText().toString().trim();
+                String verificationCode = etLoginVerificationCode.getText().toString().trim();
+
+                if (checkPwd(loginPwd)) {
+                    ToastUtil.showToast("密码格式不正确");
+                    return;
+                }
+
+                if (!phoneNum.equals("") && !loginPwd.equals("") && !verificationCode.equals("")) {
                     Login();
                 } else {
                     ToastUtil.showToast(getString(R.string.msg_no_ok));
+                    return;
                 }
                 break;
             case R.id.tv_login_go_register:
-                startActivity(new Intent(this, DistributorRegisterActivity.class));
+                startActivity(new Intent(this, UserRegisterActivity.class));
                 finish();
                 break;
             case R.id.iv_login_verification_code:
                 initData();
+                break;
+            default:
                 break;
         }
     }
