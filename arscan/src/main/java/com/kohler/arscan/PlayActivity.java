@@ -1,12 +1,9 @@
 package com.kohler.arscan;
 
-import android.app.DownloadManager;
 import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -14,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kohler.arscan.constant.Config;
+import com.kohler.arscan.util.SPUtil;
 import com.kohler.arscan.util.SharePreUtil;
 import com.xiuyukeji.pictureplayerview.PicturePlayerView;
 import com.xiuyukeji.pictureplayerview.interfaces.OnStopListener;
@@ -158,14 +156,15 @@ public class PlayActivity extends AppCompatActivity {
     @OnClick(R2.id.tv_more)
     public void notebook() {
         finish();
-
-//                if (((boolean) SPUtil.get(this, IConstants.IS_LOGIN, false))) {
-//                    if (SPUtil.get(this, IConstants.TYPE, "").equals("dealer")) {
-//                        startActivity(new Intent(this, MineManualActivity.class));
-//                    }
-//                } else {
-//                    startActivity(new Intent(this, LoginActivity.class));
-//                }
+        Intent intent = new Intent();
+        if (((boolean) SPUtil.get(this, "isLogin", false))) {
+            if (SPUtil.get(this, "no_type", "").equals("dealer")) {
+                intent.setClassName("com.mengyang.kohler", "com.mengyang.kohler.home.activity.MineManualActivity");
+                startActivity(intent);
+            }
+        } else {
+            intent.setClassName("com.mengyang.kohler", "com.mengyang.kohler.account.activity.LoginActivity");
+            startActivity(intent);
+        }
     }
-
 }

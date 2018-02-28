@@ -5,13 +5,13 @@
     android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context="com.mengyang.kohler.account.activity.UserRegisterActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/y327"
-        android:background="@color/white"
         android:orientation="horizontal">
 
         <LinearLayout

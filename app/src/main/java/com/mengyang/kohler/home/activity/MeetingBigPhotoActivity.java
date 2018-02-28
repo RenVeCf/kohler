@@ -112,7 +112,7 @@ public class MeetingBigPhotoActivity extends BaseActivity {
                 break;
             case R.id.iv_meeting_big_photo_right:
                 ivMeetingBigPhotoLeft.setVisibility(View.VISIBLE);
-                if (position < 10) {
+                if (position < 9) {
                     position++;
                     getGigPhotoData();
                 }

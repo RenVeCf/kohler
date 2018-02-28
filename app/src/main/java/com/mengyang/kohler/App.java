@@ -36,7 +36,7 @@ public class App extends Application {
     public static String registrationId; //极光的系统注册ID
     private static App sManager;
     private Stack<WeakReference<Activity>> mActivityStack;
-    private static Map<String,Activity> destoryMap = new HashMap<>();
+    private static Map<String, Activity> destoryMap = new HashMap<>();
     private Activity currentActivity;
 
     public App() {
@@ -66,7 +66,7 @@ public class App extends Application {
         JPushInterface.init(this);
         //极光SMS
         SMSSDK.getInstance().initSdk(this);
-        SMSSDK.getInstance().setIntervalTime(30*1000);
+        SMSSDK.getInstance().setIntervalTime(30 * 1000);
 
         registrationId = JPushInterface.getRegistrationID(this);
         SPUtil.put(context, IConstants.JPUSH_SYSTEM_ID, registrationId);
@@ -89,21 +89,23 @@ public class App extends Application {
      * @param activity 要销毁的activity
      */
 
-    public static void addDestoryActivity(Activity activity,String activityName) {
-        destoryMap.put(activityName,activity);
+    public static void addDestoryActivity(Activity activity, String activityName) {
+        destoryMap.put(activityName, activity);
     }
+
     /**
-     *销毁指定Activity
+     * 销毁指定Activity
      */
     public static void destoryActivity(String activityName) {
-        Set<String> keySet=destoryMap.keySet();
-        for (String key:keySet){
+        Set<String> keySet = destoryMap.keySet();
+        for (String key : keySet) {
             destoryMap.get(key).finish();
         }
     }
 
     /**
      * 添加Activity到栈
+     *
      * @param activity
      */
     public void addActivity(Activity activity) {
@@ -128,8 +130,10 @@ public class App extends Application {
             }
         }
     }
+
     /**
      * 获取当前Activity（栈中最后一个压入的）
+     *
      * @return
      */
     public Activity currentActivity() {
@@ -139,6 +143,7 @@ public class App extends Application {
         }
         return null;
     }
+
     /**
      * 关闭当前Activity（栈中最后一个压入的）
      */
@@ -148,8 +153,10 @@ public class App extends Application {
             finishActivity(activity);
         }
     }
+
     /**
      * 关闭指定的Activity
+     *
      * @param activity
      */
     public void finishActivity(Activity activity) {
@@ -170,8 +177,10 @@ public class App extends Application {
             activity.finish();
         }
     }
+
     /**
      * 关闭指定类名的所有Activity
+     *
      * @param cls
      */
     public void finishActivity(Class<?> cls) {
@@ -192,6 +201,7 @@ public class App extends Application {
             }
         }
     }
+
     /**
      * 结束所有Activity
      */
@@ -206,6 +216,7 @@ public class App extends Application {
             mActivityStack.clear();
         }
     }
+
     /**
      * 退出应用程序
      */

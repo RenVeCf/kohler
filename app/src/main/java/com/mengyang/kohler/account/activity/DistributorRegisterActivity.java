@@ -49,10 +49,8 @@ public class DistributorRegisterActivity extends BaseActivity {
     TextView tvDistributorRegisterGoUserRegister;
     @BindView(R.id.tv_distributor_register_go_designer_register)
     TextView tvDistributorRegisterGoDesignerRegister;
-    @BindView(R.id.et_distributor_register_sms_verification_code)
-    EditText etDistributorRegisterSmsVerificationCode;
-    @BindView(R.id.bt_distributor_register_send_out_sms)
-    Button btDistributorRegisterSendOutSms;
+    @BindView(R.id.et_distributor_register_phone_num_again)
+    EditText etDistributorRegisterPhoneNumAgain;
     private TimerTask timerTask;
     private Timer timer;
     private int timess;
@@ -98,30 +96,13 @@ public class DistributorRegisterActivity extends BaseActivity {
         });
     }
 
-    private void LoginSMS() {
-        Map<String, String> stringMap = IdeaApi.getSign();
-        stringMap.put("mobileNo", etDistributorRegisterPhoneNum.getText().toString().trim());//手机号码
-
-        IdeaApi.getRequestLogin(stringMap);
-        IdeaApi.getApiService()
-                .getLoginSMS(stringMap)
-                .compose(DistributorRegisterActivity.this.<BasicResponse>bindToLifecycle())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<BasicResponse>(DistributorRegisterActivity.this, false) {
-                    @Override
-                    public void onSuccess(BasicResponse response) {
-                    }
-                });
-    }
-
     private void ModifyBindPhone() {
-        //        SMSSDK.getInstance().checkSmsCodeAsyn(etDistributorRegisterPhoneNum.getText().toString().trim(), etDistributorRegisterSmsVerificationCode.getText().toString().trim(), new SmscheckListener() {
+        //        SMSSDK.getInstance().checkSmsCodeAsyn(etDistributorRegisterPhoneNum.getText().toString().trim(), etDistributorRegisterPhoneNumAgain.getText().toString().trim(), new SmscheckListener() {
         //            @Override
         //            public void checkCodeSuccess(final String code) {
         Map<String, String> stringMap = IdeaApi.getSign();
         stringMap.put("mobileNo", etDistributorRegisterPhoneNum.getText().toString().trim());//手机号码
-        stringMap.put("verifyCode", "111111");//etDistributorRegisterSmsVerificationCode.getText().toString().trim());//短信验证码
+        stringMap.put("verifyCode", "111111");//etDistributorRegisterPhoneNumAgain.getText().toString().trim());//短信验证码
         stringMap.put("inviteCode", etDistributorRegisterDistributorCode.getText().toString().trim());//专用码
         stringMap.put("password", etDistributorRegisterLoginPwd.getText().toString().trim());//用户密码
         stringMap.put("type", "dealer");//用户类型
@@ -189,7 +170,7 @@ public class DistributorRegisterActivity extends BaseActivity {
         btDistributorRegister.setClickable(true);
     }
 
-    @OnClick({R.id.iv_distributor_register_go_home, R.id.bt_distributor_register, R.id.tv_distributor_register_go_user_register, R.id.tv_distributor_register_go_designer_register, R.id.bt_distributor_register_send_out_sms})
+    @OnClick({R.id.iv_distributor_register_go_home, R.id.bt_distributor_register, R.id.tv_distributor_register_go_user_register, R.id.tv_distributor_register_go_designer_register})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_distributor_register_go_home:
@@ -197,8 +178,11 @@ public class DistributorRegisterActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.bt_distributor_register:
-                if (!etDistributorRegisterPhoneNum.getText().toString().trim().equals("") && !etDistributorRegisterSmsVerificationCode.getText().toString().trim().equals("") && !etDistributorRegisterDistributorCode.getText().toString().trim().equals("") && !etDistributorRegisterLoginPwd.getText().toString().trim().equals("")) {
-                    ModifyBindPhone();
+                if (!etDistributorRegisterPhoneNum.getText().toString().trim().equals("") && !etDistributorRegisterPhoneNumAgain.getText().toString().trim().equals("") && !etDistributorRegisterDistributorCode.getText().toString().trim().equals("") && !etDistributorRegisterLoginPwd.getText().toString().trim().equals("")) {
+                    if (etDistributorRegisterPhoneNum.getText().toString().trim().equals(etDistributorRegisterPhoneNumAgain.getText().toString().trim()))
+                        ModifyBindPhone();
+                    else
+                        ToastUtil.showToast(getString(R.string.phone_num_agreement));
                 } else {
                     ToastUtil.showToast(getString(R.string.msg_no_ok));
                 }
@@ -208,13 +192,6 @@ public class DistributorRegisterActivity extends BaseActivity {
                 break;
             case R.id.tv_distributor_register_go_designer_register:
                 startActivity(new Intent(this, DesignerRegisterActivity.class));
-                break;
-            case R.id.bt_distributor_register_send_out_sms:
-                if (!etDistributorRegisterPhoneNum.getText().toString().trim().equals(""))
-                    LoginSMS();
-                else
-                    ToastUtil.showToast(getString(R.string.msg_no_ok));
-                //                    SendSMS();
                 break;
         }
     }

@@ -396,14 +396,16 @@ public class CommodityDetailsActivity extends BaseActivity implements TopView.It
                         if (mCommodityDetails.get(poction).getPdfList().get(i).getProductPdfName().equals("尺寸图")) {
                             if (mCommodityDetails.get(poction).getPdfList() != null) {
                                 mPdfUrl = mCommodityDetails.get(poction).getPdfList().get(i).getFileName();
+                                if (!mPdfUrl.toString().trim().equals(""))
+                                    startActivity(new Intent(CommodityDetailsActivity.this, DownLoaderPDFActivity.class).putExtra("PdfUrl", mPdfUrl).putExtra("isPreview", true));
                             } else {
                                 ToastUtil.showToast("暂未有尺寸图");
                             }
                         }
                     }
-                    tvCommodityDetailsDownloadName.setText(App.getContext().getResources().getText(R.string.download_size_diagram));
-                    btCommodityDetailsDownloadPreview.setText(App.getContext().getResources().getString(R.string.download_preview));
-                    setPupWindow(view);
+                    //                    tvCommodityDetailsDownloadName.setText(App.getContext().getResources().getText(R.string.download_size_diagram));
+                    //                    btCommodityDetailsDownloadPreview.setText(App.getContext().getResources().getString(R.string.download_preview));
+                    //                    setPupWindow(view);
                 }
                 break;
             case R.id.iv_installation_instructions_download:
@@ -412,15 +414,16 @@ public class CommodityDetailsActivity extends BaseActivity implements TopView.It
                         if (mCommodityDetails.get(poction).getPdfList().get(i).getProductPdfName().equals("安装说明书")) {
                             if (mCommodityDetails.get(poction).getPdfList() != null) {
                                 mPdfUrl = mCommodityDetails.get(poction).getPdfList().get(i).getFileName();
+                                if (!mPdfUrl.toString().trim().equals(""))
+                                    startActivity(new Intent(CommodityDetailsActivity.this, DownLoaderPDFActivity.class).putExtra("PdfUrl", mPdfUrl).putExtra("isPreview", true));
                             } else {
                                 ToastUtil.showToast("暂未有安装说明书");
                             }
                         }
                     }
-                    tvCommodityDetailsDownloadName.setText(App.getContext().getResources().getText(R.string.download_installation_instructions));
-                    btCommodityDetailsDownloadPreview.setText(App.getContext().getResources().getString(R.string.download_preview));
-
-                    setPupWindow(view);
+                    //                    tvCommodityDetailsDownloadName.setText(App.getContext().getResources().getText(R.string.download_installation_instructions));
+                    //                    btCommodityDetailsDownloadPreview.setText(App.getContext().getResources().getString(R.string.download_preview));
+                    //                    setPupWindow(view);
                 }
                 break;
             case R.id.ll_commodity_details_purchase_inquiries:

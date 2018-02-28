@@ -92,6 +92,7 @@
     <string name="input_verification_code">请输入验证码</string>
     <string name="input_sms_verification_code">短信验证码</string>
     <string name="input_phone_num">请输入手机号码</string>
+    <string name="input_phone_num_again">请再次输入手机号码</string>
     <string name="kohler_store">科勒门店 (地图)</string>
     <string name="get_started">Get Started</string>
     <string name="select">精选</string>
@@ -185,6 +186,7 @@
     <string name="mine_atlas">我的图册</string>
     <string name="confirm_the_replacement">确认更换</string>
     <string name="msg_no_ok">请将信息填写完成！</string>
+    <string name="phone_num_agreement">两次输入的手机号码需一致！</string>
     <string name="list_visible">列表显示</string>
     <string name="map_visible">地图显示</string>
     <string name="new_pwd_6_16">请输入6-16位字符的新密码</string>
@@ -200,7 +202,7 @@
     <string name="is_delete">确认删除</string>
     <string name="deleteing">您将删除</string>
     <string name="barrage">我要爬墙</string>
-    <string name="barrage_talbe">我要爬墙&amp;提问</string>
+    <string name="barrage_talbe">演讲提问&amp;弹幕互动</string>
     <string name="send_barrage">您好!您在这里输入的文字，会在大屏幕上显示哦！赶快来 输入吧！</string>
     <string name="share_describe">分享</string>
     <string name="share_success">分享成功</string>

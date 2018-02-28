@@ -1,20 +1,11 @@
 package com.kohler.arscan;
 
-import com.kohler.arscan.constant.Config;
-import com.kohler.arscan.util.DensityUtil;
-import com.kohler.arscan.util.LogManager;
-import com.kohler.arscan.util.SharePreUtil;
-import com.unity3d.player.*;
-import com.xiuyukeji.pictureplayerview.PicturePlayerView;
-import com.xiuyukeji.pictureplayerview.interfaces.OnStopListener;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -23,13 +14,18 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.kohler.arscan.constant.Config;
+import com.kohler.arscan.util.LogManager;
+import com.kohler.arscan.util.SPUtil;
+import com.kohler.arscan.util.SharePreUtil;
+import com.unity3d.player.UnityPlayer;
+import com.xiuyukeji.pictureplayerview.PicturePlayerView;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -95,13 +91,16 @@ public class UnityPlayerActivity extends Activity implements View.OnClickListene
 
     public void NoteBook(String string) {
         LogManager.e(TAG, "NoteBook: " + string);
-        //        if (((boolean) SPUtil.get(this, IConstants.IS_LOGIN, false))) {
-        //            if (SPUtil.get(this, IConstants.TYPE, "").equals("dealer")) {
-        //                startActivity(new Intent(this, MineManualActivity.class));
-        //            }
-        //        } else {
-        //            startActivity(new Intent(this, LoginActivity.class));
-        //        }
+        Intent intent = new Intent();
+        if (((boolean) SPUtil.get(this, "isLogin", false))) {
+            if (SPUtil.get(this, "no_type", "").equals("dealer")) {
+                intent.setClassName("com.mengyang.kohler", "com.mengyang.kohler.home.activity.MineManualActivity");
+                startActivity(intent);
+            }
+        } else {
+            intent.setClassName("com.mengyang.kohler", "com.mengyang.kohler.account.activity.LoginActivity");
+            startActivity(intent);
+        }
     }
 
     //unity调用android方法，初始化参数
