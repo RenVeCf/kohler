@@ -288,6 +288,45 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == IConstants.REQUEST_CODE_DOWN_LOAD && resultCode == RESULT_OK) {
 
+            String pefData2 = (String) SPUtil.get(App.getContext(), IConstants.USER_PDF_DATA, "");
+
+            if (!TextUtils.isEmpty(pefData2) && pefData2.length() >5) {//pefData2.length() >5 s 临时定义的
+                Gson gson = new Gson();
+                mPdfBean = gson.fromJson(pefData2, new TypeToken<PdfBean>() {}.getType());
+                for (int i = 0; i < mPdfBean.getList().size(); i++) {
+                    if (mPdfBean.getList().get(i).getUserName().equals((String) SPUtil.get(App.getContext(), IConstants.USER_NIKE_NAME, ""))) {
+                        mPdfItemList = new ArrayList<>();
+                        mPdfItemList = mPdfBean.getList().get(i).getPdfItemList();
+
+                       /* // TODO: 2018/2/23 ,有可能用户手动将文件删除了，所以这边需要在进行判断文件是否存在
+                        boolean exists = false;
+                        for (int i1 = 0; i1 < mPdfItemList.size(); i1++) {
+                            String bookPathUrl = mPdfItemList.get(i1).getPathUrl();
+                            File file = new File(bookPathUrl);
+                            exists = file.exists();
+                            if (!exists) {
+                                mPdfItemList.remove(i1);
+                            }
+*/
+                        }
+
+
+
+                        if (mMyBrochureAdapter6 == null) {
+                            mMyBrochureAdapter6 = new MyBrochureAdapter6(mPdfItemList);
+                            rvMineManualMyBrochure.setAdapter(mMyBrochureAdapter6);
+                            mMyBrochureAdapter6.setOnItemChildClickListener(this);
+                        } else {
+                            mMyBrochureAdapter6.addData(mPdfItemList);
+//                            mMyBrochureAdapter6.notifyDataSetChanged();
+                        }
+                    }
+                }
+            }
+
+
+/*
+
             // TODO: 2018/2/12 ,本地做存储的缺点，若是用户修改了名字，那么他的数据就需要重新的存储
 
             if (mPdfBean.getList() != null && mPdfBean.getList().size() > 0) {
@@ -305,16 +344,6 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
                                 mPdfItemList.add(mPdfBean.getList().get(i).getPdfItemList().get(j));
                             }
 
-
-//                            mUserPdfItemBean = new PdfBean.UserNameBean.UserPdfItemBean();
-//                            mUserPdfItemBean.setBookKVUrl(mDownLoadKvUrl);
-//                            mUserPdfItemBean.setPathUrl(mPdfTotalPath);
-//
-//                            mPdfBean.getList().get(i).getPdfItemList().add(mUserPdfItemBean);
-//                            saveUserPdfData(mPdfBean);
-
-
-                            mMyBrochureAdapter6.notifyDataSetChanged();
                         }
                     }
 
@@ -326,8 +355,8 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
             } else {
                 //没有该用户,创建用户信息
 //                createUserPdfData();
-            }
-        }
+            }*/
+
     }
 
     private void saveUserPdfData(PdfBean pdfBean) {

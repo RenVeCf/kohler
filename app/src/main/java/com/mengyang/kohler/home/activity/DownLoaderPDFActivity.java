@@ -89,8 +89,8 @@ public class DownLoaderPDFActivity extends BaseActivity implements OnPageChangeL
             if (msg.arg1 == 100) {
 
                 savePdfData();
-                Intent intent = new Intent();
-                intent.putExtra("pdfPath", mFileAbsolutePath);
+//                Intent intent = new Intent();
+//                intent.putExtra("pdfPath", mFileAbsolutePath);
                 setResult(RESULT_OK);
                 displayFromFile(new File(Environment.getExternalStorageDirectory().getAbsolutePath(), url.substring(url.lastIndexOf("/") + 1)));
             }

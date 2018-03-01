@@ -487,10 +487,10 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
 
     @Override
     public void onLoadMoreRequested() {
-        if (mHomeBooksAdapter != null) {
-            mHomeBooksAdapter.loadMoreEnd(false);
-        }
-        hideItem();
+//        if (mHomeBooksAdapter != null) {
+//            mHomeBooksAdapter.loadMoreEnd(false);
+//        }
+//        hideItem();
     }
 
     public interface OnFragmentInteractionListener {
