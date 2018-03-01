@@ -61,42 +61,30 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/x51"
                         android:layout_marginTop="@dimen/y120"
+                        android:text="实时现场评论"
                         android:textColor="#ffffff"
-                        android:textSize="14sp"
-                        android:text="实时现场评论"/>
+                        android:textSize="14sp"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/x51"
                         android:layout_marginTop="2dp"
+                        android:text="点击进入"
                         android:textColor="#ffffff"
-                        android:textSize="10sp"
-                        android:text="点击进入"/>
+                        android:textSize="10sp"/>
                 </LinearLayout>
             </RelativeLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tv_live_real_time_prize"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/y70"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/livevote_icon1"/>
-
-                <TextView
-                    android:id="@+id/tv_live_real_time_prize"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:text="@string/please_vote"
-                    android:textColor="#000000"
-                    android:textSize="14sp"
-                    android:textStyle="bold"/>
-            </LinearLayout>
+                android:text="@string/please_vote"
+                android:textColor="#000000"
+                android:textSize="14sp"
+                android:textStyle="bold"/>
 
             <TextView
                 android:layout_width="wrap_content"

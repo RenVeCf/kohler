@@ -1,8 +1,8 @@
 <LinearLayout
-    android:id="@+id/ll_root"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -56,8 +56,8 @@
         android:layout_below="@+id/civ_account_title"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/y27"
-        android:textColor="@color/black"
-        android:text="KOHLER"/>
+        android:text="KOHLER"
+        android:textColor="@color/black"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -70,15 +70,15 @@
             android:id="@+id/bt_account_like"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/x141"
             android:layout_marginEnd="@dimen/x25"
+            android:layout_marginStart="@dimen/x141"
             android:layout_weight="1"
             android:background="@drawable/account_stroke_lgoin_bt_bg"
             android:drawableStart="@mipmap/shouchan"
-            android:paddingStart="@dimen/x61"
             android:paddingEnd="@dimen/x41"
-            android:textColor="@color/black"
-            android:text="@string/mine_like"/>
+            android:paddingStart="@dimen/x61"
+            android:text="@string/mine_like"
+            android:textColor="@color/black"/>
 
         <Button
             android:id="@+id/bt_account_query"
@@ -89,10 +89,10 @@
             android:layout_weight="1"
             android:background="@drawable/account_stroke_lgoin_bt_bg"
             android:drawableStart="@mipmap/yuyue"
-            android:paddingStart="@dimen/x71"
             android:paddingEnd="@dimen/x41"
-            android:textColor="@color/black"
-            android:text="@string/reservation_query"/>
+            android:paddingStart="@dimen/x71"
+            android:text="@string/reservation_query"
+            android:textColor="@color/black"/>
     </LinearLayout>
 
     <View
@@ -106,8 +106,8 @@
         android:layout_marginStart="@dimen/x78"
         android:layout_marginTop="@dimen/y63"
         android:text="@string/your_browsing"
-        android:textSize="18sp"
         android:textColor="@color/black"
+        android:textSize="18sp"
         android:textStyle="bold"/>
 
     <TextView
@@ -115,8 +115,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/x78"
         android:text="@string/viewed"
-        android:textSize="10sp"
-        android:textColor="#7c7c7c"/>
+        android:textColor="#7c7c7c"
+        android:textSize="10sp"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -126,23 +126,15 @@
             android:id="@+id/tv_account_browsing_no_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/y261"
             android:layout_centerHorizontal="true"
-            android:textColor="#797979"
+            android:layout_marginTop="@dimen/y261"
             android:text="@string/browsing_no_login"
+            android:textColor="#797979"
             android:visibility="gone"/>
 
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/srl_account_browsing"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_account_browsing"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/x78"
-            android:layout_marginTop="@dimen/y90">
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_account_browsing"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </android.support.v4.widget.SwipeRefreshLayout>
+            android:layout_height="wrap_content"/>
     </RelativeLayout>
 </LinearLayout>

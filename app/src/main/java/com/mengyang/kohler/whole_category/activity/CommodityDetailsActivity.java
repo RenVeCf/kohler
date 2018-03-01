@@ -1,6 +1,5 @@
 package com.mengyang.kohler.whole_category.activity;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -10,7 +9,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.SystemClock;
-import android.support.v4.app.ActivityCompat;
 import android.text.TextPaint;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -32,7 +30,6 @@ import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.utils.CommonDialogUtils;
 import com.mengyang.kohler.common.utils.IOUtils;
-import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.ShareUtils;
 import com.mengyang.kohler.common.utils.ToastUtil;
 import com.mengyang.kohler.common.view.TopView;
@@ -207,7 +204,7 @@ public class CommodityDetailsActivity extends BaseActivity implements TopView.It
     @Override
     public void onItemClick() {
         //                ShareUtils shareUtils= new ShareUtils(this,Config.SHARE_GOODS_DETAILS+foodId);
-        ShareUtils shareUtils= new ShareUtils(this,"http://www.kohler.com.cn/");
+        ShareUtils shareUtils = new ShareUtils(this, "http://www.kohler.com.cn/");
         shareUtils.popShare("科勒");
     }
 
@@ -462,6 +459,6 @@ public class CommodityDetailsActivity extends BaseActivity implements TopView.It
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        UMShareAPI.get(this).onActivityResult(requestCode,resultCode,data);//完成回调
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);//完成回调
     }
 }

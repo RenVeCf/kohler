@@ -11,7 +11,6 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -42,6 +41,7 @@ import com.mengyang.kohler.account.adapter.FootPrintAdapter;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.net.IdeaApi;
+import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.view.CircleImageView;
 import com.mengyang.kohler.common.view.SpacesItemDecoration;
@@ -90,8 +90,6 @@ public class AccountFragment extends BaseFragment implements BaseQuickAdapter.Re
     RecyclerView rvAccountBrowsing;
     //调用系统相册-选择图片数量
     private static final int IMAGE_NUM = 1;
-    @BindView(R.id.srl_account_browsing)
-    SwipeRefreshLayout srlAccountBrowsing;
     private PopupWindow mAccountTitleImgPopupWindow;
     private View mPopImgLayout;
     private PopupWindow mAccountTitleNamePopupWindow;
@@ -217,22 +215,22 @@ public class AccountFragment extends BaseFragment implements BaseQuickAdapter.Re
 
     @Override
     protected void initListener() {
-        srlAccountBrowsing.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                pageNum = 0;
-                initData();
-                srlAccountBrowsing.setRefreshing(false);
-            }
-        });
     }
 
     @Override
     protected void initData() {
         //用户信息
         getUserMsg();
-        //浏览足迹
         getFootPrint();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+                pageNum = 0;
+        //        //浏览足迹
+//        if (pageNum != 0)
+            getFootPrint();
     }
 
     private void getUserMsg() {
@@ -300,6 +298,7 @@ public class AccountFragment extends BaseFragment implements BaseQuickAdapter.Re
                                         }
                                     });
                                 } else {
+                                    LogUtils.i("rmy", "mFootPrintAdapter.loadMoreEnd() 00000");
                                     mFootPrintAdapter.loadMoreEnd();
                                 }
                             } else {
@@ -307,12 +306,15 @@ public class AccountFragment extends BaseFragment implements BaseQuickAdapter.Re
                                     pageNum += 1;
                                     mFootPrintBean.addAll(response.getData().getResultList());
                                     mFootPrintAdapter.addData(response.getData().getResultList());
+                                    LogUtils.i("rmy", "mFootPrintAdapter.loadMoreComplete() 000000");
                                     mFootPrintAdapter.loadMoreComplete(); //完成本次
                                 } else {
+                                    LogUtils.i("rmy", "mFootPrintAdapter.loadMoreEnd() 111111");
                                     mFootPrintAdapter.loadMoreEnd(); //完成所有加载
                                 }
                             }
                         } else {
+                            LogUtils.i("rmy", "mFootPrintAdapter.loadMoreEnd() 2222222");
                             mFootPrintAdapter.loadMoreEnd();
                         }
                     }

@@ -120,7 +120,6 @@ public class ResideLayout extends ViewGroup {
      * is preventing a drag.
      */
     private boolean mIsUnableToDrag;
-    private boolean mIsUnable;
 
     /**
      * Distance in pixels to parallax the fixed pane by when fully closed
@@ -207,10 +206,8 @@ public class ResideLayout extends ViewGroup {
         }
     }
 
-    public ResideLayout(Context context, boolean mIsUnable) {
+    public ResideLayout(Context context) {
         this(context, null);
-        LogUtils.i("rmy", "mIsUnable 1111 = " + mIsUnable);
-        this.mIsUnable = mIsUnable;
     }
 
     public ResideLayout(Context context, AttributeSet attrs) {
@@ -688,7 +685,6 @@ public class ResideLayout extends ViewGroup {
             }
         }
 
-        LogUtils.i("rmy", "mIsUnableToDrag = " + mIsUnableToDrag);
         if (!mCanSlide || (mIsUnableToDrag && action != MotionEvent.ACTION_DOWN)) {
             mDragHelper.cancel();
             return super.onInterceptTouchEvent(ev);
@@ -704,8 +700,7 @@ public class ResideLayout extends ViewGroup {
         switch (action) {
             case MotionEvent.ACTION_DOWN: {
                 // true为不让滑动
-                LogUtils.i("rmy", "mIsUnable 222 = " + mIsUnable);
-                mIsUnableToDrag = mIsUnable;
+                mIsUnableToDrag = false;
                 final float x = ev.getX();
                 final float y = ev.getY();
                 mInitialMotionX = x;
@@ -725,8 +720,7 @@ public class ResideLayout extends ViewGroup {
                 final int slop = mDragHelper.getTouchSlop();
                 if (adx > slop && ady > adx) {
                     mDragHelper.cancel();
-                    LogUtils.i("rmy", "mIsUnable 333 = " + mIsUnable);
-                    mIsUnableToDrag = mIsUnable;
+                    mIsUnableToDrag = true;
                     return true;
                 }
             }

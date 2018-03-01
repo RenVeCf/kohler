@@ -64,7 +64,7 @@ public class CustomerServiceActivity extends BaseActivity {
 
     private void initAdapter() {
         mRecyclerViewService.setLayoutManager(new LinearLayoutManager(this));
-        mDataList.add(new QuestionSearchBean("您好，我是科勒机器人客服，请提问或输入关键词查询。", 3));
+        mDataList.add(new QuestionSearchBean("您好 我的是科勒机器人客服，请输入您的姓名来搜索桌号", 3));
         mUserServiceAdapter = new UserServiceAdapter(mDataList);
         mRecyclerViewService.setAdapter(mUserServiceAdapter);
     }

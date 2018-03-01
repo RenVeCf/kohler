@@ -379,7 +379,6 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 ImmersionBar.with(this).fitsSystemWindows(false).statusBarDarkFont(true).init();
                 FragmentSelect(1);
                 mIsUnableToDrag = false;
-                new ResideLayout(this, mIsUnableToDrag);
                 view_line.setVisibility(View.VISIBLE);
                 break;
             case R.id.bt_whole_category:
@@ -388,7 +387,6 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 ImmersionBar.with(this).fitsSystemWindows(false).statusBarDarkFont(false).init();
                 FragmentSelect(0);
                 mIsUnableToDrag = true;
-                new ResideLayout(this, mIsUnableToDrag);
                 view_line.setVisibility(View.GONE);
                 break;
             case R.id.bt_ar:
@@ -397,7 +395,6 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 ImmersionBar.with(this).fitsSystemWindows(false).statusBarDarkFont(true).init();
                 FragmentSelect(1);
                 mIsUnableToDrag = true;
-                new ResideLayout(this, mIsUnableToDrag);
                 view_line.setVisibility(View.VISIBLE);
                 Intent intent = new Intent(this, UnityPlayerActivity.class);
                 intent.putExtra("flag", "9");
@@ -409,7 +406,6 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 ImmersionBar.with(this).fitsSystemWindows(false).statusBarDarkFont(true).init();
                 FragmentSelect(1);
                 mIsUnableToDrag = true;
-                new ResideLayout(this, mIsUnableToDrag);
                 view_line.setVisibility(View.VISIBLE);
                 break;
             case R.id.ll_whole_category:
@@ -466,8 +462,6 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                     //沉浸式状态栏初始化黑色
                     ImmersionBar.with(this).fitsSystemWindows(false).statusBarDarkFont(true).init();
                     FragmentSelect(1);
-                    mIsUnableToDrag = false;
-                    new ResideLayout(this, mIsUnableToDrag);
                     view_line.setVisibility(View.VISIBLE);
                     break;
             }

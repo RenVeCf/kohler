@@ -106,7 +106,7 @@ public class UserRegisterActivity extends BaseActivity {
                 //输入文字后的状态
                 if (etUserRegisterPhoneNum.getText().toString().trim().length() == 11 && VerifyUtils.isMobileNumber(etUserRegisterPhoneNum.getText().toString().trim())) {
 
-                } else {
+                } else if (etUserRegisterPhoneNum.getText().toString().trim().length() == 11){
                     ToastUtil.showToast("请输入正确的手机号码！");
                     etUserRegisterPhoneNum.setText("");
                 }
@@ -232,7 +232,7 @@ public class UserRegisterActivity extends BaseActivity {
                     return;
                 }
 
-                if (!phoneNum.equals("") && !verficationCode.equals("") && !registerPwd.equals("") && !smsCode.equals("")) {
+                if (!phoneNum.equals("") && !verficationCode.equals("") && !registerPwd.equals("") && !smsCode.equals("") && phoneNum.length() == 11) {
                     ModifyBindPhone();
                 } else {
                     ToastUtil.showToast(getString(R.string.msg_no_ok));

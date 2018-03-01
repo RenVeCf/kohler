@@ -12,21 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@mipmap/chanpinbg"
         android:orientation="vertical">
-
-        <com.mengyang.kohler.common.view.TopView
-            android:id="@+id/tv_commodity_details_top"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:is_back="false"
-            app:is_customer_service="true"
-            app:is_iv_top_title="true"
-            app:is_menu="true"
-            app:is_share="false"
-            app:is_system_msg="true"
-            app:title="@string/commodity_details"
-            app:title_color="@color/white"/>
 
         <ScrollView
             android:layout_width="match_parent"
@@ -40,42 +26,61 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="@mipmap/chanpinbg"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/tv_commodity_details_brand"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/x72"
-                        android:gravity="center"
-                        android:textColor="#ffffff"
-                        android:textSize="18sp"
-                        tools:text="ESCALE® 艾思格尔"/>
-
-                    <TextView
-                        android:id="@+id/tv_commodity_details_model"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/x72"
-                        android:layout_marginTop="@dimen/y12"
-                        android:textColor="#ffffff"
-                        tools:text="K-11343T-GE-0"/>
-
-                    <com.zhouwei.mzbanner.MZBannerView
-                        android:id="@+id/mzb_commodity_details"
+                    <com.mengyang.kohler.common.view.TopView
+                        android:id="@+id/tv_commodity_details_top"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/y780"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginEnd="@dimen/x54"
-                        android:layout_marginStart="@dimen/x54"
-                        android:layout_marginTop="@dimen/y96"
-                        app:canLoop="true"
-                        app:indicatorAlign="center"
-                        app:indicatorPaddingLeft="10dp"
-                        app:middle_page_cover="true"
-                        app:open_mz_mode="true"/>
+                        android:layout_height="?attr/actionBarSize"
+                        app:is_back="false"
+                        app:is_customer_service="true"
+                        app:is_iv_top_title="true"
+                        app:is_menu="true"
+                        app:is_share="false"
+                        app:is_system_msg="true"
+                        app:title="@string/commodity_details"
+                        app:title_color="@color/white"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_commodity_details_brand"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/x72"
+                            android:gravity="center"
+                            android:textColor="#ffffff"
+                            android:textSize="18sp"
+                            tools:text="ESCALE® 艾思格尔"/>
+
+                        <TextView
+                            android:id="@+id/tv_commodity_details_model"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/x72"
+                            android:layout_marginTop="@dimen/y12"
+                            android:textColor="#ffffff"
+                            tools:text="K-11343T-GE-0"/>
+
+                        <com.zhouwei.mzbanner.MZBannerView
+                            android:id="@+id/mzb_commodity_details"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/y780"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginEnd="@dimen/x54"
+                            android:layout_marginStart="@dimen/x54"
+                            android:layout_marginTop="@dimen/y96"
+                            app:canLoop="true"
+                            app:indicatorAlign="center"
+                            app:indicatorPaddingLeft="10dp"
+                            app:middle_page_cover="true"
+                            app:open_mz_mode="true"/>
+                    </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout
@@ -83,7 +88,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/x72"
-                    android:layout_marginTop="@dimen/y156"
+                    android:layout_marginTop="@dimen/y51"
                     android:orientation="vertical">
 
                     <TextView
@@ -311,8 +316,7 @@
                         android:lineSpacingExtra="7sp"
                         android:text="上午8点至晚上10点，周一至周日全天。（法定节假日除外）"
                         android:textColor="#000000"
-                        android:textSize="11sp"
-                        />
+                        android:textSize="11sp"/>
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>
