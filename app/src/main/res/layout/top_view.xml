@@ -3,15 +3,23 @@
                 android:layout_height="50dp"
                 android:scaleType="fitXY">
 
+
     <!--返回-->
-    <ImageView
-        android:id="@+id/iv_top_back"
-        android:layout_width="@dimen/x60"
-        android:layout_height="@dimen/y60"
-        android:layout_marginStart="@dimen/x60"
-        android:layout_centerVertical="true"
+    <RelativeLayout
+        android:id="@+id/rl_top_back"
         android:visibility="gone"
-        android:src="@mipmap/fanhui"/>
+        android:padding="5dp"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/x60"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/iv_top_back"
+            android:layout_width="@dimen/x60"
+            android:layout_height="@dimen/y60"
+            android:src="@mipmap/fanhui"/>
+    </RelativeLayout>
+
 
     <!--侧滑菜单-->
     <ImageView

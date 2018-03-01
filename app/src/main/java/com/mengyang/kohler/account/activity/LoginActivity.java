@@ -196,6 +196,7 @@ public class LoginActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_lonin_go_home:
+                hideInput();
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 finish();
                 break;

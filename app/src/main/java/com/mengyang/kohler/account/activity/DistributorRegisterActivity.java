@@ -5,6 +5,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -121,6 +122,8 @@ public class DistributorRegisterActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_distributor_register_go_home:
+                hideInput();
+
                 startActivity(new Intent(this, MainActivity.class));
                 finish();
                 break;
@@ -155,5 +158,10 @@ public class DistributorRegisterActivity extends BaseActivity {
                 break;
 
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
     }
 }

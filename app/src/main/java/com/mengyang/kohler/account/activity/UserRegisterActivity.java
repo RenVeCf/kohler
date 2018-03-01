@@ -209,6 +209,7 @@ public class UserRegisterActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_user_register_go_home:
+                hideInput();
                 startActivity(new Intent(this, MainActivity.class));
                 finish();
                 break;
