@@ -239,7 +239,7 @@
                 android:layout_height="@dimen/y360"
                 android:layout_marginTop="8dp"
                 android:scaleType="centerCrop"
-                android:src="@mipmap/vote_test"/>
+                android:src="@mipmap/meeting_comment"/>
 
             <TextView
                 android:layout_width="wrap_content"

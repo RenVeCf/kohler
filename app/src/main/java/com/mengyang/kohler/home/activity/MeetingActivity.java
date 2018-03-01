@@ -113,7 +113,7 @@ public class MeetingActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 mMeetingPopupWindow.dismiss();
-        }
+            }
         });
         mMeetingPopupWindow.setContentView(mPopLayout);
         mMeetingPopupWindow.setBackgroundDrawable(new ColorDrawable(0x4c000000));

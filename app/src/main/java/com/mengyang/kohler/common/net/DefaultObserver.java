@@ -10,6 +10,7 @@ import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.account.activity.LoginActivity;
 import com.mengyang.kohler.common.utils.CommonDialogUtils;
+import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.utils.ToastUtil;
 import com.mengyang.kohler.module.BasicResponse;
@@ -43,20 +44,20 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
     /**
      * 请求成功
      */
-    public final static int REQUEST_SUCCESS = 200;
+    public final static String REQUEST_SUCCESS = "200";
     /**
      * token错误
      */
-    public final static int TOKEN_INCORRECT = 201;
+    public final static String TOKEN_INCORRECT = "201";
     /**
      * token过期
      */
-    public final static int TOKEN_EXPIRED = 202;
+    public final static String TOKEN_EXPIRED = "202";
 
     /**
      * refresh_token过期
      */
-    public final static int REFRESH_TOKEN_EXPIRED = 100006;
+    public final static String REFRESH_TOKEN_EXPIRED = "1000002";
 
     public DefaultObserver(Activity activity, boolean isShowLoading) {
         this.activity = activity;
@@ -74,13 +75,13 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
     @Override
     public void onNext(T response) {
         dismissProgress();
-        if (response.getError().equals("200")) {
+        if (response.getError().equals(REQUEST_SUCCESS)) {
             onSuccess(response);
         } else {
             if (response.getError().equals("")) {
-                onFail(response, 12345);
+                onFail(response, "12345");
             } else {
-                onFail(response, Integer.parseInt(response.getError()));
+                onFail(response, response.getError());
             }
         }
     }
@@ -93,7 +94,6 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
 
     @Override
     public void onError(Throwable e) {
-        //        LogUtils.e("Retrofit", e.getMessage());
         dismissProgress();
         if (e instanceof HttpException) {     //   HTTP错误
             onException(ExceptionReason.BAD_NETWORK);
@@ -127,18 +127,29 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
      *
      * @param response 服务器返回的数据
      */
-    public void onFail(T response, int code) {
+    public void onFail(T response, String code) {
         String message = response.getMessage();
+        LogUtils.i("rmy", "code = " + code);
         switch (code) {
             case TOKEN_EXPIRED: //  token过期 刷新token
+                LogUtils.i("rmy", "TOKEN_EXPIRED");
                 refreshToken();
                 break;
             case REFRESH_TOKEN_EXPIRED:// refresh_token过期
+                LogUtils.i("rmy", "REFRESH_TOKEN_EXPIRED");
             case TOKEN_INCORRECT:// token错误重新登录
+                LogUtils.i("rmy", "TOKEN_INCORRECT");
                 SPUtil.put(activity, IConstants.IS_LOGIN, false);
+                SPUtil.put(activity, IConstants.TOKEN, "");
+                SPUtil.put(activity, IConstants.REFRESH_TOKEN, "");
+                SPUtil.put(activity, IConstants.TYPE, "");
+                SPUtil.put(activity, IConstants.USER_NIKE_NAME, App.getContext().getResources().getString(R.string.login_or_register));
+                SPUtil.put(activity, IConstants.USER_HEAD_PORTRAIT, "");
                 activity.startActivity(new Intent(activity, LoginActivity.class));
+                activity.finish();
                 break;
             default:
+                LogUtils.i("rmy", "default");
                 ToastUtil.showToast(message);
                 break;
         }

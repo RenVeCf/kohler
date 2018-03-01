@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -65,8 +66,8 @@ public class LoginActivity extends BaseActivity {
     TextView tvLoginForgetPwd;
     @BindView(R.id.bt_login)
     Button btLogin;
-    @BindView(R.id.tv_login_go_register)
-    TextView tvLoginGoRegister;
+    @BindView(R.id.ll_login_go_register)
+    LinearLayout tvLoginGoRegister;
     private byte[] bytes;//图片验证码进制流
     private String time = "";
 
@@ -193,7 +194,7 @@ public class LoginActivity extends BaseActivity {
                 });
     }
 
-    @OnClick({R.id.rl_lonin_go_home, R.id.tv_login_forget_pwd, R.id.bt_login, R.id.tv_login_go_register, R.id.iv_login_verification_code})
+    @OnClick({R.id.rl_lonin_go_home, R.id.tv_login_forget_pwd, R.id.bt_login, R.id.ll_login_go_register, R.id.iv_login_verification_code})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_lonin_go_home:
@@ -222,7 +223,7 @@ public class LoginActivity extends BaseActivity {
                     return;
                 }
                 break;
-            case R.id.tv_login_go_register:
+            case R.id.ll_login_go_register:
                 startActivity(new Intent(this, DistributorRegisterActivity.class));
                 finish();
                 break;

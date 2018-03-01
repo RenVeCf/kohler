@@ -219,18 +219,21 @@ public class AccountFragment extends BaseFragment implements BaseQuickAdapter.Re
 
     @Override
     protected void initData() {
-        //用户信息
-        getUserMsg();
-        getFootPrint();
+        if ((boolean) SPUtil.get(getActivity(), IConstants.IS_LOGIN, false)) {
+//            用户信息
+            getUserMsg();
+            getFootPrint();
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-                pageNum = 0;
-        //        //浏览足迹
-//        if (pageNum != 0)
+        if (pageNum != 0) {
+            pageNum = 0;
+            //浏览足迹
             getFootPrint();
+        }
     }
 
     private void getUserMsg() {

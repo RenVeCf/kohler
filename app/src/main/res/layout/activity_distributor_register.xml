@@ -165,7 +165,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/y48"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/y180"
+                android:layout_marginTop="@dimen/y280"
                 android:orientation="horizontal">
 
                 <TextView
