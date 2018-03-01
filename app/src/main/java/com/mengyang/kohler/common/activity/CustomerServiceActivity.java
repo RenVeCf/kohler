@@ -128,7 +128,7 @@ public class CustomerServiceActivity extends BaseActivity {
                                 public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                                     switch (view.getId()) {
                                         case R.id.tv_service_list:
-                                            startActivity(new Intent(CustomerServiceActivity.this, WebViewActivity.class).putExtra("h5url", response.getData().getH5Url()));
+                                            startActivity(new Intent(CustomerServiceActivity.this, WebViewActivity.class).putExtra("h5url", response.getData().getH5Url()).putExtra("flag", 1));
                                             break;
                                         default:
                                             break;

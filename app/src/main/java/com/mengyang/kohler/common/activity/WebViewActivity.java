@@ -1,7 +1,7 @@
 package com.mengyang.kohler.common.activity;
 
 import android.graphics.Bitmap;
-import android.util.Log;
+import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -23,6 +23,7 @@ public class WebViewActivity extends BaseActivity {
     @BindView(R.id.tv_webview_top)
     TopView tvWebviewTop;
     private CommonDialogUtils dialogUtils;
+    private int mFlag = 0;
 
     @Override
     protected int getLayoutId() {
@@ -35,6 +36,11 @@ public class WebViewActivity extends BaseActivity {
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(this, tvWebviewTop);
 
+        mFlag = getIntent().getIntExtra("flag", 0);
+        if (mFlag == 1)
+            tvWebviewTop.setVisibility(View.VISIBLE);
+        else
+            tvWebviewTop.setVisibility(View.GONE);
         dialogUtils = new CommonDialogUtils();
         dialogUtils.showProgress(this, "Loading...");
     }
