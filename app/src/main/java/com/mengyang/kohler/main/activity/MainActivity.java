@@ -512,7 +512,7 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 }
             }
             if (false == allGranted) {
-                showMissingPermissionDialog();
+//                showMissingPermissionDialog();
             }
         }
     }

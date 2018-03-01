@@ -17,6 +17,7 @@ import com.github.barteksc.pdfviewer.listener.OnDrawListener;
 import com.github.barteksc.pdfviewer.listener.OnErrorListener;
 import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
 import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
+import com.github.barteksc.pdfviewer.util.FitPolicy;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
@@ -121,7 +122,7 @@ public class DownLoaderPDFActivity extends BaseActivity implements OnPageChangeL
                     displayFromFile2(bytes);
                 } else {
                     mIsOnlyPreview = false;
-                    dismiss();
+//                    dismiss();
 
                     InputStream is = null;
                     byte[] buf = new byte[1024*10];
@@ -178,11 +179,12 @@ public class DownLoaderPDFActivity extends BaseActivity implements OnPageChangeL
                 .onPageChange(this)//设置翻页监听
                 .onLoad(this)//设置加载监听
                 .onDraw(this)//绘图监听
-                .swipeHorizontal(true)//pdf文档翻页是否是垂直翻页，默认是左右滑动翻页
+                .swipeHorizontal(false)//pdf文档翻页是否是垂直翻页，默认是左右滑动翻页
                 .enableSwipe(true)//是否允许翻页，默认是允许翻
                 .scrollHandle(null)
                 .enableAntialiasing(true)// 改善低分辨率屏幕上的渲染
                 .onError(this)
+                .pageFitPolicy(FitPolicy.WIDTH)
                 .load();
     }
 
@@ -192,11 +194,12 @@ public class DownLoaderPDFActivity extends BaseActivity implements OnPageChangeL
                 .onPageChange(this)//设置翻页监听
                 .onLoad(this)//设置加载监听
                 .onDraw(this)//绘图监听
-                .swipeHorizontal(true)//pdf文档翻页是否是垂直翻页，默认是左右滑动翻页
+                .swipeHorizontal(false)//pdf文档翻页是否是垂直翻页，默认是左右滑动翻页
                 .enableSwipe(true)//是否允许翻页，默认是允许翻
                 .scrollHandle(null)
                 .enableAntialiasing(true)// 改善低分辨率屏幕上的渲染
                 .onError(this)
+                .pageFitPolicy(FitPolicy.WIDTH)
                 .load();
     }
 

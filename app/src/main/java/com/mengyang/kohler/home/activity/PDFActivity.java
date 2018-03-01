@@ -56,7 +56,7 @@ public class PDFActivity extends BaseActivity {
                 //是否允许翻页，默认是允许翻页
                 .enableSwipe(true)
                 //pdf文档翻页是否是垂直翻页，默认是左右滑动翻页
-                .swipeHorizontal(true)
+                .swipeHorizontal(false)
                 //
                 .enableDoubletap(false)
                 //设置默认显示第0页
