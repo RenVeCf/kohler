@@ -11,6 +11,7 @@ import com.github.barteksc.pdfviewer.PDFView;
 import com.github.barteksc.pdfviewer.listener.OnErrorListener;
 import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
 import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
+import com.github.barteksc.pdfviewer.util.FitPolicy;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
@@ -104,6 +105,7 @@ public class PDFActivity extends BaseActivity {
                 .enableAntialiasing(true)
                 // 页面间的间距。定义间距颜色，设置背景视图
                 .spacing(0)
+                .pageFitPolicy(FitPolicy.WIDTH)
                 .load();
 
     }

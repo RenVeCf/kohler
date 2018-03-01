@@ -219,10 +219,21 @@ public class DesignerRegisterActivity extends BaseActivity {
                     ToastUtil.showToast(getString(R.string.msg_no_ok));
                 break;
             case R.id.bt_designer_register:
-                if (!etDesignerRegisterPhoneNum.getText().toString().trim().equals("") && !etDesignerRegisterVerificationCode.getText().toString().trim().equals("") && !etDesignerRegisterSmsVerificationCode.getText().toString().trim().equals("") && !etDesignerRegisterPwd.getText().toString().trim().equals("") && etDesignerRegisterPhoneNum.getText().toString().trim().length() == 11) {
+                String phoneNum = etDesignerRegisterPhoneNum.getText().toString().trim();
+                String verificationCode = etDesignerRegisterVerificationCode.getText().toString().trim();
+                String smsCode = etDesignerRegisterSmsVerificationCode.getText().toString().trim();
+                String registerPwd = etDesignerRegisterPwd.getText().toString().trim();
+
+                if (checkPwd(registerPwd)) {
+                    ToastUtil.showToast("密码格式不正确");
+                    return;
+                }
+
+                if (!phoneNum.equals("") && !verificationCode.equals("") && !smsCode.equals("") && !registerPwd.equals("")) {
                     ModifyBindPhone();
                 } else {
                     ToastUtil.showToast(getString(R.string.msg_no_ok));
+                    return;
                 }
                 break;
             case R.id.tv_designer_register_go_login:

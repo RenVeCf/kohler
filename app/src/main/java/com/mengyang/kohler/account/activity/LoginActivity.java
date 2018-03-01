@@ -204,10 +204,20 @@ public class LoginActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.bt_login:
-                if (!etLoginPhoneNum.getText().toString().trim().equals("") && !etLoginPwd.getText().toString().trim().equals("") && !etLoginVerificationCode.getText().toString().trim().equals("") && etLoginPhoneNum.getText().toString().trim().length() == 11) {
+                String phoneNum = etLoginPhoneNum.getText().toString().trim();
+                String loginPwd = etLoginPwd.getText().toString().trim();
+                String verificationCode = etLoginVerificationCode.getText().toString().trim();
+
+                if (checkPwd(loginPwd)) {
+                    ToastUtil.showToast("密码格式不正确");
+                    return;
+                }
+
+                if (!phoneNum.equals("") && !loginPwd.equals("") && !verificationCode.equals("")) {
                     Login();
                 } else {
                     ToastUtil.showToast(getString(R.string.msg_no_ok));
+                    return;
                 }
                 break;
             case R.id.tv_login_go_register:
@@ -216,6 +226,8 @@ public class LoginActivity extends BaseActivity {
                 break;
             case R.id.iv_login_verification_code:
                 initData();
+                break;
+            default:
                 break;
         }
     }

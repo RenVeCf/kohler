@@ -222,10 +222,21 @@ public class UserRegisterActivity extends BaseActivity {
                     ToastUtil.showToast(getString(R.string.msg_no_ok));
                 break;
             case R.id.bt_user_register:
-                if (!etUserRegisterPhoneNum.getText().toString().trim().equals("") && !etUserRegisterVerificationCode.getText().toString().trim().equals("") && !etUserRegisterPwd.getText().toString().trim().equals("")) {
+                String phoneNum = etUserRegisterPhoneNum.getText().toString().trim();
+                String verficationCode = etUserRegisterVerificationCode.getText().toString().trim();
+                String registerPwd = etUserRegisterPwd.getText().toString().trim();
+                String smsCode = etUserRegisterSmsVerificationCode.getText().toString().trim();
+
+                if (checkPwd(registerPwd)) {
+                    ToastUtil.showToast("密码格式不正确");
+                    return;
+                }
+
+                if (!phoneNum.equals("") && !verficationCode.equals("") && !registerPwd.equals("") && !smsCode.equals("")) {
                     ModifyBindPhone();
                 } else {
                     ToastUtil.showToast(getString(R.string.msg_no_ok));
+                    return;
                 }
                 break;
             case R.id.tv_user_register_go_login:
@@ -236,6 +247,8 @@ public class UserRegisterActivity extends BaseActivity {
                 break;
             case R.id.tv_user_register_go_distributor_register:
                 startActivity(new Intent(this, DistributorRegisterActivity.class));
+                break;
+            default:
                 break;
         }
     }

@@ -74,9 +74,9 @@ public class App extends Application {
 
     /**
      * 配置三方平台的appkey
-     */ {
-        //        PlatformConfig.setWeixin("wx3a3e72f3c0cf486c", "afc866a07ef9b96734d3e5b1ab061eb5");
-        PlatformConfig.setWeixin("wx3a3e72f3c0cf486c", "2e8c62fa24ea6184660a703c9609d056");
+     */
+    {
+        PlatformConfig.setWeixin("wx3a3e72f3c0cf486c", "2ba791f61a3837ae7579f6da6d36cff2");
     }
 
 

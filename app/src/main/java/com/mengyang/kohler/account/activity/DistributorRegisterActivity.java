@@ -125,7 +125,18 @@ public class DistributorRegisterActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.bt_distributor_register:
-                if (!etDistributorRegisterPhoneNum.getText().toString().trim().equals("") && !etDistributorRegisterPhoneNumAgain.getText().toString().trim().equals("") && !etDistributorRegisterDistributorCode.getText().toString().trim().equals("") && !etDistributorRegisterLoginPwd.getText().toString().trim().equals("") && etDistributorRegisterPhoneNum.getText().toString().trim().length() == 11) {
+                String phoneNum = etDistributorRegisterPhoneNum.getText().toString().trim();
+                String phoneNumAgain = etDistributorRegisterPhoneNumAgain.getText().toString().trim();
+                String distributorCode = etDistributorRegisterDistributorCode.getText().toString().trim();
+                String loginPwd = etDistributorRegisterLoginPwd.getText().toString().trim();
+
+                if (checkPwd(loginPwd)) {
+                    ToastUtil.showToast("密码格式不正确");
+                    return;
+                }
+
+
+                if (!phoneNum.equals("") && !phoneNumAgain.equals("") && !distributorCode.equals("") && !loginPwd.equals("") && phoneNum.length() == 11) {
                     if (etDistributorRegisterPhoneNum.getText().toString().trim().equals(etDistributorRegisterPhoneNumAgain.getText().toString().trim()))
                         ModifyBindPhone();
                     else
@@ -140,6 +151,9 @@ public class DistributorRegisterActivity extends BaseActivity {
             case R.id.tv_distributor_register_go_designer_register:
                 startActivity(new Intent(this, DesignerRegisterActivity.class));
                 break;
+            default:
+                break;
+
         }
     }
 }

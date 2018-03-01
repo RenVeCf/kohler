@@ -120,6 +120,7 @@ public class DownLoaderPDFActivity extends BaseActivity implements OnPageChangeL
                     byte[] bytes = response.body().bytes();
                     displayFromFile2(bytes);
                 } else {
+                    mIsOnlyPreview = false;
                     dismiss();
 
                     InputStream is = null;

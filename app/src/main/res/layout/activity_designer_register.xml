@@ -83,6 +83,7 @@
             android:src="@mipmap/kohler_logo"/>
 
         <EditText
+            android:maxLength="11"
             android:id="@+id/et_designer_register_phone_num"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -162,6 +163,7 @@
                 android:background="@color/black"/>
 
         <EditText
+            android:digits="@string/pwd_format"
             android:id="@+id/et_designer_register_pwd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
