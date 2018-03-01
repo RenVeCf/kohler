@@ -128,11 +128,11 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(getActivity(), tvHomeTop);
 
-//        if (SPUtil.get(App.getContext(), IConstants.TYPE, "").equals("dealer")) {
-//            ivTopCustomerService.setVisibility(View.VISIBLE);
-//        } else {
-            ivTopCustomerService.setVisibility(View.GONE);
-//        }
+        //        if (SPUtil.get(App.getContext(), IConstants.TYPE, "").equals("dealer")) {
+        //            ivTopCustomerService.setVisibility(View.VISIBLE);
+        //        } else {
+        ivTopCustomerService.setVisibility(View.GONE);
+        //        }
         //轮播
         abHomeLoop.measure(0, 0);
         // 设置管理器
@@ -236,14 +236,14 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
      * 隐藏条目
      */
     private void hideItem() {
-//        rvHomeBooks.setVisibility(View.GONE);
-//        tvMyBrochureTop.setVisibility(View.GONE);
-//        tvMyBrochureDonw.setVisibility(View.GONE);
+        //        rvHomeBooks.setVisibility(View.GONE);
+        //        tvMyBrochureTop.setVisibility(View.GONE);
+        //        tvMyBrochureDonw.setVisibility(View.GONE);
 
 
         Map<String, String> stringMap = IdeaApi.getSign();
         stringMap.put("pageNum", pageNum + "");
-//        stringMap.put("pageSize", 3 + "");
+        //        stringMap.put("pageSize", 3 + "");
 
         IdeaApi.getRequestLogin(stringMap);
         IdeaApi.getApiService()
@@ -263,7 +263,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                                     mMineManualAdapter = new BrochureListAdapter(mBooksListBean);
                                     rvHomeBooks.setAdapter(mMineManualAdapter);
 
-//                                    mMineManualAdapter.setOnLoadMoreListener(HomeFragment.this, rvHomeBooks); //加载更多
+                                    //                                    mMineManualAdapter.setOnLoadMoreListener(HomeFragment.this, rvHomeBooks); //加载更多
 
 /*
                                     mMineManualAdapter.setLoadMoreView(new LoadMoreView() {
@@ -273,10 +273,10 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                                         }
 
                                         */
-/**
-                                         * 如果返回true，数据全部加载完毕后会隐藏加载更多
-                                         * 如果返回false，数据全部加载完毕后会显示getLoadEndViewId()布局
-                                         *//*
+                                    /**
+                                     * 如果返回true，数据全部加载完毕后会隐藏加载更多
+                                     * 如果返回false，数据全部加载完毕后会显示getLoadEndViewId()布局
+                                     *//*
 
                                         @Override public boolean isLoadEndGone() {
                                             return true;
@@ -304,7 +304,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                                         public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                                             mCurPosition = position;
                                             //判断是否这个pdf文件已存在
-                                            mPdfTotalPath = mRootPath+ "/" +mBooksListBean.get(position).getPdfUrl().substring(mBooksListBean.get(position).getPdfUrl().lastIndexOf("/") + 1);
+                                            mPdfTotalPath = mRootPath + "/" + mBooksListBean.get(position).getPdfUrl().substring(mBooksListBean.get(position).getPdfUrl().lastIndexOf("/") + 1);
                                             if (FileUtils.isFileExist(mPdfTotalPath)) {
                                                 startActivity(new Intent(getActivity(), PDFActivity.class).putExtra("PdfUrl", mBooksListBean.get(position).getPdfUrl()));
                                             } else {//没找到就去下载
@@ -314,8 +314,8 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                                                 if (mBooksListBean.get(position).getPdfUrl() != null) {
                                                     Intent intent = new Intent(getActivity(), DownLoaderPDFActivity.class);
                                                     intent.putExtra("PdfUrl", mBooksListBean.get(position).getPdfUrl());
-                                                    intent.putExtra("mPdfTotalPath",mPdfTotalPath);
-                                                    intent.putExtra("mDownLoadKvUrl",mDownLoadKvUrl);
+                                                    intent.putExtra("mPdfTotalPath", mPdfTotalPath);
+                                                    intent.putExtra("mDownLoadKvUrl", mDownLoadKvUrl);
                                                     startActivityForResult(intent, IConstants.REQUEST_CODE_DOWN_LOAD);
                                                 }
                                             }
@@ -397,9 +397,17 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                                 if (postion == 0 && SPUtil.get(getActivity(), IConstants.TYPE, "").equals("dealer")) {
                                     startActivity(new Intent(getActivity(), MeetingActivity.class));
                                 } else if (postion == 0 && SPUtil.get(getActivity(), IConstants.TYPE, "").equals("commonUser")) {
-                                    mNoJurisdictionPopupWindow.showAsDropDown(getView(), 0, 0);
+                                    if (Build.VERSION.SDK_INT == 24) {//android7.0需要单独做适配
+                                        mNoJurisdictionPopupWindow.showAtLocation(getView(), Gravity.NO_GRAVITY, 0, getStatusBarHeight());
+                                    } else {
+                                        mNoJurisdictionPopupWindow.showAtLocation(getView(), Gravity.NO_GRAVITY, 0, 0);
+                                    }
                                 } else if (postion == 0 && SPUtil.get(getActivity(), IConstants.TYPE, "").equals("designer")) {
-                                    mNoJurisdictionPopupWindow.showAsDropDown(getView(), 0, 0);
+                                    if (Build.VERSION.SDK_INT == 24) {//android7.0需要单独做适配
+                                        mNoJurisdictionPopupWindow.showAtLocation(getView(), Gravity.NO_GRAVITY, 0, getStatusBarHeight());
+                                    } else {
+                                        mNoJurisdictionPopupWindow.showAtLocation(getView(), Gravity.NO_GRAVITY, 0, 0);
+                                    }
                                 } else {
                                     if (postion == 0) {
                                         startActivity(new Intent(getActivity(), LoginActivity.class));
@@ -514,6 +522,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
             abHomeLoop.setAutoPlay(false);
         }
     }
+
     public void startViewPager() {
         if (abHomeLoop != null) {
             abHomeLoop.setAutoPlay(true);

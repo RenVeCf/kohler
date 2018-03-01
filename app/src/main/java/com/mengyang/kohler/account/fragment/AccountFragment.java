@@ -41,7 +41,6 @@ import com.mengyang.kohler.account.adapter.FootPrintAdapter;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.net.IdeaApi;
-import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.view.CircleImageView;
 import com.mengyang.kohler.common.view.SpacesItemDecoration;
@@ -265,16 +264,16 @@ public class AccountFragment extends BaseFragment implements BaseQuickAdapter.Re
                                     rvAccountBrowsing.setAdapter(mFootPrintAdapter);
                                     mFootPrintAdapter.setOnLoadMoreListener(AccountFragment.this, rvAccountBrowsing); //加载更多
 
-                                  /*  mFootPrintAdapter.setLoadMoreView(new LoadMoreView() {
+                                    mFootPrintAdapter.setLoadMoreView(new LoadMoreView() {
                                         @Override
                                         public int getLayoutId() {
                                             return R.layout.load_more_null_layout;
                                         }
 
-                                        *//**
+                                        /**
                                          * 如果返回true，数据全部加载完毕后会隐藏加载更多
                                          * 如果返回false，数据全部加载完毕后会显示getLoadEndViewId()布局
-                                         *//*
+                                         */
                                         @Override
                                         public boolean isLoadEndGone() {
                                             return true;
@@ -294,16 +293,18 @@ public class AccountFragment extends BaseFragment implements BaseQuickAdapter.Re
                                         protected int getLoadEndViewId() {
                                             return 0;
                                         }
-                                    });*/
+                                    });
 
-                                    mFootPrintAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                                    mFootPrintAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener()
+
+                                    {
                                         @Override
-                                        public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                                        public void onItemClick(BaseQuickAdapter adapter, View
+                                                view, int position) {
                                             startActivity(new Intent(getActivity(), CommodityDetailsActivity.class).putExtra("CommodityDetails_two", mFootPrintBean.get(position).getSkuCode()));
                                         }
                                     });
                                 } else {
-                                    LogUtils.i("rmy", "mFootPrintAdapter.loadMoreEnd() 00000");
                                     mFootPrintAdapter.loadMoreEnd();
                                 }
                             } else {
@@ -311,15 +312,12 @@ public class AccountFragment extends BaseFragment implements BaseQuickAdapter.Re
                                     pageNum += 1;
                                     mFootPrintBean.addAll(response.getData().getResultList());
                                     mFootPrintAdapter.addData(response.getData().getResultList());
-                                    LogUtils.i("rmy", "mFootPrintAdapter.loadMoreComplete() 000000");
                                     mFootPrintAdapter.loadMoreComplete(); //完成本次
                                 } else {
-                                    LogUtils.i("rmy", "mFootPrintAdapter.loadMoreEnd() 111111");
                                     mFootPrintAdapter.loadMoreEnd(); //完成所有加载
                                 }
                             }
                         } else {
-                            LogUtils.i("rmy", "mFootPrintAdapter.loadMoreEnd() 2222222");
                             mFootPrintAdapter.loadMoreEnd();
                         }
                     }
@@ -343,6 +341,7 @@ public class AccountFragment extends BaseFragment implements BaseQuickAdapter.Re
     }
 
     //加载头像图片
+
     private void showImage(final String imaePath) {
         Map<String, String> stringMap = IdeaApi.getSign();
         stringMap.put("portraitUrl", imaePath); // 头像URL
@@ -395,8 +394,6 @@ public class AccountFragment extends BaseFragment implements BaseQuickAdapter.Re
                     Bitmap obmp = Bitmap.createBitmap(civAccountTitle.getDrawingCache());
                     ivAccountModifyTitleImg.setImageBitmap(obmp);
                     civAccountTitle.setDrawingCacheEnabled(false);
-                    //                    mAccountTitleImgPopupWindow.showAsDropDown(view, 0, 0);
-
                     if (Build.VERSION.SDK_INT == 24) {//android7.0需要单独做适配
                         mAccountTitleImgPopupWindow.showAtLocation(view, Gravity.NO_GRAVITY, 0, getStatusBarHeight());
                     } else {
@@ -408,7 +405,11 @@ public class AccountFragment extends BaseFragment implements BaseQuickAdapter.Re
                 break;
             case R.id.tv_account_name:
                 if (is_Login) {
-                    mAccountTitleNamePopupWindow.showAsDropDown(view, 0, 0);
+                    if (Build.VERSION.SDK_INT == 24) {//android7.0需要单独做适配
+                        mAccountTitleNamePopupWindow.showAtLocation(view, Gravity.NO_GRAVITY, 0, getStatusBarHeight());
+                    } else {
+                        mAccountTitleNamePopupWindow.showAtLocation(view, Gravity.NO_GRAVITY, 0, 0);
+                    }
                 } else {
                     startActivity(new Intent(getActivity(), LoginActivity.class));
                 }

@@ -208,7 +208,11 @@ public class MeetingActivity extends BaseActivity {
                                 tvPopMeetingPosition.setText(mMeetingBean.getAgendaList().get(position + 1).getPlace());
                                 tvPopMeetingName.setText(mMeetingBean.getAgendaList().get(position + 1).getTitle());
                                 tvPopMeetingAbstract.setText(mMeetingBean.getAgendaList().get(position + 1).getAgendaDesc());
-                                mMeetingPopupWindow.showAsDropDown(view, 0, 0);
+                                if (Build.VERSION.SDK_INT == 24) {//android7.0需要单独做适配
+                                    mMeetingPopupWindow.showAtLocation(view, Gravity.NO_GRAVITY, 0, getStatusBarHeight());
+                                } else {
+                                    mMeetingPopupWindow.showAtLocation(view, Gravity.NO_GRAVITY, 0, 0);
+                                }
                             }
                         });
                     }
@@ -241,7 +245,6 @@ public class MeetingActivity extends BaseActivity {
                 tvPopMeetingPosition.setText(mMeetingBean.getAgendaList().get(0).getPlace());
                 tvPopMeetingName.setText(mMeetingBean.getAgendaList().get(0).getTitle());
                 tvPopMeetingAbstract.setText(mMeetingBean.getAgendaList().get(0).getAgendaDesc());
-
                 if (Build.VERSION.SDK_INT == 24) {//android7.0需要单独做适配
                     mMeetingPopupWindow.showAtLocation(view, Gravity.NO_GRAVITY, 0, getStatusBarHeight());
                 } else {
@@ -280,7 +283,11 @@ public class MeetingActivity extends BaseActivity {
                 tvPopMeetingPosition.setText(mMeetingBean.getAgendaList().get(0).getPlace());
                 tvPopMeetingName.setText(mMeetingBean.getAgendaList().get(0).getTitle());
                 tvPopMeetingAbstract.setText(mMeetingBean.getAgendaList().get(0).getAgendaDesc());
-                mMeetingPopupWindow.showAsDropDown(view, 0, 0);
+                if (Build.VERSION.SDK_INT == 24) {//android7.0需要单独做适配
+                    mMeetingPopupWindow.showAtLocation(view, Gravity.NO_GRAVITY, 0, getStatusBarHeight());
+                } else {
+                    mMeetingPopupWindow.showAtLocation(view, Gravity.NO_GRAVITY, 0, 0);
+                }
                 break;
             case R.id.iv_meeting_search_table_number:
                 startActivity(new Intent(this, CustomerServiceActivity.class));

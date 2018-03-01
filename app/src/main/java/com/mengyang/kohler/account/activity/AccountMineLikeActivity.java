@@ -2,10 +2,12 @@ package com.mengyang.kohler.account.activity;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -159,7 +161,11 @@ public class AccountMineLikeActivity extends BaseActivity implements BaseQuickAd
                                                     //取消收藏
                                                     mId = likeListBean.get(position).getId() + "";
                                                     tvPopupWindowAccountMineLike.setText(likeListBean.get(position).getName());
-                                                    mAccountMineLikePopupWindow.showAsDropDown(view, 0, 0);
+                                                    if (Build.VERSION.SDK_INT == 24) {//android7.0需要单独做适配
+                                                        mAccountMineLikePopupWindow.showAtLocation(view, Gravity.NO_GRAVITY, 0, getStatusBarHeight());
+                                                    } else {
+                                                        mAccountMineLikePopupWindow.showAtLocation(view, Gravity.NO_GRAVITY, 0, 0);
+                                                    }
                                                     break;
                                             }
                                         }
