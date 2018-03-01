@@ -34,6 +34,7 @@ public class BrochureListAdapter extends BaseQuickAdapter<BooksListBean.ResultLi
         } else {
             helper.setImageResource(R.id.iv_brochure_list_adapter_download_item, R.mipmap.video);
         }
+        helper.setText(R.id.tv_brochure_list_adapter_download_item,  item.getNameCn());
         Glide.with(App.getContext()).load(item.getKvUrl()).apply(new RequestOptions().placeholder(R.mipmap.queshengtu)).into((ImageView) helper.getView(R.id.iv_brochure_list_adapter_download_item_img));
         helper.addOnClickListener(R.id.iv_brochure_list_adapter_download_item_img);
         helper.addOnClickListener(R.id.iv_brochure_list_adapter_download_item);

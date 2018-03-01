@@ -250,7 +250,6 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
                                                     String videoUrl = mBooksListBean.get(position).getVideoUrl();
                                                     if (videoUrl != null && !TextUtils.isEmpty(videoUrl)) {
                                                         startActivity(new Intent(MineManualActivity.this, WebViewActivity.class).putExtra("h5url", videoUrl).putExtra("flag", 2));
-
                                                     }
                                                 }
                                             }

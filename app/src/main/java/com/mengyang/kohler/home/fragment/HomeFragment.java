@@ -313,12 +313,19 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                                                 mDownLoadKvUrl = mBooksListBean.get(mCurPosition).getKvUrl();
                                                 // TODO: 2018/2/11 ,还需要考虑到断点续传的功能,若是客户在下载的过程中退出应用，下次在进来的时候，PDF虽然有了，但是不能显示
 
-                                                if (mBooksListBean.get(position).getPdfUrl() != null) {
+                                                String pdfUrl = mBooksListBean.get(position).getPdfUrl();
+                                                if (pdfUrl != null && !TextUtils.isEmpty(pdfUrl)) {
                                                     Intent intent = new Intent(getActivity(), DownLoaderPDFActivity.class);
                                                     intent.putExtra("PdfUrl", mBooksListBean.get(position).getPdfUrl());
                                                     intent.putExtra("mPdfTotalPath", mPdfTotalPath);
                                                     intent.putExtra("mDownLoadKvUrl", mDownLoadKvUrl);
                                                     startActivityForResult(intent, IConstants.REQUEST_CODE_DOWN_LOAD);
+                                                    return;
+                                                } else {
+                                                    String videoUrl = mBooksListBean.get(position).getVideoUrl();
+                                                    if (videoUrl != null && !TextUtils.isEmpty(videoUrl)) {
+                                                        startActivity(new Intent(getActivity(), WebViewActivity.class).putExtra("h5url", videoUrl).putExtra("flag", 2));
+                                                    }
                                                 }
                                             }
                                         }
