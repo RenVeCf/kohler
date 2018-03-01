@@ -40,6 +40,7 @@
         </LinearLayout>
 
         <RelativeLayout
+            android:id="@+id/rl_distributor_register_go_home"
             android:layout_marginEnd="@dimen/x72"
             android:layout_marginTop="@dimen/y129"
             android:padding="10dp"

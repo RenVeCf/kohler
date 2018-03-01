@@ -9,6 +9,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mengyang.kohler.App;
@@ -35,8 +36,8 @@ import io.reactivex.schedulers.Schedulers;
 
 public class DistributorRegisterActivity extends BaseActivity {
 
-    @BindView(R.id.iv_distributor_register_go_home)
-    ImageView ivDistributorRegisterGoHome;
+    @BindView(R.id.rl_distributor_register_go_home)
+    RelativeLayout ivDistributorRegisterGoHome;
     @BindView(R.id.et_distributor_register_phone_num)
     EditText etDistributorRegisterPhoneNum;
     @BindView(R.id.et_distributor_register_distributor_code)
@@ -118,10 +119,10 @@ public class DistributorRegisterActivity extends BaseActivity {
                 });
     }
 
-    @OnClick({R.id.iv_distributor_register_go_home, R.id.bt_distributor_register, R.id.tv_distributor_register_go_user_register, R.id.tv_distributor_register_go_designer_register})
+    @OnClick({R.id.rl_distributor_register_go_home, R.id.bt_distributor_register, R.id.tv_distributor_register_go_user_register, R.id.tv_distributor_register_go_designer_register})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.iv_distributor_register_go_home:
+            case R.id.rl_distributor_register_go_home:
                 hideInput();
 
                 startActivity(new Intent(this, MainActivity.class));

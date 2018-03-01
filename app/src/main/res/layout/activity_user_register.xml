@@ -39,6 +39,7 @@
         </LinearLayout>
 
         <RelativeLayout
+            android:id="@+id/rl_user_register_go_home"
             android:padding="10dp"
             android:layout_marginEnd="@dimen/x72"
             android:layout_marginTop="@dimen/y129"

@@ -10,6 +10,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mengyang.kohler.App;
@@ -49,8 +50,8 @@ import okhttp3.Response;
 
 public class UserRegisterActivity extends BaseActivity {
 
-    @BindView(R.id.iv_user_register_go_home)
-    ImageView ivUserRegisterGoHome;
+    @BindView(R.id.rl_user_register_go_home)
+    RelativeLayout ivUserRegisterGoHome;
     @BindView(R.id.et_user_register_phone_num)
     EditText etUserRegisterPhoneNum;
     @BindView(R.id.et_user_register_verification_code)
@@ -205,10 +206,10 @@ public class UserRegisterActivity extends BaseActivity {
                 });
     }
 
-    @OnClick({R.id.iv_user_register_go_home, R.id.iv_user_register_verification_code, R.id.bt_user_register_send_out_sms, R.id.bt_user_register, R.id.tv_user_register_go_login, R.id.tv_user_register_go_designer_register, R.id.tv_user_register_go_distributor_register})
+    @OnClick({R.id.rl_user_register_go_home, R.id.iv_user_register_verification_code, R.id.bt_user_register_send_out_sms, R.id.bt_user_register, R.id.tv_user_register_go_login, R.id.tv_user_register_go_designer_register, R.id.tv_user_register_go_distributor_register})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.iv_user_register_go_home:
+            case R.id.rl_user_register_go_home:
                 hideInput();
                 startActivity(new Intent(this, MainActivity.class));
                 finish();

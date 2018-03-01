@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mengyang.kohler.App;
@@ -50,8 +51,8 @@ import okhttp3.Response;
 
 public class LoginActivity extends BaseActivity {
 
-    @BindView(R.id.iv_lonin_go_home)
-    ImageView ivLoninGoHome;
+    @BindView(R.id.rl_lonin_go_home)
+    RelativeLayout ivLoninGoHome;
     @BindView(R.id.et_login_phone_num)
     EditText etLoginPhoneNum;
     @BindView(R.id.et_login_pwd)
@@ -192,10 +193,10 @@ public class LoginActivity extends BaseActivity {
                 });
     }
 
-    @OnClick({R.id.iv_lonin_go_home, R.id.tv_login_forget_pwd, R.id.bt_login, R.id.tv_login_go_register, R.id.iv_login_verification_code})
+    @OnClick({R.id.rl_lonin_go_home, R.id.tv_login_forget_pwd, R.id.bt_login, R.id.tv_login_go_register, R.id.iv_login_verification_code})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.iv_lonin_go_home:
+            case R.id.rl_lonin_go_home:
                 hideInput();
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 finish();
