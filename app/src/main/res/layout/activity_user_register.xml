@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/x72"
                 android:layout_marginTop="@dimen/y126"
-                android:text="@string/register_english"
+                android:text="@string/register"
                 android:textColor="#252525"
                 android:textSize="22sp"/>
 
@@ -33,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/x72"
-                android:text="@string/register"
+                android:text="@string/register_english"
                 android:textColor="#9e9e9e"
                 android:textSize="10sp"/>
         </LinearLayout>
@@ -50,9 +50,14 @@
                 android:layout_width="@dimen/x48"
                 android:layout_height="@dimen/y48"
                 android:src="@mipmap/kohler_exit"/>
-
         </RelativeLayout>
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="@dimen/x72"
+        android:background="#e2e2e2"/>
 
 <!--    <ScrollView
         android:layout_width="match_parent"
