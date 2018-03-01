@@ -3,7 +3,6 @@ package com.mengyang.kohler.common.net;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.AllSearchBean;
 import com.mengyang.kohler.module.bean.BooksListBean;
-import com.mengyang.kohler.module.bean.BooksListBean2;
 import com.mengyang.kohler.module.bean.CommodityClassificationFragmentBean;
 import com.mengyang.kohler.module.bean.CommodityClassificationTitleBean;
 import com.mengyang.kohler.module.bean.CommodityDetailsBean;
@@ -224,10 +223,6 @@ public interface IdeaApiService {
     @FormUrlEncoded
     @POST(Config.BOOKS_LIST)
     Observable<BasicResponse<BooksListBean>> getBooksList(@FieldMap Map<String, String> map);
-
-    @FormUrlEncoded
-    @POST(Config.BOOKS_LIST)
-    Observable<BasicResponse<BooksListBean2>> getBooksList2(@FieldMap Map<String, String> map);
 
     //问题搜索
     @FormUrlEncoded
