@@ -164,14 +164,40 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
         mNoJurisdictionPopupWindow.setFocusable(true);
 
         checkPermissions();//检查权限
+
+        rlMain.setPanelSlideListener(new ResideLayout.PanelSlideListener() {
+            @Override
+            public void onPanelSlide(View panel, float slideOffset) {
+                Log.i("123", "onPanelSlide");
+            }
+
+            @Override
+            public void onPanelOpened(View panel) {
+                if (mHomeFragment != null) {
+                    mHomeFragment.stopViewPager();
+                }
+                Log.i("123", "kai");
+            }
+
+            @Override
+            public void onPanelClosed(View panel) {
+                Log.i("123", "guan");
+                if (mHomeFragment != null) {
+                    mHomeFragment.startViewPager();
+                }
+
+            }
+        });
     }
 
     @Override
     public void onBackPressed() {
         if (rlMain.isOpen()) {
             rlMain.closePane();
+
         } else {
             super.onBackPressed();
+
         }
     }
 
@@ -573,4 +599,6 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
     @OnClick()
     public void onViewClicked() {
     }
+
+
 }

@@ -18,17 +18,24 @@ import com.github.barteksc.pdfviewer.listener.OnErrorListener;
 import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
 import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
 import com.github.barteksc.pdfviewer.util.FitPolicy;
+import com.google.gson.Gson;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
+import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.utils.CommonDialogUtils;
 import com.mengyang.kohler.common.utils.LogUtils;
+import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.utils.ToastUtil;
+import com.mengyang.kohler.home.adapter.MyBrochureAdapter6;
+import com.mengyang.kohler.module.PdfBean;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.transform.Result;
 
@@ -56,6 +63,13 @@ public class DownLoaderPDFActivity extends BaseActivity implements OnPageChangeL
     private OkHttpClient okHttpClient;
     private String url = "";
     private CommonDialogUtils dialogUtils;
+    private PdfBean mPdfBean = new PdfBean();
+    private List<String> mNameList= new ArrayList<>();
+    private PdfBean.UserNameBean.UserPdfItemBean mUserPdfItemBean = new PdfBean.UserNameBean.UserPdfItemBean();
+    private String mUserName = (String) SPUtil.get(App.getContext(), IConstants.USER_NIKE_NAME, "");
+    private List<PdfBean.UserNameBean.UserPdfItemBean> mPdfItemList;
+    private PdfBean.UserNameBean mUserNameBean;
+    private List<PdfBean.UserNameBean> mUserNameBeanList = new ArrayList<>();
 
     @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
@@ -73,6 +87,8 @@ public class DownLoaderPDFActivity extends BaseActivity implements OnPageChangeL
             }
 
             if (msg.arg1 == 100) {
+
+                savePdfData();
                 Intent intent = new Intent();
                 intent.putExtra("pdfPath", mFileAbsolutePath);
                 setResult(RESULT_OK);
@@ -80,8 +96,11 @@ public class DownLoaderPDFActivity extends BaseActivity implements OnPageChangeL
             }
         }
     };
+
     private String mFileAbsolutePath;
     private boolean mIsOnlyPreview;//是否只是预览
+    private String mPdfTotalPath;
+    private String mDownLoadKvUrl;
     //    private Response mResponse;
 
     @Override
@@ -93,6 +112,8 @@ public class DownLoaderPDFActivity extends BaseActivity implements OnPageChangeL
     protected void initValues() {
         App.getManager().addActivity(this);
         url = getIntent().getStringExtra("PdfUrl");
+        mPdfTotalPath = getIntent().getStringExtra("mPdfTotalPath");
+        mDownLoadKvUrl = getIntent().getStringExtra("mDownLoadKvUrl");
         mIsOnlyPreview = getIntent().getBooleanExtra("isPreview", false);
     }
 
@@ -239,5 +260,59 @@ public class DownLoaderPDFActivity extends BaseActivity implements OnPageChangeL
     @Override
     public void onError(Throwable t) {
         Log.i("123", "onError = 出错了" + t);
+    }
+
+    private void savePdfData() {
+        if (mPdfBean.getList() != null && mPdfBean.getList().size() > 0) {
+
+            for (int i = 0; i < mPdfBean.getList().size(); i++) {
+                mNameList.add(mPdfBean.getList().get(i).getUserName());
+            }
+
+            //有这个用户
+            if (mNameList.contains((String) SPUtil.get(App.getContext(), IConstants.USER_NIKE_NAME, ""))) {
+                for (int i = 0; i < mPdfBean.getList().size(); i++) {
+                    if (mPdfBean.getList().get(i).getUserName().equals((String) SPUtil.get(App.getContext(), IConstants.USER_NIKE_NAME, ""))) {
+
+                        mUserPdfItemBean = new PdfBean.UserNameBean.UserPdfItemBean();
+                        mUserPdfItemBean.setBookKVUrl(mDownLoadKvUrl);
+                        mUserPdfItemBean.setPathUrl(mPdfTotalPath);
+
+                        mPdfBean.getList().get(i).getPdfItemList().add(mUserPdfItemBean);
+                        saveUserPdfData(mPdfBean);
+                    }
+                }
+
+            } else {
+                //没有该用户,创建用户信息
+                createUserPdfData();
+            }
+
+        } else {
+            //没有该用户,创建用户信息
+            createUserPdfData();
+        }
+    }
+
+    private void createUserPdfData() {
+        mUserPdfItemBean.setBookKVUrl(mDownLoadKvUrl);
+        mUserPdfItemBean.setPathUrl(mPdfTotalPath);
+
+        mUserNameBean = new PdfBean.UserNameBean();
+        mUserNameBean.setUserName(mUserName);
+
+        mPdfItemList = new ArrayList<>();
+        mPdfItemList.add(mUserPdfItemBean);
+        mUserNameBean.setPdfItemList(mPdfItemList);
+        mUserNameBeanList.add(mUserNameBean);
+        mPdfBean.setList(mUserNameBeanList);
+
+        saveUserPdfData(mPdfBean);
+    }
+
+    private void saveUserPdfData(PdfBean pdfBean) {
+        Gson gson = new Gson();
+        String jsonStr=gson.toJson(pdfBean); //将List转换成Json
+        SPUtil.put(App.getContext(),IConstants.USER_PDF_DATA,jsonStr);
     }
 }

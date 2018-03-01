@@ -4,10 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Environment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.loadmore.LoadMoreView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.gyf.barlibrary.ImmersionBar;
@@ -31,15 +34,20 @@ import com.mengyang.kohler.common.activity.WebViewActivity;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.net.IdeaApi;
+import com.mengyang.kohler.common.utils.FileUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.view.SpacesItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
+import com.mengyang.kohler.home.activity.DownLoaderPDFActivity;
 import com.mengyang.kohler.home.activity.HomeSearchActivity;
 import com.mengyang.kohler.home.activity.MeetingActivity;
+import com.mengyang.kohler.home.activity.MineManualActivity;
 import com.mengyang.kohler.home.activity.PDFActivity;
+import com.mengyang.kohler.home.adapter.BrochureListAdapter;
 import com.mengyang.kohler.home.adapter.HomeBooksAdapter;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.PdfBean;
+import com.mengyang.kohler.module.bean.BooksListBean;
 import com.mengyang.kohler.module.bean.HomeIndexBean;
 import com.ryane.banner.AdPageInfo;
 import com.ryane.banner.AdPlayBanner;
@@ -62,6 +70,8 @@ import static com.ryane.banner.AdPlayBanner.IndicatorType.NONE_INDICATOR;
  */
 
 public class HomeFragment extends BaseFragment {
+    String mRootPath = Environment.getExternalStorageDirectory().getAbsolutePath();
+
 
     @BindView(R.id.tv_home_top)
     TopView tvHomeTop;
@@ -98,6 +108,13 @@ public class HomeFragment extends BaseFragment {
     private PdfBean mPdfBean;
     private String mUserName;
     private List<PdfBean.UserNameBean.UserPdfItemBean> mPdfItemList;
+    private int pageNum;
+    private List<BooksListBean.ResultListBean> mBooksListBean = new ArrayList<>();
+    private BrochureListAdapter mMineManualAdapter;
+    private int mCurPosition;
+    private String mPdfTotalPath;
+    private String mDownLoadKvUrl;
+    private HandleViewPager mHandleListenning;
 
     @Override
     protected int getLayoutId() {
@@ -146,7 +163,6 @@ public class HomeFragment extends BaseFragment {
         mNoJurisdictionPopupWindow.setOutsideTouchable(false);
         mNoJurisdictionPopupWindow.setFocusable(true);
         abHomeLoop.setImageViewScaleType(AdPlayBanner.ScaleType.CENTER_CROP);
-
 
     }
 
@@ -214,9 +230,104 @@ public class HomeFragment extends BaseFragment {
      * 隐藏条目
      */
     private void hideItem() {
-        rvHomeBooks.setVisibility(View.GONE);
-        tvMyBrochureTop.setVisibility(View.GONE);
-        tvMyBrochureDonw.setVisibility(View.GONE);
+//        rvHomeBooks.setVisibility(View.GONE);
+//        tvMyBrochureTop.setVisibility(View.GONE);
+//        tvMyBrochureDonw.setVisibility(View.GONE);
+
+
+        Map<String, String> stringMap = IdeaApi.getSign();
+        stringMap.put("pageNum", pageNum + "");
+//        stringMap.put("pageSize", 3 + "");
+
+        IdeaApi.getRequestLogin(stringMap);
+        IdeaApi.getApiService()
+                .getBooksList(stringMap)
+                .compose(this.<BasicResponse<BooksListBean>>bindToLifecycle())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultObserver<BasicResponse<BooksListBean>>(getActivity(), true) {
+                    @Override
+                    public void onSuccess(BasicResponse<BooksListBean> response) {
+                        if (response != null) {
+                            if (pageNum == 0) {
+                                mBooksListBean.clear();
+                                mBooksListBean.addAll(response.getData().getResultList());
+                                if (mBooksListBean.size() > 0) {
+                                    pageNum += 1;
+                                    mMineManualAdapter = new BrochureListAdapter(mBooksListBean);
+                                    rvHomeBooks.setAdapter(mMineManualAdapter);
+
+//                                    mMineManualAdapter.setOnLoadMoreListener(getActivity(), rvMineManualMyBrochure); //加载更多
+
+                                    mMineManualAdapter.setLoadMoreView(new LoadMoreView() {
+                                        @Override
+                                        public int getLayoutId() {
+                                            return R.layout.load_more_null_layout;
+                                        }
+
+                                        /**
+                                         * 如果返回true，数据全部加载完毕后会隐藏加载更多
+                                         * 如果返回false，数据全部加载完毕后会显示getLoadEndViewId()布局
+                                         */
+                                        @Override public boolean isLoadEndGone() {
+                                            return true;
+                                        }
+
+                                        @Override
+                                        protected int getLoadingViewId() {
+                                            return R.id.load_more_loading_view;
+                                        }
+
+                                        @Override
+                                        protected int getLoadFailViewId() {
+                                            return R.id.load_more_load_fail_view;
+                                        }
+
+                                        @Override
+                                        protected int getLoadEndViewId() {
+                                            return 0;
+                                        }
+                                    });
+
+                                    mMineManualAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                                        @Override
+                                        public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                                            mCurPosition = position;
+                                            //判断是否这个pdf文件已存在
+                                            mPdfTotalPath = mRootPath+ "/" +mBooksListBean.get(position).getPdfUrl().substring(mBooksListBean.get(position).getPdfUrl().lastIndexOf("/") + 1);
+                                            if (FileUtils.isFileExist(mPdfTotalPath)) {
+                                                startActivity(new Intent(getActivity(), PDFActivity.class).putExtra("PdfUrl", mBooksListBean.get(position).getPdfUrl()));
+                                            } else {//没找到就去下载
+                                                mDownLoadKvUrl = mBooksListBean.get(mCurPosition).getKvUrl();
+                                                // TODO: 2018/2/11 ,还需要考虑到断点续传的功能,若是客户在下载的过程中退出应用，下次在进来的时候，PDF虽然有了，但是不能显示
+
+                                                Intent intent = new Intent(getActivity(), DownLoaderPDFActivity.class);
+                                                intent.putExtra("PdfUrl", mBooksListBean.get(position).getPdfUrl());
+                                                intent.putExtra("mPdfTotalPath",mPdfTotalPath);
+                                                intent.putExtra("mDownLoadKvUrl",mDownLoadKvUrl);
+
+                                                startActivityForResult(intent, IConstants.REQUEST_CODE_DOWN_LOAD);
+                                            }
+                                        }
+                                    });
+                                } else {
+                                    mMineManualAdapter.loadMoreEnd();
+                                }
+                            } else {
+                                if (response.getData().getResultList().size() > 0) {
+                                    pageNum += 1;
+                                    mBooksListBean.addAll(response.getData().getResultList());
+                                    mMineManualAdapter.addData(response.getData().getResultList());
+                                    mMineManualAdapter.loadMoreComplete(); //完成本次
+                                } else {
+                                    mMineManualAdapter.loadMoreEnd(); //完成所有加载
+                                }
+                            }
+                        } else {
+                            mMineManualAdapter.loadMoreEnd();
+                        }
+                    }
+                });
     }
 
     @Override
@@ -377,6 +488,27 @@ public class HomeFragment extends BaseFragment {
             default:
                 break;
         }
+    }
+
+    public void stopViewPager() {
+        if (abHomeLoop != null) {
+            abHomeLoop.setAutoPlay(false);
+        }
+    }
+    public void startViewPager() {
+        if (abHomeLoop != null) {
+            abHomeLoop.setAutoPlay(true);
+            abHomeLoop.setUp();
+            Log.i("123", "456");
+        }
+    }
+
+    interface HandleViewPager {
+        void handleListenning();
+    }
+
+    public void setHandleListenning(HandleViewPager handleListenning) {
+        mHandleListenning = handleListenning;
     }
 
 }

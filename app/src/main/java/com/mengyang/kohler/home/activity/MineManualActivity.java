@@ -172,7 +172,7 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
     protected void initData() {
         Map<String, String> stringMap = IdeaApi.getSign();
         stringMap.put("pageNum", pageNum + "");
-        stringMap.put("pageSize", 3 + "");
+//        stringMap.put("pageSize", 3 + "");
 
         IdeaApi.getRequestLogin(stringMap);
         IdeaApi.getApiService()
@@ -234,7 +234,11 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
                                                 mDownLoadKvUrl = mBooksListBean.get(mCurPosition).getKvUrl();
                                                 // TODO: 2018/2/11 ,还需要考虑到断点续传的功能,若是客户在下载的过程中退出应用，下次在进来的时候，PDF虽然有了，但是不能显示
 
-                                                Intent intent = new Intent(MineManualActivity.this, DownLoaderPDFActivity.class).putExtra("PdfUrl", mBooksListBean.get(position).getPdfUrl());
+                                                Intent intent = new Intent(MineManualActivity.this, DownLoaderPDFActivity.class);
+                                                intent.putExtra("PdfUrl", mBooksListBean.get(position).getPdfUrl());
+                                                intent.putExtra("mPdfTotalPath",mPdfTotalPath);
+                                                intent.putExtra("mDownLoadKvUrl",mDownLoadKvUrl);
+
                                                 startActivityForResult(intent, IConstants.REQUEST_CODE_DOWN_LOAD);
                                             }
                                         }
@@ -282,12 +286,17 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
                     for (int i = 0; i < mPdfBean.getList().size(); i++) {
                         if (mPdfBean.getList().get(i).getUserName().equals((String) SPUtil.get(App.getContext(), IConstants.USER_NIKE_NAME, ""))) {
 
-                            mUserPdfItemBean = new PdfBean.UserNameBean.UserPdfItemBean();
-                            mUserPdfItemBean.setBookKVUrl(mDownLoadKvUrl);
-                            mUserPdfItemBean.setPathUrl(mPdfTotalPath);
+                            for (int j = 0; j < mPdfBean.getList().get(i).getPdfItemList().size(); j++) {
+                                mPdfItemList.add(mPdfBean.getList().get(i).getPdfItemList().get(j));
+                            }
 
-                            mPdfBean.getList().get(i).getPdfItemList().add(mUserPdfItemBean);
-                            saveUserPdfData(mPdfBean);
+
+//                            mUserPdfItemBean = new PdfBean.UserNameBean.UserPdfItemBean();
+//                            mUserPdfItemBean.setBookKVUrl(mDownLoadKvUrl);
+//                            mUserPdfItemBean.setPathUrl(mPdfTotalPath);
+//
+//                            mPdfBean.getList().get(i).getPdfItemList().add(mUserPdfItemBean);
+//                            saveUserPdfData(mPdfBean);
 
 
                             mMyBrochureAdapter6.notifyDataSetChanged();
@@ -296,12 +305,12 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
 
                 } else {
                     //没有该用户,创建用户信息
-                    createUserPdfData();
+//                    createUserPdfData();
                 }
 
             } else {
                 //没有该用户,创建用户信息
-                createUserPdfData();
+//                createUserPdfData();
             }
         }
     }

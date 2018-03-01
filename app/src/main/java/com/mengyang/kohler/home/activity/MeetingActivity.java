@@ -2,9 +2,11 @@ package com.mengyang.kohler.home.activity;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -239,7 +241,12 @@ public class MeetingActivity extends BaseActivity {
                 tvPopMeetingPosition.setText(mMeetingBean.getAgendaList().get(0).getPlace());
                 tvPopMeetingName.setText(mMeetingBean.getAgendaList().get(0).getTitle());
                 tvPopMeetingAbstract.setText(mMeetingBean.getAgendaList().get(0).getAgendaDesc());
-                mMeetingPopupWindow.showAsDropDown(view, 0, 0);
+
+                if (Build.VERSION.SDK_INT == 24) {//android7.0需要单独做适配
+                    mMeetingPopupWindow.showAtLocation(view, Gravity.NO_GRAVITY, 0, getStatusBarHeight());
+                } else {
+                    mMeetingPopupWindow.showAtLocation(view, Gravity.NO_GRAVITY, 0, 0);
+                }
                 break;
             case R.id.iv_invitation_h5:
                 startActivity(new Intent(this, MeetingWebActivity.class).putExtra("meeting_web", mMeetingBean.getInvitationH5Url()));
@@ -277,6 +284,8 @@ public class MeetingActivity extends BaseActivity {
                 break;
             case R.id.iv_meeting_search_table_number:
                 startActivity(new Intent(this, CustomerServiceActivity.class));
+                break;
+            default:
                 break;
         }
     }

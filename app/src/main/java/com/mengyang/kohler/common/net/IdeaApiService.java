@@ -43,7 +43,7 @@ public interface IdeaApiService {
     /**
      * 网络请求超时时间毫秒
      */
-    int DEFAULT_TIMEOUT = 5000;
+    int DEFAULT_TIMEOUT = 30000;
     //项目主页(测试环境)
     String API_SERVER_URL = "http://kohler-app.glor.cn/";
     //项目主页(正式环境)
