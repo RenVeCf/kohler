@@ -1499,4 +1499,12 @@ public class ResideLayout extends ViewGroup {
             mPostedRunnables.remove(this);
         }
     }
+
+    public void StopSlide() {
+        mCanSlide = false;
+    }
+
+    public void StartSlide() {
+        mCanSlide = true;
+    }
 }

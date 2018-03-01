@@ -4,12 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Environment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,7 +71,7 @@ import static com.ryane.banner.AdPlayBanner.IndicatorType.NONE_INDICATOR;
  * 主页
  */
 
-public class HomeFragment extends BaseFragment {
+public class HomeFragment extends BaseFragment implements BaseQuickAdapter.RequestLoadMoreListener {
     String mRootPath = Environment.getExternalStorageDirectory().getAbsolutePath();
 
 
@@ -169,60 +171,64 @@ public class HomeFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        // TODO: 2018/2/23 ,若是用户手动删除了手机上的文件，还没有做处理
+        if (((boolean) SPUtil.get(getActivity(), IConstants.IS_LOGIN, false)) == true) {
+            if (SPUtil.get(getActivity(), IConstants.TYPE, "").equals("dealer") || SPUtil.get(getActivity(), IConstants.TYPE, "").equals("designer")) {
+                // TODO: 2018/2/23 ,若是用户手动删除了手机上的文件，还没有做处理
 
-        mUserName = (String) SPUtil.get(App.getContext(), IConstants.USER_NIKE_NAME, "");
+                mUserName = (String) SPUtil.get(App.getContext(), IConstants.USER_NIKE_NAME, "");
 
-        String pefData2 = (String) SPUtil.get(App.getContext(), IConstants.USER_PDF_DATA, "");
-        if (!TextUtils.isEmpty(pefData2)) {
-            Gson gson = new Gson();
-            mPdfBean = gson.fromJson(pefData2, new TypeToken<PdfBean>() {
-            }.getType());
-            if (mPdfBean.getList() != null) {
-                for (int i = 0; i < mPdfBean.getList().size(); i++) {
-                    if (mPdfBean.getList().get(i).getUserName().equals(mUserName)) {
-                        if (mPdfBean.getList().get(i).getPdfItemList() != null && mPdfBean.getList().get(i).getPdfItemList().size() > 0) {
-                            mPdfItemList = mPdfBean.getList().get(i).getPdfItemList();
+                String pefData2 = (String) SPUtil.get(App.getContext(), IConstants.USER_PDF_DATA, "");
+                if (!TextUtils.isEmpty(pefData2)) {
+                    Gson gson = new Gson();
+                    mPdfBean = gson.fromJson(pefData2, new TypeToken<PdfBean>() {
+                    }.getType());
+                    if (mPdfBean.getList() != null) {
+                        for (int i = 0; i < mPdfBean.getList().size(); i++) {
+                            if (mPdfBean.getList().get(i).getUserName().equals(mUserName)) {
+                                if (mPdfBean.getList().get(i).getPdfItemList() != null && mPdfBean.getList().get(i).getPdfItemList().size() > 0) {
+                                    mPdfItemList = mPdfBean.getList().get(i).getPdfItemList();
 
-                            // TODO: 2018/2/23 ,有可能用户手动将文件删除了，所以这边需要在进行判断文件是否存在
-                            boolean exists = false;
-                            for (int i1 = 0; i1 < mPdfItemList.size(); i1++) {
-                                String bookPathUrl = mPdfItemList.get(i1).getPathUrl();
-                                File file = new File(bookPathUrl);
-                                exists = file.exists();
-                                if (!exists) {
-                                    mPdfItemList.remove(i1);
+                                    // TODO: 2018/2/23 ,有可能用户手动将文件删除了，所以这边需要在进行判断文件是否存在
+                                    boolean exists = false;
+                                    for (int i1 = 0; i1 < mPdfItemList.size(); i1++) {
+                                        String bookPathUrl = mPdfItemList.get(i1).getPathUrl();
+                                        File file = new File(bookPathUrl);
+                                        exists = file.exists();
+                                        if (!exists) {
+                                            mPdfItemList.remove(i1);
+                                        }
+                                    }
+                                } else {
+                                    hideItem();
+                                    return;
                                 }
                             }
-                        } else {
-                            hideItem();
-                            return;
                         }
-                    }
-                }
 
-                mHomeBooksAdapter = new HomeBooksAdapter(mPdfItemList);
-                if (mPdfItemList == null || mPdfItemList.size() == 0) {
-                    hideItem();
-                } else {
-                    rvHomeBooks.setVisibility(View.VISIBLE);
-                    tvMyBrochureTop.setVisibility(View.VISIBLE);
-                    tvMyBrochureDonw.setVisibility(View.VISIBLE);
-                }
-                rvHomeBooks.setAdapter(mHomeBooksAdapter);
-                mHomeBooksAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-                    @Override
-                    public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                        // TODO: 2018/2/12 ,每次从sp 中获取，进行使用
-                        startActivity(new Intent(getActivity(), PDFActivity.class).putExtra("PdfUrl", mPdfItemList.get(position).getPathUrl()));
+                        mHomeBooksAdapter = new HomeBooksAdapter(mPdfItemList);
+                        if (mPdfItemList == null || mPdfItemList.size() == 0) {
+                            hideItem();
+                        } else {
+                            rvHomeBooks.setVisibility(View.VISIBLE);
+                            tvMyBrochureTop.setVisibility(View.VISIBLE);
+                            tvMyBrochureDonw.setVisibility(View.VISIBLE);
+                        }
+                        rvHomeBooks.setAdapter(mHomeBooksAdapter);
+                        mHomeBooksAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                            @Override
+                            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                                // TODO: 2018/2/12 ,每次从sp 中获取，进行使用
+                                startActivity(new Intent(getActivity(), PDFActivity.class).putExtra("PdfUrl", mPdfItemList.get(position).getPathUrl()));
+                            }
+                        });
+                    } else {
+                        //隐藏条目
+                        hideItem();
                     }
-                });
-            } else {
-                //隐藏条目
-                hideItem();
+                } else {
+                    hideItem();
+                }
             }
-        } else {
-            hideItem();
         }
     }
 
@@ -257,18 +263,21 @@ public class HomeFragment extends BaseFragment {
                                     mMineManualAdapter = new BrochureListAdapter(mBooksListBean);
                                     rvHomeBooks.setAdapter(mMineManualAdapter);
 
-//                                    mMineManualAdapter.setOnLoadMoreListener(getActivity(), rvMineManualMyBrochure); //加载更多
+//                                    mMineManualAdapter.setOnLoadMoreListener(HomeFragment.this, rvHomeBooks); //加载更多
 
+/*
                                     mMineManualAdapter.setLoadMoreView(new LoadMoreView() {
                                         @Override
                                         public int getLayoutId() {
                                             return R.layout.load_more_null_layout;
                                         }
 
-                                        /**
+                                        */
+/**
                                          * 如果返回true，数据全部加载完毕后会隐藏加载更多
                                          * 如果返回false，数据全部加载完毕后会显示getLoadEndViewId()布局
-                                         */
+                                         *//*
+
                                         @Override public boolean isLoadEndGone() {
                                             return true;
                                         }
@@ -288,6 +297,7 @@ public class HomeFragment extends BaseFragment {
                                             return 0;
                                         }
                                     });
+*/
 
                                     mMineManualAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
                                         @Override
@@ -301,12 +311,13 @@ public class HomeFragment extends BaseFragment {
                                                 mDownLoadKvUrl = mBooksListBean.get(mCurPosition).getKvUrl();
                                                 // TODO: 2018/2/11 ,还需要考虑到断点续传的功能,若是客户在下载的过程中退出应用，下次在进来的时候，PDF虽然有了，但是不能显示
 
-                                                Intent intent = new Intent(getActivity(), DownLoaderPDFActivity.class);
-                                                intent.putExtra("PdfUrl", mBooksListBean.get(position).getPdfUrl());
-                                                intent.putExtra("mPdfTotalPath",mPdfTotalPath);
-                                                intent.putExtra("mDownLoadKvUrl",mDownLoadKvUrl);
-
-                                                startActivityForResult(intent, IConstants.REQUEST_CODE_DOWN_LOAD);
+                                                if (mBooksListBean.get(position).getPdfUrl() != null) {
+                                                    Intent intent = new Intent(getActivity(), DownLoaderPDFActivity.class);
+                                                    intent.putExtra("PdfUrl", mBooksListBean.get(position).getPdfUrl());
+                                                    intent.putExtra("mPdfTotalPath",mPdfTotalPath);
+                                                    intent.putExtra("mDownLoadKvUrl",mDownLoadKvUrl);
+                                                    startActivityForResult(intent, IConstants.REQUEST_CODE_DOWN_LOAD);
+                                                }
                                             }
                                         }
                                     });
@@ -464,6 +475,14 @@ public class HomeFragment extends BaseFragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onLoadMoreRequested() {
+        if (mHomeBooksAdapter != null) {
+            mHomeBooksAdapter.loadMoreEnd(false);
+        }
+        hideItem();
     }
 
     public interface OnFragmentInteractionListener {

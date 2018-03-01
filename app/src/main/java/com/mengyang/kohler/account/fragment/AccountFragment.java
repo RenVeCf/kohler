@@ -264,16 +264,17 @@ public class AccountFragment extends BaseFragment implements BaseQuickAdapter.Re
                                     mFootPrintAdapter = new FootPrintAdapter(mFootPrintBean);
                                     rvAccountBrowsing.setAdapter(mFootPrintAdapter);
                                     mFootPrintAdapter.setOnLoadMoreListener(AccountFragment.this, rvAccountBrowsing); //加载更多
-                                    mFootPrintAdapter.setLoadMoreView(new LoadMoreView() {
+
+                                  /*  mFootPrintAdapter.setLoadMoreView(new LoadMoreView() {
                                         @Override
                                         public int getLayoutId() {
                                             return R.layout.load_more_null_layout;
                                         }
 
-                                        /**
+                                        *//**
                                          * 如果返回true，数据全部加载完毕后会隐藏加载更多
                                          * 如果返回false，数据全部加载完毕后会显示getLoadEndViewId()布局
-                                         */
+                                         *//*
                                         @Override
                                         public boolean isLoadEndGone() {
                                             return true;
@@ -293,7 +294,8 @@ public class AccountFragment extends BaseFragment implements BaseQuickAdapter.Re
                                         protected int getLoadEndViewId() {
                                             return 0;
                                         }
-                                    });
+                                    });*/
+
                                     mFootPrintAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                                         @Override
                                         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -428,6 +430,7 @@ public class AccountFragment extends BaseFragment implements BaseQuickAdapter.Re
 
     @Override
     public void onLoadMoreRequested() {
+        mFootPrintAdapter.loadMoreEnd(false);
         initData();
     }
 }

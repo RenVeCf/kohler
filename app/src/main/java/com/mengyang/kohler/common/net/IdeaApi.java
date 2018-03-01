@@ -44,7 +44,8 @@ public class IdeaApi {
             public void log(String message) {
                 try {
                     String text = URLDecoder.decode(message, "utf-8");
-                    LogUtils.e("OKHttp-----", text);
+//                    LogUtils.e("OKHttp-----", text);
+                    LogUtils.e("OKHttp-----", message);
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                     LogUtils.e("OKHttp-----", message);

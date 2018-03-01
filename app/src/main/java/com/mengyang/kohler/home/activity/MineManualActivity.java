@@ -17,6 +17,8 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
+import com.mengyang.kohler.common.activity.CustomerServiceActivity;
+import com.mengyang.kohler.common.activity.WebViewActivity;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.net.IdeaApi;
@@ -189,17 +191,21 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
                                     pageNum += 1;
                                     mMineManualAdapter = new BrochureListAdapter(mBooksListBean);
                                     rvMineManualBrochureList.setAdapter(mMineManualAdapter);
-                                    mMineManualAdapter.setOnLoadMoreListener(MineManualActivity.this, rvMineManualMyBrochure); //加载更多
+//                                    mMineManualAdapter.setOnLoadMoreListener(MineManualActivity.this, rvMineManualMyBrochure); //加载更多
+
+/*
                                     mMineManualAdapter.setLoadMoreView(new LoadMoreView() {
                                         @Override
                                         public int getLayoutId() {
                                             return R.layout.load_more_null_layout;
                                         }
 
-                                        /**
+                                        */
+/**
                                          * 如果返回true，数据全部加载完毕后会隐藏加载更多
                                          * 如果返回false，数据全部加载完毕后会显示getLoadEndViewId()布局
-                                         */
+                                         *//*
+
                                         @Override public boolean isLoadEndGone() {
                                             return true;
                                         }
@@ -219,6 +225,7 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
                                             return 0;
                                         }
                                     });
+*/
 
                                     mMineManualAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
                                         @Override
@@ -231,13 +238,21 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
                                             } else {//没找到就去下载
                                                 mDownLoadKvUrl = mBooksListBean.get(mCurPosition).getKvUrl();
                                                 // TODO: 2018/2/11 ,还需要考虑到断点续传的功能,若是客户在下载的过程中退出应用，下次在进来的时候，PDF虽然有了，但是不能显示
+                                                String pdfUrl = mBooksListBean.get(position).getPdfUrl();
+                                                if (pdfUrl != null && !TextUtils.isEmpty(pdfUrl)) {
+                                                    Intent intent = new Intent(MineManualActivity.this, DownLoaderPDFActivity.class);
+                                                    intent.putExtra("PdfUrl", pdfUrl);
+                                                    intent.putExtra("mPdfTotalPath", mPdfTotalPath);
+                                                    intent.putExtra("mDownLoadKvUrl", mDownLoadKvUrl);
+                                                    startActivityForResult(intent, IConstants.REQUEST_CODE_DOWN_LOAD);
+                                                    return;
+                                                } else {
+                                                    String videoUrl = mBooksListBean.get(position).getVideoUrl();
+                                                    if (videoUrl != null && !TextUtils.isEmpty(videoUrl)) {
+                                                        startActivity(new Intent(MineManualActivity.this, WebViewActivity.class).putExtra("h5url", videoUrl).putExtra("flag", 2));
 
-                                                Intent intent = new Intent(MineManualActivity.this, DownLoaderPDFActivity.class);
-                                                intent.putExtra("PdfUrl", mBooksListBean.get(position).getPdfUrl());
-                                                intent.putExtra("mPdfTotalPath",mPdfTotalPath);
-                                                intent.putExtra("mDownLoadKvUrl",mDownLoadKvUrl);
-
-                                                startActivityForResult(intent, IConstants.REQUEST_CODE_DOWN_LOAD);
+                                                    }
+                                                }
                                             }
                                         }
                                     });
@@ -263,6 +278,8 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
 
     @Override
     public void onLoadMoreRequested() {
+//        mMineManualAdapter.loadMoreEnd(false);
+//        mMyBrochureAdapter6.loadMoreEnd(false);
         initData();
     }
 

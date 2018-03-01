@@ -6,15 +6,19 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -168,7 +172,7 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
         rlMain.setPanelSlideListener(new ResideLayout.PanelSlideListener() {
             @Override
             public void onPanelSlide(View panel, float slideOffset) {
-                Log.i("123", "onPanelSlide");
+
             }
 
             @Override
@@ -176,18 +180,17 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 if (mHomeFragment != null) {
                     mHomeFragment.stopViewPager();
                 }
-                Log.i("123", "kai");
             }
 
             @Override
             public void onPanelClosed(View panel) {
-                Log.i("123", "guan");
                 if (mHomeFragment != null) {
                     mHomeFragment.startViewPager();
                 }
 
             }
         });
+
     }
 
     @Override
@@ -323,6 +326,20 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
         rlMain.openPane();
     }
 
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        //只有home界面可以侧滑
+        Fragment fragment = getVisibleFragment();
+        if (fragment instanceof HomeFragment) {
+            rlMain.StartSlide();
+        }else {
+            rlMain.StopSlide();
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+
     @OnClick({R.id.ll_whole_category, R.id.ll_toilet_heater, R.id.ll_nearby_shops, R.id.ll_account_manual, R.id.ll_super_toilet_seat, R.id.ll_toilet_seat, R.id.ll_toilet_seat_cover, R.id.ll_qing_shu_bao_toilet_seat, R.id.ll_shower_room_parts, R.id.ll_ceramic_tile, R.id.ll_makeup, R.id.ll_shower_room_nozzle, R.id.ll_shower_nozzle, R.id.ll_shower_room, R.id.ll_steam_equipment, R.id.ll_bathtub, R.id.ll_massage_bathtub, R.id.ll_commercial_products, R.id.bt_home, R.id.bt_whole_category, R.id.bt_ar, R.id.bt_account})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -331,10 +348,15 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 break;
             case R.id.ll_account_manual:
                 if (((boolean) SPUtil.get(this, IConstants.IS_LOGIN, false)) == true) {
-                    if (SPUtil.get(this, IConstants.TYPE, "").equals("dealer") || SPUtil.get(this, IConstants.TYPE, "").equals("designer"))
+                    if (SPUtil.get(this, IConstants.TYPE, "").equals("dealer") || SPUtil.get(this, IConstants.TYPE, "").equals("designer")) {
                         startActivity(new Intent(this, MineManualActivity.class));
-                    else
-                        mNoJurisdictionPopupWindow.showAsDropDown(view, 0, 0);
+                    } else {
+                        if (Build.VERSION.SDK_INT == 24) {//android7.0需要单独做适配
+                            mNoJurisdictionPopupWindow.showAtLocation(view, Gravity.NO_GRAVITY, 0, getStatusBarHeight());
+                        } else {
+                            mNoJurisdictionPopupWindow.showAtLocation(view, Gravity.NO_GRAVITY, 0, 0);
+                        }
+                    }
                 } else {
                     startActivity(new Intent(this, LoginActivity.class));
                 }
@@ -598,6 +620,17 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
 
     @OnClick()
     public void onViewClicked() {
+    }
+
+    public Fragment getVisibleFragment(){
+        FragmentManager fragmentManager = MainActivity.this.getSupportFragmentManager();
+        List<Fragment> fragments = fragmentManager.getFragments();
+        for(Fragment fragment : fragments){
+            if(fragment != null && fragment.isVisible()) {
+                return fragment;
+            }
+        }
+        return null;
     }
 
 
