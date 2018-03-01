@@ -23,6 +23,7 @@
             android:orientation="horizontal">
 
             <ImageView
+                android:layout_marginLeft="@dimen/x15"
                 android:id="@+id/iv_my_brochure_adapter_remove_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -46,6 +46,7 @@ import com.mengyang.kohler.home.activity.MeetingActivity;
 import com.mengyang.kohler.home.activity.MineManualActivity;
 import com.mengyang.kohler.home.activity.PDFActivity;
 import com.mengyang.kohler.home.adapter.BrochureListAdapter;
+import com.mengyang.kohler.home.adapter.BrochureListAdapter2;
 import com.mengyang.kohler.home.adapter.HomeBooksAdapter;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.PdfBean;
@@ -112,7 +113,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
     private List<PdfBean.UserNameBean.UserPdfItemBean> mPdfItemList;
     private int pageNum;
     private List<BooksListBean.ResultListBean> mBooksListBean = new ArrayList<>();
-    private BrochureListAdapter mMineManualAdapter;
+    private BrochureListAdapter2 mMineManualAdapter;
     private int mCurPosition;
     private String mPdfTotalPath;
     private String mDownLoadKvUrl;
@@ -206,6 +207,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                         }
 
                         mHomeBooksAdapter = new HomeBooksAdapter(mPdfItemList);
+
                         if (mPdfItemList == null || mPdfItemList.size() == 0) {
                             hideItem();
                         } else {
@@ -260,7 +262,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                                 mBooksListBean.addAll(response.getData().getResultList());
                                 if (mBooksListBean.size() > 0) {
                                     pageNum += 1;
-                                    mMineManualAdapter = new BrochureListAdapter(mBooksListBean);
+                                    mMineManualAdapter = new BrochureListAdapter2(mBooksListBean);
                                     rvHomeBooks.setAdapter(mMineManualAdapter);
 
                                     //                                    mMineManualAdapter.setOnLoadMoreListener(HomeFragment.this, rvHomeBooks); //加载更多
