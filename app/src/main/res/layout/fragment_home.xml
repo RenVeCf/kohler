@@ -27,7 +27,7 @@
             app:is_system_msg="false"
             app:title_color="@color/black"/>
 
-        <ScrollView
+        <com.mengyang.kohler.home.view.ScrollViewConflict
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="none">
@@ -136,6 +136,6 @@
                     android:layout_marginTop="@dimen/y24"
                     android:layout_marginBottom="@dimen/y72"/>
             </LinearLayout>
-        </ScrollView>
+        </com.mengyang.kohler.home.view.ScrollViewConflict>
     </LinearLayout>
 </LinearLayout>

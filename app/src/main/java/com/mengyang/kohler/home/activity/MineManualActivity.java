@@ -47,8 +47,6 @@ import io.reactivex.schedulers.Schedulers;
 public class MineManualActivity extends BaseActivity implements BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemChildClickListener {
 //    String mRootPath = Environment.getExternalStorageDirectory().getAbsolutePath()+File.separator+ "kohlerPdf";
     String mRootPath = Environment.getExternalStorageDirectory().getAbsolutePath();
-
-
     @BindView(R.id.tv_mine_manual_top)
     TopView tvMineManualTop;
     @BindView(R.id.rv_mine_manual_brochure_list)
@@ -334,10 +332,7 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
         mUserNameBeanList.add(mUserNameBean);
         mPdfBean.setList(mUserNameBeanList);
 
-
         saveUserPdfData(mPdfBean);
-
-
 
         if (mMyBrochureAdapter6 == null) {
             mMyBrochureAdapter6 = new MyBrochureAdapter6(mPdfItemList);
