@@ -220,7 +220,7 @@ public class AccountFragment extends BaseFragment implements BaseQuickAdapter.Re
     @Override
     protected void initData() {
         if ((boolean) SPUtil.get(getActivity(), IConstants.IS_LOGIN, false)) {
-//            用户信息
+            //            用户信息
             getUserMsg();
             getFootPrint();
         }

@@ -46,6 +46,7 @@ public class MeetingBigPhotoActivity extends BaseActivity {
     private int mNum;
     private String mUrl = "";
     private int mId;
+    private int pageNum = 0;
 
     @Override
     protected int getLayoutId() {
@@ -79,6 +80,10 @@ public class MeetingBigPhotoActivity extends BaseActivity {
 
     private void getGigPhotoData() {
         Map<String, String> stringMap = IdeaApi.getSign();
+        if ((position + "").length() != 1) {
+            pageNum = (int) Math.floor(position / 10);
+        }
+        stringMap.put("pageNum", pageNum + "");
 
         IdeaApi.getRequestLogin(stringMap);
         IdeaApi.getApiService()
@@ -89,10 +94,17 @@ public class MeetingBigPhotoActivity extends BaseActivity {
                 .subscribe(new DefaultObserver<BasicResponse<LiveRealTimeBean>>(MeetingBigPhotoActivity.this, false) {
                     @Override
                     public void onSuccess(BasicResponse<LiveRealTimeBean> response) {
-                        if (response != null) {
-                            tvMeetingBigPhotoNum.setText(response.getData().getResultList().get(position).getLikeCount() + "");
-                            Glide.with(App.getContext()).load(response.getData().getResultList().get(position).getPicUrl()).apply(new RequestOptions().placeholder(R.mipmap.queshengtu)).into(ivMeetingBigPhoto);
-                            mId = response.getData().getResultList().get(position).getId();
+                        int i = position;
+                        if (response.getData().getPageSize() > i) {
+                            if (response.getData().getPageSize() == (i + 1)) {
+                                ivMeetingBigPhotoRight.setVisibility(View.GONE);
+                            }
+                            if ((position + "").length() > 1) {
+                                i = position % 10;
+                            }
+                            tvMeetingBigPhotoNum.setText(response.getData().getResultList().get(i).getLikeCount() + "");
+                            Glide.with(App.getContext()).load(response.getData().getResultList().get(i).getPicUrl()).apply(new RequestOptions().placeholder(R.mipmap.queshengtu)).into(ivMeetingBigPhoto);
+                            mId = response.getData().getResultList().get(i).getId();
                         }
                     }
                 });
@@ -109,13 +121,12 @@ public class MeetingBigPhotoActivity extends BaseActivity {
                 } else if (position < 10) {
                     getGigPhotoData();
                 }
+                ivMeetingBigPhotoRight.setVisibility(View.VISIBLE);
                 break;
             case R.id.iv_meeting_big_photo_right:
                 ivMeetingBigPhotoLeft.setVisibility(View.VISIBLE);
-                if (position < 9) {
-                    position++;
-                    getGigPhotoData();
-                }
+                position++;
+                getGigPhotoData();
                 break;
             case R.id.bt_meeting_big_photo_vote:
                 Map<String, String> stringMap = IdeaApi.getSign();

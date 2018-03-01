@@ -55,6 +55,7 @@
         android:id="@+id/iv_meeting_big_photo_left"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="10dp"
         android:layout_marginStart="@dimen/x48"
         android:layout_centerVertical="true"
         android:src="@mipmap/arrows_left"/>
@@ -63,6 +64,7 @@
         android:id="@+id/iv_meeting_big_photo_right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="10dp"
         android:layout_marginEnd="@dimen/x48"
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
