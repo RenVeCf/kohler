@@ -32,7 +32,7 @@
                 android:id="@+id/tv_my_brochure_adapter_remove_item"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
+                android:gravity="center_vertical"
                 android:alpha="0.8"
                 android:background="@color/black"
                 android:text="经销商手册"
