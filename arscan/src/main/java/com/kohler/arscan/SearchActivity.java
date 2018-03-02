@@ -56,13 +56,13 @@ public class SearchActivity extends AppCompatActivity implements OnClickListener
     private void initData() {
         itemList = new ArrayList<>();
         SearchItem item1 = new SearchItem(R.drawable.yushi, "浴室家具");
-        SearchItem item2 = new SearchItem(R.drawable.yiti, "一体超感坐便器");
+        SearchItem item2 = new SearchItem(R.drawable.yiti, "一体超感座便器");
         SearchItem item3 = new SearchItem(R.drawable.biangai, "智能便盖");
         SearchItem item4 = new SearchItem(R.drawable.jinggui, "镜柜");
         SearchItem item5 = new SearchItem(R.drawable.taipen, "台盆");
-        SearchItem item6 = new SearchItem(R.drawable.zuobian, "坐便器");
+        SearchItem item6 = new SearchItem(R.drawable.zuobian, "座便器");
         SearchItem item7 = new SearchItem(R.drawable.longtou, "龙头");
-        SearchItem item8 = new SearchItem(R.drawable.shangye, "商业系列");
+        SearchItem item8 = new SearchItem(R.drawable.shangye, "商用系列");
         itemList.add(item1);
         itemList.add(item2);
         itemList.add(item3);
@@ -93,6 +93,7 @@ public class SearchActivity extends AppCompatActivity implements OnClickListener
 
     @OnClick(R2.id.ll_main)
     public void main() {
+        // TODO: 2018/3/2 注释解开 
         Intent intent = new Intent();
         if (((boolean) SPUtil.get(this, "isLogin", false))) {
             if (SPUtil.get(this, "no_type", "").equals("dealer")) {
@@ -118,6 +119,7 @@ public class SearchActivity extends AppCompatActivity implements OnClickListener
         } else if (id == R.id.tv_notebook_download) {
             notebookPop.dismiss();
 
+            // TODO: 2018/3/2 注释解开 
             Intent intent = new Intent();
             if (((boolean) SPUtil.get(this, "isLogin", false))) {
                 if (SPUtil.get(this, "no_type", "").equals("dealer")) {

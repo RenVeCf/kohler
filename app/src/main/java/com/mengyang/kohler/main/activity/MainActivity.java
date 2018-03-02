@@ -29,6 +29,7 @@ import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.gyf.barlibrary.ImmersionBar;
+import com.kohler.arscan.DownloadActivity;
 import com.kohler.arscan.UnityPlayerActivity;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
@@ -444,8 +445,8 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 FragmentSelect(1);
                 mIsUnableToDrag = true;
                 view_line.setVisibility(View.VISIBLE);
-                Intent intent = new Intent(this, UnityPlayerActivity.class);
-                intent.putExtra("flag", "9");
+                Intent intent = new Intent(this, DownloadActivity.class);
+                intent.putExtra("way", "arscan");
                 startActivityForResult(intent, IConstants.DELETE_REQUESTCODE);
                 break;
             case R.id.bt_account:

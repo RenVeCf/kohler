@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="279dp"
-            android:layout_marginTop="15dp"
+            android:padding="10dp"
             android:src="@drawable/alert_cancel" />
 
         <TextView
@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/iv_alert_cancel"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="5dp"
             android:text="关爱家"
             android:textColor="#FFFFFF"
             android:textSize="16sp" />
@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_zh"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="2dp"
             android:text="FAMILY CARE SUITE"
             android:textColor="#FFFFFF"
             android:textSize="11sp" />
@@ -47,6 +47,7 @@
             android:layout_height="1dp"
             android:layout_below="@id/tv_en"
             android:layout_centerHorizontal="true"
+            android:layout_marginTop="6.5dp"
             android:background="#FFFFFF" />
 
         <TextView
@@ -57,26 +58,25 @@
             android:layout_centerHorizontal="true"
             android:layout_marginEnd="19dp"
             android:layout_marginStart="19dp"
-            android:layout_marginTop="11dp"
-            android:lineSpacingExtra="5dp"
+            android:layout_marginTop="6dp"
+            android:lineSpacingExtra="6dp"
             android:text="用环保材质和体贴细节，科勒创造一个真正属于全家人\n
             的浴室，安全、易用、健康，处处给孩子与老人贴身宠\n
             爱，让浴室充满温馨的天伦之情。"
             android:textColor="#FFFFFF"
-            android:textSize="9sp" />
+            android:textSize="11sp" />
 
         <TextView
             android:id="@+id/tv_go_scan"
-            android:layout_width="wrap_content"
+            android:layout_width="270dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_alert_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="30dp"
             android:layout_marginTop="12dp"
             android:background="@drawable/textview_border"
             android:gravity="center"
-            android:paddingEnd="10dp"
-            android:paddingStart="10dp"
+            android:padding="3dp"
             android:text="前往关爱家套间，发现科勒细致之美"
             android:textColor="#FFFFFF"
             android:textSize="13sp" />

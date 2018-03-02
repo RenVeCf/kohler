@@ -7,10 +7,14 @@
     android:layout_height="match_parent"
     tools:context="com.kohler.arscan.PlayActivity">
 
+    <include
+        android:id="@+id/include_top_layout"
+        layout="@layout/include_top_layout" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="45dp"
+        android:layout_below="@id/include_top_layout"
         android:background="@android:color/black">
 
         <View
@@ -72,7 +76,8 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="40dp"
-        android:background="@android:color/black"
+        android:background="@drawable/play_more"
+        android:gravity="center"
         android:padding="5dp"
         android:text="更多极致诱惑"
         android:textColor="#FFFFFF"

@@ -422,6 +422,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                                         startActivity(new Intent(getActivity(), LoginActivity.class));
                                     } else if (postion == 1) {
                                         Intent intent = new Intent(getActivity(), DownloadActivity.class);
+                                        intent.putExtra("way", "banner");
                                         startActivity(intent);
                                     } else {
                                         if (mHomeIndexBean.getKvList().get(postion).getClickRedirect() != null && !mHomeIndexBean.getKvList().get(postion).getClickRedirect().equals("")) {

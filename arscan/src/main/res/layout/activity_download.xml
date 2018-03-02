@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/include_top_layout"
-        android:background="#CC000000"
+        android:background="@drawable/download_bg"
         android:gravity="center">
 
         <TextView

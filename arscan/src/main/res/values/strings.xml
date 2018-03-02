@@ -2,4 +2,7 @@
     <string name="app_name">arscan</string>
     <string name="download_alert">下载<u>AR资源包</u>，用黑科技探索产品魅力</string>
     <string name="notebook_alert">下载<u>产品手册</u>，了解科勒2018全系列新品</string>
+    <string name="storage_must_allow">需要读写存储，请授予权限</string>
+    <string name="camera_must_allow">需要摄像头预览，请授予权限</string>
+    <string name="must_allow">请授予相关权限</string>
 </resources>

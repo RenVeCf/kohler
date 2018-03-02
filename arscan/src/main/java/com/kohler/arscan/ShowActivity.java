@@ -54,6 +54,7 @@ public class ShowActivity extends AppCompatActivity implements View.OnClickListe
     private TextView tv_go_scan;
 
     private void initPop() {
+        //AR模式 pop
         View view = LayoutInflater.from(this).inflate(R.layout.armode_pop, null);
         view.findViewById(R.id.tv_know).setOnClickListener(this);
 
@@ -67,6 +68,7 @@ public class ShowActivity extends AppCompatActivity implements View.OnClickListe
         }, 100);
 
 
+        //地图提示 pop
         view = LayoutInflater.from(this).inflate(R.layout.map_alert_pop, null);
 
         view.findViewById(R.id.iv_alert_cancel).setOnClickListener(this);
@@ -81,6 +83,7 @@ public class ShowActivity extends AppCompatActivity implements View.OnClickListe
         alertPop = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
 
+        //下载手册 pop
         view = LayoutInflater.from(this).inflate(R.layout.notebook_pop, null);
 
         view.findViewById(R.id.tv_notebook_download).setOnClickListener(this);
@@ -109,11 +112,19 @@ public class ShowActivity extends AppCompatActivity implements View.OnClickListe
 
                     alertPop.showAtLocation(map_view, Gravity.NO_GRAVITY, 0, 0);
                     break;
+
+                case 2:
+                    rl_icon.setVisibility(View.VISIBLE);
+                    break;
             }
         }
     };
 
+    private String flag;
+
     private void setAlert(int selected) {
+        this.flag = String.valueOf(selected + 1);
+
         int icon = 0;
         String zh = null;
         String en = null;
@@ -191,17 +202,22 @@ public class ShowActivity extends AppCompatActivity implements View.OnClickListe
             armodePop.dismiss();
         } else if (id == R.id.iv_alert_cancel) {
             alertPop.dismiss();
+
+            map_view.reset();
         } else if (id == R.id.tv_go_scan) {
             alertPop.dismiss();
 
+            map_view.reset();
+
             Intent intent = new Intent(this, UnityPlayerActivity.class);
-            intent.putExtra("flag", "9");
+            intent.putExtra("flag", flag);
             startActivity(intent);
         } else if (id == R.id.iv_notebook_cancel) {
             notebookPop.dismiss();
         } else if (id == R.id.tv_notebook_download) {
             notebookPop.dismiss();
 
+            // TODO: 2018/3/2 注释解开 
             Intent intent = new Intent();
             if (((boolean) SPUtil.get(this, "isLogin", false))) {
                 if (SPUtil.get(this, "no_type", "").equals("dealer")) {
@@ -229,6 +245,7 @@ public class ShowActivity extends AppCompatActivity implements View.OnClickListe
 
     @OnClick(R2.id.ll_main)
     public void main() {
+        // TODO: 2018/3/2 注释解开 
         Intent intent = new Intent();
         if (((boolean) SPUtil.get(this, "isLogin", false))) {
             if (SPUtil.get(this, "no_type", "").equals("dealer")) {

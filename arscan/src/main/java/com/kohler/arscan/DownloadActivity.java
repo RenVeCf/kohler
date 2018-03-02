@@ -1,13 +1,18 @@
 package com.kohler.arscan;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.DownloadManager;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
+import android.support.v4.content.PermissionChecker;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,6 +23,7 @@ import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kohler.arscan.constant.Config;
 import com.kohler.arscan.util.SharePreUtil;
@@ -43,6 +49,7 @@ import butterknife.OnClick;
 public class DownloadActivity extends AppCompatActivity {
 
     private final static String TAG = DownloadActivity.class.getSimpleName();
+    private static final int PERMISSIONS_REQUESTCODE = 11;
 
     @BindView(R2.id.tv_download_alert)
     TextView tv_download_alert;
@@ -67,15 +74,42 @@ public class DownloadActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if ( PermissionChecker.checkCallingOrSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                    | PermissionChecker.checkCallingOrSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                if (!shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                    Toast.makeText(this, getResources().getString(R.string.storage_must_allow), Toast.LENGTH_SHORT).show();
+                }
+                if (!shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
+                    Toast.makeText(this, getResources().getString(R.string.camera_must_allow), Toast.LENGTH_SHORT).show();
+                }
+                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.CAMERA}, PERMISSIONS_REQUESTCODE);
+            } else {
+                init();
+            }
+        } else {
+            init();
+        }
+    }
+
+    private void init() {
         boolean config = SharePreUtil.getInstance(this).getConfig(Config.RESOURCE_STATUS, false);
         if (config) {
-            startActivity(new Intent(this, ShowActivity.class));
-            finish();
+            String way = getIntent().getStringExtra("way");
+            if ("banner".equals(way)) {
+                startActivity(new Intent(this, ShowActivity.class));
+                finish();
+            } else if ("arscan".equals(way)) {
+                Intent intent = new Intent(this, UnityPlayerActivity.class);
+                intent.putExtra("flag", "9");
+                startActivity(intent);
+                finish();
+            }
         }
 
         setContentView(R.layout.activity_download);
         ButterKnife.bind(this);
-
     }
 
     @OnClick(R2.id.iv_top_back)
@@ -124,7 +158,7 @@ public class DownloadActivity extends AppCompatActivity {
     };
 
     private void downZip() {
-        String zipUrl = "http://p4n3tf891.bkt.clouddn.com/resource.zip";
+        String zipUrl = "http://oi7x59rpc.bkt.clouddn.com/resource.zip";
 
         DownloadManager.Request request = new DownloadManager.Request(Uri.parse(zipUrl));
 
@@ -330,6 +364,20 @@ public class DownloadActivity extends AppCompatActivity {
             ret = new File(ret, absFileName);
         }
         return ret;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == PERMISSIONS_REQUESTCODE) {
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                    && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                init();
+            } else {
+                Toast.makeText(this, getResources().getString(R.string.must_allow), Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        }
     }
 
 }

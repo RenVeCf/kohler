@@ -1,16 +1,17 @@
 package com.kohler.arscan;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kohler.arscan.constant.Config;
+import com.kohler.arscan.util.LogManager;
 import com.kohler.arscan.util.SPUtil;
 import com.kohler.arscan.util.SharePreUtil;
 import com.xiuyukeji.pictureplayerview.PicturePlayerView;
@@ -18,6 +19,7 @@ import com.xiuyukeji.pictureplayerview.interfaces.OnStopListener;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,6 +47,8 @@ public class PlayActivity extends AppCompatActivity {
     private String zhName;
     private String enName;
     private int bg;
+
+    private MediaPlayer mp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +97,7 @@ public class PlayActivity extends AppCompatActivity {
                 break;
             case 4:
                 bg = R.drawable.e_search;
-                startWith = "4_";
+                startWith = "7_";
                 zhName = "维亚 时尚台盆";
                 enName = "VEIL Vessels";
                 break;
@@ -111,34 +115,88 @@ public class PlayActivity extends AppCompatActivity {
                 break;
             case 7:
                 bg = R.drawable.h_search;
-                startWith = "7_";
+                startWith = "4_";
                 zhName = "多功能一体台盆";
                 enName = "WATERFOIL Tri Lavatory";
                 break;
         }
 
-        File file = new File(Environment.getExternalStorageDirectory() + "/resource/image/");
+        FilenameFilter filter = new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name) {
+                return name.startsWith(startWith);
+            }
+        };
 
-        if (file.exists()) {
-            FilenameFilter filter = new FilenameFilter() {
-                @Override
-                public boolean accept(File dir, String name) {
-                    return name.startsWith(startWith);
-                }
-            };
-            File[] files = file.listFiles(filter);
-            String[] paths = new String[files.length];
-            for (int i = 0; i < files.length; i++) {
-                paths[i] = files[i].getAbsolutePath();
-                Log.e(TAG, "path: " + paths[i]);
+        File mFile = new File(Environment.getExternalStorageDirectory() + "/resource/mp3/");
+        if (mFile.exists()) {
+            File[] files = mFile.listFiles(filter);
+
+            if (files == null) {
+                SharePreUtil.getInstance(this).saveConfig(Config.RESOURCE_STATUS, false);
+                Toast.makeText(this, "资源包损坏，请重新进入APP下载", Toast.LENGTH_SHORT).show();
+                finish();
+                return;
             }
 
-            play_view.setDataSource(paths, files.length * 1000 / 16);
+            try {
+                mp = new MediaPlayer();
+                // 音乐播放完毕的事件处理
+                mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    public void onCompletion(MediaPlayer mp) {
+                        mp.release();
+                    }
+                });
+                // 播放音乐时发生错误的事件处理
+                mp.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+                    public boolean onError(MediaPlayer mp, int what, int extra) {
+                        // 释放资源
+                        mp.release();
+                        return false;
+                    }
+                });
+
+                mp.setDataSource(files[0].getAbsolutePath());
+                mp.prepare();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            SharePreUtil.getInstance(this).saveConfig(Config.RESOURCE_STATUS, false);
+            Toast.makeText(this, "资源包损坏，请重新进入APP下载", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
+
+        File iFile = new File(Environment.getExternalStorageDirectory() + "/resource/image/");
+        if (iFile.exists()) {
+            File[] files = iFile.listFiles(filter);
+
+            if (files == null) {
+                SharePreUtil.getInstance(this).saveConfig(Config.RESOURCE_STATUS, false);
+                Toast.makeText(this, "资源包损坏，请重新进入APP下载", Toast.LENGTH_SHORT).show();
+                finish();
+                return;
+            }
+
+            String[] paths = new String[files.length];
+            LogManager.e(TAG, "length: " + files.length);
+            for (int i = 0; i < files.length; i++) {
+                paths[i] = files[i].getAbsolutePath();
+                //                Log.e(TAG, "path: " + paths[i]);
+            }
+
+            play_view.setDataSource(paths, mp.getDuration());
             play_view.start();
+
+            mp.start();
+
             play_view.setOnStopListener(new OnStopListener() {
                 @Override
                 public void onStop() {
                     tv_more.setVisibility(View.VISIBLE);
+
+                    mp.release();
                 }
             });
         } else {
@@ -148,14 +206,25 @@ public class PlayActivity extends AppCompatActivity {
         }
     }
 
+    @OnClick(R2.id.iv_top_back)
+    public void back() {
+        play_view.release();
+        mp.release();
+        finish();
+    }
+
     @OnClick(R2.id.iv_play_cancel)
     public void cancel() {
+        play_view.release();
+        mp.release();
         finish();
     }
 
     @OnClick(R2.id.tv_more)
     public void notebook() {
         finish();
+
+        // TODO: 2018/3/2 注释解开
         Intent intent = new Intent();
         if (((boolean) SPUtil.get(this, "isLogin", false))) {
             if (SPUtil.get(this, "no_type", "").equals("dealer")) {

@@ -21,68 +21,51 @@
         android:layout_below="@id/include_top_layout"
         android:background="@android:color/white">
 
-        <LinearLayout
-            android:id="@+id/ll_title"
+        <ImageView
+            android:id="@+id/iv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:gravity="center">
+            android:layout_marginTop="24dp"
+            android:src="@drawable/search_title" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:orientation="vertical">
+        <!--<LinearLayout-->
+        <!--android:id="@+id/ll_title"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="24dp"-->
+        <!--android:gravity="center">-->
 
-                <View
-                    android:layout_width="125dp"
-                    android:layout_height="0.5dp"
-                    android:background="#000000" />
+        <!--<View-->
+        <!--android:layout_width="70dp"-->
+        <!--android:layout_height="2dp"-->
+        <!--android:layout_marginEnd="20dp"-->
+        <!--android:background="#000000" />-->
 
-                <View
-                    android:layout_width="125dp"
-                    android:layout_height="0.5dp"
-                    android:layout_marginTop="2dp"
-                    android:background="#000000" />
-            </LinearLayout>
+        <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="探索总览"-->
+        <!--android:textColor="#000000"-->
+        <!--android:textSize="16sp" />-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="探索总览"
-                android:textColor="#000000"
-                android:textSize="18sp" />
+        <!--<View-->
+        <!--android:layout_width="70dp"-->
+        <!--android:layout_height="2dp"-->
+        <!--android:layout_marginStart="20dp"-->
+        <!--android:background="#000000" />-->
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:orientation="vertical">
-
-                <View
-                    android:layout_width="125dp"
-                    android:layout_height="0.5dp"
-                    android:background="#000000" />
-
-                <View
-                    android:layout_width="125dp"
-                    android:layout_height="0.5dp"
-                    android:layout_marginTop="2dp"
-                    android:background="#000000" />
-            </LinearLayout>
-
-        </LinearLayout>
+        <!--</LinearLayout>-->
 
         <GridView
             android:id="@+id/gv_search"
-            android:layout_marginTop="30dp"
-            android:horizontalSpacing="25dp"
-            android:verticalSpacing="25dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/ll_title"
+            android:layout_below="@id/iv_title"
+            android:layout_marginTop="40dp"
             android:gravity="center"
-            android:numColumns="3" />
+            android:horizontalSpacing="20dp"
+            android:numColumns="3"
+            android:verticalSpacing="30dp" />
     </RelativeLayout>
 
 </RelativeLayout>

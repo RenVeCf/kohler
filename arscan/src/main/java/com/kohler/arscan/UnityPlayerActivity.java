@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.PixelFormat;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -29,8 +30,8 @@ import com.xiuyukeji.pictureplayerview.PicturePlayerView;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.io.IOException;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -47,9 +48,6 @@ public class UnityPlayerActivity extends Activity implements View.OnClickListene
     private TextView tv_zh;
     private TextView tv_en;
     private PicturePlayerView play_view;
-
-    @BindView(R2.id.rl_unity_view)
-    RelativeLayout rl_unity_view;
 
     // Setup activity layout
     @Override
@@ -91,6 +89,9 @@ public class UnityPlayerActivity extends Activity implements View.OnClickListene
 
     public void NoteBook(String string) {
         LogManager.e(TAG, "NoteBook: " + string);
+        finish();
+
+        // TODO: 2018/3/2 注释解开
         Intent intent = new Intent();
         if (((boolean) SPUtil.get(this, "isLogin", false))) {
             if (SPUtil.get(this, "no_type", "").equals("dealer")) {
@@ -113,8 +114,11 @@ public class UnityPlayerActivity extends Activity implements View.OnClickListene
     private String zhName;
     private String enName;
 
+    private MediaPlayer mp;
+
     //unity调用android方法，播放序列帧
     public void StartAnim(int id) {
+        id = id - 1;
         LogManager.e(TAG, "StartAnim: " + id);
         switch (id) {
             case 0:
@@ -138,7 +142,7 @@ public class UnityPlayerActivity extends Activity implements View.OnClickListene
                 enName = "Grooming Mirrored Cabinet";
                 break;
             case 4:
-                startWith = "4_";
+                startWith = "7_";
                 zhName = "维亚 时尚台盆";
                 enName = "VEIL Vessels";
                 break;
@@ -153,42 +157,85 @@ public class UnityPlayerActivity extends Activity implements View.OnClickListene
                 enName = "Component OMBRE Graphic Faucet";
                 break;
             case 7:
-                startWith = "7_";
+                startWith = "4_";
                 zhName = "多功能一体台盆";
                 enName = "WATERFOIL Tri Lavatory";
                 break;
         }
 
+        FilenameFilter filter = new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name) {
+                return name.startsWith(startWith);
+            }
+        };
+
         rl_play.setBackgroundColor(0xD9000000);
         tv_zh.setText(zhName);
         tv_en.setText(enName);
 
-        File file = new File(Environment.getExternalStorageDirectory() + "/resource/image/");
+        File mFile = new File(Environment.getExternalStorageDirectory() + "/resource/mp3/");
+        if (mFile.exists()) {
+            File[] files = mFile.listFiles(filter);
 
-        if (file.exists()) {
-            FilenameFilter filter = new FilenameFilter() {
-                @Override
-                public boolean accept(File dir, String name) {
-                    return name.startsWith(startWith);
-                }
-            };
-            File[] files = file.listFiles(filter);
-            String[] paths = new String[files.length];
-            for (int i = 0; i < files.length; i++) {
-                paths[i] = files[i].getAbsolutePath();
-                Log.e(TAG, "path: " + paths[i]);
+            if (files == null) {
+                SharePreUtil.getInstance(this).saveConfig(Config.RESOURCE_STATUS, false);
+                Toast.makeText(this, "资源包损坏，请重新进入APP下载", Toast.LENGTH_SHORT).show();
+                finish();
+                return;
             }
 
-            play_view.setDataSource(paths, files.length * 1000 / 16);
+            try {
+                mp = new MediaPlayer();
+                // 音乐播放完毕的事件处理
+                mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    public void onCompletion(MediaPlayer mp) {
+                        mp.release();
+                    }
+                });
+                // 播放音乐时发生错误的事件处理
+                mp.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+                    public boolean onError(MediaPlayer mp, int what, int extra) {
+                        // 释放资源
+                        mp.release();
+                        return false;
+                    }
+                });
+
+                mp.setDataSource(files[0].getAbsolutePath());
+                mp.prepare();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            SharePreUtil.getInstance(this).saveConfig(Config.RESOURCE_STATUS, false);
+            Toast.makeText(this, "资源包损坏，请重新进入APP下载", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
+
+        File iFile = new File(Environment.getExternalStorageDirectory() + "/resource/image/");
+        if (iFile.exists()) {
+            File[] files = iFile.listFiles(filter);
+
+            if (files == null) {
+                SharePreUtil.getInstance(this).saveConfig(Config.RESOURCE_STATUS, false);
+                Toast.makeText(this, "资源包损坏，请重新进入APP下载", Toast.LENGTH_SHORT).show();
+                finish();
+                return;
+            }
+
+            String[] paths = new String[files.length];
+            LogManager.e(TAG, "length: " + files.length);
+            for (int i = 0; i < files.length; i++) {
+                paths[i] = files[i].getAbsolutePath();
+                //                Log.e(TAG, "path: " + paths[i]);
+            }
+
+            play_view.setDataSource(paths, mp.getDuration());
             play_view.start();
-            //            play_view.setOnStopListener(new OnStopListener() {
-            //                @Override
-            //                public void onStop() {
-            //                    LogManager.e(TAG, "onStop");
-            //                    playPop.dismiss();
-            //                    UnityPlayer.UnitySendMessage("LogicManager", "CloseARButton", "");
-            //                }
-            //            });
+
+            mp.start();
 
             playPop.showAtLocation(mUnityPlayer, Gravity.NO_GRAVITY, 0, 0);
         } else {
@@ -203,6 +250,8 @@ public class UnityPlayerActivity extends Activity implements View.OnClickListene
         int id = v.getId();
         if (id == R.id.iv_play_cancel) {
             LogManager.e(TAG, "iv_play_cancel");
+            play_view.release();
+            mp.release();
             playPop.dismiss();
             UnityPlayer.UnitySendMessage("LogicManager", "CloseARButton", "");
         }
@@ -210,6 +259,10 @@ public class UnityPlayerActivity extends Activity implements View.OnClickListene
 
     @OnClick(R2.id.iv_top_back)
     public void back() {
+        play_view.release();
+        if (mp != null) {
+            mp.release();
+        }
         finish();
     }
 
@@ -225,7 +278,6 @@ public class UnityPlayerActivity extends Activity implements View.OnClickListene
     // Quit Unity
     @Override
     protected void onDestroy() {
-        setResult(RESULT_OK);
         mUnityPlayer.quit();
         super.onDestroy();
     }
