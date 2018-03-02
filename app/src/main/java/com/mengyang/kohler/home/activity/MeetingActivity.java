@@ -175,17 +175,20 @@ public class MeetingActivity extends BaseActivity {
 
                         String agendaType = "";
                         switch (mMeetingBean.getAgendaList().get(0).getAgendaType()) {
-                            case 0:
+                            case -1:
                                 agendaType = "过期议程";
                                 break;
+                            case 0:
+                                agendaType = "未来议程";
+                                break;
                             case 1:
-                                agendaType = "当前议程";
+                                agendaType = " 明日议程";
                                 break;
                             case 2:
                                 agendaType = "下一议程";
                                 break;
                             case 3:
-                                agendaType = "明日议程";
+                                agendaType = "当前议程";
                                 break;
                         }
 

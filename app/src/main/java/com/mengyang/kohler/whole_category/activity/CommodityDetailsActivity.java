@@ -353,22 +353,24 @@ public class CommodityDetailsActivity extends BaseActivity implements TopView.It
                             }
 
                             for (int i = 0; i < mCommodityDetails.size(); i++) {
-                                for (j = 0; j < mCommodityDetails.get(i).getSkuAttrList().size(); j++) {
-                                    if (mCommodityDetails.get(i).getSkuAttrList().get(j).getCategorySkuAttrName().equals("颜色/表面处理工艺")) {
-                                        sb.append(mCommodityDetails.get(i).getSkuAttrList().get(j).getAttrValue() + "  ");
-                                        ImageView label = new ImageView(CommodityDetailsActivity.this);
-                                        final int finalI = i;
-                                        label.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View view) {
-                                                poction = finalI;
-                                                SelectColor(mCommodityDetails.get(finalI).getProDetail().getSkuCode());
-                                            }
-                                        });
-                                        Glide.with(App.getContext()).load(mCommodityDetails.get(i).getSkuAttrList().get(j).getSkuImageName()).apply(new RequestOptions().placeholder(R.mipmap.queshengtu)).into(label);
-                                        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(150, 150);
-                                        layoutParams.setMargins(0, 0, 20, 0);
-                                        ivCommodityDetailsColorImg.addView(label, layoutParams);
+                                if (mCommodityDetails.get(i).getSkuAttrList() != null) {
+                                    for (j = 0; j < mCommodityDetails.get(i).getSkuAttrList().size(); j++) {
+                                        if (mCommodityDetails.get(i).getSkuAttrList().get(j).getCategorySkuAttrName().equals("颜色/表面处理工艺")) {
+                                            sb.append(mCommodityDetails.get(i).getSkuAttrList().get(j).getAttrValue() + "  ");
+                                            ImageView label = new ImageView(CommodityDetailsActivity.this);
+                                            final int finalI = i;
+                                            label.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    poction = finalI;
+                                                    SelectColor(mCommodityDetails.get(finalI).getProDetail().getSkuCode());
+                                                }
+                                            });
+                                            Glide.with(App.getContext()).load(mCommodityDetails.get(i).getSkuAttrList().get(j).getSkuImageName()).apply(new RequestOptions().placeholder(R.mipmap.queshengtu)).into(label);
+                                            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(150, 150);
+                                            layoutParams.setMargins(0, 0, 20, 0);
+                                            ivCommodityDetailsColorImg.addView(label, layoutParams);
+                                        }
                                     }
                                 }
                             }

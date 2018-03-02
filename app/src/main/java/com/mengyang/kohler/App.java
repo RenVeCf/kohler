@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.mengyang.kohler.common.net.IConstants;
+import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.socialize.Config;

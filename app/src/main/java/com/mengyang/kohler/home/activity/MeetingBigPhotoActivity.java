@@ -13,6 +13,7 @@ import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IdeaApi;
+import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.LiveRealTimeBean;
@@ -47,6 +48,7 @@ public class MeetingBigPhotoActivity extends BaseActivity {
     private String mUrl = "";
     private int mId;
     private int pageNum = 0;
+    private int mTotalSize = 0;
 
     @Override
     protected int getLayoutId() {
@@ -59,8 +61,12 @@ public class MeetingBigPhotoActivity extends BaseActivity {
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(this, tvMeetingBigPhotoTop);
         position = getIntent().getIntExtra("position", 0);
+        mTotalSize = getIntent().getIntExtra("totalSize", 0);
         if (position == 0)
             ivMeetingBigPhotoLeft.setVisibility(View.GONE);
+        else if ((mTotalSize - 1) == position)
+            ivMeetingBigPhotoRight.setVisibility(View.GONE);
+
         mNum = getIntent().getIntExtra("num", 0);
         tvMeetingBigPhotoNum.setText(mNum + "");
         mUrl = getIntent().getStringExtra("url");
@@ -117,10 +123,10 @@ public class MeetingBigPhotoActivity extends BaseActivity {
                 position--;
                 if (position == 0) {
                     ivMeetingBigPhotoLeft.setVisibility(View.GONE);
-                    getGigPhotoData();
-                } else if (position < 10) {
-                    getGigPhotoData();
+                } else if (position == 9) {
+                    pageNum--;
                 }
+                getGigPhotoData();
                 ivMeetingBigPhotoRight.setVisibility(View.VISIBLE);
                 break;
             case R.id.iv_meeting_big_photo_right:

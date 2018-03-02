@@ -29,9 +29,9 @@ public class MyBrochureAdapter6 extends BaseQuickAdapter<PdfBean.UserNameBean.Us
 
     @Override
     protected void convert(BaseViewHolder helper, PdfBean.UserNameBean.UserPdfItemBean item) {
-        if (helper.getAdapterPosition() == 0) {
-            helper.getView(R.id.iv_my_brochure_adapter_remove_item_img).setPadding(15, 0, 0, 0);
-        }
+//        if (helper.getAdapterPosition() == 0) {
+//            helper.getView(R.id.iv_my_brochure_adapter_remove_item_img).setPadding(15, 0, 0, 0);
+//        }
 //        helper.setText(R.id.tv_brochure_list_adapter_download_item,  item.getNameCn());
         // TODO: 2018/3/2 ,JavaBean的中文名字以后再添加。
 

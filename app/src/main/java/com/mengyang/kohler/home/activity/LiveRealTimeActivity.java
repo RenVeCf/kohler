@@ -52,6 +52,7 @@ public class LiveRealTimeActivity extends BaseActivity implements BaseQuickAdapt
     private LiveRealTimeAdapter mLiveRealTimeAdapter;
     private List<LiveRealTimeBean.ResultListBean> mLiveRealTimeBean;
     private int pageNum = 0;
+    private int mTotalSize = 0;
 
     @Override
     protected int getLayoutId() {
@@ -119,6 +120,7 @@ public class LiveRealTimeActivity extends BaseActivity implements BaseQuickAdapt
                     @Override
                     public void onSuccess(BasicResponse<LiveRealTimeBean> response) {
                         if (response != null) {
+                            mTotalSize = response.getData().getTotalSize();
                             if (pageNum == 0) {
                                 mLiveRealTimeBean.clear();
                                 mLiveRealTimeBean.addAll(response.getData().getResultList());
@@ -130,7 +132,7 @@ public class LiveRealTimeActivity extends BaseActivity implements BaseQuickAdapt
                                     mLiveRealTimeAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                                         @Override
                                         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                                            startActivity(new Intent(LiveRealTimeActivity.this, MeetingBigPhotoActivity.class).putExtra("position", position).putExtra("num", mLiveRealTimeBean.get(position).getLikeCount()).putExtra("url", mLiveRealTimeBean.get(position).getPicUrl()).putExtra("id", mLiveRealTimeBean.get(position).getId()));
+                                            startActivity(new Intent(LiveRealTimeActivity.this, MeetingBigPhotoActivity.class).putExtra("totalSize", mTotalSize).putExtra("position", position).putExtra("num", mLiveRealTimeBean.get(position).getLikeCount()).putExtra("url", mLiveRealTimeBean.get(position).getPicUrl()).putExtra("id", mLiveRealTimeBean.get(position).getId()));
                                         }
                                     });
                                     mLiveRealTimeAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {

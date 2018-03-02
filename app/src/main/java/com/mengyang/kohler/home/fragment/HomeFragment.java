@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -37,6 +39,7 @@ import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.utils.FileUtils;
+import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.view.SpacesItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
@@ -472,8 +475,6 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                         //数据源
                         abHomeLoop.setInfoList((ArrayList<AdPageInfo>) mDatas);
                         abHomeLoop.setUp();
-
-
                     }
                 });
     }

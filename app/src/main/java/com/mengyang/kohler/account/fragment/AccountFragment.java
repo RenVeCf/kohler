@@ -116,7 +116,7 @@ public class AccountFragment extends BaseFragment implements BaseQuickAdapter.Re
         LinearLayoutManager layoutManager = new LinearLayoutManager(App.getContext());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         rvAccountBrowsing.setLayoutManager(layoutManager);
-        rvAccountBrowsing.addItemDecoration(new SpacesItemDecoration(13));
+        rvAccountBrowsing.addItemDecoration(new SpacesItemDecoration(50));
         // 如果可以确定每个item的高度是固定的，设置这个选项可以提高性能
         rvAccountBrowsing.setHasFixedSize(true);
         rvAccountBrowsing.setItemAnimator(new DefaultItemAnimator());

@@ -7,8 +7,9 @@ import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.net.DefaultObserver;
-import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.net.IConstants;
+import com.mengyang.kohler.common.net.IdeaApi;
+import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.module.BasicResponse;
 
@@ -67,7 +68,7 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void initData() {
         Map<String, String> stringMap = IdeaApi.getSign();
-        stringMap.put("pushRegisterId", IConstants.JPUSH_SYSTEM_ID); //第三方推送系统注册ID
+        stringMap.put("pushRegisterId", SPUtil.get(SplashActivity.this, IConstants.JPUSH_SYSTEM_ID, "") + ""); //第三方推送系统注册ID
         stringMap.put("pushChannel", 2 + ""); //推送通道 (1:友盟2:极光 3:小米 )
 
         IdeaApi.getRequestLogin(stringMap);

@@ -135,6 +135,8 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_account_browsing"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y100"
+            android:layout_marginStart="@dimen/x90"/>
     </RelativeLayout>
 </LinearLayout>

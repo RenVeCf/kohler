@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -40,6 +41,7 @@ import com.mengyang.kohler.ar.ARFragment;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.net.IdeaApi;
+import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.view.ResideLayout;
 import com.mengyang.kohler.home.activity.MineManualActivity;
@@ -633,6 +635,4 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
         }
         return null;
     }
-
-
 }
