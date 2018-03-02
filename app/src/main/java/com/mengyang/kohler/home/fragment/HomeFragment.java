@@ -38,6 +38,7 @@ import com.mengyang.kohler.common.activity.WebViewActivity;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.net.IdeaApi;
+import com.mengyang.kohler.common.utils.FileUtil;
 import com.mengyang.kohler.common.utils.FileUtils;
 import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
@@ -77,6 +78,7 @@ import static com.ryane.banner.AdPlayBanner.IndicatorType.NONE_INDICATOR;
 
 public class HomeFragment extends BaseFragment implements BaseQuickAdapter.RequestLoadMoreListener {
     String mRootPath = Environment.getExternalStorageDirectory().getAbsolutePath();
+    private List<String> mLocalTempPdfFileName = new ArrayList<>();
 
 
     @BindView(R.id.tv_home_top)
@@ -111,7 +113,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
     private int prevousPosition = 0;
     private PopupWindow mNoJurisdictionPopupWindow;
     private View mPopLayout;
-    private PdfBean mPdfBean;
+    private PdfBean mPdfBean = new PdfBean();
     private String mUserName;
     private List<PdfBean.UserNameBean.UserPdfItemBean> mPdfItemList;
     private int pageNum;
@@ -175,62 +177,77 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
     @Override
     public void onResume() {
         super.onResume();
+
         if (((boolean) SPUtil.get(getActivity(), IConstants.IS_LOGIN, false)) == true) {
-            if (SPUtil.get(getActivity(), IConstants.TYPE, "").equals("dealer") || SPUtil.get(getActivity(), IConstants.TYPE, "").equals("designer")) {
-                // TODO: 2018/2/23 ,若是用户手动删除了手机上的文件，还没有做处理
+            String userLevel = (String) SPUtil.get(getActivity(), IConstants.TYPE, "");
+            if (userLevel.equals("dealer") || userLevel.equals("designer")) {
+                final List<String> listFileName = FileUtil.judgePdfIsExit(mLocalTempPdfFileName);
+                    // TODO: 2018/2/23 ,若是用户手动删除了手机上的文件，还没有做处理
 
-                mUserName = (String) SPUtil.get(App.getContext(), IConstants.USER_NIKE_NAME, "");
+                if (listFileName != null && listFileName.size() > 0) {
 
-                String pefData2 = (String) SPUtil.get(App.getContext(), IConstants.USER_PDF_DATA, "");
-                if (!TextUtils.isEmpty(pefData2)) {
-                    Gson gson = new Gson();
-                    mPdfBean = gson.fromJson(pefData2, new TypeToken<PdfBean>() {
-                    }.getType());
-                    if (mPdfBean.getList() != null) {
-                        for (int i = 0; i < mPdfBean.getList().size(); i++) {
-                            if (mPdfBean.getList().get(i).getUserName().equals(mUserName)) {
-                                if (mPdfBean.getList().get(i).getPdfItemList() != null && mPdfBean.getList().get(i).getPdfItemList().size() > 0) {
-                                    mPdfItemList = mPdfBean.getList().get(i).getPdfItemList();
+                    // TODO: 2018/3/2 ,请求网络获取PDF数据进行对比。
 
-                                    // TODO: 2018/2/23 ,有可能用户手动将文件删除了，所以这边需要在进行判断文件是否存在
-                                    boolean exists = false;
-                                    for (int i1 = 0; i1 < mPdfItemList.size(); i1++) {
-                                        String bookPathUrl = mPdfItemList.get(i1).getPathUrl();
-                                        File file = new File(bookPathUrl);
-                                        exists = file.exists();
-                                        if (!exists) {
-                                            mPdfItemList.remove(i1);
+                    Map<String, String> stringMap = IdeaApi.getSign();
+                    stringMap.put("pageNum", 0 + "");
+                    IdeaApi.getRequestLogin(stringMap);
+                    IdeaApi.getApiService()
+                            .getBooksList(stringMap)
+                            .compose(this.<BasicResponse<BooksListBean>>bindToLifecycle())
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(new DefaultObserver<BasicResponse<BooksListBean>>(getActivity(), true) {
+                                @Override
+                                public void onSuccess(BasicResponse<BooksListBean> response) {
+                                    //KVurl = http://ojd06y9cv.bkt.clouddn.com/4969f7828af22e1ec8d30ecc9e7d2c22.png?/0/w/1280/h/960
+                                    //pdfUrl = http://ojd06y9cv.bkt.clouddn.com/619820641c5890217b99e5cc968e526c.pdf
+                                    String substring = "";
+                                    mBooksListBean.clear();
+
+                                    if (response != null) {
+                                        for (int i = 0; i < response.getData().getResultList().size(); i++) {
+                                            String pdfUrl = response.getData().getResultList().get(i).getPdfUrl();
+
+                                            if (pdfUrl != null && !TextUtils.isEmpty(pdfUrl)) {
+
+                                                substring = pdfUrl.substring(pdfUrl.lastIndexOf("/") + 1);
+                                                if (listFileName.contains(substring)) {
+                                                    mBooksListBean.add(response.getData().getResultList().get(i));
+                                                    //添加到bean里面
+                                                }
+                                            }
+                                            //之后添加到bean放到条目展示
                                         }
+
+                                        if (mMineManualAdapter == null) {
+                                            mMineManualAdapter = new BrochureListAdapter2(mBooksListBean);
+                                            rvHomeBooks.setAdapter(mMineManualAdapter);
+                                        } else {
+                                            mMineManualAdapter.notifyDataSetChanged();
+                                        }
+
+                                        final String finalSubstring = substring;
+                                        mMineManualAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                                            @Override
+                                            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                                                mCurPosition = position;
+                                                //判断是否这个pdf文件已存在
+                                                mPdfTotalPath = mRootPath + "/" + finalSubstring;
+                                                if (FileUtils.isFileExist(mPdfTotalPath)) {
+                                                    startActivity(new Intent(getActivity(), PDFActivity.class).putExtra("PdfUrl", mBooksListBean.get(position).getPdfUrl()));
+                                                }
+
+                                            }
+                                        });
+
+
                                     }
-                                } else {
-                                    hideItem();
-                                    return;
+                                    listFileName.clear();
+                                    mLocalTempPdfFileName.clear();
                                 }
-                            }
-                        }
-
-                        mHomeBooksAdapter = new HomeBooksAdapter(mPdfItemList);
-
-                        if (mPdfItemList == null || mPdfItemList.size() == 0) {
-                            hideItem();
-                        } else {
-                            rvHomeBooks.setVisibility(View.VISIBLE);
-                            tvMyBrochureTop.setVisibility(View.VISIBLE);
-                            tvMyBrochureDonw.setVisibility(View.VISIBLE);
-                        }
-                        rvHomeBooks.setAdapter(mHomeBooksAdapter);
-                        mHomeBooksAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-                            @Override
-                            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                                // TODO: 2018/2/12 ,每次从sp 中获取，进行使用
-                                startActivity(new Intent(getActivity(), PDFActivity.class).putExtra("PdfUrl", mPdfItemList.get(position).getPathUrl()));
-                            }
-                        });
-                    } else {
-                        //隐藏条目
-                        hideItem();
-                    }
+                            });
                 } else {
+                    //直接进行获取展示
                     hideItem();
                 }
             }
@@ -238,7 +255,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
     }
 
     /**
-     * 隐藏条目
+     * 显示
      */
     private void hideItem() {
         //        rvHomeBooks.setVisibility(View.GONE);
@@ -247,7 +264,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
 
 
         Map<String, String> stringMap = IdeaApi.getSign();
-        stringMap.put("pageNum", pageNum + "");
+        stringMap.put("pageNum", 0 + "");
         //        stringMap.put("pageSize", 3 + "");
 
         IdeaApi.getRequestLogin(stringMap);
@@ -260,49 +277,17 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                     @Override
                     public void onSuccess(BasicResponse<BooksListBean> response) {
                         if (response != null) {
-                            if (pageNum == 0) {
                                 mBooksListBean.clear();
                                 mBooksListBean.addAll(response.getData().getResultList());
                                 if (mBooksListBean.size() > 0) {
                                     pageNum += 1;
-                                    mMineManualAdapter = new BrochureListAdapter2(mBooksListBean);
-                                    rvHomeBooks.setAdapter(mMineManualAdapter);
 
-                                    //                                    mMineManualAdapter.setOnLoadMoreListener(HomeFragment.this, rvHomeBooks); //加载更多
-
-/*
-                                    mMineManualAdapter.setLoadMoreView(new LoadMoreView() {
-                                        @Override
-                                        public int getLayoutId() {
-                                            return R.layout.load_more_null_layout;
-                                        }
-
-                                        */
-                                    /**
-                                     * 如果返回true，数据全部加载完毕后会隐藏加载更多
-                                     * 如果返回false，数据全部加载完毕后会显示getLoadEndViewId()布局
-                                     *//*
-
-                                        @Override public boolean isLoadEndGone() {
-                                            return true;
-                                        }
-
-                                        @Override
-                                        protected int getLoadingViewId() {
-                                            return R.id.load_more_loading_view;
-                                        }
-
-                                        @Override
-                                        protected int getLoadFailViewId() {
-                                            return R.id.load_more_load_fail_view;
-                                        }
-
-                                        @Override
-                                        protected int getLoadEndViewId() {
-                                            return 0;
-                                        }
-                                    });
-*/
+                                    if (mMineManualAdapter == null) {
+                                        mMineManualAdapter = new BrochureListAdapter2(mBooksListBean);
+                                        rvHomeBooks.setAdapter(mMineManualAdapter);
+                                    } else {
+                                        mMineManualAdapter.notifyDataSetChanged();
+                                    }
 
                                     mMineManualAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
                                         @Override
@@ -336,16 +321,6 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                                 } else {
                                     mMineManualAdapter.loadMoreEnd();
                                 }
-                            } else {
-                                if (response.getData().getResultList().size() > 0) {
-                                    pageNum += 1;
-                                    mBooksListBean.addAll(response.getData().getResultList());
-                                    mMineManualAdapter.addData(response.getData().getResultList());
-                                    mMineManualAdapter.loadMoreComplete(); //完成本次
-                                } else {
-                                    mMineManualAdapter.loadMoreEnd(); //完成所有加载
-                                }
-                            }
                         } else {
                             mMineManualAdapter.loadMoreEnd();
                         }
