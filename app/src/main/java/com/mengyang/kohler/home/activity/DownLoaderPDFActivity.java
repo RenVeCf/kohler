@@ -53,7 +53,6 @@ import okhttp3.Response;
 public class DownLoaderPDFActivity extends BaseActivity implements OnPageChangeListener, OnLoadCompleteListener, OnDrawListener, OnErrorListener {
     /* 请求识别码 */
     private static final int MY_PERMISSIONS_REQUEST_READ = 6;
-    String SDPath = Environment.getExternalStorageDirectory().getAbsolutePath();
 
     @BindView(R.id.pdf_view)
     PDFView pdfView;
@@ -147,7 +146,7 @@ public class DownLoaderPDFActivity extends BaseActivity implements OnPageChangeL
                     try {
                         is = response.body().byteStream();
                         long total = response.body().contentLength();
-                        File file = new File(SDPath, url.substring(url.lastIndexOf("/") + 1));
+                        File file = new File(IConstants.mRootPath, url.substring(url.lastIndexOf("/") + 1));
                         mFileAbsolutePath = file.getAbsolutePath();
                         fos = new FileOutputStream(file);
                         long sum = 0;
@@ -227,28 +226,14 @@ public class DownLoaderPDFActivity extends BaseActivity implements OnPageChangeL
     public void loadComplete(int nbPages) {
         dismiss();
         ToastUtil.showToast("加载完成" + nbPages);
-        Log.i("123", "nbPages = " + nbPages);
+        Log.i("kohler", "nbPages = " + nbPages);
     }
 
     @Override
     public void onPageChanged(int page, int pageCount) {
         int pageNum = page + 1;
         ToastUtil.showToast(" " + pageNum + " / " + pageCount);
-        Log.i("123", "pageCount = " + pageCount);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == MY_PERMISSIONS_REQUEST_READ) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                saveFile(mResponse);
-            } else {
-                // Permission Denied
-                //  Toast.makeText(MainActivity.this, "Permission Denied", Toast.LENGTH_SHORT).show();
-            }
-            return;
-        }
+        Log.i("kohler", "pageCount = " + pageCount);
     }
 
     @Override
