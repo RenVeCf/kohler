@@ -9,6 +9,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
@@ -39,7 +40,7 @@ import okhttp3.Response;
  * 我要爬墙
  */
 
-public class BarrageActivity extends BaseActivity {
+public class BarrageActivity extends BaseActivity implements BaseQuickAdapter.OnItemClickListener {
     private List<String> mDataList = new ArrayList<>();
 
     @BindView(R.id.tv_barrage_top)
@@ -67,6 +68,7 @@ public class BarrageActivity extends BaseActivity {
 
         mRecyclerViewBarrage.setLayoutManager(new LinearLayoutManager(this));
         mBarrageAdapter = new BarrageAdapter(mDataList);
+        mBarrageAdapter.setOnItemClickListener(this);
         mRecyclerViewBarrage.setAdapter(mBarrageAdapter);
     }
 
@@ -142,5 +144,10 @@ public class BarrageActivity extends BaseActivity {
                 });
             }
         }.start();
+    }
+
+    @Override
+    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        hideInput();
     }
 }

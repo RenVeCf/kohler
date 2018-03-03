@@ -124,6 +124,12 @@ public class CustomerServiceActivity extends BaseActivity {
                             mUserServiceAdapter.addData(questionSearchBean);
                             mRecyclerViewService.scrollToPosition(mUserServiceAdapter.getItemCount() - 1);
 
+                            mUserServiceAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                                    hideInput();
+                                }
+                            });
                             mUserServiceAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
                                 @Override
                                 public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
