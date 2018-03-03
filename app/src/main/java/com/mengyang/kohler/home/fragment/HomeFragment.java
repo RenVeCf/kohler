@@ -114,6 +114,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
     private String mPdfTotalPath;
     private String mDownLoadKvUrl;
     private HandleViewPager mHandleListenning;
+    private boolean mIsOpen;
 
     @Override
     protected int getLayoutId() {
@@ -359,6 +360,14 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                         abHomeLoop.setOnPageClickListener(new AdPlayBanner.OnPageClickListener() {
                             @Override
                             public void onPageClick(AdPageInfo info, int postion) {
+
+                                if (mHandleListenning != null) {
+                                    mIsOpen = mHandleListenning.handleListenning();
+                                    if (mIsOpen) {
+                                        return;
+                                    }
+                                }
+
                                 if (postion == 0 && SPUtil.get(getActivity(), IConstants.TYPE, "").equals("dealer")) {
                                     startActivity(new Intent(getActivity(), MeetingActivity.class));
                                 } else if (postion == 0 && SPUtil.get(getActivity(), IConstants.TYPE, "").equals("commonUser")) {
@@ -492,8 +501,8 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
         }
     }
 
-    interface HandleViewPager {
-        void handleListenning();
+    public interface HandleViewPager {
+        boolean handleListenning();
     }
 
     public void setHandleListenning(HandleViewPager handleListenning) {

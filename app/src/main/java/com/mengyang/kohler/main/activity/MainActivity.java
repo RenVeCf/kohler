@@ -62,7 +62,7 @@ import butterknife.OnClick;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class MainActivity extends BaseActivity implements HomeFragment.OnFragmentInteractionListener {
+public class MainActivity extends BaseActivity implements HomeFragment.OnFragmentInteractionListener, HomeFragment.HandleViewPager {
     private static final int PERMISSON_REQUESTCODE = 0;
     private String[] needPermissions = {
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -172,6 +172,7 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
 
         checkPermissions();//检查权限
 
+        mHomeFragment.setHandleListenning(this);
         rlMain.setPanelSlideListener(new ResideLayout.PanelSlideListener() {
             @Override
             public void onPanelSlide(View panel, float slideOffset) {
@@ -634,5 +635,16 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
             }
         }
         return null;
+    }
+
+    @Override
+    public boolean handleListenning() {
+
+        if (rlMain != null && rlMain.isOpen()) {
+            rlMain.closePane();
+            return true;
+        }
+
+        return false;
     }
 }

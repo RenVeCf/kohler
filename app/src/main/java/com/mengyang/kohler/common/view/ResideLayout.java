@@ -1507,4 +1507,8 @@ public class ResideLayout extends ViewGroup {
     public void StartSlide() {
         mCanSlide = true;
     }
+
+    public int getCurrentSlideOffset() {
+        return (int) mSlideOffset;
+    }
 }
