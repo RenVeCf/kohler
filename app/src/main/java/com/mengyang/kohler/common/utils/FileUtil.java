@@ -3,6 +3,8 @@ package com.mengyang.kohler.common.utils;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.mengyang.kohler.common.net.IConstants;
+
 import java.io.File;
 import java.util.List;
 
@@ -17,7 +19,7 @@ public class FileUtil {
      */
     public static List<String> judgePdfIsExit(List<String> localTempPdfFileName) {
 
-        File file2 = new File(Contants.mRootPath);
+        File file2 = new File(IConstants.mRootPath);
 
         if (!file2.exists()) {
             file2.mkdirs();
@@ -32,7 +34,7 @@ public class FileUtil {
                     localTempPdfFileName.add(fileName);
                 }
 
-                Log.i("456789","pdfName = " + fileName);
+                Log.i("kohler","本地的pdfName = " + fileName);
             }
         }
         return localTempPdfFileName;

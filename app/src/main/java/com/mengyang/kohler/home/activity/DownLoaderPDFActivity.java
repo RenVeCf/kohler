@@ -53,7 +53,6 @@ import okhttp3.Response;
 public class DownLoaderPDFActivity extends BaseActivity implements OnPageChangeListener, OnLoadCompleteListener, OnDrawListener, OnErrorListener {
     /* 请求识别码 */
     private static final int MY_PERMISSIONS_REQUEST_READ = 6;
-//    String SDPath = Environment.getExternalStorageDirectory().getAbsolutePath()+File.separator+ "kohlerPdf";
     String SDPath = Environment.getExternalStorageDirectory().getAbsolutePath();
 
     @BindView(R.id.pdf_view)

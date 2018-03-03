@@ -293,7 +293,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                                                     intent.putExtra("PdfUrl", mBooksListBean.get(position).getPdfUrl());
                                                     intent.putExtra("mPdfTotalPath", mPdfTotalPath);
                                                     intent.putExtra("mDownLoadKvUrl", mDownLoadKvUrl);
-                                                    startActivityForResult(intent, IConstants.REQUEST_CODE_DOWN_LOAD);
+                                                    startActivity(intent);
                                                     return;
                                                 } else {
                                                     String videoUrl = mBooksListBean.get(position).getVideoUrl();

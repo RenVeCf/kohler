@@ -1,5 +1,7 @@
 package com.mengyang.kohler.common.net;
 
+import android.os.Environment;
+
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.R;
 
@@ -44,4 +46,6 @@ public class IConstants {
     public static final long PDF_LIST_BEAN = 5L;
     public static final long SKU_ATTR_LIST_BEAN = 6L;
 
+
+    public static final String mRootPath = Environment.getExternalStorageDirectory().getAbsolutePath();
 }

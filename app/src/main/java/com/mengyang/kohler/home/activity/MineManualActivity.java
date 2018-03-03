@@ -1,36 +1,29 @@
 package com.mengyang.kohler.home.activity;
 
 import android.content.Intent;
-import android.os.Environment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.loadmore.LoadMoreView;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
-import com.mengyang.kohler.common.activity.CustomerServiceActivity;
 import com.mengyang.kohler.common.activity.WebViewActivity;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.net.IdeaApi;
-import com.mengyang.kohler.common.utils.Contants;
 import com.mengyang.kohler.common.utils.FileUtil;
 import com.mengyang.kohler.common.utils.FileUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.view.SpacesItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.home.adapter.BrochureListAdapter;
-import com.mengyang.kohler.home.adapter.BrochureListAdapter2;
 import com.mengyang.kohler.home.adapter.MyBrochureAdapter6;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.PdfBean;
@@ -46,14 +39,12 @@ import butterknife.BindView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-import static com.mengyang.kohler.common.utils.Contants.mRootPath;
 
 /**
  * 我的手册/我的图册
  */
 
 public class MineManualActivity extends BaseActivity implements BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemChildClickListener {
-//    String mRootPath = Environment.getExternalStorageDirectory().getAbsolutePath()+File.separator+ "kohlerPdf";
 
     @BindView(R.id.tv_mine_manual_top)
     TopView tvMineManualTop;
@@ -156,7 +147,7 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
 
                                         substring = pdfUrl.substring(pdfUrl.lastIndexOf("/") + 1);
 
-                                        mPdfTotalPath = mRootPath + "/" + substring;
+                                        mPdfTotalPath = IConstants.mRootPath + "/" + substring;
 
                                         if (listFileName.contains(substring)) {
                                             //添加到bean里面
@@ -225,7 +216,7 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
                                         public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                                             mCurPosition = position;
                                             //判断是否这个pdf文件已存在
-                                            mPdfTotalPath = mRootPath+ "/" +mBooksListBean.get(position).getPdfUrl().substring(mBooksListBean.get(position).getPdfUrl().lastIndexOf("/") + 1);
+                                            mPdfTotalPath = IConstants.mRootPath+ "/" +mBooksListBean.get(position).getPdfUrl().substring(mBooksListBean.get(position).getPdfUrl().lastIndexOf("/") + 1);
                                             if (FileUtils.isFileExist(mPdfTotalPath)) {
                                                 startActivity(new Intent(MineManualActivity.this, PDFActivity.class).putExtra("PdfUrl", mBooksListBean.get(position).getPdfUrl()));
                                             } else {//没找到就去下载

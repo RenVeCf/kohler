@@ -1,26 +1,18 @@
 package com.mengyang.kohler;
 
-import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
 import com.gyf.barlibrary.ImmersionBar;
-import com.mengyang.kohler.common.utils.Contants;
 import com.mengyang.kohler.common.utils.PermissionUtils;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
-
-import java.io.File;
-import java.util.List;
 
 import butterknife.ButterKnife;
 
