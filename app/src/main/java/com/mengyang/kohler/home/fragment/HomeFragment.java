@@ -5,9 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
-import android.os.Bundle;
 import android.os.Environment;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,9 +22,6 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.loadmore.LoadMoreView;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.gyf.barlibrary.ImmersionBar;
 import com.kohler.arscan.DownloadActivity;
 import com.mengyang.kohler.App;
@@ -40,16 +35,13 @@ import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.utils.FileUtil;
 import com.mengyang.kohler.common.utils.FileUtils;
-import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.view.SpacesItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.home.activity.DownLoaderPDFActivity;
 import com.mengyang.kohler.home.activity.HomeSearchActivity;
 import com.mengyang.kohler.home.activity.MeetingActivity;
-import com.mengyang.kohler.home.activity.MineManualActivity;
 import com.mengyang.kohler.home.activity.PDFActivity;
-import com.mengyang.kohler.home.adapter.BrochureListAdapter;
 import com.mengyang.kohler.home.adapter.BrochureListAdapter2;
 import com.mengyang.kohler.home.adapter.HomeBooksAdapter;
 import com.mengyang.kohler.module.BasicResponse;
@@ -59,7 +51,6 @@ import com.mengyang.kohler.module.bean.HomeIndexBean;
 import com.ryane.banner.AdPageInfo;
 import com.ryane.banner.AdPlayBanner;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -248,7 +239,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                             });
                 } else {
                     //直接进行获取展示
-                    hideItem();
+                    updateUI();
                 }
             }
         }
@@ -257,15 +248,9 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
     /**
      * 显示
      */
-    private void hideItem() {
-        //        rvHomeBooks.setVisibility(View.GONE);
-        //        tvMyBrochureTop.setVisibility(View.GONE);
-        //        tvMyBrochureDonw.setVisibility(View.GONE);
-
-
+    private void updateUI() {
         Map<String, String> stringMap = IdeaApi.getSign();
         stringMap.put("pageNum", 0 + "");
-        //        stringMap.put("pageSize", 3 + "");
 
         IdeaApi.getRequestLogin(stringMap);
         IdeaApi.getApiService()
@@ -330,13 +315,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
 
     @Override
     protected void initListener() {
-        clearFocus();
-    }
 
-    private void clearFocus() {
-        //        etHomeSearch.clearFocus();
-        //        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        //        imm.hideSoftInputFromWindow(etHomeSearch.getWindowToken(),0);
     }
 
     @Override
@@ -352,7 +331,6 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                 .subscribe(new DefaultObserver<BasicResponse<HomeIndexBean>>(getActivity(), false) {
                     @Override
                     public void onSuccess(BasicResponse<HomeIndexBean> response) {
-                        clearFocus();
                         etHomeSearch.setFocusable(true);
                         etHomeSearch.setFocusableInTouchMode(true);
 
@@ -473,10 +451,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
 
     @Override
     public void onLoadMoreRequested() {
-//        if (mHomeBooksAdapter != null) {
-//            mHomeBooksAdapter.loadMoreEnd(false);
-//        }
-//        hideItem();
+
     }
 
     public interface OnFragmentInteractionListener {
