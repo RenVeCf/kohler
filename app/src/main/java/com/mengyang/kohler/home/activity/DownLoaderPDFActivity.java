@@ -87,11 +87,6 @@ public class DownLoaderPDFActivity extends BaseActivity implements OnPageChangeL
             }
 
             if (msg.arg1 == 100) {
-
-                savePdfData();
-//                Intent intent = new Intent();
-//                intent.putExtra("pdfPath", mFileAbsolutePath);
-                setResult(RESULT_OK);
                 displayFromFile(new File(Environment.getExternalStorageDirectory().getAbsolutePath(), url.substring(url.lastIndexOf("/") + 1)));
             }
         }
@@ -262,57 +257,4 @@ public class DownLoaderPDFActivity extends BaseActivity implements OnPageChangeL
         Log.i("123", "onError = 出错了" + t);
     }
 
-    private void savePdfData() {
-        if (mPdfBean.getList() != null && mPdfBean.getList().size() > 0) {
-
-            for (int i = 0; i < mPdfBean.getList().size(); i++) {
-                mNameList.add(mPdfBean.getList().get(i).getUserName());
-            }
-
-            //有这个用户
-            if (mNameList.contains((String) SPUtil.get(App.getContext(), IConstants.USER_NIKE_NAME, ""))) {
-                for (int i = 0; i < mPdfBean.getList().size(); i++) {
-                    if (mPdfBean.getList().get(i).getUserName().equals((String) SPUtil.get(App.getContext(), IConstants.USER_NIKE_NAME, ""))) {
-
-                        mUserPdfItemBean = new PdfBean.UserNameBean.UserPdfItemBean();
-                        mUserPdfItemBean.setBookKVUrl(mDownLoadKvUrl);
-                        mUserPdfItemBean.setPathUrl(mPdfTotalPath);
-
-                        mPdfBean.getList().get(i).getPdfItemList().add(mUserPdfItemBean);
-                        saveUserPdfData(mPdfBean);
-                    }
-                }
-
-            } else {
-                //没有该用户,创建用户信息
-                createUserPdfData();
-            }
-
-        } else {
-            //没有该用户,创建用户信息
-            createUserPdfData();
-        }
-    }
-
-    private void createUserPdfData() {
-        mUserPdfItemBean.setBookKVUrl(mDownLoadKvUrl);
-        mUserPdfItemBean.setPathUrl(mPdfTotalPath);
-
-        mUserNameBean = new PdfBean.UserNameBean();
-        mUserNameBean.setUserName(mUserName);
-
-        mPdfItemList = new ArrayList<>();
-        mPdfItemList.add(mUserPdfItemBean);
-        mUserNameBean.setPdfItemList(mPdfItemList);
-        mUserNameBeanList.add(mUserNameBean);
-        mPdfBean.setList(mUserNameBeanList);
-
-        saveUserPdfData(mPdfBean);
-    }
-
-    private void saveUserPdfData(PdfBean pdfBean) {
-        Gson gson = new Gson();
-        String jsonStr=gson.toJson(pdfBean); //将List转换成Json
-        SPUtil.put(App.getContext(),IConstants.USER_PDF_DATA,jsonStr);
-    }
 }

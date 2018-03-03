@@ -49,7 +49,7 @@ import io.reactivex.schedulers.Schedulers;
 import static com.mengyang.kohler.common.utils.Contants.mRootPath;
 
 /**
- * 我的手册
+ * 我的手册/我的图册
  */
 
 public class MineManualActivity extends BaseActivity implements BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemChildClickListener {
@@ -129,80 +129,59 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
 
         //本地有文件，从数据库中获取相应数据
         if (listFileName != null && listFileName.size() > 0) {
-                // TODO: 2018/3/2 ,请求网络获取PDF数据进行对比。
+            // TODO: 2018/3/2 ,请求网络获取PDF数据进行对比。
 
-                Map<String, String> stringMap = IdeaApi.getSign();
-                stringMap.put("pageNum", 0 + "");
-                IdeaApi.getRequestLogin(stringMap);
-                IdeaApi.getApiService()
-                        .getBooksList(stringMap)
-                        .compose(this.<BasicResponse<BooksListBean>>bindToLifecycle())
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new DefaultObserver<BasicResponse<BooksListBean>>(MineManualActivity.this, true) {
-                            @Override
-                            public void onSuccess(BasicResponse<BooksListBean> response) {
-                                //KVurl = http://ojd06y9cv.bkt.clouddn.com/4969f7828af22e1ec8d30ecc9e7d2c22.png?/0/w/1280/h/960
-                                //pdfUrl = http://ojd06y9cv.bkt.clouddn.com/619820641c5890217b99e5cc968e526c.pdf
-                                String substring = "";
-                                mPdfItemList.clear();
+            Map<String, String> stringMap = IdeaApi.getSign();
+            stringMap.put("pageNum", 0 + "");
+            IdeaApi.getRequestLogin(stringMap);
+            IdeaApi.getApiService()
+                    .getBooksList(stringMap)
+                    .compose(this.<BasicResponse<BooksListBean>>bindToLifecycle())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new DefaultObserver<BasicResponse<BooksListBean>>(MineManualActivity.this, true) {
+                        @Override
+                        public void onSuccess(BasicResponse<BooksListBean> response) {
+                            //KVurl = http://ojd06y9cv.bkt.clouddn.com/4969f7828af22e1ec8d30ecc9e7d2c22.png?/0/w/1280/h/960
+                            //pdfUrl = http://ojd06y9cv.bkt.clouddn.com/619820641c5890217b99e5cc968e526c.pdf
+                            String substring = "";
+                            mPdfItemList.clear();
 
-                                if (response != null) {
-                                    for (int i = 0; i < response.getData().getResultList().size(); i++) {
-                                        String pdfUrl = response.getData().getResultList().get(i).getPdfUrl();
-                                        mDownLoadKvUrl = response.getData().getResultList().get(i).getKvUrl();
+                            if (response != null) {
+                                for (int i = 0; i < response.getData().getResultList().size(); i++) {
+                                    String pdfUrl = response.getData().getResultList().get(i).getPdfUrl();
+                                    mDownLoadKvUrl = response.getData().getResultList().get(i).getKvUrl();
 
-                                        if (pdfUrl != null && !TextUtils.isEmpty(pdfUrl)) {
+                                    if (pdfUrl != null && !TextUtils.isEmpty(pdfUrl)) {
 
-                                            substring = pdfUrl.substring(pdfUrl.lastIndexOf("/") + 1);
+                                        substring = pdfUrl.substring(pdfUrl.lastIndexOf("/") + 1);
 
-                                            mPdfTotalPath = mRootPath + "/" + substring;
+                                        mPdfTotalPath = mRootPath + "/" + substring;
 
-                                            if (listFileName.contains(substring)) {
-
-
-                                                mUserPdfItemBean.setBookKVUrl(mDownLoadKvUrl);
-                                                mUserPdfItemBean.setPathUrl(mPdfTotalPath);
-
-                                              /*  mUserNameBean = new PdfBean.UserNameBean();
-                                                mUserNameBean.setUserName(mUserName);
-
-                                                mPdfItemList = new ArrayList<>();
-                                                mPdfItemList.add(mUserPdfItemBean);
-
-                                                mUserNameBean.setPdfItemList(mPdfItemList);
-                                                mUserNameBeanList.add(mUserNameBean);
-                                                mPdfBean.setList(mUserNameBeanList);*/
-
-                                                mPdfItemList.add(mUserPdfItemBean);
-
-                                                //添加到bean里面
-                                            }
+                                        if (listFileName.contains(substring)) {
+                                            //添加到bean里面
+                                            mUserPdfItemBean.setBookKVUrl(mDownLoadKvUrl);
+                                            mUserPdfItemBean.setPathUrl(mPdfTotalPath);
+                                            mPdfItemList.add(mUserPdfItemBean);
                                         }
-                                        //之后添加到bean放到条目展示
                                     }
-
-                                    if (mMyBrochureAdapter6 == null) {
-                                        mMyBrochureAdapter6 = new MyBrochureAdapter6(mPdfItemList);
-                                        rvMineManualMyBrochure.setAdapter(mMyBrochureAdapter6);
-                                    } else {
-                                        mMyBrochureAdapter6.notifyDataSetChanged();
-                                    }
-
-                                    mMyBrochureAdapter6.setOnItemChildClickListener(MineManualActivity.this);
-
-
+                                    //之后添加到bean放到条目展示
                                 }
-                                listFileName.clear();
-                                mLocalTempPdfFileName.clear();
-                            }
-                        });
 
+                                if (mMyBrochureAdapter6 == null) {
+                                    mMyBrochureAdapter6 = new MyBrochureAdapter6(mPdfItemList);
+                                    rvMineManualMyBrochure.setAdapter(mMyBrochureAdapter6);
+                                } else {
+                                    mMyBrochureAdapter6.notifyDataSetChanged();
+                                }
+                                mMyBrochureAdapter6.setOnItemChildClickListener(MineManualActivity.this);
+                            }
+                            listFileName.clear();
+                            mLocalTempPdfFileName.clear();
+                        }
+                    });
         }
     }
-
-
-
 
     @Override
     protected void initListener() {
@@ -258,7 +237,7 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
                                                     intent.putExtra("PdfUrl", pdfUrl);
                                                     intent.putExtra("mPdfTotalPath", mPdfTotalPath);
                                                     intent.putExtra("mDownLoadKvUrl", mDownLoadKvUrl);
-                                                    startActivityForResult(intent, IConstants.REQUEST_CODE_DOWN_LOAD);
+                                                    startActivity(intent);
                                                     return;
                                                 } else {
                                                     String videoUrl = mBooksListBean.get(position).getVideoUrl();
@@ -296,49 +275,6 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
         initData();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == IConstants.REQUEST_CODE_DOWN_LOAD && resultCode == RESULT_OK) {
-
-            String pefData2 = (String) SPUtil.get(App.getContext(), IConstants.USER_PDF_DATA, "");
-
-            if (!TextUtils.isEmpty(pefData2) && pefData2.length() >5) {//pefData2.length() >5 s 临时定义的
-                Gson gson = new Gson();
-                mPdfBean = gson.fromJson(pefData2, new TypeToken<PdfBean>() {}.getType());
-                for (int i = 0; i < mPdfBean.getList().size(); i++) {
-                    if (mPdfBean.getList().get(i).getUserName().equals((String) SPUtil.get(App.getContext(), IConstants.USER_NIKE_NAME, ""))) {
-
-                        mPdfItemList = mPdfBean.getList().get(i).getPdfItemList();
-
-                       /* // TODO: 2018/2/23 ,有可能用户手动将文件删除了，所以这边需要在进行判断文件是否存在
-                        boolean exists = false;
-                        for (int i1 = 0; i1 < mPdfItemList.size(); i1++) {
-                            String bookPathUrl = mPdfItemList.get(i1).getPathUrl();
-                            File file = new File(bookPathUrl);
-                            exists = file.exists();
-                            if (!exists) {
-                                mPdfItemList.remove(i1);
-                            }
-*/
-                        }
-
-
-
-                        if (mMyBrochureAdapter6 == null) {
-                            mMyBrochureAdapter6 = new MyBrochureAdapter6(mPdfItemList);
-                            rvMineManualMyBrochure.setAdapter(mMyBrochureAdapter6);
-                            mMyBrochureAdapter6.setOnItemChildClickListener(this);
-                        } else {
-                            mMyBrochureAdapter6.addData(mPdfItemList);
-//                            mMyBrochureAdapter6.notifyDataSetChanged();
-                        }
-                    }
-                }
-            }
-
-    }
-
     private void saveUserPdfData(PdfBean pdfBean) {
         Gson gson = new Gson();
         String jsonStr=gson.toJson(pdfBean); //将List转换成Json
@@ -371,7 +307,6 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
 
     @Override
     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-
         switch (view.getId()) {
             case R.id.iv_my_brochure_adapter_remove_item_img:
                 if (FileUtils.isFileExist(mPdfItemList.get(position).getPathUrl())) {

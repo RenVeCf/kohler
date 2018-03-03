@@ -490,6 +490,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
     public void stopViewPager() {
         if (abHomeLoop != null) {
             abHomeLoop.setAutoPlay(false);
+            abHomeLoop.stop();
         }
     }
 
@@ -497,7 +498,6 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
         if (abHomeLoop != null) {
             abHomeLoop.setAutoPlay(true);
             abHomeLoop.setUp();
-            Log.i("123", "456");
         }
     }
 

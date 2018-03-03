@@ -44,9 +44,4 @@ public class IConstants {
     public static final long PDF_LIST_BEAN = 5L;
     public static final long SKU_ATTR_LIST_BEAN = 6L;
 
-    /**
-     * 请求码
-     */
-    public static final int REQUEST_CODE_DOWN_LOAD = 100; //用户头像URL
-
 }
