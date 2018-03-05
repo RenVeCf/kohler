@@ -32,7 +32,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * 商品分类
+ * 商品分类/产品清单
  */
 public class CommodityClassificationFragment extends BaseFragment implements BaseQuickAdapter.RequestLoadMoreListener {
 

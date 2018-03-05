@@ -165,6 +165,4 @@ public abstract class BaseActivity extends RxAppCompatActivity {
             mInputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
         }
     }
-
-
 }
