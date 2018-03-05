@@ -56,7 +56,15 @@ public class PdfBean {
         public static class UserPdfItemBean {
             private String bookKVUrl;
             private String pathUrl;
+            private String nameCn;
 
+            public String getNameCn() {
+                return nameCn;
+            }
+
+            public void setNameCn(String nameCn) {
+                this.nameCn = nameCn;
+            }
 
             public String getBookKVUrl() {
                 return bookKVUrl;

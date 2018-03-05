@@ -145,6 +145,7 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
                                 for (int i = 0; i < response.getData().getResultList().size(); i++) {
                                     String pdfUrl = response.getData().getResultList().get(i).getPdfUrl();
                                     mDownLoadKvUrl = response.getData().getResultList().get(i).getKvUrl();
+                                    String nameCn = response.getData().getResultList().get(i).getNameCn();
 
                                     if (pdfUrl != null && !TextUtils.isEmpty(pdfUrl)) {
 
@@ -156,6 +157,7 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
                                             //添加到bean里面
                                             mUserPdfItemBean.setBookKVUrl(mDownLoadKvUrl);
                                             mUserPdfItemBean.setPathUrl(mPdfTotalPath);
+                                            mUserPdfItemBean.setNameCn(nameCn);
                                             mPdfItemList.add(mUserPdfItemBean);
                                         }
                                     }
