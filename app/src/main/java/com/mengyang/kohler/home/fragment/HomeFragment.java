@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Icon;
 import android.os.Build;
 import android.os.Environment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -70,9 +71,6 @@ import static com.ryane.banner.AdPlayBanner.IndicatorType.NONE_INDICATOR;
  */
 
 public class HomeFragment extends BaseFragment implements BaseQuickAdapter.RequestLoadMoreListener {
-    String mRootPath = Environment.getExternalStorageDirectory().getAbsolutePath();
-    private List<String> mLocalTempPdfFileName = new ArrayList<>();
-
 
     @BindView(R.id.tv_home_top)
     TopView tvHomeTop;
@@ -100,23 +98,24 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
     //侧滑Meun键的接口回调
     private OnFragmentInteractionListener mListener;
     private HomeIndexBean mHomeIndexBean;
-    //轮播图集合
-    private List<AdPageInfo> mDatas = new ArrayList<>();
-    private HomeBooksAdapter mHomeBooksAdapter;
-    private String mH5_URL = "";
-    private int prevousPosition = 0;
+    private HandleViewPager mHandleListenning;
     private PopupWindow mNoJurisdictionPopupWindow;
     private View mPopLayout;
-    private PdfBean mPdfBean = new PdfBean();
-    private String mUserName;
-    private List<PdfBean.UserNameBean.UserPdfItemBean> mPdfItemList;
-    private int pageNum;
-    private List<BooksListBean.ResultListBean> mBooksListBean = new ArrayList<>();
     private BrochureListAdapter2 mMineManualAdapter;
+
+    //轮播图集合
+    private List<AdPageInfo> mDatas = new ArrayList<>();
+    private List<BooksListBean.ResultListBean> mBooksListBean = new ArrayList<>();
+    private List<String> mLocalTempPdfFileName = new ArrayList<>();
+
     private int mCurPosition;
+    private int prevousPosition = 0;
+    private int pageNum;
+
     private String mPdfTotalPath;
     private String mDownLoadKvUrl;
-    private HandleViewPager mHandleListenning;
+    private String mH5_URL = "";
+
     private boolean mIsOpen;
 
     @Override
@@ -227,7 +226,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                                             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                                                 mCurPosition = position;
                                                 //判断是否这个pdf文件已存在
-                                                mPdfTotalPath = mRootPath + "/" + finalSubstring;
+                                                mPdfTotalPath = IConstants.mRootPath + "/" + finalSubstring;
                                                 if (FileUtils.isFileExist(mPdfTotalPath)) {
                                                     startActivity(new Intent(getActivity(), PDFActivity.class).putExtra("PdfUrl", mBooksListBean.get(position).getPdfUrl()));
                                                 }
@@ -283,7 +282,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                                         public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                                             mCurPosition = position;
                                             //判断是否这个pdf文件已存在
-                                            mPdfTotalPath = mRootPath + "/" + mBooksListBean.get(position).getPdfUrl().substring(mBooksListBean.get(position).getPdfUrl().lastIndexOf("/") + 1);
+                                            mPdfTotalPath = IConstants.mRootPath + "/" + mBooksListBean.get(position).getPdfUrl().substring(mBooksListBean.get(position).getPdfUrl().lastIndexOf("/") + 1);
                                             if (FileUtils.isFileExist(mPdfTotalPath)) {
                                                 startActivity(new Intent(getActivity(), PDFActivity.class).putExtra("PdfUrl", mBooksListBean.get(position).getPdfUrl()));
                                             } else {//没找到就去下载

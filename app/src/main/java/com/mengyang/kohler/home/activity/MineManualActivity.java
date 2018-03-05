@@ -54,30 +54,19 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
     RecyclerView rvMineManualMyBrochure;
     @BindView(R.id.srl_mine_manual)
     SwipeRefreshLayout srlMineManual;
-    private BrochureListAdapter mMineManualAdapter;
-    private List<BooksListBean.ResultListBean> mBooksListBean;
-
-
-    private List<PdfBean> mPdfBeanList = new ArrayList<>();
-    private List<PdfBean.UserNameBean> mUserNameBeanList = new ArrayList<>();
-//    private BooksBean mDeletePDF;
-    private int pageNum = 0; //请求页数
-    private String mPdfTotalPath;
-    private int mCurPosition;
-    private String mPdfPathSuccess;
-
-    LinkedHashMap<String, String> mapUrl = new LinkedHashMap<String, String>();
-    private String mDownLoadKvUrl;
-    private PdfBean mPdfBean = new PdfBean();
-    private List<PdfBean.UserNameBean.UserPdfItemBean> mPdfItemList = new ArrayList<>();;
-    private MyBrochureAdapter6 mMyBrochureAdapter6;
-    private List<String> mNameList= new ArrayList<>();
 
     private List<String> mLocalTempPdfFileName = new ArrayList<>();
     private PdfBean.UserNameBean.UserPdfItemBean mUserPdfItemBean = new PdfBean.UserNameBean.UserPdfItemBean();
-    private PdfBean.UserNameBean mUserNameBean;
-//    private String mUserName = (String) SPUtil.get(App.getContext(), IConstants.USER_PDF_DATA, "");
-    private String mUserName = (String) SPUtil.get(App.getContext(), IConstants.USER_NIKE_NAME, "");
+    private List<PdfBean.UserNameBean.UserPdfItemBean> mPdfItemList = new ArrayList<>();
+    private List<BooksListBean.ResultListBean> mBooksListBean;
+    private BrochureListAdapter mMineManualAdapter;
+    private MyBrochureAdapter6 mMyBrochureAdapter6;
+
+    private int pageNum = 0; //请求页数
+    private int mCurPosition;
+
+    private String mPdfTotalPath;
+    private String mDownLoadKvUrl;
 
     @Override
     protected int getLayoutId() {
@@ -266,39 +255,7 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
 
     @Override
     public void onLoadMoreRequested() {
-//        mMineManualAdapter.loadMoreEnd(false);
-//        mMyBrochureAdapter6.loadMoreEnd(false);
         initData();
-    }
-
-    private void saveUserPdfData(PdfBean pdfBean) {
-        Gson gson = new Gson();
-        String jsonStr=gson.toJson(pdfBean); //将List转换成Json
-        SPUtil.put(App.getContext(),IConstants.USER_PDF_DATA,jsonStr);
-    }
-
-    private void createUserPdfData() {
-        mUserPdfItemBean.setBookKVUrl(mDownLoadKvUrl);
-        mUserPdfItemBean.setPathUrl(mPdfTotalPath);
-
-        mUserNameBean = new PdfBean.UserNameBean();
-        mUserNameBean.setUserName(mUserName);
-
-        mPdfItemList = new ArrayList<>();
-        mPdfItemList.add(mUserPdfItemBean);
-        mUserNameBean.setPdfItemList(mPdfItemList);
-        mUserNameBeanList.add(mUserNameBean);
-        mPdfBean.setList(mUserNameBeanList);
-
-        saveUserPdfData(mPdfBean);
-
-        if (mMyBrochureAdapter6 == null) {
-            mMyBrochureAdapter6 = new MyBrochureAdapter6(mPdfItemList);
-            rvMineManualMyBrochure.setAdapter(mMyBrochureAdapter6);
-            mMyBrochureAdapter6.setOnItemChildClickListener(this);
-        } else {
-            mMyBrochureAdapter6.addData(mUserPdfItemBean);
-        }
     }
 
     @Override
