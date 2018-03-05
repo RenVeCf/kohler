@@ -5,12 +5,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.mengyang.kohler.App;
@@ -72,6 +74,8 @@ public class DesignerRegisterActivity extends BaseActivity {
     TextView tvDesignerRegisterGoUserRegister;
     @BindView(R.id.tv_designer_register_go_distributor_register)
     TextView tvDesignerRegisterGoDistributorRegister;
+    @BindView(R.id.sv_desiger)
+    ScrollView mSvDesiger;
     private byte[] bytes;//图片验证码进制流
     private String time;
 
@@ -84,6 +88,7 @@ public class DesignerRegisterActivity extends BaseActivity {
     protected void initValues() {
         App.getManager().addActivity(this);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
     }
 
     @Override
@@ -110,6 +115,15 @@ public class DesignerRegisterActivity extends BaseActivity {
                 }
             }
         });
+
+        mSvDesiger.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                hideInput();
+                return false;
+            }
+        });
+
     }
 
     @Override

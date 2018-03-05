@@ -3,14 +3,18 @@ package com.mengyang.kohler.account.activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.mengyang.kohler.App;
@@ -72,6 +76,8 @@ public class UserRegisterActivity extends BaseActivity {
     TextView tvUserRegisterGoDesignerRegister;
     @BindView(R.id.tv_user_register_go_distributor_register)
     TextView tvUserRegisterGoDistributorRegister;
+    @BindView(R.id.sv_user)
+    ScrollView mSvUser;
     private TimerTask timerTask;
     private Timer timer;
     private int timess;
@@ -113,8 +119,18 @@ public class UserRegisterActivity extends BaseActivity {
                 }
             }
         });
+
+        mSvUser.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                hideInput();
+                return false;
+            }
+        });
+
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void initData() {
         Map<String, String> stringMap = IdeaApi.getSign();
@@ -206,6 +222,7 @@ public class UserRegisterActivity extends BaseActivity {
                 });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @OnClick({R.id.rl_user_register_go_home, R.id.iv_user_register_verification_code, R.id.bt_user_register_send_out_sms, R.id.bt_user_register, R.id.tv_user_register_go_login, R.id.tv_user_register_go_designer_register, R.id.tv_user_register_go_distributor_register})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -218,10 +235,11 @@ public class UserRegisterActivity extends BaseActivity {
                 initData();
                 break;
             case R.id.bt_user_register_send_out_sms:
-                if (!etUserRegisterPhoneNum.getText().toString().trim().equals(""))
+                if (!etUserRegisterPhoneNum.getText().toString().trim().equals("")) {
                     LoginSMS();
-                else
+                } else {
                     ToastUtil.showToast(getString(R.string.msg_no_ok));
+                }
                 break;
             case R.id.bt_user_register:
                 String phoneNum = etUserRegisterPhoneNum.getText().toString().trim();

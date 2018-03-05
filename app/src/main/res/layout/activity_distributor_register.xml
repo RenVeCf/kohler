@@ -7,8 +7,9 @@
     android:background="@color/white"
     android:descendantFocusability="beforeDescendants"
     android:orientation="vertical"
+    android:fitsSystemWindows="true"
     tools:context="com.mengyang.kohler.account.activity.DistributorRegisterActivity">
-    <!--android:fitsSystemWindows="true"-->
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -62,143 +63,144 @@
         android:layout_marginStart="@dimen/x72"
         android:background="#e2e2e2"/>
 
-    <!--    <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">-->
-
-    <LinearLayout
+    <ScrollView
+        android:id="@+id/sv_distributor"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginEnd="@dimen/x120"
-        android:layout_marginStart="@dimen/x120"
-        android:orientation="vertical">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/y84"
-            android:src="@mipmap/kohler_logo"/>
-
-        <EditText
-            android:id="@+id/et_distributor_register_phone_num"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/y168"
-            android:background="@null"
-            android:hint="@string/input_phone_num"
-            android:inputType="phone"
-            android:maxLength="11"
-            android:textSize="12sp"/>
-
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="@dimen/y36"
-            android:background="@color/black"/>
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/x120"
+            android:layout_marginStart="@dimen/x120"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y84"
+                android:src="@mipmap/kohler_logo"/>
 
             <EditText
-                android:id="@+id/et_distributor_register_phone_num_again"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/y93"
-                android:layout_weight="1"
+                android:id="@+id/et_distributor_register_phone_num"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y168"
                 android:background="@null"
-                android:hint="@string/input_phone_num_again"
+                android:hint="@string/input_phone_num"
+                android:inputType="phone"
                 android:maxLength="11"
                 android:textSize="12sp"/>
-        </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="@dimen/y36"
-            android:background="@color/black"/>
 
-        <EditText
-            android:id="@+id/et_distributor_register_distributor_code"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/y96"
-            android:background="@null"
-            android:hint="@string/input_distributor_code"
-            android:textSize="12sp"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="@dimen/y36"
-            android:background="@color/black"/>
-
-        <EditText
-            android:id="@+id/et_distributor_register_login_pwd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/y96"
-            android:background="@null"
-            android:digits="@string/pwd_format"
-            android:hint="@string/input_login_pwd"
-            android:inputType="textPassword"
-            android:textSize="12sp"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="@dimen/y36"
-            android:background="@color/black"/>
-
-        <Button
-            android:id="@+id/bt_distributor_register"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/y156"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/y168"
-            android:background="@color/black"
-            android:text="@string/register"
-            android:textColor="@color/white"/>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/y36"
+                android:background="@color/black"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/y48"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="@dimen/y51"
-                android:layout_gravity="center_horizontal"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tv_distributor_register_go_user_register"
+                <EditText
+                    android:id="@+id/et_distributor_register_phone_num_again"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/x60"
-                    android:layout_weight="1"
-                    android:gravity="right"
-                    android:text="@string/user_register"
-                    android:textSize="12sp"/>
-
-                <View
-                    android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:background="@color/black"/>
-
-                <TextView
-                    android:id="@+id/tv_distributor_register_go_designer_register"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/x60"
+                    android:layout_marginTop="@dimen/y93"
                     android:layout_weight="1"
-                    android:text="@string/designer_register"
+                    android:background="@null"
+                    android:hint="@string/input_phone_num_again"
+                    android:maxLength="11"
                     android:textSize="12sp"/>
             </LinearLayout>
-        </RelativeLayout>
-    </LinearLayout>
-    <!--</ScrollView>-->
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/y36"
+                android:background="@color/black"/>
+
+            <EditText
+                android:id="@+id/et_distributor_register_distributor_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y96"
+                android:background="@null"
+                android:hint="@string/input_distributor_code"
+                android:textSize="12sp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/y36"
+                android:background="@color/black"/>
+
+            <EditText
+                android:id="@+id/et_distributor_register_login_pwd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y96"
+                android:background="@null"
+                android:digits="@string/pwd_format"
+                android:hint="@string/input_login_pwd"
+                android:inputType="textPassword"
+                android:textSize="12sp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/y36"
+                android:background="@color/black"/>
+
+            <Button
+                android:id="@+id/bt_distributor_register"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y156"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/y168"
+                android:background="@color/black"
+                android:text="@string/register"
+                android:textColor="@color/white"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y48"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="@dimen/y51"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_distributor_register_go_user_register"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/x60"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="@string/user_register"
+                        android:textSize="12sp"/>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/black"/>
+
+                    <TextView
+                        android:id="@+id/tv_distributor_register_go_designer_register"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/x60"
+                        android:layout_weight="1"
+                        android:text="@string/designer_register"
+                        android:textSize="12sp"/>
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

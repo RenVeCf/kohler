@@ -3,6 +3,7 @@ package com.mengyang.kohler.account.activity;
 import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.mengyang.kohler.App;
@@ -52,6 +54,8 @@ public class DistributorRegisterActivity extends BaseActivity {
     TextView tvDistributorRegisterGoDesignerRegister;
     @BindView(R.id.et_distributor_register_phone_num_again)
     EditText etDistributorRegisterPhoneNumAgain;
+    @BindView(R.id.sv_distributor)
+    ScrollView mSvDistributor;
 
     @Override
     protected int getLayoutId() {
@@ -88,6 +92,15 @@ public class DistributorRegisterActivity extends BaseActivity {
                 }
             }
         });
+
+        mSvDistributor.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                hideInput();
+                return false;
+            }
+        });
+
     }
 
     @Override

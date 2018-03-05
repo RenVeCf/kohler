@@ -152,6 +152,7 @@
             android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".account.activity.DistributorRegisterActivity"
+            android:windowSoftInputMode="adjustPan"
             android:launchMode="singleTask"/>
         <activity
             android:name=".common.activity.CustomerServiceActivity"
