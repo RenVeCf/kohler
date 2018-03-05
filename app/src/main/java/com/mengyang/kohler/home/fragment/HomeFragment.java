@@ -1,5 +1,6 @@
 package com.mengyang.kohler.home.fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -15,6 +16,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -94,6 +96,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
     ImageView ivTopCustomerService;
     @BindView(R.id.ll_indicator)
     LinearLayout mLlIndicator;
+
     //侧滑Meun键的接口回调
     private OnFragmentInteractionListener mListener;
     private HomeIndexBean mHomeIndexBean;
@@ -468,13 +471,20 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
         void onFragmentInteraction(String data);
     }
 
-    @OnClick({R.id.iv_top_menu, R.id.iv_home_search, R.id.iv_top_customer_service})
+    @OnClick({R.id.iv_top_menu, R.id.iv_home_search, R.id.iv_top_customer_service,R.id.tv_home_top})
     public void onViewClicked(View view) {
+        if (getActivity().getCurrentFocus() != null) {
+            ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(((Activity) getActivity()).getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+
         switch (view.getId()) {
             case R.id.iv_home_search:
                 if (!etHomeSearch.getText().toString().trim().equals("")) {
                     startActivity(new Intent(getActivity(), HomeSearchActivity.class).putExtra("etHomeSearch", etHomeSearch.getText().toString().trim()));
                 }
+                break;
+            case R.id.tv_home_top:
+                mListener.onFragmentInteraction("topView");
                 break;
             case R.id.iv_top_menu:
                 mListener.onFragmentInteraction("");
@@ -491,12 +501,22 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
         if (abHomeLoop != null) {
             abHomeLoop.setAutoPlay(false);
         }
+
+        if (etHomeSearch != null) {
+            etHomeSearch.setClickable(false);
+            etHomeSearch.setFocusableInTouchMode(false);
+        }
     }
 
     public void startViewPager() {
         if (abHomeLoop != null) {
             abHomeLoop.setAutoPlay(true);
         }
+        if (etHomeSearch != null) {
+            etHomeSearch.setClickable(true);
+            etHomeSearch.setFocusableInTouchMode(true);
+        }
+
     }
 
     public interface HandleViewPager {

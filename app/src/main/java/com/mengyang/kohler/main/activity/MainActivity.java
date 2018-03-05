@@ -201,7 +201,6 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
     public void onBackPressed() {
         if (rlMain.isOpen()) {
             rlMain.closePane();
-
         } else {
             super.onBackPressed();
 
@@ -327,7 +326,17 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
 
     @Override
     public void onFragmentInteraction(String data) {
-        rlMain.openPane();
+        if (rlMain != null) {
+            if ("topView".equals(data)) {
+                rlMain.closePane();
+            } else {
+                if (rlMain.isOpen()) {
+                    rlMain.closePane();
+                } else {
+                    rlMain.openPane();
+                }
+            }
+        }
     }
 
 
