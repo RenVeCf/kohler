@@ -12,7 +12,9 @@ import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewConfiguration;
 
+import com.mengyang.kohler.App;
 import com.mengyang.kohler.BuildConfig;
+import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.utils.LogUtils;
 
 import static com.mengyang.kohler.whole_category.view.Align.BOTTOM;
@@ -144,7 +146,7 @@ public class StackLayoutManager extends RecyclerView.LayoutManager {
         measureChildWithMargins(anchorView, 0, 0);
 
         //调节左边宽
-        mItemWidth = 930;//anchorView.getMeasuredWidth();
+        mItemWidth = App.getContext().getResources().getDimensionPixelOffset(R.dimen.stack_layout_manager_left);//anchorView.getMeasuredWidth();
 
         mItemHeight = anchorView.getMeasuredHeight();
 

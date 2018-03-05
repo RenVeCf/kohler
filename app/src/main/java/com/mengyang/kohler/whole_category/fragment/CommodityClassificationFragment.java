@@ -15,7 +15,6 @@ import com.mengyang.kohler.BaseFragment;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IdeaApi;
-import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.view.GridSpacingItemDecoration;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.CommodityClassificationFragmentBean;
@@ -38,8 +37,8 @@ public class CommodityClassificationFragment extends BaseFragment implements Bas
 
     @BindView(R.id.rv_commodity_classification)
     RecyclerView rvCommodityClassification;
-/*    @BindView(R.id.srl_commodity_classification)
-    SwipeRefreshLayout srlCommodityClassification;*/
+    @BindView(R.id.srl_commodity_classification)
+    SwipeRefreshLayout srlCommodityClassification;
     private CommodityClassificationAdapter mCommodityClassificationAdapter;
     private List<CommodityClassificationFragmentBean.ResultListBean> mCommodityClassificationFragmentBean;
     private int pageNum = 0; //请求页数
@@ -74,14 +73,14 @@ public class CommodityClassificationFragment extends BaseFragment implements Bas
 
     @Override
     protected void initListener() {
-        /*srlCommodityClassification.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        srlCommodityClassification.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 pageNum = 0;
                 initData();
                 srlCommodityClassification.setRefreshing(false);
             }
-        });*/
+        });
     }
 
     @Override

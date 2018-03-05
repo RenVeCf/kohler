@@ -29,6 +29,8 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.accessibility.AccessibilityEvent;
 
+import com.mengyang.kohler.App;
+import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.utils.LogUtils;
 
 import java.lang.reflect.Field;
@@ -48,7 +50,7 @@ public class ResideLayout extends ViewGroup {
      * This indicates that there is more content available and provides
      * a "physical" edge to grab to pull it closed.
      */
-    private static final int DEFAULT_OVERHANG_SIZE = 200; // dp;
+    private static final int DEFAULT_OVERHANG_SIZE = App.getContext().getResources().getDimensionPixelOffset(R.dimen.reside_layout_right);
 
     /**
      * If no fade color is given by default it will fade to 80% gray.

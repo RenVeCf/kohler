@@ -8,6 +8,8 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+    <dimen name="reside_layout_right">@dimen/x200</dimen>
+    <dimen name="stack_layout_manager_left">@dimen/x930</dimen>
     <dimen name="small_size">12sp</dimen>
     <dimen name="normal_size">14sp</dimen>
     <dimen name="middle_size">16sp</dimen>
