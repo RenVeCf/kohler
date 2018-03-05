@@ -1,7 +1,6 @@
 package com.mengyang.kohler.home.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -17,6 +16,7 @@ import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IdeaApi;
+import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.view.GridSpacingItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.home.adapter.LiveRealTimeAdapter;
@@ -28,7 +28,6 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -98,6 +97,7 @@ public class LiveRealTimeActivity extends BaseActivity implements BaseQuickAdapt
         srlLiveRealTime.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                pageNum = 0;
                 initData();
                 srlLiveRealTime.setRefreshing(false);
             }
@@ -121,6 +121,7 @@ public class LiveRealTimeActivity extends BaseActivity implements BaseQuickAdapt
                     public void onSuccess(BasicResponse<LiveRealTimeBean> response) {
                         if (response != null) {
                             mTotalSize = response.getData().getTotalSize();
+                            LogUtils.i("rmy", "pageNum = " + pageNum);
                             if (pageNum == 0) {
                                 mLiveRealTimeBean.clear();
                                 mLiveRealTimeBean.addAll(response.getData().getResultList());
@@ -137,7 +138,7 @@ public class LiveRealTimeActivity extends BaseActivity implements BaseQuickAdapt
                                     });
                                     mLiveRealTimeAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
                                         @Override
-                                        public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                                        public void onItemChildClick(BaseQuickAdapter adapter, View view, final int position) {
                                             //投票
                                             Map<String, String> stringMap = IdeaApi.getSign();
                                             stringMap.put("id", mLiveRealTimeBean.get(position).getId() + "");
@@ -151,8 +152,7 @@ public class LiveRealTimeActivity extends BaseActivity implements BaseQuickAdapt
                                                     .subscribe(new DefaultObserver<BasicResponse>(LiveRealTimeActivity.this, false) {
                                                         @Override
                                                         public void onSuccess(BasicResponse response) {
-                                                            mLiveRealTimeAdapter.notifyDataSetChanged();
-                                                            rvLiveRealTime.setAdapter(mLiveRealTimeAdapter);
+                                                            mLiveRealTimeAdapter.notifyItemChanged(position);
                                                         }
                                                     });
                                         }

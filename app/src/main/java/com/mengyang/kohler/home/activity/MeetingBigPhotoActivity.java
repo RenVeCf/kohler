@@ -148,6 +148,7 @@ public class MeetingBigPhotoActivity extends BaseActivity {
                             @Override
                             public void onSuccess(BasicResponse response) {
                                 mNum += 1;
+                                tvMeetingBigPhotoNum.setText(mNum + "");
                             }
                         });
                 break;
