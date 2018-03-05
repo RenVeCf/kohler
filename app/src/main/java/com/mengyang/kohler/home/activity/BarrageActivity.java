@@ -4,6 +4,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -40,8 +41,7 @@ import okhttp3.Response;
  * 我要爬墙
  */
 
-public class BarrageActivity extends BaseActivity implements BaseQuickAdapter.OnItemClickListener {
-    private List<String> mDataList = new ArrayList<>();
+public class BarrageActivity extends BaseActivity{
 
     @BindView(R.id.tv_barrage_top)
     TopView tvBarrageTop;
@@ -51,6 +51,8 @@ public class BarrageActivity extends BaseActivity implements BaseQuickAdapter.On
     RecyclerView mRecyclerViewBarrage;
     @BindView(R.id.et_barrage)
     EditText mEtBarrage;
+    private List<String> mDataList = new ArrayList<>();
+
     private String mContent;
     private BarrageAdapter mBarrageAdapter;
 
@@ -68,13 +70,18 @@ public class BarrageActivity extends BaseActivity implements BaseQuickAdapter.On
 
         mRecyclerViewBarrage.setLayoutManager(new LinearLayoutManager(this));
         mBarrageAdapter = new BarrageAdapter(mDataList);
-        mBarrageAdapter.setOnItemClickListener(this);
         mRecyclerViewBarrage.setAdapter(mBarrageAdapter);
     }
 
     @Override
     protected void initListener() {
-
+        mRecyclerViewBarrage.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                hideInput();
+                return false;
+            }
+        });
     }
 
     @Override
@@ -144,10 +151,5 @@ public class BarrageActivity extends BaseActivity implements BaseQuickAdapter.On
                 });
             }
         }.start();
-    }
-
-    @Override
-    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        hideInput();
     }
 }

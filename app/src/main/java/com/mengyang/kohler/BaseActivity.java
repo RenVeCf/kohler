@@ -160,7 +160,6 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     }
 
     public void hideInput() {
-
         if (this.getCurrentFocus() != null) {
             InputMethodManager mInputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
             mInputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
