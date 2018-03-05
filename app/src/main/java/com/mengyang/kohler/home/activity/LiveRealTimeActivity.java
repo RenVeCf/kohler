@@ -152,7 +152,8 @@ public class LiveRealTimeActivity extends BaseActivity implements BaseQuickAdapt
                                                     .subscribe(new DefaultObserver<BasicResponse>(LiveRealTimeActivity.this, false) {
                                                         @Override
                                                         public void onSuccess(BasicResponse response) {
-                                                            mLiveRealTimeAdapter.notifyItemChanged(position);
+                                                            pageNum = 0;
+                                                            initData();
                                                         }
                                                     });
                                         }

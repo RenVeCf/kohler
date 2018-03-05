@@ -64,6 +64,7 @@
         android:id="@+id/sv_user"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -97,7 +98,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/y93"
                 android:orientation="horizontal">
 
                 <EditText
@@ -105,6 +105,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:paddingTop="@dimen/y93"
                     android:background="@null"
                     android:hint="@string/input_verification_code"
                     android:textSize="12sp"/>
@@ -125,7 +126,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="horizontal">
 
                 <EditText
@@ -206,44 +207,44 @@
                     android:layout_marginTop="1dp"
                     android:background="@color/black"/>
             </LinearLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/y48"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="@dimen/y51"
-                    android:layout_gravity="center_horizontal"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/tv_user_register_go_designer_register"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/x60"
-                        android:layout_weight="1"
-                        android:gravity="right"
-                        android:text="@string/designer_register"
-                        android:textSize="12sp"/>
-
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:background="@color/black"/>
-
-                    <TextView
-                        android:id="@+id/tv_user_register_go_distributor_register"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/x60"
-                        android:layout_weight="1"
-                        android:text="@string/distributor_register"
-                        android:textSize="12sp"/>
-                </LinearLayout>
-            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y48"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/y51"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_user_register_go_designer_register"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/x60"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="@string/designer_register"
+                android:textSize="12sp"/>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/black"/>
+
+            <TextView
+                android:id="@+id/tv_user_register_go_distributor_register"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/x60"
+                android:layout_weight="1"
+                android:text="@string/distributor_register"
+                android:textSize="12sp"/>
+        </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>
