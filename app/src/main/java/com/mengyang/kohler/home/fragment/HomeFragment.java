@@ -503,8 +503,15 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
         }
 
         if (etHomeSearch != null) {
-            etHomeSearch.setClickable(false);
+            etHomeSearch.setFocusable(false);
             etHomeSearch.setFocusableInTouchMode(false);
+
+            etHomeSearch.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mListener.onFragmentInteraction("topView");
+                }
+            });
         }
     }
 
@@ -513,8 +520,9 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
             abHomeLoop.setAutoPlay(true);
         }
         if (etHomeSearch != null) {
-            etHomeSearch.setClickable(true);
+            etHomeSearch.setFocusable(true);
             etHomeSearch.setFocusableInTouchMode(true);
+            etHomeSearch.setOnClickListener(null);
         }
 
     }

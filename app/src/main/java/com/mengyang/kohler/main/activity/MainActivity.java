@@ -327,7 +327,7 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
     @Override
     public void onFragmentInteraction(String data) {
         if (rlMain != null) {
-            if ("topView".equals(data)) {
+            if ("topView".equals(data) && rlMain.isOpen()) {
                 rlMain.closePane();
             } else {
                 if (rlMain.isOpen()) {
