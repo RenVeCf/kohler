@@ -198,7 +198,7 @@ public class PermissionUtils {
         } else {
             LogUtils.i(TAG, "onRequestPermissionsResult PERMISSION NOT GRANTED");
             String[] permissionsHint = activity.getResources().getStringArray(R.array.permissions);
-            openSettingActivity(activity, "应用" + permissionsHint[requestCode]);
+//            openSettingActivity(activity, "应用" + permissionsHint[requestCode]);
         }
     }
 
