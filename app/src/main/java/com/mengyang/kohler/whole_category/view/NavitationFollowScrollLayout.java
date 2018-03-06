@@ -14,8 +14,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.mengyang.kohler.common.utils.LazyViewPager;
-
 /**
  * 商品分类——导航栏的滑动管理类
  * Created by ywl on 2016/7/17.

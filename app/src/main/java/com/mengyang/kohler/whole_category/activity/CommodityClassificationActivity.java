@@ -3,7 +3,6 @@ package com.mengyang.kohler.whole_category.activity;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
@@ -12,7 +11,6 @@ import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IdeaApi;
-import com.mengyang.kohler.common.utils.LazyViewPager;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.CommodityClassificationTitleBean;
@@ -26,7 +24,6 @@ import java.util.Map;
 
 import butterknife.BindView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -51,7 +48,6 @@ public class CommodityClassificationActivity extends BaseActivity {
     private List<Fragment> fragments;
     private boolean mIsPageSelected = true;
     private long mListTime;
-    private PageSelectedListenning mPageSelectedListenning;
 
 
     @Override
@@ -68,7 +64,6 @@ public class CommodityClassificationActivity extends BaseActivity {
         fragments = new ArrayList<>();
         mCommodityClassificationTitleBean = new ArrayList<>();
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), fragments);
-//        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), mCommodityClassificationTitleBean);
         vpCommodityClassification.setAdapter(viewPagerAdapter);
         vpCommodityClassification.setOffscreenPageLimit(2);
     }
@@ -102,59 +97,20 @@ public class CommodityClassificationActivity extends BaseActivity {
                                 titles[i] = new String(mCommodityClassificationTitleBean.get(i).getNameCn());
                             }
 
-
                             nfslCommodityClassification.setViewPager(CommodityClassificationActivity.this, titles, vpCommodityClassification, R.color.black, R.color.black, 12, 12, 24, true, R.color.splilinecolor, 1f, 4f, 4f, 80);
                             nfslCommodityClassification.setBgLine(CommodityClassificationActivity.this, 1, R.color.white);
-    //                        nfslCommodityClassification.setNavLine(CommodityClassificationActivity.this, 2, R.color.white);
-                            nfslCommodityClassification.setNavLine(CommodityClassificationActivity.this, 2, R.color.black);
+                            nfslCommodityClassification.setNavLine(CommodityClassificationActivity.this, 2, R.color.white);
 
                             for (int i = 0; i < mCommodityClassificationTitleBean.size(); i++) {
                                 final CommodityClassificationFragment commodityClassificationFragment = CommodityClassificationFragment.newInstance(mCommodityClassificationTitleBean.get(i).getCmsId() + "");
                                 fragments.add(commodityClassificationFragment);
-
-/*
-                                vpCommodityClassification.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-                                    @Override
-                                    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                                    }
-
-                                    @Override
-                                    public void onPageSelected(int position) {
-                                        long currentTime = System.currentTimeMillis();
-                                        long l = currentTime - mListTime;
-                                        mListTime = currentTime;
-
-                                            Log.i("kohler666", "Activity,onPageSelected,position = "+ position);
-                                            mIsPageSelected = true;
-
-                                            if (commodityClassificationFragment != null) {
-                                                commodityClassificationFragment.setIsSelected(true);
-                                            }
-                                    }
-
-                                    @Override
-                                    public void onPageScrollStateChanged(int state) {
-
-                                    }
-                                });
-*/
-
                             }
 
                             viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), fragments);
-//                            viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), mCommodityClassificationTitleBean);
                             vpCommodityClassification.setAdapter(viewPagerAdapter);
 
                         }
                     });
 //        }
-    }
-
-    public interface PageSelectedListenning {
-        void onSelected();
-    }
-
-    public void setPageSelectedListenning(PageSelectedListenning pageSelectedListenning) {
-        mPageSelectedListenning = pageSelectedListenning;
     }
 }

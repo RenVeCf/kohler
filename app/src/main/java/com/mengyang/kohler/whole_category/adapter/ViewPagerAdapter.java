@@ -18,34 +18,20 @@ import java.util.List;
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     private List<Fragment> fragments;
-//    private List< CommodityClassificationTitleBean > beanList;
 
     public ViewPagerAdapter(FragmentManager fm, List<Fragment> fragments) {
-//    public ViewPagerAdapter(FragmentManager fm, List< CommodityClassificationTitleBean > beanList) {
         super(fm);
         this.fragments = fragments;
-//        this.beanList = beanList;
     }
 
     @Override
     public int getCount() {
         return fragments.size();
-//        return beanList.size();
     }
 
     @Override
     public Fragment getItem(int position) {
         return fragments.get(position);
-//        return CommodityClassificationFragment.newInstance(beanList.get(position).getId()+"");
     }
 
-//    @Override
-//    public Object instantiateItem(ViewGroup container, int position) {
-//        return super.instantiateItem(container, position);
-//    }
-//
-//    @Override
-//    public void destroyItem(ViewGroup container, int position, Object object) {
-//        super.destroyItem(container, position, object);
-//    }
 }
