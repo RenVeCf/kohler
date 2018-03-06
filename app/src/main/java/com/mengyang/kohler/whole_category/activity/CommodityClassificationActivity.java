@@ -70,6 +70,7 @@ public class CommodityClassificationActivity extends BaseActivity {
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), fragments);
 //        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), mCommodityClassificationTitleBean);
         vpCommodityClassification.setAdapter(viewPagerAdapter);
+        vpCommodityClassification.setOffscreenPageLimit(2);
     }
 
     @Override
@@ -111,12 +112,10 @@ public class CommodityClassificationActivity extends BaseActivity {
                                 final CommodityClassificationFragment commodityClassificationFragment = CommodityClassificationFragment.newInstance(mCommodityClassificationTitleBean.get(i).getCmsId() + "");
                                 fragments.add(commodityClassificationFragment);
 
+/*
                                 vpCommodityClassification.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                                     @Override
                                     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-//                                        if (commodityClassificationFragment != null) {
-//                                            commodityClassificationFragment.setIsSelected(false);
-//                                        }
                                     }
 
                                     @Override
@@ -125,10 +124,8 @@ public class CommodityClassificationActivity extends BaseActivity {
                                         long l = currentTime - mListTime;
                                         mListTime = currentTime;
 
-//                                        viewPagerAdapter.notifyDataSetChanged();
                                             Log.i("kohler666", "Activity,onPageSelected,position = "+ position);
                                             mIsPageSelected = true;
-
 
                                             if (commodityClassificationFragment != null) {
                                                 commodityClassificationFragment.setIsSelected(true);
@@ -140,6 +137,7 @@ public class CommodityClassificationActivity extends BaseActivity {
 
                                     }
                                 });
+*/
 
                             }
 
