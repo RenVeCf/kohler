@@ -3,10 +3,15 @@ package com.mengyang.kohler.whole_category.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.os.SystemClock;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -28,10 +33,11 @@ import java.util.Map;
 
 import butterknife.BindView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * 商品分类/产品清单
+ * 商品分类
  */
 public class CommodityClassificationFragment extends BaseFragment implements BaseQuickAdapter.RequestLoadMoreListener {
 
@@ -43,6 +49,17 @@ public class CommodityClassificationFragment extends BaseFragment implements Bas
     private List<CommodityClassificationFragmentBean.ResultListBean> mCommodityClassificationFragmentBean;
     private int pageNum = 0; //请求页数
     private String mCmsId;
+    private boolean mIsSelected = true;
+    private FragmentActivity mActivity;
+
+    Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+
+            showData();
+        }
+    };
 
     public static CommodityClassificationFragment newInstance(String cmsId) {
         CommodityClassificationFragment frag = new CommodityClassificationFragment();
@@ -69,6 +86,8 @@ public class CommodityClassificationFragment extends BaseFragment implements Bas
         mCommodityClassificationFragmentBean = new ArrayList<>();
         mCommodityClassificationAdapter = new CommodityClassificationAdapter(mCommodityClassificationFragmentBean);
         rvCommodityClassification.setAdapter(mCommodityClassificationAdapter);
+
+        mActivity = getActivity();
     }
 
     @Override
@@ -85,56 +104,78 @@ public class CommodityClassificationFragment extends BaseFragment implements Bas
 
     @Override
     protected void initData() {
+//        if (mIsSelected) {
+//            mIsSelected = false;
+//        mHandler.sendEmptyMessageDelayed(0, 1000);
+
+
+
+//        }
+    }
+
+    private void showData() {
         Map<String, String> stringMap = IdeaApi.getSign();
         stringMap.put("category", mCmsId);
         stringMap.put("pageNum", pageNum + "");
         stringMap.put("pageSize", 10 + "");
+        Log.i("kohler666", "pageNum = "+ pageNum +" , mCmsId = " + mCmsId);
 
         IdeaApi.getRequestLogin(stringMap);
         IdeaApi.getApiService()
                 .getCommodityClassificationBody(stringMap)
                 .compose(this.<BasicResponse<CommodityClassificationFragmentBean>>bindToLifecycle())
                 .subscribeOn(Schedulers.io())
+//                    .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<BasicResponse<CommodityClassificationFragmentBean>>(getActivity(), true) {
+                .subscribe(new DefaultObserver<BasicResponse<CommodityClassificationFragmentBean>>(mActivity, false) {
                     @Override
                     public void onSuccess(BasicResponse<CommodityClassificationFragmentBean> response) {
-
-                        if (response.getData().getResultList().size() > 0) {
-                            if (pageNum == 0) {
-                                mCommodityClassificationFragmentBean.clear();
-                                mCommodityClassificationFragmentBean.addAll(response.getData().getResultList());
-                                if (response.getData().getTotalSize() > 0) {
-                                    pageNum += 1;
-                                    mCommodityClassificationAdapter = new CommodityClassificationAdapter(mCommodityClassificationFragmentBean);
-                                    rvCommodityClassification.setAdapter(mCommodityClassificationAdapter);
-                                    mCommodityClassificationAdapter.setOnLoadMoreListener(CommodityClassificationFragment.this, rvCommodityClassification); //加载更多
-                                } else {
-                                    mCommodityClassificationAdapter.loadMoreEnd();
-                                }
-                            } else {
-                                if (response.getData().getResultList().size() > 0) {
-                                    pageNum += 1;
-                                    mCommodityClassificationFragmentBean.addAll(response.getData().getResultList());
-                                    mCommodityClassificationAdapter.addData(response.getData().getResultList());
-                                    mCommodityClassificationAdapter.loadMoreComplete(); //完成本次
-                                } else {
-                                    mCommodityClassificationAdapter.loadMoreEnd(); //完成所有加载
-                                }
-                            }
-                            mCommodityClassificationAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-                                @Override
-                                public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                                    startActivity(new Intent(App.getContext(), CommodityDetailsActivity.class).putExtra("CommodityDetails", (Serializable) mCommodityClassificationFragmentBean.get(position)));
-                                }
-                            });
-                        } else {
-                            mCommodityClassificationAdapter.loadMoreEnd(); //完成所有加载
-                            mCommodityClassificationAdapter.setEmptyView(R.layout.null_commodity_classification_fragment, rvCommodityClassification);
+                        if (mCommodityClassificationAdapter == null || rvCommodityClassification ==null) {
+                            return;
                         }
-                    }
+
+//                        if (mIsSelected) {
+//                            mIsSelected = true;
+                        if (response.getData().getResultList().size() > 0) {
+
+                                if (pageNum == 0) {
+                                    mCommodityClassificationFragmentBean.clear();
+                                    mCommodityClassificationFragmentBean.addAll(response.getData().getResultList());
+                                    if (response.getData().getTotalSize() > 0) {
+//                                        pageNum += 1;
+                                        mCommodityClassificationAdapter = new CommodityClassificationAdapter(mCommodityClassificationFragmentBean);
+                                        rvCommodityClassification.setAdapter(mCommodityClassificationAdapter);
+                                        mCommodityClassificationAdapter.setOnLoadMoreListener(CommodityClassificationFragment.this, rvCommodityClassification); //加载更多
+                                    } else {
+                                        mCommodityClassificationAdapter.loadMoreEnd();
+                                    }
+                                } else {
+                                    if (response.getData().getResultList().size() > 0) {
+//                                        pageNum += 1;
+                                        mCommodityClassificationFragmentBean.addAll(response.getData().getResultList());
+                                        mCommodityClassificationAdapter.addData(response.getData().getResultList());
+                                        mCommodityClassificationAdapter.loadMoreComplete(); //完成本次
+                                    } else {
+                                        mCommodityClassificationAdapter.loadMoreEnd(); //完成所有加载
+                                    }
+                                }
+                                mCommodityClassificationAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                                    @Override
+                                    public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                                        startActivity(new Intent(App.getContext(), CommodityDetailsActivity.class).putExtra("CommodityDetails", (Serializable) mCommodityClassificationFragmentBean.get(position)));
+                                    }
+                                });
+                            } else {
+                                Log.i("kohler666", "无数据 = ");
+                                mCommodityClassificationAdapter.loadMoreEnd(); //完成所有加载
+                                mCommodityClassificationAdapter.setEmptyView(R.layout.null_commodity_classification_fragment, rvCommodityClassification);
+                            }
+                        }
+//                    }
+
                 });
     }
+
 
     @Override
     public void onAttach(Activity activity) {
@@ -144,6 +185,34 @@ public class CommodityClassificationFragment extends BaseFragment implements Bas
 
     @Override
     public void onLoadMoreRequested() {
+        pageNum += 1;
         initData();
+    }
+
+    public void setIsSelected(boolean isSelected) {
+        mIsSelected = isSelected;
+//        if (mIsSelected) {
+            mHandler.sendEmptyMessageDelayed(0, 1500);
+//            initData();
+//        }
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.i("kohler666", "onPause = ");
+        if (mHandler != null) {
+            mHandler.removeCallbacksAndMessages(null);
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.i("kohler666", "onDestroy = ");
+        if (mHandler != null) {
+            mHandler.removeCallbacksAndMessages(null);
+        }
     }
 }

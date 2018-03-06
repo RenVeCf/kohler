@@ -14,6 +14,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.mengyang.kohler.common.utils.LazyViewPager;
+
 /**
  * 商品分类——导航栏的滑动管理类
  * Created by ywl on 2016/7/17.
@@ -173,6 +175,7 @@ public class NavitationFollowScrollLayout extends RelativeLayout {
     }
 
     /**
+     * @param widOffset         导航条的边距
      * @param context           上下文
      * @param titles            标题
      * @param viewPager
@@ -180,7 +183,6 @@ public class NavitationFollowScrollLayout extends RelativeLayout {
      * @param setectedcolor     选中字体颜色
      * @param txtUnselectedSize 未选中字体大小
      * @param txtSelectedSize   选中字体大小
-     * @param widOffset         导航条的边距
      * @param smoothScroll      是否滑动效果
      * @param splilinecolor     分割线颜色
      * @param splilinewidth     分割线宽度

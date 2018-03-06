@@ -29,7 +29,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * 全品类
+ * 全品类、/产品清单
  */
 
 public class WholeCategoryFragment extends BaseFragment implements StackLayoutManager.changeListenning {

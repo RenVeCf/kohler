@@ -23,13 +23,14 @@
         app:title="@string/select_classification"
         app:title_color="@color/white"/>
 
-    <com.mengyang.kohler.common.view.BounceScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <!--<com.mengyang.kohler.common.view.BounceScrollView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_whole_category_select_classification"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    </com.mengyang.kohler.common.view.BounceScrollView>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_whole_category_select_classification"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <!--</com.mengyang.kohler.common.view.BounceScrollView>-->
 </LinearLayout>
