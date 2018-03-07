@@ -98,7 +98,6 @@ public class CommodityClassificationFragment extends BaseFragment implements Bas
         Map<String, String> stringMap = IdeaApi.getSign();
         stringMap.put("category", mCmsId);
         stringMap.put("pageNum", pageNum + "");
-        stringMap.put("pageSize", 10 + "");
 
         IdeaApi.getRequestLogin(stringMap);
         IdeaApi.getApiService()
@@ -106,7 +105,7 @@ public class CommodityClassificationFragment extends BaseFragment implements Bas
                 .compose(this.<BasicResponse<CommodityClassificationFragmentBean>>bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<BasicResponse<CommodityClassificationFragmentBean>>(getActivity(), true) {
+                .subscribe(new DefaultObserver<BasicResponse<CommodityClassificationFragmentBean>>(getActivity(), false) {
                     @Override
                     public void onSuccess(BasicResponse<CommodityClassificationFragmentBean> response) {
 
@@ -125,7 +124,6 @@ public class CommodityClassificationFragment extends BaseFragment implements Bas
                             } else {
                                 if (response.getData().getResultList().size() > 0) {
                                     pageNum += 1;
-                                    mCommodityClassificationFragmentBean.addAll(response.getData().getResultList());
                                     mCommodityClassificationAdapter.addData(response.getData().getResultList());
                                     mCommodityClassificationAdapter.loadMoreComplete(); //完成本次
                                 } else {

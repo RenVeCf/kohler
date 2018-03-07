@@ -202,7 +202,7 @@ public class NavitationFollowScrollLayout extends RelativeLayout {
         setTitles(context, titles, smoothScroll, splilinecolor, splilinewidth, topoffset, bottomoffset);
         setUnselectedTxtColor(context, unselectedcolor, txtUnselectedSize);
         setSelectedTxtColor(context, setectedcolor, txtSelectedSize, 0);
-        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 if (position == 0) {
@@ -242,7 +242,6 @@ public class NavitationFollowScrollLayout extends RelativeLayout {
         horizontalScrollView.setOnScrollChangedListener(new OnScrollChangedListener() {
             @Override
             public void onScrollChanged(int l, int t, int oldl, int oldt) {
-                //                System.out.println("l:" + l + ",t:" + t + ",oldl:" + oldl + "oldt:" + oldt);
                 int offset = l - soldl;
                 soldl = l;
                 sum += offset;

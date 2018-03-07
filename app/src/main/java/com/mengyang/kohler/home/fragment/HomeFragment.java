@@ -45,6 +45,7 @@ import com.mengyang.kohler.home.activity.DownLoaderPDFActivity;
 import com.mengyang.kohler.home.activity.HomeSearchActivity;
 import com.mengyang.kohler.home.activity.MeetingActivity;
 import com.mengyang.kohler.home.activity.PDFActivity;
+import com.mengyang.kohler.home.activity.WeeklyRadioConcertActivity;
 import com.mengyang.kohler.home.adapter.BrochureListAdapter2;
 import com.mengyang.kohler.home.adapter.HomeBooksAdapter;
 import com.mengyang.kohler.module.BasicResponse;
@@ -94,6 +95,9 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
     ImageView ivTopCustomerService;
     @BindView(R.id.ll_indicator)
     LinearLayout mLlIndicator;
+    @BindView(R.id.iv_weekly_radio_concert)
+    ImageView ivWeeklyRadioConcert;
+
 
     //侧滑Meun键的接口回调
     private OnFragmentInteractionListener mListener;
@@ -470,7 +474,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
         void onFragmentInteraction(String data);
     }
 
-    @OnClick({R.id.iv_top_menu, R.id.iv_home_search, R.id.iv_top_customer_service,R.id.tv_home_top})
+    @OnClick({R.id.iv_top_menu, R.id.iv_home_search, R.id.iv_top_customer_service,R.id.tv_home_top, R.id.iv_weekly_radio_concert})
     public void onViewClicked(View view) {
         if (getActivity().getCurrentFocus() != null) {
             ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(((Activity) getActivity()).getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
@@ -490,6 +494,9 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                 break;
             case R.id.iv_top_customer_service:
                 startActivity(new Intent(getContext(), CustomerServiceActivity.class));
+                break;
+            case R.id.iv_weekly_radio_concert:
+                startActivity(new Intent(getContext(), WeeklyRadioConcertActivity.class));
                 break;
             default:
                 break;

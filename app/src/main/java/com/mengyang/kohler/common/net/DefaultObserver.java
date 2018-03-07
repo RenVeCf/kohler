@@ -175,6 +175,7 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
      * @param reason
      */
     public void onException(ExceptionReason reason) {
+        LogUtils.i("rmy", "onException = " + reason.toString());
         switch (reason) {
             case CONNECT_ERROR:
                 ToastUtil.showToast(App.getContext().getString(R.string.connect_error));

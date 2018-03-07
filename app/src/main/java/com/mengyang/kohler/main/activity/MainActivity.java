@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -31,7 +30,6 @@ import android.widget.Toast;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.kohler.arscan.DownloadActivity;
-import com.kohler.arscan.UnityPlayerActivity;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
@@ -41,7 +39,6 @@ import com.mengyang.kohler.ar.ARFragment;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.net.IdeaApi;
-import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.view.ResideLayout;
 import com.mengyang.kohler.home.activity.MineManualActivity;
@@ -194,7 +191,6 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
 
             }
         });
-
     }
 
     @Override
@@ -339,14 +335,13 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
         }
     }
 
-
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         //只有home界面可以侧滑
         Fragment fragment = getVisibleFragment();
         if (fragment instanceof HomeFragment) {
             rlMain.StartSlide();
-        }else {
+        } else {
             rlMain.StopSlide();
         }
         return super.dispatchTouchEvent(ev);
@@ -567,7 +562,7 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 }
             }
             if (false == allGranted) {
-//                showMissingPermissionDialog();
+                //                showMissingPermissionDialog();
             }
         }
     }
@@ -635,11 +630,11 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
     public void onViewClicked() {
     }
 
-    public Fragment getVisibleFragment(){
+    public Fragment getVisibleFragment() {
         FragmentManager fragmentManager = MainActivity.this.getSupportFragmentManager();
         List<Fragment> fragments = fragmentManager.getFragments();
-        for(Fragment fragment : fragments){
-            if(fragment != null && fragment.isVisible()) {
+        for (Fragment fragment : fragments) {
+            if (fragment != null && fragment.isVisible()) {
                 return fragment;
             }
         }

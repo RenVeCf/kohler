@@ -75,42 +75,37 @@ public class CommodityClassificationActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-//        if (mIsPageSelected) {
-//            mIsPageSelected = false;
-            Map<String, String> stringMap = IdeaApi.getSign();
-            stringMap.put("parentId", getIntent().getStringExtra("id"));
+        Map<String, String> stringMap = IdeaApi.getSign();
+        stringMap.put("parentId", getIntent().getStringExtra("id"));
 
-            IdeaApi.getRequestLogin(stringMap);
-            IdeaApi.getApiService()
-                    .getCommodityClassificationTitle(stringMap)
-                    .compose(CommodityClassificationActivity.this.<BasicResponse<List<CommodityClassificationTitleBean>>>bindToLifecycle())
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new DefaultObserver<BasicResponse<List<CommodityClassificationTitleBean>>>(CommodityClassificationActivity.this, true) {
-                        @Override
-                        public void onSuccess(BasicResponse<List<CommodityClassificationTitleBean>> response) {
-                            mCommodityClassificationTitleBean.clear();
-                            mCommodityClassificationTitleBean = response.getData();
+        IdeaApi.getRequestLogin(stringMap);
+        IdeaApi.getApiService()
+                .getCommodityClassificationTitle(stringMap)
+                .compose(CommodityClassificationActivity.this.<BasicResponse<List<CommodityClassificationTitleBean>>>bindToLifecycle())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultObserver<BasicResponse<List<CommodityClassificationTitleBean>>>(CommodityClassificationActivity.this, true) {
+                    @Override
+                    public void onSuccess(BasicResponse<List<CommodityClassificationTitleBean>> response) {
+                        mCommodityClassificationTitleBean.clear();
+                        mCommodityClassificationTitleBean = response.getData();
 
-                            titles = new String[mCommodityClassificationTitleBean.size()];
-                            for (int i = 0; i < mCommodityClassificationTitleBean.size(); i++) {
-                                titles[i] = new String(mCommodityClassificationTitleBean.get(i).getNameCn());
-                            }
-
-                            nfslCommodityClassification.setViewPager(CommodityClassificationActivity.this, titles, vpCommodityClassification, R.color.black, R.color.black, 12, 12, 24, true, R.color.splilinecolor, 1f, 4f, 4f, 80);
-                            nfslCommodityClassification.setBgLine(CommodityClassificationActivity.this, 1, R.color.white);
-                            nfslCommodityClassification.setNavLine(CommodityClassificationActivity.this, 2, R.color.white);
-
-                            for (int i = 0; i < mCommodityClassificationTitleBean.size(); i++) {
-                                final CommodityClassificationFragment commodityClassificationFragment = CommodityClassificationFragment.newInstance(mCommodityClassificationTitleBean.get(i).getCmsId() + "");
-                                fragments.add(commodityClassificationFragment);
-                            }
-
-                            viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), fragments);
-                            vpCommodityClassification.setAdapter(viewPagerAdapter);
-
+                        titles = new String[mCommodityClassificationTitleBean.size()];
+                        for (int i = 0; i < mCommodityClassificationTitleBean.size(); i++) {
+                            titles[i] = new String(mCommodityClassificationTitleBean.get(i).getNameCn());
                         }
-                    });
-//        }
+
+                        nfslCommodityClassification.setViewPager(CommodityClassificationActivity.this, titles, vpCommodityClassification, R.color.black, R.color.black, 12, 12, 24, true, R.color.splilinecolor, 1f, 4f, 4f, 80);
+                        nfslCommodityClassification.setBgLine(CommodityClassificationActivity.this, 1, R.color.white);
+                        nfslCommodityClassification.setNavLine(CommodityClassificationActivity.this, 2, R.color.white);
+
+                        for (int i = 0; i < mCommodityClassificationTitleBean.size(); i++) {
+                            final CommodityClassificationFragment commodityClassificationFragment = CommodityClassificationFragment.newInstance(mCommodityClassificationTitleBean.get(i).getCmsId() + "");
+                            fragments.add(commodityClassificationFragment);
+                        }
+                        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), fragments);
+                        vpCommodityClassification.setAdapter(viewPagerAdapter);
+                    }
+                });
     }
 }

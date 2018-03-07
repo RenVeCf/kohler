@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/iv_item_weekly_radio_concert_adapter"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y516"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/queshengtu"/>
+
+    <TextView
+        android:id="@+id/weekly_radio_concert_adapter_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y24"
+        android:textColor="#828282"
+        android:textSize="10sp"/>
+
+    <TextView
+        android:id="@+id/tv_weekly_radio_concert_adapter_table"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y12"
+        android:textColor="#000000"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/tv_weekly_radio_concert_adapter_abstract"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y6"
+        android:textColor="#4a4a4a"
+        android:textSize="11sp"/>
+
+    <Button
+        android:id="@+id/bt_weekly_radio_concert_adapter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y48"
+        android:layout_marginBottom="@dimen/y144"
+        android:background="@drawable/black_edge_circular_background"
+        android:textSize="13sp"
+        android:textColor="#000000"
+        android:text="查看详情"/>
+</LinearLayout>

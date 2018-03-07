@@ -318,8 +318,10 @@ public class ResideLayout extends ViewGroup {
                 // There are still more children above the panel but they won't be affected.
                 break;
             }
-            if (panel.getLeft() == 0)
+            if (panel.getLeft() == 0) {
+                LogUtils.i("rmy", "INVISIBLEINVISIBLEINVISIBLEINVISIBLEINVISIBLE");
                 child.setVisibility(INVISIBLE);
+            }
         }
     }
 
@@ -327,6 +329,7 @@ public class ResideLayout extends ViewGroup {
         for (int i = 0, childCount = getChildCount(); i < childCount; i++) {
             final View child = getChildAt(i);
             if (child.getVisibility() == INVISIBLE) {
+                LogUtils.i("rmy", "111111111111111");
                 child.setVisibility(VISIBLE);
             }
         }
@@ -433,6 +436,7 @@ public class ResideLayout extends ViewGroup {
             final LayoutParams lp = (LayoutParams) child.getLayoutParams();
 
             if (child.getVisibility() == GONE) {
+                LogUtils.i("rmy", "GONE  000000000000000");
                 lp.dimWhenOffset = false;
                 continue;
             }
@@ -489,12 +493,14 @@ public class ResideLayout extends ViewGroup {
                 final View child = getChildAt(i);
 
                 if (child.getVisibility() == GONE) {
+                    LogUtils.i("rmy", "GONE  11111111111111");
                     continue;
                 }
 
                 final LayoutParams lp = (LayoutParams) child.getLayoutParams();
 
                 if (child.getVisibility() == GONE) {
+                    LogUtils.i("rmy", "GONE  22222222222222");
                     continue;
                 }
 
@@ -598,6 +604,7 @@ public class ResideLayout extends ViewGroup {
             final View child = getChildAt(i);
 
             if (child.getVisibility() == GONE) {
+                LogUtils.i("rmy", "GONE  3333333333333333");
                 continue;
             }
 

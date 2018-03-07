@@ -102,16 +102,15 @@
                 <action android:name="com.baidu.location.service_v2.2"/>
             </intent-filter>
         </service>
-
         <service
             android:name="cn.jpush.android.service.PushService"
             android:process=":multiprocess"
             tools:node="replace">
         </service>
 
-        <!--<meta-data-->
-            <!--android:name="JPUSH_APPKEY"-->
-            <!--android:value="0532998d33f6cf83a9de9ca9"/>-->
+        <!-- <meta-data -->
+        <!-- android:name="JPUSH_APPKEY" -->
+        <!-- android:value="0532998d33f6cf83a9de9ca9"/> -->
 
         <activity
             android:name=".home.activity.StoreMapActivity"
@@ -152,8 +151,8 @@
             android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".account.activity.DistributorRegisterActivity"
-            android:windowSoftInputMode="adjustPan"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".common.activity.CustomerServiceActivity"
             android:launchMode="singleTask"
@@ -216,7 +215,7 @@
 
         <activity android:name="com.kohler.arscan.DownloadActivity"/>
         <activity android:name="com.kohler.arscan.UnityPlayerActivity"/>
-        <activity android:name=".home.activity.MineAtlasActivity">
+        <activity android:name=".home.activity.WeeklyRadioConcertActivity">
         </activity>
     </application>
 
