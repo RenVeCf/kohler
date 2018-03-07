@@ -1,4 +1,4 @@
-package com.mengyang.kohler.home.activity;
+package com.mengyang.kohler.home.adapter;
 
 import android.support.annotation.Nullable;
 

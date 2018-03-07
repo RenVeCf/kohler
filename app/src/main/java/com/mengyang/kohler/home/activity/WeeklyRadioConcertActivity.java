@@ -9,6 +9,7 @@ import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.view.TopView;
+import com.mengyang.kohler.home.adapter.WeeklyRadioConcertAdapter;
 
 import butterknife.BindView;
 
@@ -37,9 +38,6 @@ public class WeeklyRadioConcertActivity extends BaseActivity {
         // 如果可以确定每个item的高度是固定的，设置这个选项可以提高性能
         rvWeeklyRadioConcert.setHasFixedSize(true);
         rvWeeklyRadioConcert.setItemAnimator(new DefaultItemAnimator());
-        //        mBooksListBean = new ArrayList<>();
-        //        mWeeklyRadioConcertAdapter = new BrochureListAdapter(mBooksListBean);
-        rvWeeklyRadioConcert.setAdapter(mWeeklyRadioConcertAdapter);
     }
 
     @Override
