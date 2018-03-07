@@ -16,6 +16,8 @@ import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.net.Config;
+import com.mengyang.kohler.common.net.IConstants;
+import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.utils.ToastUtil;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.home.adapter.BarrageAdapter;
@@ -97,9 +99,9 @@ public class BarrageActivity extends BaseActivity{
                 mEtBarrage.setFocusable(true);
 
                 if (!TextUtils.isEmpty(mContent)) {
-                    mBarrageAdapter.addData(mContent);
+                    mBarrageAdapter.addData(SPUtil.get(App.getContext(), IConstants.USER_NIKE_NAME, "") + ": " + mContent);
                     mRecyclerViewBarrage.scrollToPosition(mBarrageAdapter.getItemCount() - 1);
-                    SendBarrage(mContent);
+                    SendBarrage(SPUtil.get(App.getContext(), IConstants.USER_NIKE_NAME, "") + ": " + mContent);
                 } else {
                     ToastUtil.showToast("输入内容不能为空");
                 }
