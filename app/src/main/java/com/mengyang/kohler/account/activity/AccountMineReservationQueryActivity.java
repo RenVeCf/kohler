@@ -110,7 +110,6 @@ public class AccountMineReservationQueryActivity extends BaseActivity implements
                             } else {
                                 if (response.getData().getResultList().size() > 0) {
                                     pageNum += 1;
-                                    mReservationQueryBean.addAll(response.getData().getResultList());
                                     mAccountMineReservationQueryAdapter.addData(response.getData().getResultList());
                                     mAccountMineReservationQueryAdapter.loadMoreComplete(); //完成本次
                                 } else {

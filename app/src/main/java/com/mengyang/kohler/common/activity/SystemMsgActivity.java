@@ -110,7 +110,6 @@ public class SystemMsgActivity extends BaseActivity implements BaseQuickAdapter.
                             } else {
                                 if (response.getData().getResultList().size() > 0) {
                                     pageNum += 1;
-                                    mSystemMsgBean.addAll(response.getData().getResultList());
                                     mSystemMsgAdapter.addData(response.getData().getResultList());
                                     mSystemMsgAdapter.loadMoreComplete(); //完成本次
                                 } else {

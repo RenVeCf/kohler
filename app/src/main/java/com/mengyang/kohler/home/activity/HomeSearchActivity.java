@@ -114,7 +114,6 @@ public class HomeSearchActivity extends BaseActivity implements BaseQuickAdapter
                             } else {
                                 if (response.getData().getResultList().size() > 0) {
                                     pageNum += 1;
-                                    mAllSearchBean.addAll(response.getData().getResultList());
                                     mHomeSearchAdapter.addData(response.getData().getResultList());
                                     mHomeSearchAdapter.loadMoreComplete(); //完成本次
                                 } else {

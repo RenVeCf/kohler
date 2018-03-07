@@ -310,7 +310,6 @@ public class AccountFragment extends BaseFragment implements BaseQuickAdapter.Re
                             } else {
                                 if (response.getData().getResultList().size() > 0) {
                                     pageNum += 1;
-                                    mFootPrintBean.addAll(response.getData().getResultList());
                                     mFootPrintAdapter.addData(response.getData().getResultList());
                                     mFootPrintAdapter.loadMoreComplete(); //完成本次
                                 } else {

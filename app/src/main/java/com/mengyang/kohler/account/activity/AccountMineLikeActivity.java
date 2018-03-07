@@ -178,7 +178,6 @@ public class AccountMineLikeActivity extends BaseActivity implements BaseQuickAd
                             } else {
                                 if (response.getData().getResultList().size() > 0) {
                                     pageNum += 1;
-                                    likeListBean.addAll(response.getData().getResultList());
                                     mAccountMineLikeAdapter.addData(response.getData().getResultList());
                                     mAccountMineLikeAdapter.loadMoreComplete(); //完成本次
                                 } else {

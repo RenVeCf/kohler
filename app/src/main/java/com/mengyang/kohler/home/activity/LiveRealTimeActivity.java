@@ -164,7 +164,6 @@ public class LiveRealTimeActivity extends BaseActivity implements BaseQuickAdapt
                             } else {
                                 if (response.getData().getResultList().size() > 0) {
                                     pageNum += 1;
-                                    mLiveRealTimeBean.addAll(response.getData().getResultList());
                                     mLiveRealTimeAdapter.addData(response.getData().getResultList());
                                     mLiveRealTimeAdapter.loadMoreComplete(); //完成本次
                                 } else {
