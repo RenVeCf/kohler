@@ -19,7 +19,6 @@ import com.mengyang.kohler.App;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.activity.CustomerServiceActivity;
 import com.mengyang.kohler.common.activity.SystemMsgActivity;
-import com.mengyang.kohler.common.utils.ShareUtils;
 
 /**
  * Description : 标题栏
@@ -31,7 +30,7 @@ import com.mengyang.kohler.common.utils.ShareUtils;
 public class TopView extends RelativeLayout implements View.OnClickListener {
     private TextView tvTopTitle;
     private ImageView ivTopTitle;
-//    private ImageView ivTopBack;
+    //    private ImageView ivTopBack;
     private RelativeLayout rlTopBack;
     private ImageView ivTopMenu;
     private ImageView ivTopShare;
@@ -86,7 +85,7 @@ public class TopView extends RelativeLayout implements View.OnClickListener {
         mSharePopupWindow.setOutsideTouchable(false);
         mSharePopupWindow.setFocusable(true);
         mShare = mPopLayout.findViewById(R.id.iv_share_winxi);
-//        mShare.setOnClickListener(this);
+        //        mShare.setOnClickListener(this);
     }
 
     public TopView(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -99,9 +98,9 @@ public class TopView extends RelativeLayout implements View.OnClickListener {
         View.inflate(context, R.layout.top_view, this);
         tvTopTitle = (TextView) this.findViewById(R.id.tv_top_title);
         ivTopTitle = (ImageView) this.findViewById(R.id.iv_top_title);
-//        ivTopBack = (ImageView) this.findViewById(R.id.iv_top_back);
+        //        ivTopBack = (ImageView) this.findViewById(R.id.iv_top_back);
         rlTopBack = (RelativeLayout) this.findViewById(R.id.rl_top_back);
-//        ivTopBack.setOnClickListener(this);
+        //        ivTopBack.setOnClickListener(this);
         rlTopBack.setOnClickListener(this);
         ivTopMenu = (ImageView) this.findViewById(R.id.iv_top_menu);
         ivTopMenu.setOnClickListener(this);
@@ -127,7 +126,7 @@ public class TopView extends RelativeLayout implements View.OnClickListener {
             case R.id.iv_top_menu:
                 break;
             case R.id.iv_top_share:
-//                mSharePopupWindow.showAsDropDown(view, 0, 0);
+                //                mSharePopupWindow.showAsDropDown(view, 0, 0);
                 if (mItemClickListenner != null) {
                     mItemClickListenner.onItemClick();
                 }
@@ -140,17 +139,17 @@ public class TopView extends RelativeLayout implements View.OnClickListener {
                 break;
             case R.id.iv_share_winxi:
 
-            break;
+                break;
             default:
                 break;
         }
     }
 
-    public interface ItemClickListenner{
+    public interface ItemClickListenner {
         void onItemClick();
     }
 
-    public  void setItemClickListenner(ItemClickListenner itemClickListenner) {
+    public void setItemClickListenner(ItemClickListenner itemClickListenner) {
         mItemClickListenner = itemClickListenner;
         mItemClickListenner = itemClickListenner;
     }

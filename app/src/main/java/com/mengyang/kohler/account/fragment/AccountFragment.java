@@ -206,6 +206,7 @@ public class AccountFragment extends BaseFragment implements BaseQuickAdapter.Re
                 .subscribe(new DefaultObserver<BasicResponse>(getActivity(), false) {
                     @Override
                     public void onSuccess(BasicResponse response) {
+                        SPUtil.put(App.getContext(), IConstants.USER_NIKE_NAME, etAccountPopNewName.getText().toString().trim());
                         tvAccountName.setText(etAccountPopNewName.getText().toString().trim());
                         mAccountTitleNamePopupWindow.dismiss();
                     }

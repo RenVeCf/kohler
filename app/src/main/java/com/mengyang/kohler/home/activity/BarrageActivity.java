@@ -10,7 +10,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
@@ -43,7 +42,7 @@ import okhttp3.Response;
  * 我要爬墙
  */
 
-public class BarrageActivity extends BaseActivity{
+public class BarrageActivity extends BaseActivity {
 
     @BindView(R.id.tv_barrage_top)
     TopView tvBarrageTop;
