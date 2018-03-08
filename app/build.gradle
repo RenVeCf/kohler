@@ -7,36 +7,35 @@ android {
         minSdkVersion 21
         targetSdkVersion 23
         versionCode 1
-        versionName "loading1.0"
+        versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         // Enabling multidex support.
         multiDexEnabled true
 
         ndk {
             //设置支持的SO库架构（开发者可以根据需要，选择一个或多个平台的so）
-//            abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "x86", "arm64-v8a", "x86_64"
-            abiFilters "armeabi-v7a"
+            abiFilters "armeabi-v7a"//,"armeabi",  "arm64-v8a", "x86", "arm64-v8a", "x86_64"
         }
 
         manifestPlaceholders = [
                 JPUSH_PKGNAME: applicationId,
-                JPUSH_APPKEY : "fd05fab95e99b7cbea8d2afa", //JPush上注册的包名对应的appkey.
+                JPUSH_APPKEY : "0532998d33f6cf83a9de9ca9", //JPush上注册的包名对应的appkey.
                 JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
         ]
     }
 
     signingConfigs {
         config {
-//            keyAlias ALIAS_NAME
-//            keyPassword KEY_PWD
-//            storeFile file(KEY_PATH)
-//            storePassword ALIAS_PWD
+            keyAlias ALIAS_NAME
+            keyPassword KEY_PWD
+            storeFile file(KEY_PATH)
+            storePassword ALIAS_PWD
         }
         test {
-//            keyAlias 'test'
-//            keyPassword 'test123'
-//            storeFile file('D:/科勒签名文件/debug_kohler.jks')
-//            storePassword 'test123'
+            keyAlias 'test'
+            keyPassword 'test123'
+            storeFile file('D:/科勒签名文件/debug_kohler.jks')
+            storePassword 'test123'
         }
     }
 
@@ -49,10 +48,10 @@ android {
             //混淆的配置文件
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             //签名配置
-//            signingConfig signingConfigs.config
+            signingConfig signingConfigs.config
         }
         debug {
-//            signingConfig signingConfigs.test
+            signingConfig signingConfigs.test
         }
     }
 
@@ -76,20 +75,15 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 
     //自动绑定控件框架 butterknife
-
-    //    implementation 'com.jakewharton:butterknife:8.8.1'
-
-    //    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-    implementation 'com.jakewharton:butterknife:8.4.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
-
-    //    classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
-
-    //    classpath 'com.jakewharton:butterknife-gradle-plugin:8.8.1'
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
     //图片加载框架 glide
     implementation 'com.github.bumptech.glide:glide:4.1.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.1.1'
+
+    // 图片查看
+    implementation 'com.commit451:PhotoView:1.2.4'
 
     //列表框架 recyclerview
     implementation 'com.android.support:recyclerview-v7:26.0.0-alpha1'
@@ -129,7 +123,6 @@ dependencies {
 
     //PDF
     implementation 'com.github.barteksc:android-pdf-viewer:3.0.0-beta.5'
-//    implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'//稳定版本
 
     //卡片View
     implementation 'com.android.support:cardview-v7:27.0.2'
@@ -159,8 +152,6 @@ dependencies {
 
     //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
     compile 'com.tencent.bugly:nativecrashreport:latest.release'
-
-    //    implementation project(':arscan')
     compile 'com.umeng.sdk:common:latest.integration'
     compile 'com.umeng.sdk:analytics:latest.integration'
     implementation files('libs/SocialSDK_WeiXin_Full.jar')
