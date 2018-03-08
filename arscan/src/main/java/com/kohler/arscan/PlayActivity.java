@@ -1,10 +1,13 @@
 package com.kohler.arscan;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.media.MediaPlayer;
-import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -15,6 +18,7 @@ import com.kohler.arscan.util.LogManager;
 import com.kohler.arscan.util.SPUtil;
 import com.kohler.arscan.util.SharePreUtil;
 import com.xiuyukeji.pictureplayerview.PicturePlayerView;
+import com.xiuyukeji.pictureplayerview.interfaces.OnErrorListener;
 import com.xiuyukeji.pictureplayerview.interfaces.OnStopListener;
 
 import java.io.File;
@@ -41,7 +45,6 @@ public class PlayActivity extends AppCompatActivity {
 
     @BindView(R2.id.tv_more)
     TextView tv_more;
-
 
     private String startWith;
     private String zhName;
@@ -86,8 +89,8 @@ public class PlayActivity extends AppCompatActivity {
             case 2:
                 bg = R.drawable.c_search;
                 startWith = "2_";
-                zhName = "C3 -420 清舒宝智能便盖";
-                enName = "C3-420 Smart Seat";
+                zhName = getString(R.string.zh_biangai);
+                enName = getString(R.string.en_biangai);
                 break;
             case 3:
                 bg = R.drawable.d_search;
@@ -111,7 +114,7 @@ public class PlayActivity extends AppCompatActivity {
                 bg = R.drawable.g_search;
                 startWith = "6_";
                 zhName = "艺廷 臻彩幻色 龙头系列";
-                enName = "Component OMBRE Graphic Faucet";
+                enName = getString(R.string.longtou);
                 break;
             case 7:
                 bg = R.drawable.h_search;
@@ -141,23 +144,27 @@ public class PlayActivity extends AppCompatActivity {
 
             try {
                 mp = new MediaPlayer();
+                mp.setDataSource(files[0].getAbsolutePath());
+                mp.prepare();
+
                 // 音乐播放完毕的事件处理
                 mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     public void onCompletion(MediaPlayer mp) {
+                        LogManager.e(TAG, "MediaPlayer onCompletion");
                         mp.release();
+
+                        tv_more.setVisibility(View.VISIBLE);
                     }
                 });
                 // 播放音乐时发生错误的事件处理
                 mp.setOnErrorListener(new MediaPlayer.OnErrorListener() {
                     public boolean onError(MediaPlayer mp, int what, int extra) {
+                        LogManager.e(TAG, "MediaPlayer onError");
                         // 释放资源
                         mp.release();
                         return false;
                     }
                 });
-
-                mp.setDataSource(files[0].getAbsolutePath());
-                mp.prepare();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -194,9 +201,17 @@ public class PlayActivity extends AppCompatActivity {
             play_view.setOnStopListener(new OnStopListener() {
                 @Override
                 public void onStop() {
-                    tv_more.setVisibility(View.VISIBLE);
+                    LogManager.e(TAG, "PicturePlayerView onStop");
+                    play_view.release();
 
-                    mp.release();
+                    tv_more.setVisibility(View.VISIBLE);
+                }
+            });
+            play_view.setOnErrorListener(new OnErrorListener() {
+                @Override
+                public void onError(String msg) {
+                    LogManager.e(TAG, "PicturePlayerView onError");
+                    play_view.release();
                 }
             });
         } else {
@@ -208,15 +223,11 @@ public class PlayActivity extends AppCompatActivity {
 
     @OnClick(R2.id.iv_top_back)
     public void back() {
-        play_view.release();
-        mp.release();
         finish();
     }
 
     @OnClick(R2.id.iv_play_cancel)
     public void cancel() {
-        play_view.release();
-        mp.release();
         finish();
     }
 
@@ -227,7 +238,7 @@ public class PlayActivity extends AppCompatActivity {
         // TODO: 2018/3/2 注释解开
         Intent intent = new Intent();
         if (((boolean) SPUtil.get(this, "isLogin", false))) {
-            if (SPUtil.get(this, "no_type", "").equals("dealer")) {
+            if (SPUtil.get(this, "no_type", "").equals("dealer") || SPUtil.get(this, "no_type", "").equals("designer")) {
                 intent.setClassName("com.mengyang.kohler", "com.mengyang.kohler.home.activity.MineManualActivity");
                 startActivity(intent);
             }
@@ -236,4 +247,49 @@ public class PlayActivity extends AppCompatActivity {
             startActivity(intent);
         }
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        try {
+            if (play_view.isPaused()) {
+                play_view.resume();
+            }
+            if (mp != null && !mp.isPlaying()) {
+                mp.start();
+            }
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        try {
+            if (play_view.isPlaying()) {
+                play_view.pause();
+            }
+            if (mp != null && mp.isPlaying()) {
+                mp.pause();
+            }
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //释放资源
+        if (play_view != null) {
+            play_view.release();
+        }
+        if (mp != null) {
+            mp.release();
+        }
+    }
+
 }

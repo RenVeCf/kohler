@@ -1,5 +1,15 @@
 package com.kohler.arscan;
 
+import com.kohler.arscan.constant.Config;
+import com.kohler.arscan.util.DensityUtil;
+import com.kohler.arscan.util.LogManager;
+import com.kohler.arscan.util.SPUtil;
+import com.kohler.arscan.util.SharePreUtil;
+import com.unity3d.player.*;
+import com.xiuyukeji.pictureplayerview.PicturePlayerView;
+import com.xiuyukeji.pictureplayerview.interfaces.OnErrorListener;
+import com.xiuyukeji.pictureplayerview.interfaces.OnStopListener;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -7,6 +17,7 @@ import android.graphics.PixelFormat;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -15,23 +26,19 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.kohler.arscan.constant.Config;
-import com.kohler.arscan.util.LogManager;
-import com.kohler.arscan.util.SPUtil;
-import com.kohler.arscan.util.SharePreUtil;
-import com.unity3d.player.UnityPlayer;
-import com.xiuyukeji.pictureplayerview.PicturePlayerView;
-
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -94,7 +101,7 @@ public class UnityPlayerActivity extends Activity implements View.OnClickListene
         // TODO: 2018/3/2 注释解开
         Intent intent = new Intent();
         if (((boolean) SPUtil.get(this, "isLogin", false))) {
-            if (SPUtil.get(this, "no_type", "").equals("dealer")) {
+            if (SPUtil.get(this, "no_type", "").equals("dealer") || SPUtil.get(this, "no_type", "").equals("designer")) {
                 intent.setClassName("com.mengyang.kohler", "com.mengyang.kohler.home.activity.MineManualActivity");
                 startActivity(intent);
             }
@@ -133,8 +140,8 @@ public class UnityPlayerActivity extends Activity implements View.OnClickListene
                 break;
             case 2:
                 startWith = "2_";
-                zhName = "C3 -420 清舒宝智能便盖";
-                enName = "C3-420 Smart Seat";
+                zhName = getString(R.string.zh_biangai);
+                enName = getString(R.string.en_biangai);
                 break;
             case 3:
                 startWith = "3_";
@@ -154,7 +161,7 @@ public class UnityPlayerActivity extends Activity implements View.OnClickListene
             case 6:
                 startWith = "6_";
                 zhName = "艺廷 臻彩幻色 龙头系列";
-                enName = "Component OMBRE Graphic Faucet";
+                enName = getString(R.string.longtou);
                 break;
             case 7:
                 startWith = "4_";
@@ -187,23 +194,25 @@ public class UnityPlayerActivity extends Activity implements View.OnClickListene
 
             try {
                 mp = new MediaPlayer();
+                mp.setDataSource(files[0].getAbsolutePath());
+                mp.prepare();
+
                 // 音乐播放完毕的事件处理
                 mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     public void onCompletion(MediaPlayer mp) {
+                        LogManager.e(TAG, "MediaPlayer onCompletion");
                         mp.release();
                     }
                 });
                 // 播放音乐时发生错误的事件处理
                 mp.setOnErrorListener(new MediaPlayer.OnErrorListener() {
                     public boolean onError(MediaPlayer mp, int what, int extra) {
+                        LogManager.e(TAG, "MediaPlayer onError");
                         // 释放资源
                         mp.release();
                         return false;
                     }
                 });
-
-                mp.setDataSource(files[0].getAbsolutePath());
-                mp.prepare();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -237,6 +246,21 @@ public class UnityPlayerActivity extends Activity implements View.OnClickListene
 
             mp.start();
 
+            play_view.setOnStopListener(new OnStopListener() {
+                @Override
+                public void onStop() {
+                    LogManager.e(TAG, "PicturePlayerView onStop");
+                    play_view.release();
+                }
+            });
+            play_view.setOnErrorListener(new OnErrorListener() {
+                @Override
+                public void onError(String msg) {
+                    LogManager.e(TAG, "PicturePlayerView onError");
+                    play_view.release();
+                }
+            });
+
             playPop.showAtLocation(mUnityPlayer, Gravity.NO_GRAVITY, 0, 0);
         } else {
             SharePreUtil.getInstance(this).saveConfig(Config.RESOURCE_STATUS, false);
@@ -259,10 +283,6 @@ public class UnityPlayerActivity extends Activity implements View.OnClickListene
 
     @OnClick(R2.id.iv_top_back)
     public void back() {
-        play_view.release();
-        if (mp != null) {
-            mp.release();
-        }
         finish();
     }
 
@@ -278,6 +298,12 @@ public class UnityPlayerActivity extends Activity implements View.OnClickListene
     // Quit Unity
     @Override
     protected void onDestroy() {
+        if (play_view != null) {
+            play_view.release();
+        }
+        if (mp != null) {
+            mp.release();
+        }
         mUnityPlayer.quit();
         super.onDestroy();
     }
@@ -287,6 +313,17 @@ public class UnityPlayerActivity extends Activity implements View.OnClickListene
     protected void onPause() {
         super.onPause();
         mUnityPlayer.pause();
+
+        try {
+            if (play_view.isPlaying()) {
+                play_view.pause();
+            }
+            if (mp != null && mp.isPlaying()) {
+                mp.pause();
+            }
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        }
     }
 
     // Resume Unity
@@ -294,6 +331,17 @@ public class UnityPlayerActivity extends Activity implements View.OnClickListene
     protected void onResume() {
         super.onResume();
         mUnityPlayer.resume();
+
+        try {
+            if (play_view.isPaused()) {
+                play_view.resume();
+            }
+            if (mp != null && !mp.isPlaying()) {
+                mp.start();
+            }
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

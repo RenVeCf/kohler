@@ -1,8 +1,9 @@
 package com.kohler.arscan;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 
 import com.kohler.arscan.adapter.SearchAdapter;
@@ -57,12 +59,12 @@ public class SearchActivity extends AppCompatActivity implements OnClickListener
         itemList = new ArrayList<>();
         SearchItem item1 = new SearchItem(R.drawable.yushi, "浴室家具");
         SearchItem item2 = new SearchItem(R.drawable.yiti, "一体超感座便器");
-        SearchItem item3 = new SearchItem(R.drawable.biangai, "智能便盖");
+        SearchItem item3 = new SearchItem(R.drawable.biangai, getString(R.string.biangai));
         SearchItem item4 = new SearchItem(R.drawable.jinggui, "镜柜");
         SearchItem item5 = new SearchItem(R.drawable.taipen, "台盆");
         SearchItem item6 = new SearchItem(R.drawable.zuobian, "座便器");
         SearchItem item7 = new SearchItem(R.drawable.longtou, "龙头");
-        SearchItem item8 = new SearchItem(R.drawable.shangye, "商用系列");
+        SearchItem item8 = new SearchItem(R.drawable.shangyong, "商用系列");
         itemList.add(item1);
         itemList.add(item2);
         itemList.add(item3);
@@ -122,7 +124,7 @@ public class SearchActivity extends AppCompatActivity implements OnClickListener
             // TODO: 2018/3/2 注释解开 
             Intent intent = new Intent();
             if (((boolean) SPUtil.get(this, "isLogin", false))) {
-                if (SPUtil.get(this, "no_type", "").equals("dealer")) {
+                if (SPUtil.get(this, "no_type", "").equals("dealer") || SPUtil.get(this, "no_type", "").equals("designer")) {
                     intent.setClassName("com.mengyang.kohler", "com.mengyang.kohler.home.activity.MineManualActivity");
                     startActivity(intent);
                 }

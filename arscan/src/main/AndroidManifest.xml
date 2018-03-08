@@ -29,7 +29,7 @@
         android:name="android.hardware.touchscreen.multitouch.distinct"
         android:required="false" />
 
-    <application>
+    <application android:resizeableActivity="true">
         <activity android:name=".ShowActivity" />
         <activity android:name=".SearchActivity" />
         <activity android:name=".PlayActivity" />
@@ -46,8 +46,12 @@
         </activity>
 
         <meta-data
+            android:name="android.max_aspect"
+            android:value="2.1" />
+
+        <meta-data
             android:name="unity.build-id"
-            android:value="1e7d882c-a0b2-4070-9f6d-bd6457aa3502" />
+            android:value="90eb5475-f2db-4109-8b8f-cd86535af99f" />
         <meta-data
             android:name="unity.splash-mode"
             android:value="0" />

@@ -5,4 +5,8 @@
     <string name="storage_must_allow">需要读写存储，请授予权限</string>
     <string name="camera_must_allow">需要摄像头预览，请授予权限</string>
     <string name="must_allow">请授予相关权限</string>
+    <string name="zh_biangai">C&#179;-420 清舒宝智能便盖</string>
+    <string name="en_biangai">C&#179;-420 Smart Seat</string>
+    <string name="biangai">C&#179;智能便盖</string>
+    <string name="longtou">Component OMBR&#201; Graphic Faucet</string>
 </resources>

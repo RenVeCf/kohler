@@ -79,7 +79,7 @@
         android:background="@drawable/play_more"
         android:gravity="center"
         android:padding="5dp"
-        android:text="更多极致诱惑"
+        android:text="更多精彩新品"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
         android:visibility="gone" />

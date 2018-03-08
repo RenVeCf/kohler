@@ -1,7 +1,6 @@
 package com.mengyang.kohler.home.adapter;
 
 import android.support.annotation.Nullable;
-import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -29,7 +28,7 @@ public class WeeklyRadioConcertAdapter extends BaseQuickAdapter<WeeklyRadioConce
     @Override
     protected void convert(BaseViewHolder helper, WeeklyRadioConcertBean.ResultListBean item) {
         Glide.with(App.getContext()).load(item.getKvUrl()).apply(new RequestOptions().placeholder(R.mipmap.queshengtu)).into((ImageView) helper.getView(R.id.iv_item_weekly_radio_concert_adapter));
-        helper.setText(R.id.weekly_radio_concert_adapter_date, "")
+        helper.setText(R.id.weekly_radio_concert_adapter_date, item.getCreateTime() + "")
                 .setText(R.id.tv_weekly_radio_concert_adapter_table, item.getTitle())
                 .setText(R.id.tv_weekly_radio_concert_adapter_abstract, item.getDescription());
         helper.addOnClickListener(R.id.bt_weekly_radio_concert_adapter);

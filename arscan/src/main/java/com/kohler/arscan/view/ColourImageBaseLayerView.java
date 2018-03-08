@@ -64,7 +64,7 @@ public class ColourImageBaseLayerView extends android.support.v7.widget.AppCompa
 
     private Matrix mScaleMatrix;
 
-    // *********双击放大与缩小*********
+    // *********单击放大*********
     private GestureDetector mGestureDetector;
 
     private boolean isAutoScale;

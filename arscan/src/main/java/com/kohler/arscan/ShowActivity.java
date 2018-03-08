@@ -2,10 +2,10 @@ package com.kohler.arscan;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +15,8 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.kohler.arscan.util.DensityUtil;
+import com.kohler.arscan.util.LogManager;
 import com.kohler.arscan.util.SPUtil;
 import com.kohler.arscan.view.ColourImageBaseLayerView;
 
@@ -135,7 +137,7 @@ public class ShowActivity extends AppCompatActivity implements View.OnClickListe
                 icon = R.drawable.a_alert;
                 zh = "145周年 美式套间";
                 en = "145 ANNIVERSARY SUITE";
-                content = "沿袭美式经典风格，融入现代优雅生活。致敬科勒145\n年历史传承，145周年套件以优雅大气的设计语言，集\n中展现了科勒“代表每个时代的最高水准”的追求与承\n诺";
+                content = "沿袭美式经典风格，融入现代优雅生活。致敬科勒145\n年历史传承，145周年套间以优雅大气的设计语言，集\n中展现了科勒“代表每个时代的最高水准”的追求与承\n诺";
                 go = "前往145周年套间，体验科勒美式优雅生活";
                 break;
             case 1:
@@ -220,7 +222,7 @@ public class ShowActivity extends AppCompatActivity implements View.OnClickListe
             // TODO: 2018/3/2 注释解开 
             Intent intent = new Intent();
             if (((boolean) SPUtil.get(this, "isLogin", false))) {
-                if (SPUtil.get(this, "no_type", "").equals("dealer")) {
+                if (SPUtil.get(this, "no_type", "").equals("dealer") || SPUtil.get(this, "no_type", "").equals("designer")) {
                     intent.setClassName("com.mengyang.kohler", "com.mengyang.kohler.home.activity.MineManualActivity");
                     startActivity(intent);
                 }

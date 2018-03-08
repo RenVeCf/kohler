@@ -75,7 +75,7 @@ public class DownloadActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if ( PermissionChecker.checkCallingOrSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+            if (PermissionChecker.checkCallingOrSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
                     | PermissionChecker.checkCallingOrSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                 if (!shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                     Toast.makeText(this, getResources().getString(R.string.storage_must_allow), Toast.LENGTH_SHORT).show();
@@ -244,9 +244,16 @@ public class DownloadActivity extends AppCompatActivity {
                         timerTask.cancel();
 
                         SharePreUtil.getInstance(DownloadActivity.this).saveConfig(Config.RESOURCE_STATUS, true);
-                        Intent intent = new Intent(DownloadActivity.this, ShowActivity.class);
-                        startActivity(intent);
-                        finish();
+                        String way = getIntent().getStringExtra("way");
+                        if ("banner".equals(way)) {
+                            startActivity(new Intent(DownloadActivity.this, ShowActivity.class));
+                            finish();
+                        } else if ("arscan".equals(way)) {
+                            Intent intent = new Intent(DownloadActivity.this, UnityPlayerActivity.class);
+                            intent.putExtra("flag", "9");
+                            startActivity(intent);
+                            finish();
+                        }
                     }
                 }
                 cursor.close();

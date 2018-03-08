@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -29,7 +30,7 @@
     <!--android:layout_height="match_parent"-->
     <!--android:src="@drawable/map_list"/>-->
 
-    <RelativeLayout
+    <android.support.percent.PercentRelativeLayout
         android:id="@+id/rl_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -41,59 +42,59 @@
         <com.kohler.arscan.view.JumpImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="174.14dp"
-            android:layout_marginTop="17.86dp"
+            app:layout_marginLeftPercent="47%"
+            app:layout_marginTopPercent="4%"
             android:src="@drawable/a_icon" />
 
         <com.kohler.arscan.view.JumpImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="289.86dp"
-            android:layout_marginTop="74.86dp"
+            app:layout_marginLeftPercent="79%"
+            app:layout_marginTopPercent="17%"
             android:src="@drawable/b_icon" />
 
         <com.kohler.arscan.view.JumpImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="106.14dp"
-            android:layout_marginTop="135.14dp"
+            app:layout_marginLeftPercent="29%"
+            app:layout_marginTopPercent="29%"
             android:src="@drawable/c_icon" />
 
         <com.kohler.arscan.view.JumpImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="264.57dp"
-            android:layout_marginTop="155.14dp"
+            app:layout_marginLeftPercent="74%"
+            app:layout_marginTopPercent="35%"
             android:src="@drawable/d_icon" />
 
         <com.kohler.arscan.view.JumpImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="91.14dp"
-            android:layout_marginTop="223.43dp"
+            app:layout_marginLeftPercent="24%"
+            app:layout_marginTopPercent="47%"
             android:src="@drawable/e_icon" />
 
         <com.kohler.arscan.view.JumpImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="43.14dp"
-            android:layout_marginTop="256.86dp"
+            app:layout_marginLeftPercent="11%"
+            app:layout_marginTopPercent="54%"
             android:src="@drawable/f_icon" />
 
         <com.kohler.arscan.view.JumpImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="280.57dp"
-            android:layout_marginTop="265.14dp"
+            app:layout_marginLeftPercent="76%"
+            app:layout_marginTopPercent="57%"
             android:src="@drawable/g_icon" />
 
         <com.kohler.arscan.view.JumpImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="103.14dp"
-            android:layout_marginTop="316.57dp"
+            app:layout_marginLeftPercent="30%"
+            app:layout_marginTopPercent="67%"
             android:src="@drawable/h_icon" />
 
-    </RelativeLayout>
+    </android.support.percent.PercentRelativeLayout>
 
 </RelativeLayout>
