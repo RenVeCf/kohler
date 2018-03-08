@@ -39,7 +39,7 @@
     <Button
         android:id="@+id/bt_weekly_radio_concert_adapter"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/y84"
         android:layout_marginTop="@dimen/y48"
         android:layout_marginBottom="@dimen/y144"
         android:background="@drawable/black_edge_circular_background"

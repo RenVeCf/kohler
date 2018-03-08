@@ -38,6 +38,7 @@ public interface Config  {
     String MEETING_USER_SETTINGS_MODIFY = "user/data/update"; //修改经销商大会用户设置
     String MEETING_LIKE_PICTURE = "ndc/likePicture"; //经销商大会照片点赞
     String MEETING_BARRAGE = "http://106.15.92.74/api/v1/danmu/send?access_token="; //弹幕
+    String WEEKLY_RADIO_CONCERT = "concert/list"; //星广会内容列表
 
     /**
      * 全品类

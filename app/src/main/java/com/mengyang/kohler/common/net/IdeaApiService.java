@@ -22,6 +22,7 @@ import com.mengyang.kohler.module.bean.SystemMsgBean;
 import com.mengyang.kohler.module.bean.UploadHeadPortraitBean;
 import com.mengyang.kohler.module.bean.UserHomeKVBean;
 import com.mengyang.kohler.module.bean.UserMsgBean;
+import com.mengyang.kohler.module.bean.WeeklyRadioConcertBean;
 
 import java.util.List;
 import java.util.Map;
@@ -45,7 +46,8 @@ public interface IdeaApiService {
      */
     int DEFAULT_TIMEOUT = 30000;
     //项目主页(测试环境)
-    String API_SERVER_URL = "http://kohler-app.glor.cn/";
+//    String API_SERVER_URL = "http://kohler-app.glor.cn/";
+    String API_SERVER_URL = "http://kohler-app-tmp.glor.cn/"; //test
     //项目主页(正式环境)
     //    String API_SERVER_URL = "http://t-api.glor.cn/";
 
@@ -238,4 +240,9 @@ public interface IdeaApiService {
     @FormUrlEncoded
     @POST(Config.LOGIN_SMS)
     Observable<BasicResponse> getLoginSMS(@FieldMap Map<String, String> map);
+
+    //星广会内容列表
+    @FormUrlEncoded
+    @POST(Config.WEEKLY_RADIO_CONCERT)
+    Observable<BasicResponse<WeeklyRadioConcertBean>> getWeeklyRadioConcert(@FieldMap Map<String, String> map);
 }
