@@ -13,7 +13,6 @@ import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IdeaApi;
-import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.LiveRealTimeBean;
@@ -86,10 +85,11 @@ public class MeetingBigPhotoActivity extends BaseActivity {
 
     private void getGigPhotoData() {
         Map<String, String> stringMap = IdeaApi.getSign();
-        if ((position + "").length() != 1) {
-            pageNum = (int) Math.floor(position / 10);
-        }
-        stringMap.put("pageNum", pageNum + "");
+        //做分页就加
+//        if ((position + "").length() != 1) {
+//            pageNum = (int) Math.floor(position / 10);
+//        }
+//        stringMap.put("pageNum", pageNum + "");
 
         IdeaApi.getRequestLogin(stringMap);
         IdeaApi.getApiService()
@@ -105,9 +105,10 @@ public class MeetingBigPhotoActivity extends BaseActivity {
                             if (response.getData().getPageSize() == (i + 1)) {
                                 ivMeetingBigPhotoRight.setVisibility(View.GONE);
                             }
-                            if ((position + "").length() > 1) {
-                                i = position % 10;
-                            }
+                            //做分页就加
+//                            if ((position + "").length() > 1) {
+//                                i = position % 10;
+//                            }
                             tvMeetingBigPhotoNum.setText(response.getData().getResultList().get(i).getLikeCount() + "");
                             Glide.with(App.getContext()).load(response.getData().getResultList().get(i).getPicUrl()).apply(new RequestOptions().placeholder(R.mipmap.queshengtu)).into(ivMeetingBigPhoto);
                             mId = response.getData().getResultList().get(i).getId();

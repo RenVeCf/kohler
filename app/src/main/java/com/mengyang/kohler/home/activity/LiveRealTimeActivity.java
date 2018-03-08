@@ -16,7 +16,6 @@ import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IdeaApi;
-import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.view.GridSpacingItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.home.adapter.LiveRealTimeAdapter;
@@ -36,7 +35,7 @@ import io.reactivex.schedulers.Schedulers;
  * 现场实时投票
  */
 
-public class LiveRealTimeActivity extends BaseActivity implements BaseQuickAdapter.RequestLoadMoreListener {
+public class LiveRealTimeActivity extends BaseActivity {//implements BaseQuickAdapter.RequestLoadMoreListener {
 
     @BindView(R.id.tv_live_real_time_top)
     TopView tvLiveRealTimeTop;
@@ -108,7 +107,7 @@ public class LiveRealTimeActivity extends BaseActivity implements BaseQuickAdapt
     protected void initData() {
         //看大图
         Map<String, String> stringMap = IdeaApi.getSign();
-        stringMap.put("pageNum", pageNum + "");
+        //        stringMap.put("pageNum", pageNum + "");
 
         IdeaApi.getRequestLogin(stringMap);
         IdeaApi.getApiService()
@@ -119,68 +118,68 @@ public class LiveRealTimeActivity extends BaseActivity implements BaseQuickAdapt
                 .subscribe(new DefaultObserver<BasicResponse<LiveRealTimeBean>>(LiveRealTimeActivity.this, false) {
                     @Override
                     public void onSuccess(BasicResponse<LiveRealTimeBean> response) {
-                        if (response != null) {
-                            mTotalSize = response.getData().getTotalSize();
-                            LogUtils.i("rmy", "pageNum = " + pageNum);
-                            if (pageNum == 0) {
-                                mLiveRealTimeBean.clear();
-                                mLiveRealTimeBean.addAll(response.getData().getResultList());
-                                if (mLiveRealTimeBean.size() > 0) {
-                                    pageNum += 1;
-                                    mLiveRealTimeAdapter = new LiveRealTimeAdapter(mLiveRealTimeBean);
-                                    rvLiveRealTime.setAdapter(mLiveRealTimeAdapter);
-                                    mLiveRealTimeAdapter.setOnLoadMoreListener(LiveRealTimeActivity.this, rvLiveRealTime); //加载更多
-                                    mLiveRealTimeAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                                        @Override
-                                        public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                                            startActivity(new Intent(LiveRealTimeActivity.this, MeetingBigPhotoActivity.class).putExtra("totalSize", mTotalSize).putExtra("position", position).putExtra("num", mLiveRealTimeBean.get(position).getLikeCount()).putExtra("url", mLiveRealTimeBean.get(position).getPicUrl()).putExtra("id", mLiveRealTimeBean.get(position).getId()));
-                                        }
-                                    });
-                                    mLiveRealTimeAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-                                        @Override
-                                        public void onItemChildClick(BaseQuickAdapter adapter, View view, final int position) {
-                                            //投票
-                                            Map<String, String> stringMap = IdeaApi.getSign();
-                                            stringMap.put("id", mLiveRealTimeBean.get(position).getId() + "");
+                        //                        if (response != null) {
+                        mTotalSize = response.getData().getTotalSize();
+                        //                            if (pageNum == 0) {
+                        mLiveRealTimeBean.clear();
+                        mLiveRealTimeBean.addAll(response.getData().getResultList());
+                        if (mLiveRealTimeBean.size() > 0) {
+                            pageNum += 1;
+                            mLiveRealTimeAdapter = new LiveRealTimeAdapter(mLiveRealTimeBean);
+                            rvLiveRealTime.setAdapter(mLiveRealTimeAdapter);
+                            //                                    mLiveRealTimeAdapter.setOnLoadMoreListener(LiveRealTimeActivity.this, rvLiveRealTime); //加载更多
+                            mLiveRealTimeAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                                    startActivity(new Intent(LiveRealTimeActivity.this, MeetingBigPhotoActivity.class).putExtra("totalSize", mTotalSize).putExtra("position", position).putExtra("num", mLiveRealTimeBean.get(position).getLikeCount()).putExtra("url", mLiveRealTimeBean.get(position).getPicUrl()).putExtra("id", mLiveRealTimeBean.get(position).getId()));
+                                }
+                            });
+                            mLiveRealTimeAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                                @Override
+                                public void onItemChildClick(BaseQuickAdapter adapter, View view, final int position) {
+                                    //投票
+                                    Map<String, String> stringMap = IdeaApi.getSign();
+                                    stringMap.put("id", mLiveRealTimeBean.get(position).getId() + "");
 
-                                            IdeaApi.getRequestLogin(stringMap);
-                                            IdeaApi.getApiService()
-                                                    .getMeetingLikePicture(stringMap)
-                                                    .compose(LiveRealTimeActivity.this.<BasicResponse>bindToLifecycle())
-                                                    .subscribeOn(Schedulers.io())
-                                                    .observeOn(AndroidSchedulers.mainThread())
-                                                    .subscribe(new DefaultObserver<BasicResponse>(LiveRealTimeActivity.this, false) {
-                                                        @Override
-                                                        public void onSuccess(BasicResponse response) {
-                                                            pageNum = 0;
-                                                            initData();
-                                                        }
-                                                    });
-                                        }
-                                    });
-                                } else {
-                                    mLiveRealTimeAdapter.loadMoreEnd();
+                                    IdeaApi.getRequestLogin(stringMap);
+                                    IdeaApi.getApiService()
+                                            .getMeetingLikePicture(stringMap)
+                                            .compose(LiveRealTimeActivity.this.<BasicResponse>bindToLifecycle())
+                                            .subscribeOn(Schedulers.io())
+                                            .observeOn(AndroidSchedulers.mainThread())
+                                            .subscribe(new DefaultObserver<BasicResponse>(LiveRealTimeActivity.this, false) {
+                                                @Override
+                                                public void onSuccess(BasicResponse response) {
+                                                    pageNum = 0;
+                                                    initData();
+                                                }
+                                            });
                                 }
-                            } else {
-                                if (response.getData().getResultList().size() > 0) {
-                                    pageNum += 1;
-                                    mLiveRealTimeAdapter.addData(response.getData().getResultList());
-                                    mLiveRealTimeAdapter.loadMoreComplete(); //完成本次
-                                } else {
-                                    mLiveRealTimeAdapter.loadMoreEnd(); //完成所有加载
-                                }
-                            }
-                        } else {
-                            mLiveRealTimeAdapter.loadMoreEnd();
+                            });
                         }
+                        //                        } else {
+                        //                            mLiveRealTimeAdapter.loadMoreEnd();
+                        //                        }
+                        //                            } else {
+                        //                                if (response.getData().getResultList().size() > 0) {
+                        //                                    pageNum += 1;
+                        //                                    mLiveRealTimeAdapter.addData(response.getData().getResultList());
+                        //                                    mLiveRealTimeAdapter.loadMoreComplete(); //完成本次
+                        //                                } else {
+                        //                                    mLiveRealTimeAdapter.loadMoreEnd(); //完成所有加载
+                        //                                }
+                        //                            }
+                        //                        } else {
+                        //                            mLiveRealTimeAdapter.loadMoreEnd();
+                        //                        }
                     }
                 });
     }
 
-    @Override
-    public void onLoadMoreRequested() {
-        initData();
-    }
+    //    @Override
+    //    public void onLoadMoreRequested() {
+    //        initData();
+    //    }
 
     @OnClick(R.id.rl_live_real_time)
     public void onViewClicked() {
