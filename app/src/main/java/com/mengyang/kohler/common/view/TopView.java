@@ -30,8 +30,8 @@ import com.mengyang.kohler.common.activity.SystemMsgActivity;
 public class TopView extends RelativeLayout implements View.OnClickListener {
     private TextView tvTopTitle;
     private ImageView ivTopTitle;
-    //    private ImageView ivTopBack;
-    private RelativeLayout rlTopBack;
+    private ImageView ivTopBack;
+    //    private RelativeLayout rlTopBack;
     private ImageView ivTopMenu;
     private ImageView ivTopShare;
     private ImageView ivTopCustomerService;
@@ -71,7 +71,7 @@ public class TopView extends RelativeLayout implements View.OnClickListener {
         ivTopTitle.setVisibility(isIvTopTitle ? View.GONE : View.VISIBLE);
         ivTopSystemMsg.setVisibility(isSystemMsg ? View.GONE : View.VISIBLE);
         ivTopCustomerService.setVisibility(isCustomerService ? View.GONE : View.VISIBLE);
-        rlTopBack.setVisibility(isBack ? View.GONE : View.VISIBLE);
+        ivTopBack.setVisibility(isBack ? View.GONE : View.VISIBLE);
         ivTopMenu.setVisibility(isMenu ? View.GONE : View.VISIBLE);
         ivTopShare.setVisibility(isShare ? View.GONE : View.VISIBLE);
 
@@ -98,10 +98,8 @@ public class TopView extends RelativeLayout implements View.OnClickListener {
         View.inflate(context, R.layout.top_view, this);
         tvTopTitle = (TextView) this.findViewById(R.id.tv_top_title);
         ivTopTitle = (ImageView) this.findViewById(R.id.iv_top_title);
-        //        ivTopBack = (ImageView) this.findViewById(R.id.iv_top_back);
-        rlTopBack = (RelativeLayout) this.findViewById(R.id.rl_top_back);
-        //        ivTopBack.setOnClickListener(this);
-        rlTopBack.setOnClickListener(this);
+        ivTopBack = (ImageView) this.findViewById(R.id.iv_top_back);
+        ivTopBack.setOnClickListener(this);
         ivTopMenu = (ImageView) this.findViewById(R.id.iv_top_menu);
         ivTopMenu.setOnClickListener(this);
         ivTopShare = (ImageView) this.findViewById(R.id.iv_top_share);
@@ -115,7 +113,7 @@ public class TopView extends RelativeLayout implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.rl_top_back:
+            case R.id.iv_top_back:
                 if (mContext instanceof Activity) {
                     ((Activity) mContext).finish();
                     if (((Activity) mContext).getCurrentFocus() != null) {

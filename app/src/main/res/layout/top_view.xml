@@ -5,31 +5,25 @@
 
 
     <!--返回-->
-    <RelativeLayout
-        android:id="@+id/rl_top_back"
-        android:visibility="gone"
-        android:padding="5dp"
+    <ImageView
+        android:id="@+id/iv_top_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginStart="@dimen/x60"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:id="@+id/iv_top_back"
-            android:layout_width="@dimen/x60"
-            android:layout_height="@dimen/y60"
-            android:src="@mipmap/fanhui"/>
-    </RelativeLayout>
-
+        android:padding="5dp"
+        android:src="@mipmap/fanhui"
+        android:visibility="visible"/>
 
     <!--侧滑菜单-->
     <ImageView
         android:id="@+id/iv_top_menu"
         android:layout_width="@dimen/x60"
         android:layout_height="@dimen/y60"
-        android:layout_marginStart="@dimen/x60"
         android:layout_centerVertical="true"
-        android:visibility="gone"
-        android:src="@mipmap/navigation"/>
+        android:layout_marginStart="@dimen/x60"
+        android:src="@mipmap/navigation"
+        android:visibility="gone"/>
 
     <!--标题-->
     <TextView
@@ -40,8 +34,8 @@
         android:layout_margin="10dp"
         android:letterSpacing="0.13"
         android:lineSpacingExtra="14sp"
-        android:textStyle="bold"
-        android:textSize="16sp"/>
+        android:textSize="16sp"
+        android:textStyle="bold"/>
 
     <ImageView
         android:id="@+id/iv_top_title"
@@ -59,15 +53,15 @@
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:paddingEnd="@dimen/x72"
-        android:visibility="gone"
-        android:src="@mipmap/fenxiangbai"/>
+        android:src="@mipmap/fenxiangbai"
+        android:visibility="gone"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
-        android:gravity="center_vertical"
         android:layout_marginEnd="@dimen/x60"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <!--客服-->
@@ -76,15 +70,15 @@
             android:layout_width="@dimen/x60"
             android:layout_height="@dimen/y60"
             android:layout_marginEnd="@dimen/x72"
-            android:visibility="gone"
-            android:src="@mipmap/service"/>
+            android:src="@mipmap/service"
+            android:visibility="gone"/>
 
         <!--系统消息-->
         <ImageView
             android:id="@+id/iv_top_system_msg"
             android:layout_width="@dimen/x60"
             android:layout_height="@dimen/y60"
-            android:visibility="gone"
-            android:src="@mipmap/message"/>
+            android:src="@mipmap/message"
+            android:visibility="gone"/>
     </LinearLayout>
 </RelativeLayout>
