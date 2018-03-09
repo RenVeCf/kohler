@@ -31,7 +31,6 @@ public class TopView extends RelativeLayout implements View.OnClickListener {
     private TextView tvTopTitle;
     private ImageView ivTopTitle;
     private ImageView ivTopBack;
-    //    private RelativeLayout rlTopBack;
     private ImageView ivTopMenu;
     private ImageView ivTopShare;
     private ImageView ivTopCustomerService;
