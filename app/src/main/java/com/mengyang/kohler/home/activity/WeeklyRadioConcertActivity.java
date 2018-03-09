@@ -105,6 +105,12 @@ public class WeeklyRadioConcertActivity extends BaseActivity implements BaseQuic
                                             startActivity(new Intent(WeeklyRadioConcertActivity.this, WebViewActivity.class).putExtra("h5url", mWeeklyRadioConcertBean.get(position).getRedirectUrl()));
                                         }
                                     });
+                                    mWeeklyRadioConcertAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                                        @Override
+                                        public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                                            startActivity(new Intent(WeeklyRadioConcertActivity.this, WebViewActivity.class).putExtra("h5url", mWeeklyRadioConcertBean.get(position).getRedirectUrl()));
+                                        }
+                                    });
                                     mWeeklyRadioConcertAdapter.setOnLoadMoreListener(WeeklyRadioConcertActivity.this, rvWeeklyRadioConcert); //加载更多
                                 } else {
                                     mWeeklyRadioConcertAdapter.loadMoreEnd();
