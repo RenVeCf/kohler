@@ -22,11 +22,17 @@
         app:title="设计师介绍"
         app:title_color="@color/black"/>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_designer_introduction"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/srl_designer_introduction"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginEnd="@dimen/x60"
         android:layout_marginStart="@dimen/x60"
-        android:layout_marginTop="@dimen/y48"/>
+        android:layout_marginTop="@dimen/y48">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_designer_introduction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

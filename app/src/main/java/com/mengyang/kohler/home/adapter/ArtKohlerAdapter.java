@@ -1,10 +1,11 @@
-package com.mengyang.kohler.whole_category.adapter;
+package com.mengyang.kohler.home.adapter;
 
 import android.support.annotation.Nullable;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.mengyang.kohler.R;
+import com.mengyang.kohler.module.bean.ArtKohlerBean;
 import com.mengyang.kohler.module.bean.MeetingBean;
 
 import java.util.List;
@@ -16,14 +17,14 @@ import java.util.List;
  * Time : 2018/2/2
  */
 
-public class MeetingAdapter extends BaseQuickAdapter<MeetingBean.AgendaListBean, BaseViewHolder> {
+public class ArtKohlerAdapter extends BaseQuickAdapter<ArtKohlerBean.AgendaListBean, BaseViewHolder> {
 
-    public MeetingAdapter(@Nullable List<MeetingBean.AgendaListBean> data) {
+    public ArtKohlerAdapter(@Nullable List<ArtKohlerBean.AgendaListBean> data) {
         super(R.layout.item_meeting_adapter, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, MeetingBean.AgendaListBean item) {
+    protected void convert(BaseViewHolder helper, ArtKohlerBean.AgendaListBean item) {
         String agendaType = "";
         switch (item.getAgendaType()) {
             case -1:

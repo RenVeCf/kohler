@@ -30,7 +30,7 @@ import com.mengyang.kohler.common.view.GridSpacingItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.MeetingBean;
-import com.mengyang.kohler.whole_category.adapter.MeetingAdapter;
+import com.mengyang.kohler.home.adapter.MeetingAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

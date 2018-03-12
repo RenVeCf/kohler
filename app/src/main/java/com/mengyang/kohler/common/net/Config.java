@@ -39,6 +39,7 @@ public interface Config  {
     String MEETING_LIKE_PICTURE = "ndc/likePicture"; //经销商大会照片点赞
     String MEETING_BARRAGE = "http://106.15.92.74/api/v1/danmu/send?access_token="; //弹幕
     String WEEKLY_RADIO_CONCERT = "concert/list"; //星广会内容列表
+    String ART_KOHLER = "ndc/facadeGetMeetingAndAgenda?meetingId=2"; //科勒艺术
 
     /**
      * 全品类

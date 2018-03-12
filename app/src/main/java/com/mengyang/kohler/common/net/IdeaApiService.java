@@ -2,6 +2,7 @@ package com.mengyang.kohler.common.net;
 
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.AllSearchBean;
+import com.mengyang.kohler.module.bean.ArtKohlerBean;
 import com.mengyang.kohler.module.bean.BooksListBean;
 import com.mengyang.kohler.module.bean.CommodityClassificationFragmentBean;
 import com.mengyang.kohler.module.bean.CommodityClassificationTitleBean;
@@ -20,7 +21,6 @@ import com.mengyang.kohler.module.bean.SelectClassificationBean;
 import com.mengyang.kohler.module.bean.StoreListBean;
 import com.mengyang.kohler.module.bean.SystemMsgBean;
 import com.mengyang.kohler.module.bean.UploadHeadPortraitBean;
-import com.mengyang.kohler.module.bean.UserHomeKVBean;
 import com.mengyang.kohler.module.bean.UserMsgBean;
 import com.mengyang.kohler.module.bean.WeeklyRadioConcertBean;
 
@@ -46,8 +46,8 @@ public interface IdeaApiService {
      */
     int DEFAULT_TIMEOUT = 30000;
     //项目主页(测试环境)
-    String API_SERVER_URL = "http://kohler-app.glor.cn/";
-//    String API_SERVER_URL = "http://kohler-app-tmp.glor.cn/"; //test
+    //    String API_SERVER_URL = "http://kohler-app.glor.cn/";
+    String API_SERVER_URL = "http://kohler-app-tmp.glor.cn/"; //test
     //项目主页(正式环境)
     //    String API_SERVER_URL = "http://t-api.glor.cn/";
 
@@ -56,15 +56,15 @@ public interface IdeaApiService {
     @POST(Config.HOME_INDEX)
     Observable<BasicResponse<HomeIndexBean>> getUserHomeKV(@FieldMap Map<String, String> map);
 
-//    //经销商用户首页KV图
-//    @FormUrlEncoded
-//    @POST(Config.DEALER_HOME_KV)
-//    Observable<BasicResponse<List<UserHomeKVBean>>> getDealerHomeKV(@FieldMap Map<String, String> map);
-//
-//    //设计师用户首页KV图
-//    @FormUrlEncoded
-//    @POST(Config.DESIGNER_HOME_KV)
-//    Observable<BasicResponse<List<UserHomeKVBean>>> getDesignerHomeKV(@FieldMap Map<String, String> map);
+    //    //经销商用户首页KV图
+    //    @FormUrlEncoded
+    //    @POST(Config.DEALER_HOME_KV)
+    //    Observable<BasicResponse<List<UserHomeKVBean>>> getDealerHomeKV(@FieldMap Map<String, String> map);
+    //
+    //    //设计师用户首页KV图
+    //    @FormUrlEncoded
+    //    @POST(Config.DESIGNER_HOME_KV)
+    //    Observable<BasicResponse<List<UserHomeKVBean>>> getDesignerHomeKV(@FieldMap Map<String, String> map);
 
     //用户注册
     @FormUrlEncoded
@@ -245,4 +245,9 @@ public interface IdeaApiService {
     @FormUrlEncoded
     @POST(Config.WEEKLY_RADIO_CONCERT)
     Observable<BasicResponse<WeeklyRadioConcertBean>> getWeeklyRadioConcert(@FieldMap Map<String, String> map);
+
+    //科勒艺术
+    @FormUrlEncoded
+    @POST(Config.ART_KOHLER)
+    Observable<BasicResponse<ArtKohlerBean>> getArtKohler(@FieldMap Map<String, String> map);
 }

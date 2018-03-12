@@ -14,22 +14,28 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
+import com.mengyang.kohler.common.activity.WebViewActivity;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.view.GridSpacingItemDecoration;
 import com.mengyang.kohler.common.view.SpacesItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
+import com.mengyang.kohler.home.adapter.ArtKohlerAdapter;
+import com.mengyang.kohler.home.adapter.ArtKohlerSelectAdapter;
+import com.mengyang.kohler.home.adapter.DesignerIntroductionAdapter;
 import com.mengyang.kohler.module.BasicResponse;
-import com.mengyang.kohler.module.bean.DesignerIntroductionBean;
-import com.mengyang.kohler.module.bean.MeetingBean;
-import com.mengyang.kohler.whole_category.adapter.MeetingAdapter;
+import com.mengyang.kohler.module.bean.ArtKohlerBean;
+import com.mengyang.kohler.home.adapter.MeetingAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,21 +76,35 @@ public class ArtKohlerActivity extends BaseActivity {
     RecyclerView rvArtKohlerAgenda;
     @BindView(R.id.ll_view_all)
     LinearLayout llViewAll;
+    @BindView(R.id.tv_art_kohler_live)
+    TextView tvArtKohlerLive;
+    @BindView(R.id.rl_art_kohler_live)
+    RelativeLayout rlArtKohlerLive;
+    @BindView(R.id.tv_art_kohler_video)
+    TextView tvArtKohlerVideo;
+    @BindView(R.id.rl_art_kohler_video)
+    RelativeLayout rlArtKohlerVideo;
 
-    //    private DesignerIntroductionAdapter mDesignerIntroductionAdapter;
-    private List<DesignerIntroductionBean> mDesignerIntroductionBean;
+    private DesignerIntroductionAdapter mDesignerIntroductionAdapter;
+    private List<ArtKohlerBean.DesignersBean> mDesignerIntroductionAdapterBean;
+
+    private ArtKohlerSelectAdapter mArtKohlerSelectAdapter;
+    private List<ArtKohlerBean.GalleryBean> mArtSelectAdapterBean;
 
     private PopupWindow mMeetingPopupWindow;
     private View mPopLayout;
-    private MeetingBean mMeetingBean;
-    private List<MeetingBean.AgendaListBean> mMeetingAdapterBean;
-    private MeetingAdapter mMeetingAdapter;
+    private ArtKohlerBean mArtKohlerBean;
+    private List<ArtKohlerBean.AgendaListBean> mArtKohlerAdapterBean;
+    private ArtKohlerAdapter mArtKohlerAdapter;
     //popupwindow 控件
     private TextView tvPopMeetingDate;
     private TextView tvPopMeetingTime;
     private TextView tvPopMeetingPosition;
     private TextView tvPopMeetingName;
     private TextView tvPopMeetingAbstract;
+
+    String mLive = "";
+    String mVideo = "";
 
     @Override
     protected int getLayoutId() {
@@ -123,28 +143,26 @@ public class ArtKohlerActivity extends BaseActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(App.getContext());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         rvArtKohlerDesigner.setLayoutManager(layoutManager);
-        rvArtKohlerDesigner.addItemDecoration(new SpacesItemDecoration(13));
+        rvArtKohlerDesigner.addItemDecoration(new SpacesItemDecoration(20));
         // 如果可以确定每个item的高度是固定的，设置这个选项可以提高性能
         rvArtKohlerDesigner.setHasFixedSize(true);
         rvArtKohlerDesigner.setItemAnimator(new DefaultItemAnimator());
-        //        mDesignerIntroductionBean = new ArrayList<>();
-        //        mDesignerIntroductionAdapter = new DesignerIntroductionAdapter(mDesignerIntroductionBean);
-        //        rvArtKohlerDesigner.setAdapter(mDesignerIntroductionAdapter);
-        mMeetingAdapterBean = new ArrayList<>();
-        mMeetingAdapter = new MeetingAdapter(mMeetingAdapterBean);
-        rvArtKohlerDesigner.setAdapter(mMeetingAdapter);
+
+        mDesignerIntroductionAdapterBean = new ArrayList<>();
+        mDesignerIntroductionAdapter = new DesignerIntroductionAdapter(mDesignerIntroductionAdapterBean);
+        rvArtKohlerDesigner.setAdapter(mDesignerIntroductionAdapter);
 
         //精选图片
         GridLayoutManager layoutManagerSelect = new GridLayoutManager(App.getContext(), 2);
         rvArtKohlerSelect.setLayoutManager(layoutManagerSelect);
-        rvArtKohlerSelect.addItemDecoration(new GridSpacingItemDecoration(2, 20, false));
+        rvArtKohlerSelect.addItemDecoration(new GridSpacingItemDecoration(2, 50, false));
         rvArtKohlerSelect.setHasFixedSize(true);
         rvArtKohlerSelect.setItemAnimator(new DefaultItemAnimator());
         rvArtKohlerSelect.setNestedScrollingEnabled(false);
 
-        mMeetingAdapterBean = new ArrayList<>();
-        mMeetingAdapter = new MeetingAdapter(mMeetingAdapterBean);
-        rvArtKohlerSelect.setAdapter(mMeetingAdapter);
+        mArtSelectAdapterBean = new ArrayList<>();
+        mArtKohlerSelectAdapter = new ArtKohlerSelectAdapter(mArtSelectAdapterBean);
+        rvArtKohlerSelect.setAdapter(mArtKohlerSelectAdapter);
 
         //议程
         GridLayoutManager layoutManagerActivity = new GridLayoutManager(App.getContext(), 2);
@@ -154,9 +172,9 @@ public class ArtKohlerActivity extends BaseActivity {
         rvArtKohlerAgenda.setItemAnimator(new DefaultItemAnimator());
         rvArtKohlerAgenda.setNestedScrollingEnabled(false);
 
-        mMeetingAdapterBean = new ArrayList<>();
-        mMeetingAdapter = new MeetingAdapter(mMeetingAdapterBean);
-        rvArtKohlerAgenda.setAdapter(mMeetingAdapter);
+        mArtKohlerAdapterBean = new ArrayList<>();
+        mArtKohlerAdapter = new ArtKohlerAdapter(mArtKohlerAdapterBean);
+        rvArtKohlerAgenda.setAdapter(mArtKohlerAdapter);
     }
 
     @Override
@@ -170,17 +188,22 @@ public class ArtKohlerActivity extends BaseActivity {
 
         IdeaApi.getRequestLogin(stringMap);
         IdeaApi.getApiService()
-                .getMeeting(stringMap)
-                .compose(ArtKohlerActivity.this.<BasicResponse<MeetingBean>>bindToLifecycle())
+                .getArtKohler(stringMap)
+                .compose(ArtKohlerActivity.this.<BasicResponse<ArtKohlerBean>>bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<BasicResponse<MeetingBean>>(ArtKohlerActivity.this, true) {
+                .subscribe(new DefaultObserver<BasicResponse<ArtKohlerBean>>(ArtKohlerActivity.this, true) {
                     @Override
-                    public void onSuccess(BasicResponse<MeetingBean> response) {
-                        mMeetingBean = response.getData();
-
+                    public void onSuccess(BasicResponse<ArtKohlerBean> response) {
+                        mArtKohlerBean = response.getData();
+                        Glide.with(App.getContext()).load(mArtKohlerBean.getLive().getKvUrl()).apply(new RequestOptions().placeholder(R.mipmap.queshengtu)).into(ivArtKohlerLive);
+                        tvArtKohlerLive.setText(mArtKohlerBean.getLive().getTitle());
+                        mLive = mArtKohlerBean.getLive().getH5Url();
+                        Glide.with(App.getContext()).load(mArtKohlerBean.getVideo().getKvUrl()).apply(new RequestOptions().placeholder(R.mipmap.queshengtu)).into(ivArtKohlerVideo);
+                        tvArtKohlerVideo.setText(mArtKohlerBean.getVideo().getTitle());
+                        mVideo = mArtKohlerBean.getVideo().getH5Url();
                         String agendaType = "";
-                        switch (mMeetingBean.getAgendaList().get(0).getAgendaType()) {
+                        switch (mArtKohlerBean.getAgendaList().get(0).getAgendaType()) {
                             case -1:
                                 agendaType = "过期议程";
                                 break;
@@ -199,50 +222,56 @@ public class ArtKohlerActivity extends BaseActivity {
                         }
 
                         tvArtKohlerPositionZeroAgendaType.setText(agendaType);
-                        tvArtKohlerPositionZeroAgendaTime.setText(mMeetingBean.getAgendaList().get(0).getTimeSlot());
-                        tvArtKohlerPositionZeroAgendaPosition.setText(mMeetingBean.getAgendaList().get(0).getPlace());
-                        tvArtKohlerPositionZeroAgendaName.setText(mMeetingBean.getAgendaList().get(0).getTitle());
+                        tvArtKohlerPositionZeroAgendaTime.setText(mArtKohlerBean.getAgendaList().get(0).getTimeSlot());
+                        tvArtKohlerPositionZeroAgendaPosition.setText(mArtKohlerBean.getAgendaList().get(0).getPlace());
+                        tvArtKohlerPositionZeroAgendaName.setText(mArtKohlerBean.getAgendaList().get(0).getTitle());
 
-                        mMeetingAdapterBean.clear();
-                        mMeetingAdapterBean.addAll(mMeetingBean.getAgendaList());
-                        mMeetingAdapterBean.remove(0);
+                        mArtKohlerAdapterBean.clear();
+                        mArtKohlerAdapterBean.addAll(mArtKohlerBean.getAgendaList());
+                        mArtKohlerAdapterBean.remove(0);
 
-                        mMeetingAdapter = new MeetingAdapter(mMeetingAdapterBean);
-                        rvArtKohlerAgenda.setAdapter(mMeetingAdapter);
-                        rvArtKohlerDesigner.setAdapter(mMeetingAdapter);
-                        rvArtKohlerSelect.setAdapter(mMeetingAdapter);
-                        mMeetingAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                        //议程
+                        mArtKohlerAdapter = new ArtKohlerAdapter(mArtKohlerAdapterBean);
+                        rvArtKohlerAgenda.setAdapter(mArtKohlerAdapter);
+                        //设计介绍
+                        mDesignerIntroductionAdapterBean.clear();
+                        mDesignerIntroductionAdapterBean.addAll(response.getData().getDesigners());
+                        mDesignerIntroductionAdapter = new DesignerIntroductionAdapter(mDesignerIntroductionAdapterBean);
+                        rvArtKohlerDesigner.setAdapter(mDesignerIntroductionAdapter);
+                        //精选图片
+                        mArtSelectAdapterBean.clear();
+                        mArtSelectAdapterBean.addAll(response.getData().getGallery());
+                        mArtKohlerSelectAdapter = new ArtKohlerSelectAdapter(mArtSelectAdapterBean);
+                        rvArtKohlerSelect.setAdapter(mArtKohlerSelectAdapter);
+
+                        mArtKohlerAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                             @Override
                             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                                tvPopMeetingDate.setText(mMeetingBean.getAgendaList().get(position + 1).getDateStr());
-                                tvPopMeetingTime.setText(mMeetingBean.getAgendaList().get(position + 1).getTimeSlot());
-                                tvPopMeetingPosition.setText(mMeetingBean.getAgendaList().get(position + 1).getPlace());
-                                tvPopMeetingName.setText(mMeetingBean.getAgendaList().get(position + 1).getTitle());
-                                tvPopMeetingAbstract.setText(mMeetingBean.getAgendaList().get(position + 1).getAgendaDesc());
+                                tvPopMeetingDate.setText(mArtKohlerBean.getAgendaList().get(position + 1).getDateStr());
+                                tvPopMeetingTime.setText(mArtKohlerBean.getAgendaList().get(position + 1).getTimeSlot());
+                                tvPopMeetingPosition.setText(mArtKohlerBean.getAgendaList().get(position + 1).getPlace());
+                                tvPopMeetingName.setText(mArtKohlerBean.getAgendaList().get(position + 1).getTitle());
+                                tvPopMeetingAbstract.setText(mArtKohlerBean.getAgendaList().get(position + 1).getAgendaDesc());
                                 if (Build.VERSION.SDK_INT == 24) {//android7.0需要单独做适配
                                     mMeetingPopupWindow.showAtLocation(view, Gravity.NO_GRAVITY, 0, getStatusBarHeight());
                                 } else {
                                     mMeetingPopupWindow.showAtLocation(view, Gravity.NO_GRAVITY, 0, 0);
                                 }
                             }
-                        });
+                    });
                     }
                 });
     }
 
-    @OnClick({R.id.ll_view_all, R.id.iv_art_kohler_live, R.id.iv_art_kohler_video, R.id.ll_art_kohler_position_zero})
+    @OnClick({R.id.rl_art_kohler_live, R.id.rl_art_kohler_video, R.id.ll_view_all, R.id.ll_art_kohler_position_zero})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.iv_art_kohler_live:
-                break;
-            case R.id.iv_art_kohler_video:
-                break;
             case R.id.ll_art_kohler_position_zero:
-                tvPopMeetingDate.setText(mMeetingBean.getAgendaList().get(0).getDateStr());
-                tvPopMeetingTime.setText(mMeetingBean.getAgendaList().get(0).getTimeSlot());
-                tvPopMeetingPosition.setText(mMeetingBean.getAgendaList().get(0).getPlace());
-                tvPopMeetingName.setText(mMeetingBean.getAgendaList().get(0).getTitle());
-                tvPopMeetingAbstract.setText(mMeetingBean.getAgendaList().get(0).getAgendaDesc());
+                tvPopMeetingDate.setText(mArtKohlerBean.getAgendaList().get(0).getDateStr());
+                tvPopMeetingTime.setText(mArtKohlerBean.getAgendaList().get(0).getTimeSlot());
+                tvPopMeetingPosition.setText(mArtKohlerBean.getAgendaList().get(0).getPlace());
+                tvPopMeetingName.setText(mArtKohlerBean.getAgendaList().get(0).getTitle());
+                tvPopMeetingAbstract.setText(mArtKohlerBean.getAgendaList().get(0).getAgendaDesc());
                 if (Build.VERSION.SDK_INT == 24) {//android7.0需要单独做适配
                     mMeetingPopupWindow.showAtLocation(view, Gravity.NO_GRAVITY, 0, getStatusBarHeight());
                 } else {
@@ -251,6 +280,12 @@ public class ArtKohlerActivity extends BaseActivity {
                 break;
             case R.id.ll_view_all:
                 startActivity(new Intent(this, DesignerIntroductionActivity.class));
+                break;
+            case R.id.rl_art_kohler_live:
+                startActivity(new Intent(this, WebViewActivity.class).putExtra("h5url", mLive));
+                break;
+            case R.id.rl_art_kohler_video:
+                startActivity(new Intent(this, WebViewActivity.class).putExtra("h5url", mVideo));
                 break;
         }
     }

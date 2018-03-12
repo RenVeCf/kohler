@@ -54,15 +54,47 @@
                 android:textColor="#9e9e9e"
                 android:textSize="10sp"/>
 
-            <ImageView
-                android:id="@+id/iv_art_kohler_live"
+            <RelativeLayout
+                android:id="@+id/rl_art_kohler_live"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/y684"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/x60"
                 android:layout_marginStart="@dimen/x60"
-                android:layout_marginTop="@dimen/y39"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/queshengtu"/>
+                android:layout_marginTop="@dimen/y39">
+
+                <ImageView
+                    android:id="@+id/iv_art_kohler_live"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y684"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/queshengtu"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y96"
+                    android:layout_alignParentBottom="true"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/video"/>
+
+                    <TextView
+                        android:id="@+id/tv_art_kohler_live"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingStart="@dimen/x30"
+                        android:alpha="0.3"
+                        android:background="@color/black"
+                        android:ellipsize="end"
+                        android:gravity="center_vertical"
+                        android:lines="1"
+                        android:textColor="@color/white"
+                        android:textSize="10sp"/>
+                </LinearLayout>
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -139,7 +171,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/x60"
-                android:text="Live"
+                android:text="Gallery"
                 android:textColor="#9e9e9e"
                 android:textSize="10sp"/>
 
@@ -168,15 +200,54 @@
                 android:textColor="#9e9e9e"
                 android:textSize="10sp"/>
 
-            <ImageView
-                android:id="@+id/iv_art_kohler_video"
+            <RelativeLayout
+                android:id="@+id/rl_art_kohler_video"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/y684"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/x60"
                 android:layout_marginStart="@dimen/x60"
-                android:layout_marginTop="@dimen/y66"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/queshengtu"/>
+                android:layout_marginTop="@dimen/y66">
+
+                <ImageView
+                    android:id="@+id/iv_art_kohler_video"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y684"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/queshengtu"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y96"
+                    android:gravity="center"
+                    android:layout_alignParentBottom="true"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/video"/>
+
+                    <View
+                        android:layout_width="0.5dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/y33"
+                        android:layout_marginBottom="@dimen/y27"/>
+
+                    <TextView
+                        android:id="@+id/tv_art_kohler_video"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingStart="@dimen/x30"
+                        android:alpha="0.8"
+                        android:background="@color/black"
+                        android:ellipsize="end"
+                        android:gravity="center_vertical"
+                        android:lines="1"
+                        android:textColor="@color/white"
+                        android:textSize="10sp"/>
+                </LinearLayout>
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
