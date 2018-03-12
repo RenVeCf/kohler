@@ -5,14 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Icon;
 import android.os.Build;
-import android.os.Environment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,15 +38,15 @@ import com.mengyang.kohler.common.utils.FileUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.view.SpacesItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
+import com.mengyang.kohler.home.activity.ArtKohlerActivity;
+import com.mengyang.kohler.home.activity.DesignerIntroductionActivity;
 import com.mengyang.kohler.home.activity.DownLoaderPDFActivity;
 import com.mengyang.kohler.home.activity.HomeSearchActivity;
 import com.mengyang.kohler.home.activity.MeetingActivity;
 import com.mengyang.kohler.home.activity.PDFActivity;
 import com.mengyang.kohler.home.activity.WeeklyRadioConcertActivity;
 import com.mengyang.kohler.home.adapter.BrochureListAdapter2;
-import com.mengyang.kohler.home.adapter.HomeBooksAdapter;
 import com.mengyang.kohler.module.BasicResponse;
-import com.mengyang.kohler.module.PdfBean;
 import com.mengyang.kohler.module.bean.BooksListBean;
 import com.mengyang.kohler.module.bean.HomeIndexBean;
 import com.ryane.banner.AdPageInfo;
@@ -180,7 +177,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
             String userLevel = (String) SPUtil.get(getActivity(), IConstants.TYPE, "");
             if (userLevel.equals("dealer") || userLevel.equals("designer")) {
                 final List<String> listFileName = FileUtil.judgePdfIsExit(mLocalTempPdfFileName);
-                    // TODO: 2018/2/23 ,若是用户手动删除了手机上的文件，还没有做处理
+                // TODO: 2018/2/23 ,若是用户手动删除了手机上的文件，还没有做处理
 
                 if (listFileName != null && listFileName.size() > 0) {
 
@@ -269,50 +266,50 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                     @Override
                     public void onSuccess(BasicResponse<BooksListBean> response) {
                         if (response != null) {
-                                mBooksListBean.clear();
-                                mBooksListBean.addAll(response.getData().getResultList());
-                                if (mBooksListBean.size() > 0) {
-                                    pageNum += 1;
+                            mBooksListBean.clear();
+                            mBooksListBean.addAll(response.getData().getResultList());
+                            if (mBooksListBean.size() > 0) {
+                                pageNum += 1;
 
-                                    if (mMineManualAdapter == null) {
-                                        mMineManualAdapter = new BrochureListAdapter2(mBooksListBean);
-                                        rvHomeBooks.setAdapter(mMineManualAdapter);
-                                    } else {
-                                        mMineManualAdapter.notifyDataSetChanged();
-                                    }
+                                if (mMineManualAdapter == null) {
+                                    mMineManualAdapter = new BrochureListAdapter2(mBooksListBean);
+                                    rvHomeBooks.setAdapter(mMineManualAdapter);
+                                } else {
+                                    mMineManualAdapter.notifyDataSetChanged();
+                                }
 
-                                    mMineManualAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-                                        @Override
-                                        public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                                            mCurPosition = position;
-                                            //判断是否这个pdf文件已存在
-                                            mPdfTotalPath = IConstants.mRootPath + "/" + mBooksListBean.get(position).getPdfUrl().substring(mBooksListBean.get(position).getPdfUrl().lastIndexOf("/") + 1);
-                                            if (FileUtils.isFileExist(mPdfTotalPath)) {
-                                                startActivity(new Intent(getActivity(), PDFActivity.class).putExtra("PdfUrl", mBooksListBean.get(position).getPdfUrl()));
-                                            } else {//没找到就去下载
-                                                mDownLoadKvUrl = mBooksListBean.get(mCurPosition).getKvUrl();
-                                                // TODO: 2018/2/11 ,还需要考虑到断点续传的功能,若是客户在下载的过程中退出应用，下次在进来的时候，PDF虽然有了，但是不能显示
+                                mMineManualAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                                    @Override
+                                    public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                                        mCurPosition = position;
+                                        //判断是否这个pdf文件已存在
+                                        mPdfTotalPath = IConstants.mRootPath + "/" + mBooksListBean.get(position).getPdfUrl().substring(mBooksListBean.get(position).getPdfUrl().lastIndexOf("/") + 1);
+                                        if (FileUtils.isFileExist(mPdfTotalPath)) {
+                                            startActivity(new Intent(getActivity(), PDFActivity.class).putExtra("PdfUrl", mBooksListBean.get(position).getPdfUrl()));
+                                        } else {//没找到就去下载
+                                            mDownLoadKvUrl = mBooksListBean.get(mCurPosition).getKvUrl();
+                                            // TODO: 2018/2/11 ,还需要考虑到断点续传的功能,若是客户在下载的过程中退出应用，下次在进来的时候，PDF虽然有了，但是不能显示
 
-                                                String pdfUrl = mBooksListBean.get(position).getPdfUrl();
-                                                if (pdfUrl != null && !TextUtils.isEmpty(pdfUrl)) {
-                                                    Intent intent = new Intent(getActivity(), DownLoaderPDFActivity.class);
-                                                    intent.putExtra("PdfUrl", mBooksListBean.get(position).getPdfUrl());
-                                                    intent.putExtra("mPdfTotalPath", mPdfTotalPath);
-                                                    intent.putExtra("mDownLoadKvUrl", mDownLoadKvUrl);
-                                                    startActivity(intent);
-                                                    return;
-                                                } else {
-                                                    String videoUrl = mBooksListBean.get(position).getVideoUrl();
-                                                    if (videoUrl != null && !TextUtils.isEmpty(videoUrl)) {
-                                                        startActivity(new Intent(getActivity(), WebViewActivity.class).putExtra("h5url", videoUrl).putExtra("flag", 2));
-                                                    }
+                                            String pdfUrl = mBooksListBean.get(position).getPdfUrl();
+                                            if (pdfUrl != null && !TextUtils.isEmpty(pdfUrl)) {
+                                                Intent intent = new Intent(getActivity(), DownLoaderPDFActivity.class);
+                                                intent.putExtra("PdfUrl", mBooksListBean.get(position).getPdfUrl());
+                                                intent.putExtra("mPdfTotalPath", mPdfTotalPath);
+                                                intent.putExtra("mDownLoadKvUrl", mDownLoadKvUrl);
+                                                startActivity(intent);
+                                                return;
+                                            } else {
+                                                String videoUrl = mBooksListBean.get(position).getVideoUrl();
+                                                if (videoUrl != null && !TextUtils.isEmpty(videoUrl)) {
+                                                    startActivity(new Intent(getActivity(), WebViewActivity.class).putExtra("h5url", videoUrl).putExtra("flag", 2));
                                                 }
                                             }
                                         }
-                                    });
-                                } else {
-                                    mMineManualAdapter.loadMoreEnd();
-                                }
+                                    }
+                                });
+                            } else {
+                                mMineManualAdapter.loadMoreEnd();
+                            }
                         } else {
                             mMineManualAdapter.loadMoreEnd();
                         }
@@ -338,11 +335,8 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                 .subscribe(new DefaultObserver<BasicResponse<HomeIndexBean>>(getActivity(), false) {
                     @Override
                     public void onSuccess(BasicResponse<HomeIndexBean> response) {
-                        etHomeSearch.setFocusable(true);
                         etHomeSearch.setFocusableInTouchMode(true);
-
                         mHomeIndexBean = response.getData();
-
                         for (int i = 0; i < mHomeIndexBean.getKvList().size(); i++) {
                             ImageView point = new ImageView(getActivity());
                             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(75, 9);
@@ -376,6 +370,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
 
                                 if (postion == 0 && SPUtil.get(getActivity(), IConstants.TYPE, "").equals("dealer")) {
                                     startActivity(new Intent(getActivity(), MeetingActivity.class));
+//                                    startActivity(new Intent(getActivity(), ArtKohlerActivity.class));
                                 } else if (postion == 0 && SPUtil.get(getActivity(), IConstants.TYPE, "").equals("commonUser")) {
                                     if (Build.VERSION.SDK_INT == 24) {//android7.0需要单独做适配
                                         mNoJurisdictionPopupWindow.showAtLocation(getView(), Gravity.NO_GRAVITY, 0, getStatusBarHeight());
@@ -388,8 +383,10 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                                     } else {
                                         mNoJurisdictionPopupWindow.showAtLocation(getView(), Gravity.NO_GRAVITY, 0, 0);
                                     }
+                                } else if (postion == 2 && SPUtil.get(getActivity(), IConstants.TYPE, "").equals("designer")) {
+                                    startActivity(new Intent(getActivity(), ArtKohlerActivity.class));
                                 } else {
-                                    if (postion == 0) {
+                                    if (postion == 0 || postion == 2) {
                                         startActivity(new Intent(getActivity(), LoginActivity.class));
                                     } else if (postion == 1) {
                                         Intent intent = new Intent(getActivity(), DownloadActivity.class);
@@ -474,7 +471,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
         void onFragmentInteraction(String data);
     }
 
-    @OnClick({R.id.iv_top_menu, R.id.iv_home_search, R.id.iv_top_customer_service,R.id.tv_home_top, R.id.iv_weekly_radio_concert})
+    @OnClick({R.id.iv_top_menu, R.id.iv_home_search, R.id.iv_top_customer_service, R.id.tv_home_top, R.id.iv_weekly_radio_concert})
     public void onViewClicked(View view) {
         if (getActivity().getCurrentFocus() != null) {
             ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(((Activity) getActivity()).getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);

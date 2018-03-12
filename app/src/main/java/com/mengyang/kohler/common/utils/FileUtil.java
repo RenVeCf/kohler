@@ -26,15 +26,17 @@ public class FileUtil {
         }
 
         File[] files = file2.listFiles();
-        for (int i = 0; i < files.length; i++) {
-            String fileName = files[i].getName();
+        if (files != null) {
+            for (int i = 0; i < files.length; i++) {
+                String fileName = files[i].getName();
 
-            if (files[i].isFile() && fileName.endsWith(".pdf")) {
-                if (!TextUtils.isEmpty(fileName)) {
-                    localTempPdfFileName.add(fileName);
+                if (files[i].isFile() && fileName.endsWith(".pdf")) {
+                    if (!TextUtils.isEmpty(fileName)) {
+                        localTempPdfFileName.add(fileName);
+                    }
+
+                    Log.i("kohler", "本地的pdfName = " + fileName);
                 }
-
-                Log.i("kohler","本地的pdfName = " + fileName);
             }
         }
         return localTempPdfFileName;

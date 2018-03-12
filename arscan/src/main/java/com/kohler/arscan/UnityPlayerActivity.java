@@ -1,15 +1,5 @@
 package com.kohler.arscan;
 
-import com.kohler.arscan.constant.Config;
-import com.kohler.arscan.util.DensityUtil;
-import com.kohler.arscan.util.LogManager;
-import com.kohler.arscan.util.SPUtil;
-import com.kohler.arscan.util.SharePreUtil;
-import com.unity3d.player.*;
-import com.xiuyukeji.pictureplayerview.PicturePlayerView;
-import com.xiuyukeji.pictureplayerview.interfaces.OnErrorListener;
-import com.xiuyukeji.pictureplayerview.interfaces.OnStopListener;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -17,7 +7,6 @@ import android.graphics.PixelFormat;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -26,19 +15,25 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.kohler.arscan.constant.Config;
+import com.kohler.arscan.util.LogManager;
+import com.kohler.arscan.util.SPUtil;
+import com.kohler.arscan.util.SharePreUtil;
+import com.unity3d.player.UnityPlayer;
+import com.xiuyukeji.pictureplayerview.PicturePlayerView;
+import com.xiuyukeji.pictureplayerview.interfaces.OnErrorListener;
+import com.xiuyukeji.pictureplayerview.interfaces.OnStopListener;
+
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -181,7 +176,7 @@ public class UnityPlayerActivity extends Activity implements View.OnClickListene
         tv_zh.setText(zhName);
         tv_en.setText(enName);
 
-        File mFile = new File(Environment.getExternalStorageDirectory() + "/resource/mp3/");
+        File mFile = new File(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "/resource/mp3/");
         if (mFile.exists()) {
             File[] files = mFile.listFiles(filter);
 
@@ -223,7 +218,7 @@ public class UnityPlayerActivity extends Activity implements View.OnClickListene
             return;
         }
 
-        File iFile = new File(Environment.getExternalStorageDirectory() + "/resource/image/");
+        File iFile = new File(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "/resource/image/");
         if (iFile.exists()) {
             File[] files = iFile.listFiles(filter);
 

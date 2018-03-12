@@ -5,7 +5,6 @@ import android.app.Application;
 import android.content.Context;
 
 import com.mengyang.kohler.common.net.IConstants;
-import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.socialize.Config;
@@ -75,8 +74,7 @@ public class App extends Application {
 
     /**
      * 配置三方平台的appkey
-     */
-    {
+     */ {
         PlatformConfig.setWeixin("wx3a3e72f3c0cf486c", "2ba791f61a3837ae7579f6da6d36cff2");
     }
 
@@ -245,6 +243,4 @@ public class App extends Application {
     public void setCurrentActivity(Activity currentActivity) {
         this.currentActivity = currentActivity;
     }
-
-
 }

@@ -217,6 +217,10 @@
         <activity android:name="com.kohler.arscan.UnityPlayerActivity"/>
         <activity android:name=".home.activity.WeeklyRadioConcertActivity">
         </activity>
+        <activity android:name=".home.activity.ArtKohlerActivity">
+        </activity>
+        <activity android:name=".home.activity.DesignerIntroductionActivity">
+        </activity>
     </application>
 
 </manifest>

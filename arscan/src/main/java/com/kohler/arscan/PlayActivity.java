@@ -1,13 +1,10 @@
 package com.kohler.arscan;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.media.MediaPlayer;
+import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -131,7 +128,7 @@ public class PlayActivity extends AppCompatActivity {
             }
         };
 
-        File mFile = new File(Environment.getExternalStorageDirectory() + "/resource/mp3/");
+        File mFile = new File(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "/resource/mp3/");
         if (mFile.exists()) {
             File[] files = mFile.listFiles(filter);
 
@@ -175,7 +172,7 @@ public class PlayActivity extends AppCompatActivity {
             return;
         }
 
-        File iFile = new File(Environment.getExternalStorageDirectory() + "/resource/image/");
+        File iFile = new File(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "/resource/image/");
         if (iFile.exists()) {
             File[] files = iFile.listFiles(filter);
 

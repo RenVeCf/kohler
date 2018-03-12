@@ -26,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kohler.arscan.constant.Config;
+import com.kohler.arscan.util.LogManager;
 import com.kohler.arscan.util.SharePreUtil;
 
 import java.io.BufferedInputStream;
@@ -95,6 +96,7 @@ public class DownloadActivity extends AppCompatActivity {
 
     private void init() {
         boolean config = SharePreUtil.getInstance(this).getConfig(Config.RESOURCE_STATUS, false);
+        LogManager.e(TAG, "是否已下载资源包: " + config);
         if (config) {
             String way = getIntent().getStringExtra("way");
             if ("banner".equals(way)) {
@@ -256,7 +258,9 @@ public class DownloadActivity extends AppCompatActivity {
                         }
                     }
                 }
-                cursor.close();
+                if (cursor != null) {
+                    cursor.close();
+                }
             }
         };
         timer.schedule(timerTask, 0, 1000);
@@ -264,9 +268,13 @@ public class DownloadActivity extends AppCompatActivity {
 
     private boolean unZip(String path) {
         Log.e(TAG, "unZip: " + path);
-        String folderPath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator;
+        File externalFilesDir = getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
+        if (externalFilesDir == null) {
+            return false;
+        }
+        String folderPath = externalFilesDir.getAbsolutePath() + File.separator;
         File file = new File(path);
-        ZipFile zFile = null;
+        ZipFile zFile;
         try {
             zFile = new ZipFile(file);
         } catch (IOException e) {
