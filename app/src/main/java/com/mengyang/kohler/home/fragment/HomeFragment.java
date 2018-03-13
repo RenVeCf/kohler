@@ -369,7 +369,8 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                                 }
 
                                 if (postion == 0 && SPUtil.get(getActivity(), IConstants.TYPE, "").equals("dealer")) {
-                                    startActivity(new Intent(getActivity(), MeetingActivity.class));
+//                                    startActivity(new Intent(getActivity(), MeetingActivity.class));
+                                    startActivity(new Intent(getActivity(), ArtKohlerActivity.class));
                                 } else if (postion == 0 && SPUtil.get(getActivity(), IConstants.TYPE, "").equals("commonUser")) {
                                     if (Build.VERSION.SDK_INT == 24) {//android7.0需要单独做适配
                                         mNoJurisdictionPopupWindow.showAtLocation(getView(), Gravity.NO_GRAVITY, 0, getStatusBarHeight());
