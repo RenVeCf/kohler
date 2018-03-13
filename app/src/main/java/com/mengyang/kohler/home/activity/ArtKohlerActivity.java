@@ -243,6 +243,12 @@ public class ArtKohlerActivity extends BaseActivity {
                         mArtSelectAdapterBean.addAll(response.getData().getGallery());
                         mArtKohlerSelectAdapter = new ArtKohlerSelectAdapter(mArtSelectAdapterBean);
                         rvArtKohlerSelect.setAdapter(mArtKohlerSelectAdapter);
+                        mArtKohlerSelectAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                                startActivity(new Intent(ArtKohlerActivity.this, ArtKohlerSelectActivity.class));
+                            }
+                        });
 
                         mArtKohlerAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                             @Override

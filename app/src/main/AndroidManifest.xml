@@ -221,6 +221,10 @@
         </activity>
         <activity android:name=".home.activity.DesignerIntroductionActivity">
         </activity>
+        <activity android:name=".home.activity.ArtKohlerSelectActivity">
+        </activity>
+        <activity android:name=".home.activity.ArtKohlerSelectBigImgActivity">
+        </activity>
     </application>
 
 </manifest>

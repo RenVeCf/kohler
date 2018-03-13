@@ -177,7 +177,7 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_art_kohler_select"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/y1400"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/x60"
                 android:layout_marginStart="@dimen/x60"
                 android:layout_marginTop="@dimen/y48"/>

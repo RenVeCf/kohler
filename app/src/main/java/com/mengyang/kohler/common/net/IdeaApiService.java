@@ -3,6 +3,7 @@ package com.mengyang.kohler.common.net;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.AllSearchBean;
 import com.mengyang.kohler.module.bean.ArtKohlerBean;
+import com.mengyang.kohler.module.bean.ArtKohlerSelectImgBean;
 import com.mengyang.kohler.module.bean.BooksListBean;
 import com.mengyang.kohler.module.bean.CommodityClassificationFragmentBean;
 import com.mengyang.kohler.module.bean.CommodityClassificationTitleBean;
@@ -250,4 +251,9 @@ public interface IdeaApiService {
     @FormUrlEncoded
     @POST(Config.ART_KOHLER)
     Observable<BasicResponse<ArtKohlerBean>> getArtKohler(@FieldMap Map<String, String> map);
+
+    //科勒艺术精选图片
+    @FormUrlEncoded
+    @POST(Config.ART_KOHLER_SELECT_IMG)
+    Observable<BasicResponse<ArtKohlerSelectImgBean>> getArtKohlerSelectImg(@FieldMap Map<String, String> map);
 }

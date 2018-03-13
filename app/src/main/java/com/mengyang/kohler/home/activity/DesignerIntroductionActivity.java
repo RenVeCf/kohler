@@ -25,6 +25,10 @@ import butterknife.BindView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
+/**
+ * 设计师介绍
+ */
+
 public class DesignerIntroductionActivity extends BaseActivity {
 
     @BindView(R.id.tv_designer_introduction_top)

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
+import android.provider.MediaStore;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -39,7 +40,6 @@ import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.view.SpacesItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.home.activity.ArtKohlerActivity;
-import com.mengyang.kohler.home.activity.DesignerIntroductionActivity;
 import com.mengyang.kohler.home.activity.DownLoaderPDFActivity;
 import com.mengyang.kohler.home.activity.HomeSearchActivity;
 import com.mengyang.kohler.home.activity.MeetingActivity;
@@ -103,6 +103,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
     private PopupWindow mNoJurisdictionPopupWindow;
     private View mPopLayout;
     private BrochureListAdapter2 mMineManualAdapter;
+    private LinearLayout mLlPopupWindowNoJurisdictuon;
 
     //轮播图集合
     private List<AdPageInfo> mDatas = new ArrayList<>();
@@ -166,7 +167,13 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
         mNoJurisdictionPopupWindow.setOutsideTouchable(false);
         mNoJurisdictionPopupWindow.setFocusable(true);
         abHomeLoop.setImageViewScaleType(AdPlayBanner.ScaleType.CENTER_CROP);
-
+        mLlPopupWindowNoJurisdictuon = mPopLayout.findViewById(R.id.ll_pop_no_jurisdictuon);
+        mLlPopupWindowNoJurisdictuon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mNoJurisdictionPopupWindow.dismiss();
+            }
+        });
     }
 
     @Override
@@ -368,27 +375,26 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                                     }
                                 }
 
-                                if (postion == 0 && SPUtil.get(getActivity(), IConstants.TYPE, "").equals("dealer")) {
-//                                    startActivity(new Intent(getActivity(), MeetingActivity.class));
-                                    startActivity(new Intent(getActivity(), ArtKohlerActivity.class));
+                                if (postion == 1 && SPUtil.get(getActivity(), IConstants.TYPE, "").equals("dealer")) {
+                                    startActivity(new Intent(getActivity(), MeetingActivity.class));
                                 } else if (postion == 0 && SPUtil.get(getActivity(), IConstants.TYPE, "").equals("commonUser")) {
                                     if (Build.VERSION.SDK_INT == 24) {//android7.0需要单独做适配
                                         mNoJurisdictionPopupWindow.showAtLocation(getView(), Gravity.NO_GRAVITY, 0, getStatusBarHeight());
                                     } else {
                                         mNoJurisdictionPopupWindow.showAtLocation(getView(), Gravity.NO_GRAVITY, 0, 0);
                                     }
-                                } else if (postion == 0 && SPUtil.get(getActivity(), IConstants.TYPE, "").equals("designer")) {
+                                } else if (postion == 0 && !SPUtil.get(getActivity(), IConstants.TYPE, "").equals("designer") || postion == 1 && !SPUtil.get(getActivity(), IConstants.TYPE, "").equals("dealer")) {
                                     if (Build.VERSION.SDK_INT == 24) {//android7.0需要单独做适配
                                         mNoJurisdictionPopupWindow.showAtLocation(getView(), Gravity.NO_GRAVITY, 0, getStatusBarHeight());
                                     } else {
                                         mNoJurisdictionPopupWindow.showAtLocation(getView(), Gravity.NO_GRAVITY, 0, 0);
                                     }
-                                } else if (postion == 2 && SPUtil.get(getActivity(), IConstants.TYPE, "").equals("designer")) {
+                                } else if (postion == 0 && SPUtil.get(getActivity(), IConstants.TYPE, "").equals("designer")) {
                                     startActivity(new Intent(getActivity(), ArtKohlerActivity.class));
                                 } else {
-                                    if (postion == 0 || postion == 2) {
+                                    if (postion == 0 || postion == 1) {
                                         startActivity(new Intent(getActivity(), LoginActivity.class));
-                                    } else if (postion == 1) {
+                                    } else if (postion == 2) {
                                         Intent intent = new Intent(getActivity(), DownloadActivity.class);
                                         intent.putExtra("way", "banner");
                                         startActivity(intent);

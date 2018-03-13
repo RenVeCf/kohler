@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.mengyang.kohler.home.activity.ArtKohlerSelectActivity">
+
+    <com.mengyang.kohler.common.view.TopView
+        android:id="@+id/tv_art_kohler_select_top"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white"
+        app:is_back="false"
+        app:is_customer_service="true"
+        app:is_iv_top_title="true"
+        app:is_menu="true"
+        app:is_share="true"
+        app:is_system_msg="true"
+        app:title="精选图片"
+        app:title_color="@color/black"/>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/srl_art_kohler_select"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="@dimen/x60"
+        android:layout_marginStart="@dimen/x60"
+        android:layout_marginTop="@dimen/y48">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_art_kohler_select"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </android.support.v4.widget.SwipeRefreshLayout>
+</LinearLayout>
