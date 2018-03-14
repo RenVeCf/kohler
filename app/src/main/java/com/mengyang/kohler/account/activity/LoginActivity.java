@@ -224,7 +224,7 @@ public class LoginActivity extends BaseActivity {
                 }
                 break;
             case R.id.ll_login_go_register:
-                startActivity(new Intent(this, DistributorRegisterActivity.class));
+                startActivity(new Intent(this, UserRegisterActivity.class));
                 finish();
                 break;
             case R.id.iv_login_verification_code:
