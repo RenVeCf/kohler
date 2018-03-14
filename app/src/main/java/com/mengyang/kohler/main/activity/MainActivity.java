@@ -456,7 +456,6 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 Intent intent = new Intent(this, DownloadActivity.class);
                 intent.putExtra("way", "arscan");
                 startActivityForResult(intent, IConstants.DELETE_REQUESTCODE);
-                MobclickAgent.onEvent(MainActivity.this, "arsaoyisao");
                 break;
             case R.id.bt_account:
                 switchFragment(mAccountFragment).commit();

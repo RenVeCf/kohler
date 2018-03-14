@@ -41,5 +41,4 @@ dependencies {
     implementation files('libs/unity-classes.jar')
     //百分比布局
     compile 'com.android.support:percent:25.3.0'
-    compile 'com.umeng.analytics:analytics:latest.integration'
 }
