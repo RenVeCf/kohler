@@ -447,6 +447,7 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 view_line.setVisibility(View.GONE);
                 break;
             case R.id.bt_ar:
+                MobclickAgent.onEvent(MainActivity.this, "arsaoyisao");
                 switchFragment(mARFragment).commit();
                 //沉浸式状态栏初始化黑色
                 ImmersionBar.with(this).fitsSystemWindows(false).statusBarDarkFont(true).init();

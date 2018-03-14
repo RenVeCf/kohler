@@ -35,7 +35,6 @@ import com.mengyang.kohler.home.adapter.ArtKohlerSelectAdapter;
 import com.mengyang.kohler.home.adapter.DesignerIntroductionAdapter;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.ArtKohlerBean;
-import com.mengyang.kohler.home.adapter.MeetingAdapter;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;

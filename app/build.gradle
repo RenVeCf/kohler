@@ -145,15 +145,16 @@ dependencies {
     implementation files('libs/jsms_android-1.2.0.jar')
 
     //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.2.0
-    compile 'com.tencent.bugly:crashreport:latest.release'
+    implementation 'com.tencent.bugly:crashreport:latest.release'
 
     //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.1.9
-    compile 'com.tencent.bugly:crashreport:latest.release'
+    implementation 'com.tencent.bugly:crashreport:latest.release'
 
     //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
-    compile 'com.tencent.bugly:nativecrashreport:latest.release'
-    compile 'com.umeng.sdk:common:latest.integration'
-    compile 'com.umeng.sdk:analytics:latest.integration'
+    implementation 'com.tencent.bugly:nativecrashreport:latest.release'
+    implementation 'com.umeng.sdk:common:latest.integration'
+    implementation 'com.umeng.analytics:analytics:latest.integration'
+
     implementation files('libs/SocialSDK_WeiXin_Full.jar')
     implementation files('libs/umeng_shareboard_widget.jar')
     implementation files('libs/umeng_social_api.jar')
@@ -161,5 +162,6 @@ dependencies {
     implementation files('libs/umeng_social_shareboard.jar')
     implementation files('libs/umeng_social_tool.jar')
     implementation files('libs/wechat-sdk-android-with-mta-1.1.6.jar')
+    implementation 'com.facebook.rebound:rebound:0.3.8'
     implementation project(':arscan')
 }

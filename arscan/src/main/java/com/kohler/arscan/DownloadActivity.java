@@ -28,6 +28,7 @@ import android.widget.Toast;
 import com.kohler.arscan.constant.Config;
 import com.kohler.arscan.util.LogManager;
 import com.kohler.arscan.util.SharePreUtil;
+import com.umeng.analytics.MobclickAgent;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -263,6 +264,18 @@ public class DownloadActivity extends AppCompatActivity {
             }
         };
         timer.schedule(timerTask, 0, 1000);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 
     private boolean unZip(String path) {

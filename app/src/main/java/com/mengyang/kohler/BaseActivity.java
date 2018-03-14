@@ -12,6 +12,7 @@ import android.view.inputmethod.InputMethodManager;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.common.utils.PermissionUtils;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
+import com.umeng.analytics.MobclickAgent;
 
 
 import butterknife.ButterKnife;
@@ -31,6 +32,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        MobclickAgent.setDebugMode(true);
         //防止getFragment为null
         if (savedInstanceState != null) {
             savedInstanceState.remove("android:support:fragments");
