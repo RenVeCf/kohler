@@ -28,6 +28,7 @@ import android.widget.Toast;
 import com.kohler.arscan.constant.Config;
 import com.kohler.arscan.util.LogManager;
 import com.kohler.arscan.util.SharePreUtil;
+import com.umeng.analytics.MobclickAgent;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -74,7 +75,7 @@ public class DownloadActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        MobclickAgent.onEvent(DownloadActivity.this, "arsaoyisao");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (PermissionChecker.checkCallingOrSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
                     | PermissionChecker.checkCallingOrSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
@@ -344,6 +345,18 @@ public class DownloadActivity extends AppCompatActivity {
             Log.e(TAG, "删除: " + delete);
         }
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 
     /**

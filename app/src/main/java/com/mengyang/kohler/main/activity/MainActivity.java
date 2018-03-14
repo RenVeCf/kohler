@@ -437,7 +437,6 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 FragmentSelect(1);
                 mIsUnableToDrag = false;
                 view_line.setVisibility(View.VISIBLE);
-                MobclickAgent.onEvent(MainActivity.this, "index");
                 break;
             case R.id.bt_whole_category:
                 switchFragment(mWholeCategoryFragment).commit();
@@ -446,7 +445,6 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 FragmentSelect(0);
                 mIsUnableToDrag = true;
                 view_line.setVisibility(View.GONE);
-                MobclickAgent.onEvent(MainActivity.this, "category");
                 break;
             case R.id.bt_ar:
                 switchFragment(mARFragment).commit();
@@ -467,7 +465,6 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 FragmentSelect(1);
                 mIsUnableToDrag = true;
                 view_line.setVisibility(View.VISIBLE);
-                MobclickAgent.onEvent(MainActivity.this, "zhanghu");
                 break;
             case R.id.ll_whole_category:
                 if (mFlag == 0) {

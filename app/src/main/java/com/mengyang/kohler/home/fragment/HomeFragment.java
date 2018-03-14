@@ -46,6 +46,7 @@ import com.mengyang.kohler.home.activity.MineManualActivity;
 import com.mengyang.kohler.home.activity.PDFActivity;
 import com.mengyang.kohler.home.activity.WeeklyRadioConcertActivity;
 import com.mengyang.kohler.home.adapter.BrochureListAdapter2;
+import com.mengyang.kohler.main.activity.MainActivity;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.BooksListBean;
 import com.mengyang.kohler.module.bean.HomeIndexBean;
@@ -130,7 +131,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
     protected void initValues() {
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(getActivity(), tvHomeTop);
-
+        MobclickAgent.onEvent(getActivity(), "index");
         //        if (SPUtil.get(App.getContext(), IConstants.TYPE, "").equals("dealer")) {
         //            ivTopCustomerService.setVisibility(View.VISIBLE);
         //        } else {

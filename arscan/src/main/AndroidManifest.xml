@@ -63,6 +63,9 @@
             android:value="2.1" />
 
         <activity android:name=".DownloadActivity" />
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="5aa8bed78f4a9d22d30001b0"/>
     </application>
 
 </manifest>

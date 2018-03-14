@@ -13,6 +13,7 @@ import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.view.TopView;
+import com.mengyang.kohler.main.activity.MainActivity;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.NotSelectClassificationBean;
 import com.mengyang.kohler.whole_category.adapter.StackAdapter;
@@ -66,7 +67,7 @@ public class WholeCategoryFragment extends BaseFragment implements StackLayoutMa
     protected void initValues() {
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(getActivity(), tvWholeCategoryTop);
-
+        MobclickAgent.onEvent(getActivity(), "category");
         //        if (SPUtil.get(App.getContext(), IConstants.TYPE, "").equals("dealer"))
         //            ivTopCustomerService.setVisibility(View.VISIBLE);
         //        else
