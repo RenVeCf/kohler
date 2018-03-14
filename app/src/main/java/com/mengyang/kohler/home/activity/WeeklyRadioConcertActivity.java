@@ -19,6 +19,7 @@ import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.home.adapter.WeeklyRadioConcertAdapter;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.WeeklyRadioConcertBean;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +54,7 @@ public class WeeklyRadioConcertActivity extends BaseActivity implements BaseQuic
         App.getManager().addActivity(this);
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(this, tvHomeWeeklyRadioConcert);
-
+        MobclickAgent.onEvent(WeeklyRadioConcertActivity.this, "yinyuehuiliebiao");
         LinearLayoutManager layoutManager = new LinearLayoutManager(App.getContext());
         rvWeeklyRadioConcert.setLayoutManager(layoutManager);
         // 如果可以确定每个item的高度是固定的，设置这个选项可以提高性能
@@ -129,6 +130,18 @@ public class WeeklyRadioConcertActivity extends BaseActivity implements BaseQuic
                         }
                     }
                 });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 
     @Override

@@ -42,6 +42,7 @@ import com.mengyang.kohler.home.activity.ArtKohlerActivity;
 import com.mengyang.kohler.home.activity.DownLoaderPDFActivity;
 import com.mengyang.kohler.home.activity.HomeSearchActivity;
 import com.mengyang.kohler.home.activity.MeetingActivity;
+import com.mengyang.kohler.home.activity.MineManualActivity;
 import com.mengyang.kohler.home.activity.PDFActivity;
 import com.mengyang.kohler.home.activity.WeeklyRadioConcertActivity;
 import com.mengyang.kohler.home.adapter.BrochureListAdapter2;
@@ -50,6 +51,7 @@ import com.mengyang.kohler.module.bean.BooksListBean;
 import com.mengyang.kohler.module.bean.HomeIndexBean;
 import com.ryane.banner.AdPageInfo;
 import com.ryane.banner.AdPlayBanner;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -178,7 +180,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
     @Override
     public void onResume() {
         super.onResume();
-
+        MobclickAgent.onResume(getActivity());
         if (((boolean) SPUtil.get(getActivity(), IConstants.IS_LOGIN, false)) == true) {
             String userLevel = (String) SPUtil.get(getActivity(), IConstants.TYPE, "");
             if (userLevel.equals("dealer") || userLevel.equals("designer")) {
@@ -253,6 +255,12 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                 }
             }
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(getActivity());
     }
 
     /**
@@ -388,6 +396,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                                     startActivity(new Intent(getActivity(), ArtKohlerActivity.class));
                                 } else {
                                     if (postion == 2) {
+                                        MobclickAgent.onEvent(getActivity(), "arjieshuo");
                                         Intent intent = new Intent(getActivity(), DownloadActivity.class);
                                         intent.putExtra("way", "banner");
                                         startActivity(intent);

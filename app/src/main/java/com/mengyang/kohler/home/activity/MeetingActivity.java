@@ -31,6 +31,7 @@ import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.MeetingBean;
 import com.mengyang.kohler.home.adapter.MeetingAdapter;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,6 +107,7 @@ public class MeetingActivity extends BaseActivity {
         App.getManager().addActivity(this);
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(this, tvMeetingTop);
+        MobclickAgent.onEvent(MeetingActivity.this, "jingxiaoshangdahui");
         mMeetingPopupWindow = new PopupWindow(this);
         mMeetingPopupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
         mMeetingPopupWindow.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
@@ -219,6 +221,18 @@ public class MeetingActivity extends BaseActivity {
                         });
                     }
                 });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 
     private void AgendaMsgPush(boolean pushMsg) {

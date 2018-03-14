@@ -211,7 +211,7 @@
         <!-- android:value="afc866a07ef9b96734d3e5b1ab061eb5" /> -->
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="5a9527cda40fa32b450000a0"/>
+            android:value="5aa8bed78f4a9d22d30001b0"/>
 
         <activity android:name="com.kohler.arscan.DownloadActivity"/>
         <activity android:name="com.kohler.arscan.UnityPlayerActivity"/>

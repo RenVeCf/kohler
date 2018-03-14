@@ -7,6 +7,7 @@ import com.kohler.arscan.UnityPlayerActivity;
 import com.mengyang.kohler.BaseFragment;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.view.TopView;
+import com.umeng.analytics.MobclickAgent;
 
 import butterknife.BindView;
 
@@ -41,5 +42,16 @@ public class ARFragment extends BaseFragment {
     @Override
     protected void initData() {
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(getActivity());
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(getActivity());
     }
 }

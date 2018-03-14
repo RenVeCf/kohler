@@ -25,9 +25,11 @@ import com.mengyang.kohler.common.view.SpacesItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.home.adapter.BrochureListAdapter;
 import com.mengyang.kohler.home.adapter.MyBrochureAdapter6;
+import com.mengyang.kohler.main.activity.MainActivity;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.PdfBean;
 import com.mengyang.kohler.module.bean.BooksListBean;
+import com.umeng.analytics.MobclickAgent;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -79,8 +81,7 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(this, tvMineManualTop);
 
-        //        //必须先初始化SQLite
-        //        DatabaseUtils.initHelper(MineManualActivity.this, "books.db");
+        MobclickAgent.onEvent(MineManualActivity.this, "tuce");
 
         // 下载图册设置管理器
         LinearLayoutManager layoutManager = new LinearLayoutManager(App.getContext());
@@ -108,6 +109,7 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
     @Override
     protected void onResume() {
         super.onResume();
+        MobclickAgent.onResume(this);
         final List<String> listFileName = FileUtil.judgePdfIsExit(mLocalTempPdfFileName);
 
         //本地有文件，从数据库中获取相应数据
@@ -166,6 +168,12 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
                         }
                     });
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 
     @Override

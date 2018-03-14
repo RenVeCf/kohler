@@ -19,6 +19,7 @@ import com.mengyang.kohler.whole_category.adapter.StackAdapter;
 import com.mengyang.kohler.whole_category.view.Align;
 import com.mengyang.kohler.whole_category.view.Config;
 import com.mengyang.kohler.whole_category.view.StackLayoutManager;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -125,6 +126,17 @@ public class WholeCategoryFragment extends BaseFragment implements StackLayoutMa
                         }
                     }
                 });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(getActivity());
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(getActivity());
     }
 
     @Override

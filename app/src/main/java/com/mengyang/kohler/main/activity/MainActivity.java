@@ -49,6 +49,7 @@ import com.mengyang.kohler.module.bean.NotSelectClassificationBean;
 import com.mengyang.kohler.module.bean.UserMsgBean;
 import com.mengyang.kohler.whole_category.activity.CommodityClassificationActivity;
 import com.mengyang.kohler.whole_category.fragment.WholeCategoryFragment;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -436,6 +437,7 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 FragmentSelect(1);
                 mIsUnableToDrag = false;
                 view_line.setVisibility(View.VISIBLE);
+                MobclickAgent.onEvent(MainActivity.this, "index");
                 break;
             case R.id.bt_whole_category:
                 switchFragment(mWholeCategoryFragment).commit();
@@ -444,6 +446,7 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 FragmentSelect(0);
                 mIsUnableToDrag = true;
                 view_line.setVisibility(View.GONE);
+                MobclickAgent.onEvent(MainActivity.this, "category");
                 break;
             case R.id.bt_ar:
                 switchFragment(mARFragment).commit();
@@ -455,6 +458,7 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 Intent intent = new Intent(this, DownloadActivity.class);
                 intent.putExtra("way", "arscan");
                 startActivityForResult(intent, IConstants.DELETE_REQUESTCODE);
+                MobclickAgent.onEvent(MainActivity.this, "arsaoyisao");
                 break;
             case R.id.bt_account:
                 switchFragment(mAccountFragment).commit();
@@ -463,6 +467,7 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 FragmentSelect(1);
                 mIsUnableToDrag = true;
                 view_line.setVisibility(View.VISIBLE);
+                MobclickAgent.onEvent(MainActivity.this, "zhanghu");
                 break;
             case R.id.ll_whole_category:
                 if (mFlag == 0) {

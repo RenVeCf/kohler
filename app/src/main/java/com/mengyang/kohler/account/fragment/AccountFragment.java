@@ -49,6 +49,7 @@ import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.FootPrintBean;
 import com.mengyang.kohler.module.bean.UploadHeadPortraitBean;
 import com.mengyang.kohler.whole_category.activity.CommodityDetailsActivity;
+import com.umeng.analytics.MobclickAgent;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -229,11 +230,18 @@ public class AccountFragment extends BaseFragment implements BaseQuickAdapter.Re
     @Override
     public void onResume() {
         super.onResume();
+        MobclickAgent.onResume(getActivity());
         if (pageNum != 0) {
             pageNum = 0;
             //浏览足迹
             getFootPrint();
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(getActivity());
     }
 
     private void getUserMsg() {

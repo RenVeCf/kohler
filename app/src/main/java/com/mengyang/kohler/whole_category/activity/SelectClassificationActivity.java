@@ -16,9 +16,11 @@ import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.view.TopView;
+import com.mengyang.kohler.home.activity.MineManualActivity;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.SelectClassificationBean;
 import com.mengyang.kohler.whole_category.adapter.SelectClassificationAdapter;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +57,7 @@ public class SelectClassificationActivity extends BaseActivity {
         ImmersionBar.with(this).fitsSystemWindows(false).statusBarDarkFont(false).init();
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(this, tvWholeCategorySelectClassificationTop);
+        MobclickAgent.onEvent(SelectClassificationActivity.this, "jingxuanxilie");
         ivTopBack.setImageResource(R.mipmap.fanhuibai);
         // 设置管理器
         LinearLayoutManager layoutManager = new LinearLayoutManager(App.getContext());
@@ -100,5 +103,17 @@ public class SelectClassificationActivity extends BaseActivity {
                         });
                     }
                 });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }

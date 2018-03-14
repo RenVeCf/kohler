@@ -30,8 +30,10 @@ import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.PermissionUtils;
 import com.mengyang.kohler.common.view.TopView;
+import com.mengyang.kohler.main.activity.MainActivity;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.StoreListBean;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,6 +79,7 @@ public class StoreMapActivity extends BaseActivity {
         App.getManager().addActivity(this);
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(this, tvStoreMapTop);
+        MobclickAgent.onEvent(StoreMapActivity.this, "fujindianpu");
 
         setOnPermissionListener(new OnPermissionListener() {
             @Override
@@ -283,12 +286,14 @@ public class StoreMapActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         mapView.onResume();
+        MobclickAgent.onResume(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         mapView.onPause();
+        MobclickAgent.onPause(this);
     }
 
     @Override
