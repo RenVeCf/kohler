@@ -8,7 +8,7 @@ android {
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
-//        flavorDimensions "versionCode"
+        flavorDimensions "versionCode"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         // Enabling multidex support.
@@ -28,16 +28,18 @@ android {
 
     signingConfigs {
         config {
-            keyAlias 'kohler'
-            keyPassword 'kohler123'
-            storeFile file('D:/科勒签名文件/kohler.jks')
-            storePassword 'kohler123'
+            keyAlias ALIAS_NAME
+            keyPassword KEY_PWD
+            storeFile file(KEY_PATH)
+            storePassword ALIAS_PWD
+
         }
         test {
-            keyAlias 'test'
-            keyPassword 'test123'
-            storeFile file('D:/科勒签名文件/debug_kohler.jks')
-            storePassword 'test123'
+//            keyAlias 'test'
+//            keyPassword 'test123'
+//            storeFile file('D:/科勒签名文件/debug_kohler.jks')
+//            storeFile file('E:/keyStore/科勒/kohler.jks')
+//            storePassword 'test123'
         }
     }
 
@@ -58,35 +60,35 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             //签名配置
             signingConfig signingConfigs.config
-//            applicationVariants.all { variant ->
-//                variant.outputs.each { output ->
-//                    def outputFile = output.outputFile
-//                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
-//                        // 输出apk名称为boohee_v1.0_2015-01-15_wandoujia.apk
-//                        def fileName = "kohler_v${defaultConfig.versionName}_${variant.productFlavors[0].name}.apk"
-////                        output.outputFile = new File(outputFile.parent, fileName)
-//                    }
-//                }
-//            }
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    def outputFile = output.outputFile
+                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                        // 输出apk名称为boohee_v1.0_2015-01-15_wandoujia.apk
+                        def fileName = "kohler_v${defaultConfig.versionName}_${variant.productFlavors[0].name}.apk"
+//                        output.outputFile = new File(outputFile.parent, fileName)
+                    }
+                }
+            }
         }
         debug {
-            signingConfig signingConfigs.test
+//            signingConfig signingConfigs.test
         }
     }
 
-//    //多渠道打包
-//    productFlavors {
-//        xiaomi {}
-//        _360 {}
-//        baidu {}
-//        yingyongbao {}
-//        huawei{}
-//        wandoujia {}
-//    }
-//
-//    productFlavors.all {
-//        flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
-//    }
+    //多渠道打包
+    productFlavors {
+        xiaomi {}
+        _360 {}
+        baidu {}
+        yingyongbao {}
+        huawei{}
+        wandoujia {}
+    }
+
+    productFlavors.all {
+        flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+    }
 
     sourceSets {
         main {
