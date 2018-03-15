@@ -58,7 +58,7 @@
         android:roundIcon="@mipmap/logo_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:replace="android:icon, android:label, android:theme">
+        tools:replace="android:allowBackup ,android:icon, android:label, android:theme">
         <activity
             android:name=".main.activity.SplashActivity"
             android:launchMode="singleTask">
@@ -206,13 +206,15 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
-        <!-- <meta-data -->
-        <!-- android:name="UMENG_CHANNEL" -->
-        <!-- android:value="afc866a07ef9b96734d3e5b1ab061eb5" /> -->
+
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="5aa8bed78f4a9d22d30001b0"/>
         <meta-data android:value="default" android:name="UMENG_CHANNEL"/>
+
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="${UMENG_CHANNEL_VALUE}" />
 
         <activity android:name="com.kohler.arscan.DownloadActivity"/>
         <activity android:name="com.kohler.arscan.UnityPlayerActivity"/>
