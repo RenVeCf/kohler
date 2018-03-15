@@ -246,7 +246,15 @@ public class ArtKohlerActivity extends BaseActivity {
                         mArtKohlerSelectAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                             @Override
                             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                                startActivity(new Intent(ArtKohlerActivity.this, ArtKohlerSelectActivity.class));
+                                if (position == 0)
+                                    startActivity(new Intent(ArtKohlerActivity.this, ArtKohlerSelectActivity.class).putExtra("select_img", 2));
+                                else if (position == 1)
+                                    startActivity(new Intent(ArtKohlerActivity.this, ArtKohlerSelectActivity.class).putExtra("select_img", 3));
+                                else if (position == 2)
+                                    startActivity(new Intent(ArtKohlerActivity.this, ArtKohlerSelectActivity.class).putExtra("select_img", 4));
+                                else if (position == 3)
+                                    startActivity(new Intent(ArtKohlerActivity.this, ArtKohlerSelectActivity.class).putExtra("select_img", 5));
+
                             }
                         });
 
@@ -264,7 +272,7 @@ public class ArtKohlerActivity extends BaseActivity {
                                     mMeetingPopupWindow.showAtLocation(view, Gravity.NO_GRAVITY, 0, 0);
                                 }
                             }
-                    });
+                        });
                     }
                 });
     }
