@@ -254,7 +254,6 @@ public class ArtKohlerActivity extends BaseActivity {
                                     startActivity(new Intent(ArtKohlerActivity.this, ArtKohlerSelectActivity.class).putExtra("select_img", 4));
                                 else if (position == 3)
                                     startActivity(new Intent(ArtKohlerActivity.this, ArtKohlerSelectActivity.class).putExtra("select_img", 5));
-
                             }
                         });
 

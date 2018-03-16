@@ -17,8 +17,6 @@ import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.view.GridSpacingItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.home.adapter.ArtKohlerSelectActivityAdapter;
-import com.mengyang.kohler.home.view.ImageInfoObj;
-import com.mengyang.kohler.home.view.ImageWidgetInfoObj;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.ArtKohlerSelectImgBean;
 
@@ -44,8 +42,6 @@ public class ArtKohlerSelectActivity extends BaseActivity {
     SwipeRefreshLayout srlArtKohlerSelect;
     private ArtKohlerSelectActivityAdapter mArtKohlerSelectActivityAdapter;
     private List<ArtKohlerSelectImgBean.ResultListBean> mArtSelectBean;
-    private ImageInfoObj imageInfoObj;
-    private ImageWidgetInfoObj imageWidgetInfoObj;
 
     @Override
     protected int getLayoutId() {
@@ -101,18 +97,7 @@ public class ArtKohlerSelectActivity extends BaseActivity {
                         mArtKohlerSelectActivityAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                             @Override
                             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                                imageInfoObj = new ImageInfoObj();
-                                imageInfoObj.imageUrl = mArtSelectBean.get(position).getPicUrl();
-                                imageInfoObj.imageWidth = 1280;
-                                imageInfoObj.imageHeight = 720;
-
-                                imageWidgetInfoObj = new ImageWidgetInfoObj();
-                                imageWidgetInfoObj.x = view.getLeft();
-                                imageWidgetInfoObj.y = view.getTop();
-                                imageWidgetInfoObj.width = view.getLayoutParams().width;
-                                imageWidgetInfoObj.height = view.getLayoutParams().height;
-
-                                startActivity(new Intent(ArtKohlerSelectActivity.this, ArtKohlerSelectBigImgActivity.class).putExtra("imageInfoObj", imageInfoObj).putExtra("imageWidgetInfoObj", imageWidgetInfoObj));
+                                startActivity(new Intent(ArtKohlerSelectActivity.this, ArtKohlerSelectBigImgActivity.class).putExtra("select_img", getIntent().getIntExtra("select_img", 0)).putExtra("position", position));
                             }
                         });
                     }

@@ -1,5 +1,8 @@
 package com.mengyang.kohler.module.bean;
 
+import com.mengyang.kohler.common.net.IConstants;
+
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -9,7 +12,7 @@ import java.util.List;
  * Time : 2018/3/13
  */
 
-public class ArtKohlerSelectImgBean {
+public class ArtKohlerSelectImgBean implements Serializable {
     /**
      * pageNum : 0
      * pageSize : 2147483647
@@ -64,7 +67,7 @@ public class ArtKohlerSelectImgBean {
         this.resultList = resultList;
     }
 
-    public static class ResultListBean {
+    public static class ResultListBean  implements Serializable {
         /**
          * groupId : 2
          * id : 1062

@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.mengyang.kohler.home.activity.ArtKohlerSelectBigImgActivity">
 
-    <ImageView
-        android:id="@+id/iv_art_kohler_select_big_img"
+    <com.mengyang.kohler.home.view.PhotoViewPager
+        android:id="@+id/vp_art_kohler_select_big_img"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"/>
+        android:background="@color/white"/>
 </LinearLayout>
