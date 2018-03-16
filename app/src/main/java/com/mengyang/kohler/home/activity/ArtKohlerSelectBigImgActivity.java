@@ -1,25 +1,41 @@
 package com.mengyang.kohler.home.activity;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.v4.view.ViewPager;
+import android.widget.TextView;
+
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IdeaApi;
+import com.mengyang.kohler.common.utils.ToastUtil;
 import com.mengyang.kohler.home.adapter.MyImageAdapter;
 import com.mengyang.kohler.home.view.PhotoViewPager;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.ArtKohlerSelectImgBean;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class ArtKohlerSelectBigImgActivity extends BaseActivity {
+public class ArtKohlerSelectBigImgActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
     @BindView(R.id.vp_art_kohler_select_big_img)
     PhotoViewPager vpArtKohlerSelectBigImg;
+    @BindView(R.id.tv_page_num)
+    TextView mTvPageNum;
     private List<ArtKohlerSelectImgBean.ResultListBean> mArtSelectBean = new ArrayList<>();
     private int position;
 
@@ -36,6 +52,8 @@ public class ArtKohlerSelectBigImgActivity extends BaseActivity {
     protected void initValues() {
         position = getIntent().getIntExtra("position", 0);
         Urls = new ArrayList<>();
+
+        vpArtKohlerSelectBigImg.addOnPageChangeListener(this);
     }
 
     @Override
@@ -66,7 +84,72 @@ public class ArtKohlerSelectBigImgActivity extends BaseActivity {
                         adapter = new MyImageAdapter(Urls, ArtKohlerSelectBigImgActivity.this);
                         vpArtKohlerSelectBigImg.setAdapter(adapter);
                         vpArtKohlerSelectBigImg.setCurrentItem(position, false);
+
+                        adapter.SetPictureLongClickListenner(new MyImageAdapter.PictureLongClickListenner() {
+                            @Override
+                            public void onPictureLongClick(final String url) {
+                                new Thread(){
+                                    @Override
+                                    public void run() {
+                                        super.run();
+                                        Bitmap bitmap = returnBitMap(url);
+                                        MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, "title", "description");
+
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                ToastUtil.showToast("图片以保存到相册");
+                                            }
+                                        });
+
+                                    }
+                                }.start();
+                            }
+                        });
                     }
                 });
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        mTvPageNum.setText((position + 1) + "/" + Urls.size());
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
+
+    public Bitmap returnBitMap(String url){
+        URL myFileUrl = null;
+        Bitmap bitmap = null;
+        try {
+            myFileUrl = new URL(url);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        try {
+            HttpURLConnection conn = (HttpURLConnection) myFileUrl.openConnection();
+            conn.setDoInput(true);
+            conn.connect();
+            InputStream is = conn.getInputStream();
+            bitmap = BitmapFactory.decodeStream(is);
+            is.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return bitmap;
     }
 }

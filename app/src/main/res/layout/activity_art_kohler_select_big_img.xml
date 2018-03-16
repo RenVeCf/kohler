@@ -5,11 +5,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/black"
     tools:context="com.mengyang.kohler.home.activity.ArtKohlerSelectBigImgActivity">
 
-    <com.mengyang.kohler.home.view.PhotoViewPager
-        android:id="@+id/vp_art_kohler_select_big_img"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"/>
+        android:layout_height="match_parent">
+        <com.mengyang.kohler.home.view.PhotoViewPager
+            android:id="@+id/vp_art_kohler_select_big_img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_page_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/y60"
+                android:layout_marginLeft="@dimen/x20"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+        </RelativeLayout>
+    </FrameLayout>
+
 </LinearLayout>
