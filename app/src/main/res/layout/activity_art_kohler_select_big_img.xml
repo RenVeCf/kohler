@@ -24,12 +24,20 @@
                 android:id="@+id/tv_page_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="@dimen/y60"
-                android:layout_marginLeft="@dimen/x20"
+                android:layout_alignParentTop="true"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="@dimen/y60"
                 android:textColor="@color/white"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/y150"
+                android:layout_alignParentBottom="true"
+                android:layout_centerInParent="true"
+                android:textColor="@color/white"
+                android:text="请长按图片保存到本地"/>
         </RelativeLayout>
     </FrameLayout>
-
 </LinearLayout>

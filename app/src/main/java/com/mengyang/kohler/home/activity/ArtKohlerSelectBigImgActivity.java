@@ -2,7 +2,6 @@ package com.mengyang.kohler.home.activity;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
 import android.widget.TextView;
@@ -13,6 +12,7 @@ import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.utils.ToastUtil;
 import com.mengyang.kohler.home.adapter.MyImageAdapter;
+import com.mengyang.kohler.home.view.BottomAnimDialog;
 import com.mengyang.kohler.home.view.PhotoViewPager;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.ArtKohlerSelectImgBean;
@@ -27,7 +27,6 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -88,22 +87,36 @@ public class ArtKohlerSelectBigImgActivity extends BaseActivity implements ViewP
                         adapter.SetPictureLongClickListenner(new MyImageAdapter.PictureLongClickListenner() {
                             @Override
                             public void onPictureLongClick(final String url) {
-                                new Thread(){
+                                final BottomAnimDialog dialog = new BottomAnimDialog(ArtKohlerSelectBigImgActivity.this, "保存图片", "取消");
+                                dialog.setClickListener(new BottomAnimDialog.BottonAnimDialogListener() {
                                     @Override
-                                    public void run() {
-                                        super.run();
-                                        Bitmap bitmap = returnBitMap(url);
-                                        MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, "title", "description");
-
-                                        runOnUiThread(new Runnable() {
+                                    public void onItem1Listener() {
+                                        // TO_DO
+                                        new Thread() {
                                             @Override
                                             public void run() {
-                                                ToastUtil.showToast("图片以保存到相册");
+                                                super.run();
+                                                Bitmap bitmap = returnBitMap(url);
+                                                MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, "title", "description");
+                                                runOnUiThread(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        ToastUtil.showToast("图片已保存！");
+                                                    }
+                                                });
                                             }
-                                        });
-
+                                        }.start();
+                                        dialog.dismiss();
                                     }
-                                }.start();
+
+                                    @Override
+                                    public void onItem3Listener() {
+                                        dialog.dismiss();
+                                    }
+                                });
+                                dialog.show();
+
+
                             }
                         });
                     }
@@ -125,14 +138,7 @@ public class ArtKohlerSelectBigImgActivity extends BaseActivity implements ViewP
 
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
-
-    public Bitmap returnBitMap(String url){
+    public Bitmap returnBitMap(String url) {
         URL myFileUrl = null;
         Bitmap bitmap = null;
         try {

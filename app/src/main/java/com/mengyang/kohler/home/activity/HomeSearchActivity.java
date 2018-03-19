@@ -112,7 +112,7 @@ public class HomeSearchActivity extends BaseActivity implements BaseQuickAdapter
                                     mHomeSearchAdapter.loadMoreEnd();
                                 }
                             } else {
-                                if (response.getData().getResultList().size() > 0) {
+                                if (response.getData().getResultList() != null) {
                                     pageNum += 1;
                                     mHomeSearchAdapter.addData(response.getData().getResultList());
                                     mHomeSearchAdapter.loadMoreComplete(); //完成本次

@@ -12,6 +12,7 @@
     <color name="splilinecolor">#d7d7d7</color>
     <color name="account_no_login_bt">#ababab</color>
     <color name="home_banner_line">#e3e3e3</color>
+    <color name="transparent">#00000000</color>
 
     <array name="colors">
         <item>@color/colorBluePrimary</item>
