@@ -4,30 +4,39 @@
           package="com.mengyang.kohler">
 
     <!-- 用于访问GPS定位 -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"
+                     android:protectionLevel="signature"/>
     <!-- 用于进行网络定位 -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"
+                     android:protectionLevel="signature"/>
     <uses-permission android:name="android.permission.GET_TASKS"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET"
+                     android:protectionLevel="signature"/>
     <!-- 允许程序访问WiFi网络信息 -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"
+                     android:protectionLevel="signature"/>
     <!-- 允许程序获取网络状态 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"
+                     android:protectionLevel="signature"/>
     <!-- 用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"
+                     android:protectionLevel="signature"/>
     <!-- 允许程序设置内置sd卡的写权限 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+                     android:protectionLevel="signature"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <!-- 获取手机唯一标识需要用到的权限 -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"
+                     android:protectionLevel="signature"/>
     <!-- 用于申请获取蓝牙信息进行室内定位 -->
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
     <!-- 相机 -->
     <uses-permission android:name="android.permission.CAMERA"/>
     <!-- 允许程序打开网络套接字 -->
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET"
+                     android:protectionLevel="signature"/>
     <!-- 用于申请调用A-GPS模块 -->
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
     <!-- 保存SD卡 -->
@@ -35,23 +44,9 @@
     <!-- 腾讯bugly需要的权限 -->
     <uses-permission android:name="android.permission.READ_LOGS"/>
 
-    <!-- 友盟分享使用的权限 -->
-    <!-- 必须的权限 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-
-    <!-- 推荐的权限 -->
-    <!-- 添加如下权限，以便使用更多的第三方SDK和更精准的统计数据 -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-
     <application
         android:name=".App"
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:configChanges="orientation|keyboardHidden|screenSize"
         android:icon="@mipmap/logo_icon"
         android:label="@string/app_name"
@@ -61,6 +56,7 @@
         tools:replace="android:allowBackup,icon,theme,label">
         <activity
             android:name=".main.activity.SplashActivity"
+            android:exported="true"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -70,17 +66,23 @@
         </activity>
         <activity
             android:name=".whole_category.activity.CommodityDetailsActivity"
+            android:exported="false"
             android:launchMode="singleTask"/>
         <activity
             android:name=".home.activity.MeetingActivity"
+            android:exported="false"
             android:launchMode="singleTask"/>
         <activity
             android:name=".home.activity.PDFActivity"
+            android:exported="false"
             android:launchMode="singleTask"/>
         <activity
             android:name=".main.activity.MainActivity"
+            android:exported="false"
             android:launchMode="singleTask"/>
-        <activity android:name=".whole_category.activity.CommodityClassificationActivity"/>
+        <activity
+            android:name=".whole_category.activity.CommodityClassificationActivity"
+            android:exported="false"/>
 
         <!-- debug SHA1 -->
         <!-- C5:B2:06:31:E1:7B:6A:07:9B:3E:AF:FF:9E:0F:FA:45:D3:9A:38:00 -->
@@ -92,11 +94,13 @@
         <!-- ILIElSVwh90omjtyPMrggUPLcuFpeQu0 -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
+            android:exported="false"
             android:value="ILIElSVwh90omjtyPMrggUPLcuFpeQu0"/>
         <!-- 百度定位 -->
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
+            android:exported="false"
             android:process=":remote">
             <intent-filter>
                 <action android:name="com.baidu.location.service_v2.2"/>
@@ -104,6 +108,7 @@
         </service>
         <service
             android:name="cn.jpush.android.service.PushService"
+            android:exported="false"
             android:process=":multiprocess"
             tools:node="replace">
         </service>
@@ -114,81 +119,113 @@
 
         <activity
             android:name=".home.activity.StoreMapActivity"
+            android:exported="false"
             android:launchMode="singleTask"/>
         <activity
             android:name=".account.activity.LoginActivity"
+            android:exported="false"
             android:launchMode="singleTask"/>
         <activity
             android:name=".main.activity.LoadingActivity"
+            android:exported="false"
             android:launchMode="singleTask"/>
         <activity
             android:name=".account.activity.AccountSettingsActivity"
+            android:exported="false"
             android:launchMode="singleTask"/>
         <activity
             android:name=".common.activity.SystemMsgActivity"
+            android:exported="false"
             android:launchMode="singleTask"/>
         <activity
             android:name=".account.activity.AccountMineLikeActivity"
+            android:exported="false"
             android:launchMode="singleTask"/>
         <activity
             android:name=".account.activity.AccountMineReservationQueryActivity"
+            android:exported="false"
             android:launchMode="singleTask"/>
         <activity
             android:name=".account.activity.UserRegisterActivity"
+            android:exported="false"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".account.activity.AccountBindPhoneActivity"
+            android:exported="false"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".account.activity.DesignerRegisterActivity"
+            android:exported="false"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".account.activity.ModifyPwdActivity"
+            android:exported="false"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".account.activity.DistributorRegisterActivity"
+            android:exported="false"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".common.activity.CustomerServiceActivity"
+            android:exported="false"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".account.activity.ForgetPasswordTwoActivity"
+            android:exported="false"
             android:launchMode="singleTask"/>
         <activity
             android:name=".home.activity.MineManualActivity"
+            android:exported="false"
             android:launchMode="singleTask"/>
         <activity
             android:name=".home.activity.LiveRealTimeActivity"
+            android:exported="false"
             android:launchMode="singleTask"/>
         <activity
             android:name=".home.activity.HomeSearchActivity"
+            android:exported="false"
             android:launchMode="singleTask"/>
         <activity
             android:name=".account.activity.AccountPrivacyPolicyActivity"
+            android:exported="false"
             android:launchMode="singleTask"/>
         <activity
             android:name=".account.activity.AccountAboutActivity"
+            android:exported="false"
             android:launchMode="singleTask"/>
-        <activity android:name=".whole_category.activity.SelectClassificationActivity"/>
+        <activity
+            android:name=".whole_category.activity.SelectClassificationActivity"
+            android:exported="false"/>
         <activity
             android:name=".account.activity.ForgetPasswordOneActivity"
+            android:exported="false"
             android:launchMode="singleTask"/>
         <activity
             android:name=".home.activity.StoreListActivity"
+            android:exported="false"
             android:launchMode="singleTask"/>
-        <activity android:name=".home.activity.DownLoaderPDFActivity"/>
-        <activity android:name=".home.activity.MeetingWebActivity"/>
-        <activity android:name=".common.activity.WebViewActivity"/>
-        <activity android:name=".home.activity.MeetingBigPhotoActivity">
+        <activity
+            android:name=".home.activity.DownLoaderPDFActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".home.activity.MeetingWebActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".common.activity.WebViewActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".home.activity.MeetingBigPhotoActivity"
+            android:exported="false">
         </activity>
         <activity
             android:name=".home.activity.BarrageActivity"
+            android:exported="false"
             android:windowSoftInputMode="adjustPan">
         </activity>
 
@@ -209,21 +246,37 @@
 
         <meta-data
             android:name="UMENG_APPKEY"
+            android:exported="false"
             android:value="5aa8bed78f4a9d22d30001b0"/>
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="${UMENG_CHANNEL_VALUE}" />
+            android:exported="false"
+            android:value="${UMENG_CHANNEL_VALUE}"/>
 
-        <activity android:name="com.kohler.arscan.DownloadActivity"/>
-        <activity android:name="com.kohler.arscan.UnityPlayerActivity"/>
-        <activity android:name=".home.activity.WeeklyRadioConcertActivity"/>
-        <activity android:name=".home.activity.ArtKohlerActivity">
+        <activity
+            android:name="com.kohler.arscan.DownloadActivity"
+            android:exported="false"/>
+        <activity
+            android:name="com.kohler.arscan.UnityPlayerActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".home.activity.WeeklyRadioConcertActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".home.activity.ArtKohlerActivity"
+            android:exported="false">
         </activity>
-        <activity android:name=".home.activity.DesignerIntroductionActivity">
+        <activity
+            android:name=".home.activity.DesignerIntroductionActivity"
+            android:exported="false">
         </activity>
-        <activity android:name=".home.activity.ArtKohlerSelectActivity">
+        <activity
+            android:name=".home.activity.ArtKohlerSelectActivity"
+            android:exported="false">
         </activity>
-        <activity android:name=".home.activity.ArtKohlerSelectBigImgActivity">
+        <activity
+            android:name=".home.activity.ArtKohlerSelectBigImgActivity"
+            android:exported="false">
         </activity>
     </application>
 
