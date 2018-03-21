@@ -3,12 +3,14 @@ package com.mengyang.kohler.common.activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.net.http.SslError;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -221,6 +223,13 @@ public class WebViewActivity extends BaseActivity {
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
             }
+
+            //当发生证书认证错误时，采用默认的处理方法handler.cancel()，停止加载问题页面
+            @Override
+            public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+                super.onReceivedSslError(view, handler, error);
+                handler.cancel();
+            }
         });
 
         mWvService.setWebChromeClient(new WebChromeClient() {
@@ -236,5 +245,6 @@ public class WebViewActivity extends BaseActivity {
                 super.onReceivedTitle(view, title);
             }
         });
+
     }
 }
