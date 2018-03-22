@@ -318,6 +318,7 @@ public class CommodityDetailsActivity extends BaseActivity implements TopView.It
                             finish();
                         }
 
+                        mTianMaoUrl = mCommodityDetails.get(poction).getProDetail().getTmallLink();
                         tvCommodityDetailsBrand.setText(mCommodityDetails.get(poction).getProDetail().getProductName());
                         tvCommodityDetailsModel.setText(mCommodityDetails.get(poction).getProDetail().getSkuCode());
                         if (mSelectColorNum == 0) {
@@ -346,8 +347,6 @@ public class CommodityDetailsActivity extends BaseActivity implements TopView.It
                                         attribute.setText(mCommodityDetails.get(poction).getAttrList().get(i).getAttrValue());
                                         relative.addView(attribute);
                                         llCommodityDetails.addView(relative);
-                                    } else if (mCommodityDetails.get(poction).getAttrList().get(i).getCategoryComAttrName().equals("TMALL链接")) {
-                                        mTianMaoUrl = mCommodityDetails.get(poction).getAttrList().get(i).getAttrValue();
                                     }
                                 }
                             }

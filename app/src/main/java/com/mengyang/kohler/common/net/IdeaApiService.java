@@ -47,10 +47,8 @@ public interface IdeaApiService {
      */
     int DEFAULT_TIMEOUT = 30000;
     //项目主页(测试环境)
-        String API_SERVER_URL = "http://kohler-app.glor.cn/";
+        String API_SERVER_URL = "http://kohler-app.glor.cn/"; //release
 //    String API_SERVER_URL = "http://kohler-app-tmp.glor.cn/"; //test
-    //项目主页(正式环境)
-    //    String API_SERVER_URL = "http://t-api.glor.cn/";
 
     //用户首页KV图
     @FormUrlEncoded

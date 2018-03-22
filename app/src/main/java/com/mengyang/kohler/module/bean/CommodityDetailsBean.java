@@ -99,6 +99,7 @@ public class CommodityDetailsBean {
         private String tempDetailImage1Url4;
         private String tempDetailImage1Url5;
         private String tempListImageUrl;
+        private String tmallLink;
 
         public int getCategoryMetaDataId() {
             return categoryMetaDataId;
@@ -258,6 +259,14 @@ public class CommodityDetailsBean {
 
         public void setTempListImageUrl(String tempListImageUrl) {
             this.tempListImageUrl = tempListImageUrl;
+        }
+
+        public String getTmallLink() {
+            return tmallLink;
+        }
+
+        public void setTmallLink(String tmallLink) {
+            this.tmallLink = tmallLink;
         }
     }
 
