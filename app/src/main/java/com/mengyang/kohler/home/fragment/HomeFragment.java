@@ -40,6 +40,7 @@ import com.mengyang.kohler.common.view.SpacesItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.home.activity.ArtKohlerActivity;
 import com.mengyang.kohler.home.activity.DownLoaderPDFActivity;
+import com.mengyang.kohler.home.activity.GanChuangActivity;
 import com.mengyang.kohler.home.activity.HomeSearchActivity;
 import com.mengyang.kohler.home.activity.MeetingActivity;
 import com.mengyang.kohler.home.activity.MineManualActivity;
@@ -383,20 +384,22 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                                     }
                                 }
 
-                                if (postion == 1 && SPUtil.get(getActivity(), IConstants.TYPE, "").equals("")) {
+                                if (postion == 0) {
+                                    startActivity(new Intent(getActivity(), GanChuangActivity.class));
+                                } else if (postion == 1) {
+                                    startActivity(new Intent(getActivity(), ArtKohlerActivity.class));
+                                } else if (postion == 2 && SPUtil.get(getActivity(), IConstants.TYPE, "").equals("")) {
                                     startActivity(new Intent(getActivity(), LoginActivity.class));
-                                } else if (postion == 1 && SPUtil.get(getActivity(), IConstants.TYPE, "").equals("dealer")) {
+                                } else if (postion == 2 && SPUtil.get(getActivity(), IConstants.TYPE, "").equals("dealer")) {
                                     startActivity(new Intent(getActivity(), MeetingActivity.class));
-                                } else if (postion == 1 && !SPUtil.get(getActivity(), IConstants.TYPE, "").equals("dealer")) {
+                                } else if (postion == 2 && !SPUtil.get(getActivity(), IConstants.TYPE, "").equals("dealer")) {
                                     if (Build.VERSION.SDK_INT == 24) {//android7.0需要单独做适配
                                         mNoJurisdictionPopupWindow.showAtLocation(getView(), Gravity.NO_GRAVITY, 0, getStatusBarHeight());
                                     } else {
                                         mNoJurisdictionPopupWindow.showAtLocation(getView(), Gravity.NO_GRAVITY, 0, 0);
                                     }
-                                } else if (postion == 0) {
-                                    startActivity(new Intent(getActivity(), ArtKohlerActivity.class));
                                 } else {
-                                    if (postion == 2) {
+                                    if (postion == 3) {
                                         MobclickAgent.onEvent(getActivity(), "arjieshuo");
                                         Intent intent = new Intent(getActivity(), DownloadActivity.class);
                                         intent.putExtra("way", "banner");

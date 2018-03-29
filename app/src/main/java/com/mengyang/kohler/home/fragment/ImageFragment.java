@@ -12,6 +12,10 @@ import com.mengyang.kohler.R;
 
 import uk.co.senab.photoview.PhotoView;
 
+/**
+ * 科勒设计周精选图片大图滑动
+ */
+
 public class ImageFragment extends Fragment {
 
 

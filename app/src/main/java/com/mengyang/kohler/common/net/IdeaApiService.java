@@ -250,6 +250,11 @@ public interface IdeaApiService {
     @POST(Config.ART_KOHLER)
     Observable<BasicResponse<ArtKohlerBean>> getArtKohler(@FieldMap Map<String, String> map);
 
+    //敢创•科勒亚太艺术展
+    @FormUrlEncoded
+    @POST(Config.Gan_Chuang)
+    Observable<BasicResponse<ArtKohlerBean>> getGanChuang(@FieldMap Map<String, String> map);
+
     //科勒艺术精选图片
     @FormUrlEncoded
     @POST(Config.ART_KOHLER_SELECT_IMG)
