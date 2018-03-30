@@ -414,7 +414,6 @@ public class AccountFragment extends BaseFragment implements BaseQuickAdapter.Re
 
     @Override
     public void onLoadMoreRequested() {
-        mFootPrintAdapter.loadMoreEnd(false);
         initData();
     }
 }
