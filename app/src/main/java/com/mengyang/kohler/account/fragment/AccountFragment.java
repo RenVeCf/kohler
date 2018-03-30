@@ -29,6 +29,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.loadmore.LoadMoreView;
+import com.chad.library.adapter.base.loadmore.SimpleLoadMoreView;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseFragment;
@@ -43,6 +44,7 @@ import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.view.CircleImageView;
+import com.mengyang.kohler.common.view.MyLoadMoreView;
 import com.mengyang.kohler.common.view.SpacesItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.main.activity.MainActivity;
@@ -272,39 +274,10 @@ public class AccountFragment extends BaseFragment implements BaseQuickAdapter.Re
                                 if (mFootPrintBean.size() > 0) {
                                     pageNum += 1;
                                     mFootPrintAdapter = new FootPrintAdapter(mFootPrintBean);
+
                                     rvAccountBrowsing.setAdapter(mFootPrintAdapter);
                                     mFootPrintAdapter.setOnLoadMoreListener(AccountFragment.this, rvAccountBrowsing); //加载更多
-
-                                    mFootPrintAdapter.setLoadMoreView(new LoadMoreView() {
-                                        @Override
-                                        public int getLayoutId() {
-                                            return R.layout.load_more_null_layout;
-                                        }
-
-                                        /**
-                                         * 如果返回true，数据全部加载完毕后会隐藏加载更多
-                                         * 如果返回false，数据全部加载完毕后会显示getLoadEndViewId()布局
-                                         */
-                                        @Override
-                                        public boolean isLoadEndGone() {
-                                            return true;
-                                        }
-
-                                        @Override
-                                        protected int getLoadingViewId() {
-                                            return R.id.load_more_loading_view;
-                                        }
-
-                                        @Override
-                                        protected int getLoadFailViewId() {
-                                            return R.id.load_more_load_fail_view;
-                                        }
-
-                                        @Override
-                                        protected int getLoadEndViewId() {
-                                            return 0;
-                                        }
-                                    });
+                                    mFootPrintAdapter.setLoadMoreView(new MyLoadMoreView());//添加修改后的没有跟多数据view
 
                                     mFootPrintAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener()
 
