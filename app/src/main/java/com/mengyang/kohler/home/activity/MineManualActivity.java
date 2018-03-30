@@ -21,6 +21,7 @@ import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.utils.FileUtil;
 import com.mengyang.kohler.common.utils.FileUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
+import com.mengyang.kohler.common.view.MySwipeRefreshLayout;
 import com.mengyang.kohler.common.view.SpacesItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.home.adapter.BrochureListAdapter;
@@ -55,7 +56,7 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
     @BindView(R.id.rv_mine_manual_my_brochure)
     RecyclerView rvMineManualMyBrochure;
     @BindView(R.id.srl_mine_manual)
-    SwipeRefreshLayout srlMineManual;
+    MySwipeRefreshLayout srlMineManual;
 
     private List<String> mLocalTempPdfFileName = new ArrayList<>();
     private PdfBean.UserNameBean.UserPdfItemBean mUserPdfItemBean = new PdfBean.UserNameBean.UserPdfItemBean();
@@ -186,14 +187,12 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
                 srlMineManual.setRefreshing(false);
             }
         });
-        //        mMyBrochureAdapter.setOnLoadMoreListener(MineManualActivity.this, rvMineManualMyBrochure); //加载更多
     }
 
     @Override
     protected void initData() {
         Map<String, String> stringMap = IdeaApi.getSign();
         stringMap.put("pageNum", pageNum + "");
-//        stringMap.put("pageSize", 3 + "");
 
         IdeaApi.getRequestLogin(stringMap);
         IdeaApi.getApiService()
@@ -242,7 +241,7 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
                                         }
                                     });
                                 } else {
-                                    mMineManualAdapter.loadMoreEnd();
+                                    mMineManualAdapter.loadMoreEnd(true);
                                 }
                             } else {
                                 if (response.getData().getResultList().size() > 0) {
@@ -250,11 +249,11 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
                                     mMineManualAdapter.addData(response.getData().getResultList());
                                     mMineManualAdapter.loadMoreComplete(); //完成本次
                                 } else {
-                                    mMineManualAdapter.loadMoreEnd(); //完成所有加载
+                                    mMineManualAdapter.loadMoreEnd(true); //完成所有加载
                                 }
                             }
                         } else {
-                            mMineManualAdapter.loadMoreEnd();
+                            mMineManualAdapter.loadMoreEnd(true);
                         }
                     }
                 });

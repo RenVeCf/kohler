@@ -324,10 +324,10 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                                     }
                                 });
                             } else {
-                                mMineManualAdapter.loadMoreEnd();
+                                mMineManualAdapter.loadMoreEnd(true);
                             }
                         } else {
-                            mMineManualAdapter.loadMoreEnd();
+                            mMineManualAdapter.loadMoreEnd(true);
                         }
                     }
                 });

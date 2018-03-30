@@ -26,7 +26,7 @@
         android:layout_height="1dp"
         android:background="#e0e0e0"/>
 
-    <android.support.v4.widget.SwipeRefreshLayout
+    <com.mengyang.kohler.common.view.MySwipeRefreshLayout
         android:id="@+id/srl_mine_manual"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -84,5 +84,5 @@
             </LinearLayout>
 
         </com.mengyang.kohler.home.view.ScrollViewConflict>
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </com.mengyang.kohler.common.view.MySwipeRefreshLayout>
 </LinearLayout>

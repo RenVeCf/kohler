@@ -4,35 +4,40 @@ import android.content.Context;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.ViewConfiguration;
 
 /**
+ * 解决横向滑动引起的SwipeRefreshLayout下拉事件冲突的SwipeRefreshLayout
  * Created by liusong on 2018/3/30.
  */
 
 public class MySwipeRefreshLayout extends SwipeRefreshLayout {
 
-    private int mStartY;
-
-    public MySwipeRefreshLayout(Context context) {
-        super(context);
-    }
+    private int mTouchSlop;
+    private float mPrevX;
 
     public MySwipeRefreshLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
+
+        mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent ev) {
-        switch (ev.getAction()) {
+    public boolean onInterceptTouchEvent(MotionEvent event) {
+
+        switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                mStartY = (int) ev.getY();
+                mPrevX = MotionEvent.obtain(event).getX();
                 break;
+
             case MotionEvent.ACTION_MOVE:
-                int evY = (int) ev.getY();
-                break;
-            case MotionEvent.ACTION_UP:
-                break;
+                final float eventX = event.getX();
+                float xDiff = Math.abs(eventX - mPrevX);
+
+                if (xDiff > mTouchSlop) {
+                    return false;
+                }
         }
-        return super.onTouchEvent(ev);
+        return super.onInterceptTouchEvent(event);
     }
 }
