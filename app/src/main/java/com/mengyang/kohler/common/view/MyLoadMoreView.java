@@ -1,5 +1,6 @@
 package com.mengyang.kohler.common.view;
 
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.loadmore.LoadMoreView;
 import com.mengyang.kohler.R;
 

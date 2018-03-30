@@ -289,7 +289,7 @@ public class AccountFragment extends BaseFragment implements BaseQuickAdapter.Re
                                         }
                                     });
                                 } else {
-                                    mFootPrintAdapter.loadMoreEnd();
+                                    mFootPrintAdapter.loadMoreEnd(true);
                                 }
                             } else {
                                 if (response.getData().getResultList().size() > 0) {
@@ -297,11 +297,11 @@ public class AccountFragment extends BaseFragment implements BaseQuickAdapter.Re
                                     mFootPrintAdapter.addData(response.getData().getResultList());
                                     mFootPrintAdapter.loadMoreComplete(); //完成本次
                                 } else {
-                                    mFootPrintAdapter.loadMoreEnd(); //完成所有加载
+                                    mFootPrintAdapter.loadMoreEnd(true); //完成所有加载
                                 }
                             }
                         } else {
-                            mFootPrintAdapter.loadMoreEnd();
+                            mFootPrintAdapter.loadMoreEnd(true);
                         }
                     }
                 });
