@@ -9,8 +9,10 @@ import android.view.MotionEvent;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
+import com.allyes.analytics.AIOAnalytics;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.common.utils.PermissionUtils;
+import com.mengyang.kohler.main.activity.MainActivity;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.umeng.analytics.MobclickAgent;
 

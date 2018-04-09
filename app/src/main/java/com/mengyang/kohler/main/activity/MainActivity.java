@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -29,6 +28,7 @@ import android.widget.PopupWindow;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
+import com.allyes.analytics.AIOAnalytics;
 import com.gyf.barlibrary.ImmersionBar;
 import com.kohler.arscan.DownloadActivity;
 import com.mengyang.kohler.App;
@@ -57,16 +57,24 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends BaseActivity implements HomeFragment.OnFragmentInteractionListener, HomeFragment.HandleViewPager {
     private static final int PERMISSON_REQUESTCODE = 0;
+    private static final String TAG = "MainActivity=";
     private String[] needPermissions = {
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_NETWORK_STATE,
+            Manifest.permission.ACCESS_WIFI_STATE,
+            Manifest.permission.INTERNET,
+            Manifest.permission.READ_PHONE_STATE,
+            Manifest.permission.RECEIVE_BOOT_COMPLETED,
+            Manifest.permission.WAKE_LOCK,
     };
     @BindView(R.id.iv_whole_category)
     ImageView ivWholeCategory;
@@ -204,6 +212,10 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
 
             }
         });
+
+        AIOAnalytics.onInit(MainActivity.this);
+        AIOAnalytics.onResume();
+        AIOAnalytics.onEvent("start_time");
     }
 
     @Override
@@ -606,40 +618,8 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 }
             }
             if (false == allGranted) {
-                //                showMissingPermissionDialog();
+//                showMissingPermissionDialog();
             }
-        }
-    }
-
-
-    /**
-     * 数据统计需要的动态权限
-     */
-    private void checkPermissions() {
-        List<String> needRequestPermissonList = new ArrayList<String>();
-        for (String perm : needPermissions) {
-
-            if (ContextCompat.checkSelfPermission(this, perm) == PackageManager.PERMISSION_GRANTED) {
-
-                Log.i("cohler", "check permission [" + perm + "]: PERMISSION_GRANTED");//有权限了
-
-            } else {
-                Log.i("cohler", "check permission [" + perm + "]: PERMISSION_DENIED");//没有权限
-
-                //判断是否需要显示申请原因
-                if (true == ActivityCompat.shouldShowRequestPermissionRationale(this, perm)) {
-                    //ConsoleLog.debug("shouldShowRequestPermissionRationale == true");
-                } else {
-                    //ConsoleLog.debug("shouldShowRequestPermissionRationale == false");
-                }
-                needRequestPermissonList.add(perm);
-            }
-        }
-
-        if (needRequestPermissonList.size() > 0) {
-            ActivityCompat.requestPermissions(this,
-                    needRequestPermissonList.toArray(new String[needRequestPermissonList.size()]),
-                    PERMISSON_REQUESTCODE);
         }
     }
 
@@ -694,5 +674,49 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
         }
 
         return false;
+    }
+
+/*    @Override
+    protected void onResume() {
+        super.onResume();
+        AIOAnalytics.onResume();
+        AIOAnalytics.onEvent("start_time");
+    }*/
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        AIOAnalytics.onPause();
+    }
+
+    /**
+     * 数据统计需要的动态权限
+     */
+    private void checkPermissions() {
+        List<String> needRequestPermissonList = new ArrayList<String>();
+        for (String perm : needPermissions) {
+
+            if (ContextCompat.checkSelfPermission(this, perm) == PackageManager.PERMISSION_GRANTED) {
+
+                Log.i("cohler", "check permission [" + perm + "]: PERMISSION_GRANTED");//有权限了
+
+            } else {
+                Log.i("cohler", "check permission [" + perm + "]: PERMISSION_DENIED");//没有权限
+
+                //判断是否需要显示申请原因
+                if (true == ActivityCompat.shouldShowRequestPermissionRationale(this, perm)) {
+                    //ConsoleLog.debug("shouldShowRequestPermissionRationale == true");
+                } else {
+                    //ConsoleLog.debug("shouldShowRequestPermissionRationale == false");
+                }
+                needRequestPermissonList.add(perm);
+            }
+        }
+
+        if (needRequestPermissonList.size() > 0) {
+            ActivityCompat.requestPermissions(this,
+                    needRequestPermissonList.toArray(new String[needRequestPermissonList.size()]),
+                    PERMISSON_REQUESTCODE);
+        }
     }
 }
