@@ -211,4 +211,9 @@
     <string name="brvah_loading">正在加载中...</string>
     <string name="brvah_load_failed">加载失败，请点我重试</string>
     <string name="brvah_load_end">没有更多数据</string>
+    <string name="whole_cabinet">整体橱柜</string>
+    <string name="kitchen_sink">厨盆</string>
+    <string name="kitchen_accessories">厨房配件</string>
+    <string name="kitchen_faucet">厨房龙头</string>
+    <string name="water_purification">净水</string>
 </resources>

@@ -15,6 +15,7 @@ import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IdeaApi;
+import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.view.GridSpacingItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.home.adapter.HomeSearchAdapter;
@@ -112,7 +113,7 @@ public class HomeSearchActivity extends BaseActivity implements BaseQuickAdapter
                                     mHomeSearchAdapter.loadMoreEnd();
                                 }
                             } else {
-                                if (response.getData().getResultList() != null) {
+                                if (response.getData().getResultList().size() > 0) {
                                     pageNum += 1;
                                     mHomeSearchAdapter.addData(response.getData().getResultList());
                                     mHomeSearchAdapter.loadMoreComplete(); //完成本次

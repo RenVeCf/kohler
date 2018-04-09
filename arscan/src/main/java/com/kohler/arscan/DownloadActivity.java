@@ -8,13 +8,13 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.content.PermissionChecker;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -241,7 +241,20 @@ public class DownloadActivity extends AppCompatActivity {
 
                     if (cursor.getInt(
                             cursor.getColumnIndex(DownloadManager.COLUMN_STATUS)) == DownloadManager.STATUS_SUCCESSFUL) {
-                        boolean unZip = unZip(cursor.getString(cursor.getColumnIndex(DownloadManager.COLUMN_LOCAL_FILENAME)));
+                        int fileUriIdx = cursor.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI);
+                        String fileUri = cursor.getString(fileUriIdx);
+                        String fileName = null;
+                        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+                            if (fileUri != null) {
+                                fileName = Uri.parse(fileUri).getPath();
+                            }
+                        } else {
+                            //Android 7.0以上的方式：请求获取写入权限，这一步报错
+                            //过时的方式：DownloadManager.COLUMN_LOCAL_FILENAME
+                            int fileNameIdx = cursor.getColumnIndex(DownloadManager.COLUMN_LOCAL_FILENAME);
+                            fileName = cursor.getString(fileNameIdx);
+                        }
+                        boolean unZip = unZip(fileName);
                         Log.e(TAG, "解压: " + unZip);
                         timerTask.cancel();
 

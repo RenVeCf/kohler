@@ -351,6 +351,91 @@
                         style="@style/MenuStyle"
                         android:text="@string/commercial_products"/>
                 </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_whole_cabinet"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/y120">
+
+                    <ImageView
+                        style="@style/MenuIconStyle_item"
+                        android:background="@mipmap/whole_cabinet"/>
+
+                    <TextView
+                        style="@style/MenuStyle"
+                        android:text="@string/whole_cabinet"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_kitchen_sink"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/y120">
+
+                    <ImageView
+                        style="@style/MenuIconStyle_item"
+                        android:background="@mipmap/kitchen_sink"/>
+
+                    <TextView
+                        style="@style/MenuStyle"
+                        android:text="@string/kitchen_sink"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_kitchen_accessories"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/y120">
+
+                    <ImageView
+                        style="@style/MenuIconStyle_item"
+                        android:background="@mipmap/kitchen_accessories"/>
+
+                    <TextView
+                        style="@style/MenuStyle"
+                        android:text="@string/kitchen_accessories"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_kitchen_faucet"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/y120">
+
+                    <ImageView
+                        style="@style/MenuIconStyle_item"
+                        android:background="@mipmap/kitchen_faucet"/>
+
+                    <TextView
+                        style="@style/MenuStyle"
+                        android:text="@string/kitchen_faucet"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_water_purification"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/y120">
+
+                    <ImageView
+                        style="@style/MenuIconStyle_item"
+                        android:background="@mipmap/water_purification"/>
+
+                    <TextView
+                        style="@style/MenuStyle"
+                        android:text="@string/water_purification"/>
+                </LinearLayout>
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

@@ -81,7 +81,7 @@ public class GanChuangActivity extends BaseActivity {
     private ArtKohlerBean mArtKohlerBean;
     private List<ArtKohlerBean.AgendaListBean> mArtKohlerAdapterBean;
     private GanChuangAdapter mGanChuangAdapter;
-    String mVideo = "";
+    private String mVideo = "";
 
     @Override
     protected int getLayoutId() {

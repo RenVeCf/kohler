@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -56,6 +57,7 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -102,6 +104,16 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
     LinearLayout llMassageBathtub;
     @BindView(R.id.ll_commercial_products)
     LinearLayout llCommercialProducts;
+    @BindView(R.id.ll_whole_cabinet)
+    LinearLayout llWholeCabinet;
+    @BindView(R.id.ll_kitchen_sink)
+    LinearLayout llKitchenSink;
+    @BindView(R.id.ll_kitchen_accessories)
+    LinearLayout llKitchenAccessories;
+    @BindView(R.id.ll_kitchen_faucet)
+    LinearLayout llKitchenFaucet;
+    @BindView(R.id.ll_water_purification)
+    LinearLayout llWaterPurification;
     @BindView(R.id.ll_main)
     LinearLayout llMain;
     @BindView(R.id.vp_main_viewpager)
@@ -349,7 +361,7 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
     }
 
 
-    @OnClick({R.id.ll_whole_category, R.id.ll_toilet_heater, R.id.ll_nearby_shops, R.id.ll_account_manual, R.id.ll_super_toilet_seat, R.id.ll_toilet_seat, R.id.ll_toilet_seat_cover, R.id.ll_qing_shu_bao_toilet_seat, R.id.ll_shower_room_parts, R.id.ll_ceramic_tile, R.id.ll_makeup, R.id.ll_shower_room_nozzle, R.id.ll_shower_nozzle, R.id.ll_shower_room, R.id.ll_steam_equipment, R.id.ll_bathtub, R.id.ll_massage_bathtub, R.id.ll_commercial_products, R.id.bt_home, R.id.bt_whole_category, R.id.bt_ar, R.id.bt_account})
+    @OnClick({R.id.ll_whole_category, R.id.ll_toilet_heater, R.id.ll_nearby_shops, R.id.ll_account_manual, R.id.ll_super_toilet_seat, R.id.ll_toilet_seat, R.id.ll_toilet_seat_cover, R.id.ll_qing_shu_bao_toilet_seat, R.id.ll_shower_room_parts, R.id.ll_ceramic_tile, R.id.ll_makeup, R.id.ll_shower_room_nozzle, R.id.ll_shower_nozzle, R.id.ll_shower_room, R.id.ll_steam_equipment, R.id.ll_bathtub, R.id.ll_massage_bathtub, R.id.ll_commercial_products, R.id.ll_whole_cabinet, R.id.ll_kitchen_sink, R.id.ll_kitchen_accessories, R.id.ll_kitchen_faucet, R.id.ll_water_purification, R.id.bt_home, R.id.bt_whole_category, R.id.bt_ar, R.id.bt_account})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_nearby_shops:
@@ -430,6 +442,26 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 //商用产品
                 listWithoutSelection(12);
                 break;
+            case R.id.ll_whole_cabinet:
+                //整体橱柜
+                listWithoutSelection(12);
+                break;
+            case R.id.ll_kitchen_sink:
+                //厨盆
+                listWithoutSelection(12);
+                break;
+            case R.id.ll_kitchen_accessories:
+                //厨房配件
+                listWithoutSelection(12);
+                break;
+            case R.id.ll_kitchen_faucet:
+                //厨房龙头
+                listWithoutSelection(12);
+                break;
+            case R.id.ll_water_purification:
+                //净水
+                listWithoutSelection(12);
+                break;
             case R.id.bt_home:
                 switchFragment(mHomeFragment).commit();
                 //沉浸式状态栏初始化黑色
@@ -484,6 +516,11 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                     llToiletHeater.setVisibility(View.GONE);
                     llCommercialProducts.setVisibility(View.GONE);
                     llShowerRoom.setVisibility(View.GONE);
+                    llWholeCabinet.setVisibility(View.GONE);
+                    llKitchenSink.setVisibility(View.GONE);
+                    llKitchenAccessories.setVisibility(View.GONE);
+                    llKitchenFaucet.setVisibility(View.GONE);
+                    llWaterPurification.setVisibility(View.GONE);
                     mFlag = 1;
                 } else {
                     ivWholeCategory.setImageDrawable(getResources().getDrawable(R.mipmap.arrow_down));
@@ -502,6 +539,11 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                     llToiletHeater.setVisibility(View.VISIBLE);
                     llCommercialProducts.setVisibility(View.VISIBLE);
                     llShowerRoom.setVisibility(View.VISIBLE);
+                    llWholeCabinet.setVisibility(View.VISIBLE);
+                    llKitchenSink.setVisibility(View.VISIBLE);
+                    llKitchenAccessories.setVisibility(View.VISIBLE);
+                    llKitchenFaucet.setVisibility(View.VISIBLE);
+                    llWaterPurification.setVisibility(View.VISIBLE);
                     mFlag = 0;
                 }
                 break;

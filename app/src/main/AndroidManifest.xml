@@ -257,6 +257,7 @@
             android:name="UMENG_APPKEY"
             android:exported="false"
             android:value="5aa8bed78f4a9d22d30001b0"/>
+
         <meta-data
             android:name="INSTALL_CHANNEL"
             android:exported="false"
