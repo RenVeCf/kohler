@@ -5,6 +5,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gyf.barlibrary.ImmersionBar;
@@ -37,6 +38,8 @@ public class SystemMsgActivity extends BaseActivity implements BaseQuickAdapter.
 
     @BindView(R.id.tv_system_msg_top)
     TopView tvSystemMsgTop;
+    @BindView(R.id.iv_top_system_msg)
+    ImageView ivTopSystemMsg;
     @BindView(R.id.rv_system_msg)
     RecyclerView rvSystemMsg;
     @BindView(R.id.srl_system_msg)
@@ -55,6 +58,7 @@ public class SystemMsgActivity extends BaseActivity implements BaseQuickAdapter.
         App.getManager().addActivity(this);
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(this, tvSystemMsgTop);
+        ivTopSystemMsg.setImageResource(R.mipmap.message);
         // 设置管理器
         LinearLayoutManager layoutManager = new LinearLayoutManager(App.getContext());
         rvSystemMsg.setLayoutManager(layoutManager);

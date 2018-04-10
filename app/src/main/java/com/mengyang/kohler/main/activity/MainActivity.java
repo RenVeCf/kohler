@@ -40,6 +40,7 @@ import com.mengyang.kohler.ar.ARFragment;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.net.IdeaApi;
+import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.view.ResideLayout;
 import com.mengyang.kohler.home.activity.MineManualActivity;
@@ -115,8 +116,6 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
     LinearLayout llWholeCabinet;
     @BindView(R.id.ll_kitchen_sink)
     LinearLayout llKitchenSink;
-    @BindView(R.id.ll_kitchen_accessories)
-    LinearLayout llKitchenAccessories;
     @BindView(R.id.ll_kitchen_faucet)
     LinearLayout llKitchenFaucet;
     @BindView(R.id.ll_water_purification)
@@ -208,7 +207,6 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 if (mHomeFragment != null) {
                     mHomeFragment.startViewPager();
                 }
-
             }
         });
     }
@@ -219,7 +217,6 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
             rlMain.closePane();
         } else {
             super.onBackPressed();
-
         }
     }
 
@@ -379,7 +376,7 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
     }
 
 
-    @OnClick({R.id.ll_whole_category, R.id.ll_toilet_heater, R.id.ll_nearby_shops, R.id.ll_account_manual, R.id.ll_super_toilet_seat, R.id.ll_toilet_seat, R.id.ll_toilet_seat_cover, R.id.ll_qing_shu_bao_toilet_seat, R.id.ll_shower_room_parts, R.id.ll_ceramic_tile, R.id.ll_makeup, R.id.ll_shower_room_nozzle, R.id.ll_shower_nozzle, R.id.ll_shower_room, R.id.ll_steam_equipment, R.id.ll_bathtub, R.id.ll_massage_bathtub, R.id.ll_commercial_products, R.id.ll_whole_cabinet, R.id.ll_kitchen_sink, R.id.ll_kitchen_accessories, R.id.ll_kitchen_faucet, R.id.ll_water_purification, R.id.bt_home, R.id.bt_whole_category, R.id.bt_ar, R.id.bt_account})
+    @OnClick({R.id.ll_whole_category, R.id.ll_toilet_heater, R.id.ll_nearby_shops, R.id.ll_account_manual, R.id.ll_super_toilet_seat, R.id.ll_toilet_seat, R.id.ll_toilet_seat_cover, R.id.ll_qing_shu_bao_toilet_seat, R.id.ll_shower_room_parts, R.id.ll_ceramic_tile, R.id.ll_makeup, R.id.ll_shower_room_nozzle, R.id.ll_shower_nozzle, R.id.ll_shower_room, R.id.ll_steam_equipment, R.id.ll_bathtub, R.id.ll_massage_bathtub, R.id.ll_commercial_products, R.id.ll_whole_cabinet, R.id.ll_kitchen_sink, R.id.ll_kitchen_faucet, R.id.ll_water_purification, R.id.bt_home, R.id.bt_whole_category, R.id.bt_ar, R.id.bt_account})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_nearby_shops:
@@ -470,10 +467,6 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 //厨盆
                 listWithoutSelection(17);
                 break;
-            case R.id.ll_kitchen_accessories:
-                //厨房配件
-                listWithoutSelection(12);
-                break;
             case R.id.ll_kitchen_faucet:
                 //厨房龙头
                 listWithoutSelection(18);
@@ -542,7 +535,6 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                     llShowerRoom.setVisibility(View.GONE);
                     llWholeCabinet.setVisibility(View.GONE);
                     llKitchenSink.setVisibility(View.GONE);
-                    llKitchenAccessories.setVisibility(View.GONE);
                     llKitchenFaucet.setVisibility(View.GONE);
                     llWaterPurification.setVisibility(View.GONE);
                     mFlag = 1;
@@ -565,7 +557,6 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                     llShowerRoom.setVisibility(View.VISIBLE);
                     llWholeCabinet.setVisibility(View.VISIBLE);
                     llKitchenSink.setVisibility(View.VISIBLE);
-                    llKitchenAccessories.setVisibility(View.VISIBLE);
                     llKitchenFaucet.setVisibility(View.VISIBLE);
                     llWaterPurification.setVisibility(View.VISIBLE);
                     mFlag = 0;

@@ -1,9 +1,7 @@
 package com.mengyang.kohler.ar;
 
-import android.content.Intent;
-
+import com.allyes.analytics.AIOAnalytics;
 import com.gyf.barlibrary.ImmersionBar;
-import com.kohler.arscan.UnityPlayerActivity;
 import com.mengyang.kohler.BaseFragment;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.view.TopView;
@@ -28,10 +26,6 @@ public class ARFragment extends BaseFragment {
     protected void initValues() {
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(getActivity(), tvArTop);
-
-        Intent intent = new Intent(getContext(), UnityPlayerActivity.class);
-        intent.putExtra("flag", "9");
-        startActivity(intent);
     }
 
     @Override
@@ -48,10 +42,13 @@ public class ARFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         MobclickAgent.onResume(getActivity());
+        AIOAnalytics.onPageBegin("arsaoyisao");
     }
+
     @Override
     public void onPause() {
         super.onPause();
         MobclickAgent.onPause(getActivity());
+        AIOAnalytics.onPageEnd("arsaoyisao");
     }
 }

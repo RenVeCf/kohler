@@ -44,11 +44,9 @@ import com.mengyang.kohler.home.activity.DownLoaderPDFActivity;
 import com.mengyang.kohler.home.activity.GanChuangActivity;
 import com.mengyang.kohler.home.activity.HomeSearchActivity;
 import com.mengyang.kohler.home.activity.MeetingActivity;
-import com.mengyang.kohler.home.activity.MineManualActivity;
 import com.mengyang.kohler.home.activity.PDFActivity;
 import com.mengyang.kohler.home.activity.WeeklyRadioConcertActivity;
 import com.mengyang.kohler.home.adapter.BrochureListAdapter2;
-import com.mengyang.kohler.main.activity.MainActivity;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.BooksListBean;
 import com.mengyang.kohler.module.bean.HomeIndexBean;
@@ -76,6 +74,8 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
 
     @BindView(R.id.tv_home_top)
     TopView tvHomeTop;
+    @BindView(R.id.iv_top_system_msg)
+    ImageView ivTopSystemMsg;
     @BindView(R.id.et_home_search)
     EditText etHomeSearch;
     @BindView(R.id.ab_home_loop)
@@ -356,6 +356,9 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                     public void onSuccess(BasicResponse<HomeIndexBean> response) {
                         etHomeSearch.setFocusableInTouchMode(true);
                         mHomeIndexBean = response.getData();
+                        boolean noRead = mHomeIndexBean.isNoRead();
+                        if (noRead)
+                            ivTopSystemMsg.setImageResource(R.mipmap.message_new);
                         for (int i = 0; i < mHomeIndexBean.getKvList().size(); i++) {
                             ImageView point = new ImageView(getActivity());
                             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(75, 9);

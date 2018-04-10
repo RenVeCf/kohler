@@ -241,6 +241,7 @@ public class DownloadActivity extends AppCompatActivity {
 
                     if (cursor.getInt(
                             cursor.getColumnIndex(DownloadManager.COLUMN_STATUS)) == DownloadManager.STATUS_SUCCESSFUL) {
+                        //                        boolean unZip = unZip(cursor.getString(cursor.getColumnIndex(DownloadManager.COLUMN_LOCAL_FILENAME)));
                         int fileUriIdx = cursor.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI);
                         String fileUri = cursor.getString(fileUriIdx);
                         String fileName = null;

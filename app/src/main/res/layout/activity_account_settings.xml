@@ -34,10 +34,10 @@
 
         <TextView
             android:id="@+id/tv_account_settings_about"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/y72"
-            android:layout_marginTop="@dimen/y72"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/y72"
+            android:paddingTop="@dimen/y72"
             android:text="@string/about"/>
 
         <View
@@ -47,10 +47,10 @@
 
         <TextView
             android:id="@+id/tv_account_settings_privacy_policy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/y72"
-            android:layout_marginTop="@dimen/y72"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/y72"
+            android:paddingTop="@dimen/y72"
             android:text="@string/privacy_policy"/>
 
         <View
@@ -60,10 +60,10 @@
 
         <TextView
             android:id="@+id/tv_account_settings_modify_pwd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/y72"
-            android:layout_marginTop="@dimen/y72"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/y72"
+            android:paddingTop="@dimen/y72"
             android:clickable="false"
             android:textColor="@color/no_login_settings"
             android:text="@string/modify_pwd"/>
@@ -75,10 +75,10 @@
 
         <TextView
             android:id="@+id/tv_account_settings_modify_bind_phone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/y72"
-            android:layout_marginTop="@dimen/y72"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/y72"
+            android:paddingTop="@dimen/y72"
             android:clickable="false"
             android:textColor="@color/no_login_settings"
             android:text="@string/modify_bind_phone"/>
