@@ -17,6 +17,7 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.allyes.analytics.AIOAnalytics;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -280,12 +281,14 @@ public class ArtKohlerActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
+        AIOAnalytics.onPageBegin("shejishanghai");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         MobclickAgent.onPause(this);
+        AIOAnalytics.onPageEnd("shejishanghai");
     }
 
     @OnClick({R.id.rl_art_kohler_live, R.id.rl_art_kohler_video, R.id.ll_view_all, R.id.ll_art_kohler_position_zero})

@@ -21,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.allyes.analytics.AIOAnalytics;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gyf.barlibrary.ImmersionBar;
 import com.kohler.arscan.DownloadActivity;
@@ -183,6 +184,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
     public void onResume() {
         super.onResume();
         MobclickAgent.onResume(getActivity());
+        AIOAnalytics.onPageBegin("index");
         if (((boolean) SPUtil.get(getActivity(), IConstants.IS_LOGIN, false)) == true) {
             String userLevel = (String) SPUtil.get(getActivity(), IConstants.TYPE, "");
             if (userLevel.equals("dealer") || userLevel.equals("designer")) {
@@ -263,6 +265,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
     public void onPause() {
         super.onPause();
         MobclickAgent.onPause(getActivity());
+        AIOAnalytics.onPageEnd("index");
     }
 
     /**
@@ -385,14 +388,19 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                                 }
 
                                 if (postion == 0) {
+                                    AIOAnalytics.onEvent("ganchuang");
                                     startActivity(new Intent(getActivity(), GanChuangActivity.class));
                                 } else if (postion == 1) {
+                                    AIOAnalytics.onEvent("shejishanghai");
                                     startActivity(new Intent(getActivity(), ArtKohlerActivity.class));
                                 } else if (postion == 2 && SPUtil.get(getActivity(), IConstants.TYPE, "").equals("")) {
+                                    AIOAnalytics.onEvent("jingxiaoshangdahui");
                                     startActivity(new Intent(getActivity(), LoginActivity.class));
                                 } else if (postion == 2 && SPUtil.get(getActivity(), IConstants.TYPE, "").equals("dealer")) {
+                                    AIOAnalytics.onEvent("jingxiaoshangdahui");
                                     startActivity(new Intent(getActivity(), MeetingActivity.class));
                                 } else if (postion == 2 && !SPUtil.get(getActivity(), IConstants.TYPE, "").equals("dealer")) {
+                                    AIOAnalytics.onEvent("jingxiaoshangdahui");
                                     if (Build.VERSION.SDK_INT == 24) {//android7.0需要单独做适配
                                         mNoJurisdictionPopupWindow.showAtLocation(getView(), Gravity.NO_GRAVITY, 0, getStatusBarHeight());
                                     } else {
@@ -401,6 +409,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                                 } else {
                                     if (postion == 3) {
                                         MobclickAgent.onEvent(getActivity(), "arjieshuo");
+                                        AIOAnalytics.onEvent("arjieshuo");
                                         Intent intent = new Intent(getActivity(), DownloadActivity.class);
                                         intent.putExtra("way", "banner");
                                         startActivity(intent);
@@ -505,6 +514,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                 startActivity(new Intent(getContext(), CustomerServiceActivity.class));
                 break;
             case R.id.iv_weekly_radio_concert:
+                AIOAnalytics.onEvent("yinyuehuiliebiao");
                 startActivity(new Intent(getContext(), WeeklyRadioConcertActivity.class));
                 break;
             default:

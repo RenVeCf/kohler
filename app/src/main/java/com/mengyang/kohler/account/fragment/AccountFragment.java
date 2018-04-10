@@ -25,6 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.allyes.analytics.AIOAnalytics;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -235,6 +236,7 @@ public class AccountFragment extends BaseFragment implements BaseQuickAdapter.Re
     public void onResume() {
         super.onResume();
         MobclickAgent.onResume(getActivity());
+        AIOAnalytics.onPageBegin("zhanghu");
         if (pageNum != 0) {
             pageNum = 0;
             //浏览足迹
@@ -246,6 +248,7 @@ public class AccountFragment extends BaseFragment implements BaseQuickAdapter.Re
     public void onPause() {
         super.onPause();
         MobclickAgent.onPause(getActivity());
+        AIOAnalytics.onPageEnd("zhanghu");
     }
 
     private void getUserMsg() {

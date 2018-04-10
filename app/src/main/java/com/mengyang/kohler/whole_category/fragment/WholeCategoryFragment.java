@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.allyes.analytics.AIOAnalytics;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.BaseFragment;
 import com.mengyang.kohler.R;
@@ -133,11 +134,13 @@ public class WholeCategoryFragment extends BaseFragment implements StackLayoutMa
     public void onResume() {
         super.onResume();
         MobclickAgent.onResume(getActivity());
+        AIOAnalytics.onPageBegin("category");
     }
     @Override
     public void onPause() {
         super.onPause();
         MobclickAgent.onPause(getActivity());
+        AIOAnalytics.onPageEnd("category");
     }
 
     @Override

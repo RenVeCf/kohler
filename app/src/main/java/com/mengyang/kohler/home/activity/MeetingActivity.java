@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.allyes.analytics.AIOAnalytics;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.App;
@@ -227,12 +228,14 @@ public class MeetingActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
+        AIOAnalytics.onPageBegin("jingxiaoshangdahui");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         MobclickAgent.onPause(this);
+        AIOAnalytics.onPageEnd("jingxiaoshangdahui");
     }
 
     private void AgendaMsgPush(boolean pushMsg) {

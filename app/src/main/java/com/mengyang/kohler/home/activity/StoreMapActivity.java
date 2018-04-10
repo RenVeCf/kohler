@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 
+import com.allyes.analytics.AIOAnalytics;
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
@@ -80,7 +81,6 @@ public class StoreMapActivity extends BaseActivity {
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(this, tvStoreMapTop);
         MobclickAgent.onEvent(StoreMapActivity.this, "fujindianpu");
-
         setOnPermissionListener(new OnPermissionListener() {
             @Override
             public void openIntent() {
@@ -287,6 +287,7 @@ public class StoreMapActivity extends BaseActivity {
         super.onResume();
         mapView.onResume();
         MobclickAgent.onResume(this);
+        AIOAnalytics.onPageBegin("fujindianpu");
     }
 
     @Override
@@ -294,6 +295,7 @@ public class StoreMapActivity extends BaseActivity {
         super.onPause();
         mapView.onPause();
         MobclickAgent.onPause(this);
+        AIOAnalytics.onPageEnd("fujindianpu");
     }
 
     @Override

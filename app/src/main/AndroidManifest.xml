@@ -267,6 +267,17 @@
             android:exported="false"
             android:value="${INSTALL_CHANNEL_VALUE}"/>
 
+        <!-- 监控 -->
+        <meta-data
+            android:name="app_key"
+            android:value="YWluc2lnaHR8MDAwMDAwMDZ8MDAxNQ=="/>
+        <meta-data
+            android:name="app_channel"
+            android:value="${INSTALL_CHANNEL_VALUE}" />
+        <meta-data
+            android:name="app_version"
+            android:value="ver_1.0.1" />
+
         <activity
             android:name="com.kohler.arscan.DownloadActivity"
             android:exported="false"/>

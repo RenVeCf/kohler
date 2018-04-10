@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 
+import com.allyes.analytics.AIOAnalytics;
 import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.tencent.bugly.crashreport.CrashReport;
@@ -54,6 +55,8 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        //Ainsight APP监测
+        AIOAnalytics.onInit(context);
 
         Config.DEBUG = true;// TODO: 2017/12/1 ,用于友盟的log跟踪,请勿删除
         UMShareAPI.get(this);

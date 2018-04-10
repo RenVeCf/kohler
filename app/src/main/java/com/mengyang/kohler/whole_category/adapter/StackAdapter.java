@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.allyes.analytics.AIOAnalytics;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.mengyang.kohler.App;
@@ -91,6 +92,7 @@ public class StackAdapter extends RecyclerView.Adapter<StackAdapter.ViewHolder> 
                 public void onClick(View v) {
                     if (getAdapterPosition() == (datasUsed.size() - 1)) {
 //                        mListener.onWholeCategoryItem("科勒");
+                        AIOAnalytics.onEvent("jingxuanxilie");
                         App.getContext().startActivity(new Intent(App.getContext(), SelectClassificationActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                     } else {
 //                        mListener.onWholeCategoryItem(datasUsed.get(getAdapterPosition()).getNameCn());

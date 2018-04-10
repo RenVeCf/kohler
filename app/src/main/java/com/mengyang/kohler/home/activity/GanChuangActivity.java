@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.allyes.analytics.AIOAnalytics;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.App;
@@ -190,12 +191,14 @@ public class GanChuangActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
+        AIOAnalytics.onPageBegin("ganchuang");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         MobclickAgent.onPause(this);
+        AIOAnalytics.onPageEnd("ganchuang");
     }
 
     @OnClick({R.id.rl_ganchuang_video, R.id.ll_go_works_of_art, R.id.iv_go_works_of_art, R.id.ll_go_artists})

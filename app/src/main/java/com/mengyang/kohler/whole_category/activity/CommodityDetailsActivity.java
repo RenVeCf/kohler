@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.allyes.analytics.AIOAnalytics;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.gyf.barlibrary.ImmersionBar;
@@ -425,6 +426,7 @@ public class CommodityDetailsActivity extends BaseActivity implements TopView.It
                 }
                 break;
             case R.id.ll_commodity_details_purchase_inquiries:
+                AIOAnalytics.onEvent("fujindianpu");
                 startActivity(new Intent(this, StoreMapActivity.class));
                 break;
             case R.id.bt_commodity_details_like:

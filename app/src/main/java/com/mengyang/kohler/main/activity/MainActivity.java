@@ -63,7 +63,6 @@ import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends BaseActivity implements HomeFragment.OnFragmentInteractionListener, HomeFragment.HandleViewPager {
     private static final int PERMISSON_REQUESTCODE = 0;
-    private static final String TAG = "MainActivity=";
     private String[] needPermissions = {
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -212,10 +211,6 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
 
             }
         });
-
-        AIOAnalytics.onInit(MainActivity.this);
-        AIOAnalytics.onResume();
-        AIOAnalytics.onEvent("start_time");
     }
 
     @Override
@@ -272,7 +267,6 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
 
     //Fragment优化
     private FragmentTransaction switchFragment(Fragment targetFragment) {
-
         FragmentTransaction transaction = getSupportFragmentManager()
                 .beginTransaction();
         if (!targetFragment.isAdded()) {
@@ -326,6 +320,18 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AIOAnalytics.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        AIOAnalytics.onPause();
+    }
+
     private void listWithoutSelection(final int position) {
         Map<String, String> stringMap = IdeaApi.getSign();
 
@@ -377,9 +383,11 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_nearby_shops:
+                AIOAnalytics.onEvent("fujindianpu");
                 startActivity(new Intent(this, StoreMapActivity.class));
                 break;
             case R.id.ll_account_manual:
+                AIOAnalytics.onEvent("tuce");
                 if (((boolean) SPUtil.get(this, IConstants.IS_LOGIN, false)) == true) {
                     if (SPUtil.get(this, IConstants.TYPE, "").equals("dealer") || SPUtil.get(this, IConstants.TYPE, "").equals("designer")) {
                         startActivity(new Intent(this, MineManualActivity.class));
@@ -456,11 +464,11 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 break;
             case R.id.ll_whole_cabinet:
                 //整体橱柜
-                listWithoutSelection(12);
+                listWithoutSelection(16);
                 break;
             case R.id.ll_kitchen_sink:
                 //厨盆
-                listWithoutSelection(12);
+                listWithoutSelection(17);
                 break;
             case R.id.ll_kitchen_accessories:
                 //厨房配件
@@ -468,13 +476,14 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 break;
             case R.id.ll_kitchen_faucet:
                 //厨房龙头
-                listWithoutSelection(12);
+                listWithoutSelection(18);
                 break;
             case R.id.ll_water_purification:
                 //净水
-                listWithoutSelection(12);
+                listWithoutSelection(19);
                 break;
             case R.id.bt_home:
+                AIOAnalytics.onEvent("index");
                 switchFragment(mHomeFragment).commit();
                 //沉浸式状态栏初始化黑色
                 ImmersionBar.with(this).fitsSystemWindows(false).statusBarDarkFont(true).init();
@@ -483,6 +492,7 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 view_line.setVisibility(View.VISIBLE);
                 break;
             case R.id.bt_whole_category:
+                AIOAnalytics.onEvent("category");
                 switchFragment(mWholeCategoryFragment).commit();
                 //沉浸式状态栏初始化白色
                 ImmersionBar.with(this).fitsSystemWindows(false).statusBarDarkFont(false).init();
@@ -491,6 +501,7 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 view_line.setVisibility(View.GONE);
                 break;
             case R.id.bt_ar:
+                AIOAnalytics.onEvent("arsaoyisao");
                 MobclickAgent.onEvent(MainActivity.this, "arsaoyisao");
                 switchFragment(mARFragment).commit();
                 //沉浸式状态栏初始化黑色
@@ -503,6 +514,7 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 startActivityForResult(intent, IConstants.DELETE_REQUESTCODE);
                 break;
             case R.id.bt_account:
+                AIOAnalytics.onEvent("zhanghu");
                 switchFragment(mAccountFragment).commit();
                 //沉浸式状态栏初始化黑色
                 ImmersionBar.with(this).fitsSystemWindows(false).statusBarDarkFont(true).init();
@@ -618,7 +630,7 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 }
             }
             if (false == allGranted) {
-//                showMissingPermissionDialog();
+                //                showMissingPermissionDialog();
             }
         }
     }
@@ -672,21 +684,7 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
             rlMain.closePane();
             return true;
         }
-
         return false;
-    }
-
-/*    @Override
-    protected void onResume() {
-        super.onResume();
-        AIOAnalytics.onResume();
-        AIOAnalytics.onEvent("start_time");
-    }*/
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        AIOAnalytics.onPause();
     }
 
     /**
@@ -695,14 +693,10 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
     private void checkPermissions() {
         List<String> needRequestPermissonList = new ArrayList<String>();
         for (String perm : needPermissions) {
-
             if (ContextCompat.checkSelfPermission(this, perm) == PackageManager.PERMISSION_GRANTED) {
-
                 Log.i("cohler", "check permission [" + perm + "]: PERMISSION_GRANTED");//有权限了
-
             } else {
                 Log.i("cohler", "check permission [" + perm + "]: PERMISSION_DENIED");//没有权限
-
                 //判断是否需要显示申请原因
                 if (true == ActivityCompat.shouldShowRequestPermissionRationale(this, perm)) {
                     //ConsoleLog.debug("shouldShowRequestPermissionRationale == true");

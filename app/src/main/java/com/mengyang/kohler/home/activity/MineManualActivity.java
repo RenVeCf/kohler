@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.allyes.analytics.AIOAnalytics;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.gyf.barlibrary.ImmersionBar;
@@ -83,7 +84,6 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
         ImmersionBar.setTitleBar(this, tvMineManualTop);
 
         MobclickAgent.onEvent(MineManualActivity.this, "tuce");
-
         // 下载图册设置管理器
         LinearLayoutManager layoutManager = new LinearLayoutManager(App.getContext());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -111,6 +111,7 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
     protected void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
+        AIOAnalytics.onPageBegin("tuce");
         final List<String> listFileName = FileUtil.judgePdfIsExit(mLocalTempPdfFileName);
 
         //本地有文件，从数据库中获取相应数据
@@ -175,6 +176,7 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
     protected void onPause() {
         super.onPause();
         MobclickAgent.onPause(this);
+        AIOAnalytics.onPageEnd("tuce");
     }
 
     @Override

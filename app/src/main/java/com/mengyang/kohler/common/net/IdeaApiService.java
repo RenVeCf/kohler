@@ -46,9 +46,9 @@ public interface IdeaApiService {
      * 网络请求超时时间毫秒
      */
     int DEFAULT_TIMEOUT = 30000;
-        String API_SERVER_URL = "https://app.kohler.com.cn/";//客户正式环境
+//        String API_SERVER_URL = "https://app.kohler.com.cn/";//客户正式环境
     //    String API_SERVER_URL = "http://kohler-app.glor.cn/"; //项目正式环境
-//    String API_SERVER_URL = "http://kohler-app-tmp.glor.cn/"; //项目测试环境
+    String API_SERVER_URL = "http://kohler-app-tmp.glor.cn/"; //项目测试环境
 
     //用户首页KV图
     @FormUrlEncoded
