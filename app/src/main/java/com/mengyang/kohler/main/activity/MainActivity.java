@@ -209,6 +209,9 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 }
             }
         });
+
+        AIOAnalytics.onInit(this);
+        AIOAnalytics.onResume();
     }
 
     @Override
@@ -315,12 +318,6 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
             btAccount.setTextColor(getResources().getColor(R.color.background_color));
             btAccount.setCompoundDrawablesWithIntrinsicBounds(null, accountDrawableTop, null, null);
         }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        AIOAnalytics.onResume();
     }
 
     @Override
@@ -703,5 +700,11 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                     needRequestPermissonList.toArray(new String[needRequestPermissonList.size()]),
                     PERMISSON_REQUESTCODE);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        AIOAnalytics.onPause();
     }
 }

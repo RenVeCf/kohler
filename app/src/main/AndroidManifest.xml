@@ -308,31 +308,6 @@
         <activity
             android:name=".home.activity.GanChuangArtistActivity"
             android:exported="false"/>
-
-        <!-- 监控 -->
-        <meta-data
-            android:name="app_key"
-            android:value="YWluc2lnaHR8MDAwMDAwMDZ8MDAxNQ=="
-            />
-
-        <meta-data
-            android:name="app_version"
-            android:value="ver_1.0.1" />
-
-        <!--开机启动推送-->
-        <receiver android:name="com.allyes.push.AIOReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </receiver>
-
-        <!--推送服务进程-->
-        <service
-            android:name="com.allyes.push.AIOPushClient"
-            android:persistent="true"
-            android:priority="1000"
-            android:process=":AIOPushKeeper" />
     </application>
 
 </manifest>

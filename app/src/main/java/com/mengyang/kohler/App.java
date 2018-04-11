@@ -55,9 +55,6 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        //Ainsight APP监测
-        AIOAnalytics.onInit(context);
-
         Config.DEBUG = true;// TODO: 2017/12/1 ,用于友盟的log跟踪,请勿删除
         UMShareAPI.get(this);
         instance = this;
