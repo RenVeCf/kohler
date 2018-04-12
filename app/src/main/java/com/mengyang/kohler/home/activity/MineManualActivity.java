@@ -144,7 +144,7 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
 
                                         substring = pdfUrl.substring(pdfUrl.lastIndexOf("/") + 1);
 
-                                        mPdfTotalPath = IConstants.mRootPath + "/" + substring;
+                                        mPdfTotalPath = IConstants.ROOT_PATH + "/" + substring;
 
                                         if (listFileName.contains(substring)) {
                                             //添加到bean里面
@@ -219,7 +219,7 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
                                         public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                                             mCurPosition = position;
                                             //判断是否这个pdf文件已存在
-                                            mPdfTotalPath = IConstants.mRootPath+ "/" +mBooksListBean.get(position).getPdfUrl().substring(mBooksListBean.get(position).getPdfUrl().lastIndexOf("/") + 1);
+                                            mPdfTotalPath = IConstants.ROOT_PATH+ "/" +mBooksListBean.get(position).getPdfUrl().substring(mBooksListBean.get(position).getPdfUrl().lastIndexOf("/") + 1);
                                             if (FileUtils.isFileExist(mPdfTotalPath)) {
                                                 startActivity(new Intent(MineManualActivity.this, PDFActivity.class).putExtra("PdfUrl", mBooksListBean.get(position).getPdfUrl()));
                                             } else {//没找到就去下载

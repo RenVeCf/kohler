@@ -146,7 +146,7 @@ public class DownLoaderPDFActivity extends BaseActivity implements OnPageChangeL
                     try {
                         is = response.body().byteStream();
                         long total = response.body().contentLength();
-                        File file = new File(IConstants.mRootPath, url.substring(url.lastIndexOf("/") + 1));
+                        File file = new File(IConstants.ROOT_PATH, url.substring(url.lastIndexOf("/") + 1));
                         mFileAbsolutePath = file.getAbsolutePath();
                         fos = new FileOutputStream(file);
                         long sum = 0;

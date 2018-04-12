@@ -19,7 +19,7 @@ public class FileUtil {
      */
     public static List<String> judgePdfIsExit(List<String> localTempPdfFileName) {
 
-        File file2 = new File(IConstants.mRootPath);
+        File file2 = new File(IConstants.ROOT_PATH);
 
         if (!file2.exists()) {
             file2.mkdirs();

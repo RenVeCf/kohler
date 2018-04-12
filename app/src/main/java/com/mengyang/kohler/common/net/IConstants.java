@@ -46,5 +46,5 @@ public class IConstants {
     public static final long SKU_ATTR_LIST_BEAN = 6L;
 
 
-    public static final String mRootPath = Environment.getExternalStorageDirectory().getAbsolutePath();
+    public static final String ROOT_PATH = Environment.getExternalStorageDirectory().getAbsolutePath();
 }

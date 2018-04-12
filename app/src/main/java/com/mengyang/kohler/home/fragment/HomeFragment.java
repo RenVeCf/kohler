@@ -239,7 +239,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                                             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                                                 mCurPosition = position;
                                                 //判断是否这个pdf文件已存在
-                                                mPdfTotalPath = IConstants.mRootPath + "/" + finalSubstring;
+                                                mPdfTotalPath = IConstants.ROOT_PATH + "/" + finalSubstring;
                                                 if (FileUtils.isFileExist(mPdfTotalPath)) {
                                                     startActivity(new Intent(getActivity(), PDFActivity.class).putExtra("PdfUrl", mBooksListBean.get(position).getPdfUrl()));
                                                 }
@@ -302,7 +302,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                                     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                                         mCurPosition = position;
                                         //判断是否这个pdf文件已存在
-                                        mPdfTotalPath = IConstants.mRootPath + "/" + mBooksListBean.get(position).getPdfUrl().substring(mBooksListBean.get(position).getPdfUrl().lastIndexOf("/") + 1);
+                                        mPdfTotalPath = IConstants.ROOT_PATH + "/" + mBooksListBean.get(position).getPdfUrl().substring(mBooksListBean.get(position).getPdfUrl().lastIndexOf("/") + 1);
                                         if (FileUtils.isFileExist(mPdfTotalPath)) {
                                             startActivity(new Intent(getActivity(), PDFActivity.class).putExtra("PdfUrl", mBooksListBean.get(position).getPdfUrl()));
                                         } else {//没找到就去下载
