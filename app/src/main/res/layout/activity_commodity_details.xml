@@ -88,7 +88,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/x72"
-                    android:layout_marginEnd="@dimen/x72"
+                    android:layout_marginEnd="@dimen/x65"
                     android:layout_marginTop="@dimen/y51"
                     android:orientation="vertical">
 

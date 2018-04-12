@@ -58,7 +58,7 @@ public class ForgetPasswordTwoActivity extends BaseActivity {
     }
 
     private void Next() {
-        Map<String, String> stringMap = IdeaApi.getSign();
+        Map<String, Object> stringMap = IdeaApi.getSign();
         stringMap.put("mobileNo", mMobileNo); //访问凭证
         stringMap.put("verifyCode", mVerifyCode); //验证码
         stringMap.put("newPwd", etForgetPasswordTwoInputNewPwd.getText().toString().trim()); //新密码

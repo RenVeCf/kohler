@@ -195,7 +195,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
 
                     // TODO: 2018/3/2 ,请求网络获取PDF数据进行对比。
 
-                    Map<String, String> stringMap = IdeaApi.getSign();
+                    Map<String, Object> stringMap = IdeaApi.getSign();
                     stringMap.put("pageNum", 0 + "");
                     IdeaApi.getRequestLogin(stringMap);
                     IdeaApi.getApiService()
@@ -272,7 +272,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
      * 显示
      */
     private void updateUI() {
-        Map<String, String> stringMap = IdeaApi.getSign();
+        Map<String, Object> stringMap = IdeaApi.getSign();
         stringMap.put("pageNum", 0 + "");
 
         IdeaApi.getRequestLogin(stringMap);
@@ -343,7 +343,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
 
     @Override
     protected void initData() {
-        Map<String, String> stringMap = IdeaApi.getSign();
+        Map<String, Object> stringMap = IdeaApi.getSign();
 
         IdeaApi.getRequestLogin(stringMap);
         IdeaApi.getApiService()

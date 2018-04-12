@@ -109,7 +109,7 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        Map<String, String> stringMap = IdeaApi.getSign();
+        Map<String, Object> stringMap = IdeaApi.getSign();
         time = DateUtils.dataOne(DateUtils.getCurrentTime_Today());
         stringMap.put("time", time);//时间戳
 
@@ -158,7 +158,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void Login() {
-        Map<String, String> stringMap = IdeaApi.getSign();
+        Map<String, Object> stringMap = IdeaApi.getSign();
         stringMap.put("mobileNo", etLoginPhoneNum.getText().toString().trim());//手机号码
         stringMap.put("password", etLoginPwd.getText().toString().trim());//用户密码
         stringMap.put("time", time);//时间戳得和图片验证码时的一样

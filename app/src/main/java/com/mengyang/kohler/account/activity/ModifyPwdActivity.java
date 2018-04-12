@@ -60,7 +60,7 @@ public class ModifyPwdActivity extends BaseActivity {
     }
 
     private void getModifyPwd() {
-        Map<String, String> stringMap = IdeaApi.getSign();
+        Map<String, Object> stringMap = IdeaApi.getSign();
         stringMap.put("pwd", etModifyPwdOldPwd.getText().toString().trim());//原密码
         stringMap.put("newPwd", etModifyPwdNewPwd.getText().toString().trim());//新密码
         stringMap.put("newAgainPwd", etModifyPwdNewPwdAgain.getText().toString().trim());//重新输入新密码

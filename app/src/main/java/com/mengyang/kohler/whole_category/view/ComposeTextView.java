@@ -33,8 +33,8 @@ public class ComposeTextView extends View {
     private String text = "";
     private int maxLine = Integer.MAX_VALUE; //最大行数
     // 上下左右的距离
-    private int left_Margin = 10;
-    private int right_Margin = 35;
+    private int left_Margin = 0;
+    private int right_Margin = 45;
     private int top_Margin = 0;
     private int bottom_Margin = 0;
 

@@ -109,7 +109,7 @@ public class DistributorRegisterActivity extends BaseActivity {
     }
 
     private void ModifyBindPhone() {
-        Map<String, String> stringMap = IdeaApi.getSign();
+        Map<String, Object> stringMap = IdeaApi.getSign();
         stringMap.put("mobileNo", etDistributorRegisterPhoneNum.getText().toString().trim());//手机号码
         stringMap.put("mobileNoAgain", etDistributorRegisterPhoneNumAgain.getText().toString().trim());//重新输入手机号码
         stringMap.put("inviteCode", etDistributorRegisterDistributorCode.getText().toString().trim());//专用码

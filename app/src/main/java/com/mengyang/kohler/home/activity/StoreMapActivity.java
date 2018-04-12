@@ -225,7 +225,7 @@ public class StoreMapActivity extends BaseActivity {
     }
 
     private void AllMarkerOptions() {
-        Map<String, String> stringMap = IdeaApi.getSign();
+        Map<String, Object> stringMap = IdeaApi.getSign();
         stringMap.put("pageNum", 0 + "");
         stringMap.put("pageSize", 10 + "");
         stringMap.put("latitude", mMineLatitude + "");

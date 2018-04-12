@@ -106,7 +106,7 @@ public class LiveRealTimeActivity extends BaseActivity {//implements BaseQuickAd
     @Override
     protected void initData() {
         //看大图
-        Map<String, String> stringMap = IdeaApi.getSign();
+        Map<String, Object> stringMap = IdeaApi.getSign();
         //        stringMap.put("pageNum", pageNum + "");
 
         IdeaApi.getRequestLogin(stringMap);
@@ -138,7 +138,7 @@ public class LiveRealTimeActivity extends BaseActivity {//implements BaseQuickAd
                                 @Override
                                 public void onItemChildClick(BaseQuickAdapter adapter, View view, final int position) {
                                     //投票
-                                    Map<String, String> stringMap = IdeaApi.getSign();
+                                    Map<String, Object> stringMap = IdeaApi.getSign();
                                     stringMap.put("id", mLiveRealTimeBean.get(position).getId() + "");
 
                                     IdeaApi.getRequestLogin(stringMap);

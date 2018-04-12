@@ -33,7 +33,6 @@ public class CommodityClassificationAdapter extends BaseQuickAdapter<CommodityCl
 
     @Override
     protected void convert(BaseViewHolder helper, CommodityClassificationFragmentBean.ResultListBean item) {
-        LogUtils.i("rmy", "getSkuCode = " + item.getProDetail().getSkuCode());
         helper.setText(R.id.tv_commodity_classification_adapter_product_name, item.getProDetail().getProductName())
                 .setText(R.id.tv_commodity_classification_adapter_model_name, item.getProDetail().getSkuCode());
         Glide.with(App.getContext()).load(item.getProDetail().getTempListImageUrl()).apply(new RequestOptions().placeholder(R.mipmap.queshengtu)).into((ImageView) helper.getView(R.id.iv_commodity_classification_adapter_item));

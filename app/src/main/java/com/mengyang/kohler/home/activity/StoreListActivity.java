@@ -87,7 +87,7 @@ public class StoreListActivity extends BaseActivity implements BaseQuickAdapter.
 
     @Override
     protected void initData() {
-        Map<String, String> stringMap = IdeaApi.getSign();
+        Map<String, Object> stringMap = IdeaApi.getSign();
         stringMap.put("pageNum", pageNum + "");
         stringMap.put("pageSize", 10 + "");
         stringMap.put("latitude", latitude + ""); //假数据 30.628679

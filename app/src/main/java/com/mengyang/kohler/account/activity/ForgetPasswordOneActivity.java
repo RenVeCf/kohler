@@ -87,7 +87,7 @@ public class ForgetPasswordOneActivity extends BaseActivity {
     }
 
     private void LoginSMS() {
-        Map<String, String> stringMap = IdeaApi.getSign();
+        Map<String, Object> stringMap = IdeaApi.getSign();
         stringMap.put("mobileNo", etForgetPasswordOnePhoneNum.getText().toString().trim());//手机号码
 
         IdeaApi.getRequestLogin(stringMap);

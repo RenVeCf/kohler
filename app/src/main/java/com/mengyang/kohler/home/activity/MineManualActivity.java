@@ -118,7 +118,7 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
         if (listFileName != null && listFileName.size() > 0) {
             // TODO: 2018/3/2 ,请求网络获取PDF数据进行对比。
 
-            Map<String, String> stringMap = IdeaApi.getSign();
+            Map<String, Object> stringMap = IdeaApi.getSign();
             stringMap.put("pageNum", 0 + "");
             IdeaApi.getRequestLogin(stringMap);
             IdeaApi.getApiService()
@@ -193,7 +193,7 @@ public class MineManualActivity extends BaseActivity implements BaseQuickAdapter
 
     @Override
     protected void initData() {
-        Map<String, String> stringMap = IdeaApi.getSign();
+        Map<String, Object> stringMap = IdeaApi.getSign();
         stringMap.put("pageNum", pageNum + "");
 
         IdeaApi.getRequestLogin(stringMap);

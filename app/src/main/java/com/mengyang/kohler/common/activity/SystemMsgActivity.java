@@ -86,7 +86,7 @@ public class SystemMsgActivity extends BaseActivity implements BaseQuickAdapter.
 
     @Override
     protected void initData() {
-        Map<String, String> stringMap = IdeaApi.getSign();
+        Map<String, Object> stringMap = IdeaApi.getSign();
         stringMap.put("pageNum", pageNum + "");
 
         IdeaApi.getRequestLogin(stringMap);

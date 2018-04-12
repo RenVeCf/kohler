@@ -80,7 +80,7 @@ public class AccountSettingsActivity extends BaseActivity {
     }
 
     private void UserGoOut() {
-        Map<String, String> stringMap = IdeaApi.getSign();
+        Map<String, Object> stringMap = IdeaApi.getSign();
 
         IdeaApi.getRequestLogin(stringMap);
         IdeaApi.getApiService()

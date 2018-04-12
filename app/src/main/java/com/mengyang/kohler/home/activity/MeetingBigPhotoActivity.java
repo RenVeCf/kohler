@@ -84,7 +84,7 @@ public class MeetingBigPhotoActivity extends BaseActivity {
     }
 
     private void getGigPhotoData() {
-        Map<String, String> stringMap = IdeaApi.getSign();
+        Map<String, Object> stringMap = IdeaApi.getSign();
         //做分页就加
 //        if ((position + "").length() != 1) {
 //            pageNum = (int) Math.floor(position / 10);
@@ -136,7 +136,7 @@ public class MeetingBigPhotoActivity extends BaseActivity {
                 getGigPhotoData();
                 break;
             case R.id.bt_meeting_big_photo_vote:
-                Map<String, String> stringMap = IdeaApi.getSign();
+                Map<String, Object> stringMap = IdeaApi.getSign();
                 stringMap.put("id", mId + "");
 
                 IdeaApi.getRequestLogin(stringMap);

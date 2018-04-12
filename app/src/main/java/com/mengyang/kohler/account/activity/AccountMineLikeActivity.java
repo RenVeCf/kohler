@@ -92,7 +92,7 @@ public class AccountMineLikeActivity extends BaseActivity implements BaseQuickAd
         btPopupWindowAccountMineLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Map<String, String> stringMap = IdeaApi.getSign();
+                Map<String, Object> stringMap = IdeaApi.getSign();
                 stringMap.put("id", mId);
 
                 IdeaApi.getRequestLogin(stringMap);
@@ -127,7 +127,7 @@ public class AccountMineLikeActivity extends BaseActivity implements BaseQuickAd
 
     @Override
     protected void initData() {
-        Map<String, String> stringMap = IdeaApi.getSign();
+        Map<String, Object> stringMap = IdeaApi.getSign();
         stringMap.put("pageNum", pageNum + "");
         stringMap.put("pageSize", 10 + "");
 

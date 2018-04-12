@@ -95,7 +95,7 @@ public class CommodityClassificationFragment extends BaseFragment implements Bas
 
     @Override
     protected void initData() {
-        Map<String, String> stringMap = IdeaApi.getSign();
+        Map<String, Object> stringMap = IdeaApi.getSign();
         stringMap.put("category", mCmsId);
         stringMap.put("pageNum", pageNum + "");
 

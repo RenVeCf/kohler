@@ -112,7 +112,7 @@ public class CustomerServiceActivity extends BaseActivity {
     }
 
     private void searchQuestion(String question) {
-        Map<String, String> stringMap = IdeaApi.getSign();
+        Map<String, Object> stringMap = IdeaApi.getSign();
         stringMap.put("keyWord", question); // 头像URL
 
         IdeaApi.getRequestLogin(stringMap);

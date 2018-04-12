@@ -111,7 +111,7 @@ public class AccountBindPhoneActivity extends BaseActivity {
     }
 
     private void ModifyBindPhone() {
-        Map<String, String> stringMap = IdeaApi.getSign();
+        Map<String, Object> stringMap = IdeaApi.getSign();
         stringMap.put("mobileNo", etModifyBindPhoneOldNum.getText().toString().trim());//原手机号码
         stringMap.put("verifyCode", etModifyBindPhoneVerificationCode.getText().toString().trim());//换绑时的验证码
         stringMap.put("newMobileNo", etModifyBindPhoneNewNum.getText().toString().trim());//新手机号码
@@ -133,7 +133,7 @@ public class AccountBindPhoneActivity extends BaseActivity {
     }
 
     private void LoginSMS() {
-        Map<String, String> stringMap = IdeaApi.getSign();
+        Map<String, Object> stringMap = IdeaApi.getSign();
         stringMap.put("mobileNo", etModifyBindPhoneNewNum.getText().toString().trim());//手机号码
 
         IdeaApi.getRequestLogin(stringMap);

@@ -157,7 +157,7 @@ public class MeetingActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        Map<String, String> stringMap = IdeaApi.getSign();
+        Map<String, Object> stringMap = IdeaApi.getSign();
 
         IdeaApi.getRequestLogin(stringMap);
         IdeaApi.getApiService()
@@ -239,7 +239,7 @@ public class MeetingActivity extends BaseActivity {
     }
 
     private void AgendaMsgPush(boolean pushMsg) {
-        Map<String, String> stringMap = IdeaApi.getSign();
+        Map<String, Object> stringMap = IdeaApi.getSign();
         stringMap.put("pushMsg", pushMsg + "");
 
         IdeaApi.getRequestLogin(stringMap);

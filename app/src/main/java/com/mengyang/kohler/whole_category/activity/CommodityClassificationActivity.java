@@ -75,7 +75,7 @@ public class CommodityClassificationActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        Map<String, String> stringMap = IdeaApi.getSign();
+        Map<String, Object> stringMap = IdeaApi.getSign();
         stringMap.put("parentId", getIntent().getStringExtra("id"));
 
         IdeaApi.getRequestLogin(stringMap);

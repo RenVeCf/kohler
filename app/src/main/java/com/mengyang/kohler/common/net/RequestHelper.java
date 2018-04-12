@@ -34,7 +34,7 @@ public class RequestHelper {
 
     //  刷新token
     public void refreshToken() {
-        Map<String, String> stringMap = IdeaApi.getSign();
+        Map<String, Object> stringMap = IdeaApi.getSign();
         stringMap.put("refreshToken ", IConstants.REFRESH_TOKEN);
 
         IdeaApi.getApiService()

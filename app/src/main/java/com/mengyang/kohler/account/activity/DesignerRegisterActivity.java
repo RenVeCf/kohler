@@ -128,7 +128,7 @@ public class DesignerRegisterActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        Map<String, String> stringMap = IdeaApi.getSign();
+        Map<String, Object> stringMap = IdeaApi.getSign();
         time = DateUtils.dataOne(DateUtils.getCurrentTime_Today());
         stringMap.put("time", time);//时间戳
         postAsynHttp(stringMap);
@@ -177,7 +177,7 @@ public class DesignerRegisterActivity extends BaseActivity {
     }
 
     private void LoginSMS() {
-        Map<String, String> stringMap = IdeaApi.getSign();
+        Map<String, Object> stringMap = IdeaApi.getSign();
         stringMap.put("mobileNo", etDesignerRegisterPhoneNum.getText().toString().trim());//手机号码
 
         IdeaApi.getRequestLogin(stringMap);
@@ -194,7 +194,7 @@ public class DesignerRegisterActivity extends BaseActivity {
     }
 
     private void ModifyBindPhone() {
-        Map<String, String> stringMap = IdeaApi.getSign();
+        Map<String, Object> stringMap = IdeaApi.getSign();
         stringMap.put("mobileNo", etDesignerRegisterPhoneNum.getText().toString().trim());//手机号码
         stringMap.put("code", etDesignerRegisterVerificationCode.getText().toString().trim());//验证码
         stringMap.put("verifyCode", "111111");//etDesignerRegisterSmsVerificationCode.getText().toString().trim());//短信验证码

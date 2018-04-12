@@ -29,8 +29,6 @@ import com.allyes.analytics.AIOAnalytics;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.loadmore.LoadMoreView;
-import com.chad.library.adapter.base.loadmore.SimpleLoadMoreView;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseFragment;
@@ -43,12 +41,12 @@ import com.mengyang.kohler.account.adapter.FootPrintAdapter;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.net.IdeaApi;
+import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.view.CircleImageView;
 import com.mengyang.kohler.common.view.MyLoadMoreView;
 import com.mengyang.kohler.common.view.SpacesItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
-import com.mengyang.kohler.main.activity.MainActivity;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.FootPrintBean;
 import com.mengyang.kohler.module.bean.UploadHeadPortraitBean;
@@ -104,6 +102,7 @@ public class AccountFragment extends BaseFragment implements BaseQuickAdapter.Re
     private Button btAccountPopNewName; //名称PopupWindow确定键
     private List<FootPrintBean.ResultListBean> mFootPrintBean;
     private FootPrintAdapter mFootPrintAdapter;
+    private UploadHeadPortraitBean mUploadHeadPortraitBean;
 
     private int pageNum = 0;
     //是否登录
@@ -200,7 +199,7 @@ public class AccountFragment extends BaseFragment implements BaseQuickAdapter.Re
     }
 
     public void getNikeName() {
-        Map<String, String> stringMap = IdeaApi.getSign();
+        Map<String, Object> stringMap = IdeaApi.getSign();
         stringMap.put("nickName", etAccountPopNewName.getText().toString().trim());//昵称
 
         IdeaApi.getRequestLogin(stringMap);
@@ -226,7 +225,7 @@ public class AccountFragment extends BaseFragment implements BaseQuickAdapter.Re
     @Override
     protected void initData() {
         if ((boolean) SPUtil.get(getActivity(), IConstants.IS_LOGIN, false)) {
-            //            用户信息
+            //用户信息
             getUserMsg();
             getFootPrint();
         }
@@ -257,7 +256,7 @@ public class AccountFragment extends BaseFragment implements BaseQuickAdapter.Re
     }
 
     private void getFootPrint() {
-        Map<String, String> stringMap = IdeaApi.getSign();
+        Map<String, Object> stringMap = IdeaApi.getSign();
         stringMap.put("pageNum", pageNum + "");
         stringMap.put("pageSize", 3 + "");
 
@@ -326,44 +325,45 @@ public class AccountFragment extends BaseFragment implements BaseQuickAdapter.Re
         }
     }
 
-    //加载头像图片
-
+    //修改头像图片
     private void showImage(final String imaePath) {
-        Map<String, String> stringMap = IdeaApi.getSign();
-        stringMap.put("portraitUrl", imaePath); // 头像URL
+        //上传图片
+        File file = new File(imaePath);
+        RequestBody imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Builder builder = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM);
+        for (String key : IdeaApi.getSign().keySet()) {
+            builder.addFormDataPart(key, IdeaApi.getSign().get(key) + "");
+        }
+        builder.addFormDataPart("fileType", "image");
+        builder.addFormDataPart("media", file.getName(), imageBody);
+        List<MultipartBody.Part> parts = builder.build().parts();
 
-        IdeaApi.getRequestLogin(stringMap);
         IdeaApi.getApiService()
-                .getModifyHeadPortrait(stringMap)
-                .compose(this.<BasicResponse>bindToLifecycle())
+                .getUploadHeadPortrait(parts)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<BasicResponse>(getActivity(), false) {
+                .subscribe(new DefaultObserver<BasicResponse<UploadHeadPortraitBean>>(getActivity(), false) {
                     @Override
-                    public void onSuccess(BasicResponse response) {
-                        //上传图片
-                        File file = new File(imaePath);
-                        RequestBody imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-                        MultipartBody.Builder builder = new MultipartBody.Builder()
-                                .setType(MultipartBody.FORM);
-                        for (String key : IdeaApi.getSign().keySet()) {
-                            builder.addFormDataPart(key, IdeaApi.getSign().get(key));
-                        }
-                        builder.addFormDataPart("portraitUrl", file.getName(), imageBody);
-                        List<MultipartBody.Part> parts = builder.build().parts();
+                    public void onSuccess(BasicResponse<UploadHeadPortraitBean> response) {
+                        mUploadHeadPortraitBean = response.getData();
+                        Map<String, Object> stringMap = IdeaApi.getSign();
+                        stringMap.put("portraitUrl", mUploadHeadPortraitBean.getFileUrl()); // 头像URL
 
+                        IdeaApi.getRequestLogin(stringMap);
                         IdeaApi.getApiService()
-                                .getUploadHeadPortrait(parts)
+                                .getModifyHeadPortrait(stringMap)
+                                .compose(AccountFragment.this.<BasicResponse>bindToLifecycle())
                                 .subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe(new DefaultObserver<BasicResponse<UploadHeadPortraitBean>>(getActivity(), false) {
+                                .subscribe(new DefaultObserver<BasicResponse>(getActivity(), false) {
                                     @Override
-                                    public void onSuccess(BasicResponse<UploadHeadPortraitBean> response) {
+                                    public void onSuccess(BasicResponse response) {
+
                                     }
                                 });
                     }
                 });
-
         Bitmap bm = BitmapFactory.decodeFile(imaePath);
         civAccountTitle.setImageBitmap(bm);
     }

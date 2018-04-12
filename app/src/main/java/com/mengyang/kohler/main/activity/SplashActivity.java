@@ -68,7 +68,7 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        Map<String, String> stringMap = IdeaApi.getSign();
+        Map<String, Object> stringMap = IdeaApi.getSign();
         stringMap.put("pushRegisterId", SPUtil.get(SplashActivity.this, IConstants.JPUSH_SYSTEM_ID, "") + ""); //第三方推送系统注册ID
         stringMap.put("pushChannel", 2 + ""); //推送通道 (1:友盟2:极光 3:小米 )
 

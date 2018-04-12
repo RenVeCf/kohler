@@ -151,16 +151,11 @@ public class CommodityDetailsActivity extends BaseActivity implements TopView.It
         }
 
         tvCommodityDetailsTop.setItemClickListenner(this);
-
-        /*if(Build.VERSION.SDK_INT>=23){
-            String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.CALL_PHONE,Manifest.permission.READ_LOGS,Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.SET_DEBUG_APP,Manifest.permission.SYSTEM_ALERT_WINDOW,Manifest.permission.GET_ACCOUNTS,Manifest.permission.WRITE_APN_SETTINGS};
-            ActivityCompat.requestPermissions(this,mPermissionList,123);
-        }*/
     }
 
     public void getLike() {
 
-        Map<String, String> stringMap = IdeaApi.getSign();
+        Map<String, Object> stringMap = IdeaApi.getSign();
         stringMap.put("skuCode", mSelectColorSKU);
 
         IdeaApi.getRequestLogin(stringMap);
@@ -266,7 +261,7 @@ public class CommodityDetailsActivity extends BaseActivity implements TopView.It
 
     @Override
     protected void initData() {
-        Map<String, String> stringMap = IdeaApi.getSign();
+        Map<String, Object> stringMap = IdeaApi.getSign();
         stringMap.put("skuCode", mSelectColorSKU);
 
         IdeaApi.getRequestLogin(stringMap);
@@ -402,9 +397,6 @@ public class CommodityDetailsActivity extends BaseActivity implements TopView.It
                             }
                         }
                     }
-                    //                    tvCommodityDetailsDownloadName.setText(App.getContext().getResources().getText(R.string.download_size_diagram));
-                    //                    btCommodityDetailsDownloadPreview.setText(App.getContext().getResources().getString(R.string.download_preview));
-                    //                    setPupWindow(view);
                 }
                 break;
             case R.id.iv_installation_instructions_download:
@@ -420,9 +412,6 @@ public class CommodityDetailsActivity extends BaseActivity implements TopView.It
                             }
                         }
                     }
-                    //                    tvCommodityDetailsDownloadName.setText(App.getContext().getResources().getText(R.string.download_installation_instructions));
-                    //                    btCommodityDetailsDownloadPreview.setText(App.getContext().getResources().getString(R.string.download_preview));
-                    //                    setPupWindow(view);
                 }
                 break;
             case R.id.ll_commodity_details_purchase_inquiries:
@@ -431,9 +420,6 @@ public class CommodityDetailsActivity extends BaseActivity implements TopView.It
                 break;
             case R.id.bt_commodity_details_like:
                 getLike();
-                //                tvCommodityDetailsDownloadName.setText(App.getContext().getResources().getText(R.string.you_can_cancel));
-                //                btCommodityDetailsDownloadPreview.setText(App.getContext().getResources().getString(R.string.i_know));
-                //                setPupWindow(view);
                 break;
             case R.id.bt_commodity_details_pay:
                 tvCommodityDetailsDownloadName.setText(App.getContext().getResources().getText(R.string.jump_tianmao));
@@ -452,12 +438,6 @@ public class CommodityDetailsActivity extends BaseActivity implements TopView.It
             mDownloadPopupWindow.showAtLocation(view, Gravity.NO_GRAVITY, 0, 0);
         }
     }
-
-
-/*    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
-    }*/
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

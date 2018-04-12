@@ -245,7 +245,7 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
     @Override
     protected void initData() {
         if (((boolean) SPUtil.get(App.getContext(), IConstants.IS_LOGIN, false)) == true) {
-            Map<String, String> stringMap = IdeaApi.getSign();
+            Map<String, Object> stringMap = IdeaApi.getSign();
 
             IdeaApi.getRequestLogin(stringMap);
             IdeaApi.getApiService()
@@ -327,7 +327,7 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
     }
 
     private void listWithoutSelection(final int position) {
-        Map<String, String> stringMap = IdeaApi.getSign();
+        Map<String, Object> stringMap = IdeaApi.getSign();
 
         IdeaApi.getRequestLogin(stringMap);
         IdeaApi.getApiService()

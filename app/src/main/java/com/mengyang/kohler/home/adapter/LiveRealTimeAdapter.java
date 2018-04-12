@@ -29,7 +29,6 @@ public class LiveRealTimeAdapter extends BaseQuickAdapter<LiveRealTimeBean.Resul
 
     @Override
     protected void convert(BaseViewHolder helper, LiveRealTimeBean.ResultListBean item) {
-        LogUtils.i("rmy", "item.getLikeCount() = " + item.getLikeCount());
         helper.setText(R.id.tv_live_real_time_vote_num, item.getLikeCount() + "");
         Glide.with(App.getContext()).load(item.getPicUrl()).apply(new RequestOptions().placeholder(R.mipmap.queshengtu)).into((ImageView) helper.getView(R.id.iv_live_real_time_item_img));
         helper.addOnClickListener(R.id.ll_live_real_time_adapter_vote);

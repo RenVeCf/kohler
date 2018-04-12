@@ -94,8 +94,8 @@ public class IdeaApi {
     /**
      * 公共参数
      */
-    public static Map<String, String> getSign() {
-        Map<String, String> stringMap = new HashMap<String, String>();
+    public static Map<String, Object> getSign() {
+        Map<String, Object> stringMap = new HashMap<String, Object>();
 
         String token = (String) SPUtil.get(App.getContext(), IConstants.TOKEN, "");
         if (token == null || "".equals(token)) {
@@ -122,7 +122,7 @@ public class IdeaApi {
     }
 
     //打印请求Log
-    public static String getRequestLogin(Map<String, String> map) {
+    public static String getRequestLogin(Map<String, Object> map) {
         StringBuffer sb = new StringBuffer();
         int i = 0;
         for (String key : map.keySet()) {

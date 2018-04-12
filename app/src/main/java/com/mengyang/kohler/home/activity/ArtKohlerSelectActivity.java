@@ -78,7 +78,7 @@ public class ArtKohlerSelectActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        Map<String, String> stringMap = IdeaApi.getSign();
+        Map<String, Object> stringMap = IdeaApi.getSign();
         stringMap.put("groupId", getIntent().getIntExtra("select_img", 0) + "");
 
         IdeaApi.getRequestLogin(stringMap);
