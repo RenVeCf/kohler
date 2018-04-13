@@ -120,7 +120,8 @@ public class SystemMsgActivity extends BaseActivity implements BaseQuickAdapter.
                                 }
                             }
                         } else {
-                            mSystemMsgAdapter.setEmptyView(R.layout.null_layout, rvSystemMsg);
+                            mSystemMsgAdapter.loadMoreEnd();
+//                            mSystemMsgAdapter.setEmptyView(R.layout.null_layout, rvSystemMsg);
                         }
                     }
                 });
