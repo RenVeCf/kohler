@@ -149,15 +149,22 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/iv_go_works_of_art"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_go_works_of_art"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/y684"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/x60"
                 android:layout_marginStart="@dimen/x60"
-                android:layout_marginTop="@dimen/y39"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/ganchuang_works_of_art"/>
+                android:layout_marginTop="@dimen/y54"/>
+            <!--<ImageView-->
+            <!--android:id="@+id/iv_go_works_of_art"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/y684"-->
+            <!--android:layout_marginEnd="@dimen/x60"-->
+            <!--android:layout_marginStart="@dimen/x60"-->
+            <!--android:layout_marginTop="@dimen/y39"-->
+            <!--android:scaleType="centerCrop"-->
+            <!--android:src="@mipmap/ganchuang_works_of_art"/>-->
 
             <LinearLayout
                 android:layout_width="match_parent"

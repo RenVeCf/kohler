@@ -26,7 +26,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * Description :
+ * Description : 敢创•科勒亚太艺术展 （展品介绍）
  * Author : rmy
  * Email : 942685687@qq.com
  * Time : 2018/3/29

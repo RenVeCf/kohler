@@ -6,7 +6,6 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -20,6 +19,7 @@ import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.activity.WebViewActivity;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IdeaApi;
+import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.view.GridSpacingItemDecoration;
 import com.mengyang.kohler.common.view.SpacesItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
@@ -50,8 +50,10 @@ public class GanChuangActivity extends BaseActivity {
     RelativeLayout rlGanchuangVideo;
     @BindView(R.id.ll_go_works_of_art)
     LinearLayout llGoWorksOfArt;
-    @BindView(R.id.iv_go_works_of_art)
-    ImageView ivGoWorksOfArt;
+    //    @BindView(R.id.iv_go_works_of_art)
+    //    ImageView ivGoWorksOfArt;
+    @BindView(R.id.rv_go_works_of_art)
+    RecyclerView rvGoWorksOfArt;
     @BindView(R.id.ll_go_artists)
     LinearLayout llGoArtists;
     @BindView(R.id.rv_ganchuang_artists)
@@ -95,10 +97,24 @@ public class GanChuangActivity extends BaseActivity {
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(this, tvGanchuangTop);
         MobclickAgent.onEvent(GanChuangActivity.this, "ganchuang");
-        // 艺术家介绍
+
+        // 展品介绍
         LinearLayoutManager layoutManager = new LinearLayoutManager(App.getContext());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        rvGanchuangArtists.setLayoutManager(layoutManager);
+        rvGoWorksOfArt.setLayoutManager(layoutManager);
+        rvGoWorksOfArt.addItemDecoration(new SpacesItemDecoration(20));
+        // 如果可以确定每个item的高度是固定的，设置这个选项可以提高性能
+        rvGoWorksOfArt.setHasFixedSize(true);
+        rvGoWorksOfArt.setItemAnimator(new DefaultItemAnimator());
+
+        mDesignerIntroductionAdapterBean = new ArrayList<>();
+        mDesignerIntroductionAdapter = new DesignerIntroductionAdapter(mDesignerIntroductionAdapterBean);
+        rvGoWorksOfArt.setAdapter(mDesignerIntroductionAdapter);
+
+        // 艺术家介绍
+        LinearLayoutManager layoutManager_1 = new LinearLayoutManager(App.getContext());
+        layoutManager_1.setOrientation(LinearLayoutManager.HORIZONTAL);
+        rvGanchuangArtists.setLayoutManager(layoutManager_1);
         rvGanchuangArtists.addItemDecoration(new SpacesItemDecoration(20));
         // 如果可以确定每个item的高度是固定的，设置这个选项可以提高性能
         rvGanchuangArtists.setHasFixedSize(true);
@@ -172,6 +188,14 @@ public class GanChuangActivity extends BaseActivity {
                         mDesignerIntroductionAdapterBean.addAll(response.getData().getDesigners());
                         mDesignerIntroductionAdapter = new DesignerIntroductionAdapter(mDesignerIntroductionAdapterBean);
                         rvGanchuangArtists.setAdapter(mDesignerIntroductionAdapter);
+                        rvGoWorksOfArt.setAdapter(mDesignerIntroductionAdapter);
+                        mDesignerIntroductionAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                                LogUtils.i("rmy", "position = " + position);
+                                startActivity(new Intent(GanChuangActivity.this, WorksOfArtActivity.class).putExtra("WorksOfArtPosition", position));
+                            }
+                        });
                         //图片集锦
                         mArtSelectAdapterBean.clear();
                         mArtSelectAdapterBean.addAll(response.getData().getGallery());
@@ -201,7 +225,7 @@ public class GanChuangActivity extends BaseActivity {
         AIOAnalytics.onPageEnd("ganchuang");
     }
 
-    @OnClick({R.id.rl_ganchuang_video, R.id.ll_go_works_of_art, R.id.iv_go_works_of_art, R.id.ll_go_artists})
+    @OnClick({R.id.rl_ganchuang_video, R.id.ll_go_works_of_art, R.id.ll_go_artists})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_ganchuang_video:
@@ -210,9 +234,9 @@ public class GanChuangActivity extends BaseActivity {
             case R.id.ll_go_works_of_art:
                 startActivity(new Intent(this, WorksOfArtActivity.class));
                 break;
-            case R.id.iv_go_works_of_art:
-                startActivity(new Intent(this, WorksOfArtActivity.class));
-                break;
+            //            case R.id.iv_go_works_of_art:
+            //                startActivity(new Intent(this, WorksOfArtActivity.class));
+            //                break;
             case R.id.ll_go_artists:
                 startActivity(new Intent(this, GanChuangArtistActivity.class));
                 break;
