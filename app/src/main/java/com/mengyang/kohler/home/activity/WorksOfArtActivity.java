@@ -8,7 +8,6 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
-import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.home.adapter.WorksOfArtAdapter;
 

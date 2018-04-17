@@ -192,7 +192,6 @@ public class GanChuangActivity extends BaseActivity {
                         mDesignerIntroductionAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                             @Override
                             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                                LogUtils.i("rmy", "position = " + position);
                                 startActivity(new Intent(GanChuangActivity.this, WorksOfArtActivity.class).putExtra("WorksOfArtPosition", position));
                             }
                         });
