@@ -14,7 +14,7 @@
     <TextView
         android:id="@+id/tv_item_designer_introduction"
         android:layout_width="@dimen/x400"
-        android:layout_height="@dimen/y168"
+        android:layout_height="wrap_content"
         android:gravity="top"
         android:layout_marginTop="@dimen/y12"/>
 </LinearLayout>

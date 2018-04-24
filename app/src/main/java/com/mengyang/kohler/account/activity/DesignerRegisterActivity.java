@@ -197,7 +197,7 @@ public class DesignerRegisterActivity extends BaseActivity {
         Map<String, Object> stringMap = IdeaApi.getSign();
         stringMap.put("mobileNo", etDesignerRegisterPhoneNum.getText().toString().trim());//手机号码
         stringMap.put("code", etDesignerRegisterVerificationCode.getText().toString().trim());//验证码
-        stringMap.put("verifyCode", "111111");//etDesignerRegisterSmsVerificationCode.getText().toString().trim());//短信验证码
+        stringMap.put("verifyCode", etDesignerRegisterSmsVerificationCode.getText().toString().trim());//短信验证码
         stringMap.put("password", etDesignerRegisterPwd.getText().toString().trim());//用户密码
         stringMap.put("type", "designer");//用户类型
         stringMap.put("time", time);//时间戳

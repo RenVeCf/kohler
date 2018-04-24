@@ -6,6 +6,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -19,13 +20,13 @@ import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.activity.WebViewActivity;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IdeaApi;
-import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.view.GridSpacingItemDecoration;
 import com.mengyang.kohler.common.view.SpacesItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.home.adapter.ArtKohlerSelectAdapter;
 import com.mengyang.kohler.home.adapter.DesignerIntroductionAdapter;
 import com.mengyang.kohler.home.adapter.GanChuangAdapter;
+import com.mengyang.kohler.home.adapter.GoWorkOfArtAdapter;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.ArtKohlerBean;
 import com.umeng.analytics.MobclickAgent;
@@ -50,8 +51,6 @@ public class GanChuangActivity extends BaseActivity {
     RelativeLayout rlGanchuangVideo;
     @BindView(R.id.ll_go_works_of_art)
     LinearLayout llGoWorksOfArt;
-    //    @BindView(R.id.iv_go_works_of_art)
-    //    ImageView ivGoWorksOfArt;
     @BindView(R.id.rv_go_works_of_art)
     RecyclerView rvGoWorksOfArt;
     @BindView(R.id.ll_go_artists)
@@ -76,11 +75,12 @@ public class GanChuangActivity extends BaseActivity {
     TextView tvGanChuangVideo;
 
     private DesignerIntroductionAdapter mDesignerIntroductionAdapter;
+    private GoWorkOfArtAdapter mGoWorkOfArtAdapter;
     private List<ArtKohlerBean.DesignersBean> mDesignerIntroductionAdapterBean;
 
     private ArtKohlerSelectAdapter mArtKohlerSelectAdapter;
     private List<ArtKohlerBean.GalleryBean> mArtSelectAdapterBean;
-
+    private List<ArtKohlerBean.ArtworksBean> mGoWorksOfArtAdapterBean;
     private ArtKohlerBean mArtKohlerBean;
     private List<ArtKohlerBean.AgendaListBean> mArtKohlerAdapterBean;
     private GanChuangAdapter mGanChuangAdapter;
@@ -107,9 +107,9 @@ public class GanChuangActivity extends BaseActivity {
         rvGoWorksOfArt.setHasFixedSize(true);
         rvGoWorksOfArt.setItemAnimator(new DefaultItemAnimator());
 
-        mDesignerIntroductionAdapterBean = new ArrayList<>();
-        mDesignerIntroductionAdapter = new DesignerIntroductionAdapter(mDesignerIntroductionAdapterBean);
-        rvGoWorksOfArt.setAdapter(mDesignerIntroductionAdapter);
+        mGoWorksOfArtAdapterBean = new ArrayList<>();
+        mGoWorkOfArtAdapter = new GoWorkOfArtAdapter(mGoWorksOfArtAdapterBean);
+        rvGoWorksOfArt.setAdapter(mGoWorkOfArtAdapter);
 
         // 艺术家介绍
         LinearLayoutManager layoutManager_1 = new LinearLayoutManager(App.getContext());
@@ -188,8 +188,12 @@ public class GanChuangActivity extends BaseActivity {
                         mDesignerIntroductionAdapterBean.addAll(response.getData().getDesigners());
                         mDesignerIntroductionAdapter = new DesignerIntroductionAdapter(mDesignerIntroductionAdapterBean);
                         rvGanchuangArtists.setAdapter(mDesignerIntroductionAdapter);
-                        rvGoWorksOfArt.setAdapter(mDesignerIntroductionAdapter);
-                        mDesignerIntroductionAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                        //展品介绍
+                        mGoWorksOfArtAdapterBean.clear();
+                        mGoWorksOfArtAdapterBean.addAll(response.getData().getArtworks());
+                        mGoWorkOfArtAdapter = new GoWorkOfArtAdapter(mGoWorksOfArtAdapterBean);
+                        rvGoWorksOfArt.setAdapter(mGoWorkOfArtAdapter);
+                        mGoWorkOfArtAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                             @Override
                             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                                 startActivity(new Intent(GanChuangActivity.this, WorksOfArtActivity.class).putExtra("WorksOfArtPosition", position));
@@ -233,9 +237,6 @@ public class GanChuangActivity extends BaseActivity {
             case R.id.ll_go_works_of_art:
                 startActivity(new Intent(this, WorksOfArtActivity.class));
                 break;
-            //            case R.id.iv_go_works_of_art:
-            //                startActivity(new Intent(this, WorksOfArtActivity.class));
-            //                break;
             case R.id.ll_go_artists:
                 startActivity(new Intent(this, GanChuangArtistActivity.class));
                 break;

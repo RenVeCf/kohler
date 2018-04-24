@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.allyes.analytics.AIOAnalytics;
@@ -93,6 +94,9 @@ public class CommodityDetailsActivity extends BaseActivity implements TopView.It
     TextView tvCommodityDetailsColor;
     @BindView(R.id.iv_commodity_details_color_img)
     LinearLayout ivCommodityDetailsColorImg;
+    @BindView(R.id.sv_commodity_details)
+    ScrollView svCommodityDetails;
+
     //轮播图集合
     private List<Bitmap> mDatas = new ArrayList<>();
     private PopupWindow mDownloadPopupWindow;
@@ -149,7 +153,6 @@ public class CommodityDetailsActivity extends BaseActivity implements TopView.It
         } else {
             mSelectColorSKU = getIntent().getStringExtra("CommodityDetails_two");
         }
-
         tvCommodityDetailsTop.setItemClickListenner(this);
     }
 
@@ -378,6 +381,7 @@ public class CommodityDetailsActivity extends BaseActivity implements TopView.It
     private void SelectColor(String selectColor) {
         mSelectColorNum = 1;
         mSelectColorSKU = selectColor;
+        svCommodityDetails.fullScroll(View.FOCUS_UP);
         initData();
     }
 

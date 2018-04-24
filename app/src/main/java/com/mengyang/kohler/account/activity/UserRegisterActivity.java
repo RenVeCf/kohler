@@ -205,7 +205,7 @@ public class UserRegisterActivity extends BaseActivity {
         stringMap.put("password", etUserRegisterPwd.getText().toString().trim());//用户密码
         stringMap.put("type", "commonUser");//用户类型化
         stringMap.put("time", time);//时间戳
-        stringMap.put("verifyCode", "111111");//etUserRegisterSmsVerificationCode.getText().toString().trim());//验证码
+        stringMap.put("verifyCode", etUserRegisterSmsVerificationCode.getText().toString().trim());//验证码
 
         IdeaApi.getRequestLogin(stringMap);
         IdeaApi.getApiService()

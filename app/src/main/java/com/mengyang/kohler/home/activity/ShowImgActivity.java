@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.mengyang.kohler.R;
-import com.mengyang.kohler.common.utils.StringUtilss;
+import com.mengyang.kohler.common.utils.StringUtils;
 import com.mengyang.kohler.home.adapter.ImageViewPagerAdapter;
 import com.mengyang.kohler.home.view.HackyViewPager;
 
@@ -35,7 +35,7 @@ public class ShowImgActivity extends AppCompatActivity {
             }
         }
 
-        if (StringUtilss.isEmpty(mInfo)) {
+        if (StringUtils.isEmpty(mInfo)) {
             finish();
         } else {
             pager = (HackyViewPager) findViewById(R.id.pager);

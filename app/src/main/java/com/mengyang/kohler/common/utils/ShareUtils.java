@@ -10,9 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
+import com.allyes.analytics.AIOAnalytics;
+import com.mengyang.kohler.App;
 import com.mengyang.kohler.R;
+import com.umeng.analytics.MobclickAgent;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -37,6 +39,7 @@ public class ShareUtils {
     private Dialog showDialogToClearCache;
     private String mFoodBrand;
     private ShareSuccess mShareListener;
+
     public ShareUtils(Activity mActivity, String url) {
         this.mActivity = mActivity;
         this.mUrl = url;
@@ -45,11 +48,12 @@ public class ShareUtils {
 
     /**
      * 弹出自定义的对话框进行分享
+     *
      * @param foodBrand，分享商品的名字
      */
     public void popShare(String foodBrand) {
         mFoodBrand = foodBrand;
-        screenHeight =getScreenHeight(mActivity);
+        screenHeight = getScreenHeight(mActivity);
         screenWidth = getScreenWidth(mActivity);
 
         if (share_dialog == null) {
@@ -72,20 +76,19 @@ public class ShareUtils {
             share_wechat.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    MobclickAgent.onEvent(App.getContext(), "share");
+                    AIOAnalytics.onEvent("share");
                     share(SHARE_MEDIA.WEIXIN);
                 }
             });
-
-
         }
         showDialogToClearCache.show();
 
     }
 
-
     private void share(SHARE_MEDIA Plat) {
-//        UMImage thumb =  new UMImage(mActivity, mUrl);
-        UMImage thumb =  new UMImage(mActivity, R.mipmap.logo);
+        //        UMImage thumb =  new UMImage(mActivity, mUrl);
+        UMImage thumb = new UMImage(mActivity, R.mipmap.logo);
         UMWeb web = new UMWeb(mUrl);
 
         web.setTitle(mActivity.getString(R.string.app_name));//标题
@@ -97,10 +100,9 @@ public class ShareUtils {
         }
 
 
-
         //开启自定义分享页面
         UMImage image = new UMImage(mActivity, mUrl);
-//        UMImage image = new UMImage(context, "http://tshare.glor.cn/share-card.html");
+        //        UMImage image = new UMImage(context, "http://tshare.glor.cn/share-card.html");
         image.compressStyle = UMImage.CompressStyle.SCALE;//大小压缩，默认为大小压缩，适合普通很大的图
         image.compressStyle = UMImage.CompressStyle.QUALITY;//质量压缩，适合长图的分享
         //压缩格式设置
@@ -109,7 +111,7 @@ public class ShareUtils {
         new ShareAction(mActivity)
                 .setPlatform(Plat)
                 .setCallback(umShareListener)
-//                .withText("hello world!")
+                //                .withText("hello world!")
                 .withMedia(web)
                 .share();
     }
@@ -135,6 +137,7 @@ public class ShareUtils {
         wm.getDefaultDisplay().getMetrics(outMetrics);
         return outMetrics.heightPixels;
     }
+
     /**
      * 获得屏幕高度
      *
@@ -206,10 +209,11 @@ public class ShareUtils {
 
     public interface ShareSuccess {
         void onShareSuccess();
+
         void onShareStart();
     }
 
-    public void setUmShareListener(ShareSuccess shareListener ) {
+    public void setUmShareListener(ShareSuccess shareListener) {
         mShareListener = shareListener;
     }
 }

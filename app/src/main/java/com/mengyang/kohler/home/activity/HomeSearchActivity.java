@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.allyes.analytics.AIOAnalytics;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.App;
@@ -22,6 +23,7 @@ import com.mengyang.kohler.home.adapter.HomeSearchAdapter;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.AllSearchBean;
 import com.mengyang.kohler.whole_category.activity.CommodityDetailsActivity;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +63,8 @@ public class HomeSearchActivity extends BaseActivity implements BaseQuickAdapter
         App.getManager().addActivity(this);
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(this, tvHomeSearchTop);
+        MobclickAgent.onEvent(HomeSearchActivity.this, "search");
+        AIOAnalytics.onEvent("search");
         GridLayoutManager layoutManagerActivity = new GridLayoutManager(App.getContext(), 2);
         rvHomeSearch.setLayoutManager(layoutManagerActivity);
         rvHomeSearch.addItemDecoration(new GridSpacingItemDecoration(2, 15, false));
@@ -126,6 +130,20 @@ public class HomeSearchActivity extends BaseActivity implements BaseQuickAdapter
                         }
                     }
                 });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+        AIOAnalytics.onPageBegin("search");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+        AIOAnalytics.onPageEnd("search");
     }
 
     @Override

@@ -47,4 +47,6 @@ public class IConstants {
 
 
     public static final String ROOT_PATH = Environment.getExternalStorageDirectory().getAbsolutePath();
+    // 下载存储的文件名
+    public static final String DOWNLOAD_NAME = "kohler";
 }

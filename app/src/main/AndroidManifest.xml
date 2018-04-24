@@ -11,7 +11,8 @@
     <uses-permission
         android:name="android.permission.ACCESS_COARSE_LOCATION"
         android:protectionLevel="signature"/>
-    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <uses-permission
+        android:name="android.permission.GET_TASKS"/>
     <uses-permission
         android:name="android.permission.INTERNET"
         android:protectionLevel="signature"/>
@@ -54,8 +55,8 @@
     <uses-permission android:name="android.permission.READ_LOGS"/>
 
     <!--analytics所需权限-->
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" /> <!--开机启动-->
-    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!--唤醒锁定-->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/> <!--开机启动-->
+    <uses-permission android:name="android.permission.WAKE_LOCK"/> <!--唤醒锁定-->
 
     <application
         android:name=".App"
@@ -73,10 +74,20 @@
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <!--<provider-->
+            <!--android:name="android.support.v4.content.FileProvider"-->
+            <!--android:authorities="${applicationId}.provider"-->
+            <!--android:exported="false"-->
+            <!--android:grantUriPermissions="true">-->
+            <!--<meta-data-->
+                <!--android:name="android.support.FILE_PROVIDER_PATHS"-->
+                <!--android:resource="@xml/file_paths"/>-->
+        <!--</provider>-->
+
         <activity
             android:name=".whole_category.activity.CommodityDetailsActivity"
             android:exported="false"
@@ -273,10 +284,10 @@
             android:value="YWluc2lnaHR8MDAwMDAwMDZ8MDAxNQ=="/>
         <meta-data
             android:name="app_channel"
-            android:value="${INSTALL_CHANNEL_VALUE}" />
+            android:value="${INSTALL_CHANNEL_VALUE}"/>
         <meta-data
             android:name="app_version"
-            android:value="ver_1.0.1" />
+            android:value="ver_1.0.1"/>
 
         <activity
             android:name="com.kohler.arscan.DownloadActivity"

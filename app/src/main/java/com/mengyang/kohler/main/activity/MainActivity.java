@@ -1,19 +1,25 @@
 package com.mengyang.kohler.main.activity;
 
 import android.Manifest;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Environment;
+import android.os.PowerManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -33,6 +39,7 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.kohler.arscan.DownloadActivity;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
+import com.mengyang.kohler.BuildConfig;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.account.activity.LoginActivity;
 import com.mengyang.kohler.account.fragment.AccountFragment;
@@ -40,12 +47,14 @@ import com.mengyang.kohler.ar.ARFragment;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.net.IdeaApi;
+import com.mengyang.kohler.common.utils.AppUtils;
 import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.view.ResideLayout;
 import com.mengyang.kohler.home.activity.MineManualActivity;
 import com.mengyang.kohler.home.activity.StoreMapActivity;
 import com.mengyang.kohler.home.fragment.HomeFragment;
+import com.mengyang.kohler.main.view.CommonProgressDialog;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.NotSelectClassificationBean;
 import com.mengyang.kohler.module.bean.UserMsgBean;
@@ -53,6 +62,13 @@ import com.mengyang.kohler.whole_category.activity.CommodityClassificationActivi
 import com.mengyang.kohler.whole_category.fragment.WholeCategoryFragment;
 import com.umeng.analytics.MobclickAgent;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -152,9 +168,8 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
     private boolean mIsUnableToDrag = true;
     private PopupWindow mNoJurisdictionPopupWindow;
     private View mPopLayout;
+    private CommonProgressDialog pBar;
     private int mFlag = 0;
-
-    private int[] arr = {1, 2, 3};
 
     @Override
     protected int getLayoutId() {
@@ -165,17 +180,28 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
     protected void initValues() {
         App.addDestoryActivity(this, "MainActivity");
         App.getManager().addActivity(this);
-        //        Boolean isFirstOpen = (Boolean) SPUtil.get(this, IConstants.FIRST_APP, true);
-        //        if (isFirstOpen) {
-        //            rlMain.openPane();
+//        Boolean isFirstOpen = (Boolean) SPUtil.get(this, IConstants.FIRST_APP, true);
+//        if (isFirstOpen) {
+            //            Map<String, Object> stringMap = IdeaApi.getSign();
+            //
+            //            IdeaApi.getRequestLogin(stringMap);
+            //            IdeaApi.getApiService()
+            //                    .getUserMsg(stringMap)
+            //                    .compose(this.<BasicResponse<UserMsgBean>>bindToLifecycle())
+            //                    .subscribeOn(Schedulers.io())
+            //                    .observeOn(AndroidSchedulers.mainThread())
+            //                    .subscribe(new DefaultObserver<BasicResponse<UserMsgBean>>(this, false) {
+            //                        @Override
+            //                        public void onSuccess(BasicResponse<UserMsgBean> response) {
+            // 获取本版本号，是否更新
+//            int vision = AppUtils.getVersionCode(MainActivity.this);
+//            getVersion(vision);
+            //                        }
+            //                    });
+//        }
         SPUtil.put(this, IConstants.FIRST_APP, false);
-        //        }
         switchFragment(mHomeFragment).commit();
         mIsUnableToDrag = true;
-        //        cvpMainViewpager.setScanScroll(false);
-
-        //        //加载adapter
-        //        cvpMainViewpager.setAdapter(new MyAdapter(getSupportFragmentManager(), setfargment()));
         mNoJurisdictionPopupWindow = new PopupWindow(this);
         mNoJurisdictionPopupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
         mNoJurisdictionPopupWindow.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
@@ -617,37 +643,7 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                     break;
                 }
             }
-            if (false == allGranted) {
-                //                showMissingPermissionDialog();
-            }
         }
-    }
-
-    private void showMissingPermissionDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("提示");
-        builder.setMessage("当前应用缺少必要权限。请点击\"设置\"-\"权限\"-打开所需权限。");
-
-        // 拒绝, 退出应用
-        builder.setNegativeButton("取消",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                });
-
-        builder.setPositiveButton("设置",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        //                        startAppSettings();
-                    }
-                });
-
-        builder.setCancelable(false);
-
-        builder.show();
     }
 
     @OnClick()
@@ -706,5 +702,205 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
     protected void onDestroy() {
         super.onDestroy();
         AIOAnalytics.onPause();
+    }
+
+    // 获取更新版本号
+    private void getVersion(final int vision) {
+        //bean
+        String newversion = "2";//更新新的版本号
+        String content = "\n" + "科勒应用程序有新的版本...\n";//更新内容
+        String url = "http://openbox.mobilem.360.cn/index/d/sid/3976114";//安装包下载地址
+
+        double newversioncode = Double
+                .parseDouble(newversion);
+        int cc = (int) (newversioncode);
+        System.out.println(newversion + "v" + vision + ",,"
+                + cc);
+        if (cc != vision) {
+            if (vision < cc) {
+                System.out.println(newversion + "v"
+                        + vision);
+                // 版本号不同
+                ShowDialog(vision, newversion, content, url);
+            }
+        }
+    }
+
+    /**
+     * 升级系统
+     *
+     * @param content
+     * @param url
+     */
+    private void ShowDialog(int vision, String newversion, String content, final String url) {
+        new android.app.AlertDialog.Builder(this)
+                .setTitle("版本更新")
+                .setMessage(content)
+                .setPositiveButton("更新", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        pBar = new CommonProgressDialog(MainActivity.this);
+                        pBar.setCancelable(false);
+                        pBar.setIndeterminate(true);
+                        pBar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+                        // downFile(URLData.DOWNLOAD_URL);
+                        final DownloadTask downloadTask = new DownloadTask(
+                                MainActivity.this);
+                        downloadTask.execute(url);
+                        pBar.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                            @Override
+                            public void onCancel(DialogInterface dialog) {
+                                downloadTask.cancel(true);
+                            }
+                        });
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .show();
+    }
+
+
+    /**
+     * 下载应用
+     *
+     * @author Administrator
+     */
+    class DownloadTask extends AsyncTask<String, Integer, String> {
+
+        private Context context;
+        private PowerManager.WakeLock mWakeLock;
+
+        public DownloadTask(Context context) {
+            this.context = context;
+        }
+
+        @Override
+        protected String doInBackground(String... sUrl) {
+            InputStream input = null;
+            OutputStream output = null;
+            HttpURLConnection connection = null;
+            File file = null;
+            try {
+                URL url = new URL(sUrl[0]);
+                connection = (HttpURLConnection) url.openConnection();
+                connection.connect();
+                // expect HTTP 200 OK, so we don't mistakenly save error
+                // report
+                // instead of the file
+                if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
+                    return "Server returned HTTP "
+                            + connection.getResponseCode() + " "
+                            + connection.getResponseMessage();
+                }
+                // this will be useful to display download percentage
+                // might be -1: server did not report the length
+                int fileLength = connection.getContentLength();
+                if (Environment.getExternalStorageState().equals(
+                        Environment.MEDIA_MOUNTED)) {
+                    //                    file = new File(Environment.getExternalStorageDirectory(),
+                    //                            DOWNLOAD_NAME);
+                    String apkPath = MainActivity.this.getExternalCacheDir().getPath() + File.separator + "app" + File.separator;
+                    file = new File(apkPath + IConstants.DOWNLOAD_NAME);
+
+                    if (!file.exists()) {
+                        // 判断父文件夹是否存在
+                        if (!file.getParentFile().exists()) {
+                            file.getParentFile().mkdirs();
+                        }
+                    }
+
+                } else {
+                    Toast.makeText(MainActivity.this, "sd卡未挂载",
+                            Toast.LENGTH_LONG).show();
+                }
+                input = connection.getInputStream();
+                output = new FileOutputStream(file);
+                byte data[] = new byte[4096];
+                long total = 0;
+                int count;
+                while ((count = input.read(data)) != -1) {
+                    // allow canceling with back button
+                    if (isCancelled()) {
+                        input.close();
+                        return null;
+                    }
+                    total += count;
+                    // publishing the progress....
+                    if (fileLength > 0) // only if total length is known
+                        publishProgress((int) (total * 100 / fileLength));
+                    output.write(data, 0, count);
+
+                }
+            } catch (Exception e) {
+                System.out.println(e.toString());
+                return e.toString();
+
+            } finally {
+                try {
+                    if (output != null)
+                        output.close();
+                    if (input != null)
+                        input.close();
+                } catch (IOException ignored) {
+                }
+                if (connection != null)
+                    connection.disconnect();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            // take CPU lock to prevent CPU from going off if the user
+            // presses the power button during download
+            PowerManager pm = (PowerManager) context
+                    .getSystemService(Context.POWER_SERVICE);
+            mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
+                    getClass().getName());
+            mWakeLock.acquire();
+            pBar.show();
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... progress) {
+            super.onProgressUpdate(progress);
+            // if we get here, length is known, now set indeterminate to false
+            pBar.setIndeterminate(false);
+            pBar.setMax(100);
+            pBar.setProgress(progress[0]);
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            mWakeLock.release();
+            pBar.dismiss();
+            update();
+        }
+    }
+
+    private void update() {
+        //安装应用
+        String apkPath = MainActivity.this.getExternalCacheDir().getPath() + File.separator + "app" + File.separator;
+        File apkFile = new File(apkPath + IConstants.DOWNLOAD_NAME);
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        //Android 7.0 系统共享文件需要通过 FileProvider 添加临时权限，否则系统会抛出 FileUriExposedException .
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            Uri contentUri = FileProvider.getUriForFile(MainActivity.this, BuildConfig.APPLICATION_ID + ".provider", apkFile);
+            intent.setDataAndType(contentUri, "application/vnd.android.package-archive");
+        } else {
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.setDataAndType(
+                    Uri.fromFile(apkFile),
+                    "application/vnd.android.package-archive");
+        }
+        startActivity(intent);
     }
 }

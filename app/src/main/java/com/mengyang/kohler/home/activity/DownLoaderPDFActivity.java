@@ -12,6 +12,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.ProgressBar;
 
+import com.allyes.analytics.AIOAnalytics;
 import com.github.barteksc.pdfviewer.PDFView;
 import com.github.barteksc.pdfviewer.listener.OnDrawListener;
 import com.github.barteksc.pdfviewer.listener.OnErrorListener;
@@ -29,6 +30,7 @@ import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.utils.ToastUtil;
 import com.mengyang.kohler.home.adapter.MyBrochureAdapter6;
 import com.mengyang.kohler.module.PdfBean;
+import com.umeng.analytics.MobclickAgent;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -104,6 +106,8 @@ public class DownLoaderPDFActivity extends BaseActivity implements OnPageChangeL
     @Override
     protected void initValues() {
         App.getManager().addActivity(this);
+        MobclickAgent.onEvent(DownLoaderPDFActivity.this, "pdf_download");
+        AIOAnalytics.onEvent("pdf_download");
         url = getIntent().getStringExtra("PdfUrl");
         mPdfTotalPath = getIntent().getStringExtra("mPdfTotalPath");
         mDownLoadKvUrl = getIntent().getStringExtra("mDownLoadKvUrl");
@@ -179,6 +183,20 @@ public class DownLoaderPDFActivity extends BaseActivity implements OnPageChangeL
                 }
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+        AIOAnalytics.onPageBegin("pdf_download");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+        AIOAnalytics.onPageEnd("pdf_download");
     }
 
     private void dismiss() {
