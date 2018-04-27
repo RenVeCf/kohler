@@ -48,7 +48,6 @@ public class WorksOfArtActivity extends BaseActivity {
         rvWorksOfArt.setItemAnimator(new DefaultItemAnimator());
 
         mWorksOfArt = new ArrayList<>();
-        mWorksOfArt.add(R.mipmap.introduction_of_exhibits_0);
         mWorksOfArt.add(R.mipmap.introduction_of_exhibits_1);
         mWorksOfArt.add(R.mipmap.introduction_of_exhibits_2);
         mWorksOfArt.add(R.mipmap.introduction_of_exhibits_3);
@@ -61,6 +60,7 @@ public class WorksOfArtActivity extends BaseActivity {
         mWorksOfArt.add(R.mipmap.introduction_of_exhibits_10);
         mWorksOfArt.add(R.mipmap.introduction_of_exhibits_11);
         mWorksOfArt.add(R.mipmap.introduction_of_exhibits_12);
+        mWorksOfArt.add(R.mipmap.introduction_of_exhibits_0);
 
         mWorksOfArtAdapter = new WorksOfArtAdapter(mWorksOfArt);
         rvWorksOfArt.setAdapter(mWorksOfArtAdapter);

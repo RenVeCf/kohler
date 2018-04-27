@@ -1,14 +1,18 @@
 package com.mengyang.kohler.home.activity;
 
+import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
+import com.mengyang.kohler.common.activity.WebViewActivity;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.view.GridSpacingItemDecoration;
@@ -26,7 +30,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * Description : 敢创•科勒亚太艺术展 （展品介绍）
+ * Description : 敢创•科勒亚太艺术展 （设计师介绍）
  * Author : rmy
  * Email : 942685687@qq.com
  * Time : 2018/3/29
@@ -92,6 +96,12 @@ public class GanChuangArtistActivity extends BaseActivity {
                         mDesignerIntroductionBean.addAll(response.getData().getDesigners());
                         mDesignerIntroductionAdapter = new DesignerIntroductionAdapter(mDesignerIntroductionBean);
                         rvDesignerIntroduction.setAdapter(mDesignerIntroductionAdapter);
+                        mDesignerIntroductionAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                                startActivity(new Intent(GanChuangArtistActivity.this, WebViewActivity.class).putExtra("h5url", mDesignerIntroductionBean.get(position).getH5Url()));
+                            }
+                        });
                     }
                 });
     }

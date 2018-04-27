@@ -20,6 +20,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -39,7 +40,6 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.kohler.arscan.DownloadActivity;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
-import com.mengyang.kohler.BuildConfig;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.account.activity.LoginActivity;
 import com.mengyang.kohler.account.fragment.AccountFragment;
@@ -48,7 +48,6 @@ import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.utils.AppUtils;
-import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.view.ResideLayout;
 import com.mengyang.kohler.home.activity.MineManualActivity;
@@ -180,25 +179,25 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
     protected void initValues() {
         App.addDestoryActivity(this, "MainActivity");
         App.getManager().addActivity(this);
-//        Boolean isFirstOpen = (Boolean) SPUtil.get(this, IConstants.FIRST_APP, true);
-//        if (isFirstOpen) {
-            //            Map<String, Object> stringMap = IdeaApi.getSign();
-            //
-            //            IdeaApi.getRequestLogin(stringMap);
-            //            IdeaApi.getApiService()
-            //                    .getUserMsg(stringMap)
-            //                    .compose(this.<BasicResponse<UserMsgBean>>bindToLifecycle())
-            //                    .subscribeOn(Schedulers.io())
-            //                    .observeOn(AndroidSchedulers.mainThread())
-            //                    .subscribe(new DefaultObserver<BasicResponse<UserMsgBean>>(this, false) {
-            //                        @Override
-            //                        public void onSuccess(BasicResponse<UserMsgBean> response) {
-            // 获取本版本号，是否更新
-//            int vision = AppUtils.getVersionCode(MainActivity.this);
-//            getVersion(vision);
-            //                        }
-            //                    });
-//        }
+        //        Boolean isFirstOpen = (Boolean) SPUtil.get(this, IConstants.FIRST_APP, true);
+        //        if (isFirstOpen) {
+        //            Map<String, Object> stringMap = IdeaApi.getSign();
+        //
+        //            IdeaApi.getRequestLogin(stringMap);
+        //            IdeaApi.getApiService()
+        //                    .getUserMsg(stringMap)
+        //                    .compose(this.<BasicResponse<UserMsgBean>>bindToLifecycle())
+        //                    .subscribeOn(Schedulers.io())
+        //                    .observeOn(AndroidSchedulers.mainThread())
+        //                    .subscribe(new DefaultObserver<BasicResponse<UserMsgBean>>(this, false) {
+        //                        @Override
+        //                        public void onSuccess(BasicResponse<UserMsgBean> response) {
+        // 获取本版本号，是否更新
+        int vision = AppUtils.getVersionCode(MainActivity.this);
+        getVersion(vision);
+        //                        }
+        //                    });
+        //        }
         SPUtil.put(this, IConstants.FIRST_APP, false);
         switchFragment(mHomeFragment).commit();
         mIsUnableToDrag = true;
@@ -706,14 +705,14 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
 
     // 获取更新版本号
     private void getVersion(final int vision) {
-        //bean
         String newversion = "2";//更新新的版本号
-        String content = "\n" + "科勒应用程序有新的版本...\n";//更新内容
+        String content = "\n" + "科勒应用有新的版本。\n";//更新内容
         String url = "http://openbox.mobilem.360.cn/index/d/sid/3976114";//安装包下载地址
 
         double newversioncode = Double
                 .parseDouble(newversion);
         int cc = (int) (newversioncode);
+
         System.out.println(newversion + "v" + vision + ",,"
                 + cc);
         if (cc != vision) {
@@ -732,7 +731,8 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
      * @param content
      * @param url
      */
-    private void ShowDialog(int vision, String newversion, String content, final String url) {
+    private void ShowDialog(int vision, String newversion, String content,
+                            final String url) {
         new android.app.AlertDialog.Builder(this)
                 .setTitle("版本更新")
                 .setMessage(content)
@@ -741,9 +741,9 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                         pBar = new CommonProgressDialog(MainActivity.this);
-                        pBar.setCancelable(false);
                         pBar.setIndeterminate(true);
                         pBar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+                        pBar.setCancelable(false);
                         // downFile(URLData.DOWNLOAD_URL);
                         final DownloadTask downloadTask = new DownloadTask(
                                 MainActivity.this);
@@ -764,7 +764,6 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 })
                 .show();
     }
-
 
     /**
      * 下载应用
@@ -803,10 +802,8 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 int fileLength = connection.getContentLength();
                 if (Environment.getExternalStorageState().equals(
                         Environment.MEDIA_MOUNTED)) {
-                    //                    file = new File(Environment.getExternalStorageDirectory(),
-                    //                            DOWNLOAD_NAME);
-                    String apkPath = MainActivity.this.getExternalCacheDir().getPath() + File.separator + "app" + File.separator;
-                    file = new File(apkPath + IConstants.DOWNLOAD_NAME);
+                    file = new File(MainActivity.this.getExternalCacheDir().getPath() + File.separator + "app",
+                            IConstants.DOWNLOAD_NAME);
 
                     if (!file.exists()) {
                         // 判断父文件夹是否存在
@@ -814,7 +811,6 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                             file.getParentFile().mkdirs();
                         }
                     }
-
                 } else {
                     Toast.makeText(MainActivity.this, "sd卡未挂载",
                             Toast.LENGTH_LONG).show();
@@ -835,7 +831,6 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                     if (fileLength > 0) // only if total length is known
                         publishProgress((int) (total * 100 / fileLength));
                     output.write(data, 0, count);
-
                 }
             } catch (Exception e) {
                 System.out.println(e.toString());
@@ -888,19 +883,21 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
     private void update() {
         //安装应用
         String apkPath = MainActivity.this.getExternalCacheDir().getPath() + File.separator + "app" + File.separator;
+        if (TextUtils.isEmpty(apkPath)) {
+            Toast.makeText(MainActivity.this, "更新失败！未找到安装包", Toast.LENGTH_SHORT).show();
+            return;
+        }
         File apkFile = new File(apkPath + IConstants.DOWNLOAD_NAME);
         Intent intent = new Intent(Intent.ACTION_VIEW);
         //Android 7.0 系统共享文件需要通过 FileProvider 添加临时权限，否则系统会抛出 FileUriExposedException .
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            Uri contentUri = FileProvider.getUriForFile(MainActivity.this, BuildConfig.APPLICATION_ID + ".provider", apkFile);
+            Uri contentUri = FileProvider.getUriForFile(MainActivity.this, "com.mengyang.kohler.fileprovider", apkFile);
             intent.setDataAndType(contentUri, "application/vnd.android.package-archive");
         } else {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.setDataAndType(
-                    Uri.fromFile(apkFile),
-                    "application/vnd.android.package-archive");
+            intent.setDataAndType(Uri.fromFile(apkFile), "application/vnd.android.package-archive");
         }
-        startActivity(intent);
+        MainActivity.this.startActivity(intent);
     }
 }

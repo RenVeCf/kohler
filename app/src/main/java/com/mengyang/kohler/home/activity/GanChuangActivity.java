@@ -188,6 +188,12 @@ public class GanChuangActivity extends BaseActivity {
                         mDesignerIntroductionAdapterBean.addAll(response.getData().getDesigners());
                         mDesignerIntroductionAdapter = new DesignerIntroductionAdapter(mDesignerIntroductionAdapterBean);
                         rvGanchuangArtists.setAdapter(mDesignerIntroductionAdapter);
+                        mDesignerIntroductionAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                                startActivity(new Intent(GanChuangActivity.this, WebViewActivity.class).putExtra("h5url", mDesignerIntroductionAdapterBean.get(position).getH5Url()));
+                            }
+                        });
                         //展品介绍
                         mGoWorksOfArtAdapterBean.clear();
                         mGoWorksOfArtAdapterBean.addAll(response.getData().getArtworks());
