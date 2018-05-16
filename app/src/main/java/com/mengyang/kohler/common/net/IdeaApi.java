@@ -28,6 +28,7 @@ import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 /**
  * 网络请求公共配置
@@ -68,7 +69,9 @@ public class IdeaApi {
 
         retrofit = new Retrofit.Builder()
                 .client(okHttpClient)
-                .addConverterFactory(GsonConverterFactory.create(gson))
+                .addConverterFactory(ScalarsConverterFactory.create())//请求结果转换为基本类型，一般为String
+                .addConverterFactory(GsonConverterFactory.create())
+//                .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .baseUrl(IdeaApiService.API_SERVER_URL)
                 .build();

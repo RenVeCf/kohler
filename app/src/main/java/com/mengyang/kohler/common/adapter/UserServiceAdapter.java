@@ -5,7 +5,6 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.text.Html;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,7 +28,7 @@ import java.util.List;
 
 public class UserServiceAdapter extends BaseMultiItemQuickAdapter<QuestionSearchBean, BaseViewHolder> {
 
-    private SimpleDateFormat mDateformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");;
+    private SimpleDateFormat mDateformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private int mHour;
 
     /**
@@ -71,8 +70,6 @@ public class UserServiceAdapter extends BaseMultiItemQuickAdapter<QuestionSearch
                 } else {
                     helper.setGone(R.id.tv_service_list, true);
                 }
-
-
                 break;
             case 1: //内容
                 helper.setText(R.id.tv_serviec_user_name, (String) SPUtil.get(App.getContext(), IConstants.USER_NIKE_NAME, ""))

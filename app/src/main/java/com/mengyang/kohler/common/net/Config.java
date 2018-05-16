@@ -24,6 +24,7 @@ public interface Config  {
     String FORGET_PWD = "authz/account/forgetPwd"; //忘记密码
     String MODIFY_PWD = "authz/account/updatePwd"; //修改密码
     String LOGIN_SMS = "authz/smscode/doSend"; //登陆短信验证
+    String CHECK_UP = "dice/list"; //检查更新
 
     /**
      * 首页

@@ -20,6 +20,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -48,6 +49,7 @@ import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.utils.AppUtils;
+import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.view.ResideLayout;
 import com.mengyang.kohler.home.activity.MineManualActivity;
@@ -57,6 +59,7 @@ import com.mengyang.kohler.main.view.CommonProgressDialog;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.NotSelectClassificationBean;
 import com.mengyang.kohler.module.bean.UserMsgBean;
+import com.mengyang.kohler.module.bean.VisionBean;
 import com.mengyang.kohler.whole_category.activity.CommodityClassificationActivity;
 import com.mengyang.kohler.whole_category.fragment.WholeCategoryFragment;
 import com.umeng.analytics.MobclickAgent;
@@ -158,6 +161,7 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
     @BindView(R.id.ll_toilet_heater)
     LinearLayout llToiletHeater;
     private UserMsgBean mUserMsgBean;
+    private VisionBean mVisionBean;
     private Fragment currentFragment = new Fragment();
     private HomeFragment mHomeFragment = new HomeFragment();
     private WholeCategoryFragment mWholeCategoryFragment = new WholeCategoryFragment();
@@ -179,24 +183,31 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
     protected void initValues() {
         App.addDestoryActivity(this, "MainActivity");
         App.getManager().addActivity(this);
-        //        Boolean isFirstOpen = (Boolean) SPUtil.get(this, IConstants.FIRST_APP, true);
+        Boolean isFirstOpen = (Boolean) SPUtil.get(this, IConstants.FIRST_APP, true);
         //        if (isFirstOpen) {
-        //            Map<String, Object> stringMap = IdeaApi.getSign();
-        //
-        //            IdeaApi.getRequestLogin(stringMap);
-        //            IdeaApi.getApiService()
-        //                    .getUserMsg(stringMap)
-        //                    .compose(this.<BasicResponse<UserMsgBean>>bindToLifecycle())
-        //                    .subscribeOn(Schedulers.io())
-        //                    .observeOn(AndroidSchedulers.mainThread())
-        //                    .subscribe(new DefaultObserver<BasicResponse<UserMsgBean>>(this, false) {
-        //                        @Override
-        //                        public void onSuccess(BasicResponse<UserMsgBean> response) {
-        // 获取本版本号，是否更新
-        int vision = AppUtils.getVersionCode(MainActivity.this);
-        getVersion(vision);
-        //                        }
-        //                    });
+        Map<String, Object> stringMap = IdeaApi.getSign();
+
+        IdeaApi.getRequestLogin(stringMap);
+        IdeaApi.getApiService()
+                .getCheckUp(stringMap)
+                .compose(MainActivity.this.<BasicResponse<VisionBean>>bindToLifecycle())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultObserver<BasicResponse<VisionBean>>(this, false) {
+                    @Override
+                    public void onSuccess(BasicResponse<VisionBean> response) {
+                        mVisionBean = response.getData();
+                        String dictDesc = mVisionBean.getDictDesc();
+                        LogUtils.i("rmy", "dictDesc = " + dictDesc + ", dictName = " + mVisionBean.getDictName());
+
+                        if (dictDesc.equals("android")) {
+                            // 获取本版本号，是否更新
+                            String vision = AppUtils.getVersionName(MainActivity.this);
+                            String content = "\n" + "科勒应用有新的版本。\n";//更新内容
+                            getVersion(vision, "1.0.1", content);
+                        }
+                    }
+                });
         //        }
         SPUtil.put(this, IConstants.FIRST_APP, false);
         switchFragment(mHomeFragment).commit();
@@ -704,24 +715,12 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
     }
 
     // 获取更新版本号
-    private void getVersion(final int vision) {
-        String newversion = "2";//更新新的版本号
-        String content = "\n" + "科勒应用有新的版本。\n";//更新内容
+    private void getVersion(final String vision, String newversion, String content) {
         String url = "http://openbox.mobilem.360.cn/index/d/sid/3976114";//安装包下载地址
 
-        double newversioncode = Double
-                .parseDouble(newversion);
-        int cc = (int) (newversioncode);
-
-        System.out.println(newversion + "v" + vision + ",,"
-                + cc);
-        if (cc != vision) {
-            if (vision < cc) {
-                System.out.println(newversion + "v"
-                        + vision);
-                // 版本号不同
-                ShowDialog(vision, newversion, content, url);
-            }
+        if (!newversion.equals(vision)) {
+            // 版本号不同
+            ShowDialog(vision, newversion, content, url);
         }
     }
 
@@ -731,9 +730,9 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
      * @param content
      * @param url
      */
-    private void ShowDialog(int vision, String newversion, String content,
+    private void ShowDialog(String vision, String newversion, String content,
                             final String url) {
-        new android.app.AlertDialog.Builder(this)
+        AlertDialog dialog = new AlertDialog.Builder(this)
                 .setTitle("版本更新")
                 .setMessage(content)
                 .setPositiveButton("更新", new DialogInterface.OnClickListener() {
@@ -743,7 +742,7 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                         pBar = new CommonProgressDialog(MainActivity.this);
                         pBar.setIndeterminate(true);
                         pBar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-                        pBar.setCancelable(false);
+                        //                        pBar.setCanceledOnTouchOutside(false);
                         // downFile(URLData.DOWNLOAD_URL);
                         final DownloadTask downloadTask = new DownloadTask(
                                 MainActivity.this);
@@ -761,8 +760,11 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
-                })
-                .show();
+                }).create();
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
+        dialog.getButton(CommonProgressDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.background_color));
+        dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.colorHint));
     }
 
     /**

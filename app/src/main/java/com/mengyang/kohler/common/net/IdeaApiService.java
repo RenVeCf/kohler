@@ -24,6 +24,7 @@ import com.mengyang.kohler.module.bean.SystemMsgBean;
 import com.mengyang.kohler.module.bean.UploadHeadPortraitBean;
 import com.mengyang.kohler.module.bean.UserMsgBean;
 import com.mengyang.kohler.module.bean.WeeklyRadioConcertBean;
+import com.mengyang.kohler.module.bean.VisionBean;
 
 import java.util.List;
 import java.util.Map;
@@ -260,4 +261,10 @@ public interface IdeaApiService {
     @FormUrlEncoded
     @POST(Config.ART_KOHLER_SELECT_IMG)
     Observable<BasicResponse<ArtKohlerSelectImgBean>> getArtKohlerSelectImg(@FieldMap Map<String, Object> map);
+
+    //检查更新
+    @FormUrlEncoded
+    @POST(Config.CHECK_UP)
+    Observable<BasicResponse<VisionBean>> getCheckUp(@FieldMap Map<String, Object> map);
+
 }

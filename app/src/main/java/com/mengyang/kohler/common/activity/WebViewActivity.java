@@ -245,6 +245,5 @@ public class WebViewActivity extends BaseActivity {
                 super.onReceivedTitle(view, title);
             }
         });
-
     }
 }
