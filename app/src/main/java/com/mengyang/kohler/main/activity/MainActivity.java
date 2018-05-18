@@ -161,7 +161,7 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
     @BindView(R.id.ll_toilet_heater)
     LinearLayout llToiletHeater;
     private UserMsgBean mUserMsgBean;
-    private VisionBean mVisionBean;
+    private List<VisionBean.ResultListBean> mVisionBean = new ArrayList<>();
     private Fragment currentFragment = new Fragment();
     private HomeFragment mHomeFragment = new HomeFragment();
     private WholeCategoryFragment mWholeCategoryFragment = new WholeCategoryFragment();
@@ -184,31 +184,29 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
         App.addDestoryActivity(this, "MainActivity");
         App.getManager().addActivity(this);
         Boolean isFirstOpen = (Boolean) SPUtil.get(this, IConstants.FIRST_APP, true);
-        //        if (isFirstOpen) {
-        Map<String, Object> stringMap = IdeaApi.getSign();
+        if (isFirstOpen) {
+            Map<String, Object> stringMap = IdeaApi.getSign();
 
-        IdeaApi.getRequestLogin(stringMap);
-        IdeaApi.getApiService()
-                .getCheckUp(stringMap)
-                .compose(MainActivity.this.<BasicResponse<VisionBean>>bindToLifecycle())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<BasicResponse<VisionBean>>(this, false) {
-                    @Override
-                    public void onSuccess(BasicResponse<VisionBean> response) {
-                        mVisionBean = response.getData();
-                        String dictDesc = mVisionBean.getDictDesc();
-                        LogUtils.i("rmy", "dictDesc = " + dictDesc + ", dictName = " + mVisionBean.getDictName());
+            IdeaApi.getRequestLogin(stringMap);
+            IdeaApi.getApiService()
+                    .getCheckUp(stringMap)
+                    .compose(MainActivity.this.<BasicResponse<VisionBean>>bindToLifecycle())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new DefaultObserver<BasicResponse<VisionBean>>(this, false) {
+                        @Override
+                        public void onSuccess(BasicResponse<VisionBean> response) {
+                            mVisionBean = response.getData().getResultList();
 
-                        if (dictDesc.equals("android")) {
-                            // 获取本版本号，是否更新
-                            String vision = AppUtils.getVersionName(MainActivity.this);
-                            String content = "\n" + "科勒应用有新的版本。\n";//更新内容
-                            getVersion(vision, "1.0.1", content);
+                            if (mVisionBean.get(1).getDictDesc().equals("android")) {
+                                // 获取本版本号，是否更新
+                                String vision = AppUtils.getVersionName(MainActivity.this);
+                                String content = "\n" + "科勒应用有新的版本 v" + mVisionBean.get(1).getDictName() + "。\n";//更新内容
+                                getVersion(vision, mVisionBean.get(1).getDictName(), content);
+                            }
                         }
-                    }
-                });
-        //        }
+                    });
+        }
         SPUtil.put(this, IConstants.FIRST_APP, false);
         switchFragment(mHomeFragment).commit();
         mIsUnableToDrag = true;

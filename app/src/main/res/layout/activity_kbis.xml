@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:orientation="vertical"
+    tools:context=".home.activity.KbisActivity">
+
+    <com.mengyang.kohler.common.view.TopView
+        android:id="@+id/tv_kbis_top"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white"
+        app:is_back="false"
+        app:is_customer_service="true"
+        app:is_iv_top_title="true"
+        app:is_menu="true"
+        app:is_share="true"
+        app:is_system_msg="true"
+        app:title="2018科勒上海厨卫展"
+        app:title_color="@color/white"/>
+
+</LinearLayout>

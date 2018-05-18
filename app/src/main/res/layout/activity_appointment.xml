@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.mengyang.kohler.common.view.BounceScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none"
+    tools:context=".home.activity.AppointmentActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y168"
+            android:background="@color/black"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/x68"
+                android:gravity="center_vertical"
+                android:text="在线预约"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/y105"
+            android:layout_marginEnd="@dimen/x84"
+            android:layout_marginStart="@dimen/x84"
+            android:layout_marginTop="@dimen/y60"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="您想得到什么帮助"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_appointment_help"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y84"
+                android:layout_marginTop="@dimen/y24"
+                android:background="@drawable/account_stroke_appointment_bg"
+                android:drawableEnd="@mipmap/triangle"
+                android:gravity="center_vertical"
+                android:paddingEnd="@dimen/x60"
+                android:paddingStart="@dimen/x39"
+                android:text="请选择"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y60"
+                android:text="请选择您想了解的产品"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y84"
+                android:layout_marginTop="@dimen/y24"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_appointment_product_big"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/x18"
+                    android:layout_weight="1"
+                    android:background="@drawable/account_stroke_appointment_bg"
+                    android:drawableEnd="@mipmap/triangle"
+                    android:gravity="center_vertical"
+                    android:paddingEnd="@dimen/x60"
+                    android:paddingStart="@dimen/x39"
+                    android:text="请选择"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_appointment_product_medium"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/x18"
+                    android:layout_weight="1"
+                    android:background="@drawable/account_stroke_appointment_bg"
+                    android:drawableEnd="@mipmap/triangle"
+                    android:gravity="center_vertical"
+                    android:paddingEnd="@dimen/x60"
+                    android:paddingStart="@dimen/x39"
+                    android:text="请选择"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_appointment_product_small"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/account_stroke_appointment_bg"
+                    android:drawableEnd="@mipmap/triangle"
+                    android:gravity="center_vertical"
+                    android:paddingEnd="@dimen/x60"
+                    android:paddingStart="@dimen/x39"
+                    android:text="请选择"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y60"
+                android:text="请选择您离您最近的店"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y84"
+                android:layout_marginTop="@dimen/y24"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_appointment_product_province"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/x18"
+                    android:layout_weight="1"
+                    android:background="@drawable/account_stroke_appointment_bg"
+                    android:drawableEnd="@mipmap/triangle"
+                    android:gravity="center_vertical"
+                    android:paddingEnd="@dimen/x60"
+                    android:paddingStart="@dimen/x39"
+                    android:text="请选择"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_appointment_product_city"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/x18"
+                    android:layout_weight="1"
+                    android:background="@drawable/account_stroke_appointment_bg"
+                    android:drawableEnd="@mipmap/triangle"
+                    android:gravity="center_vertical"
+                    android:paddingEnd="@dimen/x60"
+                    android:paddingStart="@dimen/x39"
+                    android:text="请选择"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_appointment_product_addr_key"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/account_stroke_appointment_bg"
+                    android:drawableEnd="@mipmap/triangle"
+                    android:gravity="center_vertical"
+                    android:paddingEnd="@dimen/x60"
+                    android:paddingStart="@dimen/x39"
+                    android:text="请选择"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_appointment_address"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y84"
+                android:layout_marginTop="@dimen/y24"
+                android:background="@drawable/account_stroke_appointment_bg"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y60"
+                android:text="请填写您的姓名"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y24"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/et_appointment_name"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/y84"
+                    android:layout_weight="1"
+                    android:background="@drawable/account_stroke_appointment_bg"
+                    android:textStyle="bold" />
+
+                <RadioGroup
+                    android:id="@+id/rg_appointment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.7"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/x40">
+
+                    <RadioButton
+                        android:id="@+id/rb_appointment_boy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="男"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:button="@drawable/appointment_radio_button_style"/>
+
+                    <RadioButton
+                        android:id="@+id/rb_appointment_girl"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/x50"
+                        android:text="女"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:button="@drawable/appointment_radio_button_style"/>
+                </RadioGroup>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y60"
+                android:text="请填写您的家庭状况"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_appointment_family"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y84"
+                android:layout_marginTop="@dimen/y24"
+                android:background="@drawable/account_stroke_appointment_bg"
+                android:drawableEnd="@mipmap/triangle"
+                android:gravity="center_vertical"
+                android:paddingEnd="@dimen/x60"
+                android:paddingStart="@dimen/x39"
+                android:text="请选择"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y60"
+                android:text="请填写您方便进店的时间"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_appointment_in_store_time"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y84"
+                android:layout_marginTop="@dimen/y24"
+                android:background="@drawable/account_stroke_appointment_bg"
+                android:drawableEnd="@mipmap/triangle"
+                android:gravity="center_vertical"
+                android:paddingEnd="@dimen/x60"
+                android:paddingStart="@dimen/x39"
+                android:text="请选择"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y60"
+                android:text="请填写您的手机号码"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/et_appointment_phone_num"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y84"
+                android:layout_marginTop="@dimen/y24"
+                android:background="@drawable/account_stroke_appointment_bg"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/bt_appointment_commit"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y129"
+                android:layout_marginTop="@dimen/y71"
+                android:background="@color/black"
+                android:text="立即预约"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/black" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/y63"
+            android:layout_marginStart="@dimen/x90"
+            android:layout_marginTop="@dimen/y60"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="售后保修咨询电话"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y10"
+                android:text="座机用户请拨打：800-820-2628"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y10"
+                android:text="手机用户请拨打：400-820-2628"
+                android:textColor="@color/black" />
+        </LinearLayout>
+    </LinearLayout>
+</com.mengyang.kohler.common.view.BounceScrollView>

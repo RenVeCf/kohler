@@ -1,11 +1,13 @@
 package com.mengyang.kohler.home.fragment;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,27 +17,37 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.allyes.analytics.AIOAnalytics;
+import com.bigkoo.pickerview.builder.TimePickerBuilder;
+import com.bigkoo.pickerview.listener.OnTimeSelectListener;
+import com.bigkoo.pickerview.view.TimePickerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gyf.barlibrary.ImmersionBar;
 import com.kohler.arscan.DownloadActivity;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseFragment;
 import com.mengyang.kohler.R;
+import com.mengyang.kohler.account.activity.AccountAboutActivity;
 import com.mengyang.kohler.account.activity.LoginActivity;
 import com.mengyang.kohler.common.activity.CustomerServiceActivity;
 import com.mengyang.kohler.common.activity.WebViewActivity;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.net.IdeaApi;
+import com.mengyang.kohler.common.net.IdeaApiService;
+import com.mengyang.kohler.common.utils.DateUtils;
 import com.mengyang.kohler.common.utils.FileUtil;
 import com.mengyang.kohler.common.utils.FileUtils;
+import com.mengyang.kohler.common.utils.JsonUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.view.SpacesItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
@@ -54,14 +66,26 @@ import com.ryane.banner.AdPageInfo;
 import com.ryane.banner.AdPlayBanner;
 import com.umeng.analytics.MobclickAgent;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 import static com.ryane.banner.AdPlayBanner.ImageLoaderType.GLIDE;
 import static com.ryane.banner.AdPlayBanner.IndicatorType.NONE_INDICATOR;
@@ -70,7 +94,7 @@ import static com.ryane.banner.AdPlayBanner.IndicatorType.NONE_INDICATOR;
  * 主页
  */
 
-public class HomeFragment extends BaseFragment implements BaseQuickAdapter.RequestLoadMoreListener {
+public class HomeFragment extends BaseFragment implements BaseQuickAdapter.RequestLoadMoreListener, View.OnClickListener {
 
     @BindView(R.id.tv_home_top)
     TopView tvHomeTop;
@@ -98,6 +122,33 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
     LinearLayout mLlIndicator;
     @BindView(R.id.iv_weekly_radio_concert)
     ImageView ivWeeklyRadioConcert;
+    @BindView(R.id.iv_home_appointment)
+    ImageView ivHomeAppointment;
+
+    /**
+     * 预约 Dialog
+     */
+    private TextView tvAppointmentHelp;
+    private TextView tvAppointmentProductBig;
+    private TextView tvAppointmentProductMedium;
+    private TextView tvAppointmentProductSmall;
+    private TextView tvAppointmentProductProvince;
+    private TextView tvAppointmentProductCity;
+    private TextView tvAppointmentProductAddrKey;
+    private TextView tvAppointmentAddress;
+    private EditText etAppointmentName;
+    private RadioButton rbAppointmentBoy;
+    private RadioButton rbAppointmentGirl;
+    private RadioGroup rgAppointment;
+    private TextView tvAppointmentFamily;
+    private TextView tvAppointmentInStoreTime;
+    private EditText etAppointmentPhoneNum;
+    private Button btAppointmentCommit;
+    private TimePickerView pvTime;
+    private Dialog dialog;
+    private OkHttpClient okHttpClient;
+    private String url = "http://www.kohler.com.cn/chinaweb/book/add.action";
+    private String gender = "男";
 
 
     //侧滑Meun键的接口回调
@@ -142,7 +193,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
         //轮播
         abHomeLoop.measure(0, 0);
         // 设置管理器
-        LinearLayoutManager layoutManager = new LinearLayoutManager(App.getContext());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         rvHomeBooks.setLayoutManager(layoutManager);
         rvHomeBooks.addItemDecoration(new SpacesItemDecoration(16));
@@ -164,7 +215,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
         mNoJurisdictionPopupWindow = new PopupWindow(getActivity());
         mNoJurisdictionPopupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
         mNoJurisdictionPopupWindow.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
-        LayoutInflater inflater = LayoutInflater.from(App.getContext());
+        LayoutInflater inflater = LayoutInflater.from(getActivity());
         mPopLayout = inflater.inflate(R.layout.popup_window_no_jurisdictuon, null);
         mNoJurisdictionPopupWindow.setContentView(mPopLayout);
         mNoJurisdictionPopupWindow.setBackgroundDrawable(new ColorDrawable(0x4c000000));
@@ -490,12 +541,40 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
 
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tv_appointment_help:
+                break;
+            case R.id.tv_appointment_product_big:
+                break;
+            case R.id.tv_appointment_product_medium:
+                break;
+            case R.id.tv_appointment_product_small:
+                break;
+            case R.id.tv_appointment_product_province:
+                break;
+            case R.id.tv_appointment_product_city:
+                break;
+            case R.id.tv_appointment_product_addr_key:
+                break;
+            case R.id.tv_appointment_family:
+                break;
+            case R.id.tv_appointment_in_store_time:
+                selectTime();
+                break;
+            case R.id.bt_appointment_commit:
+                appointmentCommit();
+                break;
+        }
+    }
+
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(String data);
     }
 
-    @OnClick({R.id.iv_top_menu, R.id.iv_home_search, R.id.iv_top_customer_service, R.id.tv_home_top, R.id.iv_weekly_radio_concert})
+    @OnClick({R.id.iv_top_menu, R.id.iv_home_search, R.id.iv_top_customer_service, R.id.tv_home_top, R.id.iv_weekly_radio_concert, R.id.iv_home_appointment})
     public void onViewClicked(View view) {
         if (getActivity().getCurrentFocus() != null) {
             ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(((Activity) getActivity()).getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
@@ -520,9 +599,137 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                 AIOAnalytics.onEvent("yinyuehuiliebiao");
                 startActivity(new Intent(getContext(), WeeklyRadioConcertActivity.class));
                 break;
+            case R.id.iv_home_appointment:
+                AppointmentDialogInit();
+                break;
             default:
                 break;
         }
+    }
+
+    private void AppointmentDialogInit() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        LayoutInflater inflater1 = LayoutInflater.from(getActivity());
+        View v = inflater1.inflate(R.layout.activity_appointment, null);
+        tvAppointmentHelp = v.findViewById(R.id.tv_appointment_help);
+        tvAppointmentProductBig = v.findViewById(R.id.tv_appointment_product_big);
+        tvAppointmentProductMedium = v.findViewById(R.id.tv_appointment_product_medium);
+        tvAppointmentProductSmall = v.findViewById(R.id.tv_appointment_product_small);
+        tvAppointmentProductProvince = v.findViewById(R.id.tv_appointment_product_province);
+        tvAppointmentProductCity = v.findViewById(R.id.tv_appointment_product_city);
+        tvAppointmentProductAddrKey = v.findViewById(R.id.tv_appointment_product_addr_key);
+        tvAppointmentAddress = v.findViewById(R.id.tv_appointment_address);
+        etAppointmentName = v.findViewById(R.id.et_appointment_name);
+        rbAppointmentBoy = v.findViewById(R.id.rb_appointment_boy);
+        rbAppointmentGirl = v.findViewById(R.id.rb_appointment_girl);
+        rgAppointment = v.findViewById(R.id.rg_appointment);
+        rgAppointment.check(rbAppointmentBoy.getId());
+        tvAppointmentFamily = v.findViewById(R.id.tv_appointment_family);
+        tvAppointmentInStoreTime = v.findViewById(R.id.tv_appointment_in_store_time);
+        etAppointmentPhoneNum = v.findViewById(R.id.et_appointment_phone_num);
+        btAppointmentCommit = v.findViewById(R.id.bt_appointment_commit);
+
+        tvAppointmentHelp.setOnClickListener(this);
+        tvAppointmentProductBig.setOnClickListener(this);
+        tvAppointmentProductMedium.setOnClickListener(this);
+        tvAppointmentProductSmall.setOnClickListener(this);
+        tvAppointmentProductProvince.setOnClickListener(this);
+        tvAppointmentProductCity.setOnClickListener(this);
+        tvAppointmentProductAddrKey.setOnClickListener(this);
+        tvAppointmentFamily.setOnClickListener(this);
+        tvAppointmentInStoreTime.setOnClickListener(this);
+        btAppointmentCommit.setOnClickListener(this);
+
+        //builer.setView(v);//这里如果使用builer.setView(v)，自定义布局只会覆盖title和button之间的那部分
+        dialog = builder.create();
+        dialog.show();
+        dialog.getWindow().setContentView(v);//自定义布局应该在这里添加，要在dialog.show()的后面
+        dialog.getWindow().setGravity(Gravity.CENTER);//可以设置显示的位置
+    }
+
+    private void selectTime() {
+        Calendar selectedDate = Calendar.getInstance();
+        Calendar startDate = Calendar.getInstance();
+        //startDate.set(2013,1,1);
+        Calendar endDate = Calendar.getInstance();
+        //endDate.set(2020,1,1);
+
+        //正确设置方式 原因：注意事项有说明
+        startDate.set(2013, 0, 1);
+        endDate.set(2020, 11, 31);
+
+        pvTime = new TimePickerBuilder(getActivity(), new OnTimeSelectListener() {
+            @Override
+            public void onTimeSelect(Date date, View v) {//选中事件回调
+                tvAppointmentInStoreTime.setText(DateUtils.timedate(date.getTime() + ""));
+            }
+        })
+                .setType(new boolean[]{true, true, true, true, false, false})// 默认全部显示
+                .setCancelText("取消")//取消按钮文字
+                .setSubmitText("确定")//确认按钮文字
+                //                .setContentSize(18)//滚轮文字大小
+                .setTitleSize(20)//标题文字大小
+                .setOutSideCancelable(false)//点击屏幕，点在控件外部范围时，是否取消显示
+                .isCyclic(false)//是否循环滚动
+                .setTitleColor(Color.BLACK)//标题文字颜色
+                .setSubmitColor(Color.BLACK)//确定按钮文字颜色
+                .setCancelColor(Color.GRAY)//取消按钮文字颜色
+                .setTitleBgColor(0xFFFFFFFF)//标题背景颜色 Night mode
+                .setBgColor(0xFFFFFFFF)//滚轮背景颜色 Night mode
+                .setDate(selectedDate)// 如果不设置的话，默认是系统时间*/
+                .setRangDate(startDate, endDate)//起始终止年月日设定
+                .setLabel("年", "月", "日", "时", "分", "秒")//默认设置为年月日时分秒
+                .isCenterLabel(false) //是否只显示中间选中项的label文字，false则每项item全部都带有label。
+                .isDialog(true)//是否显示为对话框样式
+                .build();
+        pvTime.show();
+    }
+
+    private void appointmentCommit() {
+        okHttpClient = new OkHttpClient.Builder().connectTimeout(IdeaApiService.DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS).writeTimeout(IdeaApiService.DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS).readTimeout(IdeaApiService.DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS).build();
+        rgAppointment.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (rgAppointment.getCheckedRadioButtonId()) {
+                    case R.id.rb_appointment_boy:
+                        gender = rbAppointmentBoy.getText().toString().trim();
+                        break;
+                    case R.id.rb_appointment_girl:
+                        gender = rbAppointmentGirl.getText().toString().trim();
+                        break;
+                }
+            }
+        });
+        MediaType MEDIA_TYPE_JSON = MediaType.parse("application/json; charset=utf-8");
+        HashMap<String, String> map = new HashMap<>();
+        map.put("help", tvAppointmentHelp.getText().toString().trim());
+        map.put("province", tvAppointmentProductProvince.getText().toString().trim());
+        map.put("city", tvAppointmentProductCity.getText().toString().trim());
+        map.put("addr_key", tvAppointmentProductAddrKey.getText().toString().trim());
+        map.put("address", tvAppointmentAddress.getText().toString().trim());
+        map.put("goods1", tvAppointmentProductBig.getText().toString().trim());
+        map.put("goods2", tvAppointmentProductMedium.getText().toString().trim());
+        map.put("goods3", tvAppointmentProductSmall.getText().toString().trim());
+        map.put("family", tvAppointmentFamily.getText().toString().trim());
+        map.put("gender", gender);
+        map.put("name", etAppointmentName.getText().toString().trim());
+        map.put("time", tvAppointmentInStoreTime.getText().toString().trim());
+        map.put("telephone", etAppointmentPhoneNum.getText().toString().trim());
+        map.put("source", "pc");
+        RequestBody requestBody = RequestBody.create(MEDIA_TYPE_JSON, JsonUtils.toJson(map));
+        Request requestPost = new Request.Builder().url(url).post(requestBody).build();
+        Call call = okHttpClient.newCall(requestPost);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                dialog.dismiss();
+            }
+        });
     }
 
     public void stopViewPager() {

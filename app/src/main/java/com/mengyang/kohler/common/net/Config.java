@@ -41,8 +41,9 @@ public interface Config  {
     String MEETING_BARRAGE = "http://106.15.92.74/api/v1/danmu/send?access_token="; //弹幕
     String WEEKLY_RADIO_CONCERT = "concert/list"; //星广会内容列表
     String ART_KOHLER = "ndc/facadeGetMeetingAndAgenda?meetingId=2"; //科勒艺术
-    String Gan_Chuang = "ndc/facadeGetMeetingAndAgenda?meetingId=3"; //敢创•科勒亚太艺术展
+    String GAN_CHUANG = "ndc/facadeGetMeetingAndAgenda?meetingId=3"; //敢创•科勒亚太艺术展
     String ART_KOHLER_SELECT_IMG = "ndc/getPictureListByGroup"; //科勒艺术精选图片
+    String APPOINTMENT_PATH = "http://www.kohler.com.cn/js/exports_2.json"; //预约地址
 
     /**
      * 全品类
