@@ -759,8 +759,23 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
         dialog_one.getWindow().setContentView(v);
         dialog_one.getWindow().setGravity(Gravity.CENTER);//可以设置显示的位置
 
-        if (view.getId() == R.id.tv_appointment_product_addr_key) {
-            tvAppointmentProductAddrKey.setTextSize(8f);
+        switch (view.getId()) {
+            case R.id.tv_appointment_product_addr_key:
+                tvAppointmentProductAddrKey.setSingleLine();
+                tvAppointmentProductAddrKey.setEllipsize(TextUtils.TruncateAt.valueOf("END"));
+                break;
+            case R.id.tv_appointment_product_big:
+                tvAppointmentProductBig.setSingleLine();
+                tvAppointmentProductBig.setEllipsize(TextUtils.TruncateAt.valueOf("END"));
+                break;
+            case R.id.tv_appointment_product_medium:
+                tvAppointmentProductMedium.setSingleLine();
+                tvAppointmentProductMedium.setEllipsize(TextUtils.TruncateAt.valueOf("END"));
+                break;
+            case R.id.tv_appointment_product_small:
+                tvAppointmentProductSmall.setSingleLine();
+                tvAppointmentProductSmall.setEllipsize(TextUtils.TruncateAt.valueOf("END"));
+                break;
         }
     }
 
