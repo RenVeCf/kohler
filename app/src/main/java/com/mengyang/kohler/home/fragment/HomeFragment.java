@@ -191,14 +191,20 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
 
     List<String> mProvinceList = new ArrayList<>();
     List<String> mBathroomList = new ArrayList<>();
+    Map<String, String> mSecondMap = new HashMap<>();
+    Map<String, String> mThirdMap = new HashMap<>();
     Map<String, String> mCityMap = new HashMap<>();
     Map<String, String> mRoomNameMap = new HashMap<>();
     Map<String, String> mAddressMap = new HashMap<>();
+
     private String mSelectedText = "";
     private String mSelectedProvince = "";
     private String mSelectedCity = "";
     private String mSelectedRoomName = "";
-    private String mSelectProvince;
+    private String mSelectedType = "";
+    private String mSelectedSecond = "";
+    private String mSelectedThird = "";
+
     private boolean mIsShowDeatilAddress;
     private String mJson;
     //    private boolean mIsShowCity;
@@ -584,13 +590,35 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                 selectOne(tvAppointmentHelp, mOptionsItems, 0);
                 break;
             case R.id.tv_appointment_product_big:
-
+                selectOne(tvAppointmentProductBig, mBathroomList , 4);
                 break;
             case R.id.tv_appointment_product_medium:
+                List<String> List3 = new ArrayList<>();
+                for (Map.Entry<String, String> entry : mSecondMap.entrySet()) {
+                    if (entry.getKey().contains(mSelectedType)) {
+                        String value = entry.getValue();
+                        if (!List3.contains(value)) {
+                            List3.add(value);
+                        }
 
+                    }
+                }
+
+                selectOne(tvAppointmentProductMedium, List3 , 5);
                 break;
             case R.id.tv_appointment_product_small:
+                List<String> List4 = new ArrayList<>();
+                for (Map.Entry<String, String> entry : mThirdMap.entrySet()) {
+                    if (entry.getKey().contains(mSelectedSecond)) {
+                        String value = entry.getValue();
+                        if (!List4.contains(value)) {
+                            List4.add(value);
+                        }
 
+                    }
+                }
+
+                selectOne(tvAppointmentProductSmall, List4 , 6);
                 break;
             case R.id.tv_appointment_product_province:
                 OkHttpClient okHttpClient = new OkHttpClient();
@@ -633,8 +661,6 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                                     mRoomNameMap.put(city, roomname);
                                 }
 
-//                                mAddressMap.put(roomname, address);
-
                                 if (mAddressMap.containsKey(roomname)) {
                                     mAddressMap.put(roomname + i, address);
                                 } else {
@@ -649,7 +675,6 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        Log.i("12343", string);
                     }
                 });
 
@@ -733,6 +758,12 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                     mSelectedCity = mSelectedText;
                 }else if (type == 3) {
                     mSelectedRoomName = mSelectedText;
+                } else if (type == 4) {
+                    mSelectedType = mSelectedText;
+                } else if (type == 5) {
+                    mSelectedSecond = mSelectedText;
+                } else if (type == 6) {
+                    mSelectedThird = mSelectedText;
                 }
 
                 if (mIsShowDeatilAddress) {
@@ -780,6 +811,12 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                             mSelectedCity = mSelectedText;
                         }else if (type == 3) {
                             mSelectedRoomName = mSelectedText;
+                        } else if (type == 4) {
+                            mSelectedType = mSelectedText;
+                        } else if (type == 5) {
+                            mSelectedSecond = mSelectedText;
+                        } else if (type == 6) {
+                            mSelectedThird = mSelectedText;
                         }
 
                         if (mIsShowDeatilAddress) {
@@ -906,15 +943,31 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
 
         try {
             JSONArray jsonArray = new JSONArray(mJson);
-
-//            String province = jsonArray.getJSONObject(i).getString("province");
-
             for (int i = 0; i < jsonArray.length(); i++) {
-//                jsonArray.getJSONObject(i).get("卫浴产品");
-//                if (mBathroomList.contains()) {
-//
-//                }
+                String type = jsonArray.getJSONObject(i).getString("type");
+                String second = jsonArray.getJSONObject(i).getString("second");
+                String third = jsonArray.getJSONObject(i).getString("third");
+
+                if (!mBathroomList.contains(type)) {
+                    mBathroomList.add(type);
+                }
+
+                if (mSecondMap.containsKey(type)) {
+                    mSecondMap.put(type + i, second);
+                } else {
+                    mSecondMap.put(type, second);
+                }
+
+                if (mThirdMap.containsKey(second)) {
+                    mThirdMap.put(second + i, third);
+                } else {
+                    mThirdMap.put(second, third);
+                }
             }
+
+            Log.i("1233", mBathroomList.toString());
+            Log.i("1233", mSecondMap.toString());
+            Log.i("1233", mThirdMap.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
