@@ -27,6 +27,7 @@ import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+
 import com.allyes.analytics.AIOAnalytics;
 import com.bigkoo.pickerview.adapter.ArrayWheelAdapter;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
@@ -188,7 +189,6 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
     private boolean mIsOpen;
 
 
-
     List<String> mProvinceList = new ArrayList<>();
     List<String> mBathroomList = new ArrayList<>();
     Map<String, String> mSecondMap = new HashMap<>();
@@ -208,7 +208,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
     private boolean mIsShowDeatilAddress;
     private String mJson;
     //    private boolean mIsShowCity;
-//    private boolean mIsShowRoomName;
+    //    private boolean mIsShowRoomName;
 
     @Override
     protected int getLayoutId() {
@@ -590,7 +590,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                 selectOne(tvAppointmentHelp, mOptionsItems, 0);
                 break;
             case R.id.tv_appointment_product_big:
-                selectOne(tvAppointmentProductBig, mBathroomList , 4);
+                selectOne(tvAppointmentProductBig, mBathroomList, 4);
                 break;
             case R.id.tv_appointment_product_medium:
                 List<String> List3 = new ArrayList<>();
@@ -604,7 +604,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                     }
                 }
 
-                selectOne(tvAppointmentProductMedium, List3 , 5);
+                selectOne(tvAppointmentProductMedium, List3, 5);
                 break;
             case R.id.tv_appointment_product_small:
                 List<String> List4 = new ArrayList<>();
@@ -618,7 +618,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                     }
                 }
 
-                selectOne(tvAppointmentProductSmall, List4 , 6);
+                selectOne(tvAppointmentProductSmall, List4, 6);
                 break;
             case R.id.tv_appointment_product_province:
                 selectOne(tvAppointmentProductProvince, mProvinceList, 1);
@@ -697,7 +697,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                     mSelectedProvince = mSelectedText;
                 } else if (type == 2) {
                     mSelectedCity = mSelectedText;
-                }else if (type == 3) {
+                } else if (type == 3) {
                     mSelectedRoomName = mSelectedText;
                 } else if (type == 4) {
                     mSelectedType = mSelectedText;
@@ -750,7 +750,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                             mSelectedProvince = mSelectedText;
                         } else if (type == 2) {
                             mSelectedCity = mSelectedText;
-                        }else if (type == 3) {
+                        } else if (type == 3) {
                             mSelectedRoomName = mSelectedText;
                         } else if (type == 4) {
                             mSelectedType = mSelectedText;
@@ -793,8 +793,23 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
         dialog_one.getWindow().setContentView(v);
         dialog_one.getWindow().setGravity(Gravity.CENTER);//可以设置显示的位置
 
-        if (view.getId() == R.id.tv_appointment_product_addr_key) {
-            tvAppointmentProductAddrKey.setTextSize(8f);
+        switch (view.getId()) {
+            case R.id.tv_appointment_product_addr_key:
+                tvAppointmentProductAddrKey.setSingleLine();
+                tvAppointmentProductAddrKey.setEllipsize(TextUtils.TruncateAt.valueOf("END"));
+                break;
+            case R.id.tv_appointment_product_big:
+                tvAppointmentProductBig.setSingleLine();
+                tvAppointmentProductBig.setEllipsize(TextUtils.TruncateAt.valueOf("END"));
+                break;
+            case R.id.tv_appointment_product_medium:
+                tvAppointmentProductMedium.setSingleLine();
+                tvAppointmentProductMedium.setEllipsize(TextUtils.TruncateAt.valueOf("END"));
+                break;
+            case R.id.tv_appointment_product_small:
+                tvAppointmentProductSmall.setSingleLine();
+                tvAppointmentProductSmall.setEllipsize(TextUtils.TruncateAt.valueOf("END"));
+                break;
         }
     }
 
@@ -1112,12 +1127,12 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
     }
 
     //读取本地json生成json字符串
-    private String initJsonData(){
+    private String initJsonData() {
         try {
             InputStream is = getResources().getAssets().open("goods.json");
             byte[] buffer = new byte[is.available()];
             is.read(buffer);
-            mJson = new String(buffer,"UTF-8");
+            mJson = new String(buffer, "UTF-8");
         } catch (IOException e) {
             e.printStackTrace();
         }
