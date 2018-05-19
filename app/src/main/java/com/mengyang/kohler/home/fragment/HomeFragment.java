@@ -27,7 +27,6 @@ import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-
 import com.allyes.analytics.AIOAnalytics;
 import com.bigkoo.pickerview.adapter.ArrayWheelAdapter;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
@@ -53,6 +52,7 @@ import com.mengyang.kohler.common.utils.FileUtils;
 import com.mengyang.kohler.common.utils.JsonUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.utils.ToastUtil;
+import com.mengyang.kohler.common.utils.VerifyUtils;
 import com.mengyang.kohler.common.view.SpacesItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.home.activity.ArtKohlerActivity;
@@ -689,7 +689,6 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                         if (!List.contains(value)) {
                             List.add(value);
                         }
-
                     }
                 }
 
@@ -852,6 +851,9 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
         dialog_one.getWindow().setContentView(v);
         dialog_one.getWindow().setGravity(Gravity.CENTER);//可以设置显示的位置
 
+        if (view.getId() == R.id.tv_appointment_product_addr_key) {
+            tvAppointmentProductAddrKey.setTextSize(8f);
+        }
     }
 
     public interface OnFragmentInteractionListener {
@@ -925,12 +927,11 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
         tvAppointmentInStoreTime.setOnClickListener(this);
         btAppointmentCommit.setOnClickListener(this);
 
-        //builer.setView(v);//这里如果使用builer.setView(v)，自定义布局只会覆盖title和button之间的那部分
         dialog = builder.create();
         dialog.show();
         dialog.getWindow().setContentView(v);//自定义布局应该在这里添加，要在dialog.show()的后面
         //清除flags,获取焦点(为了让EditText可以输入)
-        dialog.getWindow().clearFlags( WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+        dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
         //弹出输入法
         dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         dialog.getWindow().setGravity(Gravity.CENTER);//可以设置显示的位置
@@ -1035,6 +1036,8 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
         //提交信息不能为空
         if (tvAppointmentHelp.getText().toString().trim().equals("请选择") || tvAppointmentProductProvince.getText().toString().trim().equals("请选择") || tvAppointmentProductCity.getText().toString().trim().equals("请选择") || tvAppointmentProductAddrKey.getText().toString().trim().equals("请选择") || tvAppointmentProductBig.getText().toString().trim().equals("请选择") || tvAppointmentProductMedium.getText().toString().trim().equals("请选择") || tvAppointmentProductSmall.getText().toString().trim().equals("请选择") || tvAppointmentFamily.getText().toString().trim().equals("请选择") || etAppointmentName.getText().toString().trim().equals("请选择") || tvAppointmentInStoreTime.getText().toString().trim().equals("请选择") || etAppointmentPhoneNum.getText().toString().trim().equals("请选择")) {
             ToastUtil.showToast("请将信息填写完整!");
+        } else if (VerifyUtils.isMobileNumber(etAppointmentPhoneNum.getText().toString().trim()) == false) {
+            ToastUtil.showToast("请填写正确的电话号码!");
         } else {
             MediaType MEDIA_TYPE_JSON = MediaType.parse("application/json; charset=utf-8");
             HashMap<String, String> map = new HashMap<>();
@@ -1063,6 +1066,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
+                    ToastUtil.showToast("预约成功！");
                     dialog.dismiss();
                 }
             });

@@ -80,9 +80,10 @@
                     android:background="@drawable/account_stroke_appointment_bg"
                     android:drawableEnd="@mipmap/triangle"
                     android:gravity="center_vertical"
-                    android:paddingEnd="@dimen/x60"
+                    android:paddingEnd="@dimen/x30"
                     android:paddingStart="@dimen/x39"
                     android:text="请选择"
+                    android:textSize="12sp"
                     android:textColor="@color/black"
                     android:textStyle="bold" />
 
@@ -95,9 +96,10 @@
                     android:background="@drawable/account_stroke_appointment_bg"
                     android:drawableEnd="@mipmap/triangle"
                     android:gravity="center_vertical"
-                    android:paddingEnd="@dimen/x60"
+                    android:paddingEnd="@dimen/x30"
                     android:paddingStart="@dimen/x39"
                     android:text="请选择"
+                    android:textSize="12sp"
                     android:textColor="@color/black"
                     android:textStyle="bold" />
 
@@ -109,9 +111,10 @@
                     android:background="@drawable/account_stroke_appointment_bg"
                     android:drawableEnd="@mipmap/triangle"
                     android:gravity="center_vertical"
-                    android:paddingEnd="@dimen/x60"
+                    android:paddingEnd="@dimen/x30"
                     android:paddingStart="@dimen/x39"
                     android:text="请选择"
+                    android:textSize="12sp"
                     android:textColor="@color/black"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -139,9 +142,10 @@
                     android:background="@drawable/account_stroke_appointment_bg"
                     android:drawableEnd="@mipmap/triangle"
                     android:gravity="center_vertical"
-                    android:paddingEnd="@dimen/x60"
+                    android:paddingEnd="@dimen/x30"
                     android:paddingStart="@dimen/x39"
                     android:text="请选择"
+                    android:textSize="12sp"
                     android:textColor="@color/black"
                     android:textStyle="bold" />
 
@@ -154,9 +158,10 @@
                     android:background="@drawable/account_stroke_appointment_bg"
                     android:drawableEnd="@mipmap/triangle"
                     android:gravity="center_vertical"
-                    android:paddingEnd="@dimen/x60"
+                    android:paddingEnd="@dimen/x30"
                     android:paddingStart="@dimen/x39"
                     android:text="请选择"
+                    android:textSize="12sp"
                     android:textColor="@color/black"
                     android:textStyle="bold" />
 
@@ -168,9 +173,10 @@
                     android:background="@drawable/account_stroke_appointment_bg"
                     android:drawableEnd="@mipmap/triangle"
                     android:gravity="center_vertical"
-                    android:paddingEnd="@dimen/x60"
+                    android:paddingEnd="@dimen/x30"
                     android:paddingStart="@dimen/x39"
                     android:text="请选择"
+                    android:textSize="12sp"
                     android:textColor="@color/black"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -180,6 +186,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/y84"
                 android:layout_marginTop="@dimen/y24"
+                android:textSize="12sp"
                 android:background="@drawable/account_stroke_appointment_bg"
                 android:textStyle="bold" />
 
@@ -294,6 +301,7 @@
                 android:layout_marginTop="@dimen/y24"
                 android:background="@drawable/account_stroke_appointment_bg"
                 android:textColor="@color/black"
+                android:inputType="phone"
                 android:textStyle="bold" />
 
             <Button
