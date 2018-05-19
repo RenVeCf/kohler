@@ -28,8 +28,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.allyes.analytics.AIOAnalytics;
 import com.bigkoo.pickerview.adapter.ArrayWheelAdapter;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
@@ -66,17 +64,18 @@ import com.mengyang.kohler.home.activity.PDFActivity;
 import com.mengyang.kohler.home.activity.WeeklyRadioConcertActivity;
 import com.mengyang.kohler.home.adapter.BrochureListAdapter2;
 import com.mengyang.kohler.module.BasicResponse;
-import com.mengyang.kohler.module.bean.AddressBean;
 import com.mengyang.kohler.module.bean.BooksListBean;
 import com.mengyang.kohler.module.bean.HomeIndexBean;
 import com.ryane.banner.AdPageInfo;
 import com.ryane.banner.AdPlayBanner;
 import com.umeng.analytics.MobclickAgent;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -191,13 +190,19 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
 
 
     List<String> mProvinceList = new ArrayList<>();
-    List<String> mCityList = new ArrayList<>();
+    List<String> mBathroomList = new ArrayList<>();
     Map<String, String> mCityMap = new HashMap<>();
     Map<String, String> mRoomNameMap = new HashMap<>();
     Map<String, String> mAddressMap = new HashMap<>();
     private String mSelectedText = "";
+    private String mSelectedProvince = "";
+    private String mSelectedCity = "";
+    private String mSelectedRoomName = "";
     private String mSelectProvince;
     private boolean mIsShowDeatilAddress;
+    private String mJson;
+    //    private boolean mIsShowCity;
+//    private boolean mIsShowRoomName;
 
     @Override
     protected int getLayoutId() {
@@ -576,13 +581,16 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                 mOptionsItems.add("交货时间");
                 mOptionsItems.add("工程安排及进度");
                 mOptionsItems.add("其他");
-                selectOne(tvAppointmentHelp, mOptionsItems);
+                selectOne(tvAppointmentHelp, mOptionsItems, 0);
                 break;
             case R.id.tv_appointment_product_big:
+
                 break;
             case R.id.tv_appointment_product_medium:
+
                 break;
             case R.id.tv_appointment_product_small:
+
                 break;
             case R.id.tv_appointment_product_province:
                 OkHttpClient okHttpClient = new OkHttpClient();
@@ -602,7 +610,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                         String string = response.body().string();
 
                         try {
-                            org.json.JSONArray jsonArray = new org.json.JSONArray(string);
+                            JSONArray jsonArray = new JSONArray(string);
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 String province = jsonArray.getJSONObject(i).getString("province");
                                 if (!mProvinceList.contains(province)) {
@@ -645,13 +653,13 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                     }
                 });
 
-                selectOne(tvAppointmentProductProvince, mProvinceList);
+                selectOne(tvAppointmentProductProvince, mProvinceList, 1);
 
                 break;
             case R.id.tv_appointment_product_city:
                 List<String> List = new ArrayList<>();
                 for (Map.Entry<String, String> entry : mCityMap.entrySet()) {
-                    if (entry.getKey().contains(mSelectedText)) {
+                    if (entry.getKey().contains(mSelectedProvince)) {
                         String value = entry.getValue();
                         if (!List.contains(value)) {
                             List.add(value);
@@ -660,12 +668,12 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                     }
                 }
 
-                selectOne(tvAppointmentProductCity, List);
+                selectOne(tvAppointmentProductCity, List, 2);
                 break;
             case R.id.tv_appointment_product_addr_key:
                 List<String> List2 = new ArrayList<>();
                 for (Map.Entry<String, String> entry : mRoomNameMap.entrySet()) {
-                    if (entry.getKey().contains(mSelectedText)) {
+                    if (entry.getKey().contains(mSelectedCity)) {
                         String value = entry.getValue();
                         if (!List2.contains(value)) {
                             List2.add(value);
@@ -673,7 +681,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                     }
                 }
 
-                selectOne(tvAppointmentProductAddrKey, List2);
+                selectOne(tvAppointmentProductAddrKey, List2, 3);
 
                 mIsShowDeatilAddress = true;
                 break;
@@ -683,7 +691,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                 mOptionsItems.add("一家三口");
                 mOptionsItems.add("三世同堂");
                 mOptionsItems.add("其他");
-                selectOne(tvAppointmentFamily, mOptionsItems);
+                selectOne(tvAppointmentFamily, mOptionsItems, 0);
                 break;
             case R.id.tv_appointment_in_store_time:
                 selectTime();
@@ -702,7 +710,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
      * @param view
      * @param item
      */
-    private void selectOne(final TextView view, final List<String> item) {
+    private void selectOne(final TextView view, final List<String> item, final int type) {
         if (item == null || item.size() < 1) {
             return;
         }
@@ -719,11 +727,19 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                 view.setText(mSelectedText);
                 dialog_one.dismiss();
 
+                if (type == 1) {
+                    mSelectedProvince = mSelectedText;
+                } else if (type == 2) {
+                    mSelectedCity = mSelectedText;
+                }else if (type == 3) {
+                    mSelectedRoomName = mSelectedText;
+                }
+
                 if (mIsShowDeatilAddress) {
                     mIsShowDeatilAddress = false;
                     List<String> List2 = new ArrayList<>();
                     for (Map.Entry<String, String> entry : mAddressMap.entrySet()) {
-                        if (entry.getKey().contains(mSelectedText)) {
+                        if (entry.getKey().contains(mSelectedRoomName)) {
                             String value = entry.getValue();
                             if (!List2.contains(value)) {
                                 List2.add(value);
@@ -731,7 +747,9 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                         }
                     }
 
-                    tvAppointmentAddress.setText(List2.get(0));
+                    if (List2.size() > 0) {
+                        tvAppointmentAddress.setText(List2.get(0));
+                    }
                 }
             }
         });
@@ -755,6 +773,31 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                         mSelectedText = item.get(index);
                         view.setText(mSelectedText);
                         dialog_one.dismiss();
+
+                        if (type == 1) {
+                            mSelectedProvince = mSelectedText;
+                        } else if (type == 2) {
+                            mSelectedCity = mSelectedText;
+                        }else if (type == 3) {
+                            mSelectedRoomName = mSelectedText;
+                        }
+
+                        if (mIsShowDeatilAddress) {
+                            mIsShowDeatilAddress = false;
+                            List<String> List2 = new ArrayList<>();
+                            for (Map.Entry<String, String> entry : mAddressMap.entrySet()) {
+                                if (entry.getKey().contains(mSelectedRoomName)) {
+                                    String value = entry.getValue();
+                                    if (!List2.contains(value)) {
+                                        List2.add(value);
+                                    }
+                                }
+                            }
+
+                            if (List2.size() > 0) {
+                                tvAppointmentAddress.setText(List2.get(0));
+                            }
+                        }
                     }
                 });
                 tvCancel.setOnClickListener(new View.OnClickListener() {
@@ -854,6 +897,29 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
         //弹出输入法
         dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         dialog.getWindow().setGravity(Gravity.CENTER);//可以设置显示的位置
+
+        initJsonData();
+        parseAssetsJson();
+    }
+
+    private void parseAssetsJson() {
+
+        try {
+            JSONArray jsonArray = new JSONArray(mJson);
+
+//            String province = jsonArray.getJSONObject(i).getString("province");
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+//                jsonArray.getJSONObject(i).get("卫浴产品");
+//                if (mBathroomList.contains()) {
+//
+//                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     /**
@@ -986,6 +1052,20 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
 
     public void setHandleListenning(HandleViewPager handleListenning) {
         mHandleListenning = handleListenning;
+    }
+
+    //读取本地json生成json字符串
+    private String initJsonData(){
+        try {
+            InputStream is = getResources().getAssets().open("goods.json");
+            byte[] buffer = new byte[is.available()];
+            is.read(buffer);
+            mJson = new String(buffer,"UTF-8");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return mJson;
     }
 
 }
