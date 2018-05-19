@@ -51,6 +51,7 @@ import com.mengyang.kohler.common.utils.FileUtil;
 import com.mengyang.kohler.common.utils.FileUtils;
 import com.mengyang.kohler.common.utils.JsonUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
+import com.mengyang.kohler.common.utils.ToastUtil;
 import com.mengyang.kohler.common.view.SpacesItemDecoration;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.home.activity.ArtKohlerActivity;
@@ -496,7 +497,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                             @Override
                             public void onPageSelected(int position) {
                                 //当前页面选中时，先将上一次选中的位置设置为未选中，并将当前的位置记录下来为下一次移动做准备
-                                //                                mLlIndicator.getChildAt(prevousPosition).setEnabled(false);
+                                //mLlIndicator.getChildAt(prevousPosition).setEnabled(false);
                                 if (mLlIndicator != null) {
                                     if (mLlIndicator.getChildAt(prevousPosition) != null) {
                                         mLlIndicator.getChildAt(prevousPosition).setBackgroundColor(Color.parseColor("#e3e3e3"));
@@ -511,10 +512,12 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
 
                             @Override
                             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
                             }
 
                             @Override
                             public void onPageScrollStateChanged(int state) {
+
                             }
                         });
                         //数据源
@@ -717,6 +720,10 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
         dialog = builder.create();
         dialog.show();
         dialog.getWindow().setContentView(v);//自定义布局应该在这里添加，要在dialog.show()的后面
+        //清除flags,获取焦点(为了让EditText可以输入)
+        dialog.getWindow().clearFlags( WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+        //弹出输入法
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         dialog.getWindow().setGravity(Gravity.CENTER);//可以设置显示的位置
     }
 
@@ -776,36 +783,42 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                 }
             }
         });
-        MediaType MEDIA_TYPE_JSON = MediaType.parse("application/json; charset=utf-8");
-        HashMap<String, String> map = new HashMap<>();
-        map.put("help", tvAppointmentHelp.getText().toString().trim());
-        map.put("province", tvAppointmentProductProvince.getText().toString().trim());
-        map.put("city", tvAppointmentProductCity.getText().toString().trim());
-        map.put("addr_key", tvAppointmentProductAddrKey.getText().toString().trim());
-        map.put("address", tvAppointmentAddress.getText().toString().trim());
-        map.put("goods1", tvAppointmentProductBig.getText().toString().trim());
-        map.put("goods2", tvAppointmentProductMedium.getText().toString().trim());
-        map.put("goods3", tvAppointmentProductSmall.getText().toString().trim());
-        map.put("family", tvAppointmentFamily.getText().toString().trim());
-        map.put("gender", gender);
-        map.put("name", etAppointmentName.getText().toString().trim());
-        map.put("time", tvAppointmentInStoreTime.getText().toString().trim());
-        map.put("telephone", etAppointmentPhoneNum.getText().toString().trim());
-        map.put("source", "pc");
-        RequestBody requestBody = RequestBody.create(MEDIA_TYPE_JSON, JsonUtils.toJson(map));
-        Request requestPost = new Request.Builder().url(url).post(requestBody).build();
-        Call call = okHttpClient.newCall(requestPost);
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-            }
 
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                dialog.dismiss();
-            }
-        });
+        //提交信息不能为空
+        if (tvAppointmentHelp.getText().toString().trim().equals("请选择") || tvAppointmentProductProvince.getText().toString().trim().equals("请选择") || tvAppointmentProductCity.getText().toString().trim().equals("请选择") || tvAppointmentProductAddrKey.getText().toString().trim().equals("请选择") || tvAppointmentProductBig.getText().toString().trim().equals("请选择") || tvAppointmentProductMedium.getText().toString().trim().equals("请选择") || tvAppointmentProductSmall.getText().toString().trim().equals("请选择") || tvAppointmentFamily.getText().toString().trim().equals("请选择") || etAppointmentName.getText().toString().trim().equals("请选择") || tvAppointmentInStoreTime.getText().toString().trim().equals("请选择") || etAppointmentPhoneNum.getText().toString().trim().equals("请选择")) {
+            ToastUtil.showToast("请将信息填写完整!");
+        } else {
+            MediaType MEDIA_TYPE_JSON = MediaType.parse("application/json; charset=utf-8");
+            HashMap<String, String> map = new HashMap<>();
+            map.put("help", tvAppointmentHelp.getText().toString().trim());
+            map.put("province", tvAppointmentProductProvince.getText().toString().trim());
+            map.put("city", tvAppointmentProductCity.getText().toString().trim());
+            map.put("addr_key", tvAppointmentProductAddrKey.getText().toString().trim());
+            map.put("address", tvAppointmentAddress.getText().toString().trim());
+            map.put("goods1", tvAppointmentProductBig.getText().toString().trim());
+            map.put("goods2", tvAppointmentProductMedium.getText().toString().trim());
+            map.put("goods3", tvAppointmentProductSmall.getText().toString().trim());
+            map.put("family", tvAppointmentFamily.getText().toString().trim());
+            map.put("gender", gender);
+            map.put("name", etAppointmentName.getText().toString().trim());
+            map.put("time", tvAppointmentInStoreTime.getText().toString().trim());
+            map.put("telephone", etAppointmentPhoneNum.getText().toString().trim());
+            map.put("source", "pc");
+            RequestBody requestBody = RequestBody.create(MEDIA_TYPE_JSON, JsonUtils.toJson(map));
+            Request requestPost = new Request.Builder().url(url).post(requestBody).build();
+            Call call = okHttpClient.newCall(requestPost);
+            call.enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    e.printStackTrace();
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    dialog.dismiss();
+                }
+            });
+        }
     }
 
     public void stopViewPager() {
