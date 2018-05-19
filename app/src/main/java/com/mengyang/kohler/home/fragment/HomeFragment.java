@@ -621,65 +621,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                 selectOne(tvAppointmentProductSmall, List4 , 6);
                 break;
             case R.id.tv_appointment_product_province:
-                OkHttpClient okHttpClient = new OkHttpClient();
-                String url2 = "http://www.kohler.com.cn/js/exports_2.json";
-                Request request = new Request.Builder().url(url2).build();
-                okHttpClient.newCall(request).enqueue(new Callback() {
-                    @Override
-                    public void onFailure(Call call, IOException e) {
-
-                    }
-
-                    @Override
-                    public void onResponse(Call call, Response response) throws IOException {
-
-                        JSONObject jsonObject = new JSONObject();
-
-                        String string = response.body().string();
-
-                        try {
-                            JSONArray jsonArray = new JSONArray(string);
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                String province = jsonArray.getJSONObject(i).getString("province");
-                                if (!mProvinceList.contains(province)) {
-                                    mProvinceList.add(province);
-                                }
-
-                                String city = jsonArray.getJSONObject(i).getString("city");
-                                String roomname = jsonArray.getJSONObject(i).getString("roomname");
-                                String address = jsonArray.getJSONObject(i).getString("address");
-
-                                if (mCityMap.containsKey(province)) {
-                                    mCityMap.put(province + i, city);
-                                } else {
-                                    mCityMap.put(province, city);
-                                }
-
-                                if (mRoomNameMap.containsKey(city)) {
-                                    mRoomNameMap.put(city + i, roomname);
-                                } else {
-                                    mRoomNameMap.put(city, roomname);
-                                }
-
-                                if (mAddressMap.containsKey(roomname)) {
-                                    mAddressMap.put(roomname + i, address);
-                                } else {
-                                    mAddressMap.put(roomname, address);
-                                }
-                            }
-
-                            Log.i("12343", mProvinceList.toString());
-                            Log.i("12343", mCityMap.toString());
-                            Log.i("12343", mRoomNameMap.toString());
-                            Log.i("12343", mAddressMap.toString());
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-
                 selectOne(tvAppointmentProductProvince, mProvinceList, 1);
-
                 break;
             case R.id.tv_appointment_product_city:
                 List<String> List = new ArrayList<>();
@@ -937,6 +879,64 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
 
         initJsonData();
         parseAssetsJson();
+
+        requestAddressData();
+    }
+
+    private void requestAddressData() {
+        OkHttpClient okHttpClient = new OkHttpClient();
+        String url2 = "http://www.kohler.com.cn/js/exports_2.json";
+        Request request = new Request.Builder().url(url2).build();
+        okHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String string = response.body().string();
+
+                try {
+                    JSONArray jsonArray = new JSONArray(string);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        String province = jsonArray.getJSONObject(i).getString("province");
+                        if (!mProvinceList.contains(province)) {
+                            mProvinceList.add(province);
+                        }
+
+                        String city = jsonArray.getJSONObject(i).getString("city");
+                        String roomname = jsonArray.getJSONObject(i).getString("roomname");
+                        String address = jsonArray.getJSONObject(i).getString("address");
+
+                        if (mCityMap.containsKey(province)) {
+                            mCityMap.put(province + i, city);
+                        } else {
+                            mCityMap.put(province, city);
+                        }
+
+                        if (mRoomNameMap.containsKey(city)) {
+                            mRoomNameMap.put(city + i, roomname);
+                        } else {
+                            mRoomNameMap.put(city, roomname);
+                        }
+
+                        if (mAddressMap.containsKey(roomname)) {
+                            mAddressMap.put(roomname + i, address);
+                        } else {
+                            mAddressMap.put(roomname, address);
+                        }
+                    }
+
+                    Log.i("12343", mProvinceList.toString());
+                    Log.i("12343", mCityMap.toString());
+                    Log.i("12343", mRoomNameMap.toString());
+                    Log.i("12343", mAddressMap.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     private void parseAssetsJson() {
