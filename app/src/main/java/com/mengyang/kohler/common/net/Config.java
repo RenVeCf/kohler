@@ -43,7 +43,8 @@ public interface Config  {
     String ART_KOHLER = "ndc/facadeGetMeetingAndAgenda?meetingId=2"; //科勒艺术
     String GAN_CHUANG = "ndc/facadeGetMeetingAndAgenda?meetingId=3"; //敢创•科勒亚太艺术展
     String ART_KOHLER_SELECT_IMG = "ndc/getPictureListByGroup"; //科勒艺术精选图片
-    String APPOINTMENT_PATH = "http://www.kohler.com.cn/js/exports_2.json"; //预约地址
+//    String APPOINTMENT_PATH = "http://www.kohler.com.cn/js/exports_2.json"; //预约地址
+    String APPOINTMENT_PATH = "js/exports_2.json"; //预约地址
 
     /**
      * 全品类

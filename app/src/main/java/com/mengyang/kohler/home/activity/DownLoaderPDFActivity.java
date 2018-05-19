@@ -71,6 +71,7 @@ public class DownLoaderPDFActivity extends BaseActivity implements OnPageChangeL
     private PdfBean.UserNameBean mUserNameBean;
     private List<PdfBean.UserNameBean> mUserNameBeanList = new ArrayList<>();
 
+
     @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
         @Override

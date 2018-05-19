@@ -1,6 +1,7 @@
 package com.mengyang.kohler.common.net;
 
 import com.mengyang.kohler.module.BasicResponse;
+import com.mengyang.kohler.module.bean.AddressBean;
 import com.mengyang.kohler.module.bean.AllSearchBean;
 import com.mengyang.kohler.module.bean.ArtKohlerBean;
 import com.mengyang.kohler.module.bean.ArtKohlerSelectImgBean;
@@ -33,6 +34,7 @@ import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -51,6 +53,7 @@ public interface IdeaApiService {
     //    String API_SERVER_URL = "https://staging.app.kohler.com.cn/"; //客户测试
     //    String API_SERVER_URL = "https://kohler-app.glor.cn/"; //项目正式环境
     String API_SERVER_URL = "https://kohler-app-tmp.glor.cn/"; //项目测试环境
+//    String API_SERVER_URL = "http://www.kohler.com.cn/"; //地址
 
     //用户首页KV图
     @FormUrlEncoded
@@ -266,4 +269,8 @@ public interface IdeaApiService {
     @FormUrlEncoded
     @POST(Config.CHECK_UP)
     Observable<BasicResponse<VisionBean>> getCheckUp(@FieldMap Map<String, Object> map);
+
+    //预约地址
+    @GET(Config.APPOINTMENT_PATH)
+    Observable<BasicResponse<AddressBean>> getAddress();// TODO: 2018/5/19 ,retrofit的BaseURL需要做处理。
 }

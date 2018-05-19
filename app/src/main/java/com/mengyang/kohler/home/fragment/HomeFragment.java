@@ -12,6 +12,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +28,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.allyes.analytics.AIOAnalytics;
 import com.bigkoo.pickerview.adapter.ArrayWheelAdapter;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
@@ -63,11 +66,15 @@ import com.mengyang.kohler.home.activity.PDFActivity;
 import com.mengyang.kohler.home.activity.WeeklyRadioConcertActivity;
 import com.mengyang.kohler.home.adapter.BrochureListAdapter2;
 import com.mengyang.kohler.module.BasicResponse;
+import com.mengyang.kohler.module.bean.AddressBean;
 import com.mengyang.kohler.module.bean.BooksListBean;
 import com.mengyang.kohler.module.bean.HomeIndexBean;
 import com.ryane.banner.AdPageInfo;
 import com.ryane.banner.AdPlayBanner;
 import com.umeng.analytics.MobclickAgent;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -180,6 +187,17 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
     private String mH5_URL = "";
 
     private boolean mIsOpen;
+
+
+
+    List<String> mProvinceList = new ArrayList<>();
+    List<String> mCityList = new ArrayList<>();
+    Map<String, String> mCityMap = new HashMap<>();
+    Map<String, String> mRoomNameMap = new HashMap<>();
+    Map<String, String> mAddressMap = new HashMap<>();
+    private String mSelectedText = "";
+    private String mSelectProvince;
+    private boolean mIsShowDeatilAddress;
 
     @Override
     protected int getLayoutId() {
@@ -567,10 +585,97 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
             case R.id.tv_appointment_product_small:
                 break;
             case R.id.tv_appointment_product_province:
+                OkHttpClient okHttpClient = new OkHttpClient();
+                String url2 = "http://www.kohler.com.cn/js/exports_2.json";
+                Request request = new Request.Builder().url(url2).build();
+                okHttpClient.newCall(request).enqueue(new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+
+                        JSONObject jsonObject = new JSONObject();
+
+                        String string = response.body().string();
+
+                        try {
+                            org.json.JSONArray jsonArray = new org.json.JSONArray(string);
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                String province = jsonArray.getJSONObject(i).getString("province");
+                                if (!mProvinceList.contains(province)) {
+                                    mProvinceList.add(province);
+                                }
+
+                                String city = jsonArray.getJSONObject(i).getString("city");
+                                String roomname = jsonArray.getJSONObject(i).getString("roomname");
+                                String address = jsonArray.getJSONObject(i).getString("address");
+
+                                if (mCityMap.containsKey(province)) {
+                                    mCityMap.put(province + i, city);
+                                } else {
+                                    mCityMap.put(province, city);
+                                }
+
+                                if (mRoomNameMap.containsKey(city)) {
+                                    mRoomNameMap.put(city + i, roomname);
+                                } else {
+                                    mRoomNameMap.put(city, roomname);
+                                }
+
+//                                mAddressMap.put(roomname, address);
+
+                                if (mAddressMap.containsKey(roomname)) {
+                                    mAddressMap.put(roomname + i, address);
+                                } else {
+                                    mAddressMap.put(roomname, address);
+                                }
+                            }
+
+                            Log.i("12343", mProvinceList.toString());
+                            Log.i("12343", mCityMap.toString());
+                            Log.i("12343", mRoomNameMap.toString());
+                            Log.i("12343", mAddressMap.toString());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        Log.i("12343", string);
+                    }
+                });
+
+                selectOne(tvAppointmentProductProvince, mProvinceList);
+
                 break;
             case R.id.tv_appointment_product_city:
+                List<String> List = new ArrayList<>();
+                for (Map.Entry<String, String> entry : mCityMap.entrySet()) {
+                    if (entry.getKey().contains(mSelectedText)) {
+                        String value = entry.getValue();
+                        if (!List.contains(value)) {
+                            List.add(value);
+                        }
+
+                    }
+                }
+
+                selectOne(tvAppointmentProductCity, List);
                 break;
             case R.id.tv_appointment_product_addr_key:
+                List<String> List2 = new ArrayList<>();
+                for (Map.Entry<String, String> entry : mRoomNameMap.entrySet()) {
+                    if (entry.getKey().contains(mSelectedText)) {
+                        String value = entry.getValue();
+                        if (!List2.contains(value)) {
+                            List2.add(value);
+                        }
+                    }
+                }
+
+                selectOne(tvAppointmentProductAddrKey, List2);
+
+                mIsShowDeatilAddress = true;
                 break;
             case R.id.tv_appointment_family:
                 mOptionsItems.clear();
@@ -586,6 +691,8 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
             case R.id.bt_appointment_commit:
                 appointmentCommit();
                 break;
+            default:
+                break;
         }
     }
 
@@ -596,6 +703,10 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
      * @param item
      */
     private void selectOne(final TextView view, final List<String> item) {
+        if (item == null || item.size() < 1) {
+            return;
+        }
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater1 = LayoutInflater.from(getActivity());
         View v = inflater1.inflate(R.layout.appointment_one, null);
@@ -604,8 +715,24 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
         tvSure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                view.setText(item.get(0));
+                mSelectedText = item.get(0);
+                view.setText(mSelectedText);
                 dialog_one.dismiss();
+
+                if (mIsShowDeatilAddress) {
+                    mIsShowDeatilAddress = false;
+                    List<String> List2 = new ArrayList<>();
+                    for (Map.Entry<String, String> entry : mAddressMap.entrySet()) {
+                        if (entry.getKey().contains(mSelectedText)) {
+                            String value = entry.getValue();
+                            if (!List2.contains(value)) {
+                                List2.add(value);
+                            }
+                        }
+                    }
+
+                    tvAppointmentAddress.setText(List2.get(0));
+                }
             }
         });
         tvCancel.setOnClickListener(new View.OnClickListener() {
@@ -625,7 +752,8 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                 tvSure.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        view.setText(item.get(index));
+                        mSelectedText = item.get(index);
+                        view.setText(mSelectedText);
                         dialog_one.dismiss();
                     }
                 });
@@ -643,6 +771,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
         dialog_one.show();
         dialog_one.getWindow().setContentView(v);
         dialog_one.getWindow().setGravity(Gravity.CENTER);//可以设置显示的位置
+
     }
 
     public interface OnFragmentInteractionListener {
