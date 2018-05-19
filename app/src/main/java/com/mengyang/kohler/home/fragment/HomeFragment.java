@@ -16,6 +16,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,16 +28,17 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.allyes.analytics.AIOAnalytics;
+import com.bigkoo.pickerview.adapter.ArrayWheelAdapter;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.contrarywind.listener.OnItemSelectedListener;
+import com.contrarywind.view.WheelView;
 import com.gyf.barlibrary.ImmersionBar;
 import com.kohler.arscan.DownloadActivity;
-import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseFragment;
 import com.mengyang.kohler.R;
-import com.mengyang.kohler.account.activity.AccountAboutActivity;
 import com.mengyang.kohler.account.activity.LoginActivity;
 import com.mengyang.kohler.common.activity.CustomerServiceActivity;
 import com.mengyang.kohler.common.activity.WebViewActivity;
@@ -146,10 +148,13 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
     private Button btAppointmentCommit;
     private TimePickerView pvTime;
     private Dialog dialog;
+    private Dialog dialog_one;
     private OkHttpClient okHttpClient;
     private String url = "http://www.kohler.com.cn/chinaweb/book/add.action";
     private String gender = "男";
-
+    private List<String> mOptionsItems = new ArrayList<>();
+    private TextView tvSure;
+    private TextView tvCancel;
 
     //侧滑Meun键的接口回调
     private OnFragmentInteractionListener mListener;
@@ -545,6 +550,12 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_appointment_help:
+                mOptionsItems.clear();
+                mOptionsItems.add("商品咨询");
+                mOptionsItems.add("交货时间");
+                mOptionsItems.add("工程安排及进度");
+                mOptionsItems.add("其他");
+                selectOne(tvAppointmentHelp, mOptionsItems);
                 break;
             case R.id.tv_appointment_product_big:
                 break;
@@ -559,6 +570,12 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
             case R.id.tv_appointment_product_addr_key:
                 break;
             case R.id.tv_appointment_family:
+                mOptionsItems.clear();
+                mOptionsItems.add("一家两口");
+                mOptionsItems.add("一家三口");
+                mOptionsItems.add("三世同堂");
+                mOptionsItems.add("其他");
+                selectOne(tvAppointmentFamily, mOptionsItems);
                 break;
             case R.id.tv_appointment_in_store_time:
                 selectTime();
@@ -567,6 +584,62 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                 appointmentCommit();
                 break;
         }
+    }
+
+    /**
+     * 单选选择器样式
+     *
+     * @param view
+     * @param item
+     */
+    private void selectOne(final TextView view, final List<String> item) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        LayoutInflater inflater1 = LayoutInflater.from(getActivity());
+        View v = inflater1.inflate(R.layout.appointment_one, null);
+        tvSure = v.findViewById(R.id.tv_sure);
+        tvCancel = v.findViewById(R.id.tv_cancel);
+        tvSure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                view.setText(item.get(0));
+                dialog_one.dismiss();
+            }
+        });
+        tvCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog_one.dismiss();
+            }
+        });
+        WheelView wheelView = v.findViewById(R.id.wv_appointment_one);
+
+        wheelView.setCyclic(false);
+
+        wheelView.setAdapter(new ArrayWheelAdapter(item));
+        wheelView.setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(final int index) {
+                tvSure.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        view.setText(item.get(index));
+                        dialog_one.dismiss();
+                    }
+                });
+                tvCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog_one.dismiss();
+                    }
+                });
+            }
+        });
+
+        dialog_one = builder.create();
+        dialog_one.setCanceledOnTouchOutside(false);
+        dialog_one.show();
+        dialog_one.getWindow().setContentView(v);
+        dialog_one.getWindow().setGravity(Gravity.CENTER);//可以设置显示的位置
     }
 
     public interface OnFragmentInteractionListener {
@@ -647,6 +720,9 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
         dialog.getWindow().setGravity(Gravity.CENTER);//可以设置显示的位置
     }
 
+    /**
+     * 时间选择器样式
+     */
     private void selectTime() {
         Calendar selectedDate = Calendar.getInstance();
         Calendar startDate = Calendar.getInstance();
