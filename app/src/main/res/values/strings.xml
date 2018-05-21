@@ -216,4 +216,8 @@
     <string name="kitchen_accessories">厨房配件</string>
     <string name="kitchen_faucet">厨房龙头</string>
     <string name="water_purification">净水</string>
+    <string name="select_want_have_product">请选择您想了解的产品<font color="red"> *</font></string>
+    <string name="select_store">请选择您离您最近的店<font color="red"> *</font></string>
+    <string name="select_time_in_store">请填写您方便进店的时间<font color="red"> *</font></string>
+    <string name="select_telphone_num">请填写您的手机号码<font color="red"> *</font></string>
 </resources>

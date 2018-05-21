@@ -1,39 +1,42 @@
-package com.mengyang.kohler.whole_category.view;
+package com.mengyang.kohler.home.view;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 /**
  * 商品分类——导航栏的滑动管理类
  * Created by ywl on 2016/7/17.
  */
-public class NavitationFollowScrollLayout extends RelativeLayout {
+public class NavitationFollowScrollLayoutIonic extends RelativeLayout {
 
-    private TextView[] textViews; // 标题栏数组，用于存储要显示的标题
+    private ImageView[] longs;
     private LinearLayout titleLayout; //标题栏父控件
     private CusHorizontalScrollView horizontalScrollView; //横向scrollview
     private ViewPager viewPager;
+
+    private int mIvUnselectedWidth; //未选中图片宽
+    private int mIvUnselectedHeight;//未选中图片高
+    private int mIvSelectedWidth;//选中图片宽
+    private int mIvSelectedHeight;//选中图片高
 
     private View bgLine; //导航背景色
     private View navLine; //导航条颜色
 
     private int navWidth = 0; //导航条宽度
 
-    private int txtUnselectedColor = 0;
-    private int txtSelectedColor = 0;
-    private int txtUnselectedSize = 16;
-    private int txtSelectedSize = 16;
+    private int[] txtUnselectedColor;
+    private int[] txtSelectedColor;
     private int widOffset = 0; //导航条左右边距
     private int leftm = 0; //标题布局左边距
     private int cuPosition = 0; //当前位置
@@ -48,15 +51,15 @@ public class NavitationFollowScrollLayout extends RelativeLayout {
     private OnNaPageChangeListener onNaPageChangeListener;
 
 
-    public NavitationFollowScrollLayout(Context context) {
+    public NavitationFollowScrollLayoutIonic(Context context) {
         this(context, null);
     }
 
-    public NavitationFollowScrollLayout(Context context, AttributeSet attrs) {
+    public NavitationFollowScrollLayoutIonic(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public NavitationFollowScrollLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    public NavitationFollowScrollLayoutIonic(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
         margleft = dip2px(context, 0);
@@ -83,8 +86,8 @@ public class NavitationFollowScrollLayout extends RelativeLayout {
     }
 
 
-    private void setTitles(Context context, String[] titles, final boolean smoothScroll, int splilinecolor, final float splilinewidth, float topoffset, float bottomoffset) {
-        this.textViews = new TextView[titles.length];
+    private void setTitles(Context context, int[] titles, final boolean smoothScroll, int splilinecolor, final float splilinewidth, float topoffset, float bottomoffset) {
+        this.longs = new ImageView[titles.length];
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(dip2px(context, twidth), LayoutParams.MATCH_PARENT);
         params.gravity = Gravity.CENTER;
 
@@ -93,14 +96,12 @@ public class NavitationFollowScrollLayout extends RelativeLayout {
         // 循环，根据标题栏动态生成TextView来显示标题，每个标题栏的宽度比例为1:1,其中的内容居中。
         for (int i = 0; i < titles.length; i++) {
             final int index = i;
-            TextView textView = new TextView(context);
-            textView.setText(titles[i]);
-            textView.setGravity(Gravity.CENTER);
-            textView.setSingleLine(true);
-            textView.setEllipsize(TextUtils.TruncateAt.END);
-            textView.setPadding(10, 0, 10, 0);
-            textViews[i] = textView;
-            textViews[i].setOnClickListener(new OnClickListener() {
+            ImageView textView = new ImageView(context);
+            textView.setImageResource(titles[i]);
+            textView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            textView.setPadding(20, 0, 20, 0);
+            longs[i] = textView;
+            longs[i].setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
@@ -120,13 +121,10 @@ public class NavitationFollowScrollLayout extends RelativeLayout {
             titleLayout.addView(textView, params);
             if (i < titles.length - 1) {
                 View view = new View(context);
-//                view.setBackgroundColor(Color.parseColor(splilinecolor+""));
-                view.setBackgroundColor(Color.GRAY);
+                view.setBackgroundColor(splilinecolor);
                 titleLayout.addView(view, lp);
             }
         }
-
-
     }
 
     /**
@@ -141,7 +139,7 @@ public class NavitationFollowScrollLayout extends RelativeLayout {
         LayoutParams layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, height);
         bgLine = new View(context);
         bgLine.setLayoutParams(layoutParams);
-        bgLine.setBackgroundColor(context.getResources().getColor(color));
+        bgLine.setBackgroundColor(ContextCompat.getColor(context, color));
 
         LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, height);
         lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
@@ -156,7 +154,7 @@ public class NavitationFollowScrollLayout extends RelativeLayout {
      * @param color
      */
     public void setNavLine(Activity context, int height, int color) {
-        if (textViews != null) {
+        if (longs != null) {
             navWidth = dip2px(context, twidth);
         }
         height = dip2px(context, height);
@@ -173,35 +171,34 @@ public class NavitationFollowScrollLayout extends RelativeLayout {
     }
 
     /**
-     * @param widOffset         导航条的边距
-     * @param context           上下文
-     * @param titles            标题
+     * @param context         上下文
+     * @param titles          标题
      * @param viewPager
-     * @param unselectedcolor   未选中字体颜色
-     * @param setectedcolor     选中字体颜色
-     * @param txtUnselectedSize 未选中字体大小
-     * @param txtSelectedSize   选中字体大小
-     * @param smoothScroll      是否滑动效果
-     * @param splilinecolor     分割线颜色
-     * @param splilinewidth     分割线宽度
-     * @param topoffset         分割线上边距
-     * @param bottomoffset      分割线下边距
-     * @param titlewidth        标题子选项宽度
+     * @param unselectedcolor 未选中字体颜色
+     * @param setectedcolor   选中字体颜色
+     * @param smoothScroll    是否滑动效果
+     * @param splilinecolor   分割线颜色
+     * @param splilinewidth   分割线宽度
+     * @param topoffset       分割线上边距
+     * @param bottomoffset    分割线下边距
+     * @param titlewidth      标题子选项宽度
      */
-    public void setViewPager(final Context context, String[] titles, ViewPager viewPager, final int unselectedcolor, final int setectedcolor, int txtUnselectedSize, final int txtSelectedSize, final int widOffsets, boolean smoothScroll, int splilinecolor, final float splilinewidth, float topoffset, float bottomoffset, final int titlewidth) {
+    public void setViewPager(final Context context, int[] titles, ViewPager viewPager, final int[] unselectedcolor, final int[] setectedcolor, int IvUnselectedWidth, int IvUnselectedHeight, int IvSelectedWidth, int IvSelectedHeight, final int widOffsets, boolean smoothScroll, int splilinecolor, final float splilinewidth, float topoffset, float bottomoffset, final int titlewidth) {
         this.viewPager = viewPager;
         this.txtUnselectedColor = unselectedcolor;
         this.txtSelectedColor = setectedcolor;
-        this.txtUnselectedSize = txtUnselectedSize;
-        this.txtSelectedSize = txtSelectedSize;
+        this.mIvUnselectedWidth = IvUnselectedWidth;
+        this.mIvUnselectedHeight = IvUnselectedHeight;
+        this.mIvSelectedWidth = IvSelectedWidth;
+        this.mIvSelectedHeight = IvSelectedHeight;
         this.widOffset = dip2px(context, widOffsets);
         this.twidth = splilinewidth + titlewidth;
         this.length = titles.length;
 
         viewPager.setCurrentItem(0);
         setTitles(context, titles, smoothScroll, splilinecolor, splilinewidth, topoffset, bottomoffset);
-        setUnselectedTxtColor(context, unselectedcolor, txtUnselectedSize);
-        setSelectedTxtColor(context, setectedcolor, txtSelectedSize, 0);
+        setUnselectedTxtColor(context, unselectedcolor , IvUnselectedWidth, IvUnselectedHeight);
+        setSelectedTxtColor(context, setectedcolor, 0, IvSelectedWidth, IvSelectedHeight);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -219,7 +216,7 @@ public class NavitationFollowScrollLayout extends RelativeLayout {
             @Override
             public void onPageSelected(int position) {
                 cuPosition = position;
-                setSelectedTxtColor(context, setectedcolor, txtSelectedSize, position);
+                setSelectedTxtColor(context, setectedcolor, position, mIvSelectedWidth, mIvSelectedHeight);
                 if (position == 0) {
                     leftm = 0;
                 } else {
@@ -268,26 +265,35 @@ public class NavitationFollowScrollLayout extends RelativeLayout {
         }
     }
 
-    private void setUnselectedTxtColor(Context context, int unselectedcolor, int unselectedsize) {
-        if (textViews != null) {
-            int length = textViews.length;
+    private void setUnselectedTxtColor(Context context, int[] unselectedcolor, int IvUnselectedWidth, int IvUnselectedHeight) {
+        if (longs != null) {
+            int length = longs.length;
             for (int i = 0; i < length; i++) {
-                textViews[i].setTextColor(context.getResources().getColor(unselectedcolor));
-                textViews[i].setTextSize(unselectedsize);
+                longs[i].setImageResource(unselectedcolor[i]);
+                LinearLayout.LayoutParams para = (LinearLayout.LayoutParams) longs[i].getLayoutParams();
+                para.height = IvUnselectedHeight;
+                para.width = IvUnselectedWidth;
+                longs[i].setLayoutParams(para);
             }
         }
     }
 
-    private void setSelectedTxtColor(Context context, int selectedcolor, int selectedsize, int position) {
-        if (textViews != null) {
-            int length = textViews.length;
+    private void setSelectedTxtColor(Context context, int[] selectedcolor, int position, int IvSelectedWidth, int IvSelectedHeight) {
+        if (longs != null) {
+            int length = longs.length;
             for (int i = 0; i < length; i++) {
                 if (i == position) {
-                    textViews[i].setTextColor(context.getResources().getColor(selectedcolor));
-                    textViews[i].setTextSize(selectedsize);
+                    longs[i].setImageResource(selectedcolor[i]);
+                    LinearLayout.LayoutParams para = (LinearLayout.LayoutParams) longs[i].getLayoutParams();
+                    para.height = IvSelectedHeight;
+                    para.width = IvSelectedWidth;
+                    longs[i].setLayoutParams(para);
                 } else {
-                    textViews[i].setTextColor(context.getResources().getColor(txtUnselectedColor));
-                    textViews[i].setTextSize(txtUnselectedSize);
+                    longs[i].setImageResource(txtUnselectedColor[i]);
+                    LinearLayout.LayoutParams para = (LinearLayout.LayoutParams) longs[i].getLayoutParams();
+                    para.height = mIvUnselectedHeight;
+                    para.width = mIvUnselectedWidth;
+                    longs[i].setLayoutParams(para);
                 }
             }
         }

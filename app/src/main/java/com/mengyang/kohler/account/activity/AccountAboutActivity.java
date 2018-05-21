@@ -1,10 +1,13 @@
 package com.mengyang.kohler.account.activity;
 
+import android.content.Intent;
+
 import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.view.TopView;
+import com.mengyang.kohler.home.activity.KbisActivity;
 
 import butterknife.BindView;
 
@@ -27,7 +30,7 @@ public class AccountAboutActivity extends BaseActivity {
 
     @Override
     protected void initListener() {
-
+        startActivity(new Intent(this, KbisActivity.class));
     }
 
     @Override

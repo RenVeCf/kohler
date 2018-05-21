@@ -12,7 +12,7 @@
         android:id="@+id/tv_kbis_top"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/white"
+        android:background="@color/black"
         app:is_back="false"
         app:is_customer_service="true"
         app:is_iv_top_title="true"
@@ -20,6 +20,18 @@
         app:is_share="true"
         app:is_system_msg="true"
         app:title="2018科勒上海厨卫展"
-        app:title_color="@color/white"/>
+        app:title_color="@color/white" />
 
+    <com.mengyang.kohler.home.view.NavitationFollowScrollLayoutIonic
+        android:id="@+id/nfsl_kbis"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y200"
+        android:layout_marginTop="@dimen/y45"
+        android:background="#000000" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_kbis"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000000" />
 </LinearLayout>

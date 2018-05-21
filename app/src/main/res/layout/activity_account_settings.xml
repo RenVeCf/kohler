@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -19,12 +18,12 @@
         app:is_share="true"
         app:is_system_msg="true"
         app:title="@string/settings"
-        app:title_color="#000000"/>
+        app:title_color="#000000" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#e0e0e0"/>
+        android:background="#e0e0e0" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,12 +37,12 @@
             android:layout_height="match_parent"
             android:paddingBottom="@dimen/y72"
             android:paddingTop="@dimen/y72"
-            android:text="@string/about"/>
+            android:text="@string/about" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#e0e0e0"/>
+            android:background="#e0e0e0" />
 
         <TextView
             android:id="@+id/tv_account_settings_privacy_policy"
@@ -51,42 +50,55 @@
             android:layout_height="match_parent"
             android:paddingBottom="@dimen/y72"
             android:paddingTop="@dimen/y72"
-            android:text="@string/privacy_policy"/>
+            android:text="@string/privacy_policy" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#e0e0e0"/>
+            android:background="#e0e0e0" />
+
+        <TextView
+            android:id="@+id/tv_account_settings_checkUp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/y72"
+            android:paddingTop="@dimen/y72"
+            android:text="检查更新" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#e0e0e0" />
 
         <TextView
             android:id="@+id/tv_account_settings_modify_pwd"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:clickable="false"
             android:paddingBottom="@dimen/y72"
             android:paddingTop="@dimen/y72"
-            android:clickable="false"
-            android:textColor="@color/no_login_settings"
-            android:text="@string/modify_pwd"/>
+            android:text="@string/modify_pwd"
+            android:textColor="@color/no_login_settings" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#e0e0e0"/>
+            android:background="#e0e0e0" />
 
         <TextView
             android:id="@+id/tv_account_settings_modify_bind_phone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:clickable="false"
             android:paddingBottom="@dimen/y72"
             android:paddingTop="@dimen/y72"
-            android:clickable="false"
-            android:textColor="@color/no_login_settings"
-            android:text="@string/modify_bind_phone"/>
+            android:text="@string/modify_bind_phone"
+            android:textColor="@color/no_login_settings" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#e0e0e0"/>
+            android:background="#e0e0e0" />
     </LinearLayout>
 
     <Button
@@ -97,5 +109,5 @@
         android:layout_marginTop="@dimen/y141"
         android:background="@color/black"
         android:text="@string/login"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white" />
 </LinearLayout>

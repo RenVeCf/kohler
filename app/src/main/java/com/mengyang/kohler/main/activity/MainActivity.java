@@ -51,6 +51,7 @@ import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.utils.AppUtils;
 import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
+import com.mengyang.kohler.common.utils.ToastUtil;
 import com.mengyang.kohler.common.view.ResideLayout;
 import com.mengyang.kohler.home.activity.MineManualActivity;
 import com.mengyang.kohler.home.activity.StoreMapActivity;
@@ -197,12 +198,14 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                         @Override
                         public void onSuccess(BasicResponse<VisionBean> response) {
                             mVisionBean = response.getData().getResultList();
+                            // 获取本版本号，是否更新
+                            String vision = AppUtils.getVersionName(MainActivity.this);
 
-                            if (mVisionBean.get(1).getDictDesc().equals("android")) {
-                                // 获取本版本号，是否更新
-                                String vision = AppUtils.getVersionName(MainActivity.this);
+                            if (mVisionBean.get(1).getDictDesc().equals("android") && !vision.equals(mVisionBean.get(1).getDictName())) {
                                 String content = "\n" + "科勒应用有新的版本 v" + mVisionBean.get(1).getDictName() + "。\n";//更新内容
                                 getVersion(vision, mVisionBean.get(1).getDictName(), content);
+                            } else {
+                                ToastUtil.showToast("您已经是最新版本！");
                             }
                         }
                     });

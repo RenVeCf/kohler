@@ -16,7 +16,7 @@ import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.CommodityClassificationTitleBean;
 import com.mengyang.kohler.whole_category.adapter.ViewPagerAdapter;
 import com.mengyang.kohler.whole_category.fragment.CommodityClassificationFragment;
-import com.mengyang.kohler.whole_category.view.NavitationFollowScrollLayout;
+import com.mengyang.kohler.whole_category.view.NavitationFollowScrollLayoutText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +35,7 @@ public class CommodityClassificationActivity extends BaseActivity {
     @BindView(R.id.tv_commodity_classification_top)
     TopView tvCommodityClassificationTop;
     @BindView(R.id.nfsl_commodity_classification)
-    NavitationFollowScrollLayout nfslCommodityClassification;
+    NavitationFollowScrollLayoutText nfslCommodityClassification;
     @BindView(R.id.vp_commodity_classification)
     ViewPager vpCommodityClassification;
     @BindView(R.id.table_layout)

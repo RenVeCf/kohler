@@ -61,7 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/y60"
-                android:text="请选择您想了解的产品"
+                android:text="@string/select_want_have_product"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
 
@@ -123,7 +123,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/y60"
-                android:text="请选择您离您最近的店"
+                android:text="@string/select_store"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
 
@@ -188,6 +188,7 @@
                 android:layout_marginTop="@dimen/y24"
                 android:textSize="12sp"
                 android:padding="2dp"
+                android:textColor="@color/black"
                 android:background="@drawable/account_stroke_appointment_bg"
                 android:textStyle="bold" />
 
@@ -269,7 +270,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/y60"
-                android:text="请填写您方便进店的时间"
+                android:text="@string/select_time_in_store"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
 
@@ -291,7 +292,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/y60"
-                android:text="请填写您的手机号码"
+                android:text="@string/select_telphone_num"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
 

@@ -1041,7 +1041,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
         });
 
         //提交信息不能为空
-        if (tvAppointmentHelp.getText().toString().trim().equals("请选择") || tvAppointmentProductProvince.getText().toString().trim().equals("请选择") || tvAppointmentProductCity.getText().toString().trim().equals("请选择") || tvAppointmentProductAddrKey.getText().toString().trim().equals("请选择") || tvAppointmentProductBig.getText().toString().trim().equals("请选择") || tvAppointmentProductMedium.getText().toString().trim().equals("请选择") || tvAppointmentProductSmall.getText().toString().trim().equals("请选择") || tvAppointmentFamily.getText().toString().trim().equals("请选择") || etAppointmentName.getText().toString().trim().equals("请选择") || tvAppointmentInStoreTime.getText().toString().trim().equals("请选择") || etAppointmentPhoneNum.getText().toString().trim().equals("请选择")) {
+        if (tvAppointmentProductProvince.getText().toString().trim().equals("请选择") || tvAppointmentProductCity.getText().toString().trim().equals("请选择") || tvAppointmentProductAddrKey.getText().toString().trim().equals("请选择") || tvAppointmentProductBig.getText().toString().trim().equals("请选择") || tvAppointmentProductMedium.getText().toString().trim().equals("请选择") || tvAppointmentProductSmall.getText().toString().trim().equals("请选择") || tvAppointmentInStoreTime.getText().toString().trim().equals("请选择") || etAppointmentPhoneNum.getText().toString().trim().equals("请选择")) {
             ToastUtil.showToast("请将信息填写完整!");
         } else if (VerifyUtils.isMobileNumber(etAppointmentPhoneNum.getText().toString().trim()) == false) {
             ToastUtil.showToast("请填写正确的电话号码!");
@@ -1073,8 +1073,13 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
-                    ToastUtil.showToast("预约成功！");
-                    dialog.dismiss();
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ToastUtil.showToast("预约成功！");
+                            dialog.dismiss();
+                        }
+                    });
                 }
             });
         }

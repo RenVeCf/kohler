@@ -22,7 +22,7 @@
         app:is_system_msg="true"
         app:title_color="@color/black"/>
 
-    <com.mengyang.kohler.whole_category.view.NavitationFollowScrollLayout
+    <com.mengyang.kohler.whole_category.view.NavitationFollowScrollLayoutText
 
         android:id="@+id/nfsl_commodity_classification"
         android:layout_width="match_parent"
