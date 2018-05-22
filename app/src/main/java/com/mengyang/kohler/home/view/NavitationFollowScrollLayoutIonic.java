@@ -25,11 +25,6 @@ public class NavitationFollowScrollLayoutIonic extends RelativeLayout {
     private CusHorizontalScrollView horizontalScrollView; //横向scrollview
     private ViewPager viewPager;
 
-    private int mIvUnselectedWidth; //未选中图片宽
-    private int mIvUnselectedHeight;//未选中图片高
-    private int mIvSelectedWidth;//选中图片宽
-    private int mIvSelectedHeight;//选中图片高
-
     private View bgLine; //导航背景色
     private View navLine; //导航条颜色
 
@@ -46,6 +41,7 @@ public class NavitationFollowScrollLayoutIonic extends RelativeLayout {
     private int soldl = 0;
 
     private static int margleft = 0;
+    private LinearLayout.LayoutParams para;
 
     private OnTitleClickListener onTitleClickListener;
     private OnNaPageChangeListener onNaPageChangeListener;
@@ -84,7 +80,6 @@ public class NavitationFollowScrollLayoutIonic extends RelativeLayout {
     public void setOnNaPageChangeListener(OnNaPageChangeListener onNaPageChangeListener) {
         this.onNaPageChangeListener = onNaPageChangeListener;
     }
-
 
     private void setTitles(Context context, int[] titles, final boolean smoothScroll, int splilinecolor, final float splilinewidth, float topoffset, float bottomoffset) {
         this.longs = new ImageView[titles.length];
@@ -183,22 +178,18 @@ public class NavitationFollowScrollLayoutIonic extends RelativeLayout {
      * @param bottomoffset    分割线下边距
      * @param titlewidth      标题子选项宽度
      */
-    public void setViewPager(final Context context, int[] titles, ViewPager viewPager, final int[] unselectedcolor, final int[] setectedcolor, int IvUnselectedWidth, int IvUnselectedHeight, int IvSelectedWidth, int IvSelectedHeight, final int widOffsets, boolean smoothScroll, int splilinecolor, final float splilinewidth, float topoffset, float bottomoffset, final int titlewidth) {
+    public void setViewPager(final Context context, int[] titles, ViewPager viewPager, final int[] unselectedcolor, final int[] setectedcolor, final int widOffsets, boolean smoothScroll, int splilinecolor, final float splilinewidth, float topoffset, float bottomoffset, final int titlewidth) {
         this.viewPager = viewPager;
         this.txtUnselectedColor = unselectedcolor;
         this.txtSelectedColor = setectedcolor;
-        this.mIvUnselectedWidth = IvUnselectedWidth;
-        this.mIvUnselectedHeight = IvUnselectedHeight;
-        this.mIvSelectedWidth = IvSelectedWidth;
-        this.mIvSelectedHeight = IvSelectedHeight;
         this.widOffset = dip2px(context, widOffsets);
         this.twidth = splilinewidth + titlewidth;
         this.length = titles.length;
 
         viewPager.setCurrentItem(0);
         setTitles(context, titles, smoothScroll, splilinecolor, splilinewidth, topoffset, bottomoffset);
-        setUnselectedTxtColor(context, unselectedcolor , IvUnselectedWidth, IvUnselectedHeight);
-        setSelectedTxtColor(context, setectedcolor, 0, IvSelectedWidth, IvSelectedHeight);
+        setUnselectedTxtColor(context, unselectedcolor);//, IvUnselectedWidth, IvUnselectedHeight);
+        setSelectedTxtColor(context, setectedcolor, 0);//, IvSelectedWidth, IvSelectedHeight);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -216,7 +207,7 @@ public class NavitationFollowScrollLayoutIonic extends RelativeLayout {
             @Override
             public void onPageSelected(int position) {
                 cuPosition = position;
-                setSelectedTxtColor(context, setectedcolor, position, mIvSelectedWidth, mIvSelectedHeight);
+                setSelectedTxtColor(context, setectedcolor, position);//, mIvSelectedWidth, mIvSelectedHeight);
                 if (position == 0) {
                     leftm = 0;
                 } else {
@@ -265,35 +256,23 @@ public class NavitationFollowScrollLayoutIonic extends RelativeLayout {
         }
     }
 
-    private void setUnselectedTxtColor(Context context, int[] unselectedcolor, int IvUnselectedWidth, int IvUnselectedHeight) {
+    private void setUnselectedTxtColor(Context context, int[] unselectedcolor) {
         if (longs != null) {
             int length = longs.length;
             for (int i = 0; i < length; i++) {
                 longs[i].setImageResource(unselectedcolor[i]);
-                LinearLayout.LayoutParams para = (LinearLayout.LayoutParams) longs[i].getLayoutParams();
-                para.height = IvUnselectedHeight;
-                para.width = IvUnselectedWidth;
-                longs[i].setLayoutParams(para);
             }
         }
     }
 
-    private void setSelectedTxtColor(Context context, int[] selectedcolor, int position, int IvSelectedWidth, int IvSelectedHeight) {
+    private void setSelectedTxtColor(Context context, int[] selectedcolor, int position) {
         if (longs != null) {
             int length = longs.length;
             for (int i = 0; i < length; i++) {
                 if (i == position) {
                     longs[i].setImageResource(selectedcolor[i]);
-                    LinearLayout.LayoutParams para = (LinearLayout.LayoutParams) longs[i].getLayoutParams();
-                    para.height = IvSelectedHeight;
-                    para.width = IvSelectedWidth;
-                    longs[i].setLayoutParams(para);
                 } else {
                     longs[i].setImageResource(txtUnselectedColor[i]);
-                    LinearLayout.LayoutParams para = (LinearLayout.LayoutParams) longs[i].getLayoutParams();
-                    para.height = mIvUnselectedHeight;
-                    para.width = mIvUnselectedWidth;
-                    longs[i].setLayoutParams(para);
                 }
             }
         }
