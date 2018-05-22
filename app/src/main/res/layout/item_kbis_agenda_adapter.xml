@@ -6,9 +6,8 @@
     <LinearLayout
         android:id="@+id/ll_first"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginEnd="@dimen/x10"
-        android:layout_weight="1"
         android:background="@mipmap/kbis_ageda_title_bg"
         android:orientation="vertical"
         android:paddingStart="@dimen/x48">
@@ -31,7 +30,7 @@
         android:paddingStart="@dimen/x48"
         android:paddingTop="@dimen/x48"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/tv_kbis_agenda_item_title"
