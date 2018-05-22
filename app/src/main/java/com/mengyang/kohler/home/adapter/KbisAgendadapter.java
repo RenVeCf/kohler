@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.mengyang.kohler.R;
+import com.mengyang.kohler.module.bean.KbisBean;
 import com.mengyang.kohler.module.bean.MeetingBean;
 
 import java.util.List;
@@ -16,14 +17,14 @@ import java.util.List;
  * Time : 2018/2/2
  */
 
-public class KbisAgendadapter extends BaseQuickAdapter<MeetingBean.AgendaListBean, BaseViewHolder> {
+public class KbisAgendadapter extends BaseQuickAdapter<KbisBean.AgendaListBean, BaseViewHolder> {
 
-    public KbisAgendadapter(@Nullable List<MeetingBean.AgendaListBean> data) {
+    public KbisAgendadapter(@Nullable List<KbisBean.AgendaListBean> data) {
         super(R.layout.item_kbis_agenda_adapter, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, MeetingBean.AgendaListBean item) {
+    protected void convert(BaseViewHolder helper, KbisBean.AgendaListBean item) {
         String agendaType = "";
         switch (item.getAgendaType()) {
             case -1:

@@ -11,6 +11,7 @@ import com.mengyang.kohler.module.bean.CommodityClassificationTitleBean;
 import com.mengyang.kohler.module.bean.CommodityDetailsBean;
 import com.mengyang.kohler.module.bean.FootPrintBean;
 import com.mengyang.kohler.module.bean.HomeIndexBean;
+import com.mengyang.kohler.module.bean.KbisBean;
 import com.mengyang.kohler.module.bean.LikeListBean;
 import com.mengyang.kohler.module.bean.LiveRealTimeBean;
 import com.mengyang.kohler.module.bean.LoginBean;
@@ -53,7 +54,7 @@ public interface IdeaApiService {
     //    String API_SERVER_URL = "https://staging.app.kohler.com.cn/"; //客户测试
     //    String API_SERVER_URL = "https://kohler-app.glor.cn/"; //项目正式环境
     String API_SERVER_URL = "https://kohler-app-tmp.glor.cn/"; //项目测试环境
-//    String API_SERVER_URL = "http://www.kohler.com.cn/"; //地址
+    //    String API_SERVER_URL = "http://www.kohler.com.cn/"; //地址
 
     //用户首页KV图
     @FormUrlEncoded
@@ -204,6 +205,11 @@ public interface IdeaApiService {
     @FormUrlEncoded
     @POST(Config.MEETING)
     Observable<BasicResponse<MeetingBean>> getMeeting(@FieldMap Map<String, Object> map);
+
+    //2018上海厨卫展
+//    @FormUrlEncoded
+    @GET(Config.KBIS)
+    Observable<BasicResponse<KbisBean>> getKbis();
 
     //获取经销商大会推送是否开启的用户设置
     @FormUrlEncoded

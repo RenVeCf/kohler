@@ -1,137 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:scrollbars="none"
+    android:orientation="vertical"
     tools:context=".home.fragment.KbisAgendaFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y108"
+        android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/y108"
-            android:orientation="horizontal">
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/x10"
+            android:layout_weight="1"
+            android:background="@mipmap/kbis_ageda_title_bg"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/x48">
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/x10"
-                android:layout_weight="1"
-                android:background="@mipmap/kbis_ageda_title_bg"
-                android:orientation="vertical"
-                android:paddingStart="@dimen/x48">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/x10"
-                    android:layout_marginTop="@dimen/y48"
-                    android:text="上海厨卫展\n议程"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/x10"
-                android:layout_weight="1"
-                android:background="@mipmap/kbis_ageda_item_bg"
-                android:orientation="vertical"
-                android:paddingBottom="@dimen/y33"
-                android:paddingStart="@dimen/x48"
-                android:paddingTop="@dimen/x48">
-
-                <TextView
-                    android:id="@+id/tv_kbis_position_zero_agenda_type"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:textSize="11sp"
-                    android:textStyle="bold" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/time_"
-                        android:textColor="#c4c4c4"
-                        android:textSize="10sp" />
-
-                    <TextView
-                        android:id="@+id/tv_kbis_position_zero_agenda_time"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:textColor="#c4c4c4"
-                        android:textSize="10sp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/position_"
-                        android:textColor="#c4c4c4"
-                        android:textSize="10sp" />
-
-                    <TextView
-                        android:id="@+id/tv_kbis_position_zero_agenda_position"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:textColor="#c4c4c4"
-                        android:textSize="10sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/name_"
-                        android:textColor="#c4c4c4"
-                        android:textSize="10sp" />
-
-                    <TextView
-                        android:id="@+id/tv_kbis_position_zero_agenda_name"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:textColor="#c4c4c4"
-                        android:textSize="10sp" />
-                </LinearLayout>
-            </LinearLayout>
+                android:layout_marginTop="@dimen/y48"
+                android:text="上海厨卫展\n议程"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
         </LinearLayout>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_kbis_agenda"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/y168"
-            android:layout_marginTop="@dimen/y24" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/x10"
+            android:layout_weight="1"
+            android:background="@mipmap/kbis_ageda_item_bg"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/y33"
+            android:paddingStart="@dimen/x48"
+            android:paddingTop="@dimen/x48">
+
+            <TextView
+                android:id="@+id/tv_kbis_position_zero_agenda_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/time_"
+                    android:textColor="#c4c4c4"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/tv_kbis_position_zero_agenda_time"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="#c4c4c4"
+                    android:textSize="10sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/position_"
+                    android:textColor="#c4c4c4"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/tv_kbis_position_zero_agenda_position"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="#c4c4c4"
+                    android:textSize="10sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/name_"
+                    android:textColor="#c4c4c4"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/tv_kbis_position_zero_agenda_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="#c4c4c4"
+                    android:textSize="10sp" />
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
-</ScrollView>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_kbis_agenda"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/y168"
+        android:layout_marginTop="@dimen/y24" />
+</LinearLayout>

@@ -14,6 +14,7 @@ import com.mengyang.kohler.common.view.GridSpacingItemDecoration;
 import com.mengyang.kohler.home.adapter.KbisAgendadapter;
 import com.mengyang.kohler.home.adapter.MeetingAdapter;
 import com.mengyang.kohler.module.BasicResponse;
+import com.mengyang.kohler.module.bean.KbisBean;
 import com.mengyang.kohler.module.bean.MeetingBean;
 
 import java.util.ArrayList;
@@ -40,8 +41,8 @@ public class KbisAgendaFragment extends BaseFragment {
     TextView tvKbisPositionZeroAgendaName;
     @BindView(R.id.rv_kbis_agenda)
     RecyclerView rvKbisAgenda;
-    private MeetingBean mMeetingBean;
-    private List<MeetingBean.AgendaListBean> mMeetingAdapterBean;
+    private KbisBean mMeetingBean;
+    private List<KbisBean.AgendaListBean> mMeetingAdapterBean;
     private KbisAgendadapter mKbisAgendadapter;
 
     @Override
@@ -70,17 +71,14 @@ public class KbisAgendaFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-        Map<String, Object> stringMap = IdeaApi.getSign();
-
-        IdeaApi.getRequestLogin(stringMap);
         IdeaApi.getApiService()
-                .getMeeting(stringMap)
-                .compose(KbisAgendaFragment.this.<BasicResponse<MeetingBean>>bindToLifecycle())
+                .getKbis()
+                .compose(KbisAgendaFragment.this.<BasicResponse<KbisBean>>bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<BasicResponse<MeetingBean>>(getActivity(), true) {
+                .subscribe(new DefaultObserver<BasicResponse<KbisBean>>(getActivity(), true) {
                     @Override
-                    public void onSuccess(BasicResponse<MeetingBean> response) {
+                    public void onSuccess(BasicResponse<KbisBean> response) {
                         mMeetingBean = response.getData();
 
                         String agendaType = "";

@@ -43,8 +43,8 @@ public interface Config  {
     String ART_KOHLER = "ndc/facadeGetMeetingAndAgenda?meetingId=2"; //科勒艺术
     String GAN_CHUANG = "ndc/facadeGetMeetingAndAgenda?meetingId=3"; //敢创•科勒亚太艺术展
     String ART_KOHLER_SELECT_IMG = "ndc/getPictureListByGroup"; //科勒艺术精选图片
-//    String APPOINTMENT_PATH = "http://www.kohler.com.cn/js/exports_2.json"; //预约地址
     String APPOINTMENT_PATH = "js/exports_2.json"; //预约地址
+    String KBIS = "ndc/facadeGetMeetingAndAgenda?sign=1&reqTime=1&appType=1&deviceId=1&clientId=1&resultType=1&charset=1&signType=1&ipAddress=1&meetingId=4"; //2018上海厨卫展
 
     /**
      * 全品类
