@@ -31,14 +31,6 @@ import io.reactivex.schedulers.Schedulers;
 
 public class KbisAgendaFragment extends BaseFragment {
 
-    @BindView(R.id.tv_kbis_position_zero_agenda_type)
-    TextView tvKbisPositionZeroAgendaType;
-    @BindView(R.id.tv_kbis_position_zero_agenda_time)
-    TextView tvKbisPositionZeroAgendaTime;
-    @BindView(R.id.tv_kbis_position_zero_agenda_position)
-    TextView tvKbisPositionZeroAgendaPosition;
-    @BindView(R.id.tv_kbis_position_zero_agenda_name)
-    TextView tvKbisPositionZeroAgendaName;
     @BindView(R.id.rv_kbis_agenda)
     RecyclerView rvKbisAgenda;
     private KbisBean mMeetingBean;
@@ -81,33 +73,11 @@ public class KbisAgendaFragment extends BaseFragment {
                     public void onSuccess(BasicResponse<KbisBean> response) {
                         mMeetingBean = response.getData();
 
-                        String agendaType = "";
-                        switch (mMeetingBean.getAgendaList().get(0).getAgendaType()) {
-                            case -1:
-                                agendaType = "过期议程";
-                                break;
-                            case 0:
-                                agendaType = "未来议程";
-                                break;
-                            case 1:
-                                agendaType = " 明日议程";
-                                break;
-                            case 2:
-                                agendaType = "下一议程";
-                                break;
-                            case 3:
-                                agendaType = "当前议程";
-                                break;
-                        }
-
-                        tvKbisPositionZeroAgendaType.setText(agendaType);
-                        tvKbisPositionZeroAgendaTime.setText(mMeetingBean.getAgendaList().get(0).getTimeSlot());
-                        tvKbisPositionZeroAgendaPosition.setText(mMeetingBean.getAgendaList().get(0).getPlace());
-                        tvKbisPositionZeroAgendaName.setText(mMeetingBean.getAgendaList().get(0).getTitle());
+                        KbisBean.AgendaListBean first = mMeetingBean.getAgendaList().get(0);
 
                         mMeetingAdapterBean.clear();
                         mMeetingAdapterBean.addAll(mMeetingBean.getAgendaList());
-                        mMeetingAdapterBean.remove(0);
+                        mMeetingAdapterBean.add(0, first);
 
                         mKbisAgendadapter = new KbisAgendadapter(mMeetingAdapterBean);
                         rvKbisAgenda.setAdapter(mKbisAgendadapter);
