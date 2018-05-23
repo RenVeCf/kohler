@@ -40,8 +40,8 @@ public class UserServiceAdapter extends BaseMultiItemQuickAdapter<QuestionSearch
     public UserServiceAdapter(List<QuestionSearchBean> data) {
         super(data);
         addItemType(0, R.layout.item_service_company);  //必须设置Item类型,否则空职指针异常
-        addItemType(1,R.layout.item_service_user);
-        addItemType(3,R.layout.item_service_company_head);
+        addItemType(1, R.layout.item_service_user);
+        addItemType(3, R.layout.item_service_company_head);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -50,8 +50,8 @@ public class UserServiceAdapter extends BaseMultiItemQuickAdapter<QuestionSearch
         switch (item.getItemType()) {
             case 0://客服
                 helper.setText(R.id.tv_serviec_user, "客服小科")
-                .setText(R.id.tv_service_time, parseTiem())
-                .setText(R.id.tv_service_message, item.getDescription());
+                        .setText(R.id.tv_service_time, parseTiem())
+                        .setText(R.id.tv_service_message, item.getDescription());
                 helper.setText(R.id.tv_service_list, item.getH5Url());
                 if (mHour >= 0 && mHour < 12) {
                     helper.setText(R.id.tv_flag, "AM");
@@ -61,9 +61,9 @@ public class UserServiceAdapter extends BaseMultiItemQuickAdapter<QuestionSearch
 
                 if (!TextUtils.isEmpty(item.getH5Url())) {
                     TextView textView = helper.getView(R.id.tv_service_list);
-                    textView.getPaint().setFlags(Paint. UNDERLINE_TEXT_FLAG ); //下划线
+                    textView.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG); //下划线
                     textView.getPaint().setAntiAlias(true);//抗锯齿
-//                    textView.setText(Html.fromHtml(item.getH5Url()));
+                    //                    textView.setText(Html.fromHtml(item.getH5Url()));
                     helper.setText(R.id.tv_service_list, Html.fromHtml(item.getH5Url()));
                     helper.addOnClickListener(R.id.tv_service_list);
                     helper.setVisible(R.id.tv_service_list, true);
@@ -73,9 +73,9 @@ public class UserServiceAdapter extends BaseMultiItemQuickAdapter<QuestionSearch
                 break;
             case 1: //内容
                 helper.setText(R.id.tv_serviec_user_name, (String) SPUtil.get(App.getContext(), IConstants.USER_NIKE_NAME, ""))
-                .setText(R.id.tv_service_time, parseTiem())
-                .setText(R.id.tv_service_message, item.getDescription());
-            //设置头像
+                        .setText(R.id.tv_service_time, parseTiem())
+                        .setText(R.id.tv_service_message, item.getDescription());
+                //设置头像
                 Glide.with(App.getContext()).load(SPUtil.get(App.getContext(), IConstants.USER_HEAD_PORTRAIT, ""))
                         .apply(new RequestOptions().placeholder(R.mipmap.oval)).into((ImageView) helper.getView(R.id.iv_service_photo));
 
@@ -101,19 +101,19 @@ public class UserServiceAdapter extends BaseMultiItemQuickAdapter<QuestionSearch
     }
 
     private String parseTiem() {
-        long time=System.currentTimeMillis();
-        final Calendar mCalendar=Calendar.getInstance();
+        long time = System.currentTimeMillis();
+        final Calendar mCalendar = Calendar.getInstance();
         mCalendar.setTimeInMillis(time);
         //		 取得小时：
         mHour = mCalendar.get(Calendar.HOUR_OF_DAY);
         //		 取得分钟：
-        int mMinuts=mCalendar.get(Calendar.MINUTE);
+        int mMinuts = mCalendar.get(Calendar.MINUTE);
         String mMinString = null;
         String mHourString = null;
-        if (mMinuts<10){
-            mMinString = "0"+mMinuts;
-        }else{
-            mMinString = ""+mMinuts;
+        if (mMinuts < 10) {
+            mMinString = "0" + mMinuts;
+        } else {
+            mMinString = "" + mMinuts;
         }
 
         if (mHour == 0) {
@@ -121,6 +121,6 @@ public class UserServiceAdapter extends BaseMultiItemQuickAdapter<QuestionSearch
         } else {
             mHourString = "" + mHour;
         }
-        return mHourString +":"+mMinString;
+        return mHourString + ":" + mMinString;
     }
 }

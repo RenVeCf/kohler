@@ -588,7 +588,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                 selectOne(tvAppointmentHelp, mOptionsItems, 0);
                 break;
             case R.id.tv_appointment_product_big:
-                selectOne(tvAppointmentProductBig, mBathroomList , 4);
+                selectOne(tvAppointmentProductBig, mBathroomList, 4);
 
                 tvAppointmentProductMedium.setText("请选择");
                 tvAppointmentProductSmall.setText("请选择");
@@ -677,7 +677,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
             }
         }
 
-        selectOne(tvAppointmentProductSmall, List4 , 6);
+        selectOne(tvAppointmentProductSmall, List4, 6);
     }
 
     private void showSecond(boolean isShowDia) {
@@ -691,7 +691,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
             }
         }
 
-        selectOne(tvAppointmentProductMedium, List3 , 5);
+        selectOne(tvAppointmentProductMedium, List3, 5);
     }
 
     /**
@@ -784,7 +784,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
             mSelectedProvince = mSelectedText;
         } else if (type == 2) {
             mSelectedCity = mSelectedText;
-        }else if (type == 3) {
+        } else if (type == 3) {
             mSelectedRoomName = mSelectedText;
         } else if (type == 4) {
             mSelectedType = mSelectedText;
@@ -942,11 +942,6 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                             mAddressMap.put(roomname, address);
                         }
                     }
-
-                    Log.i("12343", mProvinceList.toString());
-                    Log.i("12343", mCityMap.toString());
-                    Log.i("12343", mRoomNameMap.toString());
-                    Log.i("12343", mAddressMap.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -1041,7 +1036,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
         });
 
         //提交信息不能为空
-        if (tvAppointmentProductProvince.getText().toString().trim().equals("请选择") || tvAppointmentProductCity.getText().toString().trim().equals("请选择") || tvAppointmentProductAddrKey.getText().toString().trim().equals("请选择") || tvAppointmentProductBig.getText().toString().trim().equals("请选择") || tvAppointmentProductMedium.getText().toString().trim().equals("请选择") || tvAppointmentProductSmall.getText().toString().trim().equals("请选择") || tvAppointmentInStoreTime.getText().toString().trim().equals("请选择") || etAppointmentPhoneNum.getText().toString().trim().equals("请选择")) {
+        if (tvAppointmentProductProvince.getText().toString().trim().equals("请选择") || tvAppointmentProductCity.getText().toString().trim().equals("请选择") || tvAppointmentProductAddrKey.getText().toString().trim().equals("请选择") || tvAppointmentProductBig.getText().toString().trim().equals("请选择") || tvAppointmentProductMedium.getText().toString().trim().equals("请选择") || tvAppointmentProductSmall.getText().toString().trim().equals("请选择") || tvAppointmentInStoreTime.getText().toString().trim().equals("请选择") || etAppointmentPhoneNum.getText().toString().trim().equals("")) {
             ToastUtil.showToast("请将信息填写完整!");
         } else if (VerifyUtils.isMobileNumber(etAppointmentPhoneNum.getText().toString().trim()) == false) {
             ToastUtil.showToast("请填写正确的电话号码!");
@@ -1124,12 +1119,12 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
     }
 
     //读取本地json生成json字符串
-    private String initJsonData(){
+    private String initJsonData() {
         try {
             InputStream is = getResources().getAssets().open("goods.json");
             byte[] buffer = new byte[is.available()];
             is.read(buffer);
-            mJson = new String(buffer,"UTF-8");
+            mJson = new String(buffer, "UTF-8");
         } catch (IOException e) {
             e.printStackTrace();
         }

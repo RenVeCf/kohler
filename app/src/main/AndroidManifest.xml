@@ -318,6 +318,8 @@
             android:name=".home.activity.GanChuangArtistActivity"
             android:exported="false" />
         <activity android:name=".home.activity.KbisActivity" />
+        <activity android:name=".common.activity.AzureCustomerServiceActivity" />
+        <activity android:name=".common.activity.ReservationExperienceActivity"></activity>
     </application>
 
 </manifest>

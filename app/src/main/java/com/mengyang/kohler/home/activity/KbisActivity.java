@@ -60,7 +60,7 @@ public class KbisActivity extends BaseActivity {
         vpKbis.setAdapter(viewPagerAdapter);
         vpKbis.setOffscreenPageLimit(2);
 
-        nfslKbis.setViewPager(KbisActivity.this, titles, vpKbis, unselectedcolor, setectedcolor, 24, true, R.color.black, 10f, 10f, 10f, 73);
+        nfslKbis.setViewPager(KbisActivity.this, titles, vpKbis, unselectedcolor, setectedcolor, 24, true, R.color.transparent, 10f, 10f, 10f, 73);
         nfslKbis.setBgLine(KbisActivity.this, 1, R.color.black);
         nfslKbis.setNavLine(KbisActivity.this, 2, R.color.black);
 

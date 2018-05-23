@@ -1,9 +1,12 @@
 package com.mengyang.kohler.account.activity;
 
+import android.content.Intent;
+
 import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
+import com.mengyang.kohler.common.activity.AzureCustomerServiceActivity;
 import com.mengyang.kohler.common.view.TopView;
 
 import butterknife.BindView;
@@ -30,7 +33,7 @@ public class AccountPrivacyPolicyActivity extends BaseActivity {
 
     @Override
     protected void initListener() {
-
+        startActivity(new Intent(this, AzureCustomerServiceActivity.class));
     }
 
     @Override
