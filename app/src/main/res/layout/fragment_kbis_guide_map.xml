@@ -1,14 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".home.fragment.KbisGuideMapFragment">
+    android:layout_width="wrap_content"
+    android:background="#000000"
+    android:layout_height="wrap_content">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.github.chrisbanes.photoview.PhotoView
+        android:scaleType="centerCrop"
+        android:id="@+id/photo_view"
+        android:src="@mipmap/icon_guidemap_ts_nor"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent" />
 
-</FrameLayout>
+    <com.github.chrisbanes.photoview.PhotoView
+        android:visibility="gone"
+        android:id="@+id/photo_view5"
+        android:src="@mipmap/icon_guidemap_ts_pre_sec5"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.github.chrisbanes.photoview.PhotoView
+        android:visibility="gone"
+        android:id="@+id/photo_view4"
+        android:src="@mipmap/icon_guidemap_ts_pre_sec4"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.github.chrisbanes.photoview.PhotoView
+        android:visibility="gone"
+        android:id="@+id/photo_view3"
+        android:src="@mipmap/icon_guidemap_ts_pre_sec3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.github.chrisbanes.photoview.PhotoView
+        android:visibility="gone"
+        android:id="@+id/photo_view2"
+        android:src="@mipmap/icon_guidemap_ts_pre_sec2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.github.chrisbanes.photoview.PhotoView
+        android:visibility="gone"
+        android:id="@+id/photo_view1"
+        android:src="@mipmap/icon_guidemap_ts_pre_sec1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</RelativeLayout>

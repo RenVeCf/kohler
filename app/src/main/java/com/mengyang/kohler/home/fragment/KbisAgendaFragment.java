@@ -33,6 +33,7 @@ public class KbisAgendaFragment extends BaseFragment {
 
     @BindView(R.id.rv_kbis_agenda)
     RecyclerView rvKbisAgenda;
+
     private KbisBean mMeetingBean;
     private List<KbisBean.AgendaListBean> mMeetingAdapterBean;
     private KbisAgendadapter mKbisAgendadapter;
