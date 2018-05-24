@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#ffffff"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <!-- android:layout_width="@dimen/x495"
+        android:layout_height="@dimen/y495"-->
+    <ImageView
+        android:id="@+id/iv_kbis_pdf"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:id="@+id/rl_body"
+        android:paddingTop="@dimen/y30"
+        android:paddingBottom="@dimen/y48"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/ll_kbis_pdf_down"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/x33"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_kbis_pdf_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="123465"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_kbis_pdf_des"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y15"
+                android:text="123465"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_kbis_pef_download"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/x27"
+            android:src="@mipmap/kbis_download" />
+    </RelativeLayout>
+</RelativeLayout>

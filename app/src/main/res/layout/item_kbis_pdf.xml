@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="#ffffff"
     android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/iv_kbis_pdf"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent" />
 
     <RelativeLayout
-        android:id="@+id/rl_body"
+        android:id="@+id/rl_body_long"
         android:paddingTop="@dimen/y30"
         android:paddingBottom="@dimen/y48"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="@dimen/x495"
+        android:layout_height="@dimen/y795">
 
         <LinearLayout
             android:id="@+id/ll_kbis_pdf_top"
             android:layout_marginLeft="@dimen/x33"
-            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
             android:orientation="vertical"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <TextView
@@ -41,13 +42,30 @@
                 android:textSize="12sp" />
         </LinearLayout>
 
+        <ImageView
+            android:id="@+id/iv_kbis_pef_download1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/x27"
+            android:src="@mipmap/kbis_download" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_body_short"
+        android:paddingTop="@dimen/y30"
+        android:paddingBottom="@dimen/y48"
+        android:layout_width="@dimen/x495"
+        android:layout_height="@dimen/y495">
+
         <LinearLayout
             android:id="@+id/ll_kbis_pdf_down"
             android:layout_marginLeft="@dimen/x33"
-            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
             android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_width="@dimen/x495"
+            android:layout_height="@dimen/y495">
             <TextView
                 android:text="123465"
                 android:textSize="12sp"
@@ -66,7 +84,7 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/iv_kbis_pef_download"
+            android:id="@+id/iv_kbis_pef_download2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"

@@ -1,5 +1,7 @@
 package com.mengyang.kohler.module.bean;
 
+import com.chad.library.adapter.base.entity.MultiItemEntity;
+
 import java.util.List;
 
 /**
@@ -372,7 +374,7 @@ public class KbisBean {
         }
     }
 
-    public static class PdfListBean {
+    public static class PdfListBean implements MultiItemEntity {
         /**
          * elementDesc : 设计智慧
          * elementType : pdf
@@ -392,6 +394,16 @@ public class KbisBean {
         private String params;
         private String title;
         private int weight;
+        private int itemType;
+
+        public void setItemType(int itemType) {
+            this.itemType = itemType;
+        }
+
+        @Override
+        public int getItemType() {
+            return itemType;
+        }
 
         public String getElementDesc() {
             return elementDesc;
@@ -456,6 +468,7 @@ public class KbisBean {
         public void setWeight(int weight) {
             this.weight = weight;
         }
+
     }
 
     public static class PhotoListBean {

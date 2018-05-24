@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -32,8 +33,8 @@ import butterknife.BindView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class KbisProductFragment extends BaseFragment implements BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemChildClickListener {
-    private KbisBean mMeetingBean;
+public class KbisProductFragment extends BaseFragment implements BaseQuickAdapter.OnItemChildClickListener {
+    private KbisBean mResultBean;
     private List<KbisBean.PdfListBean> mKbisPdfBean = new ArrayList<>();
     private KbisPdfAdapter mKbisPdfAdapter;
 
@@ -47,10 +48,11 @@ public class KbisProductFragment extends BaseFragment implements BaseQuickAdapte
 
     @Override
     protected void initValues() {
-        GridLayoutManager layoutManagerActivity = new GridLayoutManager(App.getContext(), 2);
+//        GridLayoutManager layoutManagerActivity = new GridLayoutManager(App.getContext(), 2);
+        StaggeredGridLayoutManager layoutManagerActivity = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mRvKbisPdf.setLayoutManager(layoutManagerActivity);
         mRvKbisPdf.addItemDecoration(new GridSpacingItemDecoration(2, 20, false));
-        mRvKbisPdf.setHasFixedSize(true);
+        mRvKbisPdf.setHasFixedSize(false);
         mRvKbisPdf.setItemAnimator(new DefaultItemAnimator());
         mRvKbisPdf.setNestedScrollingEnabled(false);
     }
@@ -70,24 +72,27 @@ public class KbisProductFragment extends BaseFragment implements BaseQuickAdapte
                 .subscribe(new DefaultObserver<BasicResponse<KbisBean>>(getActivity(), true) {
                     @Override
                     public void onSuccess(BasicResponse<KbisBean> response) {
-                        mMeetingBean = response.getData();
+                        mResultBean = response.getData();
 
-                        KbisBean.AgendaListBean first = mMeetingBean.getAgendaList().get(0);
+                        List<KbisBean.PdfListBean> pdfList = mResultBean.getPdfList();
 
                         mKbisPdfBean.clear();
-                        mKbisPdfBean.addAll(mMeetingBean.getPdfList());
+                        for (int i = 0; i < pdfList.size(); i++) {
+                            KbisBean.PdfListBean pdfListBean = pdfList.get(i);
+                            int k = i % 4;
+                            if (k == 0 || k == 3) {
+                                pdfListBean.setItemType(0);
+                            } else {
+                                pdfListBean.setItemType(1);
+                            }
+                            mKbisPdfBean.add(pdfListBean);
+                        }
 
                         mKbisPdfAdapter = new KbisPdfAdapter(mKbisPdfBean);
                         mRvKbisPdf.setAdapter(mKbisPdfAdapter);
-                        mKbisPdfAdapter.setOnItemClickListener(KbisProductFragment.this);
                         mKbisPdfAdapter.setOnItemChildClickListener(KbisProductFragment.this);
                     }
                 });
-    }
-
-    @Override
-    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
     }
 
     @Override
