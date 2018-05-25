@@ -16,6 +16,7 @@ import com.mengyang.kohler.home.fragment.KbisInterviewFragment;
 import com.mengyang.kohler.home.fragment.KbisPhotoFragment;
 import com.mengyang.kohler.home.fragment.KbisProductFragment;
 import com.mengyang.kohler.home.fragment.KbisVideoFragment;
+import com.mengyang.kohler.home.view.MyViewPager;
 import com.mengyang.kohler.home.view.NavitationFollowScrollLayoutIonic;
 import com.mengyang.kohler.whole_category.adapter.ViewPagerAdapter;
 import com.umeng.analytics.MobclickAgent;
@@ -36,7 +37,7 @@ public class KbisActivity extends BaseActivity {
     @BindView(R.id.nfsl_kbis)
     NavitationFollowScrollLayoutIonic nfslKbis;
     @BindView(R.id.vp_kbis)
-    ViewPager vpKbis;
+    MyViewPager vpKbis;
     private List<Fragment> fragments;
     private ViewPagerAdapter viewPagerAdapter;
     private int[] titles = {R.mipmap.trade_show_guide_map, R.mipmap.trade_show_ar, R.mipmap.trade_show_agenda, R.mipmap.trade_show_video, R.mipmap.trade_show_photo, R.mipmap.trade_show_product, R.mipmap.trade_show_interview};

@@ -27,7 +27,7 @@
         android:layout_height="@dimen/y250"
         android:layout_marginTop="@dimen/y45" />
 
-    <android.support.v4.view.ViewPager
+    <com.mengyang.kohler.home.view.MyViewPager
         android:id="@+id/vp_kbis"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:layout_width="wrap_content"
+    android:layout_marginLeft="56dp"
+    android:layout_marginRight="56dp"
+    android:background="@mipmap/guide"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/iv_top_title"
+        android:layout_marginTop="8dp"
+        android:src="@mipmap/iv_kbis_white_01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tv_num1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="美"
+        android:textColor="#ffffff"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/tv_num2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bold Luxury"
+        android:textColor="#ffffff"
+        android:textSize="12sp" />
+
+    <View
+        android:layout_marginLeft="21dp"
+        android:layout_marginRight="21dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="4dp"
+        android:background="#ffffff" />
+
+    <TextView
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:id="@+id/tv_num3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="科勒145周年，从未停步的创新之旅。我们不断在艺术的世界中寻找灵感，坚持将敢创设计与卓越技术融入每一件产品。百年传承，为美执着。
+Great design starts from unique inspirations, rich experiences and the never-ending pursuit of artistic perfection. Kohler is serious about every curve and angle, creating amazing artistic creations with a variety of styles."
+        android:textColor="#ffffff"
+        android:textSize="9sp" />
+
+</LinearLayout>
