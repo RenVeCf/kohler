@@ -9,6 +9,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.R;
+import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.module.bean.KbisBean;
 
 import java.util.List;
@@ -28,14 +29,12 @@ public class KbisVideoAdapter extends BaseQuickAdapter<KbisBean.VideoListBean, B
 
     @Override
     protected void convert(BaseViewHolder helper, KbisBean.VideoListBean item) {
-        int position = helper.getAdapterPosition();
+        helper.setText(R.id.tv_kbis_play_title, item.getTitle())
+                .setText(R.id.tv_kbis_play_des, item.getElementDesc());
 
-        helper.setText(R.id.tv_kbis_play_title, item.getTitle());
-        helper.setText(R.id.tv_kbis_play_des, item.getElementDesc());
-
-        Glide.with(App.getContext()).load(item.getKvUrl()).apply(new RequestOptions().placeholder(R.mipmap.queshengtu)).into((ImageView) helper.getView(R.id.iv_kbis));
+        Glide.with(App.getContext()).load(item.getKvUrl()).into((ImageView) helper.getView(R.id.iv_kbis));
 
         helper.addOnClickListener(R.id.iv_kbis);
-        helper.addOnClickListener(R.id.rl_body_play);
-        }
+        helper.addOnClickListener(R.id.iv_kbis_play);
+    }
 }

@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:gravity="center_horizontal"
+    android:id="@+id/ll_guidemap_pop"
     android:layout_width="wrap_content"
-    android:layout_marginLeft="56dp"
-    android:layout_marginRight="56dp"
-    android:background="@mipmap/guide"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/y75"
+    android:paddingEnd="@dimen/x40"
+    android:paddingStart="@dimen/x40">
 
     <ImageView
         android:id="@+id/iv_top_title"
-        android:layout_marginTop="8dp"
-        android:src="@mipmap/iv_kbis_white_01"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:src="@mipmap/iv_kbis_white_01" />
 
     <TextView
         android:id="@+id/tv_num1"
@@ -33,20 +34,17 @@
         android:textSize="12sp" />
 
     <View
-        android:layout_marginLeft="21dp"
-        android:layout_marginRight="21dp"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="4dp"
         android:background="#ffffff" />
 
     <TextView
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
         android:id="@+id/tv_num3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginLeft="@dimen/x20"
+        android:layout_marginTop="3dp"
         android:text="科勒145周年，从未停步的创新之旅。我们不断在艺术的世界中寻找灵感，坚持将敢创设计与卓越技术融入每一件产品。百年传承，为美执着。
 Great design starts from unique inspirations, rich experiences and the never-ending pursuit of artistic perfection. Kohler is serious about every curve and angle, creating amazing artistic creations with a variety of styles."
         android:textColor="#ffffff"

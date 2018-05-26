@@ -81,7 +81,7 @@ public class NavitationFollowScrollLayoutIonic extends RelativeLayout {
         this.onNaPageChangeListener = onNaPageChangeListener;
     }
 
-    private void setTitles(Context context, int[] titles, final boolean smoothScroll, int splilinecolor, final float splilinewidth, float topoffset, float bottomoffset) {
+    private void setTitles(Context context, int[] titles, final boolean smoothScroll, final float splilinewidth, float topoffset, float bottomoffset) {
         this.longs = new ImageView[titles.length];
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(dip2px(context, twidth), LayoutParams.MATCH_PARENT);
         params.gravity = Gravity.CENTER;
@@ -116,7 +116,6 @@ public class NavitationFollowScrollLayoutIonic extends RelativeLayout {
             titleLayout.addView(textView, params);
             if (i < titles.length - 1) {
                 View view = new View(context);
-                view.setBackgroundColor(splilinecolor);
                 titleLayout.addView(view, lp);
             }
         }
@@ -127,14 +126,13 @@ public class NavitationFollowScrollLayoutIonic extends RelativeLayout {
      *
      * @param context
      * @param height
-     * @param color
      */
-    public void setBgLine(Context context, int height, int color) {
+    public void setBgLine(Context context, int height) {
         height = dip2px(context, height);
         LayoutParams layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, height);
         bgLine = new View(context);
         bgLine.setLayoutParams(layoutParams);
-        bgLine.setBackgroundColor(ContextCompat.getColor(context, color));
+        //        bgLine.setBackgroundColor(ContextCompat.getColor(context, color));
 
         LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, height);
         lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
@@ -148,7 +146,7 @@ public class NavitationFollowScrollLayoutIonic extends RelativeLayout {
      * @param height
      * @param color
      */
-    public void setNavLine(Activity context, int height, int color) {
+    public void setNavLine(Activity context, int height) {
         if (longs != null) {
             navWidth = dip2px(context, twidth);
         }
@@ -157,7 +155,6 @@ public class NavitationFollowScrollLayoutIonic extends RelativeLayout {
         LayoutParams layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, height);
         navLine = new View(context);
         navLine.setLayoutParams(layoutParams);
-        navLine.setBackgroundColor(context.getResources().getColor(color));
 
         LayoutParams lp = new LayoutParams(navWidth, height);
         lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
@@ -172,13 +169,12 @@ public class NavitationFollowScrollLayoutIonic extends RelativeLayout {
      * @param unselectedcolor 未选中字体颜色
      * @param setectedcolor   选中字体颜色
      * @param smoothScroll    是否滑动效果
-     * @param splilinecolor   分割线颜色
      * @param splilinewidth   分割线宽度
      * @param topoffset       分割线上边距
      * @param bottomoffset    分割线下边距
      * @param titlewidth      标题子选项宽度
      */
-    public void setViewPager(final Context context, int[] titles, ViewPager viewPager, final int[] unselectedcolor, final int[] setectedcolor, final int widOffsets, boolean smoothScroll, int splilinecolor, final float splilinewidth, float topoffset, float bottomoffset, final int titlewidth) {
+    public void setViewPager(final Context context, int[] titles, ViewPager viewPager, final int[] unselectedcolor, final int[] setectedcolor, final int widOffsets, boolean smoothScroll, final float splilinewidth, float topoffset, float bottomoffset, final int titlewidth) {
         this.viewPager = viewPager;
         this.txtUnselectedColor = unselectedcolor;
         this.txtSelectedColor = setectedcolor;
@@ -187,7 +183,7 @@ public class NavitationFollowScrollLayoutIonic extends RelativeLayout {
         this.length = titles.length;
 
         viewPager.setCurrentItem(0);
-        setTitles(context, titles, smoothScroll, splilinecolor, splilinewidth, topoffset, bottomoffset);
+        setTitles(context, titles, smoothScroll, splilinewidth, topoffset, bottomoffset);
         setUnselectedTxtColor(context, unselectedcolor);//, IvUnselectedWidth, IvUnselectedHeight);
         setSelectedTxtColor(context, setectedcolor, 0);//, IvSelectedWidth, IvSelectedHeight);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

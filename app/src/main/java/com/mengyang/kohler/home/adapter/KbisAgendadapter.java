@@ -32,7 +32,6 @@ public class KbisAgendadapter extends BaseQuickAdapter<KbisBean.AgendaListBean, 
             helper.setVisible(R.id.ll_item_second, false);
 
         } else {
-
             helper.setVisible(R.id.ll_first, false);
             helper.setVisible(R.id.ll_item_second, true);
             switch (item.getAgendaType()) {
@@ -58,8 +57,5 @@ public class KbisAgendadapter extends BaseQuickAdapter<KbisBean.AgendaListBean, 
                     .setText(R.id.tv_kbis_agenda_name, item.getTitle());
             helper.addOnClickListener(R.id.tv_kbis_agenda_time);
         }
-
-
-
     }
 }

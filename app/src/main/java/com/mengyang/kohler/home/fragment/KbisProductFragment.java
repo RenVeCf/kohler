@@ -48,13 +48,8 @@ public class KbisProductFragment extends BaseFragment implements BaseQuickAdapte
 
     @Override
     protected void initValues() {
-//        GridLayoutManager layoutManagerActivity = new GridLayoutManager(App.getContext(), 2);
         StaggeredGridLayoutManager layoutManagerActivity = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mRvKbisPdf.setLayoutManager(layoutManagerActivity);
-        mRvKbisPdf.addItemDecoration(new GridSpacingItemDecoration(2, 20, false));
-        mRvKbisPdf.setHasFixedSize(false);
-        mRvKbisPdf.setItemAnimator(new DefaultItemAnimator());
-        mRvKbisPdf.setNestedScrollingEnabled(false);
     }
 
     @Override
@@ -79,12 +74,6 @@ public class KbisProductFragment extends BaseFragment implements BaseQuickAdapte
                         mKbisPdfBean.clear();
                         for (int i = 0; i < pdfList.size(); i++) {
                             KbisBean.PdfListBean pdfListBean = pdfList.get(i);
-                            int k = i % 4;
-                            if (k == 0 || k == 3) {
-                                pdfListBean.setItemType(0);
-                            } else {
-                                pdfListBean.setItemType(1);
-                            }
                             mKbisPdfBean.add(pdfListBean);
                         }
 
@@ -98,7 +87,7 @@ public class KbisProductFragment extends BaseFragment implements BaseQuickAdapte
     @Override
     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
         //判断是否这个pdf文件已存在
-        String pdfTotalPath = IConstants.ROOT_PATH+ "/" +mKbisPdfBean.get(position).getH5Url().substring(mKbisPdfBean.get(position).getH5Url().lastIndexOf("/") + 1);
+        String pdfTotalPath = IConstants.ROOT_PATH + "/" + mKbisPdfBean.get(position).getH5Url().substring(mKbisPdfBean.get(position).getH5Url().lastIndexOf("/") + 1);
         if (FileUtils.isFileExist(pdfTotalPath)) {
             startActivity(new Intent(KbisProductFragment.this.getActivity(), PDFActivity.class).putExtra("PdfUrl", mKbisPdfBean.get(position).getH5Url()));
         } else {//没找到就去下载

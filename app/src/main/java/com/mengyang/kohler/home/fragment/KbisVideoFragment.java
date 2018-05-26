@@ -1,22 +1,19 @@
 package com.mengyang.kohler.home.fragment;
 
 import android.content.Intent;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseFragment;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.activity.WebViewActivity;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.utils.ToastUtil;
-import com.mengyang.kohler.common.view.GridSpacingItemDecoration;
-import com.mengyang.kohler.home.adapter.KbisPhotoAdapter;
+import com.mengyang.kohler.common.view.SpacesItemDecoration;
 import com.mengyang.kohler.home.adapter.KbisVideoAdapter;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.KbisBean;
@@ -43,12 +40,13 @@ public class KbisVideoFragment extends BaseFragment implements BaseQuickAdapter.
 
     @Override
     protected void initValues() {
-        GridLayoutManager layoutManagerActivity = new GridLayoutManager(App.getContext(), 2);
-        mRvKbisVideo.setLayoutManager(layoutManagerActivity);
-        mRvKbisVideo.addItemDecoration(new GridSpacingItemDecoration(2, 20, false));
-        mRvKbisVideo.setHasFixedSize(true);
-        mRvKbisVideo.setItemAnimator(new DefaultItemAnimator());
-        mRvKbisVideo.setNestedScrollingEnabled(false);
+        mRvKbisVideo.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        SpacesItemDecoration decoration = new SpacesItemDecoration(15);
+        mRvKbisVideo.addItemDecoration(decoration);
+
+        //        mRvKbisVideo.addItemDecoration(new GridSpacingItemDecoration(2, 20, false));
+        //        mRvKbisVideo.setItemAnimator(new DefaultItemAnimator());
+        //        mRvKbisVideo.setNestedScrollingEnabled(false);
     }
 
     @Override
@@ -73,7 +71,7 @@ public class KbisVideoFragment extends BaseFragment implements BaseQuickAdapter.
 
                         mKbisVideoAdapter = new KbisVideoAdapter(mKbisVideoBean);
                         mRvKbisVideo.setAdapter(mKbisVideoAdapter);
-                        mKbisVideoAdapter.setOnItemChildClickListener(KbisVideoFragment.this);
+                        //                        mKbisVideoAdapter.setOnItemChildClickListener(KbisVideoFragment.this);
                     }
                 });
     }

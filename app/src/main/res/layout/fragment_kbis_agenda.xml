@@ -10,6 +10,5 @@
         android:id="@+id/rv_kbis_agenda"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/y168"
-        android:layout_marginTop="@dimen/y24" />
+        android:layout_marginBottom="@dimen/y168" />
 </LinearLayout>

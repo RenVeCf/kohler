@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -16,6 +17,7 @@ import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.utils.ToastUtil;
 import com.mengyang.kohler.common.view.GridSpacingItemDecoration;
+import com.mengyang.kohler.common.view.SpacesItemDecoration;
 import com.mengyang.kohler.home.activity.WeeklyRadioConcertActivity;
 import com.mengyang.kohler.home.adapter.KbisPdfAdapter;
 import com.mengyang.kohler.home.adapter.KbisPhotoAdapter;
@@ -45,12 +47,11 @@ public class KbisPhotoFragment extends BaseFragment implements BaseQuickAdapter.
 
     @Override
     protected void initValues() {
-        GridLayoutManager layoutManagerActivity = new GridLayoutManager(App.getContext(), 2);
+        StaggeredGridLayoutManager layoutManagerActivity = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+//        layoutManagerActivity.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
         mRvKbisPhoto.setLayoutManager(layoutManagerActivity);
-        mRvKbisPhoto.addItemDecoration(new GridSpacingItemDecoration(2, 20, false));
-        mRvKbisPhoto.setHasFixedSize(true);
-        mRvKbisPhoto.setItemAnimator(new DefaultItemAnimator());
-        mRvKbisPhoto.setNestedScrollingEnabled(false);
+        SpacesItemDecoration decoration = new SpacesItemDecoration(15);
+        mRvKbisPhoto.addItemDecoration(decoration);
     }
 
     @Override

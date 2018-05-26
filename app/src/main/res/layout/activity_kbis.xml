@@ -31,6 +31,7 @@
         android:id="@+id/vp_kbis"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/y96"
         android:layout_marginStart="@dimen/x72"
         android:layout_marginEnd="@dimen/x72" />
 </LinearLayout>

@@ -2,6 +2,8 @@ package com.mengyang.kohler.home.adapter;
 
 import android.support.annotation.Nullable;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -28,23 +30,25 @@ public class KbisPhotoAdapter extends BaseQuickAdapter<KbisBean.PhotoListBean, B
 
     @Override
     protected void convert(BaseViewHolder helper, KbisBean.PhotoListBean item) {
-        int position = helper.getAdapterPosition();
-
-        if (position % 2 == 1) {
-            helper.setVisible(R.id.tv_kbis_photo_des_top, true);
-            helper.setVisible(R.id.tv_kbis_photo_des_down, false);
-
-            helper.setText(R.id.tv_kbis_photo_des_top, item.getElementDesc());
+        int position = helper.getLayoutPosition();
+        Glide.with(App.getContext()).load(item.getKvUrl()).into((ImageView) helper.getView(R.id.iv_kbis_photo));
+        TextView tvKbisPhotoDes = helper.getView(R.id.tv_kbis_photo_des_top);
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) tvKbisPhotoDes.getLayoutParams();
+        if (position % 4 == 0) {
+            params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+            params.addRule(RelativeLayout.ALIGN_PARENT_START);
+            params.setMargins(10, 0, 0, 20);
+        } else if (position % 2 != 0) {
+            params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+            params.addRule(RelativeLayout.ALIGN_PARENT_START);
+            params.setMargins(10, 10, 0, 0);
         } else {
-            helper.setVisible(R.id.tv_kbis_photo_des_down, true);
-            helper.setVisible(R.id.tv_kbis_photo_des_top, false);
-
-            helper.setText(R.id.tv_kbis_photo_des_down, item.getElementDesc());
+            params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+            params.addRule(RelativeLayout.ALIGN_PARENT_END);
+            params.setMargins(0, 10, 10, 0);
         }
-
-        Glide.with(App.getContext()).load(item.getKvUrl()).apply(new RequestOptions().placeholder(R.mipmap.queshengtu)).into((ImageView) helper.getView(R.id.iv_kbis_photo));
-
+        tvKbisPhotoDes.setLayoutParams(params);
+        helper.setText(R.id.tv_kbis_photo_des_top, item.getElementDesc());
         helper.addOnClickListener(R.id.iv_kbis_photo);
-        helper.addOnClickListener(R.id.rl_body_photo);
-        }
+    }
 }

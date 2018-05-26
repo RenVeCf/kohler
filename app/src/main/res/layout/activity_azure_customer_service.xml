@@ -47,7 +47,6 @@
             android:layout_marginLeft="@dimen/x24"
             android:layout_weight="1"
             android:background="@drawable/shape_bg_service"
-            android:drawableStart="@mipmap/azure_service_sound_bt"
             android:paddingStart="@dimen/x36"
             android:textColor="@color/white" />
 

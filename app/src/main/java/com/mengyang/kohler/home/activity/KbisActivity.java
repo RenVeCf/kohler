@@ -2,6 +2,7 @@ package com.mengyang.kohler.home.activity;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.widget.ImageView;
 
 import com.allyes.analytics.AIOAnalytics;
 import com.gyf.barlibrary.ImmersionBar;
@@ -34,6 +35,8 @@ public class KbisActivity extends BaseActivity {
 
     @BindView(R.id.tv_kbis_top)
     TopView tvKbisTop;
+    @BindView(R.id.iv_top_back)
+    ImageView ivTopBack;
     @BindView(R.id.nfsl_kbis)
     NavitationFollowScrollLayoutIonic nfslKbis;
     @BindView(R.id.vp_kbis)
@@ -52,18 +55,21 @@ public class KbisActivity extends BaseActivity {
     @Override
     protected void initValues() {
         App.getManager().addActivity(this);
+        //沉浸式状态栏初始化白色
+        ImmersionBar.with(this).fitsSystemWindows(false).statusBarDarkFont(false).init();
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(this, tvKbisTop);
         MobclickAgent.onEvent(KbisActivity.this, "shanghai_chu_wei_zhan");
+        ivTopBack.setImageResource(R.mipmap.fanhuibai);
 
         fragments = new ArrayList<>();
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), fragments);
         vpKbis.setAdapter(viewPagerAdapter);
         vpKbis.setOffscreenPageLimit(2);
 
-        nfslKbis.setViewPager(KbisActivity.this, titles, vpKbis, unselectedcolor, setectedcolor, 24, true, R.color.black, 10f, 10f, 10f, 73);
-        nfslKbis.setBgLine(KbisActivity.this, 1, R.color.black);
-        nfslKbis.setNavLine(KbisActivity.this, 2, R.color.black);
+        nfslKbis.setViewPager(KbisActivity.this, titles, vpKbis, unselectedcolor, setectedcolor, 24, true, 2.5f, 10f, 10f, 90);
+        nfslKbis.setBgLine(KbisActivity.this, 1);
+        nfslKbis.setNavLine(KbisActivity.this, 2);
 
         //导览图
         KbisGuideMapFragment kbisGuideMapFragment = new KbisGuideMapFragment();

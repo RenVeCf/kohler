@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -17,6 +18,8 @@ import com.github.chrisbanes.photoview.PhotoView;
 import com.github.chrisbanes.photoview.PhotoViewAttacher;
 import com.mengyang.kohler.BaseFragment;
 import com.mengyang.kohler.R;
+import com.mengyang.kohler.common.utils.DisplayUtils;
+import com.mengyang.kohler.common.utils.LogUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,6 +80,7 @@ public class KbisGuideMapFragment extends BaseFragment implements OnPhotoTapList
     private PhotoViewAttacher mAttacher5;
     private PopupWindow mPopupWindow;
     private PhotoViewAttacher mAttacher0;
+    private LinearLayout mLlGuidemapPop;
 
     @Override
     protected int getLayoutId() {
@@ -102,7 +106,7 @@ public class KbisGuideMapFragment extends BaseFragment implements OnPhotoTapList
         mAttacher5.setOnPhotoTapListener(this);
 
         //        mPhotoView.setZoomable(false);
-        mAttacher.setZoomable(false);
+//        mAttacher.setZoomable(false);
         mAttacher0.setZoomable(false);
         mAttacher1.setZoomable(false);
         mAttacher2.setZoomable(false);
@@ -111,13 +115,21 @@ public class KbisGuideMapFragment extends BaseFragment implements OnPhotoTapList
         mAttacher5.setZoomable(false);
 
         mPopupWindow = new PopupWindow(KbisGuideMapFragment.this.getActivity());
-        mPopupWindow.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
+        mPopupWindow.setWidth(DisplayUtils.getScreenWidth(getActivity()) / 2 + DisplayUtils.getScreenWidth(getActivity()) / 10 * 2);
         mPopupWindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
         View view = LayoutInflater.from(KbisGuideMapFragment.this.getActivity()).inflate(R.layout.item_pop, null);
         mPopupWindow.setContentView(view);
-        mPopupWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));
-        mPopupWindow.setOutsideTouchable(false);
+        mPopupWindow.setBackgroundDrawable(getResources().getDrawable(R.mipmap.guide));
+        mPopupWindow.setTouchable(true);
         mPopupWindow.setFocusable(true);
+        mPopupWindow.setOutsideTouchable(true);
+        mLlGuidemapPop = (LinearLayout) view.findViewById(R.id.ll_guidemap_pop);
+        mLlGuidemapPop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPopupWindow.dismiss();
+            }
+        });
 
         mIvTopTitle = (ImageView) view.findViewById(R.id.iv_top_title);
         mTvNum1 = (TextView) view.findViewById(R.id.tv_num1);

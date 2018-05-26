@@ -177,4 +177,12 @@ public class AzureBotAnswerQuestionBean {
             }
         }
     }
+
+    @Override
+    public String toString() {
+        return "AzureBotAnswerQuestionBean{" +
+                "watermark='" + watermark + '\'' +
+                ", activities=" + activities +
+                '}';
+    }
 }
