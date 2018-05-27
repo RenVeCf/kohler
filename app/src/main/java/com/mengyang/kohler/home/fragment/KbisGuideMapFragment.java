@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
@@ -119,10 +120,9 @@ public class KbisGuideMapFragment extends BaseFragment implements OnPhotoTapList
         View view = LayoutInflater.from(KbisGuideMapFragment.this.getActivity()).inflate(R.layout.item_pop, null);
         mPopupWindow.setContentView(view);
         mPopupWindow.setBackgroundDrawable(getResources().getDrawable(R.mipmap.guide));
-        mPopupWindow.setTouchable(true);
-        mPopupWindow.setFocusable(true);
-        mPopupWindow.setOutsideTouchable(true);
+        mPopupWindow.setOutsideTouchable(false);
         mLlGuidemapPop = (LinearLayout) view.findViewById(R.id.ll_guidemap_pop);
+
         mLlGuidemapPop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -149,6 +149,12 @@ public class KbisGuideMapFragment extends BaseFragment implements OnPhotoTapList
 
     @Override
     public void onPhotoTap(ImageView view, float x, float y) {
+        if (mPopupWindow != null) {
+            if (!mPopupWindow.isOutsideTouchable() && mPopupWindow.isShowing()) {
+                return;
+            }
+        }
+
         mPhotoViewShadow.setVisibility(View.GONE);
         mYList.add(y + "");
         mXList.add(x + "");
