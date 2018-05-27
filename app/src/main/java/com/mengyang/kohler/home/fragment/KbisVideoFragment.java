@@ -43,10 +43,6 @@ public class KbisVideoFragment extends BaseFragment implements BaseQuickAdapter.
         mRvKbisVideo.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         SpacesItemDecoration decoration = new SpacesItemDecoration(15);
         mRvKbisVideo.addItemDecoration(decoration);
-
-        //        mRvKbisVideo.addItemDecoration(new GridSpacingItemDecoration(2, 20, false));
-        //        mRvKbisVideo.setItemAnimator(new DefaultItemAnimator());
-        //        mRvKbisVideo.setNestedScrollingEnabled(false);
     }
 
     @Override

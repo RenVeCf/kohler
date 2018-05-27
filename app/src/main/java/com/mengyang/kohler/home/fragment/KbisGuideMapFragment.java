@@ -68,7 +68,6 @@ public class KbisGuideMapFragment extends BaseFragment implements OnPhotoTapList
     private TextView mTvNum2;
     private TextView mTvNum3;
 
-
     private PhotoViewAttacher mAttacher;
 
     List<String> mYList = new ArrayList<>();

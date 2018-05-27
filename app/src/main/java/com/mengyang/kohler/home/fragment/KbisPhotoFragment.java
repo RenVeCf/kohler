@@ -47,11 +47,8 @@ public class KbisPhotoFragment extends BaseFragment implements BaseQuickAdapter.
 
     @Override
     protected void initValues() {
-        StaggeredGridLayoutManager layoutManagerActivity = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-//        layoutManagerActivity.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
+        final StaggeredGridLayoutManager layoutManagerActivity = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mRvKbisPhoto.setLayoutManager(layoutManagerActivity);
-        SpacesItemDecoration decoration = new SpacesItemDecoration(15);
-        mRvKbisPhoto.addItemDecoration(decoration);
     }
 
     @Override

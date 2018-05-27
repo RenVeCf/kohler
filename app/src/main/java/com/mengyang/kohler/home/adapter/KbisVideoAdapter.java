@@ -29,10 +29,9 @@ public class KbisVideoAdapter extends BaseQuickAdapter<KbisBean.VideoListBean, B
 
     @Override
     protected void convert(BaseViewHolder helper, KbisBean.VideoListBean item) {
+        Glide.with(App.getContext()).load(item.getKvUrl()).into((ImageView) helper.getView(R.id.iv_kbis));
         helper.setText(R.id.tv_kbis_play_title, item.getTitle())
                 .setText(R.id.tv_kbis_play_des, item.getElementDesc());
-
-        Glide.with(App.getContext()).load(item.getKvUrl()).into((ImageView) helper.getView(R.id.iv_kbis));
 
         helper.addOnClickListener(R.id.iv_kbis);
         helper.addOnClickListener(R.id.iv_kbis_play);

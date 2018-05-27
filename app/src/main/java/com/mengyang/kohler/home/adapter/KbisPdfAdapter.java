@@ -29,6 +29,8 @@ public class KbisPdfAdapter extends BaseQuickAdapter<KbisBean.PdfListBean, BaseV
 
     @Override
     protected void convert(BaseViewHolder helper, KbisBean.PdfListBean item) {
+        Glide.with(App.getContext()).load(item.getKvUrl()).into((ImageView) helper.getView(R.id.iv_kbis_pdf_bg));
+
         LinearLayout llKbisPdf = helper.getView(R.id.ll_kbis_pdf);
         RelativeLayout.LayoutParams params_2 = (RelativeLayout.LayoutParams) llKbisPdf.getLayoutParams();
 
@@ -40,7 +42,7 @@ public class KbisPdfAdapter extends BaseQuickAdapter<KbisBean.PdfListBean, BaseV
             params_2.setMargins(0, 0, 0, 20);
         }
         llKbisPdf.setLayoutParams(params_2);
-        Glide.with(App.getContext()).load(item.getKvUrl()).into((ImageView) helper.getView(R.id.iv_kbis_pdf_bg));
+
         helper.setText(R.id.tv_kbis_pdf_title, item.getTitle())
                 .setText(R.id.tv_kbis_pdf_name, item.getElementDesc())
                 .addOnClickListener(R.id.iv_kbis_pdf_bg)
