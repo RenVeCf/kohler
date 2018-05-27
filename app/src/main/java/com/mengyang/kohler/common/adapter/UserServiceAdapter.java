@@ -42,6 +42,8 @@ public class UserServiceAdapter extends BaseMultiItemQuickAdapter<QuestionSearch
         addItemType(0, R.layout.item_service_company);  //必须设置Item类型,否则空职指针异常
         addItemType(1, R.layout.item_service_user);
         addItemType(3, R.layout.item_service_company_head);
+
+//        addItemType(3, R.layout.item_service_product);//展示产品介绍条目
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
