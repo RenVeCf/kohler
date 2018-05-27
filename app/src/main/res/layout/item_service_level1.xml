@@ -9,8 +9,7 @@
     android:paddingLeft="@dimen/x48"
     android:paddingRight="@dimen/x48">
 
-    <RelativeLayout
-        android:id="@+id/rl_item"
+<!--    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/y150">
 
@@ -44,9 +43,9 @@
 
     </RelativeLayout>
 
-    <include layout="@layout/line_full"/>
+    <include layout="@layout/line_full"/>-->
 
-<!--    <LinearLayout
+    <LinearLayout
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -56,6 +55,7 @@
             android:layout_height="@dimen/y120">
 
             <TextView
+                android:id="@+id/tv_content"
                 android:paddingLeft="@dimen/x54"
                 android:textSize="12sp"
                 android:layout_width="wrap_content"
@@ -68,5 +68,5 @@
         </RelativeLayout>
 
         <include layout="@layout/line_full"/>
-    </LinearLayout>-->
+    </LinearLayout>
 </LinearLayout>

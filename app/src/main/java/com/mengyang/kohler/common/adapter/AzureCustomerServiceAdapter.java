@@ -23,9 +23,13 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.activity.ReservationExperienceActivity;
+import com.mengyang.kohler.common.entity.Level0Item;
+import com.mengyang.kohler.common.entity.Level1Item;
+import com.mengyang.kohler.common.entity.TextBean;
 import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
@@ -40,7 +44,12 @@ import java.util.List;
  * Created by liusong on 2018/2/9.
  */
 
-public class AzureCustomerServiceAdapter extends BaseMultiItemQuickAdapter<QuestionSearchBean, BaseViewHolder> {
+public class AzureCustomerServiceAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, BaseViewHolder> {
+
+    public static final int TYPE_LEVEL_0 = 0;
+    public static final int TYPE_LEVEL_1 = 1;
+    public static final int TYPE_TEXT = 2;
+    public static final int TYPE_PRODUCT = 3;
 
     private SimpleDateFormat mDateformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private int mHour;
@@ -51,77 +60,55 @@ public class AzureCustomerServiceAdapter extends BaseMultiItemQuickAdapter<Quest
      *
      * @param data A new list is created out of this one to avoid mutable list
      */
-    public AzureCustomerServiceAdapter(List<QuestionSearchBean> data) {
+    public AzureCustomerServiceAdapter(List<MultiItemEntity> data) {
         super(data);
-        addItemType(0, R.layout.item_azure_service_company); //必须设置Item类型,否则空职指针异常
-        addItemType(1, R.layout.item_azure_service_user);
-        addItemType(3, R.layout.item_azure_service_company_head);
-        addItemType(2, R.layout.azure_bot_list_item_parent);
+        addItemType(TYPE_LEVEL_0, R.layout.item_service_modify);
+        addItemType(TYPE_LEVEL_1, R.layout.item_service_level1);
+        addItemType(TYPE_TEXT, R.layout.item_azure_service_company_head); //必须设置Item类型,否则空职指针异常
+        addItemType(TYPE_PRODUCT, R.layout.item_service_product);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
-    protected void convert(final BaseViewHolder helper, QuestionSearchBean item) {
+    protected void convert(final BaseViewHolder helper, final MultiItemEntity item) {
         switch (item.getItemType()) {
-            case 0://客服
-               /* helper.setText(R.id.tv_serviec_user, "客服小科")
-                        .setText(R.id.tv_service_time, parseTiem())
-                        .setText(R.id.tv_service_message, item.getDescription());
+            case TYPE_LEVEL_0://客服
+                final Level0Item level0Item = (Level0Item) item;
+                helper.setText(R.id.tv_service_list_top_01, level0Item.getParrentLeft());
+                    helper.setText(R.id.tv_service_list_top_02, level0Item.getParrentRight());
+                    helper.setOnClickListener(R.id.rl_item, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            int position = helper.getAdapterPosition();
+                            if (level0Item.isExpanded()) {
+                                collapse(position);
+                            } else {
+                                expand(position);
+                            }
+                        }
+                    });
+                break;
+            case TYPE_LEVEL_1: //用户
+                final Level1Item level0Item1 = (Level1Item) item;
+                helper.setText(R.id.tv_content, level0Item1.getContent());
+                break;
+            case TYPE_TEXT://标题:
+                final TextBean textBean = (TextBean) item;
+                helper.setText(R.id.tv_serviec_user, "客服小科")
+                        .setText(R.id.tv_service_time, parseTiem());
+
+                if (textBean.getDescription() != null) {
+                    helper.setText(R.id.tv_service_message, textBean.getDescription());
+                }
+
                 //                helper.setText(R.id.tv_service_list, item.getH5Url());
                 if (mHour >= 0 && mHour < 12) {
                     helper.setText(R.id.tv_flag, "AM");
                 } else {
                     helper.setText(R.id.tv_flag, "PM");
-                }*/
-                break;
-            case 1: //用户
-              /*  helper.setText(R.id.tv_serviec_user_name, (String) SPUtil.get(App.getContext(), IConstants.USER_NIKE_NAME, ""))
-                        .setText(R.id.tv_service_time, parseTiem())
-                        .setText(R.id.tv_service_message, item.getDescription());
-                //设置头像
-                Glide.with(App.getContext()).load(SPUtil.get(App.getContext(), IConstants.USER_HEAD_PORTRAIT, ""))
-                        .apply(new RequestOptions().placeholder(R.mipmap.azure_service_photo_w)).into((ImageView) helper.getView(R.id.iv_service_photo));
-
-                if (mHour >= 0 && mHour < 12) {
-                    helper.setText(R.id.tv_flag, "AM");
-                } else {
-                    helper.setText(R.id.tv_flag, "PM");
-                }*/
-                break;
-            case 3://标题:
-                QuestionSearchBean.QuestionSearch questionSearch = item.getQuestionSearch();
-                LogUtils.i("rmy", "item.getDescription() = " + questionSearch.getDescription());
-
-                if (questionSearch.getDescription().equals("还可以进入科勒预约系统进行门店查询和预约点击进入 或 返回")) {
-                    helper.setText(R.id.tv_serviec_user, "客服小科")
-                            .setText(R.id.tv_service_time, parseTiem());
-                    TextView textView = helper.getView(R.id.tv_service_message);
-                    textView.setText(getClickableSpan());
-                    textView.setMovementMethod(LinkMovementMethod.getInstance());
-                    if (mHour >= 0 && mHour < 12) {
-                        helper.setText(R.id.tv_flag, "AM");
-                    } else {
-                        helper.setText(R.id.tv_flag, "PM");
-                    }
-                } else {
-                    helper.setText(R.id.tv_serviec_user, "客服小科")
-                            .setText(R.id.tv_service_time, parseTiem())
-                            .setText(R.id.tv_service_message, questionSearch.getDescription());
-                    if (mHour >= 0 && mHour < 12) {
-                        helper.setText(R.id.tv_flag, "AM");
-                    } else {
-                        helper.setText(R.id.tv_flag, "PM");
-                    }
                 }
                 break;
-            case 2:
-                for (int i = 0; i < item.getListItem().size(); i++) {
-                    helper.setText(R.id.tv_azure_bot_parent_start, item.getListItem().get(i).getParentLeft());
-                    helper.setText(R.id.tv_azure_bot_parent_end, item.getListItem().get(i).getParentRight());
-                }
-
-                LinearLayout view = helper.getView(R.id.ll_azure_bot_parent_container);
-//                view.addView();
+            case TYPE_PRODUCT:
 
                 break;
             default:

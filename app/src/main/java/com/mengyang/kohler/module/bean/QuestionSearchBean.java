@@ -1,6 +1,8 @@
 package com.mengyang.kohler.module.bean;
 
+import com.chad.library.adapter.base.entity.AbstractExpandableItem;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
+import com.mengyang.kohler.common.entity.Level1Item;
 
 import java.util.List;
 
@@ -92,12 +94,16 @@ public class QuestionSearchBean  implements MultiItemEntity{
         }
     }
 
-    public static class ListItem  implements MultiItemEntity{
+    public static class ListItem extends AbstractExpandableItem<ListItem.ListItemChild> implements MultiItemEntity{
         private int itemType;
         private String parentLeft;
         private String parentRight;
-
         private List<ListItemChild> listItemChild;
+
+        @Override
+        public int getLevel() {
+            return 0;
+        }
 
         public List<ListItemChild> getListItemChild() {
             return listItemChild;

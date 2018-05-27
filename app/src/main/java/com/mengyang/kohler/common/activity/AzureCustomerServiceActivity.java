@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.google.gson.Gson;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.App;
@@ -17,6 +18,9 @@ import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.adapter.AzureBotListAdapter;
 import com.mengyang.kohler.common.adapter.AzureCustomerServiceAdapter;
 import com.mengyang.kohler.common.adapter.DataBean;
+import com.mengyang.kohler.common.entity.Level0Item;
+import com.mengyang.kohler.common.entity.Level1Item;
+import com.mengyang.kohler.common.entity.TextBean;
 import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.ToastUtil;
 import com.mengyang.kohler.common.view.TopView;
@@ -29,6 +33,7 @@ import com.mengyang.kohler.module.bean.AzureBotSendMsgBean;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -62,12 +67,6 @@ public class AzureCustomerServiceActivity extends BaseActivity {
     private static final String HEADER_KEY = "Authorization";
     private static final String HEADER_VALUE = "Bearer yTlSJIGr5Ak.cwA.k1Y.hD-eSE5mXqmXFNzB6TX_LI4qqD_TyCPQYOqEK2Lnk68";
 
-    private List<QuestionSearchBean> mDataList = new ArrayList<>();
-    QuestionSearchBean mQuestionSearchBean = new QuestionSearchBean(3);
-    QuestionSearchBean mQuestionSearchBean2 = new QuestionSearchBean(3);
-    QuestionSearchBean mQuestionSearchBean3 = new QuestionSearchBean(2);
-    List<QuestionSearchBean.ListItem.ListItemChild> mListItemChildList = new ArrayList<>();
-    List<QuestionSearchBean.ListItem> mListItemList = new ArrayList<>();
     private String mQuestionContent;
     private AzureCustomerServiceAdapter mUserServiceAdapter;
 
@@ -77,10 +76,7 @@ public class AzureCustomerServiceActivity extends BaseActivity {
     private AzureBotStartBean mAzureBotStartBean;
 
         private AzureBotListAdapter mAzureBotListAdapter;
-        private List<DataBean> dataBeanList;
         private DataBean mDataBean;
-    private QuestionSearchBean.ListItem mListItem;
-    private QuestionSearchBean.ListItem.ListItemChild mListItemChild;
 
     @Override
     protected int getLayoutId() {
@@ -99,49 +95,9 @@ public class AzureCustomerServiceActivity extends BaseActivity {
     }
 
     private void initAdapter() {
-//                dataBeanList = new ArrayList<>();
-
-        mQuestionSearchBean.setQuestionSearch(new QuestionSearchBean.QuestionSearch("Hi～我是科勒客服，需要咨询科勒产品吗，请在对话框输入尝试一下我们的Click to Chat？", 3));
-        mDataList.add(mQuestionSearchBean);
-
-
-                for (int i = 1; i <= 3; i++) {
-
-                    mListItem = new QuestionSearchBean.ListItem(2);
-                    mListItem.setParentLeft("父--" + i);
-                    mListItem.setParentRight("父内容--" + i);
-
-
-                    mListItemChild = new QuestionSearchBean.ListItem.ListItemChild();
-                    mListItemChild.setItemChildContent("123456");
-                    mListItemChildList.add(mListItemChild);
-                    mListItem.setListItemChild(mListItemChildList);
-                    mListItemList.add(mListItem);
-
-
-                   /* mDataBean = new DataBean();
-                    mDataBean.setID(i + "");
-                    mDataBean.setType(2);
-                    mDataBean.setParentLeftTxt("父--" + i);
-                    mDataBean.setParentRightTxt("父内容--" + i);
-                    mDataBean.setChildLeftTxt("子--" + i);
-                    mDataBean.setChildRightTxt("子内容--" + i);
-                    mDataBean.setChildBean(mDataBean);
-                    dataBeanList.add(mDataBean);*/
-                }
-
-        mQuestionSearchBean3.setListItem(mListItemList);
-        mDataList.add(mQuestionSearchBean3);
-
         rvAzureBot.setLayoutManager(new LinearLayoutManager(this));
-
-        mQuestionSearchBean2.setQuestionSearch(new QuestionSearchBean.QuestionSearch("还可以进入科勒预约系统进行门店查询和预约点击进入 或 返回", 3));
-        mDataList.add(mQuestionSearchBean2);
-        mUserServiceAdapter = new AzureCustomerServiceAdapter(mDataList);
+        mUserServiceAdapter = new AzureCustomerServiceAdapter(generateData());
         rvAzureBot.setAdapter(mUserServiceAdapter);
-
-//                mAzureBotListAdapter = new AzureBotListAdapter(this, dataBeanList);
-//                rvAzureBot.setAdapter(mAzureBotListAdapter);
     }
 
     @Override
@@ -261,5 +217,28 @@ public class AzureCustomerServiceActivity extends BaseActivity {
                 });
             }
         });
+    }
+
+    private ArrayList<MultiItemEntity> generateData() {
+        int lv0Count = 2;
+        int lv1Count = 3;
+        int personCount = 5;
+
+        ArrayList<MultiItemEntity> res = new ArrayList<>();
+        TextBean textBean = new TextBean("Hi～我是科勒客服，需要咨询科勒产品吗，请在对话框输入尝试一下我们的Click to Chat？");
+        res.add(textBean);
+
+        for (int i = 0; i <= lv0Count; i++) {
+            Level0Item lv0 = new Level0Item("【修改配送信息】", "（地址，电话，联系人）");
+            for (int j = 0; j < lv1Count; j++) {
+                Level1Item lv1 = new Level1Item("更改配送时间？" + j);
+                lv0.addSubItem(lv1);
+            }
+            res.add(lv0);
+        }
+
+        TextBean textBean2 = new TextBean("666666666666666666666");
+        res.add(textBean2);
+        return res;
     }
 }
