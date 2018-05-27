@@ -52,14 +52,14 @@ public class AzureCustomerServiceAdapter extends BaseMultiItemQuickAdapter<Quest
      */
     public AzureCustomerServiceAdapter(List<QuestionSearchBean> data) {
         super(data);
-        addItemType(0, R.layout.item_azure_service_company);  //必须设置Item类型,否则空职指针异常
+        addItemType(0, R.layout.item_azure_service_company); //必须设置Item类型,否则空职指针异常
         addItemType(1, R.layout.item_azure_service_user);
         addItemType(3, R.layout.item_azure_service_company_head);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
-    protected void convert(BaseViewHolder helper, QuestionSearchBean item) {
+    protected void convert(final BaseViewHolder helper, QuestionSearchBean item) {
         switch (item.getItemType()) {
             case 0://客服
                 helper.setText(R.id.tv_serviec_user, "客服小科")

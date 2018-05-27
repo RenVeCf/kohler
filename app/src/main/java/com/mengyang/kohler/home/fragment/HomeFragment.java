@@ -51,6 +51,7 @@ import com.mengyang.kohler.common.utils.DateUtils;
 import com.mengyang.kohler.common.utils.FileUtil;
 import com.mengyang.kohler.common.utils.FileUtils;
 import com.mengyang.kohler.common.utils.JsonUtils;
+import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.utils.ToastUtil;
 import com.mengyang.kohler.common.utils.VerifyUtils;
@@ -223,6 +224,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
         //        } else {
         ivTopCustomerService.setVisibility(View.GONE);
         //        }
+
         //轮播
         abHomeLoop.measure(0, 0);
         // 设置管理器

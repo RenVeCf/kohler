@@ -429,4 +429,13 @@ public class StringUtils {
         }
         return sb.toString();
     }
+
+    /**
+     * 截取两个字符中的内容
+     *
+     */
+    public static String identical (String str, String first, String last) {
+        str.substring(str.indexOf(first) + 1, str.lastIndexOf(last));
+        return str;
+    }
 }

@@ -14,7 +14,10 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
+import com.mengyang.kohler.common.adapter.AzureBotListAdapter;
 import com.mengyang.kohler.common.adapter.AzureCustomerServiceAdapter;
+import com.mengyang.kohler.common.adapter.DataBean;
+import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.ToastUtil;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.module.bean.AzureBotAnswerQuestionBean;
@@ -68,6 +71,10 @@ public class AzureCustomerServiceActivity extends BaseActivity {
     private static final String REQUEST = "/activities";
     private AzureBotStartBean mAzureBotStartBean;
 
+        private AzureBotListAdapter mAzureBotListAdapter;
+        private List<DataBean> dataBeanList;
+        private DataBean mDataBean;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_azure_customer_service;
@@ -85,11 +92,26 @@ public class AzureCustomerServiceActivity extends BaseActivity {
     }
 
     private void initAdapter() {
+                dataBeanList = new ArrayList<>();
+                for (int i = 1; i <= 3; i++) {
+                    mDataBean = new DataBean();
+                    mDataBean.setID(i + "");
+                    mDataBean.setType(0);
+                    mDataBean.setParentLeftTxt("父--" + i);
+                    mDataBean.setParentRightTxt("父内容--" + i);
+                    mDataBean.setChildLeftTxt("子--" + i);
+                    mDataBean.setChildRightTxt("子内容--" + i);
+                    mDataBean.setChildBean(mDataBean);
+                    dataBeanList.add(mDataBean);
+                }
         rvAzureBot.setLayoutManager(new LinearLayoutManager(this));
         mDataList.add(new QuestionSearchBean("Hi～我是科勒客服，需要咨询科勒产品吗，请在对话框输入尝试一下我们的Click to Chat？", 3));
         mDataList.add(new QuestionSearchBean("还可以进入科勒预约系统进行门店查询和预约点击进入 或 返回", 3));
         mUserServiceAdapter = new AzureCustomerServiceAdapter(mDataList);
         rvAzureBot.setAdapter(mUserServiceAdapter);
+
+                mAzureBotListAdapter = new AzureBotListAdapter(this, dataBeanList);
+                rvAzureBot.setAdapter(mAzureBotListAdapter);
     }
 
     @Override
@@ -101,6 +123,13 @@ public class AzureCustomerServiceActivity extends BaseActivity {
                 return false;
             }
         });
+                //滚动监听
+                mAzureBotListAdapter.setOnScrollListener(new AzureBotListAdapter.OnScrollListener() {
+                    @Override
+                    public void scrollTo(int pos) {
+                        rvAzureBot.scrollToPosition(pos);
+                    }
+                });
     }
 
     @Override

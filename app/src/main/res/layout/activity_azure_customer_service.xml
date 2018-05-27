@@ -28,6 +28,62 @@
         android:layout_marginTop="@dimen/y45"
         android:layout_weight="1" />
 
+    <com.mengyang.kohler.common.view.BounceScrollView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y130"
+        android:paddingBottom="@dimen/y24"
+        android:paddingEnd="@dimen/x60"
+        android:paddingStart="@dimen/x60"
+        android:scrollbars="none">
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/x54"
+                android:background="@drawable/black_circular_foursquare_bt_bg"
+                android:button="@null"
+                android:gravity="center"
+                android:paddingBottom="@dimen/y27"
+                android:paddingEnd="@dimen/x60"
+                android:paddingStart="@dimen/x60"
+                android:paddingTop="@dimen/y27"
+                android:text="售前问题"
+                android:textColor="@color/white" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/x54"
+                android:background="@drawable/black_circular_foursquare_bt_bg"
+                android:button="@null"
+                android:gravity="center"
+                android:paddingBottom="@dimen/y27"
+                android:paddingEnd="@dimen/x60"
+                android:paddingStart="@dimen/x60"
+                android:paddingTop="@dimen/y27"
+                android:text="售后问题"
+                android:textColor="@color/white" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/black_circular_foursquare_bt_bg"
+                android:button="@null"
+                android:gravity="center"
+                android:paddingBottom="@dimen/y27"
+                android:paddingEnd="@dimen/x60"
+                android:paddingStart="@dimen/x60"
+                android:paddingTop="@dimen/y27"
+                android:text="产品SKU"
+                android:textColor="@color/white" />
+        </RadioGroup>
+    </com.mengyang.kohler.common.view.BounceScrollView>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
@@ -60,5 +116,4 @@
             android:text="@string/send_out"
             android:textColor="@color/white" />
     </LinearLayout>
-
 </LinearLayout>
