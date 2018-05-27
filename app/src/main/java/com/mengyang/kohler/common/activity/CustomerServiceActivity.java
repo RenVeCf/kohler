@@ -65,7 +65,7 @@ public class CustomerServiceActivity extends BaseActivity {
 
     private void initAdapter() {
         mRecyclerViewService.setLayoutManager(new LinearLayoutManager(this));
-        mDataList.add(new QuestionSearchBean("您好 我的是科勒机器人客服，请输入您的姓名来搜索桌号", 3));
+//        mDataList.add(new QuestionSearchBean("您好 我的是科勒机器人客服，请输入您的姓名来搜索桌号", 3));
         mUserServiceAdapter = new UserServiceAdapter(mDataList);
         mRecyclerViewService.setAdapter(mUserServiceAdapter);
     }
@@ -99,8 +99,8 @@ public class CustomerServiceActivity extends BaseActivity {
                 mEtQuestion.setFocusable(true);
 
                 if (!TextUtils.isEmpty(mQuestionContent)) {
-                    QuestionSearchBean questionSearchBean = new QuestionSearchBean(mQuestionContent, 1);
-                    mUserServiceAdapter.addData(questionSearchBean);
+//                    QuestionSearchBean questionSearchBean = new QuestionSearchBean(mQuestionContent, 1);
+//                    mUserServiceAdapter.addData(questionSearchBean);
                     searchQuestion(mQuestionContent);
                 } else {
                     ToastUtil.showToast("输入内容不能为空");
@@ -124,7 +124,7 @@ public class CustomerServiceActivity extends BaseActivity {
                 .subscribe(new DefaultObserver<BasicResponse<QuestionSearchBean>>(this, false) {
                     @Override
                     public void onSuccess(final BasicResponse<QuestionSearchBean> response) {
-                        QuestionSearchBean questionSearchBean = new QuestionSearchBean("", 0);
+                       /* QuestionSearchBean questionSearchBean = new QuestionSearchBean("", 0);
                         if (response.getData() != null) {
                             questionSearchBean = response.getData();
                             mUserServiceAdapter.addData(questionSearchBean);
@@ -141,7 +141,7 @@ public class CustomerServiceActivity extends BaseActivity {
                                     }
                                 }
                             });
-                        }
+                        }*/
                     }
                 });
     }

@@ -15,6 +15,7 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,6 +56,7 @@ public class AzureCustomerServiceAdapter extends BaseMultiItemQuickAdapter<Quest
         addItemType(0, R.layout.item_azure_service_company); //必须设置Item类型,否则空职指针异常
         addItemType(1, R.layout.item_azure_service_user);
         addItemType(3, R.layout.item_azure_service_company_head);
+        addItemType(2, R.layout.azure_bot_list_item_parent);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -62,7 +64,7 @@ public class AzureCustomerServiceAdapter extends BaseMultiItemQuickAdapter<Quest
     protected void convert(final BaseViewHolder helper, QuestionSearchBean item) {
         switch (item.getItemType()) {
             case 0://客服
-                helper.setText(R.id.tv_serviec_user, "客服小科")
+               /* helper.setText(R.id.tv_serviec_user, "客服小科")
                         .setText(R.id.tv_service_time, parseTiem())
                         .setText(R.id.tv_service_message, item.getDescription());
                 //                helper.setText(R.id.tv_service_list, item.getH5Url());
@@ -70,10 +72,10 @@ public class AzureCustomerServiceAdapter extends BaseMultiItemQuickAdapter<Quest
                     helper.setText(R.id.tv_flag, "AM");
                 } else {
                     helper.setText(R.id.tv_flag, "PM");
-                }
+                }*/
                 break;
             case 1: //用户
-                helper.setText(R.id.tv_serviec_user_name, (String) SPUtil.get(App.getContext(), IConstants.USER_NIKE_NAME, ""))
+              /*  helper.setText(R.id.tv_serviec_user_name, (String) SPUtil.get(App.getContext(), IConstants.USER_NIKE_NAME, ""))
                         .setText(R.id.tv_service_time, parseTiem())
                         .setText(R.id.tv_service_message, item.getDescription());
                 //设置头像
@@ -84,11 +86,13 @@ public class AzureCustomerServiceAdapter extends BaseMultiItemQuickAdapter<Quest
                     helper.setText(R.id.tv_flag, "AM");
                 } else {
                     helper.setText(R.id.tv_flag, "PM");
-                }
+                }*/
                 break;
             case 3://标题:
-                LogUtils.i("rmy", "item.getDescription() = " + item.getDescription());
-                if (item.getDescription().equals("还可以进入科勒预约系统进行门店查询和预约点击进入 或 返回")) {
+                QuestionSearchBean.QuestionSearch questionSearch = item.getQuestionSearch();
+                LogUtils.i("rmy", "item.getDescription() = " + questionSearch.getDescription());
+
+                if (questionSearch.getDescription().equals("还可以进入科勒预约系统进行门店查询和预约点击进入 或 返回")) {
                     helper.setText(R.id.tv_serviec_user, "客服小科")
                             .setText(R.id.tv_service_time, parseTiem());
                     TextView textView = helper.getView(R.id.tv_service_message);
@@ -102,13 +106,23 @@ public class AzureCustomerServiceAdapter extends BaseMultiItemQuickAdapter<Quest
                 } else {
                     helper.setText(R.id.tv_serviec_user, "客服小科")
                             .setText(R.id.tv_service_time, parseTiem())
-                            .setText(R.id.tv_service_message, item.getDescription());
+                            .setText(R.id.tv_service_message, questionSearch.getDescription());
                     if (mHour >= 0 && mHour < 12) {
                         helper.setText(R.id.tv_flag, "AM");
                     } else {
                         helper.setText(R.id.tv_flag, "PM");
                     }
                 }
+                break;
+            case 2:
+                for (int i = 0; i < item.getListItem().size(); i++) {
+                    helper.setText(R.id.tv_azure_bot_parent_start, item.getListItem().get(i).getParentLeft());
+                    helper.setText(R.id.tv_azure_bot_parent_end, item.getListItem().get(i).getParentRight());
+                }
+
+                LinearLayout view = helper.getView(R.id.ll_azure_bot_parent_container);
+//                view.addView();
+
                 break;
             default:
                 break;
