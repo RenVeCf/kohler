@@ -1,6 +1,7 @@
 package com.mengyang.kohler.home.fragment;
 
 import android.os.Build;
+import android.os.SystemClock;
 import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.view.Gravity;
@@ -140,7 +141,7 @@ public class KbisGuideMapFragment extends BaseFragment implements OnPhotoTapList
         mImageView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
             @Override
             public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-
+                Log.i("123", "scrollX = " + scrollX + ", scrollY = " + scrollY);
             }
         });
 
@@ -153,6 +154,16 @@ public class KbisGuideMapFragment extends BaseFragment implements OnPhotoTapList
                 return false;
             }
         });
+
+        new Thread(){
+            @Override
+            public void run() {
+                super.run();
+                SystemClock.sleep(100);
+
+                mImageView.smoothScrollBy(430,0);
+            }
+        }.start();
     }
 
     @Override
