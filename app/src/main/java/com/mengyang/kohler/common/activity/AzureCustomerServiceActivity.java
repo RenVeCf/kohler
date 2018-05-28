@@ -3,6 +3,7 @@ package com.mengyang.kohler.common.activity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -92,13 +93,13 @@ public class AzureCustomerServiceActivity extends BaseActivity {
 
     @Override
     protected void initListener() {
-        //        rvAzureBot.setOnTouchListener(new View.OnTouchListener() {
-        //            @Override
-        //            public boolean onTouch(View v, MotionEvent event) {
-        //                hideInput();
-        //                return false;
-        //            }
-        //        });
+        rvAzureBot.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                hideInput();
+                return false;
+            }
+        });
     }
 
     @Override

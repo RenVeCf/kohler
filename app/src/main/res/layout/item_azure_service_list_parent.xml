@@ -5,16 +5,14 @@
     android:layout_height="wrap_content"
     android:layout_marginEnd="@dimen/x78"
     android:layout_marginStart="@dimen/x78"
-    android:alpha="0.3"
-    android:background="#ffffff"
-    android:orientation="vertical"
-    android:paddingEnd="@dimen/x48"
-    android:paddingStart="@dimen/x48">
+    android:orientation="vertical">
 
     <RelativeLayout
-        android:id="@+id/rl_item"
+        android:id="@+id/rl_item_parent"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y150">
+        android:layout_height="@dimen/y150"
+        android:paddingEnd="@dimen/x48"
+        android:paddingStart="@dimen/x48">
 
         <TextView
             android:id="@+id/tv_service_list_top_01"
@@ -22,10 +20,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:alpha="1"
-            android:text="【售前问题】"
             android:textColor="#ffffff"
-            android:textSize="12sp"
+            android:textSize="13sp"
             android:textStyle="bold" />
 
         <TextView
@@ -34,10 +30,8 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@id/tv_service_list_top_01"
-            android:alpha="1"
-            android:text="（门店预约、产品询价、官方商城地址"
             android:textColor="#ffffff"
-            android:textSize="12sp" />
+            android:textSize="13sp" />
 
         <ImageView
             android:layout_width="5dp"
@@ -46,10 +40,11 @@
             android:layout_centerVertical="true"
             android:src="@mipmap/guide" />
 
+        <View
+            android:id="@+id/view_azure_parent_line"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:alpha="0.2"
+            android:background="#e2e2e2" />
     </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="#e2e2e2" />
 </LinearLayout>

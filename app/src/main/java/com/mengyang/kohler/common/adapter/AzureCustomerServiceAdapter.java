@@ -1,6 +1,8 @@
 package com.mengyang.kohler.common.adapter;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.ColorSpace;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.text.SpannableString;
@@ -23,6 +25,7 @@ import com.mengyang.kohler.common.activity.ReservationExperienceActivity;
 import com.mengyang.kohler.common.entity.Level0Item;
 import com.mengyang.kohler.common.entity.Level1Item;
 import com.mengyang.kohler.common.net.IConstants;
+import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.module.bean.QuestionSearchBean;
 
@@ -70,14 +73,18 @@ public class AzureCustomerServiceAdapter extends BaseMultiItemQuickAdapter<Multi
                 final Level0Item level0Item = (Level0Item) item;
                 helper.setText(R.id.tv_service_list_top_01, level0Item.getParrentLeft());
                 helper.setText(R.id.tv_service_list_top_02, level0Item.getParrentRight());
-//                if (helper.getLayoutPosition() == 3) {
-//                    View llAzureListParent = helper.getView(R.id.ll_azure_list_parent);
-//                    LinearLayout.LayoutParams params_2 = (LinearLayout.LayoutParams) llAzureListParent.getLayoutParams();
-//
-//                    params_2.setMargins(0, 0, 0, 300);
-//                    llAzureListParent.setLayoutParams(params_2);
-//                }
-                helper.setOnClickListener(R.id.rl_item, new View.OnClickListener() {
+                //                if (helper.getLayoutPosition() == 3) {
+                //                    View llAzureListParent = helper.getView(R.id.ll_azure_list_parent);
+                //                    LinearLayout.LayoutParams params_2 = (LinearLayout.LayoutParams) llAzureListParent.getLayoutParams();
+                //
+                //                    params_2.setMargins(0, 0, 0, 300);
+                //                    llAzureListParent.setLayoutParams(params_2);
+                //                }
+                if (helper.getLayoutPosition() == 1) {
+                    helper.setGone(R.id.view_azure_parent_line, false);
+                }
+                helper.setBackgroundColor(R.id.rl_item_parent, Color.argb(77, 255, 255, 255));
+                helper.setOnClickListener(R.id.rl_item_parent, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         int position = helper.getLayoutPosition();
@@ -92,6 +99,7 @@ public class AzureCustomerServiceAdapter extends BaseMultiItemQuickAdapter<Multi
             case TYPE_LEVEL_1: //子级
                 final Level1Item level0Item1 = (Level1Item) item;
                 helper.setText(R.id.tv_azure_list_child_content, level0Item1.getContent());
+                helper.setBackgroundColor(R.id.rl_item_child, Color.argb(77, 255, 255, 255));
                 break;
             case TYPE_TEXT://客服文本
                 final QuestionSearchBean textBean = (QuestionSearchBean) item;
