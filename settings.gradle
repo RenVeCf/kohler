@@ -1,1 +1,1 @@
-include ':app', ':arscan'
+include ':app', ':arscan', ':kohlortest'
