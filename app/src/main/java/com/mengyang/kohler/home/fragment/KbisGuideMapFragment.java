@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.mengyang.kohler.BaseFragment;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.utils.DisplayUtils;
+import com.mengyang.kohler.home.view.photoview.OnPhotoTapListener;
 import com.mengyang.kohler.home.view.photoview.PhotoView;
 import com.mengyang.kohler.home.view.photoview.PhotoViewAttacher;
 
@@ -29,7 +30,7 @@ import butterknife.BindView;
  * 2018科勒上海厨卫展——导览图
  */
 
-public class KbisGuideMapFragment extends BaseFragment implements com.github.chrisbanes.photoview.OnPhotoTapListener {
+public class KbisGuideMapFragment extends BaseFragment implements OnPhotoTapListener {
     @BindView(R.id.photo_view)
     PhotoView mPhotoView;
     @BindView(R.id.photo_view_shadow)
@@ -118,8 +119,8 @@ public class KbisGuideMapFragment extends BaseFragment implements com.github.chr
         mPopupWindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
         View view = LayoutInflater.from(KbisGuideMapFragment.this.getActivity()).inflate(R.layout.item_pop, null);
         mPopupWindow.setContentView(view);
-        mPopupWindow.setBackgroundDrawable(getResources().getDrawable(R.mipmap.guide));
         mPopupWindow.setOutsideTouchable(false);
+        mPopupWindow.setBackgroundDrawable(getResources().getDrawable(R.mipmap.guide));
         mLlGuidemapPop = (LinearLayout) view.findViewById(R.id.ll_guidemap_pop);
 
         mLlGuidemapPop.setOnClickListener(new View.OnClickListener() {
@@ -134,55 +135,6 @@ public class KbisGuideMapFragment extends BaseFragment implements com.github.chr
         mTvNum1 = (TextView) view.findViewById(R.id.tv_num1);
         mTvNum2 = (TextView) view.findViewById(R.id.tv_num2);
         mTvNum3 = (TextView) view.findViewById(R.id.tv_num3);
-
-        mScrollView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-
-                return true;
-            }
-        });
-
-        mScrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-
-            }
-        });
-
-        mScrollView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return false;
-            }
-        });
-
-        mPhotoView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-
-            }
-        });
-
-        mPhotoView.setOnSingleFlingListener(new com.github.chrisbanes.photoview.OnSingleFlingListener() {
-            @Override
-            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-                return false;
-            }
-        });
-
-/*
-        mPhotoView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (mPopupWindow.isShowing()) {
-                    return true;
-                }
-                return false;
-            }
-        });
-*/
-
     }
 
     @Override

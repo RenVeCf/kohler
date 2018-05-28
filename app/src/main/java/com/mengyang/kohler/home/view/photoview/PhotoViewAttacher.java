@@ -17,17 +17,11 @@ import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.OverScroller;
 
-import com.github.chrisbanes.photoview.*;
-import com.github.chrisbanes.photoview.OnMatrixChangedListener;
-import com.github.chrisbanes.photoview.OnOutsidePhotoTapListener;
-import com.github.chrisbanes.photoview.OnPhotoTapListener;
-import com.github.chrisbanes.photoview.OnScaleChangedListener;
-import com.github.chrisbanes.photoview.OnSingleFlingListener;
 
 /**
- * The component of {@link com.github.chrisbanes.photoview.PhotoView} which does the work allowing for zooming, scaling, panning, etc.
+ * The component of {@link com.mengyang.kohler.home.view.PhotoView} which does the work allowing for zooming, scaling, panning, etc.
  * It is made public in case you need to subclass something other than {@link ImageView} and still
- * gain the functionality that {@link com.github.chrisbanes.photoview.PhotoView} offers
+ * gain the functionality that {@link com.mengyang.kohler.home.view.PhotoView} offers
  */
 public class PhotoViewAttacher implements View.OnTouchListener,
         com.mengyang.kohler.home.view.photoview.OnGestureListener,
@@ -68,13 +62,13 @@ public class PhotoViewAttacher implements View.OnTouchListener,
     private final float[] mMatrixValues = new float[9];
 
     // Listeners
-    private com.github.chrisbanes.photoview.OnMatrixChangedListener mMatrixChangeListener;
-    private com.github.chrisbanes.photoview.OnPhotoTapListener mPhotoTapListener;
-    private com.github.chrisbanes.photoview.OnOutsidePhotoTapListener mOutsidePhotoTapListener;
+    private com.mengyang.kohler.home.view.photoview.OnMatrixChangedListener mMatrixChangeListener;
+    private com.mengyang.kohler.home.view.photoview.OnPhotoTapListener mPhotoTapListener;
+    private com.mengyang.kohler.home.view.photoview.OnOutsidePhotoTapListener mOutsidePhotoTapListener;
     private View.OnClickListener mOnClickListener;
     private OnLongClickListener mLongClickListener;
-    private com.github.chrisbanes.photoview.OnScaleChangedListener mScaleChangeListener;
-    private com.github.chrisbanes.photoview.OnSingleFlingListener mSingleFlingListener;
+    private com.mengyang.kohler.home.view.photoview.OnScaleChangedListener mScaleChangeListener;
+    private com.mengyang.kohler.home.view.photoview.OnSingleFlingListener mSingleFlingListener;
 
     private com.mengyang.kohler.home.view.photoview.PhotoViewAttacher.FlingRunnable mCurrentFlingRunnable;
     private int mScrollEdge = EDGE_BOTH;
