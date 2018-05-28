@@ -231,6 +231,10 @@ public class AzureCustomerServiceActivity extends BaseActivity {
 
         textBean = new QuestionSearchBean("还可以进入科勒预约系统进行门店查询和预约, 点击进入 或 返回", 2);
         res.add(textBean);
+
+        res.add(new QuestionSearchBean("666999999999", 2));
+
+        res.add(new QuestionSearchBean("2222222222222222", 2));
         return res;
     }
 }

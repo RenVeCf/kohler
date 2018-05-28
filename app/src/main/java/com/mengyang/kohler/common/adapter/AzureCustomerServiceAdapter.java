@@ -5,13 +5,16 @@ import android.graphics.Color;
 import android.graphics.ColorSpace;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.UnderlineSpan;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -102,6 +105,15 @@ public class AzureCustomerServiceAdapter extends BaseMultiItemQuickAdapter<Multi
                 helper.setBackgroundColor(R.id.rl_item_child, Color.argb(77, 255, 255, 255));
                 break;
             case TYPE_TEXT://客服文本
+                int adapterPosition = helper.getAdapterPosition();
+                if (adapterPosition == 4) {
+                    RelativeLayout view = helper.getView(R.id.rl_head);
+                    RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) view.getLayoutParams();
+                    layoutParams.setMargins(0, 78, 0,0);
+                    view.setLayoutParams(layoutParams);
+                }
+
+
                 final QuestionSearchBean textBean = (QuestionSearchBean) item;
                 helper.setText(R.id.tv_serviec_user, "客服小科")
                         .setText(R.id.tv_service_time, parseTiem());
