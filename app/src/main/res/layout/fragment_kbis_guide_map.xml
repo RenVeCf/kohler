@@ -61,48 +61,48 @@
                 android:layout_height="wrap_content" />
 
 
-            <com.github.chrisbanes.photoview.PhotoView
+            <com.mengyang.kohler.home.view.photoview.PhotoView
                 android:id="@+id/photo_view"
                 android:src="@mipmap/icon_guidemap_ts_nor"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
-            <com.github.chrisbanes.photoview.PhotoView
+            <com.mengyang.kohler.home.view.photoview.PhotoView
                 android:id="@+id/photo_view_shadow"
                 android:src="@mipmap/icon_guidemap_ts_nor2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
 
-            <com.github.chrisbanes.photoview.PhotoView
+            <com.mengyang.kohler.home.view.photoview.PhotoView
                 android:visibility="gone"
                 android:id="@+id/photo_view5"
                 android:src="@mipmap/icon_guidemap_ts_pre_sec5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <com.github.chrisbanes.photoview.PhotoView
+            <com.mengyang.kohler.home.view.photoview.PhotoView
                 android:visibility="gone"
                 android:id="@+id/photo_view4"
                 android:src="@mipmap/icon_guidemap_ts_pre_sec4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <com.github.chrisbanes.photoview.PhotoView
+            <com.mengyang.kohler.home.view.photoview.PhotoView
                 android:visibility="gone"
                 android:id="@+id/photo_view3"
                 android:src="@mipmap/icon_guidemap_ts_pre_sec3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <com.github.chrisbanes.photoview.PhotoView
+            <com.mengyang.kohler.home.view.photoview.PhotoView
                 android:visibility="gone"
                 android:id="@+id/photo_view2"
                 android:src="@mipmap/icon_guidemap_ts_pre_sec2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <com.github.chrisbanes.photoview.PhotoView
+            <com.mengyang.kohler.home.view.photoview.PhotoView
                 android:visibility="gone"
                 android:id="@+id/photo_view1"
                 android:src="@mipmap/icon_guidemap_ts_pre_sec1"

@@ -1,7 +1,7 @@
 package com.mengyang.kohler.home.fragment;
 
-import android.graphics.drawable.ColorDrawable;
-import android.support.v7.widget.RecyclerView;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -14,13 +14,11 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.github.chrisbanes.photoview.OnPhotoTapListener;
-import com.github.chrisbanes.photoview.PhotoView;
-import com.github.chrisbanes.photoview.PhotoViewAttacher;
 import com.mengyang.kohler.BaseFragment;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.utils.DisplayUtils;
-import com.mengyang.kohler.common.utils.LogUtils;
+import com.mengyang.kohler.home.view.photoview.PhotoView;
+import com.mengyang.kohler.home.view.photoview.PhotoViewAttacher;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +29,7 @@ import butterknife.BindView;
  * 2018科勒上海厨卫展——导览图
  */
 
-public class KbisGuideMapFragment extends BaseFragment implements OnPhotoTapListener {
+public class KbisGuideMapFragment extends BaseFragment implements com.github.chrisbanes.photoview.OnPhotoTapListener {
     @BindView(R.id.photo_view)
     PhotoView mPhotoView;
     @BindView(R.id.photo_view_shadow)
@@ -87,6 +85,7 @@ public class KbisGuideMapFragment extends BaseFragment implements OnPhotoTapList
         return R.layout.fragment_kbis_guide_map;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void initValues() {
         mAttacher = new PhotoViewAttacher(mPhotoView);
@@ -127,6 +126,7 @@ public class KbisGuideMapFragment extends BaseFragment implements OnPhotoTapList
             @Override
             public void onClick(View v) {
                 mPopupWindow.dismiss();
+                mAttacher.setMove(true);
             }
         });
 
@@ -134,6 +134,55 @@ public class KbisGuideMapFragment extends BaseFragment implements OnPhotoTapList
         mTvNum1 = (TextView) view.findViewById(R.id.tv_num1);
         mTvNum2 = (TextView) view.findViewById(R.id.tv_num2);
         mTvNum3 = (TextView) view.findViewById(R.id.tv_num3);
+
+        mScrollView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                return true;
+            }
+        });
+
+        mScrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+
+            }
+        });
+
+        mScrollView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return false;
+            }
+        });
+
+        mPhotoView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+
+            }
+        });
+
+        mPhotoView.setOnSingleFlingListener(new com.github.chrisbanes.photoview.OnSingleFlingListener() {
+            @Override
+            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                return false;
+            }
+        });
+
+/*
+        mPhotoView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (mPopupWindow.isShowing()) {
+                    return true;
+                }
+                return false;
+            }
+        });
+*/
+
     }
 
     @Override
@@ -281,6 +330,13 @@ public class KbisGuideMapFragment extends BaseFragment implements OnPhotoTapList
         }
 
         mPopupWindow.showAtLocation(mScrollView, Gravity.CENTER,10,10);
+        mAttacher.setMove(false);
+        mAttacher0.setMove(false);
+        mAttacher1.setMove(false);
+        mAttacher2.setMove(false);
+        mAttacher3.setMove(false);
+        mAttacher4.setMove(false);
+
     }
 
 
