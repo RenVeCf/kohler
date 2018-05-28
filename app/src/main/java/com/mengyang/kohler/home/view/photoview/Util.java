@@ -3,11 +3,10 @@ package com.mengyang.kohler.home.view.photoview;
 import android.view.MotionEvent;
 import android.widget.ImageView;
 
-/**
- * Created by MengYang on 2018/5/28.
- */
 class Util {
-    static void checkZoomLevels(float minZoom, float midZoom, float maxZoom) {
+
+    static void checkZoomLevels(float minZoom, float midZoom,
+                                float maxZoom) {
         if (minZoom >= midZoom) {
             throw new IllegalArgumentException(
                     "Minimum zoom has to be less than Medium zoom. Call setMinimumZoom() with a more appropriate value");

@@ -106,7 +106,7 @@ public class KbisGuideMapFragment extends BaseFragment implements OnPhotoTapList
         mAttacher5.setOnPhotoTapListener(this);
 
         //        mPhotoView.setZoomable(false);
-        //        mAttacher.setZoomable(false);
+//        mAttacher.setZoomable(false);
         mAttacher0.setZoomable(false);
         mAttacher1.setZoomable(false);
         mAttacher2.setZoomable(false);
@@ -140,6 +140,7 @@ public class KbisGuideMapFragment extends BaseFragment implements OnPhotoTapList
         mImageView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
             @Override
             public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+
             }
         });
 
@@ -188,15 +189,15 @@ public class KbisGuideMapFragment extends BaseFragment implements OnPhotoTapList
             setAllGone(5);
 
             Log.i("123789465", "左上");
-        } else if ((y >= 0.27 && y <= 0.82) && (x >= 0.04 && x <= 0.61)) {
+        } else if ((y >= 0.27 && y <= 0.82) && (x >= 0.04 && x <= 0.61)){
             setAllGone(4);
 
             Log.i("123789465", "左下");
-        } else if ((y >= 0.30 && y <= 0.51) && (x >= 0.83 && x <= 0.99)) {
+        } else if ((y >= 0.30 && y <= 0.51) && (x >= 0.83 && x <= 0.99)){
             setAllGone(1);
 
             Log.i("123789465", "右上");
-        } else if ((y >= 0.49 && y <= 0.64) && (x >= 0.74 && x <= 0.90)) {
+        } else if ((y >= 0.49 && y <= 0.64) && (x >= 0.74 && x <= 0.90)){
             setAllGone(2);
 
             Log.i("123789465", "右中");
@@ -232,27 +233,27 @@ public class KbisGuideMapFragment extends BaseFragment implements OnPhotoTapList
             case 1:
                 mPhotoView1.setVisibility(View.VISIBLE);
 
-                //                mImageView1.setVisibility(View.VISIBLE);
+//                mImageView1.setVisibility(View.VISIBLE);
                 break;
             case 2:
                 mPhotoView2.setVisibility(View.VISIBLE);
 
-                //                mImageView2.setVisibility(View.VISIBLE);
+//                mImageView2.setVisibility(View.VISIBLE);
                 break;
             case 3:
                 mPhotoView3.setVisibility(View.VISIBLE);
 
-                //                mImageView3.setVisibility(View.VISIBLE);
+//                mImageView3.setVisibility(View.VISIBLE);
                 break;
             case 4:
                 mPhotoView4.setVisibility(View.VISIBLE);
 
-                //                mImageView4.setVisibility(View.VISIBLE);
+//                mImageView4.setVisibility(View.VISIBLE);
                 break;
             case 5:
                 mPhotoView5.setVisibility(View.VISIBLE);
 
-                //                mImageView5.setVisibility(View.VISIBLE);
+//                mImageView5.setVisibility(View.VISIBLE);
                 break;
             default:
                 break;
@@ -298,13 +299,14 @@ public class KbisGuideMapFragment extends BaseFragment implements OnPhotoTapList
                 break;
         }
 
-        mPopupWindow.showAtLocation(mScrollView, Gravity.CENTER, 10, 10);
+        mPopupWindow.showAtLocation(mScrollView, Gravity.CENTER,10,10);
         mAttacher.setMove(false);
         mAttacher0.setMove(false);
         mAttacher1.setMove(false);
         mAttacher2.setMove(false);
         mAttacher3.setMove(false);
         mAttacher4.setMove(false);
+
     }
 
 
