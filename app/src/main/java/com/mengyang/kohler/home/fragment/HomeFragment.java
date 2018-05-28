@@ -220,9 +220,9 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
         ImmersionBar.setTitleBar(getActivity(), tvHomeTop);
         MobclickAgent.onEvent(getActivity(), "index");
         //        if (SPUtil.get(App.getContext(), IConstants.TYPE, "").equals("dealer")) {
-        //            ivTopCustomerService.setVisibility(View.VISIBLE);
+                    ivTopCustomerService.setVisibility(View.VISIBLE);
         //        } else {
-        ivTopCustomerService.setVisibility(View.GONE);
+//        ivTopCustomerService.setVisibility(View.GONE);
         //        }
 
         //轮播

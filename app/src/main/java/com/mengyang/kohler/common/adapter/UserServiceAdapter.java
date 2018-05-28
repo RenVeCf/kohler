@@ -42,32 +42,29 @@ public class UserServiceAdapter extends BaseMultiItemQuickAdapter<QuestionSearch
         addItemType(0, R.layout.item_service_company);  //必须设置Item类型,否则空职指针异常
         addItemType(1, R.layout.item_service_user);
         addItemType(3, R.layout.item_service_company_head);
-
-        addItemType(3, R.layout.item_service_product);//展示产品介绍条目
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void convert(BaseViewHolder helper, QuestionSearchBean item) {
-        QuestionSearchBean.QuestionSearch questionSearch = item.getQuestionSearch();
         switch (item.getItemType()) {
             case 0://客服
                 helper.setText(R.id.tv_serviec_user, "客服小科")
                         .setText(R.id.tv_service_time, parseTiem())
-                        .setText(R.id.tv_service_message, questionSearch.getDescription());
-                helper.setText(R.id.tv_service_list, questionSearch.getH5Url());
+                        .setText(R.id.tv_service_message, item.getDescription());
+                helper.setText(R.id.tv_service_list, item.getH5Url());
                 if (mHour >= 0 && mHour < 12) {
                     helper.setText(R.id.tv_flag, "AM");
                 } else {
                     helper.setText(R.id.tv_flag, "PM");
                 }
 
-                if (!TextUtils.isEmpty(questionSearch.getH5Url())) {
+                if (!TextUtils.isEmpty(item.getH5Url())) {
                     TextView textView = helper.getView(R.id.tv_service_list);
                     textView.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG); //下划线
                     textView.getPaint().setAntiAlias(true);//抗锯齿
-                    //                    textView.setText(Html.fromHtml(questionSearch.getH5Url()));
-                    helper.setText(R.id.tv_service_list, Html.fromHtml(questionSearch.getH5Url()));
+                    //                    textView.setText(Html.fromHtml(item.getH5Url()));
+                    helper.setText(R.id.tv_service_list, Html.fromHtml(item.getH5Url()));
                     helper.addOnClickListener(R.id.tv_service_list);
                     helper.setVisible(R.id.tv_service_list, true);
                 } else {
@@ -77,7 +74,7 @@ public class UserServiceAdapter extends BaseMultiItemQuickAdapter<QuestionSearch
             case 1: //内容
                 helper.setText(R.id.tv_serviec_user_name, (String) SPUtil.get(App.getContext(), IConstants.USER_NIKE_NAME, ""))
                         .setText(R.id.tv_service_time, parseTiem())
-                        .setText(R.id.tv_service_message, questionSearch.getDescription());
+                        .setText(R.id.tv_service_message, item.getDescription());
                 //设置头像
                 Glide.with(App.getContext()).load(SPUtil.get(App.getContext(), IConstants.USER_HEAD_PORTRAIT, ""))
                         .apply(new RequestOptions().placeholder(R.mipmap.oval)).into((ImageView) helper.getView(R.id.iv_service_photo));
@@ -91,7 +88,7 @@ public class UserServiceAdapter extends BaseMultiItemQuickAdapter<QuestionSearch
             case 3://标题:
                 helper.setText(R.id.tv_serviec_user, "客服小科")
                         .setText(R.id.tv_service_time, parseTiem())
-                        .setText(R.id.tv_service_message, questionSearch.getDescription());
+                        .setText(R.id.tv_service_message, item.getDescription());
                 if (mHour >= 0 && mHour < 12) {
                     helper.setText(R.id.tv_flag, "AM");
                 } else {

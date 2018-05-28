@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/x78"
+    android:layout_marginStart="@dimen/x78"
+    android:alpha="0.3"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    android:paddingEnd="@dimen/x48"
+    android:paddingStart="@dimen/x48">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y120">
+
+            <TextView
+                android:id="@+id/tv_azure_list_child_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:paddingStart="@dimen/x54"
+                android:text="更改配送时间？"
+                android:textColor="#ffffff"
+                android:textSize="12sp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#e2e2e2" />
+</LinearLayout>

@@ -3,7 +3,6 @@ package com.mengyang.kohler.common.activity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,25 +14,19 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
-import com.mengyang.kohler.common.adapter.AzureBotListAdapter;
 import com.mengyang.kohler.common.adapter.AzureCustomerServiceAdapter;
-import com.mengyang.kohler.common.adapter.DataBean;
 import com.mengyang.kohler.common.entity.Level0Item;
 import com.mengyang.kohler.common.entity.Level1Item;
-import com.mengyang.kohler.common.entity.TextBean;
-import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.ToastUtil;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.module.bean.AzureBotAnswerQuestionBean;
+import com.mengyang.kohler.module.bean.AzureBotSendMsgBean;
 import com.mengyang.kohler.module.bean.AzureBotStartBean;
 import com.mengyang.kohler.module.bean.AzureBotWartBean;
 import com.mengyang.kohler.module.bean.QuestionSearchBean;
-import com.mengyang.kohler.module.bean.AzureBotSendMsgBean;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -75,9 +68,6 @@ public class AzureCustomerServiceActivity extends BaseActivity {
     private static final String REQUEST = "/activities";
     private AzureBotStartBean mAzureBotStartBean;
 
-        private AzureBotListAdapter mAzureBotListAdapter;
-        private DataBean mDataBean;
-
     @Override
     protected int getLayoutId() {
         return R.layout.activity_azure_customer_service;
@@ -102,20 +92,13 @@ public class AzureCustomerServiceActivity extends BaseActivity {
 
     @Override
     protected void initListener() {
-/*        rvAzureBot.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                hideInput();
-                return false;
-            }
-        });
-                //滚动监听
-                mAzureBotListAdapter.setOnScrollListener(new AzureBotListAdapter.OnScrollListener() {
-                    @Override
-                    public void scrollTo(int pos) {
-                        rvAzureBot.scrollToPosition(pos);
-                    }
-                });*/
+        //        rvAzureBot.setOnTouchListener(new View.OnTouchListener() {
+        //            @Override
+        //            public boolean onTouch(View v, MotionEvent event) {
+        //                hideInput();
+        //                return false;
+        //            }
+        //        });
     }
 
     @Override
@@ -145,9 +128,9 @@ public class AzureCustomerServiceActivity extends BaseActivity {
                 etAzureQuestion.setFocusable(true);
 
                 if (!TextUtils.isEmpty(mQuestionContent)) {
-//                    QuestionSearchBean questionSearchBean = new QuestionSearchBean(mQuestionContent, 1);
-//                    mUserServiceAdapter.addData(questionSearchBean);
-//                    searchQuestion(mQuestionContent);
+                    QuestionSearchBean questionSearchBean = new QuestionSearchBean(mQuestionContent, 4);
+                    mUserServiceAdapter.addData(questionSearchBean);
+                    searchQuestion(mQuestionContent);
                 } else {
                     ToastUtil.showToast("输入内容不能为空");
                 }
@@ -204,15 +187,15 @@ public class AzureCustomerServiceActivity extends BaseActivity {
                     @Override
                     public void onResponse(Call call, Response response) {
                         AzureBotAnswerQuestionBean azureBotAnswerQuestionBean = new Gson().fromJson(response.body().charStream(), AzureBotAnswerQuestionBean.class);
-//                        final QuestionSearchBean questionSearchBean = new QuestionSearchBean("", 0);
-//                        questionSearchBean.setDescription(azureBotAnswerQuestionBean.getActivities().get(0).getText());
-//                        AzureCustomerServiceActivity.this.runOnUiThread(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                mUserServiceAdapter.addData(questionSearchBean);
-//                                rvAzureBot.scrollToPosition(mUserServiceAdapter.getItemCount() - 1);
-//                            }
-//                        });
+                        final QuestionSearchBean questionSearchBean = new QuestionSearchBean("", 2);
+                        questionSearchBean.setDescription(azureBotAnswerQuestionBean.getActivities().get(0).getText());
+                        AzureCustomerServiceActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                mUserServiceAdapter.addData(questionSearchBean);
+                                rvAzureBot.scrollToPosition(mUserServiceAdapter.getItemCount() - 1);
+                            }
+                        });
                     }
                 });
             }
@@ -220,25 +203,33 @@ public class AzureCustomerServiceActivity extends BaseActivity {
     }
 
     private ArrayList<MultiItemEntity> generateData() {
-        int lv0Count = 2;
         int lv1Count = 3;
-        int personCount = 5;
 
         ArrayList<MultiItemEntity> res = new ArrayList<>();
-        TextBean textBean = new TextBean("Hi～我是科勒客服，需要咨询科勒产品吗，请在对话框输入尝试一下我们的Click to Chat？");
+        QuestionSearchBean textBean = new QuestionSearchBean("Hi～我是科勒客服，需要咨询科勒产品吗，请在对话框输入尝试一下我们的Click to Chat？", 2);
         res.add(textBean);
 
-        for (int i = 0; i <= lv0Count; i++) {
-            Level0Item lv0 = new Level0Item("【修改配送信息】", "（地址，电话，联系人）");
-            for (int j = 0; j < lv1Count; j++) {
-                Level1Item lv1 = new Level1Item("更改配送时间？" + j);
-                lv0.addSubItem(lv1);
-            }
-            res.add(lv0);
+        Level0Item lv0 = new Level0Item("【售前问题】", "（门店预约、产品询价、官方商城地址）");
+        for (int j = 0; j < lv1Count; j++) {
+            Level1Item lv1 = new Level1Item("更改配送时间？" + j);
+            lv0.addSubItem(lv1);
         }
+        res.add(lv0);
+        lv0 = new Level0Item("【产品相关】", "（产品规格/参数、产品SKU）");
+        for (int j = 0; j < lv1Count; j++) {
+            Level1Item lv1 = new Level1Item("更改配送时间？" + j);
+            lv0.addSubItem(lv1);
+        }
+        res.add(lv0);
+        lv0 = new Level0Item("【售后问题】", "（商品故障/损坏、保修查询、客服热线）");
+        for (int j = 0; j < lv1Count; j++) {
+            Level1Item lv1 = new Level1Item("更改配送时间？" + j);
+            lv0.addSubItem(lv1);
+        }
+        res.add(lv0);
 
-        TextBean textBean2 = new TextBean("666666666666666666666");
-        res.add(textBean2);
+        textBean = new QuestionSearchBean("还可以进入科勒预约系统进行门店查询和预约, 点击进入 或 返回", 2);
+        res.add(textBean);
         return res;
     }
 }

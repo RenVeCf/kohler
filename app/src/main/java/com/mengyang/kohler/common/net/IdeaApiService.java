@@ -25,8 +25,8 @@ import com.mengyang.kohler.module.bean.StoreListBean;
 import com.mengyang.kohler.module.bean.SystemMsgBean;
 import com.mengyang.kohler.module.bean.UploadHeadPortraitBean;
 import com.mengyang.kohler.module.bean.UserMsgBean;
-import com.mengyang.kohler.module.bean.WeeklyRadioConcertBean;
 import com.mengyang.kohler.module.bean.VisionBean;
+import com.mengyang.kohler.module.bean.WeeklyRadioConcertBean;
 
 import java.util.List;
 import java.util.Map;
@@ -207,7 +207,7 @@ public interface IdeaApiService {
     Observable<BasicResponse<MeetingBean>> getMeeting(@FieldMap Map<String, Object> map);
 
     //2018上海厨卫展
-//    @FormUrlEncoded
+    //    @FormUrlEncoded
     @GET(Config.KBIS)
     Observable<BasicResponse<KbisBean>> getKbis();
 

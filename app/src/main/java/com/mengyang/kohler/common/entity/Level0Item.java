@@ -3,15 +3,12 @@ package com.mengyang.kohler.common.entity;
 import com.chad.library.adapter.base.entity.AbstractExpandableItem;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.mengyang.kohler.common.adapter.AzureCustomerServiceAdapter;
-import com.mengyang.kohler.module.bean.QuestionSearchBean;
-
-import java.util.List;
 
 /**
  * Created by liusong on 2018/5/27.
  */
 
-public class Level0Item extends AbstractExpandableItem<Level1Item>  implements MultiItemEntity {
+public class Level0Item extends AbstractExpandableItem<Level1Item> implements MultiItemEntity {
 
     public String parrentLeft;
     public String parrentRight;

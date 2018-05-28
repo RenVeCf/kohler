@@ -8,7 +8,7 @@
         android:id="@+id/iv_service_photo"
         android:layout_width="@dimen/x108"
         android:layout_height="@dimen/x108"
-        android:layout_marginLeft="@dimen/x78"
+        android:layout_marginStart="@dimen/x78"
         android:layout_marginTop="@dimen/y15"
         android:src="@mipmap/azure_service_photo_w" />
 
