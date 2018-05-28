@@ -120,6 +120,7 @@ public class KbisGuideMapFragment extends BaseFragment implements OnPhotoTapList
         View view = LayoutInflater.from(KbisGuideMapFragment.this.getActivity()).inflate(R.layout.item_pop, null);
         mPopupWindow.setContentView(view);
         mPopupWindow.setOutsideTouchable(false);
+        mPopupWindow.setFocusable(false);
         mPopupWindow.setBackgroundDrawable(getResources().getDrawable(R.mipmap.guide));
         mLlGuidemapPop = (LinearLayout) view.findViewById(R.id.ll_guidemap_pop);
 
@@ -135,6 +136,23 @@ public class KbisGuideMapFragment extends BaseFragment implements OnPhotoTapList
         mTvNum1 = (TextView) view.findViewById(R.id.tv_num1);
         mTvNum2 = (TextView) view.findViewById(R.id.tv_num2);
         mTvNum3 = (TextView) view.findViewById(R.id.tv_num3);
+
+        mImageView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+
+            }
+        });
+
+        mImageView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (mPopupWindow.isShowing()) {
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     @Override

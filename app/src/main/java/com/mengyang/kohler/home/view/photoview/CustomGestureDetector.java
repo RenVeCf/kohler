@@ -100,7 +100,7 @@ class CustomGestureDetector {
 
     public boolean onTouchEvent(MotionEvent ev) {
         try {
-            mDetector.onTouchEvent(ev);
+//            mDetector.onTouchEvent(ev);// TODO: 2018/5/28 ,暂时不需要手势识别
             return processTouchEvent(ev);
         } catch (IllegalArgumentException e) {
             // Fix for support lib bug, happening when onDestroy is called
