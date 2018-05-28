@@ -58,9 +58,6 @@
         <meta-data
             android:name="unity.splash-enable"
             android:value="True" />
-        <meta-data
-            android:name="android.max_aspect"
-            android:value="2.1" />
 
         <activity android:name=".DownloadActivity" />
         <meta-data

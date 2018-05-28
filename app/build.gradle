@@ -3,6 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 27
 
+
     aaptOptions.cruncherEnabled = false
     aaptOptions.useNewCruncher = false
 
@@ -10,20 +11,19 @@ android {
         applicationId "com.mengyang.kohler"
         minSdkVersion 21
         buildToolsVersion '27'
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0.0"
         flavorDimensions "versionCode"
-
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         // Enabling multidex support.
         multiDexEnabled true
-        multiDexKeepProguard file("tinkerMultidexKeep.pro") //keep specific classes using proguard syntax
-
+        multiDexKeepProguard file("tinkerMultidexKeep.pro")
+        //keep specific classes using proguard syntax
         ndk {
             //设置支持的SO库架构（开发者可以根据需要，选择一个或多个平台的so）
             abiFilters "armeabi-v7a"//,"armeabi",  "arm64-v8a", "x86", "arm64-v8a", "x86_64"
         }
-
         manifestPlaceholders = [
                 JPUSH_PKGNAME: applicationId,
                 JPUSH_APPKEY : "0532998d33f6cf83a9de9ca9", //JPush上注册的包名对应的appkey.
@@ -66,25 +66,27 @@ android {
             signingConfig signingConfigs.config
             //启用multidex的支持
             multiDexEnabled true
+
             applicationVariants.all { variant ->
                 variant.outputs.each { output ->
                     def outputFile = output.outputFile
                     if (outputFile != null && outputFile.name.endsWith('.apk')) {
                         // 输出apk名称为boohee_v1.0_2015-01-15_wandoujia.apk
                         def fileName = "kohler_v${defaultConfig.versionName}_${variant.productFlavors[0].name}.apk"
+
 //                        output.outputFile = new File(outputFile.parent, fileName)
                     }
                 }
             }
         }
-//        debug {
+        debug {
 //            signingConfig signingConfigs.test
-//        }
+        }
     }
 
     //多渠道打包
     productFlavors {
-        huawei{}
+        huawei {}
         xiaomi {}
         yingyongbao {}
         baidu {}
@@ -222,7 +224,7 @@ dependencies {
     implementation files('libs/umeng_social_tool.jar')
     implementation files('libs/wechat-sdk-android-with-mta-1.1.6.jar')
     implementation 'com.facebook.rebound:rebound:0.3.8'
-    implementation project(':arscan')
+//    implementation project(':arscan')
     implementation files('libs/ainsight-1.1.3.jar')
     compile 'com.contrarywind:Android-PickerView:4.1.3'
     compile 'com.alibaba:fastjson:1.2.46'

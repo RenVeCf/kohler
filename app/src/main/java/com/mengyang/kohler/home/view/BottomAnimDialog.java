@@ -10,7 +10,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.kohler.arscan.util.DensityUtil;
 import com.mengyang.kohler.R;
 
 /**
@@ -49,10 +48,10 @@ public class BottomAnimDialog extends Dialog {
 
         Window window = this.getWindow();
         if (window != null) { //设置dialog的布局样式 让其位于底部
-            window.setGravity(Gravity.BOTTOM);
-            WindowManager.LayoutParams lp = window.getAttributes();
-            lp.y = DensityUtil.dip2px(mContext, 10); //设置居于底部的距离
-            window.setAttributes(lp);
+//            window.setGravity(Gravity.BOTTOM);
+//            WindowManager.LayoutParams lp = window.getAttributes();
+//            lp.y = DensityUtil.dip2px(mContext, 10); //设置居于底部的距离
+//            window.setAttributes(lp);
         }
 
         mTvItem1 = (Button) view.findViewById(R.id.tv_item1);
