@@ -36,6 +36,7 @@ import com.bigkoo.pickerview.view.TimePickerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.contrarywind.listener.OnItemSelectedListener;
 import com.contrarywind.view.WheelView;
+import com.deepano.kohlortest.UnityPlayerActivity;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.BaseFragment;
 import com.mengyang.kohler.R;
@@ -498,9 +499,9 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                                     if (postion == 3) {
                                         MobclickAgent.onEvent(getActivity(), "arjieshuo");
                                         AIOAnalytics.onEvent("arjieshuo");
-//                                        Intent intent = new Intent(getActivity(), DownloadActivity.class);
-//                                        intent.putExtra("way", "banner");
-//                                        startActivity(intent);
+                                        Intent intent = new Intent(getActivity(), UnityPlayerActivity.class);
+                                        intent.putExtra("way", "banner");
+                                        startActivity(intent);
                                     } else {
                                         if (mHomeIndexBean.getKvList().get(postion).getClickRedirect() != null && !mHomeIndexBean.getKvList().get(postion).getClickRedirect().equals("")) {
                                             mH5_URL = mHomeIndexBean.getKvList().get(postion).getClickRedirect() + "";

@@ -286,12 +286,16 @@
             android:name="app_version"
             android:value="ver_1.0.1" />
 
-        <activity
+<!--        <activity
             android:name="com.kohler.arscan.DownloadActivity"
-            android:exported="false" />
-        <activity
+            android:exported="false" />-->
+<!--        <activity
             android:name="com.kohler.arscan.UnityPlayerActivity"
+            android:exported="false" />-->
+        <activity
+            android:name="com.deepano.kohlortest.UnityPlayerActivity"
             android:exported="false" />
+
         <activity
             android:name=".home.activity.WeeklyRadioConcertActivity"
             android:exported="false" />

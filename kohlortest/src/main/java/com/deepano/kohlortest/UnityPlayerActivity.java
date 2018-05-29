@@ -1,4 +1,4 @@
-package com.hiar.sdk;
+package com.deepano.kohlortest;
 
 import com.unity3d.player.*;
 import android.app.Activity;

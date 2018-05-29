@@ -37,6 +37,7 @@ import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.allyes.analytics.AIOAnalytics;
+import com.deepano.kohlortest.UnityPlayerActivity;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
@@ -535,9 +536,9 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 FragmentSelect(1);
                 mIsUnableToDrag = true;
                 view_line.setVisibility(View.VISIBLE);
-//                Intent intent = new Intent(this, DownloadActivity.class);
-//                intent.putExtra("way", "arscan");
-//                startActivityForResult(intent, IConstants.DELETE_REQUESTCODE);
+                Intent intent = new Intent(this, UnityPlayerActivity.class);
+                intent.putExtra("way", "arscan");
+                startActivityForResult(intent, IConstants.DELETE_REQUESTCODE);
                 break;
             case R.id.bt_account:
                 AIOAnalytics.onEvent("zhanghu");
