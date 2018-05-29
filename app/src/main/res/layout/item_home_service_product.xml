@@ -11,7 +11,7 @@
         android:layout_width="@dimen/x108"
         android:layout_height="@dimen/x108"
         android:scaleType="centerCrop"
-        android:src="@mipmap/oval" />
+        android:src="@mipmap/azure_service_photo_w" />
 
     <LinearLayout
         android:layout_toRightOf="@id/iv_service_photo"
@@ -114,5 +114,4 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-
 </RelativeLayout>

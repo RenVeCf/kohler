@@ -31,7 +31,7 @@
         android:layout_marginTop="@dimen/y45"
         android:layout_weight="1" />
 
-    <com.mengyang.kohler.common.view.BounceScrollView
+    <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="@dimen/y130"
         android:paddingBottom="@dimen/y24"
@@ -85,7 +85,7 @@
                 android:text="产品SKU"
                 android:textColor="@color/white" />
         </RadioGroup>
-    </com.mengyang.kohler.common.view.BounceScrollView>
+    </HorizontalScrollView>
 
     <View
         android:layout_width="match_parent"

@@ -1,10 +1,14 @@
 package com.mengyang.kohler.common.adapter;
 
+import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -14,6 +18,7 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -62,11 +67,11 @@ public class UserServiceAdapter extends BaseMultiItemQuickAdapter<MultiItemEntit
     public UserServiceAdapter(List<MultiItemEntity> data) {
         super(data);
         this.mDataSize = data.size();
-        addItemType(TYPE_LEVEL_0, R.layout.item_azure_service_list_parent);
-        addItemType(TYPE_LEVEL_1, R.layout.item_azure_service_list_child);
-        addItemType(TYPE_TEXT, R.layout.item_azure_service_company_head); //必须设置Item类型,否则空职指针异常
-        addItemType(TYPE_PRODUCT, R.layout.item_service_product);
-        addItemType(TYPE_USER, R.layout.item_azure_service_user);
+        addItemType(TYPE_LEVEL_0, R.layout.item_home_service_list_parent);
+        addItemType(TYPE_LEVEL_1, R.layout.item_home_service_list_child);
+        addItemType(TYPE_TEXT, R.layout.item_home_service_company_head); //必须设置Item类型,否则空职指针异常
+        addItemType(TYPE_PRODUCT, R.layout.item_home_service_product);
+        addItemType(TYPE_USER, R.layout.item_home_service_user);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -77,30 +82,38 @@ public class UserServiceAdapter extends BaseMultiItemQuickAdapter<MultiItemEntit
                 final Level0Item level0Item = (Level0Item) item;
                 helper.setText(R.id.tv_service_list_top_01, level0Item.getParrentLeft());
                 helper.setText(R.id.tv_service_list_top_02, level0Item.getParrentRight());
-                //                if (helper.getLayoutPosition() == 3) {
-                //                    View llAzureListParent = helper.getView(R.id.ll_azure_list_parent);
-                //                    LinearLayout.LayoutParams params_2 = (LinearLayout.LayoutParams) llAzureListParent.getLayoutParams();
-                //
-                //                    params_2.setMargins(0, 0, 0, 300);
-                //                    llAzureListParent.setLayoutParams(params_2);
-                //                }
-                helper.setOnClickListener(R.id.rl_item_parent, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        int position = helper.getLayoutPosition();
-                        if (level0Item.isExpanded()) {
-                            collapse(position);
-                        } else {
-                            expand(position);
-                        }
-                    }
-                });
+                if (helper.getLayoutPosition() == 1) {
+                    helper.setGone(R.id.view_azure_parent_line, false);
+                }
+                helper.setBackgroundColor(R.id.rl_item_parent, Color.argb(255,237,237,237));
+//                helper.setOnClickListener(R.id.rl_item_parent, new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        int position = helper.getLayoutPosition();
+//                        if (level0Item.isExpanded()) {
+//                            collapse(position);
+////                            rotationExpandIcon(180, 0, v);
+//                        } else {
+//                            expand(position);
+////                            rotationExpandIcon(0, 180, v);
+//                        }
+//                    }
+//                });
                 break;
             case TYPE_LEVEL_1: //子级
                 final Level1Item level0Item1 = (Level1Item) item;
                 helper.setText(R.id.tv_azure_list_child_content, level0Item1.getContent());
+                helper.setBackgroundColor(R.id.rl_item_child, Color.argb(77, 255, 255, 255));
                 break;
             case TYPE_TEXT://客服文本
+                int adapterPosition = helper.getAdapterPosition();
+                if (adapterPosition == 4) {
+                    RelativeLayout view = helper.getView(R.id.rl_head);
+                    RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) view.getLayoutParams();
+                    layoutParams.setMargins(0, 78, 0, 0);
+                    view.setLayoutParams(layoutParams);
+                }
+
                 final QuestionSearchBean textBean = (QuestionSearchBean) item;
                 helper.setText(R.id.tv_serviec_user, "客服小科")
                         .setText(R.id.tv_service_time, parseTiem());
@@ -125,7 +138,7 @@ public class UserServiceAdapter extends BaseMultiItemQuickAdapter<MultiItemEntit
                         .setText(R.id.tv_service_message, questionSearchBean.getDescription());
                 //设置头像
                 Glide.with(App.getContext()).load(SPUtil.get(App.getContext(), IConstants.USER_HEAD_PORTRAIT, ""))
-                        .apply(new RequestOptions().placeholder(R.mipmap.azure_service_photo_w)).into((ImageView) helper.getView(R.id.iv_service_photo));
+                        .apply(new RequestOptions().placeholder(R.mipmap.oval)).into((ImageView) helper.getView(R.id.iv_service_photo));
 
                 if (mHour >= 0 && mHour < 12) {
                     helper.setText(R.id.tv_flag, "AM");
@@ -135,6 +148,23 @@ public class UserServiceAdapter extends BaseMultiItemQuickAdapter<MultiItemEntit
                 break;
             default:
                 break;
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    private void rotationExpandIcon(float from, float to, final View v) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            ValueAnimator valueAnimator = ValueAnimator.ofFloat(from, to);//属性动画
+            valueAnimator.setDuration(500);
+            valueAnimator.setInterpolator(new DecelerateInterpolator());
+            valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+
+                @Override
+                public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                    v.setRotation((Float) valueAnimator.getAnimatedValue());
+                }
+            });
+            valueAnimator.start();
         }
     }
 

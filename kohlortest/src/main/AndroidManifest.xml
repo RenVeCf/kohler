@@ -9,10 +9,10 @@
     <activity android:label="@string/app_name" android:screenOrientation="portrait" android:launchMode="singleTask" android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale|layoutDirection|density" android:name="com.deepano.kohlortest.UnityPlayerNativeActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
-        <category android:name="android.intent.category.LAUNCHER" />
+        <!--<category android:name="android.intent.category.LAUNCHER" />-->
         <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
       </intent-filter>
-      <meta-data android:name="unityplayer.ForwardNativeEventsToDalvik" android:value="true" />
+      <meta-data android:name="LAUNCHERunityplayer.ForwardNativeEventsToDalvik" android:value="true" />
     </activity>
     <meta-data android:name="unity.build-id" android:value="f02769a5-e434-48ba-b384-c114e054c994" />
     <meta-data android:name="unity.splash-mode" android:value="0" />

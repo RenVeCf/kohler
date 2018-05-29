@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/x78"
+    android:layout_marginStart="@dimen/x78"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_item_child"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y120"
+        android:paddingEnd="@dimen/x48"
+        android:paddingStart="@dimen/x48">
+
+        <TextView
+            android:id="@+id/tv_azure_list_child_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:paddingStart="@dimen/x54"
+            android:textColor="#000000"
+            android:textSize="12sp" />
+
+        <View
+            android:id="@+id/view_azure_child_line"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:alpha="0.2"
+            android:background="#e2e2e2" />
+    </RelativeLayout>
+</LinearLayout>

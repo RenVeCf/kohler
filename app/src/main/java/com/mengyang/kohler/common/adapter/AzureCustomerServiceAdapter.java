@@ -67,7 +67,7 @@ public class AzureCustomerServiceAdapter extends BaseMultiItemQuickAdapter<Multi
         addItemType(TYPE_LEVEL_0, R.layout.item_azure_service_list_parent);
         addItemType(TYPE_LEVEL_1, R.layout.item_azure_service_list_child);
         addItemType(TYPE_TEXT, R.layout.item_azure_service_company_head); //必须设置Item类型,否则空职指针异常
-        addItemType(TYPE_PRODUCT, R.layout.item_service_product);
+        addItemType(TYPE_PRODUCT, R.layout.item_azure_service_product);
         addItemType(TYPE_USER, R.layout.item_azure_service_user);
     }
 
@@ -79,30 +79,23 @@ public class AzureCustomerServiceAdapter extends BaseMultiItemQuickAdapter<Multi
                 final Level0Item level0Item = (Level0Item) item;
                 helper.setText(R.id.tv_service_list_top_01, level0Item.getParrentLeft());
                 helper.setText(R.id.tv_service_list_top_02, level0Item.getParrentRight());
-                //                if (helper.getLayoutPosition() == 3) {
-                //                    View llAzureListParent = helper.getView(R.id.ll_azure_list_parent);
-                //                    LinearLayout.LayoutParams params_2 = (LinearLayout.LayoutParams) llAzureListParent.getLayoutParams();
-                //
-                //                    params_2.setMargins(0, 0, 0, 300);
-                //                    llAzureListParent.setLayoutParams(params_2);
-                //                }
                 if (helper.getLayoutPosition() == 1) {
                     helper.setGone(R.id.view_azure_parent_line, false);
                 }
                 helper.setBackgroundColor(R.id.rl_item_parent, Color.argb(77, 255, 255, 255));
-                helper.setOnClickListener(R.id.rl_item_parent, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        int position = helper.getLayoutPosition();
-                        if (level0Item.isExpanded()) {
-                            collapse(position);
-                            rotationExpandIcon(180, 0, v);
-                        } else {
-                            expand(position);
-                            rotationExpandIcon(0, 180, v);
-                        }
-                    }
-                });
+//                helper.setOnClickListener(R.id.rl_item_parent, new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        int position = helper.getLayoutPosition();
+//                        if (level0Item.isExpanded()) {
+//                            collapse(position);
+////                            rotationExpandIcon(180, 0, v);
+//                        } else {
+//                            expand(position);
+////                            rotationExpandIcon(0, 180, v);
+//                        }
+//                    }
+//                });
                 break;
             case TYPE_LEVEL_1: //子级
                 final Level1Item level0Item1 = (Level1Item) item;
@@ -117,7 +110,6 @@ public class AzureCustomerServiceAdapter extends BaseMultiItemQuickAdapter<Multi
                     layoutParams.setMargins(0, 78, 0, 0);
                     view.setLayoutParams(layoutParams);
                 }
-
 
                 final QuestionSearchBean textBean = (QuestionSearchBean) item;
                 helper.setText(R.id.tv_serviec_user, "客服小科")
@@ -157,8 +149,6 @@ public class AzureCustomerServiceAdapter extends BaseMultiItemQuickAdapter<Multi
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-
-
     private void rotationExpandIcon(float from, float to, final View v) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             ValueAnimator valueAnimator = ValueAnimator.ofFloat(from, to);//属性动画
