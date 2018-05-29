@@ -38,7 +38,7 @@
             android:layout_height="5dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:src="@mipmap/guide" />
+            android:src="@mipmap/azue_service_arrow_white_down" />
 
         <View
             android:id="@+id/view_azure_parent_line"

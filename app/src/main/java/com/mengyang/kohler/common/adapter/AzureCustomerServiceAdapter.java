@@ -1,5 +1,7 @@
 package com.mengyang.kohler.common.adapter;
 
+import android.animation.ValueAnimator;
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.ColorSpace;
@@ -13,6 +15,7 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -93,8 +96,10 @@ public class AzureCustomerServiceAdapter extends BaseMultiItemQuickAdapter<Multi
                         int position = helper.getLayoutPosition();
                         if (level0Item.isExpanded()) {
                             collapse(position);
+                            rotationExpandIcon(180, 0, v);
                         } else {
                             expand(position);
+                            rotationExpandIcon(0, 180, v);
                         }
                     }
                 });
@@ -109,7 +114,7 @@ public class AzureCustomerServiceAdapter extends BaseMultiItemQuickAdapter<Multi
                 if (adapterPosition == 4) {
                     RelativeLayout view = helper.getView(R.id.rl_head);
                     RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) view.getLayoutParams();
-                    layoutParams.setMargins(0, 78, 0,0);
+                    layoutParams.setMargins(0, 78, 0, 0);
                     view.setLayoutParams(layoutParams);
                 }
 
@@ -148,6 +153,25 @@ public class AzureCustomerServiceAdapter extends BaseMultiItemQuickAdapter<Multi
                 break;
             default:
                 break;
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+
+
+    private void rotationExpandIcon(float from, float to, final View v) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            ValueAnimator valueAnimator = ValueAnimator.ofFloat(from, to);//属性动画
+            valueAnimator.setDuration(500);
+            valueAnimator.setInterpolator(new DecelerateInterpolator());
+            valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+
+                @Override
+                public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                    v.setRotation((Float) valueAnimator.getAnimatedValue());
+                }
+            });
+            valueAnimator.start();
         }
     }
 
