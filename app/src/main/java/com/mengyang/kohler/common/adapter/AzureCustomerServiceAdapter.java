@@ -54,6 +54,7 @@ public class AzureCustomerServiceAdapter extends BaseMultiItemQuickAdapter<Multi
     private SimpleDateFormat mDateformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private int mHour;
     private int mDataSize;
+    private boolean mIsList;
 
     /**
      * Same as QuickAdapter#QuickAdapter(Context,int) but with
@@ -74,7 +75,12 @@ public class AzureCustomerServiceAdapter extends BaseMultiItemQuickAdapter<Multi
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void convert(final BaseViewHolder helper, final MultiItemEntity item) {
-        switch (item.getItemType()) {
+        int itemType = item.getItemType();
+        if (itemType == 2) {
+            mIsList = true;
+        }
+
+        switch (itemType) {
             case TYPE_LEVEL_0://父级
                 final Level0Item level0Item = (Level0Item) item;
                 helper.setText(R.id.tv_service_list_top_01, level0Item.getParrentLeft());
@@ -104,7 +110,9 @@ public class AzureCustomerServiceAdapter extends BaseMultiItemQuickAdapter<Multi
                 break;
             case TYPE_TEXT://客服文本
                 int adapterPosition = helper.getAdapterPosition();
-                if (adapterPosition == 4) {
+                if ((adapterPosition == 4) || mIsList ) {
+                    mIsList = false;
+
                     RelativeLayout view = helper.getView(R.id.rl_head);
                     RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) view.getLayoutParams();
                     layoutParams.setMargins(0, 78, 0, 0);
