@@ -143,14 +143,14 @@ public class TopView extends RelativeLayout implements View.OnClickListener {
         }
     }
 
-    public void UnityCallBack() {
-        if (mContext instanceof Activity) {
-            ((Activity) mContext).finish();
-            if (((Activity) mContext).getCurrentFocus() != null) {
-                ((InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(((Activity) mContext).getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-            }
-        }
-    }
+//    public void UnityCallBack(String str) {
+//        if (mContext instanceof Activity) {
+//            ((Activity) mContext).finish();
+//            if (((Activity) mContext).getCurrentFocus() != null) {
+//                ((InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(((Activity) mContext).getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+//            }
+//        }
+//    }
 
     public interface ItemClickListenner {
         void onItemClick();

@@ -21,6 +21,8 @@ import com.mengyang.kohler.common.entity.Level1Item;
 import com.mengyang.kohler.common.net.Config;
 import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.net.IdeaApi;
+import com.mengyang.kohler.common.utils.LogUtils;
+import com.mengyang.kohler.common.utils.StringUtils;
 import com.mengyang.kohler.common.utils.ToastUtil;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.module.bean.AzureBotAnswerQuestionBean;
@@ -75,6 +77,7 @@ public class AzureCustomerServiceActivity extends BaseActivity {
     //    private static final String REQUEST = "/activities";
     //    private AzureBotStartBean mAzureBotStartBean;
     private AzureServiceBean mAzureServiceBean;
+    private ArrayList<MultiItemEntity> res;
 
     @Override
     protected int getLayoutId() {
@@ -215,9 +218,22 @@ public class AzureCustomerServiceActivity extends BaseActivity {
                 final QuestionSearchBean questionSearchBean = new QuestionSearchBean("", 2);
                 if (!azureServiceBean.getData().getMessage().equals("") && azureServiceBean.getData().getMessage() != null)
                     questionSearchBean.setDescription(azureServiceBean.getData().getMessage());
-                else if (azureServiceBean.getData().getClickVos().size() > 0) {
-
-                } else if (azureServiceBean.getData().getMultimedia().size() > 0) {
+                if (azureServiceBean.getData().getClickVos().size() > 0) {
+                    for (int i = 0; i < azureServiceBean.getData().getClickVos().size(); i++) {
+//                        String parent_start = StringUtils.identical(azureServiceBean.getData().getClickVos().get(i).getText(), "【", "】");
+//                        String parent_end = azureServiceBean.getData().getClickVos().get(i).getText().substring(parent_start.lastIndexOf("】") + 1, azureServiceBean.getData().getClickVos().get(i).getText().length());
+//                        res.add(new Level0Item(parent_start, parent_end));
+                        int a = 24;
+                        String str = StringUtils.identical("【售前问题】（门店预约、产品询价、官方商城地址）", "【", "】");
+                        LogUtils.i("rmy", "str = " + str);
+                        int o = str.lastIndexOf("】");
+                        LogUtils.i("rmy", "o = " + o);
+                        String ppp = "【售前问题】（门店预约、产品询价、官方商城地址）".substring(o + 1, a);
+                        LogUtils.i("rmy", "ppp = " + ppp);
+                        res.add(new Level0Item(str, ppp));
+                    }
+                }
+                if (azureServiceBean.getData().getMultimedia().size() > 0) {
 
                 }
                 AzureCustomerServiceActivity.this.runOnUiThread(new Runnable() {
@@ -268,7 +284,7 @@ public class AzureCustomerServiceActivity extends BaseActivity {
     private ArrayList<MultiItemEntity> generateData() {
         int lv1Count = 3;
 
-        ArrayList<MultiItemEntity> res = new ArrayList<>();
+        res = new ArrayList<>();
         QuestionSearchBean textBean = new QuestionSearchBean("Hi～我是科勒客服，需要咨询科勒产品吗，请在对话框输入尝试一下我们的Click to Chat？", 2);
         res.add(textBean);
 

@@ -34,7 +34,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class KbisProductFragment extends BaseFragment implements BaseQuickAdapter.OnItemChildClickListener {
-    private KbisBean mResultBean;
     private List<KbisBean.PdfListBean> mKbisPdfBean = new ArrayList<>();
     private KbisPdfAdapter mKbisPdfAdapter;
 
@@ -59,29 +58,16 @@ public class KbisProductFragment extends BaseFragment implements BaseQuickAdapte
 
     @Override
     protected void initData() {
-        IdeaApi.getApiService()
-                .getKbis()
-                .compose(KbisProductFragment.this.<BasicResponse<KbisBean>>bindToLifecycle())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<BasicResponse<KbisBean>>(getActivity(), true) {
-                    @Override
-                    public void onSuccess(BasicResponse<KbisBean> response) {
-                        mResultBean = response.getData();
-
-                        List<KbisBean.PdfListBean> pdfList = mResultBean.getPdfList();
-
-                        mKbisPdfBean.clear();
-                        for (int i = 0; i < pdfList.size(); i++) {
-                            KbisBean.PdfListBean pdfListBean = pdfList.get(i);
-                            mKbisPdfBean.add(pdfListBean);
-                        }
-
-                        mKbisPdfAdapter = new KbisPdfAdapter(mKbisPdfBean);
-                        mRvKbisPdf.setAdapter(mKbisPdfAdapter);
-                        mKbisPdfAdapter.setOnItemChildClickListener(KbisProductFragment.this);
-                    }
-                });
+        KbisBean data = (KbisBean) getArguments().getSerializable("data");
+        List<KbisBean.PdfListBean> pdfList = data.getPdfList();
+        mKbisPdfBean.clear();
+        for (int i = 0; i < pdfList.size(); i++) {
+            KbisBean.PdfListBean pdfListBean = pdfList.get(i);
+            mKbisPdfBean.add(pdfListBean);
+        }
+        mKbisPdfAdapter = new KbisPdfAdapter(mKbisPdfBean);
+        mRvKbisPdf.setAdapter(mKbisPdfAdapter);
+        mKbisPdfAdapter.setOnItemChildClickListener(KbisProductFragment.this);
     }
 
     @Override

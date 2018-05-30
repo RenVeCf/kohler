@@ -77,7 +77,7 @@ public class KbisGuideMapFragment extends BaseFragment implements OnPhotoTapList
     @Override
     protected void initValues() {
         mAttacher = new PhotoViewAttacher(mPhotoView);
-//        mAttacher0 = new PhotoViewAttacher(mPhotoViewShadow);
+        //        mAttacher0 = new PhotoViewAttacher(mPhotoViewShadow);
         mAttacher1 = new PhotoViewAttacher(mPhotoView1);
         mAttacher2 = new PhotoViewAttacher(mPhotoView2);
         mAttacher3 = new PhotoViewAttacher(mPhotoView3);
@@ -85,7 +85,7 @@ public class KbisGuideMapFragment extends BaseFragment implements OnPhotoTapList
         mAttacher5 = new PhotoViewAttacher(mPhotoView5);
 
         mAttacher.setOnPhotoTapListener(this);
-//        mAttacher0.setOnPhotoTapListener(this);
+        //        mAttacher0.setOnPhotoTapListener(this);
         mAttacher1.setOnPhotoTapListener(this);
         mAttacher2.setOnPhotoTapListener(this);
         mAttacher3.setOnPhotoTapListener(this);
@@ -93,8 +93,8 @@ public class KbisGuideMapFragment extends BaseFragment implements OnPhotoTapList
         mAttacher5.setOnPhotoTapListener(this);
 
         //        mPhotoView.setZoomable(false);
-//        mAttacher.setZoomable(false);
-//        mAttacher0.setZoomable(false);
+        //        mAttacher.setZoomable(false);
+        //        mAttacher0.setZoomable(false);
         mAttacher1.setZoomable(false);
         mAttacher2.setZoomable(false);
         mAttacher3.setZoomable(false);
@@ -140,14 +140,26 @@ public class KbisGuideMapFragment extends BaseFragment implements OnPhotoTapList
                 return false;
             }
         });
+        moveScrolleiew();
+    }
 
-        new Thread(){
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            moveScrolleiew();
+        }
+    }
+
+    private void moveScrolleiew() {
+        new Thread() {
             @Override
             public void run() {
                 super.run();
-                SystemClock.sleep(100);
-
-                mScrollView.smoothScrollBy(430,0);
+                if (mScrollView != null) {
+                    SystemClock.sleep(300);
+                    mScrollView.smoothScrollTo(430, 0);
+                }
             }
         }.start();
     }
@@ -161,7 +173,6 @@ public class KbisGuideMapFragment extends BaseFragment implements OnPhotoTapList
     protected void initData() {
 
     }
-
 
     @Override
     public void onPhotoTap(ImageView view, float x, float y) {
@@ -186,15 +197,15 @@ public class KbisGuideMapFragment extends BaseFragment implements OnPhotoTapList
             setAllGone(5);
 
             Log.i("123789465", "左上");
-        } else if ((y >= 0.27 && y <= 0.82) && (x >= 0.04 && x <= 0.61)){
+        } else if ((y >= 0.27 && y <= 0.82) && (x >= 0.04 && x <= 0.61)) {
             setAllGone(4);
 
             Log.i("123789465", "左下");
-        } else if ((y >= 0.30 && y <= 0.51) && (x >= 0.83 && x <= 0.99)){
+        } else if ((y >= 0.30 && y <= 0.51) && (x >= 0.83 && x <= 0.99)) {
             setAllGone(1);
 
             Log.i("123789465", "右上");
-        } else if ((y >= 0.49 && y <= 0.64) && (x >= 0.74 && x <= 0.90)){
+        } else if ((y >= 0.49 && y <= 0.64) && (x >= 0.74 && x <= 0.90)) {
             setAllGone(2);
 
             Log.i("123789465", "右中");
@@ -280,9 +291,9 @@ public class KbisGuideMapFragment extends BaseFragment implements OnPhotoTapList
                 break;
         }
 
-        mPopupWindow.showAtLocation(mScrollView, Gravity.CENTER,10,10);
+        mPopupWindow.showAtLocation(mScrollView, Gravity.CENTER, 10, 10);
         mAttacher.setMove(false);
-//        mAttacher0.setMove(false);
+        //        mAttacher0.setMove(false);
         mAttacher1.setMove(false);
         mAttacher2.setMove(false);
         mAttacher3.setMove(false);

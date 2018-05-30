@@ -34,8 +34,7 @@ public class KbisAgendaFragment extends BaseFragment {
     @BindView(R.id.rv_kbis_agenda)
     RecyclerView rvKbisAgenda;
 
-    private KbisBean mMeetingBean;
-    private List<KbisBean.AgendaListBean> mMeetingAdapterBean;
+    private List<KbisBean.AgendaListBean> mMeetingAdapterBean = new ArrayList<>();
     private KbisAgendadapter mKbisAgendadapter;
 
     @Override
@@ -52,7 +51,6 @@ public class KbisAgendaFragment extends BaseFragment {
         rvKbisAgenda.setItemAnimator(new DefaultItemAnimator());
         rvKbisAgenda.setNestedScrollingEnabled(false);
 
-        mMeetingAdapterBean = new ArrayList<>();
         mKbisAgendadapter = new KbisAgendadapter(mMeetingAdapterBean);
         rvKbisAgenda.setAdapter(mKbisAgendadapter);
     }
@@ -64,25 +62,12 @@ public class KbisAgendaFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-        IdeaApi.getApiService()
-                .getKbis()
-                .compose(KbisAgendaFragment.this.<BasicResponse<KbisBean>>bindToLifecycle())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<BasicResponse<KbisBean>>(getActivity(), true) {
-                    @Override
-                    public void onSuccess(BasicResponse<KbisBean> response) {
-                        mMeetingBean = response.getData();
-
-                        KbisBean.AgendaListBean first = mMeetingBean.getAgendaList().get(0);
-
-                        mMeetingAdapterBean.clear();
-                        mMeetingAdapterBean.addAll(mMeetingBean.getAgendaList());
-                        mMeetingAdapterBean.add(0, first);
-
-                        mKbisAgendadapter = new KbisAgendadapter(mMeetingAdapterBean);
-                        rvKbisAgenda.setAdapter(mKbisAgendadapter);
-                    }
-                });
+        KbisBean data = (KbisBean) getArguments().getSerializable("data");
+        KbisBean.AgendaListBean first = data.getAgendaList().get(0);
+        mMeetingAdapterBean.clear();
+        mMeetingAdapterBean.addAll(data.getAgendaList());
+        mMeetingAdapterBean.add(0, first);
+        mKbisAgendadapter = new KbisAgendadapter(mMeetingAdapterBean);
+        rvKbisAgenda.setAdapter(mKbisAgendadapter);
     }
 }

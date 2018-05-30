@@ -58,24 +58,12 @@ public class KbisPhotoFragment extends BaseFragment implements BaseQuickAdapter.
 
     @Override
     protected void initData() {
-        IdeaApi.getApiService()
-                .getKbis()
-                .compose(KbisPhotoFragment.this.<BasicResponse<KbisBean>>bindToLifecycle())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<BasicResponse<KbisBean>>(getActivity(), true) {
-                    @Override
-                    public void onSuccess(BasicResponse<KbisBean> response) {
-                        mResultBean = response.getData();
-
-                        mKbisPhotoBean.clear();
-                        mKbisPhotoBean.addAll(mResultBean.getPhotoList());
-
-                        mKbisPhotoAdapter = new KbisPhotoAdapter(mKbisPhotoBean);
-                        mRvKbisPhoto.setAdapter(mKbisPhotoAdapter);
-                        mKbisPhotoAdapter.setOnItemChildClickListener(KbisPhotoFragment.this);
-                    }
-                });
+        KbisBean data = (KbisBean) getArguments().getSerializable("data");
+        mKbisPhotoBean.clear();
+        mKbisPhotoBean.addAll(data.getPhotoList());
+        mKbisPhotoAdapter = new KbisPhotoAdapter(mKbisPhotoBean);
+        mRvKbisPhoto.setAdapter(mKbisPhotoAdapter);
+        mKbisPhotoAdapter.setOnItemChildClickListener(KbisPhotoFragment.this);
     }
 
     @Override

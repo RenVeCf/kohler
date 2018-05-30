@@ -196,7 +196,8 @@ public class StringUtils {
      */
     public static String reverse(String s) {
         int len = length(s);
-        if (len <= 1) return s;
+        if (len <= 1)
+            return s;
         int mid = len >> 1;
         char[] chars = s.toCharArray();
         char c;
@@ -353,7 +354,8 @@ public class StringUtils {
      * @return 如果字符串长度是1返回的是对应的ascii码，否则返回-1
      */
     private static int oneCn2ASCII(String s) {
-        if (s.length() != 1) return -1;
+        if (s.length() != 1)
+            return -1;
         int ascii = 0;
         try {
             byte[] bytes = s.getBytes("GB2312");
@@ -380,7 +382,8 @@ public class StringUtils {
      */
     private static String oneCn2PY(String s) {
         int ascii = oneCn2ASCII(s);
-        if (ascii == -1) return null;
+        if (ascii == -1)
+            return null;
         String ret = null;
         if (0 <= ascii && ascii <= 127) {
             ret = String.valueOf((char) ascii);
@@ -402,11 +405,13 @@ public class StringUtils {
      * @return 拼音
      */
     public static String getPYFirstLetter(String s) {
-        if (isSpace(s)) return "";
+        if (isSpace(s))
+            return "";
         String first, py;
         first = s.substring(0, 1);
         py = oneCn2PY(first);
-        if (py == null) return null;
+        if (py == null)
+            return null;
         return py.substring(0, 1);
     }
 
@@ -432,10 +437,9 @@ public class StringUtils {
 
     /**
      * 截取两个字符中的内容
-     *
      */
-    public static String identical (String str, String first, String last) {
-        str.substring(str.indexOf(first) + 1, str.lastIndexOf(last));
+    public static String identical(String str, String first, String last) {
+        str = str.substring(str.indexOf(first), str.lastIndexOf(last) + 1);
         return str;
     }
 }
