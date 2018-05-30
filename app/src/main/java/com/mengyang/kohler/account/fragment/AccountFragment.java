@@ -283,9 +283,7 @@ public class AccountFragment extends BaseFragment implements BaseQuickAdapter.Re
                                     mFootPrintAdapter.setOnLoadMoreListener(AccountFragment.this, rvAccountBrowsing); //加载更多
                                     mFootPrintAdapter.setLoadMoreView(new MyLoadMoreView());//添加修改后的没有跟多数据view
 
-                                    mFootPrintAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener()
-
-                                    {
+                                    mFootPrintAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                                         @Override
                                         public void onItemClick(BaseQuickAdapter adapter, View
                                                 view, int position) {
