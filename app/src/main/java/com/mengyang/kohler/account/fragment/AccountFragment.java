@@ -14,6 +14,7 @@ import android.provider.MediaStore;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -252,7 +253,8 @@ public class AccountFragment extends BaseFragment implements BaseQuickAdapter.Re
 
     private void getUserMsg() {
         tvAccountName.setText(SPUtil.get(App.getContext(), IConstants.USER_NIKE_NAME, App.getContext().getResources().getString(R.string.login_or_register)) + "");
-        Glide.with(App.getContext()).load(SPUtil.get(App.getContext(), IConstants.USER_HEAD_PORTRAIT, "") + "").apply(new RequestOptions().placeholder(R.mipmap.oval)).into(civAccountTitle);
+        if (SPUtil.get(App.getContext(), IConstants.USER_HEAD_PORTRAIT, "").equals(""))
+            Glide.with(App.getContext()).load(SPUtil.get(App.getContext(), IConstants.USER_HEAD_PORTRAIT, "") + "").apply(new RequestOptions().placeholder(R.mipmap.oval)).into(civAccountTitle);
     }
 
     private void getFootPrint() {
@@ -359,7 +361,7 @@ public class AccountFragment extends BaseFragment implements BaseQuickAdapter.Re
                                 .subscribe(new DefaultObserver<BasicResponse>(getActivity(), false) {
                                     @Override
                                     public void onSuccess(BasicResponse response) {
-
+                                        SPUtil.put(App.getContext(), IConstants.USER_HEAD_PORTRAIT, mUploadHeadPortraitBean.getFileUrl());
                                     }
                                 });
                     }

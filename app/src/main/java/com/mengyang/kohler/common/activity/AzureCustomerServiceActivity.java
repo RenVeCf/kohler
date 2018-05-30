@@ -18,16 +18,21 @@ import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.adapter.AzureCustomerServiceAdapter;
 import com.mengyang.kohler.common.entity.Level0Item;
 import com.mengyang.kohler.common.entity.Level1Item;
+import com.mengyang.kohler.common.net.Config;
+import com.mengyang.kohler.common.net.IConstants;
+import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.utils.ToastUtil;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.module.bean.AzureBotAnswerQuestionBean;
 import com.mengyang.kohler.module.bean.AzureBotSendMsgBean;
 import com.mengyang.kohler.module.bean.AzureBotStartBean;
 import com.mengyang.kohler.module.bean.AzureBotWartBean;
+import com.mengyang.kohler.module.bean.AzureServiceBean;
 import com.mengyang.kohler.module.bean.QuestionSearchBean;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -59,15 +64,17 @@ public class AzureCustomerServiceActivity extends BaseActivity {
     Button btAzureSendMessage;
 
     private static final String HEADER_KEY = "Authorization";
-    private static final String HEADER_VALUE = "Bearer yTlSJIGr5Ak.cwA.k1Y.hD-eSE5mXqmXFNzB6TX_LI4qqD_TyCPQYOqEK2Lnk68";
+    //    private static final String HEADER_VALUE = "Bearer yTlSJIGr5Ak.cwA.k1Y.hD-eSE5mXqmXFNzB6TX_LI4qqD_TyCPQYOqEK2Lnk68";
+    private static final String HEADER_VALUE = "Basic [base64(n0lWVV1Lwx8p7tYR:95f19722c7f2544b395bf89c8789ebaa2748020a5bf49162385219ec67c9b0fc)]";
 
     private String mQuestionContent;
     private AzureCustomerServiceAdapter mUserServiceAdapter;
 
-    private static final String URL = "https://directline.botframework.com/";
-    private static final String START = URL + "v3/directline/conversations";
-    private static final String REQUEST = "/activities";
-    private AzureBotStartBean mAzureBotStartBean;
+    //    private static final String URL = "https://directline.botframework.com/";
+    //    private static final String START = URL + "v3/directline/conversations";
+    //    private static final String REQUEST = "/activities";
+    //    private AzureBotStartBean mAzureBotStartBean;
+    private AzureServiceBean mAzureServiceBean;
 
     @Override
     protected int getLayoutId() {
@@ -104,20 +111,20 @@ public class AzureCustomerServiceActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        OkHttpClient okHttpClient = new OkHttpClient.Builder().connectTimeout(50000, TimeUnit.MILLISECONDS).writeTimeout(50000, TimeUnit.MILLISECONDS).readTimeout(50000, TimeUnit.MILLISECONDS).build();
-        Request requestPost = new Request.Builder().url(START).post(RequestBody.create(null, "")).header(HEADER_KEY, HEADER_VALUE).build();
-        Call call = okHttpClient.newCall(requestPost);
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) {
-                mAzureBotStartBean = new Gson().fromJson(response.body().charStream(), AzureBotStartBean.class);
-            }
-        });
+        //        OkHttpClient okHttpClient = new OkHttpClient.Builder().connectTimeout(50000, TimeUnit.MILLISECONDS).writeTimeout(50000, TimeUnit.MILLISECONDS).readTimeout(50000, TimeUnit.MILLISECONDS).build();
+        //        Request requestPost = new Request.Builder().url(START).post(RequestBody.create(null, "")).header(HEADER_KEY, HEADER_VALUE).build();
+        //        Call call = okHttpClient.newCall(requestPost);
+        //        call.enqueue(new Callback() {
+        //            @Override
+        //            public void onFailure(Call call, IOException e) {
+        //                e.printStackTrace();
+        //            }
+        //
+        //            @Override
+        //            public void onResponse(Call call, Response response) {
+        //                mAzureBotStartBean = new Gson().fromJson(response.body().charStream(), AzureBotStartBean.class);
+        //            }
+        //        });
     }
 
     @OnClick({R.id.bt_azure_send_message})
@@ -141,19 +148,58 @@ public class AzureCustomerServiceActivity extends BaseActivity {
         }
     }
 
+    //    private void searchQuestion(String question) {
+    //        OkHttpClient okHttpClient = new OkHttpClient.Builder().connectTimeout(50000, TimeUnit.MILLISECONDS).writeTimeout(50000, TimeUnit.MILLISECONDS).readTimeout(50000, TimeUnit.MILLISECONDS).build();
+    //        AzureBotSendMsgBean azureBotSendMsgBean = new AzureBotSendMsgBean();
+    //        AzureBotSendMsgBean.FromBean fromBean = new AzureBotSendMsgBean.FromBean();
+    //        fromBean.setId("user_name");
+    //        azureBotSendMsgBean.setType("message");
+    //        azureBotSendMsgBean.setFrom(fromBean);
+    //        azureBotSendMsgBean.setText(question);
+    //        Gson gson = new Gson();
+    //        String Authorization = gson.toJson(azureBotSendMsgBean);
+    //
+    //        RequestBody requestBody = FormBody.create(MediaType.parse("application/json; charset=utf-8"), Authorization);
+    //        Request requestPost = new Request.Builder().url(START + "/" + mAzureBotStartBean.getConversationId() + REQUEST).post(requestBody).header(HEADER_KEY, HEADER_VALUE).build();
+    //        Call call = okHttpClient.newCall(requestPost);
+    //
+    //        call.enqueue(new Callback() {
+    //            @Override
+    //            public void onFailure(Call call, IOException e) {
+    //                e.printStackTrace();
+    //            }
+    //
+    //            @Override
+    //            public void onResponse(Call call, Response response) {
+    //                final AzureBotWartBean azureBotWartBean = new Gson().fromJson(response.body().charStream(), AzureBotWartBean.class);
+    //                new Thread() {
+    //                    public void run() {
+    //                        try {
+    //                            sleep(3000);
+    //                            answerQuestion(START + "/" + mAzureBotStartBean.getConversationId() + REQUEST + "?watermark=" + azureBotWartBean.getId().substring(23));
+    //                        } catch (InterruptedException e) {
+    //                            e.printStackTrace();
+    //                        }
+    //                    }
+    //                }.start();
+    //            }
+    //        });
+    //    }
     private void searchQuestion(String question) {
         OkHttpClient okHttpClient = new OkHttpClient.Builder().connectTimeout(50000, TimeUnit.MILLISECONDS).writeTimeout(50000, TimeUnit.MILLISECONDS).readTimeout(50000, TimeUnit.MILLISECONDS).build();
-        AzureBotSendMsgBean azureBotSendMsgBean = new AzureBotSendMsgBean();
-        AzureBotSendMsgBean.FromBean fromBean = new AzureBotSendMsgBean.FromBean();
-        fromBean.setId("user_name");
-        azureBotSendMsgBean.setType("message");
-        azureBotSendMsgBean.setFrom(fromBean);
-        azureBotSendMsgBean.setText(question);
+        //        AzureBotSendMsgBean azureBotSendMsgBean = new AzureBotSendMsgBean();
+        //        AzureBotSendMsgBean.FromBean fromBean = new AzureBotSendMsgBean.FromBean();
+        //        fromBean.setId("user_name");
+        //        azureBotSendMsgBean.setType("message");
+        //        azureBotSendMsgBean.setFrom(fromBean);
+        //        azureBotSendMsgBean.setText(question);
+        Map<String, Object> map = IdeaApi.getSign();
+        map.put("queryStr", question);
         Gson gson = new Gson();
-        String Authorization = gson.toJson(azureBotSendMsgBean);
+        String Authorization = gson.toJson(map);
 
         RequestBody requestBody = FormBody.create(MediaType.parse("application/json; charset=utf-8"), Authorization);
-        Request requestPost = new Request.Builder().url(START + "/" + mAzureBotStartBean.getConversationId() + REQUEST).post(requestBody).header(HEADER_KEY, HEADER_VALUE).build();
+        Request requestPost = new Request.Builder().url(Config.AZURE_AI).post(requestBody).header(HEADER_KEY, HEADER_VALUE).build();
         Call call = okHttpClient.newCall(requestPost);
 
         call.enqueue(new Callback() {
@@ -164,44 +210,60 @@ public class AzureCustomerServiceActivity extends BaseActivity {
 
             @Override
             public void onResponse(Call call, Response response) {
-                final AzureBotWartBean azureBotWartBean = new Gson().fromJson(response.body().charStream(), AzureBotWartBean.class);
-                new Thread() {
+                AzureServiceBean azureServiceBean = new Gson().fromJson(response.body().charStream(), AzureServiceBean.class);
+                //                AzureBotAnswerQuestionBean azureBotAnswerQuestionBean = new Gson().fromJson(response.body().charStream(), AzureBotAnswerQuestionBean.class);
+                final QuestionSearchBean questionSearchBean = new QuestionSearchBean("", 2);
+                if (!azureServiceBean.getData().getMessage().equals("") && azureServiceBean.getData().getMessage() != null)
+                    questionSearchBean.setDescription(azureServiceBean.getData().getMessage());
+                else if (azureServiceBean.getData().getClickVos().size() > 0) {
+
+                } else if (azureServiceBean.getData().getMultimedia().size() > 0) {
+
+                }
+                AzureCustomerServiceActivity.this.runOnUiThread(new Runnable() {
+                    @Override
                     public void run() {
-                        try {
-                            sleep(3000);
-                            answerQuestion(START + "/" + mAzureBotStartBean.getConversationId() + REQUEST + "?watermark=" + azureBotWartBean.getId().substring(23));
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }.start();
-            }
-
-            private void answerQuestion(String answerUrl) {
-                OkHttpClient okHttpClient = new OkHttpClient.Builder().connectTimeout(50000, TimeUnit.MILLISECONDS).writeTimeout(50000, TimeUnit.MILLISECONDS).readTimeout(50000, TimeUnit.MILLISECONDS).build();
-                Request request = new Request.Builder().url(answerUrl).header(HEADER_KEY, HEADER_VALUE).build();
-                okHttpClient.newCall(request).enqueue(new Callback() {
-                    @Override
-                    public void onFailure(Call call, IOException e) {
-                    }
-
-                    @Override
-                    public void onResponse(Call call, Response response) {
-                        AzureBotAnswerQuestionBean azureBotAnswerQuestionBean = new Gson().fromJson(response.body().charStream(), AzureBotAnswerQuestionBean.class);
-                        final QuestionSearchBean questionSearchBean = new QuestionSearchBean("", 2);
-                        questionSearchBean.setDescription(azureBotAnswerQuestionBean.getActivities().get(0).getText());
-                        AzureCustomerServiceActivity.this.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                mUserServiceAdapter.addData(questionSearchBean);
-                                rvAzureBot.scrollToPosition(mUserServiceAdapter.getItemCount() - 1);
-                            }
-                        });
+                        mUserServiceAdapter.addData(questionSearchBean);
+                        rvAzureBot.scrollToPosition(mUserServiceAdapter.getItemCount() - 1);
                     }
                 });
+                //                new Thread() {
+                //                    public void run() {
+                //                        try {
+                //                            sleep(3000);
+                //                            answerQuestion(START + "/" + mAzureBotStartBean.getConversationId() + REQUEST + "?watermark=" + azureBotWartBean.getId().substring(23));
+                //                        } catch (InterruptedException e) {
+                //                            e.printStackTrace();
+                //                        }
+                //                    }
+                //                }.start();
             }
         });
     }
+
+    //    private void answerQuestion(String answerUrl) {
+    //        OkHttpClient okHttpClient = new OkHttpClient.Builder().connectTimeout(50000, TimeUnit.MILLISECONDS).writeTimeout(50000, TimeUnit.MILLISECONDS).readTimeout(50000, TimeUnit.MILLISECONDS).build();
+    //        Request request = new Request.Builder().url(answerUrl).header(HEADER_KEY, HEADER_VALUE).build();
+    //        okHttpClient.newCall(request).enqueue(new Callback() {
+    //            @Override
+    //            public void onFailure(Call call, IOException e) {
+    //            }
+    //
+    //            @Override
+    //            public void onResponse(Call call, Response response) {
+    //                AzureBotAnswerQuestionBean azureBotAnswerQuestionBean = new Gson().fromJson(response.body().charStream(), AzureBotAnswerQuestionBean.class);
+    //                final QuestionSearchBean questionSearchBean = new QuestionSearchBean("", 2);
+    //                questionSearchBean.setDescription(azureBotAnswerQuestionBean.getActivities().get(0).getText());
+    //                AzureCustomerServiceActivity.this.runOnUiThread(new Runnable() {
+    //                    @Override
+    //                    public void run() {
+    //                        mUserServiceAdapter.addData(questionSearchBean);
+    //                        rvAzureBot.scrollToPosition(mUserServiceAdapter.getItemCount() - 1);
+    //                    }
+    //                });
+    //            }
+    //        });
+    //    }
 
     private ArrayList<MultiItemEntity> generateData() {
         int lv1Count = 3;
@@ -231,10 +293,7 @@ public class AzureCustomerServiceActivity extends BaseActivity {
 
         textBean = new QuestionSearchBean("还可以进入科勒预约系统进行门店查询和预约, 点击进入 或 返回", 2);
         res.add(textBean);
-//
-//        res.add(new QuestionSearchBean("666999999999", 2));
-//
-//        res.add(new QuestionSearchBean("2222222222222222", 2));
+        //        res.add(new QuestionSearchBean("2222222222222222", 3));
         return res;
     }
 }

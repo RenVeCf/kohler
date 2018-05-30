@@ -536,8 +536,10 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 FragmentSelect(1);
                 mIsUnableToDrag = true;
                 view_line.setVisibility(View.VISIBLE);
+//                Intent intent = new Intent(this, UnityPlayerActivity.class);
+//                intent.putExtra("way", "arscan");
                 Intent intent = new Intent(this, UnityPlayerActivity.class);
-                intent.putExtra("way", "arscan");
+                intent.putExtra("flag", "9");
                 startActivityForResult(intent, IConstants.DELETE_REQUESTCODE);
                 break;
             case R.id.bt_account:

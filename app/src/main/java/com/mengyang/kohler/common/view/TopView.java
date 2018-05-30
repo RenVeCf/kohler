@@ -15,6 +15,7 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.deepano.kohlortest.UnityPlayerActivity;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.activity.CustomerServiceActivity;
@@ -139,6 +140,15 @@ public class TopView extends RelativeLayout implements View.OnClickListener {
                 break;
             default:
                 break;
+        }
+    }
+
+    public void UnityCallBack() {
+        if (mContext instanceof Activity) {
+            ((Activity) mContext).finish();
+            if (((Activity) mContext).getCurrentFocus() != null) {
+                ((InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(((Activity) mContext).getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+            }
         }
     }
 

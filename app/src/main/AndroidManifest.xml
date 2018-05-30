@@ -294,6 +294,7 @@
             android:exported="false" />-->
         <activity
             android:name="com.deepano.kohlortest.UnityPlayerActivity"
+            android:process=":UnityActivity"
             android:exported="false" />
 
         <activity

@@ -116,7 +116,10 @@ public class AzureCustomerServiceAdapter extends BaseMultiItemQuickAdapter<Multi
                         .setText(R.id.tv_service_time, parseTiem());
 
                 if (textBean.getDescription() != null) {
-                    helper.setText(R.id.tv_service_message, textBean.getDescription());
+                    if (textBean.getDescription().equals("还可以进入科勒预约系统进行门店查询和预约点击进入 或 返回"))
+                        helper.setText(R.id.tv_service_message, getClickableSpan());
+                    else
+                        helper.setText(R.id.tv_service_message, textBean.getDescription());
                 }
 
                 if (mHour >= 0 && mHour < 12) {
@@ -126,7 +129,17 @@ public class AzureCustomerServiceAdapter extends BaseMultiItemQuickAdapter<Multi
                 }
                 break;
             case TYPE_PRODUCT:
-
+                helper.setBackgroundColor(R.id.ll_azure_service_bg, Color.argb(77, 255, 255, 255));
+                Glide.with(App.getContext()).load(R.mipmap.azure_service_photo_w).apply(new RequestOptions().placeholder(R.mipmap.queshengtu)).into((ImageView) helper.getView(R.id.iv_service_product_icon));
+                helper.setText(R.id.tv_service_time, parseTiem()).setText(R.id.tv_service_product_recommend, "今天天气真不错，给你推荐个产品。今天天气真不错，给你推荐个产品。")
+                        .setText(R.id.tv_service_product_recommend_01, "LOURE® 萝瑞 单把碗盆龙头")
+                        .setText(R.id.tv_service_product_recommend_02, "K-14660T-4-CP")
+                        .setText(R.id.tv_service_product_recommend_03, "颜色/表面处理工艺：CP/抛光镀铬");
+                if (mHour >= 0 && mHour < 12) {
+                    helper.setText(R.id.tv_flag, "AM");
+                } else {
+                    helper.setText(R.id.tv_flag, "PM");
+                }
                 break;
             case TYPE_USER: //用户
                 final QuestionSearchBean questionSearchBean = (QuestionSearchBean) item;

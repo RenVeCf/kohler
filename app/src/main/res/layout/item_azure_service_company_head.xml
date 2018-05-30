@@ -55,10 +55,9 @@
             android:id="@+id/tv_service_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:autoLink="all"
             android:paddingRight="@dimen/x20"
             android:text="您好，我是科勒机器人客服，请提问或输入关键词查询。"
             android:textColor="#ffffff" />
-
     </LinearLayout>
-
 </RelativeLayout>

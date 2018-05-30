@@ -500,7 +500,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                                         MobclickAgent.onEvent(getActivity(), "arjieshuo");
                                         AIOAnalytics.onEvent("arjieshuo");
                                         Intent intent = new Intent(getActivity(), UnityPlayerActivity.class);
-                                        intent.putExtra("way", "banner");
+                                        intent.putExtra("flag", "9");
                                         startActivity(intent);
                                     } else {
                                         if (mHomeIndexBean.getKvList().get(postion).getClickRedirect() != null && !mHomeIndexBean.getKvList().get(postion).getClickRedirect().equals("")) {
