@@ -10,62 +10,15 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <ImageView
-                android:visibility="gone"
-                android:id="@+id/iv_top"
-                android:src="@mipmap/icon_guidemap_ts_nor"
-                android:scaleType="centerCrop"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <ImageView
-                android:visibility="gone"
-                android:id="@+id/iv_top5"
-                android:src="@mipmap/icon_guidemap_ts_pre_sec5"
-                android:scaleType="centerCrop"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <ImageView
-                android:visibility="gone"
-                android:id="@+id/iv_top4"
-                android:src="@mipmap/icon_guidemap_ts_pre_sec4"
-                android:scaleType="centerCrop"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <ImageView
-                android:visibility="gone"
-                android:id="@+id/iv_top3"
-                android:src="@mipmap/icon_guidemap_ts_pre_sec3"
-                android:scaleType="centerCrop"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <ImageView
-                android:visibility="gone"
-                android:id="@+id/iv_top2"
-                android:src="@mipmap/icon_guidemap_ts_pre_sec2"
-                android:scaleType="centerCrop"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <ImageView
-                android:visibility="gone"
-                android:id="@+id/iv_top1"
-                android:src="@mipmap/icon_guidemap_ts_pre_sec1"
-                android:scaleType="centerCrop"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-
             <com.mengyang.kohler.home.view.photoview.PhotoView
+
                 android:id="@+id/photo_view"
-                android:src="@mipmap/icon_guidemap_ts_nor"
+                android:src="@mipmap/icon_guidemap_ts_nor2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
             <com.mengyang.kohler.home.view.photoview.PhotoView
+                android:visibility="gone"
                 android:id="@+id/photo_view_shadow"
                 android:src="@mipmap/icon_guidemap_ts_nor2"
                 android:layout_width="match_parent"
