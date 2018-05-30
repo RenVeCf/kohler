@@ -1,5 +1,6 @@
 package com.mengyang.kohler.home.fragment;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.SystemClock;
 import android.support.annotation.RequiresApi;
@@ -15,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.deepano.kohlortest.UnityPlayerActivity;
 import com.mengyang.kohler.BaseFragment;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.utils.DisplayUtils;
@@ -141,13 +143,26 @@ public class KbisGuideMapFragment extends BaseFragment implements OnPhotoTapList
             }
         });
 
+        moveScrolleiew();
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            moveScrolleiew();
+        }
+    }
+
+    private void moveScrolleiew() {
         new Thread(){
             @Override
             public void run() {
                 super.run();
-                SystemClock.sleep(100);
-
-                mScrollView.smoothScrollBy(430,0);
+                if (mScrollView != null) {
+                    SystemClock.sleep(300);
+                    mScrollView.smoothScrollTo(430,0);
+                }
             }
         }.start();
     }
@@ -161,7 +176,6 @@ public class KbisGuideMapFragment extends BaseFragment implements OnPhotoTapList
     protected void initData() {
 
     }
-
 
     @Override
     public void onPhotoTap(ImageView view, float x, float y) {

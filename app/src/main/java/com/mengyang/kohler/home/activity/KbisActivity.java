@@ -1,5 +1,6 @@
 package com.mengyang.kohler.home.activity;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.widget.ImageView;
@@ -9,7 +10,10 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
+import com.mengyang.kohler.common.net.DefaultObserver;
+import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.view.TopView;
+import com.mengyang.kohler.home.adapter.KbisAgendadapter;
 import com.mengyang.kohler.home.fragment.KbisARFragment;
 import com.mengyang.kohler.home.fragment.KbisAgendaFragment;
 import com.mengyang.kohler.home.fragment.KbisGuideMapFragment;
@@ -19,6 +23,8 @@ import com.mengyang.kohler.home.fragment.KbisProductFragment;
 import com.mengyang.kohler.home.fragment.KbisVideoFragment;
 import com.mengyang.kohler.home.view.MyViewPager;
 import com.mengyang.kohler.home.view.NavitationFollowScrollLayoutIonic;
+import com.mengyang.kohler.module.BasicResponse;
+import com.mengyang.kohler.module.bean.KbisBean;
 import com.mengyang.kohler.whole_category.adapter.ViewPagerAdapter;
 import com.umeng.analytics.MobclickAgent;
 
@@ -26,6 +32,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * 2018科勒上海厨卫展
@@ -41,11 +49,13 @@ public class KbisActivity extends BaseActivity {
     NavitationFollowScrollLayoutIonic nfslKbis;
     @BindView(R.id.vp_kbis)
     MyViewPager vpKbis;
-    private List<Fragment> fragments;
+    private List<Fragment> fragments = new ArrayList<>();
     private ViewPagerAdapter viewPagerAdapter;
     private int[] titles = {R.mipmap.trade_show_guide_map, R.mipmap.trade_show_ar, R.mipmap.trade_show_agenda, R.mipmap.trade_show_video, R.mipmap.trade_show_photo, R.mipmap.trade_show_product, R.mipmap.trade_show_interview};
     private int[] unselectedcolor = {R.mipmap.trade_show_guide_map, R.mipmap.trade_show_ar, R.mipmap.trade_show_agenda, R.mipmap.trade_show_video, R.mipmap.trade_show_photo, R.mipmap.trade_show_product, R.mipmap.trade_show_interview};
     private int[] setectedcolor = {R.mipmap.trade_show_guide_map_down, R.mipmap.trade_show_ar_down, R.mipmap.trade_show_agenda_down, R.mipmap.trade_show_video_down, R.mipmap.trade_show_photo_down, R.mipmap.trade_show_product_down, R.mipmap.trade_show_interview_down};
+
+    private List<KbisBean.AgendaListBean> mMeetingAdapterBean = new ArrayList<>();
 
     @Override
     protected int getLayoutId() {
@@ -62,7 +72,16 @@ public class KbisActivity extends BaseActivity {
         MobclickAgent.onEvent(KbisActivity.this, "shanghai_chu_wei_zhan");
         ivTopBack.setImageResource(R.mipmap.fanhuibai);
 
-        fragments = new ArrayList<>();
+
+
+
+
+
+
+
+    }
+
+    private void showFragment(KbisBean data) {
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), fragments);
         vpKbis.setAdapter(viewPagerAdapter);
         vpKbis.setOffscreenPageLimit(2);
@@ -70,6 +89,9 @@ public class KbisActivity extends BaseActivity {
         nfslKbis.setViewPager(KbisActivity.this, titles, vpKbis, unselectedcolor, setectedcolor, 24, true, 2.5f, 10f, 10f, 90);
         nfslKbis.setBgLine(KbisActivity.this, 1);
         nfslKbis.setNavLine(KbisActivity.this, 2);
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("data", data);
 
         //导览图
         KbisGuideMapFragment kbisGuideMapFragment = new KbisGuideMapFragment();
@@ -93,6 +115,10 @@ public class KbisActivity extends BaseActivity {
         KbisInterviewFragment kbisInterviewFragment = new KbisInterviewFragment();
         fragments.add(kbisInterviewFragment);
 
+        for (int i = 0; i < fragments.size(); i++) {
+            fragments.get(i).setArguments(bundle);
+        }
+
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), fragments);
         vpKbis.setAdapter(viewPagerAdapter);
     }
@@ -104,7 +130,18 @@ public class KbisActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-
+        IdeaApi.getApiService()
+                .getKbis()
+                .compose(this.<BasicResponse<KbisBean>>bindToLifecycle())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultObserver<BasicResponse<KbisBean>>(this, true) {
+                    @Override
+                    public void onSuccess(BasicResponse<KbisBean> response) {
+                        KbisBean data = response.getData();
+                        showFragment(data);
+                    }
+                });
     }
 
     @Override

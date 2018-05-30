@@ -36,7 +36,6 @@ public class KbisPhotoFragment extends BaseFragment implements BaseQuickAdapter.
     @BindView(R.id.rv_kbis_photo)
     RecyclerView mRvKbisPhoto;
 
-    private KbisBean mResultBean;
     private List<KbisBean.PhotoListBean> mKbisPhotoBean = new ArrayList<>();
     private KbisPhotoAdapter mKbisPhotoAdapter;
 
@@ -58,7 +57,17 @@ public class KbisPhotoFragment extends BaseFragment implements BaseQuickAdapter.
 
     @Override
     protected void initData() {
-        IdeaApi.getApiService()
+        KbisBean data = (KbisBean) getArguments().getSerializable("data");
+
+        mKbisPhotoBean.clear();
+        mKbisPhotoBean.addAll(data.getPhotoList());
+
+        mKbisPhotoAdapter = new KbisPhotoAdapter(mKbisPhotoBean);
+        mRvKbisPhoto.setAdapter(mKbisPhotoAdapter);
+        mKbisPhotoAdapter.setOnItemChildClickListener(KbisPhotoFragment.this);
+
+
+/*        IdeaApi.getApiService()
                 .getKbis()
                 .compose(KbisPhotoFragment.this.<BasicResponse<KbisBean>>bindToLifecycle())
                 .subscribeOn(Schedulers.io())
@@ -66,16 +75,11 @@ public class KbisPhotoFragment extends BaseFragment implements BaseQuickAdapter.
                 .subscribe(new DefaultObserver<BasicResponse<KbisBean>>(getActivity(), true) {
                     @Override
                     public void onSuccess(BasicResponse<KbisBean> response) {
-                        mResultBean = response.getData();
+//                        mResultBean = response.getData();
 
-                        mKbisPhotoBean.clear();
-                        mKbisPhotoBean.addAll(mResultBean.getPhotoList());
 
-                        mKbisPhotoAdapter = new KbisPhotoAdapter(mKbisPhotoBean);
-                        mRvKbisPhoto.setAdapter(mKbisPhotoAdapter);
-                        mKbisPhotoAdapter.setOnItemChildClickListener(KbisPhotoFragment.this);
                     }
-                });
+                });*/
     }
 
     @Override

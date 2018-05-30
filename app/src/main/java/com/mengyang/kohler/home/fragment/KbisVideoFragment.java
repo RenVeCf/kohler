@@ -29,7 +29,6 @@ public class KbisVideoFragment extends BaseFragment implements BaseQuickAdapter.
     @BindView(R.id.rv_kbis_video)
     RecyclerView mRvKbisVideo;
 
-    private KbisBean mResultBean;
     private List<KbisBean.VideoListBean> mKbisVideoBean = new ArrayList<>();
     private KbisVideoAdapter mKbisVideoAdapter;
 
@@ -52,7 +51,16 @@ public class KbisVideoFragment extends BaseFragment implements BaseQuickAdapter.
 
     @Override
     protected void initData() {
-        IdeaApi.getApiService()
+        KbisBean data = (KbisBean) getArguments().getSerializable("data");
+
+        mKbisVideoBean.clear();
+        mKbisVideoBean.addAll(data.getVideoList());
+
+        mKbisVideoAdapter = new KbisVideoAdapter(mKbisVideoBean);
+        mRvKbisVideo.setAdapter(mKbisVideoAdapter);
+        //                        mKbisVideoAdapter.setOnItemChildClickListener(KbisVideoFragment.this);
+
+        /*IdeaApi.getApiService()
                 .getKbis()
                 .compose(KbisVideoFragment.this.<BasicResponse<KbisBean>>bindToLifecycle())
                 .subscribeOn(Schedulers.io())
@@ -62,14 +70,9 @@ public class KbisVideoFragment extends BaseFragment implements BaseQuickAdapter.
                     public void onSuccess(BasicResponse<KbisBean> response) {
                         mResultBean = response.getData();
 
-                        mKbisVideoBean.clear();
-                        mKbisVideoBean.addAll(mResultBean.getVideoList());
 
-                        mKbisVideoAdapter = new KbisVideoAdapter(mKbisVideoBean);
-                        mRvKbisVideo.setAdapter(mKbisVideoAdapter);
-                        //                        mKbisVideoAdapter.setOnItemChildClickListener(KbisVideoFragment.this);
                     }
-                });
+                });*/
     }
 
     @Override
