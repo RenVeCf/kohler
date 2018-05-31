@@ -9,13 +9,10 @@ import android.view.MotionEvent;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
-import com.allyes.analytics.AIOAnalytics;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.common.utils.PermissionUtils;
-import com.mengyang.kohler.main.activity.MainActivity;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.umeng.analytics.MobclickAgent;
-
 
 import butterknife.ButterKnife;
 
@@ -125,20 +122,17 @@ public abstract class BaseActivity extends RxAppCompatActivity {
 
     /**
      * 获取状态栏高度
+     *
      * @return
      */
-    public int getStatusBarHeight()
-    {
-        try
-        {
+    public int getStatusBarHeight() {
+        try {
             Resources resource = App.getInstance().getResources();
             int resourceId = resource.getIdentifier("status_bar_height", "dimen", "Android");
-            if (resourceId != 0)
-            {
+            if (resourceId != 0) {
                 return resource.getDimensionPixelSize(resourceId);
             }
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
         }
         return 0;
     }

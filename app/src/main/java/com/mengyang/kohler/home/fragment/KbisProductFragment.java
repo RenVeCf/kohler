@@ -19,6 +19,7 @@ import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.utils.FileUtils;
 import com.mengyang.kohler.common.utils.ToastUtil;
 import com.mengyang.kohler.common.view.GridSpacingItemDecoration;
+import com.mengyang.kohler.common.view.SpacesItemDecoration;
 import com.mengyang.kohler.home.activity.DownLoaderPDFActivity;
 import com.mengyang.kohler.home.activity.MineManualActivity;
 import com.mengyang.kohler.home.activity.PDFActivity;
@@ -33,12 +34,13 @@ import butterknife.BindView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class KbisProductFragment extends BaseFragment implements BaseQuickAdapter.OnItemChildClickListener {
-    private List<KbisBean.PdfListBean> mKbisPdfBean = new ArrayList<>();
-    private KbisPdfAdapter mKbisPdfAdapter;
+public class KbisProductFragment extends BaseFragment {
 
     @BindView(R.id.rv_kbis_pdf)
     RecyclerView mRvKbisPdf;
+
+    private List<KbisBean.PdfListBean> mKbisPdfBean = new ArrayList<>();
+    private KbisPdfAdapter mKbisPdfAdapter;
 
     @Override
     protected int getLayoutId() {
@@ -47,8 +49,9 @@ public class KbisProductFragment extends BaseFragment implements BaseQuickAdapte
 
     @Override
     protected void initValues() {
-        StaggeredGridLayoutManager layoutManagerActivity = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        mRvKbisPdf.setLayoutManager(layoutManagerActivity);
+        mRvKbisPdf.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        SpacesItemDecoration decoration = new SpacesItemDecoration(25);
+        mRvKbisPdf.addItemDecoration(decoration);
     }
 
     @Override
@@ -67,27 +70,27 @@ public class KbisProductFragment extends BaseFragment implements BaseQuickAdapte
         }
         mKbisPdfAdapter = new KbisPdfAdapter(mKbisPdfBean);
         mRvKbisPdf.setAdapter(mKbisPdfAdapter);
-        mKbisPdfAdapter.setOnItemChildClickListener(KbisProductFragment.this);
-    }
-
-    @Override
-    public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-        //判断是否这个pdf文件已存在
-        String pdfTotalPath = IConstants.ROOT_PATH + "/" + mKbisPdfBean.get(position).getH5Url().substring(mKbisPdfBean.get(position).getH5Url().lastIndexOf("/") + 1);
-        if (FileUtils.isFileExist(pdfTotalPath)) {
-            startActivity(new Intent(KbisProductFragment.this.getActivity(), PDFActivity.class).putExtra("PdfUrl", mKbisPdfBean.get(position).getH5Url()));
-        } else {//没找到就去下载
-            // TODO: 2018/2/11 ,还需要考虑到断点续传的功能,若是客户在下载的过程中退出应用，下次在进来的时候，PDF虽然有了，但是不能显示
-            String pdfUrl = mKbisPdfBean.get(position).getH5Url();
-            if (pdfUrl != null && !TextUtils.isEmpty(pdfUrl)) {
-                Intent intent = new Intent(KbisProductFragment.this.getActivity(), DownLoaderPDFActivity.class);
-                intent.putExtra("PdfUrl", pdfUrl);
-                intent.putExtra("mPdfTotalPath", pdfTotalPath);
-                startActivity(intent);
-                return;
-            } else {
-                ToastUtil.showToast("PDF url is null");
+        mKbisPdfAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                //判断是否这个pdf文件已存在
+                String pdfTotalPath = IConstants.ROOT_PATH + "/" + mKbisPdfBean.get(position).getH5Url().substring(mKbisPdfBean.get(position).getH5Url().lastIndexOf("/") + 1);
+                if (FileUtils.isFileExist(pdfTotalPath)) {
+                    startActivity(new Intent(KbisProductFragment.this.getActivity(), PDFActivity.class).putExtra("PdfUrl", mKbisPdfBean.get(position).getH5Url()));
+                } else {//没找到就去下载
+                    // TODO: 2018/2/11 ,还需要考虑到断点续传的功能,若是客户在下载的过程中退出应用，下次在进来的时候，PDF虽然有了，但是不能显示
+                    String pdfUrl = mKbisPdfBean.get(position).getH5Url();
+                    if (pdfUrl != null && !TextUtils.isEmpty(pdfUrl)) {
+                        Intent intent = new Intent(KbisProductFragment.this.getActivity(), DownLoaderPDFActivity.class);
+                        intent.putExtra("PdfUrl", pdfUrl);
+                        intent.putExtra("mPdfTotalPath", pdfTotalPath);
+                        startActivity(intent);
+                        return;
+                    } else {
+                        ToastUtil.showToast("PDF url is null");
+                    }
+                }
             }
-        }
+        });
     }
 }

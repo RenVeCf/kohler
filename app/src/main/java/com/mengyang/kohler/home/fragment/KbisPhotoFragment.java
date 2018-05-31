@@ -31,12 +31,11 @@ import butterknife.BindView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class KbisPhotoFragment extends BaseFragment implements BaseQuickAdapter.OnItemChildClickListener {
+public class KbisPhotoFragment extends BaseFragment {
 
     @BindView(R.id.rv_kbis_photo)
     RecyclerView mRvKbisPhoto;
 
-    private KbisBean mResultBean;
     private List<KbisBean.PhotoListBean> mKbisPhotoBean = new ArrayList<>();
     private KbisPhotoAdapter mKbisPhotoAdapter;
 
@@ -47,8 +46,9 @@ public class KbisPhotoFragment extends BaseFragment implements BaseQuickAdapter.
 
     @Override
     protected void initValues() {
-        final StaggeredGridLayoutManager layoutManagerActivity = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        mRvKbisPhoto.setLayoutManager(layoutManagerActivity);
+        mRvKbisPhoto.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        SpacesItemDecoration decoration = new SpacesItemDecoration(25);
+        mRvKbisPhoto.addItemDecoration(decoration);
     }
 
     @Override
@@ -63,16 +63,16 @@ public class KbisPhotoFragment extends BaseFragment implements BaseQuickAdapter.
         mKbisPhotoBean.addAll(data.getPhotoList());
         mKbisPhotoAdapter = new KbisPhotoAdapter(mKbisPhotoBean);
         mRvKbisPhoto.setAdapter(mKbisPhotoAdapter);
-        mKbisPhotoAdapter.setOnItemChildClickListener(KbisPhotoFragment.this);
-    }
-
-    @Override
-    public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-        String h5Url = mKbisPhotoBean.get(position).getH5Url();
-        if (!TextUtils.isEmpty(h5Url)) {
-            startActivity(new Intent(KbisPhotoFragment.this.getActivity(), WebViewActivity.class).putExtra("h5url", h5Url));
-        } else {
-            ToastUtil.showToast("h5Url url is null");
-        }
+        mKbisPhotoAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                String h5Url = mKbisPhotoBean.get(position).getH5Url();
+                if (!TextUtils.isEmpty(h5Url)) {
+                    startActivity(new Intent(KbisPhotoFragment.this.getActivity(), WebViewActivity.class).putExtra("h5url", h5Url));
+                } else {
+                    ToastUtil.showToast("h5Url url is null");
+                }
+            }
+        });
     }
 }

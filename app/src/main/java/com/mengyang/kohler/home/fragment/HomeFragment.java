@@ -61,6 +61,7 @@ import com.mengyang.kohler.home.activity.ArtKohlerActivity;
 import com.mengyang.kohler.home.activity.DownLoaderPDFActivity;
 import com.mengyang.kohler.home.activity.GanChuangActivity;
 import com.mengyang.kohler.home.activity.HomeSearchActivity;
+import com.mengyang.kohler.home.activity.KbisActivity;
 import com.mengyang.kohler.home.activity.MeetingActivity;
 import com.mengyang.kohler.home.activity.PDFActivity;
 import com.mengyang.kohler.home.activity.WeeklyRadioConcertActivity;
@@ -477,18 +478,21 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                                 }
 
                                 if (postion == 0) {
+                                    AIOAnalytics.onEvent("chuweizhan");
+                                    startActivity(new Intent(getActivity(), KbisActivity.class));
+                                } else if (postion == 1) {
                                     AIOAnalytics.onEvent("ganchuang");
                                     startActivity(new Intent(getActivity(), GanChuangActivity.class));
-                                } else if (postion == 1) {
+                                } else if (postion == 2) {
                                     AIOAnalytics.onEvent("shejishanghai");
                                     startActivity(new Intent(getActivity(), ArtKohlerActivity.class));
-                                } else if (postion == 2 && SPUtil.get(getActivity(), IConstants.TYPE, "").equals("")) {
+                                } else if (postion == 3 && SPUtil.get(getActivity(), IConstants.TYPE, "").equals("")) {
                                     AIOAnalytics.onEvent("jingxiaoshangdahui");
                                     startActivity(new Intent(getActivity(), LoginActivity.class));
-                                } else if (postion == 2 && SPUtil.get(getActivity(), IConstants.TYPE, "").equals("dealer")) {
+                                } else if (postion == 3 && SPUtil.get(getActivity(), IConstants.TYPE, "").equals("dealer")) {
                                     AIOAnalytics.onEvent("jingxiaoshangdahui");
                                     startActivity(new Intent(getActivity(), MeetingActivity.class));
-                                } else if (postion == 2 && !SPUtil.get(getActivity(), IConstants.TYPE, "").equals("dealer")) {
+                                } else if (postion == 3 && !SPUtil.get(getActivity(), IConstants.TYPE, "").equals("dealer")) {
                                     AIOAnalytics.onEvent("jingxiaoshangdahui");
                                     if (Build.VERSION.SDK_INT == 24) {//android7.0需要单独做适配
                                         mNoJurisdictionPopupWindow.showAtLocation(getView(), Gravity.NO_GRAVITY, 0, getStatusBarHeight());
@@ -496,7 +500,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                                         mNoJurisdictionPopupWindow.showAtLocation(getView(), Gravity.NO_GRAVITY, 0, 0);
                                     }
                                 } else {
-                                    if (postion == 3) {
+                                    if (postion == 4) {
                                         MobclickAgent.onEvent(getActivity(), "arjieshuo");
                                         AIOAnalytics.onEvent("arjieshuo");
                                         Intent intent = new Intent(getActivity(), UnityPlayerActivity.class);

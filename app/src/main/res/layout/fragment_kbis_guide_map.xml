@@ -6,66 +6,67 @@
     <HorizontalScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <com.mengyang.kohler.home.view.photoview.PhotoView
 
+            <com.mengyang.kohler.home.view.photoview.PhotoView
                 android:id="@+id/photo_view"
-                android:src="@mipmap/icon_guidemap_ts_nor2"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:src="@mipmap/icon_guidemap_ts_nor2" />
 
             <com.mengyang.kohler.home.view.photoview.PhotoView
-                android:visibility="gone"
                 android:id="@+id/photo_view_shadow"
-                android:src="@mipmap/icon_guidemap_ts_nor2"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
+                android:layout_height="match_parent"
+                android:src="@mipmap/icon_guidemap_ts_nor2"
+                android:visibility="gone" />
 
             <com.mengyang.kohler.home.view.photoview.PhotoView
-                android:visibility="gone"
                 android:id="@+id/photo_view5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:src="@mipmap/icon_guidemap_ts_pre_sec5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:visibility="gone" />
 
             <com.mengyang.kohler.home.view.photoview.PhotoView
-                android:visibility="gone"
                 android:id="@+id/photo_view4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:src="@mipmap/icon_guidemap_ts_pre_sec4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:visibility="gone" />
 
             <com.mengyang.kohler.home.view.photoview.PhotoView
-                android:visibility="gone"
                 android:id="@+id/photo_view3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:src="@mipmap/icon_guidemap_ts_pre_sec3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:visibility="gone" />
 
             <com.mengyang.kohler.home.view.photoview.PhotoView
-                android:visibility="gone"
                 android:id="@+id/photo_view2"
-                android:src="@mipmap/icon_guidemap_ts_pre_sec2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_guidemap_ts_pre_sec2"
+                android:visibility="gone" />
 
             <com.mengyang.kohler.home.view.photoview.PhotoView
-                android:visibility="gone"
                 android:id="@+id/photo_view1"
-                android:src="@mipmap/icon_guidemap_ts_pre_sec1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_guidemap_ts_pre_sec1"
+                android:visibility="gone" />
         </RelativeLayout>
     </HorizontalScrollView>
 
     <Button
-        android:visibility="gone"
+        android:layout_width="70dp"
+        android:layout_height="50dp"
         android:onClick="clearData"
         android:text="clear"
-        android:layout_width="70dp"
-        android:layout_height="50dp" />
+        android:visibility="gone" />
 </RelativeLayout>

@@ -2,7 +2,6 @@ package com.mengyang.kohler.home.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.widget.ImageView;
 
 import com.allyes.analytics.AIOAnalytics;
@@ -50,7 +49,6 @@ public class KbisActivity extends BaseActivity {
     MyViewPager vpKbis;
     private List<Fragment> fragments = new ArrayList<>();
     private ViewPagerAdapter viewPagerAdapter;
-//    private List<KbisBean.AgendaListBean> mMeetingAdapterBean = new ArrayList<>();
     private int[] titles = {R.mipmap.trade_show_guide_map, R.mipmap.trade_show_ar, R.mipmap.trade_show_agenda, R.mipmap.trade_show_video, R.mipmap.trade_show_photo, R.mipmap.trade_show_product, R.mipmap.trade_show_interview};
     private int[] unselectedcolor = {R.mipmap.trade_show_guide_map, R.mipmap.trade_show_ar, R.mipmap.trade_show_agenda, R.mipmap.trade_show_video, R.mipmap.trade_show_photo, R.mipmap.trade_show_product, R.mipmap.trade_show_interview};
     private int[] setectedcolor = {R.mipmap.trade_show_guide_map_down, R.mipmap.trade_show_ar_down, R.mipmap.trade_show_agenda_down, R.mipmap.trade_show_video_down, R.mipmap.trade_show_photo_down, R.mipmap.trade_show_product_down, R.mipmap.trade_show_interview_down};

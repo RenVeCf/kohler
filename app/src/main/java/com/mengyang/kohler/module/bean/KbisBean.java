@@ -9,8 +9,9 @@ import java.util.List;
  * Created by MengYang on 2018/5/22.
  */
 public class KbisBean implements Serializable {
+
     /**
-     * agendaList : [{"agendaDesc":"","agendaType":3,"briefDateStr":"05月22日 19:00-19:05","dateStr":"2018-05-22","id":121,"kvUrl":"","onlyDateStr":"05月22日","place":"","timeSlot":"19:00~19:05","title":"开场表演"},{"agendaDesc":"","agendaType":3,"briefDateStr":"05月22日 19:10-19:15","dateStr":"2018-05-22","id":123,"kvUrl":"","onlyDateStr":"05月22日","place":"","timeSlot":"19:10~19:15","title":"欢迎致辞 \u2014\u2014 科勒厨卫集团全球总裁 阮家明"},{"agendaDesc":"","agendaType":3,"briefDateStr":"05月22日 19:15-19:20","dateStr":"2018-05-22","id":124,"kvUrl":"","onlyDateStr":"05月22日","place":"","timeSlot":"19:15~19:20","title":"祝酒 \u2014\u2014 科勒公司总裁兼首席执行官 大卫·科勒、科勒厨卫集团全球总裁 阮家明、科勒厨卫集团中国区总裁 王振颜"},{"agendaDesc":"","agendaType":1,"briefDateStr":"05月23日 18:00-19:00","dateStr":"2018-05-23","id":120,"kvUrl":"","onlyDateStr":"05月23日","place":"","timeSlot":"18:00~19:00","title":"欢迎晚宴入场"},{"agendaDesc":"","agendaType":0,"briefDateStr":"05月24日 19:05-19:10","dateStr":"2018-05-24","id":122,"kvUrl":"","onlyDateStr":"05月24日","place":"","timeSlot":"19:05~19:10","title":"欢迎致辞 \u2014\u2014 科勒公司总裁兼首席执行官 大卫·科勒"},{"agendaDesc":"","agendaType":0,"briefDateStr":"05月24日 19:20-20:30","dateStr":"2018-05-24","id":125,"kvUrl":"","onlyDateStr":"05月24日","place":"","timeSlot":"19:20~20:30","title":"欢迎晚宴"},{"agendaDesc":"","agendaType":-1,"briefDateStr":"03月07日 20:30-20:30","dateStr":"2018-03-07","id":126,"kvUrl":"","onlyDateStr":"03月07日","place":"","timeSlot":"20:30~20:30","title":"结束"},{"agendaDesc":"","agendaType":-1,"briefDateStr":"03月08日 09:00-09:05","dateStr":"2018-03-08","id":127,"kvUrl":"","onlyDateStr":"03月08日","place":"","timeSlot":"09:00~09:05","title":"开场视频"},{"agendaDesc":"","agendaType":-1,"briefDateStr":"03月08日 09:05-09:15","dateStr":"2018-03-08","id":128,"kvUrl":"","onlyDateStr":"03月08日","place":"","timeSlot":"09:05~09:15","title":"开场致辞 \u2014\u2014 科勒公司总裁兼首席执行官 大卫·科勒"},{"agendaDesc":"","agendaType":-1,"briefDateStr":"03月08日 09:15-09:50","dateStr":"2018-03-08","id":129,"kvUrl":"","onlyDateStr":"03月08日","place":"","timeSlot":"09:15~09:50","title":"开场演讲 \u2014\u2014 科勒厨卫集团全球总裁 阮家明"},{"agendaDesc":"","agendaType":-1,"briefDateStr":"03月08日 09:50-10:20","dateStr":"2018-03-08","id":130,"kvUrl":"","onlyDateStr":"03月08日","place":"","timeSlot":"09:50~10:20","title":"开场演讲 \u2014\u2014 科勒厨卫集团中国区总裁 王振颜"},{"agendaDesc":"","agendaType":-1,"briefDateStr":"03月08日 10:20-10:35","dateStr":"2018-03-08","id":131,"kvUrl":"","onlyDateStr":"03月08日","place":"","timeSlot":"10:20~10:35","title":"茶歇"},{"agendaDesc":"","agendaType":-1,"briefDateStr":"03月08日 10:35-11:10","dateStr":"2018-03-08","id":132,"kvUrl":"","onlyDateStr":"03月08日","place":"","timeSlot":"10:35~11:10","title":"主题演讲：2018年中国房地产前景分析及发展趋势 \u2014\u2014 钜派投资集团董事长兼首席执行官、上海市青年企业家协会副会长 倪建达"},{"agendaDesc":"","agendaType":-1,"briefDateStr":"03月08日 11:10-11:45","dateStr":"2018-03-08","id":133,"kvUrl":"","onlyDateStr":"03月08日","place":"","timeSlot":"11:10~11:45","title":"主题演讲：智能家居的智慧 \u2014\u2014 微软（中国）有限公司首席技术顾问 管震"},{"agendaDesc":"","agendaType":-1,"briefDateStr":"03月08日 11:45-12:00","dateStr":"2018-03-08","id":134,"kvUrl":"","onlyDateStr":"03月08日","place":"","timeSlot":"11:45~12:00","title":"团体照"},{"agendaDesc":"","agendaType":-1,"briefDateStr":"03月08日 12:00-13:30","dateStr":"2018-03-08","id":135,"kvUrl":"","onlyDateStr":"03月08日","place":"","timeSlot":"12:00~13:30","title":"午宴"},{"agendaDesc":"","agendaType":-1,"briefDateStr":"03月08日 13:30-14:00","dateStr":"2018-03-08","id":136,"kvUrl":"","onlyDateStr":"03月08日","place":"","timeSlot":"13:30~14:00","title":"科勒商务演讲 \u2014\u2014 科勒（中国）投资有限公司商务副总裁  徐赣华"},{"agendaDesc":"","agendaType":-1,"briefDateStr":"03月08日 14:00-14:30","dateStr":"2018-03-08","id":137,"kvUrl":"","onlyDateStr":"03月08日","place":"","timeSlot":"14:00~14:30","title":"科勒市场演讲 \u2014\u2014 科勒（中国）投资有限公司市场部副总裁 李泓"},{"agendaDesc":"","agendaType":-1,"briefDateStr":"03月08日 14:30-15:00","dateStr":"2018-03-08","id":138,"kvUrl":"","onlyDateStr":"03月08日","place":"","timeSlot":"14:30~15:00","title":"科勒厨卫演讲 -- 科勒（中国）投资有限公司整体橱柜总经理  成添祥"},{"agendaDesc":"","agendaType":-1,"briefDateStr":"03月08日 15:00-15:30","dateStr":"2018-03-08","id":139,"kvUrl":"","onlyDateStr":"03月08日","place":"","timeSlot":"15:00~15:30","title":"科勒供应链演讲 \u2014\u2014 科勒（中国）投资有限公司供应链总监 柴卫东"},{"agendaDesc":"","agendaType":-1,"briefDateStr":"03月08日 15:30-15:45","dateStr":"2018-03-08","id":140,"kvUrl":"","onlyDateStr":"03月08日","place":"","timeSlot":"15:30~15:45","title":"茶歇"},{"agendaDesc":"","agendaType":-1,"briefDateStr":"03月08日 15:45-16:15","dateStr":"2018-03-08","id":141,"kvUrl":"","onlyDateStr":"03月08日","place":"","timeSlot":"15:45~16:15","title":"Kallista & Jacob Delafon业务演讲 \u2014\u2014 科勒厨卫集团亚太区Kallista / Jacob Delafon 总经理兼工程销售总监 苏嘉亮"},{"agendaDesc":"","agendaType":-1,"briefDateStr":"03月08日 16:15-16:45","dateStr":"2018-03-08","id":142,"kvUrl":"","onlyDateStr":"03月08日","place":"","timeSlot":"16:15~16:45","title":"经销商最佳案例分享(TBD) -- 苏州金屋"},{"agendaDesc":"","agendaType":-1,"briefDateStr":"03月08日 16:45-17:15","dateStr":"2018-03-08","id":143,"kvUrl":"","onlyDateStr":"03月08日","place":"","timeSlot":"16:45~17:15","title":"经销商最佳案例 -- 经销商代表 2(TBD)"},{"agendaDesc":"","agendaType":-1,"briefDateStr":"03月08日 17:15-17:45","dateStr":"2018-03-08","id":144,"kvUrl":"","onlyDateStr":"03月08日","place":"","timeSlot":"17:15~17:45","title":"颁奖 Ⅰ"},{"agendaDesc":"","agendaType":-1,"briefDateStr":"03月08日 19:00-19:10","dateStr":"2018-03-08","id":145,"kvUrl":"","onlyDateStr":"03月08日","place":"","timeSlot":"19:00~19:10","title":"开场秀"},{"agendaDesc":"","agendaType":-1,"briefDateStr":"03月08日 19:10-19:20","dateStr":"2018-03-08","id":146,"kvUrl":"","onlyDateStr":"03月08日","place":"","timeSlot":"19:10~19:20","title":"祝酒  \u2014\u2014 科勒公司总裁兼首席执行官 大卫·科勒、科勒厨卫集团全球总裁 阮家明、科勒厨卫集团中国区总裁 王振颜"},{"agendaDesc":"","agendaType":-1,"briefDateStr":"03月08日 19:35-20:15","dateStr":"2018-03-08","id":147,"kvUrl":"","onlyDateStr":"03月08日","place":"","timeSlot":"19:35~20:15","title":"颁奖 Ⅱ"},{"agendaDesc":"","agendaType":-1,"briefDateStr":"03月08日 20:30-21:00","dateStr":"2018-03-08","id":148,"kvUrl":"","onlyDateStr":"03月08日","place":"","timeSlot":"20:30~21:00","title":"\u201c科勒未来之城\u201dVR PK赛"},{"agendaDesc":"","agendaType":-1,"briefDateStr":"03月08日 21:00-21:00","dateStr":"2018-03-08","id":149,"kvUrl":"","onlyDateStr":"03月08日","place":"","timeSlot":"21:00~21:00","title":"结束"},{"agendaDesc":"","agendaType":-1,"briefDateStr":"03月09日 10:30-10:30","dateStr":"2018-03-09","id":150,"kvUrl":"","onlyDateStr":"03月09日","place":"","timeSlot":"10:30~10:30","title":"班车前往上海（经销商）"},{"agendaDesc":"","agendaType":-1,"briefDateStr":"03月09日 19:00-21:30","dateStr":"2018-03-09","id":151,"kvUrl":"","onlyDateStr":"03月09日","place":"","timeSlot":"19:00~21:30","title":"科勒145周年音乐会"}]
+     * agendaList : [{"agendaDesc":"Kohler Smart Home新品发布会","agendaType":0,"briefDateStr":"06月05日 16:00-16:05","dateStr":"2018-06-05","id":120,"kvUrl":"","onlyDateStr":"06月05日","place":"上海梅赛德斯奔驰中心","timeSlot":"16:00~16:05","title":"开场视频"},{"agendaDesc":"Kohler Smart Home新品发布会","agendaType":0,"briefDateStr":"06月05日 16:05-16:10","dateStr":"2018-06-05","id":121,"kvUrl":"","onlyDateStr":"06月05日","place":"上海梅赛德斯奔驰中心","timeSlot":"16:05~16:10","title":"科勒公司总裁兼首席执行官大卫·科勒先生致辞"},{"agendaDesc":"Kohler Smart Home新品发布会","agendaType":0,"briefDateStr":"06月05日 16:10-16:25","dateStr":"2018-06-05","id":122,"kvUrl":"","onlyDateStr":"06月05日","place":"上海梅赛德斯奔驰中心","timeSlot":"16:10~16:25","title":"科勒厨卫集团全球总裁阮家明先生致辞"},{"agendaDesc":"Kohler Smart Home新品发布会","agendaType":0,"briefDateStr":"06月05日 16:25-16:35","dateStr":"2018-06-05","id":123,"kvUrl":"","onlyDateStr":"06月05日","place":"上海梅赛德斯奔驰中心","timeSlot":"16:25~16:35","title":"最强烧脑对决"},{"agendaDesc":"Kohler Smart Home新品发布会","agendaType":0,"briefDateStr":"06月05日 16:35-16:40","dateStr":"2018-06-05","id":124,"kvUrl":"","onlyDateStr":"06月05日","place":"上海梅赛德斯奔驰中心","timeSlot":"16:35~16:40","title":"科勒云境新品揭晓"},{"agendaDesc":"Kohler Smart Home新品发布会","agendaType":0,"briefDateStr":"06月05日 16:40-16:55","dateStr":"2018-06-05","id":125,"kvUrl":"","onlyDateStr":"06月05日","place":"上海梅赛德斯奔驰中心","timeSlot":"16:40~16:55","title":"设计师互动演示"},{"agendaDesc":"Kohler Smart Home新品发布会","agendaType":0,"briefDateStr":"06月05日 16:55-17:00","dateStr":"2018-06-05","id":126,"kvUrl":"","onlyDateStr":"06月05日","place":"上海梅赛德斯奔驰中心","timeSlot":"16:55~17:00","title":"发布会结束"},{"agendaDesc":"2018 年上海国际厨卫展开幕仪式","agendaType":0,"briefDateStr":"06月06日 10:00-10:05","dateStr":"2018-06-06","id":127,"kvUrl":"","onlyDateStr":"06月06日","place":"上海新国际博览中心","timeSlot":"10:00~10:05","title":"活动开始"},{"agendaDesc":"2018 年上海国际厨卫展开幕仪式","agendaType":0,"briefDateStr":"06月06日 10:05-10:10","dateStr":"2018-06-06","id":128,"kvUrl":"","onlyDateStr":"06月06日","place":"上海新国际博览中心","timeSlot":"10:05~10:10","title":"科勒公司总裁兼首席执行官大卫·科勒先生致辞"},{"agendaDesc":"2018 年上海国际厨卫展开幕仪式","agendaType":0,"briefDateStr":"06月06日 10:10-10:15","dateStr":"2018-06-06","id":129,"kvUrl":"","onlyDateStr":"06月06日","place":"上海新国际博览中心","timeSlot":"10:10~10:15","title":"科勒厨卫集团全球总裁阮家明先生致辞"},{"agendaDesc":"2018 年上海国际厨卫展开幕仪式","agendaType":0,"briefDateStr":"06月06日 10:15-10:20","dateStr":"2018-06-06","id":130,"kvUrl":"","onlyDateStr":"06月06日","place":"上海新国际博览中心","timeSlot":"10:15~10:20","title":"科勒展区开幕仪式"},{"agendaDesc":"2018 年上海国际厨卫展开幕仪式","agendaType":0,"briefDateStr":"06月06日 10:20-10:25","dateStr":"2018-06-06","id":131,"kvUrl":"","onlyDateStr":"06月06日","place":"上海新国际博览中心","timeSlot":"10:20~10:25","title":"开幕表演"},{"agendaDesc":"2018 年上海国际厨卫展开幕仪式","agendaType":0,"briefDateStr":"06月06日 10:25-10:30","dateStr":"2018-06-06","id":132,"kvUrl":"","onlyDateStr":"06月06日","place":"上海新国际博览中心","timeSlot":"10:25~10:30","title":"开幕仪式结束"}]
      * artworks : []
      * designers : []
      * gallery : []
@@ -19,11 +20,12 @@ public class KbisBean implements Serializable {
      * invitationKvUrl :
      * kvUrl :
      * meetingDesc :
-     * nextAgenda : {"agendaDesc":"","agendaType":2,"briefDateStr":"05月22日 19:00-19:05","dateStr":"2018-05-22","id":121,"kvUrl":"","onlyDateStr":"05月22日","place":"","timeSlot":"19:00~19:05","title":"开场表演"}
-     * pdfList : [{"elementDesc":"设计智慧","elementType":"pdf","h5Url":"http://ojd06y9cv.bkt.clouddn.com/571ba86d88e6cb9f677555d03c613922.pdf","id":-1,"kvUrl":"http://ojd06y9cv.bkt.clouddn.com/0d03b03388c7c08207317b7a60fa8ad4.png?/0/w/1280/h/960","params":"","title":"pdf1","weight":9},{"elementDesc":"为美执着","elementType":"pdf","h5Url":"","id":-1,"kvUrl":"http://ojd06y9cv.bkt.clouddn.com/ecde55867485ff8fb85082a2633a57ac.png?/0/w/1280/h/960","params":"","title":"科勒展厅","weight":8},{"elementDesc":"跨界灵感","elementType":"pdf","h5Url":"","id":-1,"kvUrl":"http://ojd06y9cv.bkt.clouddn.com/fdec3d9d5bfa4fdf34cf0841a4d9e0bf.png?/0/w/1280/h/960","params":"","title":"其他品牌","weight":7},{"elementDesc":"设计上海盛况","elementType":"pdf","h5Url":"","id":-1,"kvUrl":"http://ojd06y9cv.bkt.clouddn.com/aa94284f0a66937cf2a64945f8713a52.png?/0/w/1280/h/960","params":"","title":"会场","weight":6}]
-     * photoList : [{"elementDesc":"设计智慧","elementType":"image","h5Url":"http://www.vphotos.cn/","id":-1,"kvUrl":"http://ojd06y9cv.bkt.clouddn.com/0d03b03388c7c08207317b7a60fa8ad4.png?/0/w/1280/h/960","params":"","title":"photo1","weight":9},{"elementDesc":"为美执着","elementType":"image","h5Url":"","id":-1,"kvUrl":"http://ojd06y9cv.bkt.clouddn.com/ecde55867485ff8fb85082a2633a57ac.png?/0/w/1280/h/960","params":"","title":"科勒展厅","weight":8},{"elementDesc":"跨界灵感","elementType":"image","h5Url":"","id":-1,"kvUrl":"http://ojd06y9cv.bkt.clouddn.com/fdec3d9d5bfa4fdf34cf0841a4d9e0bf.png?/0/w/1280/h/960","params":"","title":"其他品牌","weight":7},{"elementDesc":"设计上海盛况","elementType":"image","h5Url":"","id":-1,"kvUrl":"http://ojd06y9cv.bkt.clouddn.com/aa94284f0a66937cf2a64945f8713a52.png?/0/w/1280/h/960","params":"","title":"会场","weight":6}]
+     * nextAgenda : {"agendaDesc":"Kohler Smart Home新品发布会","agendaType":2,"briefDateStr":"06月05日 16:00-16:05","dateStr":"2018-06-05","id":120,"kvUrl":"","onlyDateStr":"06月05日","place":"上海梅赛德斯奔驰中心","timeSlot":"16:00~16:05","title":"开场视频"}
+     * pdfList : [{"elementDesc":"","elementType":"pdf","h5Url":"http://ojd06y9cv.bkt.clouddn.com/282d683238d76d1cf8904d1f75074d43.jpg","id":-1,"kvUrl":"http://ojd06y9cv.bkt.clouddn.com/43eecb51bf8121282a977d9c6f93e130.png","params":"","title":"pdf1","weight":1}]
+     * photoList : [{"elementDesc":"","elementType":"image","h5Url":"https://gallery.vphotos.cn/vphotosgallery/index.html?vphotowechatid=B2CB01C5F01F9DABBE96BFD1FCD25F81","id":-1,"kvUrl":"http://ojd06y9cv.bkt.clouddn.com/6728c82f3eef36b79e2709f6e777676a.png","params":"","title":"盛大开幕","weight":3},{"elementDesc":"","elementType":"image","h5Url":"https://gallery.vphotos.cn/vphotosgallery/index.html?vphotowechatid=9BB7A611528CA5BB81DDB2DB42699DA5","id":-1,"kvUrl":"http://ojd06y9cv.bkt.clouddn.com/d181a3ca02920ae400f9677e25fd4d82.png","params":"","title":"厨卫新品","weight":2},{"elementDesc":"","elementType":"image","h5Url":"https://gallery.vphotos.cn/vphotosgallery/index.html?vphotowechatid=736FA878DC3268B7215E197A726852D6","id":-1,"kvUrl":"http://ojd06y9cv.bkt.clouddn.com/9b0870fab5f98693f3fdc24d5b50e530.png","params":"","title":"套间速览","weight":1}]
+     * textList : [{"elementDesc":"","elementType":"video","h5Url":"https://v.qq.com/x/page/i056136eut0.html","id":-1,"kvUrl":"http://ojd06y9cv.bkt.clouddn.com/33995cab12ca51559fd4da85554708b6.jpg","params":"","title":"KOHLER MODE Shower","weight":8}]
      * title : 2018科勒上海厨卫展
-     * videoList : [{"elementDesc":"设计智慧","elementType":"video","h5Url":"https://v.qq.com/x/page/s06261rxrej.html","id":-1,"kvUrl":"http://ojd06y9cv.bkt.clouddn.com/0d03b03388c7c08207317b7a60fa8ad4.png?/0/w/1280/h/960","params":"","title":"video1","weight":9},{"elementDesc":"为美执着","elementType":"video","h5Url":"","id":-1,"kvUrl":"http://ojd06y9cv.bkt.clouddn.com/ecde55867485ff8fb85082a2633a57ac.png?/0/w/1280/h/960","params":"","title":"科勒展厅","weight":8},{"elementDesc":"跨界灵感","elementType":"video","h5Url":"","id":-1,"kvUrl":"http://ojd06y9cv.bkt.clouddn.com/fdec3d9d5bfa4fdf34cf0841a4d9e0bf.png?/0/w/1280/h/960","params":"","title":"其他品牌","weight":7},{"elementDesc":"设计上海盛况","elementType":"video","h5Url":"","id":-1,"kvUrl":"http://ojd06y9cv.bkt.clouddn.com/aa94284f0a66937cf2a64945f8713a52.png?/0/w/1280/h/960","params":"","title":"会场","weight":6}]
+     * videoList : [{"elementDesc":"","elementType":"video","h5Url":"https://v.qq.com/x/page/i056136eut0.html","id":-1,"kvUrl":"http://ojd06y9cv.bkt.clouddn.com/33995cab12ca51559fd4da85554708b6.jpg","params":"","title":"KOHLER MODE Shower","weight":8},{"elementDesc":"","elementType":"video","h5Url":"https://v.qq.com/x/page/a0600ldm58c.html","id":-1,"kvUrl":"http://ojd06y9cv.bkt.clouddn.com/c68f0a549b218496abb46fe506c066a9.png","params":"","title":"Beitou intelligence 曼达智控淋浴系统","weight":7},{"elementDesc":"","elementType":"video","h5Url":"https://v.qq.com/x/page/o0562yxq13f.html","id":-1,"kvUrl":"http://ojd06y9cv.bkt.clouddn.com/02167a64141195f210593a85b6d694be.png","params":"","title":"科勒sensis 一体超感座便器","weight":6},{"elementDesc":"","elementType":"video","h5Url":"https://v.qq.com/x/page/i0671f552el.html","id":-1,"kvUrl":"http://ojd06y9cv.bkt.clouddn.com/03ac2dce739bdf19d117ac4667d317d9.png","params":"","title":"科勒精选艺廷龙头","weight":5},{"elementDesc":"","elementType":"video","h5Url":"https://v.qq.com/x/page/s0636gff0r6.html","id":-1,"kvUrl":"http://ojd06y9cv.bkt.clouddn.com/eb538176a9b5b731757eb4328fb4133a.jpg","params":"","title":"像设计师一样去混搭！","weight":4},{"elementDesc":"","elementType":"video","h5Url":"https://v.qq.com/x/page/g0671olz2fl.html","id":-1,"kvUrl":"http://ojd06y9cv.bkt.clouddn.com/ac2f1e5757dc29c326b210dd10c951af.png","params":"","title":"云砚石厨盆-冲击测试","weight":3},{"elementDesc":"","elementType":"video","h5Url":"http://ojd06y9cv.bkt.clouddn.com/2a8149504c1500ce941bb17ec1fcec2d.png","id":-1,"kvUrl":"http://ojd06y9cv.bkt.clouddn.com/bd8adaa4981ca599cb4b3a915dc7d3c2.png","params":"","title":"Cast Iron铸铁宣传视频","weight":2},{"elementDesc":"","elementType":"video","h5Url":"http://ojd06y9cv.bkt.clouddn.com/2a8149504c1500ce941bb17ec1fcec2d.png","id":-1,"kvUrl":"http://ojd06y9cv.bkt.clouddn.com/e9222c3b2ea3a595d70b137a62c7d419.png","params":"","title":"科勒净水 净热随心饮思丹系列","weight":1}]
      * weight : 0
      */
 
@@ -41,6 +43,7 @@ public class KbisBean implements Serializable {
     private List<?> gallery;
     private List<PdfListBean> pdfList;
     private List<PhotoListBean> photoList;
+    private List<TextListBean> textList;
     private List<VideoListBean> videoList;
 
     public int getId() {
@@ -155,6 +158,14 @@ public class KbisBean implements Serializable {
         this.photoList = photoList;
     }
 
+    public List<TextListBean> getTextList() {
+        return textList;
+    }
+
+    public void setTextList(List<TextListBean> textList) {
+        this.textList = textList;
+    }
+
     public List<VideoListBean> getVideoList() {
         return videoList;
     }
@@ -163,18 +174,18 @@ public class KbisBean implements Serializable {
         this.videoList = videoList;
     }
 
-    public static class NextAgendaBean {
+    public static class NextAgendaBean implements Serializable {
         /**
-         * agendaDesc :
+         * agendaDesc : Kohler Smart Home新品发布会
          * agendaType : 2
-         * briefDateStr : 05月22日 19:00-19:05
-         * dateStr : 2018-05-22
-         * id : 121
+         * briefDateStr : 06月05日 16:00-16:05
+         * dateStr : 2018-06-05
+         * id : 120
          * kvUrl :
-         * onlyDateStr : 05月22日
-         * place :
-         * timeSlot : 19:00~19:05
-         * title : 开场表演
+         * onlyDateStr : 06月05日
+         * place : 上海梅赛德斯奔驰中心
+         * timeSlot : 16:00~16:05
+         * title : 开场视频
          */
 
         private String agendaDesc;
@@ -271,16 +282,16 @@ public class KbisBean implements Serializable {
 
     public static class AgendaListBean implements Serializable {
         /**
-         * agendaDesc :
-         * agendaType : 3
-         * briefDateStr : 05月22日 19:00-19:05
-         * dateStr : 2018-05-22
-         * id : 121
+         * agendaDesc : Kohler Smart Home新品发布会
+         * agendaType : 0
+         * briefDateStr : 06月05日 16:00-16:05
+         * dateStr : 2018-06-05
+         * id : 120
          * kvUrl :
-         * onlyDateStr : 05月22日
-         * place :
-         * timeSlot : 19:00~19:05
-         * title : 开场表演
+         * onlyDateStr : 06月05日
+         * place : 上海梅赛德斯奔驰中心
+         * timeSlot : 16:00~16:05
+         * title : 开场视频
          */
 
         private String agendaDesc;
@@ -377,14 +388,14 @@ public class KbisBean implements Serializable {
 
     public static class PdfListBean implements MultiItemEntity, Serializable {
         /**
-         * elementDesc : 设计智慧
+         * elementDesc :
          * elementType : pdf
-         * h5Url : http://ojd06y9cv.bkt.clouddn.com/571ba86d88e6cb9f677555d03c613922.pdf
+         * h5Url : http://ojd06y9cv.bkt.clouddn.com/282d683238d76d1cf8904d1f75074d43.jpg
          * id : -1
-         * kvUrl : http://ojd06y9cv.bkt.clouddn.com/0d03b03388c7c08207317b7a60fa8ad4.png?/0/w/1280/h/960
+         * kvUrl : http://ojd06y9cv.bkt.clouddn.com/43eecb51bf8121282a977d9c6f93e130.png
          * params :
          * title : pdf1
-         * weight : 9
+         * weight : 1
          */
 
         private String elementDesc;
@@ -469,19 +480,104 @@ public class KbisBean implements Serializable {
         public void setWeight(int weight) {
             this.weight = weight;
         }
-
     }
 
     public static class PhotoListBean implements Serializable {
         /**
-         * elementDesc : 设计智慧
+         * elementDesc :
          * elementType : image
-         * h5Url : http://www.vphotos.cn/
+         * h5Url : https://gallery.vphotos.cn/vphotosgallery/index.html?vphotowechatid=B2CB01C5F01F9DABBE96BFD1FCD25F81
          * id : -1
-         * kvUrl : http://ojd06y9cv.bkt.clouddn.com/0d03b03388c7c08207317b7a60fa8ad4.png?/0/w/1280/h/960
+         * kvUrl : http://ojd06y9cv.bkt.clouddn.com/6728c82f3eef36b79e2709f6e777676a.png
          * params :
-         * title : photo1
-         * weight : 9
+         * title : 盛大开幕
+         * weight : 3
+         */
+
+        private String elementDesc;
+        private String elementType;
+        private String h5Url;
+        private int id;
+        private String kvUrl;
+        private String params;
+        private String title;
+        private int weight;
+
+        public String getElementDesc() {
+            return elementDesc;
+        }
+
+        public void setElementDesc(String elementDesc) {
+            this.elementDesc = elementDesc;
+        }
+
+        public String getElementType() {
+            return elementType;
+        }
+
+        public void setElementType(String elementType) {
+            this.elementType = elementType;
+        }
+
+        public String getH5Url() {
+            return h5Url;
+        }
+
+        public void setH5Url(String h5Url) {
+            this.h5Url = h5Url;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getKvUrl() {
+            return kvUrl;
+        }
+
+        public void setKvUrl(String kvUrl) {
+            this.kvUrl = kvUrl;
+        }
+
+        public String getParams() {
+            return params;
+        }
+
+        public void setParams(String params) {
+            this.params = params;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public int getWeight() {
+            return weight;
+        }
+
+        public void setWeight(int weight) {
+            this.weight = weight;
+        }
+    }
+
+    public static class TextListBean implements Serializable {
+        /**
+         * elementDesc :
+         * elementType : video
+         * h5Url : https://v.qq.com/x/page/i056136eut0.html
+         * id : -1
+         * kvUrl : http://ojd06y9cv.bkt.clouddn.com/33995cab12ca51559fd4da85554708b6.jpg
+         * params :
+         * title : KOHLER MODE Shower
+         * weight : 8
          */
 
         private String elementDesc;
@@ -560,14 +656,14 @@ public class KbisBean implements Serializable {
 
     public static class VideoListBean implements Serializable {
         /**
-         * elementDesc : 设计智慧
+         * elementDesc :
          * elementType : video
-         * h5Url : https://v.qq.com/x/page/s06261rxrej.html
+         * h5Url : https://v.qq.com/x/page/i056136eut0.html
          * id : -1
-         * kvUrl : http://ojd06y9cv.bkt.clouddn.com/0d03b03388c7c08207317b7a60fa8ad4.png?/0/w/1280/h/960
+         * kvUrl : http://ojd06y9cv.bkt.clouddn.com/33995cab12ca51559fd4da85554708b6.jpg
          * params :
-         * title : video1
-         * weight : 9
+         * title : KOHLER MODE Shower
+         * weight : 8
          */
 
         private String elementDesc;

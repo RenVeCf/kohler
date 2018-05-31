@@ -30,6 +30,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class KbisVideoFragment extends BaseFragment {
+
     @BindView(R.id.rv_kbis_video)
     RecyclerView mRvKbisVideo;
 
