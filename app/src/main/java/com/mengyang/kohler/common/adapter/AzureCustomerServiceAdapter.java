@@ -138,13 +138,19 @@ public class AzureCustomerServiceAdapter extends BaseMultiItemQuickAdapter<Multi
                 }
                 break;
             case TYPE_PRODUCT:
+                if (mIsList) {
+                    mIsList = false;
+
+                    RelativeLayout view = helper.getView(R.id.rl_azure_service_img);
+                    RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) view.getLayoutParams();
+                    layoutParams.setMargins(0, 78, 0, 0);
+                    view.setLayoutParams(layoutParams);
+                }
                 final AzureServiceMultimediaBean azureServiceMultimediaBean = (AzureServiceMultimediaBean) item;
                 helper.setBackgroundColor(R.id.ll_azure_service_bg, Color.argb(77, 255, 255, 255));
                 Glide.with(App.getContext()).load(azureServiceMultimediaBean.getImageUrl()).apply(new RequestOptions().placeholder(R.mipmap.queshengtu)).into((ImageView) helper.getView(R.id.iv_service_product_icon));
                 helper.setText(R.id.tv_service_time, parseTiem()).setText(R.id.tv_service_product_recommend, azureServiceMultimediaBean.getTitle())
-                        .setText(R.id.tv_service_product_recommend_01, azureServiceMultimediaBean.getElementDesc())
-                        .setText(R.id.tv_service_product_recommend_02, "K-14660T-4-CP")
-                        .setText(R.id.tv_service_product_recommend_03, "颜色/表面处理工艺：CP/抛光镀铬");
+                        .setText(R.id.tv_service_product_recommend_01, azureServiceMultimediaBean.getElementDesc());
                 if (mHour >= 0 && mHour < 12) {
                     helper.setText(R.id.tv_flag, "AM");
                 } else {

@@ -221,17 +221,17 @@ public class AzureCustomerServiceActivity extends BaseActivity {
                     questionSearchBean.setDescription(azureServiceBean.getData().getMessage());
                 if (azureServiceBean.getData().getClickVos().size() > 0) {
                     for (int i = 0; i < azureServiceBean.getData().getClickVos().size(); i++) {
-                        //                        String parent_start = StringUtils.identical(azureServiceBean.getData().getClickVos().get(i).getText(), "【", "】");
-                        //                        String parent_end = azureServiceBean.getData().getClickVos().get(i).getText().substring(parent_start.lastIndexOf("】") + 1, azureServiceBean.getData().getClickVos().get(i).getText().length());
-                        //                        res.add(new Level0Item(parent_start, parent_end));
-                        int a = 24;
-                        String str = StringUtils.identical("【售前问题】（门店预约、产品询价、官方商城地址）", "【", "】");
-                        LogUtils.i("rmy", "str = " + str);
-                        int o = str.lastIndexOf("】");
-                        LogUtils.i("rmy", "o = " + o);
-                        String ppp = "【售前问题】（门店预约、产品询价、官方商城地址）".substring(o + 1, a);
-                        LogUtils.i("rmy", "ppp = " + ppp);
-                        res.add(new Level0Item(str, ppp));
+//                        String parent_start = StringUtils.identical(azureServiceBean.getData().getClickVos().get(i).getText(), "【", "】");
+                        String parent_end = azureServiceBean.getData().getClickVos().get(i).getText();//.substring(parent_start.lastIndexOf("】") + 1, azureServiceBean.getData().getClickVos().get(i).getText().length());
+                        res.add(new Level0Item("", parent_end));
+                        //                        int a = 24;
+                        //                        String str = StringUtils.identical("【售前问题】（门店预约、产品询价、官方商城地址）", "【", "】");
+                        //                        LogUtils.i("rmy", "str = " + str);
+                        //                        int o = str.lastIndexOf("】");
+                        //                        LogUtils.i("rmy", "o = " + o);
+                        //                        String ppp = "【售前问题】（门店预约、产品询价、官方商城地址）".substring(o + 1, a);
+                        //                        LogUtils.i("rmy", "ppp = " + ppp);
+                        //                        res.add(new Level0Item(str, ppp));
                     }
                 }
                 if (azureServiceBean.getData().getMultimedia().size() > 0) {

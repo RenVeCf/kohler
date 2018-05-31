@@ -35,20 +35,20 @@ public class KbisPhotoAdapter extends BaseQuickAdapter<KbisBean.PhotoListBean, B
         TextView tvKbisPhotoDes = helper.getView(R.id.tv_kbis_photo_des_top);
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) tvKbisPhotoDes.getLayoutParams();
         if (position % 4 == 0) {
-            params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+//            params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
             params.addRule(RelativeLayout.ALIGN_PARENT_START);
-            params.setMargins(10, 0, 0, 20);
+            params.setMargins(30, 630, 0, 0);
         } else if (position % 2 != 0) {
             params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
             params.addRule(RelativeLayout.ALIGN_PARENT_START);
-            params.setMargins(10, 10, 0, 0);
+            params.setMargins(30, 30, 0, 0);
         } else {
             params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
             params.addRule(RelativeLayout.ALIGN_PARENT_END);
-            params.setMargins(0, 10, 10, 0);
+            params.setMargins(0, 30, 30, 0);
         }
         tvKbisPhotoDes.setLayoutParams(params);
-        helper.setText(R.id.tv_kbis_photo_des_top, item.getElementDesc());
+        helper.setText(R.id.tv_kbis_photo_des_top, item.getTitle());
         helper.addOnClickListener(R.id.iv_kbis_photo);
     }
 }
