@@ -1,13 +1,21 @@
 package com.mengyang.kohler.common.activity;
 
+import android.graphics.Rect;
+import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.google.gson.Gson;
@@ -19,16 +27,9 @@ import com.mengyang.kohler.common.adapter.AzureCustomerServiceAdapter;
 import com.mengyang.kohler.common.entity.Level0Item;
 import com.mengyang.kohler.common.entity.Level1Item;
 import com.mengyang.kohler.common.net.Config;
-import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.net.IdeaApi;
-import com.mengyang.kohler.common.utils.LogUtils;
-import com.mengyang.kohler.common.utils.StringUtils;
 import com.mengyang.kohler.common.utils.ToastUtil;
 import com.mengyang.kohler.common.view.TopView;
-import com.mengyang.kohler.module.bean.AzureBotAnswerQuestionBean;
-import com.mengyang.kohler.module.bean.AzureBotSendMsgBean;
-import com.mengyang.kohler.module.bean.AzureBotStartBean;
-import com.mengyang.kohler.module.bean.AzureBotWartBean;
 import com.mengyang.kohler.module.bean.AzureServiceBean;
 import com.mengyang.kohler.module.bean.AzureServiceMultimediaBean;
 import com.mengyang.kohler.module.bean.QuestionSearchBean;
@@ -39,6 +40,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -65,10 +67,21 @@ public class AzureCustomerServiceActivity extends BaseActivity {
     EditText etAzureQuestion;
     @BindView(R.id.bt_azure_send_message)
     Button btAzureSendMessage;
+    @BindView(R.id.rb_azure_01)
+    RadioButton mRbAzure01;
+    @BindView(R.id.rb_azure_02)
+    RadioButton mRbAzure02;
+    @BindView(R.id.rb_azure_03)
+    RadioButton mRbAzure03;
+    @BindView(R.id.hsv_azure)
+    HorizontalScrollView mHsvCustomer;
 
     private static final String HEADER_KEY = "Authorization";
     //    private static final String HEADER_VALUE = "Bearer yTlSJIGr5Ak.cwA.k1Y.hD-eSE5mXqmXFNzB6TX_LI4qqD_TyCPQYOqEK2Lnk68";
     private static final String HEADER_VALUE = "Basic [base64(n0lWVV1Lwx8p7tYR:95f19722c7f2544b395bf89c8789ebaa2748020a5bf49162385219ec67c9b0fc)]";
+    @BindView(R.id.ll_azure)
+    LinearLayout mLlZaure;
+
 
     private String mQuestionContent;
     private AzureCustomerServiceAdapter mUserServiceAdapter;
@@ -94,6 +107,24 @@ public class AzureCustomerServiceActivity extends BaseActivity {
         ImmersionBar.setTitleBar(this, tvAzureCustomerServiceTop);
         ivTopBack.setImageResource(R.mipmap.fanhuibai);
         initAdapter();
+
+        mLlZaure.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            private final Rect r = new Rect();
+
+            @Override
+            public void onGlobalLayout() {
+                mLlZaure.getWindowVisibleDisplayFrame(r);
+
+                int heightDiff = mLlZaure.getRootView().getHeight() - (r.bottom - r.top);
+                boolean isOpen = heightDiff > 100;
+
+                if (isOpen) {
+                    mHsvCustomer.setVisibility(View.GONE);
+                } else {
+                    mHsvCustomer.setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
 
     private void initAdapter() {
@@ -111,6 +142,21 @@ public class AzureCustomerServiceActivity extends BaseActivity {
                 return false;
             }
         });
+
+        etAzureQuestion.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_FOCUS) {
+                    mHsvCustomer.setVisibility(View.VISIBLE);
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_CALL) {
+                    mHsvCustomer.setVisibility(View.GONE);
+                    return true;
+                }
+                return false;
+            }
+        });
+
     }
 
     @Override
@@ -131,7 +177,7 @@ public class AzureCustomerServiceActivity extends BaseActivity {
         //        });
     }
 
-    @OnClick({R.id.bt_azure_send_message})
+    @OnClick({R.id.bt_azure_send_message, R.id.rb_azure_01, R.id.rb_azure_02, R.id.rb_azure_03})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_azure_send_message:
@@ -146,6 +192,18 @@ public class AzureCustomerServiceActivity extends BaseActivity {
                 } else {
                     ToastUtil.showToast("输入内容不能为空");
                 }
+                break;
+            case R.id.rb_azure_01:
+                String rb01 = mRbAzure01.getText().toString().trim();
+                etAzureQuestion.setText(rb01);
+                break;
+            case R.id.rb_azure_02:
+                String rb02 = mRbAzure01.getText().toString().trim();
+                etAzureQuestion.setText(rb02);
+                break;
+            case R.id.rb_azure_03:
+                String rb03 = mRbAzure01.getText().toString().trim();
+                etAzureQuestion.setText(rb03);
                 break;
             default:
                 break;
@@ -315,5 +373,12 @@ public class AzureCustomerServiceActivity extends BaseActivity {
         res.add(textBean);
         //        res.add(new QuestionSearchBean("2222222222222222", 3));
         return res;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }
