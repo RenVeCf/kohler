@@ -269,7 +269,7 @@ public class KbisBean implements Serializable {
         }
     }
 
-    public static class AgendaListBean {
+    public static class AgendaListBean implements Serializable {
         /**
          * agendaDesc :
          * agendaType : 3
@@ -375,7 +375,7 @@ public class KbisBean implements Serializable {
         }
     }
 
-    public static class PdfListBean implements MultiItemEntity {
+    public static class PdfListBean implements MultiItemEntity, Serializable {
         /**
          * elementDesc : 设计智慧
          * elementType : pdf
@@ -472,7 +472,7 @@ public class KbisBean implements Serializable {
 
     }
 
-    public static class PhotoListBean {
+    public static class PhotoListBean implements Serializable {
         /**
          * elementDesc : 设计智慧
          * elementType : image
@@ -558,7 +558,7 @@ public class KbisBean implements Serializable {
         }
     }
 
-    public static class VideoListBean {
+    public static class VideoListBean implements Serializable {
         /**
          * elementDesc : 设计智慧
          * elementType : video

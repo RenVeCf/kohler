@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/y25">
 
     <ImageView
         android:id="@+id/iv_kbis"
@@ -11,12 +12,12 @@
 
     <LinearLayout
         android:id="@+id/ll_kbis_play_down"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/x252"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_marginBottom="@dimen/y45"
+        android:layout_alignParentBottom="true"
         android:layout_marginStart="@dimen/x45"
+        android:layout_marginBottom="@dimen/y45"
         android:orientation="vertical">
 
         <TextView
@@ -39,9 +40,10 @@
         android:id="@+id/iv_kbis_play"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="@dimen/y45"
+        android:layout_alignParentBottom="true"
         android:layout_marginEnd="@dimen/x45"
+        android:scaleType="centerCrop"
+        android:paddingBottom="@dimen/y45"
         android:src="@mipmap/kbis_play" />
 </RelativeLayout>
