@@ -1,7 +1,5 @@
 package com.mengyang.kohler.common.activity;
 
-import android.content.Intent;
-import android.graphics.Rect;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
