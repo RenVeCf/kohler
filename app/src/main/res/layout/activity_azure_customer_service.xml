@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_azure"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/azure_service_bg"
@@ -30,6 +31,7 @@
         android:layout_weight="1" />
 
     <HorizontalScrollView
+        android:id="@+id/hsv_azure"
         android:layout_width="match_parent"
         android:layout_height="@dimen/y130"
         android:paddingStart="@dimen/x60"
@@ -43,6 +45,7 @@
             android:orientation="horizontal">
 
             <RadioButton
+                android:id="@+id/rb_azure_01"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="@dimen/x54"
@@ -57,6 +60,7 @@
                 android:textColor="@color/white" />
 
             <RadioButton
+                android:id="@+id/rb_azure_02"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="@dimen/x54"
@@ -71,6 +75,7 @@
                 android:textColor="@color/white" />
 
             <RadioButton
+                android:id="@+id/rb_azure_03"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:background="@drawable/blue_circular_foursquare_bt_bg"

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_04"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:paddingBottom="@dimen/y100">
@@ -9,8 +10,8 @@
         android:layout_width="@dimen/x108"
         android:layout_height="@dimen/x108"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="@dimen/x78"
         android:layout_marginTop="@dimen/y15"
+        android:layout_marginEnd="@dimen/x78"
         android:scaleType="centerCrop"
         android:src="@mipmap/oval" />
 

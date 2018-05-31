@@ -1,48 +1,47 @@
 package com.mengyang.kohler.common.activity;
 
+import android.content.Intent;
+import android.graphics.Rect;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
+import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.HorizontalScrollView;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.google.gson.Gson;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
-import com.mengyang.kohler.common.adapter.AzureCustomerServiceAdapter;
 import com.mengyang.kohler.common.adapter.UserServiceAdapter;
 import com.mengyang.kohler.common.entity.Level0Item;
 import com.mengyang.kohler.common.entity.Level1Item;
 import com.mengyang.kohler.common.net.Config;
-import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.StringUtils;
 import com.mengyang.kohler.common.utils.ToastUtil;
 import com.mengyang.kohler.common.view.TopView;
-import com.mengyang.kohler.module.BasicResponse;
-import com.mengyang.kohler.module.bean.AzureBotAnswerQuestionBean;
-import com.mengyang.kohler.module.bean.AzureBotSendMsgBean;
-import com.mengyang.kohler.module.bean.AzureBotStartBean;
-import com.mengyang.kohler.module.bean.AzureBotWartBean;
 import com.mengyang.kohler.module.bean.AzureServiceBean;
 import com.mengyang.kohler.module.bean.AzureServiceMultimediaBean;
 import com.mengyang.kohler.module.bean.QuestionSearchBean;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -65,6 +64,16 @@ public class CustomerServiceActivity extends BaseActivity {
     RecyclerView mRecyclerViewService;
     @BindView(R.id.et_question)
     EditText mEtQuestion;
+    @BindView(R.id.rb_customer_01)
+    RadioButton mRbCustomer01;
+    @BindView(R.id.rb_customer_02)
+    RadioButton mRbCustomer02;
+    @BindView(R.id.rb_customer_03)
+    RadioButton mRbCustomer03;
+    @BindView(R.id.ll_customer)
+    LinearLayout mLlCustomer;
+    @BindView(R.id.hsv_customer)
+    HorizontalScrollView mHsvCustomer;
 
     private static final String HEADER_KEY = "Authorization";
     //    private static final String HEADER_VALUE = "Bearer yTlSJIGr5Ak.cwA.k1Y.hD-eSE5mXqmXFNzB6TX_LI4qqD_TyCPQYOqEK2Lnk68";
@@ -88,10 +97,35 @@ public class CustomerServiceActivity extends BaseActivity {
 
     @Override
     protected void initValues() {
+        App.addDestoryActivity(this, "CustomerServiceActivity");
         App.getManager().addActivity(this);
         //        //防止状态栏和标题重叠
         //        ImmersionBar.setTitleBar(this, tvCustomerServiceTop);
         initAdapter();
+        mLlCustomer.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            private final Rect r = new Rect();
+
+            @Override
+            public void onGlobalLayout() {
+                mLlCustomer.getWindowVisibleDisplayFrame(r);
+                int heightDiff = mLlCustomer.getRootView().getHeight() - (r.bottom - r.top);
+                boolean isOpen = heightDiff > 100;
+                if (isOpen) {
+                    mHsvCustomer.clearAnimation();
+                    mHsvCustomer.setVisibility(View.GONE);
+                } else {
+                    mHsvCustomer.setVisibility(View.VISIBLE);
+                    AlphaAnimation alphaAnimation = new AlphaAnimation(0.0f, 1.0f);
+                    //设置动画持续时长
+                    alphaAnimation.setDuration(300);
+                    //设置动画结束之后的状态是否是动画的最终状态，true，表示是保持动画结束时的最终状态
+                    alphaAnimation.setFillAfter(true);
+                    //设置动画结束之后的状态是否是动画开始时的状态，true，表示是保持动画开始时的状态
+                    alphaAnimation.setFillBefore(true);
+                    mHsvCustomer.startAnimation(alphaAnimation);
+                }
+            }
+        });
     }
 
     private void initAdapter() {
@@ -130,7 +164,7 @@ public class CustomerServiceActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.recycler_view_service11, R.id.btn_send_message})
+    @OnClick({R.id.recycler_view_service11, R.id.btn_send_message, R.id.rb_customer_01, R.id.rb_customer_02, R.id.rb_customer_03})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             //            case R.id.recycler_view_service11:
@@ -148,6 +182,18 @@ public class CustomerServiceActivity extends BaseActivity {
                 } else {
                     ToastUtil.showToast("输入内容不能为空");
                 }
+                break;
+            case R.id.rb_customer_01:
+                String rb01 = mRbCustomer01.getText().toString().trim();
+                searchQuestion(rb01);
+                break;
+            case R.id.rb_customer_02:
+                String rb02 = mRbCustomer02.getText().toString().trim();
+                searchQuestion(rb02);
+                break;
+            case R.id.rb_customer_03:
+                String rb03 = mRbCustomer03.getText().toString().trim();
+                searchQuestion(rb03);
                 break;
             default:
                 break;
@@ -189,19 +235,21 @@ public class CustomerServiceActivity extends BaseActivity {
                         //                        String parent_start = StringUtils.identical(azureServiceBean.getData().getClickVos().get(i).getText(), "【", "】");
                         //                        String parent_end = azureServiceBean.getData().getClickVos().get(i).getText().substring(parent_start.lastIndexOf("】") + 1, azureServiceBean.getData().getClickVos().get(i).getText().length());
                         //                        res.add(new Level0Item(parent_start, parent_end));
-                        int a = 24;
-                        String str = StringUtils.identical("【售前问题】（门店预约、产品询价、官方商城地址）", "【", "】");
-                        LogUtils.i("rmy", "str = " + str);
-                        int o = str.lastIndexOf("】");
-                        LogUtils.i("rmy", "o = " + o);
-                        String ppp = "【售前问题】（门店预约、产品询价、官方商城地址）".substring(o + 1, a);
-                        LogUtils.i("rmy", "ppp = " + ppp);
-                        res.add(new Level0Item(str, ppp));
+                        String parent_end = azureServiceBean.getData().getClickVos().get(i).getText();//.substring(parent_start.lastIndexOf("】") + 1, azureServiceBean.getData().getClickVos().get(i).getText().length());
+                        res.add(new Level0Item("", parent_end));
+                        //                        int a = 24;
+                        //                        String str = StringUtils.identical("【售前问题】（门店预约、产品询价、官方商城地址）", "【", "】");
+                        //                        LogUtils.i("rmy", "str = " + str);
+                        //                        int o = str.lastIndexOf("】");
+                        //                        LogUtils.i("rmy", "o = " + o);
+                        //                        String ppp = "【售前问题】（门店预约、产品询价、官方商城地址）".substring(o + 1, a);
+                        //                        LogUtils.i("rmy", "ppp = " + ppp);
+                        //                        res.add(new Level0Item(str, ppp));
                     }
                 }
                 if (azureServiceBean.getData().getMultimedia().size() > 0) {
                     for (int i = 0; i < azureServiceBean.getData().getMultimedia().size(); i++) {
-                        mAzureServiceMultimediaBean = new AzureServiceMultimediaBean(azureServiceBean.getData().getMultimedia().get(i).getElementDesc(), azureServiceBean.getData().getMultimedia().get(i).getElementType(), azureServiceBean.getData().getMultimedia().get(i).getImageUrl(), azureServiceBean.getData().getMultimedia().get(i).getTitle(), 3);
+                        mAzureServiceMultimediaBean = new AzureServiceMultimediaBean(azureServiceBean.getData().getMultimedia().get(i).getElementDesc(), azureServiceBean.getData().getMultimedia().get(i).getElementType(), azureServiceBean.getData().getMultimedia().get(i).getH5Url(), azureServiceBean.getData().getMultimedia().get(i).getImageUrl(), azureServiceBean.getData().getMultimedia().get(i).getTitle(), 3);
                         res.add(mAzureServiceMultimediaBean);
                     }
                 }
@@ -209,6 +257,26 @@ public class CustomerServiceActivity extends BaseActivity {
                     @Override
                     public void run() {
                         mUserServiceAdapter.addData(questionSearchBean);
+                        mUserServiceAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                            @Override
+                            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                                switch (view.getId()) {
+                                    case R.id.ll_home_service_bg:
+                                        startActivity(new Intent(CustomerServiceActivity.this, WebViewActivity.class).putExtra("h5url", mAzureServiceMultimediaBean.getH5Url()));
+                                        break;
+                                    case R.id.tv_service_list_top_01:
+                                        TextView textView = (TextView) view;
+                                        if (!textView.getText().toString().trim().equals(""))
+                                            searchQuestion(textView.getText().toString().trim());
+                                        break;
+                                    case R.id.tv_service_list_top_02:
+                                        TextView textView2 = (TextView) view;
+                                        if (!textView2.getText().toString().trim().equals(""))
+                                            searchQuestion(textView2.getText().toString().trim());
+                                        break;
+                                }
+                            }
+                        });
                         mRecyclerViewService.scrollToPosition(mUserServiceAdapter.getItemCount() - 1);
                     }
                 });

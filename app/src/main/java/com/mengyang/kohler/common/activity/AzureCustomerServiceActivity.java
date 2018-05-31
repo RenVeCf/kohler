@@ -1,14 +1,23 @@
 package com.mengyang.kohler.common.activity;
 
+import android.content.Intent;
+import android.graphics.Rect;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
+import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.google.gson.Gson;
 import com.gyf.barlibrary.ImmersionBar;
@@ -19,16 +28,9 @@ import com.mengyang.kohler.common.adapter.AzureCustomerServiceAdapter;
 import com.mengyang.kohler.common.entity.Level0Item;
 import com.mengyang.kohler.common.entity.Level1Item;
 import com.mengyang.kohler.common.net.Config;
-import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.net.IdeaApi;
-import com.mengyang.kohler.common.utils.LogUtils;
-import com.mengyang.kohler.common.utils.StringUtils;
 import com.mengyang.kohler.common.utils.ToastUtil;
 import com.mengyang.kohler.common.view.TopView;
-import com.mengyang.kohler.module.bean.AzureBotAnswerQuestionBean;
-import com.mengyang.kohler.module.bean.AzureBotSendMsgBean;
-import com.mengyang.kohler.module.bean.AzureBotStartBean;
-import com.mengyang.kohler.module.bean.AzureBotWartBean;
 import com.mengyang.kohler.module.bean.AzureServiceBean;
 import com.mengyang.kohler.module.bean.AzureServiceMultimediaBean;
 import com.mengyang.kohler.module.bean.QuestionSearchBean;
@@ -65,6 +67,16 @@ public class AzureCustomerServiceActivity extends BaseActivity {
     EditText etAzureQuestion;
     @BindView(R.id.bt_azure_send_message)
     Button btAzureSendMessage;
+    @BindView(R.id.rb_azure_01)
+    RadioButton mRbAzure01;
+    @BindView(R.id.rb_azure_02)
+    RadioButton mRbAzure02;
+    @BindView(R.id.rb_azure_03)
+    RadioButton mRbAzure03;
+    @BindView(R.id.hsv_azure)
+    HorizontalScrollView mHsvZzure;
+    @BindView(R.id.ll_azure)
+    LinearLayout mLlZaure;
 
     private static final String HEADER_KEY = "Authorization";
     //    private static final String HEADER_VALUE = "Bearer yTlSJIGr5Ak.cwA.k1Y.hD-eSE5mXqmXFNzB6TX_LI4qqD_TyCPQYOqEK2Lnk68";
@@ -87,6 +99,7 @@ public class AzureCustomerServiceActivity extends BaseActivity {
 
     @Override
     protected void initValues() {
+        App.addDestoryActivity(this, "AzureCustomerServiceActivity");
         App.getManager().addActivity(this);
         //沉浸式状态栏初始化白色
         ImmersionBar.with(this).fitsSystemWindows(false).statusBarDarkFont(false).init();
@@ -94,6 +107,30 @@ public class AzureCustomerServiceActivity extends BaseActivity {
         ImmersionBar.setTitleBar(this, tvAzureCustomerServiceTop);
         ivTopBack.setImageResource(R.mipmap.fanhuibai);
         initAdapter();
+        mLlZaure.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            private final Rect r = new Rect();
+
+            @Override
+            public void onGlobalLayout() {
+                mLlZaure.getWindowVisibleDisplayFrame(r);
+                int heightDiff = mLlZaure.getRootView().getHeight() - (r.bottom - r.top);
+                boolean isOpen = heightDiff > 100;
+                if (isOpen) {
+                    mHsvZzure.setVisibility(View.GONE);
+                    mHsvZzure.clearAnimation();
+                } else {
+                    mHsvZzure.setVisibility(View.VISIBLE);
+                    AlphaAnimation alphaAnimation = new AlphaAnimation(0.0f, 1.0f);
+                    //设置动画持续时长
+                    alphaAnimation.setDuration(300);
+                    //设置动画结束之后的状态是否是动画的最终状态，true，表示是保持动画结束时的最终状态
+                    alphaAnimation.setFillAfter(true);
+                    //设置动画结束之后的状态是否是动画开始时的状态，true，表示是保持动画开始时的状态
+                    alphaAnimation.setFillBefore(true);
+                    mHsvZzure.startAnimation(alphaAnimation);
+                }
+            }
+        });
     }
 
     private void initAdapter() {
@@ -131,7 +168,7 @@ public class AzureCustomerServiceActivity extends BaseActivity {
         //        });
     }
 
-    @OnClick({R.id.bt_azure_send_message})
+    @OnClick({R.id.bt_azure_send_message, R.id.rb_azure_01, R.id.rb_azure_02, R.id.rb_azure_03})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_azure_send_message:
@@ -146,6 +183,18 @@ public class AzureCustomerServiceActivity extends BaseActivity {
                 } else {
                     ToastUtil.showToast("输入内容不能为空");
                 }
+                break;
+            case R.id.rb_azure_01:
+                String rb01 = mRbAzure01.getText().toString().trim();
+                searchQuestion(rb01);
+                break;
+            case R.id.rb_azure_02:
+                String rb02 = mRbAzure01.getText().toString().trim();
+                searchQuestion(rb02);
+                break;
+            case R.id.rb_azure_03:
+                String rb03 = mRbAzure01.getText().toString().trim();
+                searchQuestion(rb03);
                 break;
             default:
                 break;
@@ -213,7 +262,7 @@ public class AzureCustomerServiceActivity extends BaseActivity {
             }
 
             @Override
-            public void onResponse(Call call, Response response) {
+            public void onResponse(final Call call, Response response) {
                 AzureServiceBean azureServiceBean = new Gson().fromJson(response.body().charStream(), AzureServiceBean.class);
                 //                AzureBotAnswerQuestionBean azureBotAnswerQuestionBean = new Gson().fromJson(response.body().charStream(), AzureBotAnswerQuestionBean.class);
                 final QuestionSearchBean questionSearchBean = new QuestionSearchBean("", 2);
@@ -236,7 +285,7 @@ public class AzureCustomerServiceActivity extends BaseActivity {
                 }
                 if (azureServiceBean.getData().getMultimedia().size() > 0) {
                     for (int i = 0; i < azureServiceBean.getData().getMultimedia().size(); i++) {
-                        mAzureServiceMultimediaBean = new AzureServiceMultimediaBean(azureServiceBean.getData().getMultimedia().get(i).getElementDesc(), azureServiceBean.getData().getMultimedia().get(i).getElementType(), azureServiceBean.getData().getMultimedia().get(i).getImageUrl(), azureServiceBean.getData().getMultimedia().get(i).getTitle(), 3);
+                        mAzureServiceMultimediaBean = new AzureServiceMultimediaBean(azureServiceBean.getData().getMultimedia().get(i).getElementDesc(), azureServiceBean.getData().getMultimedia().get(i).getElementType(), azureServiceBean.getData().getMultimedia().get(i).getH5Url(), azureServiceBean.getData().getMultimedia().get(i).getImageUrl(), azureServiceBean.getData().getMultimedia().get(i).getTitle(), 3);
                         res.add(mAzureServiceMultimediaBean);
                     }
                 }
@@ -244,6 +293,26 @@ public class AzureCustomerServiceActivity extends BaseActivity {
                     @Override
                     public void run() {
                         mUserServiceAdapter.addData(questionSearchBean);
+                        mUserServiceAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                            @Override
+                            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                                switch (view.getId()) {
+                                    case R.id.ll_azure_service_bg:
+                                        startActivity(new Intent(AzureCustomerServiceActivity.this, WebViewActivity.class).putExtra("h5url", mAzureServiceMultimediaBean.getH5Url()));
+                                        break;
+                                    case R.id.tv_service_list_top_01:
+                                        TextView textView = (TextView) view;
+                                        if (!textView.getText().toString().trim().equals(""))
+                                            searchQuestion(textView.getText().toString().trim());
+                                        break;
+                                    case R.id.tv_service_list_top_02:
+                                        TextView textView2 = (TextView) view;
+                                        if (!textView2.getText().toString().trim().equals(""))
+                                            searchQuestion(textView2.getText().toString().trim());
+                                        break;
+                                }
+                            }
+                        });
                         rvAzureBot.scrollToPosition(mUserServiceAdapter.getItemCount() - 1);
                     }
                 });

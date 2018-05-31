@@ -10,14 +10,17 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -28,6 +31,7 @@ import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.activity.ReservationExperienceActivity;
+import com.mengyang.kohler.common.activity.WebViewActivity;
 import com.mengyang.kohler.common.entity.Level0Item;
 import com.mengyang.kohler.common.entity.Level1Item;
 import com.mengyang.kohler.common.net.IConstants;
@@ -54,7 +58,6 @@ public class AzureCustomerServiceAdapter extends BaseMultiItemQuickAdapter<Multi
 
     private SimpleDateFormat mDateformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private int mHour;
-    private int mDataSize;
 
     /**
      * Same as QuickAdapter#QuickAdapter(Context,int) but with
@@ -64,7 +67,6 @@ public class AzureCustomerServiceAdapter extends BaseMultiItemQuickAdapter<Multi
      */
     public AzureCustomerServiceAdapter(List<MultiItemEntity> data) {
         super(data);
-        this.mDataSize = data.size();
         addItemType(TYPE_LEVEL_0, R.layout.item_azure_service_list_parent);
         addItemType(TYPE_LEVEL_1, R.layout.item_azure_service_list_child);
         addItemType(TYPE_TEXT, R.layout.item_azure_service_company_head); //必须设置Item类型,否则空职指针异常
@@ -80,10 +82,9 @@ public class AzureCustomerServiceAdapter extends BaseMultiItemQuickAdapter<Multi
                 final Level0Item level0Item = (Level0Item) item;
                 helper.setText(R.id.tv_service_list_top_01, level0Item.getParrentLeft());
                 helper.setText(R.id.tv_service_list_top_02, level0Item.getParrentRight());
-                if (helper.getLayoutPosition() == 1) {
-                    helper.setGone(R.id.view_azure_parent_line, false);
-                }
                 helper.setBackgroundColor(R.id.rl_item_parent, Color.argb(77, 255, 255, 255));
+                helper.addOnClickListener(R.id.tv_service_list_top_01);
+                helper.addOnClickListener(R.id.tv_service_list_top_02);
                 //                helper.setOnClickListener(R.id.rl_item_parent, new View.OnClickListener() {
                 //                    @Override
                 //                    public void onClick(View v) {
@@ -106,7 +107,6 @@ public class AzureCustomerServiceAdapter extends BaseMultiItemQuickAdapter<Multi
             case TYPE_TEXT://客服文本
                 int adapterPosition = helper.getAdapterPosition();
                 if ((adapterPosition == 4)) {
-
                     RelativeLayout view = helper.getView(R.id.rl_head);
                     RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) view.getLayoutParams();
                     layoutParams.setMargins(0, 78, 0, 0);
@@ -118,10 +118,12 @@ public class AzureCustomerServiceAdapter extends BaseMultiItemQuickAdapter<Multi
                         .setText(R.id.tv_service_time, parseTiem());
 
                 if (textBean.getDescription() != null) {
-                    if (textBean.getDescription().equals("还可以进入科勒预约系统进行门店查询和预约, 点击进入 或 返回"))
-                        helper.setText(R.id.tv_service_message, getClickableSpan());
-                    else
-                        helper.setText(R.id.tv_service_message, textBean.getDescription());
+                    TextView textview = helper.getView(R.id.tv_service_message);
+                    if (textBean.getDescription().equals("还可以进入科勒预约系统进行门店查询和预约, 点击进入 或 返回")) {
+                        textview.setText(getClickableSpan());
+                        textview.setMovementMethod(LinkMovementMethod.getInstance());
+                    } else
+                        textview.setText(textBean.getDescription());
                 }
 
                 if (mHour >= 0 && mHour < 12) {
@@ -145,6 +147,7 @@ public class AzureCustomerServiceAdapter extends BaseMultiItemQuickAdapter<Multi
                 } else {
                     helper.setText(R.id.tv_flag, "PM");
                 }
+                helper.addOnClickListener(R.id.ll_azure_service_bg);
                 break;
             case TYPE_USER: //用户
                 final QuestionSearchBean questionSearchBean = (QuestionSearchBean) item;
@@ -220,7 +223,6 @@ public class AzureCustomerServiceAdapter extends BaseMultiItemQuickAdapter<Multi
         spannableString.setSpan(new ClickableSpan() {
             @Override
             public void onClick(View widget) {
-                LogUtils.i("0000000000000000000000000000000000");
                 mContext.startActivity(new Intent(mContext, ReservationExperienceActivity.class));
             }
         }, 22, 26, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -233,7 +235,7 @@ public class AzureCustomerServiceAdapter extends BaseMultiItemQuickAdapter<Multi
         spannableString.setSpan(new ClickableSpan() {
             @Override
             public void onClick(View widget) {
-                Toast.makeText(App.getContext(), "返回", Toast.LENGTH_SHORT).show();
+                App.destoryActivity("AzureCustomerServiceActivity");
             }
         }, 29, 31, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         //设置文字的前景色

@@ -13,6 +13,7 @@ import android.text.Html;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.UnderlineSpan;
@@ -58,8 +59,6 @@ public class UserServiceAdapter extends BaseMultiItemQuickAdapter<MultiItemEntit
 
     private SimpleDateFormat mDateformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private int mHour;
-    private int mDataSize;
-    private boolean mIsList;
 
     /**
      * Same as QuickAdapter#QuickAdapter(Context,int) but with
@@ -69,7 +68,6 @@ public class UserServiceAdapter extends BaseMultiItemQuickAdapter<MultiItemEntit
      */
     public UserServiceAdapter(List<MultiItemEntity> data) {
         super(data);
-        this.mDataSize = data.size();
         addItemType(TYPE_LEVEL_0, R.layout.item_home_service_list_parent);
         addItemType(TYPE_LEVEL_1, R.layout.item_home_service_list_child);
         addItemType(TYPE_TEXT, R.layout.item_home_service_company_head); //必须设置Item类型,否则空职指针异常
@@ -80,20 +78,14 @@ public class UserServiceAdapter extends BaseMultiItemQuickAdapter<MultiItemEntit
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void convert(final BaseViewHolder helper, final MultiItemEntity item) {
-        int itemType = item.getItemType();
-        if (itemType == 2) {
-            mIsList = true;
-        }
-
-        switch (itemType) {
+        switch (item.getItemType()) {
             case TYPE_LEVEL_0://父级
                 final Level0Item level0Item = (Level0Item) item;
                 helper.setText(R.id.tv_service_list_top_01, level0Item.getParrentLeft());
                 helper.setText(R.id.tv_service_list_top_02, level0Item.getParrentRight());
-                if (helper.getLayoutPosition() == 1) {
-                    helper.setGone(R.id.view_azure_parent_line, false);
-                }
-                helper.setBackgroundColor(R.id.rl_item_parent, Color.argb(255,237,237,237));
+                helper.setBackgroundColor(R.id.rl_item_parent, Color.argb(255, 237, 237, 237));
+                helper.addOnClickListener(R.id.tv_service_list_top_01);
+                helper.addOnClickListener(R.id.tv_service_list_top_02);
                 break;
             case TYPE_LEVEL_1: //子级
                 final Level1Item level0Item1 = (Level1Item) item;
@@ -102,8 +94,7 @@ public class UserServiceAdapter extends BaseMultiItemQuickAdapter<MultiItemEntit
                 break;
             case TYPE_TEXT://客服文本
                 int adapterPosition = helper.getAdapterPosition();
-                if ((adapterPosition == 4) || mIsList ) {
-                    mIsList = false;
+                if ((adapterPosition == 4)) {
                     RelativeLayout view = helper.getView(R.id.rl_head);
                     RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) view.getLayoutParams();
                     layoutParams.setMargins(0, 78, 0, 0);
@@ -115,10 +106,12 @@ public class UserServiceAdapter extends BaseMultiItemQuickAdapter<MultiItemEntit
                         .setText(R.id.tv_service_time, parseTiem());
 
                 if (textBean.getDescription() != null) {
-                    if (textBean.getDescription().equals("还可以进入科勒预约系统进行门店查询和预约, 点击进入 或 返回"))
-                        helper.setText(R.id.tv_service_message, getClickableSpan());
-                    else
-                        helper.setText(R.id.tv_service_message, textBean.getDescription());
+                    TextView textview = helper.getView(R.id.tv_service_message);
+                    if (textBean.getDescription().equals("还可以进入科勒预约系统进行门店查询和预约, 点击进入 或 返回")) {
+                        textview.setText(getClickableSpan());
+                        textview.setMovementMethod(LinkMovementMethod.getInstance());
+                    } else
+                        textview.setText(textBean.getDescription());
                 }
 
                 if (mHour >= 0 && mHour < 12) {
@@ -128,18 +121,21 @@ public class UserServiceAdapter extends BaseMultiItemQuickAdapter<MultiItemEntit
                 }
                 break;
             case TYPE_PRODUCT:
+                RelativeLayout view = helper.getView(R.id.rl_home_service_img);
+                RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) view.getLayoutParams();
+                layoutParams.setMargins(0, 78, 0, 0);
+                view.setLayoutParams(layoutParams);
                 final AzureServiceMultimediaBean azureServiceMultimediaBean = (AzureServiceMultimediaBean) item;
-                helper.setBackgroundColor(R.id.ll_home_service_bg, Color.argb(255,237,237,237));
+                helper.setBackgroundColor(R.id.ll_home_service_bg, Color.argb(255, 237, 237, 237));
                 Glide.with(App.getContext()).load(azureServiceMultimediaBean.getImageUrl()).apply(new RequestOptions().placeholder(R.mipmap.queshengtu)).into((ImageView) helper.getView(R.id.iv_service_product_icon));
                 helper.setText(R.id.tv_service_time, parseTiem()).setText(R.id.tv_service_product_recommend, azureServiceMultimediaBean.getTitle())
-                        .setText(R.id.tv_service_product_recommend_01, azureServiceMultimediaBean.getElementDesc())
-                        .setText(R.id.tv_service_product_recommend_02, "K-14660T-4-CP")
-                        .setText(R.id.tv_service_product_recommend_03, "颜色/表面处理工艺：CP/抛光镀铬");
+                        .setText(R.id.tv_service_product_recommend_01, azureServiceMultimediaBean.getElementDesc());
                 if (mHour >= 0 && mHour < 12) {
                     helper.setText(R.id.tv_flag, "AM");
                 } else {
                     helper.setText(R.id.tv_flag, "PM");
                 }
+                helper.addOnClickListener(R.id.ll_home_service_bg);
                 break;
             case TYPE_USER: //用户
                 final QuestionSearchBean questionSearchBean = (QuestionSearchBean) item;
@@ -227,7 +223,7 @@ public class UserServiceAdapter extends BaseMultiItemQuickAdapter<MultiItemEntit
         spannableString.setSpan(new ClickableSpan() {
             @Override
             public void onClick(View widget) {
-                Toast.makeText(App.getContext(), "返回", Toast.LENGTH_SHORT).show();
+                App.destoryActivity("CustomerServiceActivity");
             }
         }, 29, 31, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         //设置文字的前景色

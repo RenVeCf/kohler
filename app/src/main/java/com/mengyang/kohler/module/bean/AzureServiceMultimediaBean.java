@@ -15,9 +15,10 @@ import com.chad.library.adapter.base.entity.MultiItemEntity;
     private int weight;
     private int itemType;
 
-    public AzureServiceMultimediaBean(String elementDesc, String elementType, String imageUrl, String title, int itemType) {
+    public AzureServiceMultimediaBean(String elementDesc, String elementType, String h5Url, String imageUrl, String title, int itemType) {
         this.elementDesc = elementDesc;
         this.elementType = elementType;
+        this.h5Url = h5Url;
         this.imageUrl = imageUrl;
         this.title = title;
         this.itemType = itemType;

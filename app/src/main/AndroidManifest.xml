@@ -329,7 +329,9 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".common.activity.ReservationExperienceActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustPan" />
     </application>
 
 </manifest>
