@@ -33,7 +33,6 @@ public class AccountPrivacyPolicyActivity extends BaseActivity {
 
     @Override
     protected void initListener() {
-        startActivity(new Intent(this, AzureCustomerServiceActivity.class));
     }
 
     @Override
