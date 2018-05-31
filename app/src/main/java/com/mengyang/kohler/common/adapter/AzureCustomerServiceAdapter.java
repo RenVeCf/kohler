@@ -113,6 +113,7 @@ public class AzureCustomerServiceAdapter extends BaseMultiItemQuickAdapter<Multi
                 int adapterPosition = helper.getAdapterPosition();
                 if ((adapterPosition == 4) || mIsList ) {
                     mIsList = false;
+
                     RelativeLayout view = helper.getView(R.id.rl_head);
                     RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) view.getLayoutParams();
                     layoutParams.setMargins(0, 78, 0, 0);
