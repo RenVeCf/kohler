@@ -14,17 +14,17 @@
         android:paddingStart="@dimen/x48">
 
         <TextView
-            android:id="@+id/tv_azure_list_child_content"
+            android:id="@+id/tv_home_list_child_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:paddingStart="@dimen/x54"
-            android:textColor="#000000"
+            android:textColor="#ffffff"
             android:textSize="12sp" />
 
         <View
-            android:id="@+id/view_azure_child_line"
+            android:id="@+id/view_home_child_line"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:alpha="0.2"

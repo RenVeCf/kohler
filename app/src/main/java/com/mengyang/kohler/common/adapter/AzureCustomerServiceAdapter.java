@@ -33,6 +33,7 @@ import com.mengyang.kohler.common.entity.Level1Item;
 import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
+import com.mengyang.kohler.module.bean.AzureServiceMultimediaBean;
 import com.mengyang.kohler.module.bean.QuestionSearchBean;
 
 import java.text.SimpleDateFormat;
@@ -54,6 +55,7 @@ public class AzureCustomerServiceAdapter extends BaseMultiItemQuickAdapter<Multi
     private SimpleDateFormat mDateformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private int mHour;
     private int mDataSize;
+    private boolean mIsList;
 
     /**
      * Same as QuickAdapter#QuickAdapter(Context,int) but with
@@ -74,7 +76,12 @@ public class AzureCustomerServiceAdapter extends BaseMultiItemQuickAdapter<Multi
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void convert(final BaseViewHolder helper, final MultiItemEntity item) {
-        switch (item.getItemType()) {
+        int itemType = item.getItemType();
+        if (itemType == 2) {
+            mIsList = true;
+        }
+
+        switch (itemType) {
             case TYPE_LEVEL_0://父级
                 final Level0Item level0Item = (Level0Item) item;
                 helper.setText(R.id.tv_service_list_top_01, level0Item.getParrentLeft());
@@ -83,19 +90,19 @@ public class AzureCustomerServiceAdapter extends BaseMultiItemQuickAdapter<Multi
                     helper.setGone(R.id.view_azure_parent_line, false);
                 }
                 helper.setBackgroundColor(R.id.rl_item_parent, Color.argb(77, 255, 255, 255));
-//                helper.setOnClickListener(R.id.rl_item_parent, new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        int position = helper.getLayoutPosition();
-//                        if (level0Item.isExpanded()) {
-//                            collapse(position);
-////                            rotationExpandIcon(180, 0, v);
-//                        } else {
-//                            expand(position);
-////                            rotationExpandIcon(0, 180, v);
-//                        }
-//                    }
-//                });
+                //                helper.setOnClickListener(R.id.rl_item_parent, new View.OnClickListener() {
+                //                    @Override
+                //                    public void onClick(View v) {
+                //                        int position = helper.getLayoutPosition();
+                //                        if (level0Item.isExpanded()) {
+                //                            collapse(position);
+                ////                            rotationExpandIcon(180, 0, v);
+                //                        } else {
+                //                            expand(position);
+                ////                            rotationExpandIcon(0, 180, v);
+                //                        }
+                //                    }
+                //                });
                 break;
             case TYPE_LEVEL_1: //子级
                 final Level1Item level0Item1 = (Level1Item) item;
@@ -104,7 +111,8 @@ public class AzureCustomerServiceAdapter extends BaseMultiItemQuickAdapter<Multi
                 break;
             case TYPE_TEXT://客服文本
                 int adapterPosition = helper.getAdapterPosition();
-                if (adapterPosition == 4) {
+                if ((adapterPosition == 4) || mIsList ) {
+                    mIsList = false;
                     RelativeLayout view = helper.getView(R.id.rl_head);
                     RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) view.getLayoutParams();
                     layoutParams.setMargins(0, 78, 0, 0);
@@ -116,7 +124,7 @@ public class AzureCustomerServiceAdapter extends BaseMultiItemQuickAdapter<Multi
                         .setText(R.id.tv_service_time, parseTiem());
 
                 if (textBean.getDescription() != null) {
-                    if (textBean.getDescription().equals("还可以进入科勒预约系统进行门店查询和预约点击进入 或 返回"))
+                    if (textBean.getDescription().equals("还可以进入科勒预约系统进行门店查询和预约, 点击进入 或 返回"))
                         helper.setText(R.id.tv_service_message, getClickableSpan());
                     else
                         helper.setText(R.id.tv_service_message, textBean.getDescription());
@@ -129,10 +137,11 @@ public class AzureCustomerServiceAdapter extends BaseMultiItemQuickAdapter<Multi
                 }
                 break;
             case TYPE_PRODUCT:
+                final AzureServiceMultimediaBean azureServiceMultimediaBean = (AzureServiceMultimediaBean) item;
                 helper.setBackgroundColor(R.id.ll_azure_service_bg, Color.argb(77, 255, 255, 255));
-                Glide.with(App.getContext()).load(R.mipmap.azure_service_photo_w).apply(new RequestOptions().placeholder(R.mipmap.queshengtu)).into((ImageView) helper.getView(R.id.iv_service_product_icon));
-                helper.setText(R.id.tv_service_time, parseTiem()).setText(R.id.tv_service_product_recommend, "今天天气真不错，给你推荐个产品。今天天气真不错，给你推荐个产品。")
-                        .setText(R.id.tv_service_product_recommend_01, "LOURE® 萝瑞 单把碗盆龙头")
+                Glide.with(App.getContext()).load(azureServiceMultimediaBean.getImageUrl()).apply(new RequestOptions().placeholder(R.mipmap.queshengtu)).into((ImageView) helper.getView(R.id.iv_service_product_icon));
+                helper.setText(R.id.tv_service_time, parseTiem()).setText(R.id.tv_service_product_recommend, azureServiceMultimediaBean.getTitle())
+                        .setText(R.id.tv_service_product_recommend_01, azureServiceMultimediaBean.getElementDesc())
                         .setText(R.id.tv_service_product_recommend_02, "K-14660T-4-CP")
                         .setText(R.id.tv_service_product_recommend_03, "颜色/表面处理工艺：CP/抛光镀铬");
                 if (mHour >= 0 && mHour < 12) {
@@ -208,30 +217,30 @@ public class AzureCustomerServiceAdapter extends BaseMultiItemQuickAdapter<Multi
      * @return
      */
     private SpannableString getClickableSpan() {
-        SpannableString spannableString = new SpannableString("还可以进入科勒预约系统进行门店查询和预约点击进入 或 返回");
+        SpannableString spannableString = new SpannableString("还可以进入科勒预约系统进行门店查询和预约, 点击进入 或 返回");
         //设置下划线文字
-        spannableString.setSpan(new UnderlineSpan(), 20, 24, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(new UnderlineSpan(), 22, 26, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         //设置文字的单击事件
         spannableString.setSpan(new ClickableSpan() {
             @Override
             public void onClick(View widget) {
                 mContext.startActivity(new Intent(mContext, ReservationExperienceActivity.class));
             }
-        }, 20, 24, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }, 22, 26, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         //设置文字的前景色
-        spannableString.setSpan(new ForegroundColorSpan(App.getContext().getResources().getColor(R.color.colorBluePrimary)), 20, 24, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(new ForegroundColorSpan(App.getContext().getResources().getColor(R.color.colorBluePrimary)), 22, 26, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         //设置下划线文字
-        spannableString.setSpan(new UnderlineSpan(), 27, 29, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(new UnderlineSpan(), 29, 31, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         //设置文字的单击事件
         spannableString.setSpan(new ClickableSpan() {
             @Override
             public void onClick(View widget) {
                 Toast.makeText(App.getContext(), "返回", Toast.LENGTH_SHORT).show();
             }
-        }, 27, 29, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }, 29, 31, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         //设置文字的前景色
-        spannableString.setSpan(new ForegroundColorSpan(App.getContext().getResources().getColor(R.color.colorBluePrimary)), 27, 29, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(new ForegroundColorSpan(App.getContext().getResources().getColor(R.color.colorBluePrimary)), 29, 31, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         return spannableString;
     }
 }

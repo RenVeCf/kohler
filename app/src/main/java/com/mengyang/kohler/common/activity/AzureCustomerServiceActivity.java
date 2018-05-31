@@ -30,6 +30,7 @@ import com.mengyang.kohler.module.bean.AzureBotSendMsgBean;
 import com.mengyang.kohler.module.bean.AzureBotStartBean;
 import com.mengyang.kohler.module.bean.AzureBotWartBean;
 import com.mengyang.kohler.module.bean.AzureServiceBean;
+import com.mengyang.kohler.module.bean.AzureServiceMultimediaBean;
 import com.mengyang.kohler.module.bean.QuestionSearchBean;
 
 import java.io.IOException;
@@ -76,7 +77,7 @@ public class AzureCustomerServiceActivity extends BaseActivity {
     //    private static final String START = URL + "v3/directline/conversations";
     //    private static final String REQUEST = "/activities";
     //    private AzureBotStartBean mAzureBotStartBean;
-    private AzureServiceBean mAzureServiceBean;
+    private AzureServiceMultimediaBean mAzureServiceMultimediaBean;
     private ArrayList<MultiItemEntity> res;
 
     @Override
@@ -220,9 +221,9 @@ public class AzureCustomerServiceActivity extends BaseActivity {
                     questionSearchBean.setDescription(azureServiceBean.getData().getMessage());
                 if (azureServiceBean.getData().getClickVos().size() > 0) {
                     for (int i = 0; i < azureServiceBean.getData().getClickVos().size(); i++) {
-//                        String parent_start = StringUtils.identical(azureServiceBean.getData().getClickVos().get(i).getText(), "【", "】");
-//                        String parent_end = azureServiceBean.getData().getClickVos().get(i).getText().substring(parent_start.lastIndexOf("】") + 1, azureServiceBean.getData().getClickVos().get(i).getText().length());
-//                        res.add(new Level0Item(parent_start, parent_end));
+                        //                        String parent_start = StringUtils.identical(azureServiceBean.getData().getClickVos().get(i).getText(), "【", "】");
+                        //                        String parent_end = azureServiceBean.getData().getClickVos().get(i).getText().substring(parent_start.lastIndexOf("】") + 1, azureServiceBean.getData().getClickVos().get(i).getText().length());
+                        //                        res.add(new Level0Item(parent_start, parent_end));
                         int a = 24;
                         String str = StringUtils.identical("【售前问题】（门店预约、产品询价、官方商城地址）", "【", "】");
                         LogUtils.i("rmy", "str = " + str);
@@ -234,7 +235,10 @@ public class AzureCustomerServiceActivity extends BaseActivity {
                     }
                 }
                 if (azureServiceBean.getData().getMultimedia().size() > 0) {
-
+                    for (int i = 0; i < azureServiceBean.getData().getMultimedia().size(); i++) {
+                        mAzureServiceMultimediaBean = new AzureServiceMultimediaBean(azureServiceBean.getData().getMultimedia().get(i).getElementDesc(), azureServiceBean.getData().getMultimedia().get(i).getElementType(), azureServiceBean.getData().getMultimedia().get(i).getImageUrl(), azureServiceBean.getData().getMultimedia().get(i).getTitle(), 3);
+                        res.add(mAzureServiceMultimediaBean);
+                    }
                 }
                 AzureCustomerServiceActivity.this.runOnUiThread(new Runnable() {
                     @Override

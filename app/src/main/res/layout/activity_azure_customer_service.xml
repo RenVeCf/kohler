@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/azure_service_bg"
+    android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context=".common.activity.AzureCustomerServiceActivity">
 
@@ -31,9 +32,9 @@
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="@dimen/y130"
-        android:paddingBottom="@dimen/y24"
-        android:paddingEnd="@dimen/x60"
         android:paddingStart="@dimen/x60"
+        android:paddingEnd="@dimen/x60"
+        android:paddingBottom="@dimen/y24"
         android:scrollbars="none">
 
         <RadioGroup
@@ -48,10 +49,10 @@
                 android:background="@drawable/blue_circular_foursquare_bt_bg"
                 android:button="@null"
                 android:gravity="center"
-                android:paddingBottom="@dimen/y27"
-                android:paddingEnd="@dimen/x60"
                 android:paddingStart="@dimen/x60"
                 android:paddingTop="@dimen/y27"
+                android:paddingEnd="@dimen/x60"
+                android:paddingBottom="@dimen/y27"
                 android:text="售前问题"
                 android:textColor="@color/white" />
 
@@ -62,10 +63,10 @@
                 android:background="@drawable/blue_circular_foursquare_bt_bg"
                 android:button="@null"
                 android:gravity="center"
-                android:paddingBottom="@dimen/y27"
-                android:paddingEnd="@dimen/x60"
                 android:paddingStart="@dimen/x60"
                 android:paddingTop="@dimen/y27"
+                android:paddingEnd="@dimen/x60"
+                android:paddingBottom="@dimen/y27"
                 android:text="售后问题"
                 android:textColor="@color/white" />
 
@@ -75,10 +76,10 @@
                 android:background="@drawable/blue_circular_foursquare_bt_bg"
                 android:button="@null"
                 android:gravity="center"
-                android:paddingBottom="@dimen/y27"
-                android:paddingEnd="@dimen/x60"
                 android:paddingStart="@dimen/x60"
                 android:paddingTop="@dimen/y27"
+                android:paddingEnd="@dimen/x60"
+                android:paddingBottom="@dimen/y27"
                 android:text="产品SKU"
                 android:textColor="@color/white" />
         </RadioGroup>
@@ -93,8 +94,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingBottom="@dimen/y12"
-        android:paddingTop="@dimen/y15">
+        android:paddingTop="@dimen/y15"
+        android:paddingBottom="@dimen/y12">
 
         <EditText
             android:id="@+id/et_azure_question"
@@ -110,8 +111,8 @@
             android:id="@+id/bt_azure_send_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/x24"
             android:layout_marginStart="@dimen/x18"
+            android:layout_marginEnd="@dimen/x24"
             android:background="@mipmap/azure_service_send_bt"
             android:text="@string/send_out"
             android:textColor="@color/white" />

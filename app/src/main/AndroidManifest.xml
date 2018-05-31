@@ -43,9 +43,9 @@
     <!-- 相机 -->
     <uses-permission android:name="android.permission.CAMERA" />
     <!-- 允许程序打开网络套接字 -->
-<!--    <uses-permission
-        android:name="android.permission.INTERNET"
-        android:protectionLevel="signature" />-->
+    <!--    <uses-permission
+            android:name="android.permission.INTERNET"
+            android:protectionLevel="signature" />-->
     <!-- 用于申请调用A-GPS模块 -->
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <!-- 保存SD卡 -->
@@ -56,7 +56,7 @@
     <!-- analytics所需权限 -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" /> <!-- 开机启动 -->
     <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- 唤醒锁定 -->
-  <!--  <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />  --><!-- 7.0以上安装文件要加权限 -->
+    <!--  <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />  --><!-- 7.0以上安装文件要加权限 -->
 
     <application
         android:name=".App"
@@ -286,16 +286,16 @@
             android:name="app_version"
             android:value="ver_1.0.1" />
 
-<!--        <activity
-            android:name="com.kohler.arscan.DownloadActivity"
-            android:exported="false" />-->
-<!--        <activity
-            android:name="com.kohler.arscan.UnityPlayerActivity"
-            android:exported="false" />-->
+        <!--        <activity
+                    android:name="com.kohler.arscan.DownloadActivity"
+                    android:exported="false" />-->
+        <!--        <activity
+                    android:name="com.kohler.arscan.UnityPlayerActivity"
+                    android:exported="false" />-->
         <activity
             android:name="com.deepano.kohlortest.UnityPlayerActivity"
-            android:process=":UnityActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:process=":UnityActivity" />
 
         <activity
             android:name=".home.activity.WeeklyRadioConcertActivity"
@@ -322,8 +322,14 @@
             android:name=".home.activity.GanChuangArtistActivity"
             android:exported="false" />
         <activity android:name=".home.activity.KbisActivity" />
-        <activity android:name=".common.activity.AzureCustomerServiceActivity" />
-        <activity android:name=".common.activity.ReservationExperienceActivity"></activity>
+        <activity
+            android:name=".common.activity.AzureCustomerServiceActivity"
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".common.activity.ReservationExperienceActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
