@@ -142,21 +142,6 @@ public class AzureCustomerServiceActivity extends BaseActivity {
                 return false;
             }
         });
-
-        etAzureQuestion.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_FOCUS) {
-                    mHsvCustomer.setVisibility(View.VISIBLE);
-                    return true;
-                } else if (keyCode == KeyEvent.KEYCODE_CALL) {
-                    mHsvCustomer.setVisibility(View.GONE);
-                    return true;
-                }
-                return false;
-            }
-        });
-
     }
 
     @Override

@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.HorizontalScrollView;
@@ -116,6 +117,22 @@ public class CustomerServiceActivity extends BaseActivity {
                     mHsvCustomer.setVisibility(View.GONE);
                 } else {
                     mHsvCustomer.setVisibility(View.VISIBLE);
+
+           /*         AlphaAnimation alphaAnimation = new AlphaAnimation(1.0f, 0.2f);
+                    //设置动画持续时长
+                    alphaAnimation.setDuration(3000);
+                    //设置动画结束之后的状态是否是动画的最终状态，true，表示是保持动画结束时的最终状态
+                    alphaAnimation.setFillAfter(true);
+                    //设置动画结束之后的状态是否是动画开始时的状态，true，表示是保持动画开始时的状态
+                    alphaAnimation.setFillBefore(true);
+                    //设置动画的重复模式：反转REVERSE和重新开始RESTART
+                    alphaAnimation.setRepeatMode(AlphaAnimation.REVERSE);
+                    //设置动画播放次数
+                    alphaAnimation.setRepeatCount(AlphaAnimation.INFINITE);
+                    //开始动画
+                    mHsvCustomer.startAnimation(alphaAnimation);
+*/
+
                 }
             }
         });
