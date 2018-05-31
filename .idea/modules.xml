@@ -5,7 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/arscan/arscan.iml" filepath="$PROJECT_DIR$/arscan/arscan.iml" />
       <module fileurl="file://$PROJECT_DIR$/kohler.iml" filepath="$PROJECT_DIR$/kohler.iml" />
-      <module fileurl="file://$PROJECT_DIR$/kohlortest/kohlortest.iml" filepath="$PROJECT_DIR$/kohlortest/kohlortest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/kohlortest_android/kohlortest_android.iml" filepath="$PROJECT_DIR$/kohlortest_android/kohlortest_android.iml" />
     </modules>
   </component>
 </project>

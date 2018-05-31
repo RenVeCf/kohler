@@ -221,7 +221,7 @@ public class AzureCustomerServiceActivity extends BaseActivity {
                     questionSearchBean.setDescription(azureServiceBean.getData().getMessage());
                 if (azureServiceBean.getData().getClickVos().size() > 0) {
                     for (int i = 0; i < azureServiceBean.getData().getClickVos().size(); i++) {
-//                        String parent_start = StringUtils.identical(azureServiceBean.getData().getClickVos().get(i).getText(), "【", "】");
+                        //                        String parent_start = StringUtils.identical(azureServiceBean.getData().getClickVos().get(i).getText(), "【", "】");
                         String parent_end = azureServiceBean.getData().getClickVos().get(i).getText();//.substring(parent_start.lastIndexOf("】") + 1, azureServiceBean.getData().getClickVos().get(i).getText().length());
                         res.add(new Level0Item("", parent_end));
                         //                        int a = 24;
