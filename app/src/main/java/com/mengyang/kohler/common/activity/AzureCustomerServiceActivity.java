@@ -2,14 +2,13 @@ package com.mengyang.kohler.common.activity;
 
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.HorizontalScrollView;
@@ -74,7 +73,7 @@ public class AzureCustomerServiceActivity extends BaseActivity {
     @BindView(R.id.rb_azure_03)
     RadioButton mRbAzure03;
     @BindView(R.id.hsv_azure)
-    HorizontalScrollView mHsvCustomer;
+    HorizontalScrollView mHsvZzure;
 
     private static final String HEADER_KEY = "Authorization";
     //    private static final String HEADER_VALUE = "Bearer yTlSJIGr5Ak.cwA.k1Y.hD-eSE5mXqmXFNzB6TX_LI4qqD_TyCPQYOqEK2Lnk68";
@@ -119,9 +118,19 @@ public class AzureCustomerServiceActivity extends BaseActivity {
                 boolean isOpen = heightDiff > 100;
 
                 if (isOpen) {
-                    mHsvCustomer.setVisibility(View.GONE);
+                    mHsvZzure.setVisibility(View.GONE);
+                    mHsvZzure.clearAnimation();
                 } else {
-                    mHsvCustomer.setVisibility(View.VISIBLE);
+                    mHsvZzure.setVisibility(View.VISIBLE);
+
+                    AlphaAnimation alphaAnimation = new AlphaAnimation(0.0f, 1.0f);
+                    //设置动画持续时长
+                    alphaAnimation.setDuration(300);
+                    //设置动画结束之后的状态是否是动画的最终状态，true，表示是保持动画结束时的最终状态
+                    alphaAnimation.setFillAfter(true);
+                    //设置动画结束之后的状态是否是动画开始时的状态，true，表示是保持动画开始时的状态
+                    alphaAnimation.setFillBefore(true);
+                    mHsvZzure.startAnimation(alphaAnimation);
                 }
             }
         });

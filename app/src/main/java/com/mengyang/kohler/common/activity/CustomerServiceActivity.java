@@ -114,25 +114,19 @@ public class CustomerServiceActivity extends BaseActivity {
                 boolean isOpen = heightDiff > 100;
 
                 if (isOpen) {
+                    mHsvCustomer.clearAnimation();
                     mHsvCustomer.setVisibility(View.GONE);
                 } else {
                     mHsvCustomer.setVisibility(View.VISIBLE);
 
-           /*         AlphaAnimation alphaAnimation = new AlphaAnimation(1.0f, 0.2f);
+                    AlphaAnimation alphaAnimation = new AlphaAnimation(0.0f, 1.0f);
                     //设置动画持续时长
-                    alphaAnimation.setDuration(3000);
+                    alphaAnimation.setDuration(300);
                     //设置动画结束之后的状态是否是动画的最终状态，true，表示是保持动画结束时的最终状态
                     alphaAnimation.setFillAfter(true);
                     //设置动画结束之后的状态是否是动画开始时的状态，true，表示是保持动画开始时的状态
                     alphaAnimation.setFillBefore(true);
-                    //设置动画的重复模式：反转REVERSE和重新开始RESTART
-                    alphaAnimation.setRepeatMode(AlphaAnimation.REVERSE);
-                    //设置动画播放次数
-                    alphaAnimation.setRepeatCount(AlphaAnimation.INFINITE);
-                    //开始动画
                     mHsvCustomer.startAnimation(alphaAnimation);
-*/
-
                 }
             }
         });
