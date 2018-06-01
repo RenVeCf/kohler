@@ -63,9 +63,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/x30"
-                android:layout_marginTop="@dimen/y36"
                 android:background="@mipmap/interview_bg"
                 android:orientation="vertical"
+                android:paddingTop="@dimen/y36"
                 android:paddingEnd="@dimen/x15">
 
                 <TextView
@@ -80,6 +80,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/y50"
+                    android:lineSpacingMultiplier="1.2"
                     android:text="从1929年科勒产品入选纽约大都会艺术博物馆，到历史性地连续4年获得美国工业设计协会（IDEA）颁发的工业设计杰出产品大奖。"
                     android:textColor="#efefef"
                     android:textSize="10sp" />
@@ -103,9 +104,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/x30"
-                android:layout_marginTop="@dimen/y36"
                 android:background="@mipmap/interview_bg"
                 android:orientation="vertical"
+                android:paddingTop="@dimen/y36"
                 android:paddingEnd="@dimen/x15">
 
                 <TextView
@@ -120,6 +121,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/y50"
+                    android:lineSpacingMultiplier="1.2"
                     android:text="从1929年科勒产品入选纽约大都会艺术博物馆，到历史性地连续4年获得美国工业设计协会（IDEA）颁发的工业设计杰出产品大奖。"
                     android:textColor="#efefef"
                     android:textSize="10sp" />
