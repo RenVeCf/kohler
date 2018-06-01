@@ -27,8 +27,6 @@ import com.mengyang.kohler.common.entity.Level0Item;
 import com.mengyang.kohler.common.entity.Level1Item;
 import com.mengyang.kohler.common.net.Config;
 import com.mengyang.kohler.common.net.IdeaApi;
-import com.mengyang.kohler.common.utils.LogUtils;
-import com.mengyang.kohler.common.utils.StringUtils;
 import com.mengyang.kohler.common.utils.ToastUtil;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.module.bean.AzureServiceBean;
@@ -132,6 +130,26 @@ public class CustomerServiceActivity extends BaseActivity {
         mRecyclerViewService.setLayoutManager(new LinearLayoutManager(this));
         mUserServiceAdapter = new UserServiceAdapter(generateData());
         mRecyclerViewService.setAdapter(mUserServiceAdapter);
+        mUserServiceAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                switch (view.getId()) {
+                    case R.id.ll_home_service_bg:
+                        startActivity(new Intent(CustomerServiceActivity.this, WebViewActivity.class).putExtra("h5url", mAzureServiceMultimediaBean.getH5Url()));
+                        break;
+                    case R.id.tv_service_list_top_01:
+                        TextView textView = (TextView) view;
+                        if (!textView.getText().toString().trim().equals(""))
+                            searchQuestion(textView.getText().toString().trim());
+                        break;
+                    case R.id.tv_service_list_top_02:
+                        TextView textView2 = (TextView) view;
+                        if (!textView2.getText().toString().trim().equals(""))
+                            searchQuestion(textView2.getText().toString().trim());
+                        break;
+                }
+            }
+        });
     }
 
     @Override
@@ -257,26 +275,6 @@ public class CustomerServiceActivity extends BaseActivity {
                     @Override
                     public void run() {
                         mUserServiceAdapter.addData(questionSearchBean);
-                        mUserServiceAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-                            @Override
-                            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                                switch (view.getId()) {
-                                    case R.id.ll_home_service_bg:
-                                        startActivity(new Intent(CustomerServiceActivity.this, WebViewActivity.class).putExtra("h5url", mAzureServiceMultimediaBean.getH5Url()));
-                                        break;
-                                    case R.id.tv_service_list_top_01:
-                                        TextView textView = (TextView) view;
-                                        if (!textView.getText().toString().trim().equals(""))
-                                            searchQuestion(textView.getText().toString().trim());
-                                        break;
-                                    case R.id.tv_service_list_top_02:
-                                        TextView textView2 = (TextView) view;
-                                        if (!textView2.getText().toString().trim().equals(""))
-                                            searchQuestion(textView2.getText().toString().trim());
-                                        break;
-                                }
-                            }
-                        });
                         mRecyclerViewService.scrollToPosition(mUserServiceAdapter.getItemCount() - 1);
                     }
                 });

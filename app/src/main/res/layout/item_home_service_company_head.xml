@@ -11,7 +11,7 @@
         android:layout_height="@dimen/x108"
         android:layout_marginStart="@dimen/x78"
         android:layout_marginTop="@dimen/y15"
-        android:src="@mipmap/oval" />
+        android:src="@mipmap/azure_service_photo_b" />
 
     <LinearLayout
         android:layout_width="match_parent"

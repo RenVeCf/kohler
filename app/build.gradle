@@ -10,8 +10,8 @@ android {
     defaultConfig {
         applicationId "com.mengyang.kohler"
         minSdkVersion 21
-        buildToolsVersion '27'
-        targetSdkVersion 26
+        buildToolsVersion '27.0.3'
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0.0"
         flavorDimensions "versionCode"
@@ -232,5 +232,5 @@ dependencies {
     implementation 'com.alibaba:fastjson:1.2.46'
 
     //    implementation 'com.github.chrisbanes:PhotoView:2.0.0'
-    implementation project(':kohlortest_android')
+    implementation project(':kohlortest')
 }

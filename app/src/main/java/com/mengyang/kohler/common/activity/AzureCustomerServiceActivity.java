@@ -137,6 +137,26 @@ public class AzureCustomerServiceActivity extends BaseActivity {
         rvAzureBot.setLayoutManager(new LinearLayoutManager(this));
         mUserServiceAdapter = new AzureCustomerServiceAdapter(generateData());
         rvAzureBot.setAdapter(mUserServiceAdapter);
+        mUserServiceAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                switch (view.getId()) {
+                    case R.id.ll_azure_service_bg:
+                        startActivity(new Intent(AzureCustomerServiceActivity.this, WebViewActivity.class).putExtra("h5url", mAzureServiceMultimediaBean.getH5Url()));
+                        break;
+                    case R.id.tv_service_list_top_01:
+                        TextView textView = (TextView) view;
+                        if (!textView.getText().toString().trim().equals(""))
+                            searchQuestion(textView.getText().toString().trim());
+                        break;
+                    case R.id.tv_service_list_top_02:
+                        TextView textView2 = (TextView) view;
+                        if (!textView2.getText().toString().trim().equals(""))
+                            searchQuestion(textView2.getText().toString().trim());
+                        break;
+                }
+            }
+        });
     }
 
     @Override
@@ -293,26 +313,6 @@ public class AzureCustomerServiceActivity extends BaseActivity {
                     @Override
                     public void run() {
                         mUserServiceAdapter.addData(questionSearchBean);
-                        mUserServiceAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-                            @Override
-                            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                                switch (view.getId()) {
-                                    case R.id.ll_azure_service_bg:
-                                        startActivity(new Intent(AzureCustomerServiceActivity.this, WebViewActivity.class).putExtra("h5url", mAzureServiceMultimediaBean.getH5Url()));
-                                        break;
-                                    case R.id.tv_service_list_top_01:
-                                        TextView textView = (TextView) view;
-                                        if (!textView.getText().toString().trim().equals(""))
-                                            searchQuestion(textView.getText().toString().trim());
-                                        break;
-                                    case R.id.tv_service_list_top_02:
-                                        TextView textView2 = (TextView) view;
-                                        if (!textView2.getText().toString().trim().equals(""))
-                                            searchQuestion(textView2.getText().toString().trim());
-                                        break;
-                                }
-                            }
-                        });
                         rvAzureBot.scrollToPosition(mUserServiceAdapter.getItemCount() - 1);
                     }
                 });

@@ -1,5 +1,0 @@
-com.deepano.kohlortest
-drawable app_banner
-drawable app_icon
-string app_name
-style UnityThemeSelector

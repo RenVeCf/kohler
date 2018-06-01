@@ -12,7 +12,7 @@
         android:layout_width="@dimen/x108"
         android:layout_height="@dimen/x108"
         android:scaleType="centerCrop"
-        android:src="@mipmap/oval" />
+        android:src="@mipmap/azure_service_photo_b" />
 
     <LinearLayout
         android:layout_width="match_parent"
