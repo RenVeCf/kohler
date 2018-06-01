@@ -14,6 +14,7 @@ public final class R {
 
         public static int app_banner = 0x7f090001;
         public static int app_icon = 0x7f090002;
+        public static int unity_static_splash = 0x7f090003;
     }
     public static final class string {
         private string() {}

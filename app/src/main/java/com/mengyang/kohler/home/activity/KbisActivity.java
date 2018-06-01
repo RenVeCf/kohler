@@ -11,6 +11,7 @@ import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IdeaApi;
+import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.home.fragment.KbisARFragment;
 import com.mengyang.kohler.home.fragment.KbisAgendaFragment;
@@ -37,7 +38,7 @@ import io.reactivex.schedulers.Schedulers;
  * 2018科勒上海厨卫展
  */
 
-public class KbisActivity extends BaseActivity {
+public class KbisActivity extends BaseActivity implements KbisARFragment.OnActivityPagerView {
 
     @BindView(R.id.tv_kbis_top)
     TopView tvKbisTop;
@@ -67,6 +68,7 @@ public class KbisActivity extends BaseActivity {
         ImmersionBar.setTitleBar(this, tvKbisTop);
         MobclickAgent.onEvent(KbisActivity.this, "shanghai_chu_wei_zhan");
         ivTopBack.setImageResource(R.mipmap.fanhuibai);
+        KbisARFragment.setOnActivityPagerView(this);
     }
 
     private void showFragment(KbisBean data) {
@@ -144,5 +146,10 @@ public class KbisActivity extends BaseActivity {
         super.onPause();
         MobclickAgent.onPause(this);
         AIOAnalytics.onPageEnd("shanghai_chu_wei_zhan");
+    }
+
+    @Override
+    public void onActivityPagerView() {
+        vpKbis.setCurrentItem(0);
     }
 }

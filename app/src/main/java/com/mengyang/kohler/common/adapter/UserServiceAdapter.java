@@ -223,7 +223,7 @@ public class UserServiceAdapter extends BaseMultiItemQuickAdapter<MultiItemEntit
         spannableString.setSpan(new ClickableSpan() {
             @Override
             public void onClick(View widget) {
-                App.destoryActivity("AzureCustomerServiceActivity");
+                App.destoryActivity("CustomerServiceActivity");
             }
         }, 29, 31, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         //设置文字的前景色

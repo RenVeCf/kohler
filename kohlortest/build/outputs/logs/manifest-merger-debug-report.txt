@@ -1,150 +1,150 @@
 -- Merging decision tree log ---
 manifest
-ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:2:1-69:12
-INJECTED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:2:1-69:12
-INJECTED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:2:1-69:12
-INJECTED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:2:1-69:12
-INJECTED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:2:1-69:12
-INJECTED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:2:1-69:12
-INJECTED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:2:1-69:12
+ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:2:1-28:12
+INJECTED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:2:1-28:12
+INJECTED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:2:1-28:12
+INJECTED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:2:1-28:12
+INJECTED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:2:1-28:12
+INJECTED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:2:1-28:12
+INJECTED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:2:1-28:12
 	package
-		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:3:5-37
+		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:2:70-102
 		INJECTED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml
 		INJECTED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml
 	android:versionName
-		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:6:5-30
+		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:2:103-128
 		INJECTED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml
 		INJECTED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml
 	xmlns:android
 		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:2:11-69
 	android:versionCode
-		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:5:5-28
+		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:2:129-152
 		INJECTED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml
 		INJECTED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml
 	android:installLocation
-		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:4:5-45
+		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:2:153-193
 application
-ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:8:5-42:19
+ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:3:3-15:17
 	android:label
-		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:12:9-41
+		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:3:50-82
 	android:icon
-		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:10:9-42
+		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:3:16-49
 	android:banner
-		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:9:9-46
+		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:3:105-142
 	android:isGame
-		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:11:9-30
+		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:3:83-104
 activity#com.deepano.kohlortest.UnityPlayerNativeActivity
-ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:13:9-28:20
+ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:4:5-10:16
 	android:screenOrientation
-		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:18:13-49
+		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:4:48-84
 	android:label
-		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:16:13-45
+		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:4:15-47
 	android:launchMode
-		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:17:13-44
+		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:4:85-116
 	android:configChanges
-		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:15:13-194
+		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:4:117-298
 	android:name
-		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:14:13-76
+		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:4:299-362
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LEANBACK_LAUNCHER
-ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:19:13-24:29
+ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:5:7-8:23
 action#android.intent.action.MAIN
-ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:20:17-69
+ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:6:9-61
 	android:name
-		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:20:25-66
+		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:6:17-58
 category#android.intent.category.LEANBACK_LAUNCHER
-ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:23:17-86
+ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:7:9-78
 	android:name
-		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:23:27-83
+		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:7:19-75
 meta-data#unityplayer.ForwardNativeEventsToDalvik
-ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:25:13-27:40
+ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:9:7-96
 	android:value
-		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:27:17-37
+		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:9:73-93
+	android:name
+		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:9:18-72
+meta-data#unity.build-id
+ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:11:5-101
+	android:value
+		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:11:46-98
+	android:name
+		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:11:16-45
+meta-data#unity.splash-mode
+ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:12:5-69
+	android:value
+		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:12:49-66
+	android:name
+		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:12:16-48
+meta-data#unity.splash-enable
+ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:13:5-74
+	android:value
+		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:13:51-71
+	android:name
+		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:13:16-50
+meta-data#android.max_aspect
+ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:14:5-72
+	android:value
+		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:14:50-69
+	android:name
+		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:14:16-49
+uses-permission#android.permission.CAMERA
+ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:16:3-63
+	android:name
+		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:16:20-60
+uses-permission#android.permission.INTERNET
+ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:17:3-65
+	android:name
+		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:17:20-62
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:18:3-77
+	android:name
+		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:18:20-74
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:19:3-79
+	android:name
+		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:19:20-76
+uses-feature#android.hardware.camera.any
+ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:20:3-62
+	android:name
+		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:20:17-59
+uses-feature#android.hardware.camera
+ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:21:3-83
+	android:required
+		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:21:56-80
+	android:name
+		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:21:17-55
+uses-feature#android.hardware.camera.autofocus
+ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:22:3-93
+	android:required
+		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:22:66-90
+	android:name
+		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:22:17-65
+uses-feature#0x00020000
+ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:23:3-52
+	android:glEsVersion
+		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:23:17-49
+uses-feature#android.hardware.vulkan
+ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:24:3-83
+	android:required
+		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:24:56-80
+	android:name
+		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:24:17-55
+uses-feature#android.hardware.touchscreen
+ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:25:3-88
+	android:required
+		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:25:61-85
+	android:name
+		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:25:17-60
+uses-feature#android.hardware.touchscreen.multitouch
+ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:26:3-99
+	android:required
+		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:26:72-96
 	android:name
 		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:26:17-71
-meta-data#unity.build-id
-ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:30:9-32:68
-	android:value
-		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:32:13-65
-	android:name
-		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:31:13-42
-meta-data#unity.splash-mode
-ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:33:9-35:33
-	android:value
-		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:35:13-30
-	android:name
-		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:34:13-45
-meta-data#unity.splash-enable
-ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:36:9-38:36
-	android:value
-		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:38:13-33
-	android:name
-		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:37:13-47
-meta-data#android.max_aspect
-ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:39:9-41:35
-	android:value
-		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:41:13-32
-	android:name
-		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:40:13-46
-uses-permission#android.permission.CAMERA
-ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:44:5-65
-	android:name
-		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:44:22-62
-uses-permission#android.permission.INTERNET
-ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:45:5-67
-	android:name
-		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:45:22-64
-uses-permission#android.permission.ACCESS_NETWORK_STATE
-ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:46:5-79
-	android:name
-		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:46:22-76
-uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
-ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:47:5-81
-	android:name
-		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:47:22-78
-uses-feature#android.hardware.camera.any
-ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:49:5-64
-	android:name
-		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:49:19-61
-uses-feature#android.hardware.camera
-ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:50:5-52:36
-	android:required
-		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:52:9-33
-	android:name
-		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:51:9-47
-uses-feature#android.hardware.camera.autofocus
-ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:53:5-55:36
-	android:required
-		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:55:9-33
-	android:name
-		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:54:9-57
-uses-feature#0x00020000
-ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:56:5-54
-	android:glEsVersion
-		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:56:19-51
-uses-feature#android.hardware.vulkan
-ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:57:5-59:36
-	android:required
-		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:59:9-33
-	android:name
-		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:58:9-47
-uses-feature#android.hardware.touchscreen
-ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:60:5-62:36
-	android:required
-		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:62:9-33
-	android:name
-		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:61:9-52
-uses-feature#android.hardware.touchscreen.multitouch
-ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:63:5-65:36
-	android:required
-		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:65:9-33
-	android:name
-		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:64:9-63
 uses-feature#android.hardware.touchscreen.multitouch.distinct
-ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:66:5-68:36
+ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:27:3-108
 	android:required
-		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:68:9-33
+		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:27:81-105
 	android:name
-		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:67:9-72
+		ADDED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml:27:17-80
 uses-sdk
 INJECTED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from E:\AndroidStudioProjects\kohler\kohlortest\src\main\AndroidManifest.xml

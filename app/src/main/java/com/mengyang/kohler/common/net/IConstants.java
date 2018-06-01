@@ -34,6 +34,7 @@ public class IConstants {
      * 请求码 从60开始
      */
     public static final int DELETE_REQUESTCODE = 60;
+    public static final int AZURE_BACK_ONE = 61;
 
     /**
      * 实例化常量

@@ -1,5 +1,6 @@
 com.deepano.kohlortest
 drawable app_banner
 drawable app_icon
+drawable unity_static_splash
 string app_name
 style UnityThemeSelector

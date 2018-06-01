@@ -95,7 +95,9 @@ public class App extends Application {
     public static void destoryActivity(String activityName) {
         Set<String> keySet = destoryMap.keySet();
         for (String key : keySet) {
-            destoryMap.get(key).finish();
+            if (key.equals(activityName)) {
+                destoryMap.get(key).finish();
+            }
         }
     }
 
