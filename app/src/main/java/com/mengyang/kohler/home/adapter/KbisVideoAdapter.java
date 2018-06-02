@@ -34,8 +34,6 @@ public class KbisVideoAdapter extends BaseQuickAdapter<KbisBean.VideoListBean, B
     protected void convert(final BaseViewHolder helper, final KbisBean.VideoListBean item) {
         int position = helper.getLayoutPosition();
 //        if (position == 2)
-            LogUtils.i("rmy", "item.getKvUrl() = " + item.getKvUrl() + ", position = " + helper.getAdapterPosition());
-
         Glide.with(App.getContext()).load(item.getKvUrl()).into((ImageView) helper.getView(R.id.iv_kbis));
 
 //        ViewGroup.LayoutParams imageLayoutParams = helper.getView(R.id.iv_kbis).getLayoutParams();

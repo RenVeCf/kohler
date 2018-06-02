@@ -6,6 +6,7 @@ import android.view.View;
 import com.allyes.analytics.AIOAnalytics;
 import com.deepano.kohlortest.UnityPlayerActivity;
 import com.gyf.barlibrary.ImmersionBar;
+import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseFragment;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.net.IConstants;
@@ -45,7 +46,7 @@ public class KbisARFragment extends BaseFragment {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
             //TODO now it's visible to user
-            Intent intent = new Intent(getActivity(), UnityPlayerActivity.class);
+            Intent intent = new Intent(App.getContext(), UnityPlayerActivity.class);
             intent.putExtra("flag", "9");
             startActivityForResult(intent, IConstants.AZURE_BACK_ONE);
         } else {
@@ -60,7 +61,6 @@ public class KbisARFragment extends BaseFragment {
             switch (requestCode) {
                 case IConstants.AZURE_BACK_ONE:
                     mOnActivityPagerView.onActivityPagerView();
-//                    KbisActivity.vpKbis.setCurrentItem(0);
                     break;
             }
         }

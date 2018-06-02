@@ -32,7 +32,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/x54"
+                    android:layout_marginStart="@dimen/x54"
                     android:src="@mipmap/kbis_play" />
 
                 <TextView
@@ -41,7 +41,7 @@
                     android:layout_marginLeft="@dimen/x30"
                     android:text="大卫.科勒 Mr.David Kohler 科勒公司总裁兼首席执行官"
                     android:textColor="@color/white"
-                    android:textSize="10sp" />
+                    android:textSize="12sp" />
 
             </LinearLayout>
         </RelativeLayout>
