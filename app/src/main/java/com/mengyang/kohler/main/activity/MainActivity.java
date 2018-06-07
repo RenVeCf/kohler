@@ -198,6 +198,7 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                         @Override
                         public void onSuccess(BasicResponse<VisionBean> response) {
                             mVisionBean = response.getData().getResultList();
+                            LogUtils.i("rmy", "mVisionBean = " + mVisionBean.get(1).getDictName());
                             // 获取本版本号，是否更新
                             String vision = AppUtils.getVersionName(MainActivity.this);
 
@@ -205,7 +206,7 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                                 String content = "\n" + "科勒应用有新的版本 v" + mVisionBean.get(1).getDictName() + "。\n";//更新内容
                                 getVersion(vision, mVisionBean.get(1).getDictName(), content);
                             } else {
-                                ToastUtil.showToast("您已经是最新版本！");
+//                                ToastUtil.showToast("您已经是最新版本！");
                             }
                         }
                     });
@@ -529,7 +530,6 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 break;
             case R.id.bt_ar:
                 AIOAnalytics.onEvent("arsaoyisao");
-                MobclickAgent.onEvent(MainActivity.this, "arsaoyisao");
                 switchFragment(mARFragment).commit();
                 //沉浸式状态栏初始化黑色
                 ImmersionBar.with(this).fitsSystemWindows(false).statusBarDarkFont(true).init();

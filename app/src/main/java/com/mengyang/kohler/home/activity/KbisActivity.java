@@ -1,5 +1,6 @@
 package com.mengyang.kohler.home.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.widget.ImageView;
@@ -60,13 +61,22 @@ public class KbisActivity extends BaseActivity implements KbisARFragment.OnActiv
     }
 
     @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        int messageType = intent.getIntExtra("message1", 0);
+        String myOrderIndex = intent.getStringExtra("orderindex");
+        String myBusinessIndex = intent.getStringExtra("businessindex");
+        LogUtils.i("rmy", "messageType = " + messageType + ", myOrderIndex = " + myOrderIndex + ", myBusinessIndex = " + myBusinessIndex);
+    }
+
+    @Override
     protected void initValues() {
         App.getManager().addActivity(this);
         //沉浸式状态栏初始化白色
         ImmersionBar.with(this).fitsSystemWindows(false).statusBarDarkFont(false).init();
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(this, tvKbisTop);
-        MobclickAgent.onEvent(KbisActivity.this, "shanghai_chu_wei_zhan");
+        MobclickAgent.onEvent(KbisActivity.this, "chuweizhan");
         ivTopBack.setImageResource(R.mipmap.fanhuibai);
         KbisARFragment.setOnActivityPagerView(this);
     }
@@ -138,14 +148,14 @@ public class KbisActivity extends BaseActivity implements KbisARFragment.OnActiv
     protected void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
-        AIOAnalytics.onPageBegin("shanghai_chu_wei_zhan");
+        AIOAnalytics.onPageBegin("chuweizhan");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         MobclickAgent.onPause(this);
-        AIOAnalytics.onPageEnd("shanghai_chu_wei_zhan");
+        AIOAnalytics.onPageEnd("chuweizhan");
     }
 
     @Override

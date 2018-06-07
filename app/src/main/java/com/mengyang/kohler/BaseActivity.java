@@ -1,6 +1,7 @@
 package com.mengyang.kohler;
 
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
@@ -111,6 +112,19 @@ public abstract class BaseActivity extends RxAppCompatActivity {
      * 初始话网络数据
      */
     protected abstract void initData();
+
+    /**
+     * 防止手机字体调整，统一return字体大小
+     * @return
+     */
+    @Override
+    public Resources getResources() {
+        Resources res = super.getResources();
+        Configuration config = new Configuration();
+        config.setToDefaults();
+        res.updateConfiguration(config, res.getDisplayMetrics());
+        return res;
+    }
 
     @Override
     protected void onDestroy() {

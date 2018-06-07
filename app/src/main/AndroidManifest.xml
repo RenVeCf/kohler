@@ -43,9 +43,11 @@
     <!-- 相机 -->
     <uses-permission android:name="android.permission.CAMERA" />
     <!-- 允许程序打开网络套接字 -->
-    <!--    <uses-permission
+    <!--
+            <uses-permission
             android:name="android.permission.INTERNET"
-            android:protectionLevel="signature" />-->
+            android:protectionLevel="signature" />
+    -->
     <!-- 用于申请调用A-GPS模块 -->
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <!-- 保存SD卡 -->
@@ -55,9 +57,11 @@
 
     <!-- analytics所需权限 -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" /> <!-- 开机启动 -->
-    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- 唤醒锁定 -->
-    <!--  <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />  --><!-- 7.0以上安装文件要加权限 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
+    <!-- 唤醒锁定 -->
+    <!-- <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" /> -->
+    <!-- 7.0以上安装文件要加权限 -->
     <application
         android:name=".App"
         android:allowBackup="false"
@@ -88,6 +92,26 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
+        <receiver
+            android:name=".common.view.MessageReceiver"
+            android:enabled="true">
+            <intent-filter>
+
+                <!-- Required 用户注册SDK的intent -->
+                <action android:name="cn.jpush.android.intent.REGISTRATION" />
+                <!-- Required 用户接收SDK消息的intent -->
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />
+                <!-- Required 用户接收SDK通知栏信息的intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" />
+                <!-- Required 用户打开自定义通知栏的intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
+                <!-- 接收网络变化 连接/断开 since 1.6.3 -->
+                <action android:name="cn.jpush.android.intent.CONNECTION" />
+
+                <category android:name="com.mengyang.kohler" />
+            </intent-filter>
+        </receiver>
 
         <activity
             android:name=".whole_category.activity.CommodityDetailsActivity"
@@ -286,17 +310,20 @@
             android:name="app_version"
             android:value="ver_1.0.1" />
 
-        <!--        <activity
+        <!--
+                    <activity
                     android:name="com.kohler.arscan.DownloadActivity"
-                    android:exported="false" />-->
-        <!--        <activity
+                    android:exported="false" />
+        -->
+        <!--
+                    <activity
                     android:name="com.kohler.arscan.UnityPlayerActivity"
-                    android:exported="false" />-->
+                    android:exported="false" />
+        -->
         <activity
             android:name="com.deepano.kohlortest.UnityPlayerActivity"
             android:exported="false"
             android:process=":UnityActivity" />
-
         <activity
             android:name=".home.activity.WeeklyRadioConcertActivity"
             android:exported="false" />
@@ -321,7 +348,10 @@
         <activity
             android:name=".home.activity.GanChuangArtistActivity"
             android:exported="false" />
-        <activity android:name=".home.activity.KbisActivity" />
+        <activity
+            android:name=".home.activity.KbisActivity"
+            android:exported="false"
+            android:launchMode="singleTask" />
         <activity
             android:name=".common.activity.AzureCustomerServiceActivity"
             android:exported="false"
@@ -332,6 +362,8 @@
             android:exported="false"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".home.activity.HiKohlerActivity" />
+        <activity android:name=".common.activity.ARWebViewActivity"></activity>
     </application>
 
 </manifest>

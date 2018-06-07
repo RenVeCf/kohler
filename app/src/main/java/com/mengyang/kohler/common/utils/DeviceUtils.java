@@ -1,6 +1,7 @@
 package com.mengyang.kohler.common.utils;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
@@ -26,9 +27,11 @@ import java.util.UUID;
 public class DeviceUtils {
     /**
      * 获取UUID
+     *
      * @param context
      * @return
      */
+    @SuppressLint("MissingPermission")
     public static String getUUID(Context context) {
         final TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
 
@@ -317,7 +320,7 @@ public class DeviceUtils {
 
     /**
      * Set media volume
-     *设置音量
+     * 设置音量
      *
      * @param context
      * @return volume:0-15

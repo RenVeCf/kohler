@@ -58,6 +58,7 @@ public class AzureCustomerServiceAdapter extends BaseMultiItemQuickAdapter<Multi
 
     private SimpleDateFormat mDateformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private int mHour;
+    private boolean mPositionLineVisible = true;
 
     /**
      * Same as QuickAdapter#QuickAdapter(Context,int) but with
@@ -80,6 +81,21 @@ public class AzureCustomerServiceAdapter extends BaseMultiItemQuickAdapter<Multi
         switch (item.getItemType()) {
             case TYPE_LEVEL_0://父级
                 final Level0Item level0Item = (Level0Item) item;
+                //判断分割线是否显示（比较low）
+                if (!mPositionLineVisible)
+                    helper.getView(R.id.view_azure_parent_line).setVisibility(View.VISIBLE);
+                if (mPositionLineVisible)
+                    helper.getView(R.id.view_azure_parent_line).setVisibility(View.GONE);
+                if (helper.getView(R.id.view_azure_parent_line).getVisibility() == View.VISIBLE) {
+                    mPositionLineVisible = true;
+                } else {
+                    mPositionLineVisible = false;
+                }
+                if (helper.getLayoutPosition() == 1)
+                    helper.getView(R.id.view_azure_parent_line).setVisibility(View.GONE);
+                if (helper.getLayoutPosition() == 2 || helper.getLayoutPosition() == 3)
+                    helper.getView(R.id.view_azure_parent_line).setVisibility(View.VISIBLE);
+
                 helper.setText(R.id.tv_service_list_top_01, level0Item.getParrentLeft());
                 helper.setText(R.id.tv_service_list_top_02, level0Item.getParrentRight());
                 helper.setBackgroundColor(R.id.rl_item_parent, Color.argb(77, 255, 255, 255));

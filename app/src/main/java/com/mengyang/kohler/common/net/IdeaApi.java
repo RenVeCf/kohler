@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.mengyang.kohler.App;
+import com.mengyang.kohler.common.utils.DeviceUtils;
 import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.MD5Utils;
 import com.mengyang.kohler.common.utils.NetWorkUtils;
@@ -45,7 +46,7 @@ public class IdeaApi {
             public void log(String message) {
                 try {
                     String text = URLDecoder.decode(message, "utf-8");
-//                    LogUtils.e("OKHttp-----", text);
+                    //                    LogUtils.e("OKHttp-----", text);
                     LogUtils.e("OKHttp-----", message);
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
@@ -71,7 +72,7 @@ public class IdeaApi {
                 .client(okHttpClient)
                 .addConverterFactory(ScalarsConverterFactory.create())//请求结果转换为基本类型，一般为String
                 .addConverterFactory(GsonConverterFactory.create())
-//                .addConverterFactory(GsonConverterFactory.create(gson))
+                //                .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .baseUrl(IdeaApiService.API_SERVER_URL)
                 .build();
@@ -109,7 +110,7 @@ public class IdeaApi {
         stringMap.put("appType", "android");
         stringMap.put("clientId", "FjyrG8VkMLntjtGi");
         stringMap.put("charset", "utf-8");
-        stringMap.put("deviceId", Build.ID);
+        stringMap.put("deviceId", DeviceUtils.getUUID(App.getContext()));
         stringMap.put("resultType", "json");
         stringMap.put("ipAddress", "192.168.0.6");
         stringMap.put("reqTime", System.currentTimeMillis() + "");

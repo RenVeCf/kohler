@@ -5,6 +5,7 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.mengyang.kohler.BaseFragment;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.view.TopView;
+import com.mengyang.kohler.main.activity.MainActivity;
 import com.umeng.analytics.MobclickAgent;
 
 import butterknife.BindView;
@@ -26,6 +27,7 @@ public class ARFragment extends BaseFragment {
     protected void initValues() {
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(getActivity(), tvArTop);
+        MobclickAgent.onEvent(getActivity(), "arsaoyisao");
     }
 
     @Override

@@ -2,6 +2,10 @@ package com.mengyang.kohler.home.fragment;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -38,6 +42,7 @@ import com.contrarywind.listener.OnItemSelectedListener;
 import com.contrarywind.view.WheelView;
 import com.deepano.kohlortest.UnityPlayerActivity;
 import com.gyf.barlibrary.ImmersionBar;
+import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseFragment;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.account.activity.LoginActivity;
@@ -60,6 +65,7 @@ import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.home.activity.ArtKohlerActivity;
 import com.mengyang.kohler.home.activity.DownLoaderPDFActivity;
 import com.mengyang.kohler.home.activity.GanChuangActivity;
+import com.mengyang.kohler.home.activity.HiKohlerActivity;
 import com.mengyang.kohler.home.activity.HomeSearchActivity;
 import com.mengyang.kohler.home.activity.KbisActivity;
 import com.mengyang.kohler.home.activity.MeetingActivity;
@@ -165,6 +171,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
     private List<String> mOptionsItems = new ArrayList<>();
     private TextView tvSure;
     private TextView tvCancel;
+    private TextView tvCenterTitle;
 
     //侧滑Meun键的接口回调
     private OnFragmentInteractionListener mListener;
@@ -221,9 +228,9 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
         ImmersionBar.setTitleBar(getActivity(), tvHomeTop);
         MobclickAgent.onEvent(getActivity(), "index");
         //        if (SPUtil.get(App.getContext(), IConstants.TYPE, "").equals("dealer")) {
-                    ivTopCustomerService.setVisibility(View.VISIBLE);
+        ivTopCustomerService.setVisibility(View.VISIBLE);
         //        } else {
-//        ivTopCustomerService.setVisibility(View.GONE);
+        //        ivTopCustomerService.setVisibility(View.GONE);
         //        }
 
         //轮播
@@ -451,7 +458,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(75, 9);
 
                             if (i != 0) {
-                                layoutParams.leftMargin = 6;//layout_marginleft= 6
+                                layoutParams.leftMargin = 6;
                                 point.setEnabled(false);
                             }
 
@@ -484,21 +491,24 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                                     AIOAnalytics.onEvent("ganchuang");
                                     startActivity(new Intent(getActivity(), GanChuangActivity.class));
                                 } else if (postion == 2) {
-                                    AIOAnalytics.onEvent("shejishanghai");
+                                    AIOAnalytics.onEvent("shejikele");
                                     startActivity(new Intent(getActivity(), ArtKohlerActivity.class));
-                                } else if (postion == 3 && SPUtil.get(getActivity(), IConstants.TYPE, "").equals("")) {
-                                    AIOAnalytics.onEvent("jingxiaoshangdahui");
-                                    startActivity(new Intent(getActivity(), LoginActivity.class));
-                                } else if (postion == 3 && SPUtil.get(getActivity(), IConstants.TYPE, "").equals("dealer")) {
-                                    AIOAnalytics.onEvent("jingxiaoshangdahui");
-                                    startActivity(new Intent(getActivity(), MeetingActivity.class));
-                                } else if (postion == 3 && !SPUtil.get(getActivity(), IConstants.TYPE, "").equals("dealer")) {
-                                    AIOAnalytics.onEvent("jingxiaoshangdahui");
-                                    if (Build.VERSION.SDK_INT == 24) {//android7.0需要单独做适配
-                                        mNoJurisdictionPopupWindow.showAtLocation(getView(), Gravity.NO_GRAVITY, 0, getStatusBarHeight());
-                                    } else {
-                                        mNoJurisdictionPopupWindow.showAtLocation(getView(), Gravity.NO_GRAVITY, 0, 0);
-                                    }
+                                    // 暂去掉经销商大会
+                                    //                                } else if (postion == 3 && SPUtil.get(getActivity(), IConstants.TYPE, "").equals("")) {
+                                    //                                    AIOAnalytics.onEvent("jingxiaoshangdahui");
+                                    //                                    startActivity(new Intent(getActivity(), LoginActivity.class));
+                                    //                                } else if (postion == 3 && SPUtil.get(getActivity(), IConstants.TYPE, "").equals("dealer")) {
+                                    //                                    AIOAnalytics.onEvent("jingxiaoshangdahui");
+                                    //                                    startActivity(new Intent(getActivity(), MeetingActivity.class));
+                                    //                                } else if (postion == 3 && !SPUtil.get(getActivity(), IConstants.TYPE, "").equals("dealer")) {
+                                    //                                    AIOAnalytics.onEvent("jingxiaoshangdahui");
+                                    //                                    if (Build.VERSION.SDK_INT == 24) {//android7.0需要单独做适配
+                                    //                                        mNoJurisdictionPopupWindow.showAtLocation(getView(), Gravity.NO_GRAVITY, 0, getStatusBarHeight());
+                                    //                                    } else {
+                                    //                                        mNoJurisdictionPopupWindow.showAtLocation(getView(), Gravity.NO_GRAVITY, 0, 0);
+                                    //                                    }
+                                } else if (!mHomeIndexBean.getKvList().get(3).getH5Url().equals("") && postion == 3) {
+                                    startActivity(new Intent(getActivity(), HiKohlerActivity.class).putExtra("h5url", mHomeIndexBean.getKvList().get(3).getH5Url()));
                                 } else {
                                     if (postion == 4) {
                                         MobclickAgent.onEvent(getActivity(), "arjieshuo");
@@ -591,10 +601,10 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                 mOptionsItems.add("交货时间");
                 mOptionsItems.add("工程安排及进度");
                 mOptionsItems.add("其他");
-                selectOne(tvAppointmentHelp, mOptionsItems, 0);
+                selectOne(tvAppointmentHelp, mOptionsItems, 0, "帮助");
                 break;
             case R.id.tv_appointment_product_big:
-                selectOne(tvAppointmentProductBig, mBathroomList, 4);
+                selectOne(tvAppointmentProductBig, mBathroomList, 4, "一级分类");
 
                 tvAppointmentProductMedium.setText("请选择");
                 tvAppointmentProductSmall.setText("请选择");
@@ -608,7 +618,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                 showThird(true);
                 break;
             case R.id.tv_appointment_product_province:
-                selectOne(tvAppointmentProductProvince, mProvinceList, 1);
+                selectOne(tvAppointmentProductProvince, mProvinceList, 1, "省");
 
                 tvAppointmentProductCity.setText("请选择");
                 tvAppointmentProductAddrKey.setText("请选择");
@@ -631,7 +641,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                 mOptionsItems.add("一家三口");
                 mOptionsItems.add("三世同堂");
                 mOptionsItems.add("其他");
-                selectOne(tvAppointmentFamily, mOptionsItems, 0);
+                selectOne(tvAppointmentFamily, mOptionsItems, 0, "家庭状况");
                 break;
             case R.id.tv_appointment_in_store_time:
                 selectTime();
@@ -655,7 +665,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
             }
         }
 
-        selectOne(tvAppointmentProductAddrKey, List2, 3);
+        selectOne(tvAppointmentProductAddrKey, List2, 3, "门店");
     }
 
     private void showCity(boolean isShowDia) {
@@ -669,7 +679,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
             }
         }
 
-        selectOne(tvAppointmentProductCity, List, 2);
+        selectOne(tvAppointmentProductCity, List, 2, "市");
     }
 
     private void showThird(boolean isShowDia) {
@@ -683,7 +693,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
             }
         }
 
-        selectOne(tvAppointmentProductSmall, List4, 6);
+        selectOne(tvAppointmentProductSmall, List4, 6, "三级分类");
     }
 
     private void showSecond(boolean isShowDia) {
@@ -697,7 +707,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
             }
         }
 
-        selectOne(tvAppointmentProductMedium, List3, 5);
+        selectOne(tvAppointmentProductMedium, List3, 5, "二级分类");
     }
 
     /**
@@ -706,7 +716,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
      * @param view
      * @param item
      */
-    private void selectOne(final TextView view, final List<String> item, final int type) {
+    private void selectOne(final TextView view, final List<String> item, final int type, String content) {
         if (item == null || item.size() < 1) {
             return;
         }
@@ -716,6 +726,8 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
         View v = inflater1.inflate(R.layout.appointment_one, null);
         tvSure = v.findViewById(R.id.tv_sure);
         tvCancel = v.findViewById(R.id.tv_cancel);
+        tvCenterTitle = v.findViewById(R.id.tv_center_title);
+        tvCenterTitle.setText(content);
         tvSure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1008,7 +1020,8 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                 .setCancelText("取消")//取消按钮文字
                 .setSubmitText("确定")//确认按钮文字
                 //                .setContentSize(18)//滚轮文字大小
-                .setTitleSize(20)//标题文字大小
+                .setTitleSize(18)//标题文字大小
+                .setTitleText("时间")
                 .setOutSideCancelable(false)//点击屏幕，点在控件外部范围时，是否取消显示
                 .isCyclic(false)//是否循环滚动
                 .setTitleColor(Color.BLACK)//标题文字颜色

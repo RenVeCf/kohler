@@ -73,6 +73,7 @@ public class WebViewActivity extends BaseActivity {
         WebSettings webSettings = mWvService.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
+        webSettings.setUseWideViewPort(true);
         //支持自动加载图片
         webSettings.setLoadsImagesAutomatically(true);
         webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);// 排版适应屏幕

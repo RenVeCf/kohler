@@ -48,7 +48,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * 科勒艺术
+ * 设计科勒
  */
 
 public class ArtKohlerActivity extends BaseActivity {
@@ -85,6 +85,12 @@ public class ArtKohlerActivity extends BaseActivity {
     TextView tvArtKohlerVideo;
     @BindView(R.id.rl_art_kohler_video)
     RelativeLayout rlArtKohlerVideo;
+    @BindView(R.id.tv_art_kohler_milan)
+    TextView tvArtKohlerMilan;
+    @BindView(R.id.tv_art_kohler_milan_down)
+    TextView tvArtKohlerMilanDown;
+    @BindView(R.id.iv_art_kohler_milan)
+    ImageView ivArtKohlerMilan;
 
     private DesignerIntroductionAdapter mDesignerIntroductionAdapter;
     private List<ArtKohlerBean.DesignersBean> mDesignerIntroductionAdapterBean;
@@ -117,7 +123,7 @@ public class ArtKohlerActivity extends BaseActivity {
         App.getManager().addActivity(this);
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(this, tvArtKohlerTop);
-        MobclickAgent.onEvent(ArtKohlerActivity.this, "shejishanghai");
+        MobclickAgent.onEvent(ArtKohlerActivity.this, "shejikele");
         mMeetingPopupWindow = new PopupWindow(this);
         mMeetingPopupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
         mMeetingPopupWindow.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
@@ -200,8 +206,9 @@ public class ArtKohlerActivity extends BaseActivity {
                         Glide.with(App.getContext()).load(mArtKohlerBean.getLive().getKvUrl()).apply(new RequestOptions().placeholder(R.mipmap.queshengtu)).into(ivArtKohlerLive);
                         tvArtKohlerLive.setText(mArtKohlerBean.getLive().getTitle());
                         mLive = mArtKohlerBean.getLive().getH5Url();
-                        Glide.with(App.getContext()).load(mArtKohlerBean.getVideo().getKvUrl()).apply(new RequestOptions().placeholder(R.mipmap.queshengtu)).into(ivArtKohlerVideo);
-                        tvArtKohlerVideo.setText(mArtKohlerBean.getVideo().getTitle());
+                        Glide.with(App.getContext()).load(mArtKohlerBean.getVideo().getKvUrl()).apply(new RequestOptions().placeholder(R.mipmap.queshengtu)).into(ivArtKohlerMilan);
+                        tvArtKohlerMilan.setText(mArtKohlerBean.getVideo().getTitle());
+                        tvArtKohlerMilanDown.setText(mArtKohlerBean.getVideo().getElementDesc());
                         mVideo = mArtKohlerBean.getVideo().getH5Url();
                         String agendaType = "";
                         switch (mArtKohlerBean.getAgendaList().get(0).getAgendaType()) {
@@ -281,17 +288,17 @@ public class ArtKohlerActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
-        AIOAnalytics.onPageBegin("shejishanghai");
+        AIOAnalytics.onPageBegin("shejikele");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         MobclickAgent.onPause(this);
-        AIOAnalytics.onPageEnd("shejishanghai");
+        AIOAnalytics.onPageEnd("shejikele");
     }
 
-    @OnClick({R.id.rl_art_kohler_live, R.id.rl_art_kohler_video, R.id.ll_view_all, R.id.ll_art_kohler_position_zero})
+    @OnClick({R.id.rl_art_kohler_live, R.id.rl_art_kohler_video, R.id.ll_view_all, R.id.ll_art_kohler_position_zero, R.id.iv_art_kohler_milan})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_art_kohler_position_zero:
@@ -312,7 +319,7 @@ public class ArtKohlerActivity extends BaseActivity {
             case R.id.rl_art_kohler_live:
                 startActivity(new Intent(this, WebViewActivity.class).putExtra("h5url", mLive));
                 break;
-            case R.id.rl_art_kohler_video:
+            case R.id.iv_art_kohler_milan:
                 startActivity(new Intent(this, WebViewActivity.class).putExtra("h5url", mVideo));
                 break;
         }

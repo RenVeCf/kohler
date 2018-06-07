@@ -24,9 +24,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/y60"
-        android:layout_marginEnd="@dimen/x46"
         android:layout_marginStart="@dimen/x46"
+        android:layout_marginEnd="@dimen/x46"
+        android:layout_marginBottom="@dimen/y60"
         android:background="@mipmap/appointment_experience_bg"
         android:orientation="vertical">
 
@@ -49,9 +49,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/x45"
             android:layout_marginStart="@dimen/x120"
             android:layout_marginTop="@dimen/y35"
+            android:layout_marginEnd="@dimen/x45"
             android:orientation="horizontal">
 
             <TextView
@@ -118,9 +118,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/x45"
             android:layout_marginStart="@dimen/x120"
             android:layout_marginTop="@dimen/y35"
+            android:layout_marginEnd="@dimen/x45"
             android:orientation="horizontal">
 
             <TextView
@@ -188,14 +188,14 @@
             android:id="@+id/tv_reservation_experience_in_store_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/x45"
             android:layout_marginStart="@dimen/x120"
             android:layout_marginTop="@dimen/y35"
+            android:layout_marginEnd="@dimen/x45"
             android:background="@mipmap/trade_show_long_frame"
             android:drawableEnd="@mipmap/appointment_experience_triangle"
             android:gravity="center_vertical"
-            android:paddingEnd="@dimen/x30"
             android:paddingStart="@dimen/x45"
+            android:paddingEnd="@dimen/x30"
             android:text="请选择"
             android:textColor="@color/white"
             android:textSize="12sp"
@@ -221,13 +221,14 @@
             android:id="@+id/et_reservation_experience_phone_num"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/x45"
             android:layout_marginStart="@dimen/x120"
             android:layout_marginTop="@dimen/y35"
+            android:layout_marginEnd="@dimen/x45"
             android:background="@mipmap/trade_show_long_frame"
+            android:focusable="false"
             android:hint="请选择"
-            android:paddingEnd="@dimen/x30"
             android:paddingStart="@dimen/x45"
+            android:paddingEnd="@dimen/x30"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
             android:textSize="12sp"

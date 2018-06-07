@@ -81,6 +81,7 @@ public class ReservationExperienceActivity extends BaseActivity {
     EditText etReservationExperiencePhoneNum;
     @BindView(R.id.bt_reservation_experience_commit)
     Button btReservationExperienceCommit;
+    private TextView tvCenterTitle;
 
     private String url = "http://www.kohler.com.cn/chinaweb/book/add.action";
     private TimePickerView pvTime;
@@ -122,8 +123,7 @@ public class ReservationExperienceActivity extends BaseActivity {
         ImmersionBar.setTitleBar(this, tvReservationExperienceTop);
         ivTopBack.setImageResource(R.mipmap.fanhuibai);
 
-        etReservationExperiencePhoneNum.setFocusable(false);
-        etReservationExperiencePhoneNum.setFocusableInTouchMode(false);
+        etReservationExperiencePhoneNum.setFocusableInTouchMode(true);
     }
 
     @Override
@@ -150,7 +150,7 @@ public class ReservationExperienceActivity extends BaseActivity {
             }
         }
 
-        selectOne(tvReservationExperienceAddrKey, List2, 3);
+        selectOne(tvReservationExperienceAddrKey, List2, 3, "门店");
     }
 
     private void showCity(boolean isShowDia) {
@@ -164,7 +164,7 @@ public class ReservationExperienceActivity extends BaseActivity {
             }
         }
 
-        selectOne(tvReservationExperienceCity, List, 2);
+        selectOne(tvReservationExperienceCity, List, 2, "市");
     }
 
     private void showThird(boolean isShowDia) {
@@ -178,7 +178,7 @@ public class ReservationExperienceActivity extends BaseActivity {
             }
         }
 
-        selectOne(tvReservationExperienceProductSmall, List4, 6);
+        selectOne(tvReservationExperienceProductSmall, List4, 6, "三级分类");
     }
 
     private void showSecond(boolean isShowDia) {
@@ -192,7 +192,7 @@ public class ReservationExperienceActivity extends BaseActivity {
             }
         }
 
-        selectOne(tvReservationExperienceProductMedium, List3, 5);
+        selectOne(tvReservationExperienceProductMedium, List3, 5, "二级分类");
     }
 
     /**
@@ -201,7 +201,7 @@ public class ReservationExperienceActivity extends BaseActivity {
      * @param view
      * @param item
      */
-    private void selectOne(final TextView view, final List<String> item, final int type) {
+    private void selectOne(final TextView view, final List<String> item, final int type, String content) {
         if (item == null || item.size() < 1) {
             return;
         }
@@ -211,6 +211,8 @@ public class ReservationExperienceActivity extends BaseActivity {
         View v = inflater1.inflate(R.layout.appointment_one, null);
         tvSure = v.findViewById(R.id.tv_sure);
         tvCancel = v.findViewById(R.id.tv_cancel);
+        tvCenterTitle = v.findViewById(R.id.tv_center_title);
+        tvCenterTitle.setText(content);
         tvSure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -317,7 +319,7 @@ public class ReservationExperienceActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_reservation_experience_product_big:
-                selectOne(tvReservationExperienceProductBig, mBathroomList, 4);
+                selectOne(tvReservationExperienceProductBig, mBathroomList, 4, "一级分类");
 
                 tvReservationExperienceProductMedium.setText("请选择");
                 tvReservationExperienceProductSmall.setText("请选择");
@@ -331,7 +333,7 @@ public class ReservationExperienceActivity extends BaseActivity {
                 showThird(true);
                 break;
             case R.id.tv_reservation_experience_province:
-                selectOne(tvReservationExperienceProvince, mProvinceList, 1);
+                selectOne(tvReservationExperienceProvince, mProvinceList, 1, "省");
 
                 tvReservationExperienceCity.setText("请选择");
                 tvReservationExperienceAddrKey.setText("请选择");
@@ -458,7 +460,8 @@ public class ReservationExperienceActivity extends BaseActivity {
                 .setCancelText("取消")//取消按钮文字
                 .setSubmitText("确定")//确认按钮文字
                 //                .setContentSize(18)//滚轮文字大小
-                .setTitleSize(20)//标题文字大小
+                .setTitleSize(18)//标题文字大小
+                .setTitleText("时间")
                 .setOutSideCancelable(false)//点击屏幕，点在控件外部范围时，是否取消显示
                 .isCyclic(false)//是否循环滚动
                 .setTitleColor(Color.BLACK)//标题文字颜色

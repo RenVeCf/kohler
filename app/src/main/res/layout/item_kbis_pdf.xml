@@ -7,11 +7,12 @@
     <ImageView
         android:id="@+id/iv_kbis_pdf_bg"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop" />
 
     <LinearLayout
         android:id="@+id/ll_kbis_pdf"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/x252"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_marginStart="@dimen/x45"
@@ -36,9 +37,10 @@
         android:id="@+id/iv_kbis_pdf_download"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:paddingBottom="@dimen/x45"
-        android:layout_marginEnd="@dimen/x80"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="@dimen/x45"
+        android:paddingBottom="@dimen/y45"
+        android:scaleType="centerCrop"
         android:src="@mipmap/kbis_download" />
 </RelativeLayout>

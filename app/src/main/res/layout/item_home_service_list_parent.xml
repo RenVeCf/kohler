@@ -41,7 +41,7 @@
             android:src="@mipmap/azue_service_arrow_black_down" />
 
         <View
-            android:id="@+id/view_azure_parent_line"
+            android:id="@+id/view_home_parent_line"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:alpha="0.8"
