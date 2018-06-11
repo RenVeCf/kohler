@@ -9,8 +9,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/arscan" />
-            <option value="$PROJECT_DIR$/kohlortest_android" />
+            <option value="$PROJECT_DIR$/kohlortest_android20180611" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

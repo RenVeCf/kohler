@@ -3,9 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/arscan/arscan.iml" filepath="$PROJECT_DIR$/arscan/arscan.iml" />
       <module fileurl="file://$PROJECT_DIR$/kohler.iml" filepath="$PROJECT_DIR$/kohler.iml" />
-      <module fileurl="file://$PROJECT_DIR$/kohlortest_android/kohlortest_android.iml" filepath="$PROJECT_DIR$/kohlortest_android/kohlortest_android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/kohlortest_android20180611/kohlortest_android20180611.iml" filepath="$PROJECT_DIR$/kohlortest_android20180611/kohlortest_android20180611.iml" />
     </modules>
   </component>
 </project>

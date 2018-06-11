@@ -108,8 +108,6 @@ android {
     buildToolsVersion '27.0.3'
 }
 
-//apply from: 'tinkerpatch.gradle'
-
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:26.1.0'
@@ -220,6 +218,6 @@ dependencies {
     //绘图
     implementation 'com.contrarywind:Android-PickerView:4.1.3'
     implementation 'com.alibaba:fastjson:1.2.46'
-    implementation project(':kohlortest_android')
     implementation files('libs/pldroid-player-2.1.4.jar')
+    implementation project(':kohlortest_android20180611')
 }

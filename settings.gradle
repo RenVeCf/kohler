@@ -1,1 +1,1 @@
-include ':app', ':arscan', ':kohlortest_android'
+include ':app', ':kohlortest_android20180611'

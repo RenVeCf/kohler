@@ -6,7 +6,6 @@ import android.widget.ImageButton;
 
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
-import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.view.MediaController;
 import com.pili.pldroid.player.PLOnCompletionListener;
 import com.pili.pldroid.player.PLOnErrorListener;
