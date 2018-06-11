@@ -122,8 +122,6 @@ public class ReservationExperienceActivity extends BaseActivity {
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(this, tvReservationExperienceTop);
         ivTopBack.setImageResource(R.mipmap.fanhuibai);
-
-        etReservationExperiencePhoneNum.setFocusableInTouchMode(true);
     }
 
     @Override

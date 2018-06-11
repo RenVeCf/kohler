@@ -28,6 +28,8 @@
         android:layout_marginEnd="@dimen/x46"
         android:layout_marginBottom="@dimen/y60"
         android:background="@mipmap/appointment_experience_bg"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:orientation="vertical">
 
         <TextView

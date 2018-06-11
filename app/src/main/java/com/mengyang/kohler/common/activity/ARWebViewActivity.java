@@ -39,7 +39,6 @@ public class ARWebViewActivity extends BaseActivity implements PLOnInfoListener,
 
         if (!getIntent().getStringExtra("AR_url").equals("") && getIntent().getStringExtra("AR_url") != null)
             mVideoView.setVideoPath(getIntent().getStringExtra("AR_url"));
-        LogUtils.i("rmy", "AR_url = " + getIntent().getStringExtra("AR_url"));
 
         mVideoView.setDisplayAspectRatio(PLVideoView.ASPECT_RATIO_ORIGIN);
         mVideoView.setDisplayAspectRatio(PLVideoView.ASPECT_RATIO_FIT_PARENT);
@@ -71,7 +70,6 @@ public class ARWebViewActivity extends BaseActivity implements PLOnInfoListener,
 
     @Override
     public void onCompletion() {
-        LogUtils.i("rmy", "onCompletion");
         mMediaController.refreshProgress();
         startActivity(new Intent(this, AzureCustomerServiceActivity.class));
         finish();
@@ -79,7 +77,6 @@ public class ARWebViewActivity extends BaseActivity implements PLOnInfoListener,
 
     @Override
     public boolean onError(int i) {
-        LogUtils.i("rmy", "onError = " + i);
         finish();
         return true;
     }
@@ -97,25 +94,18 @@ public class ARWebViewActivity extends BaseActivity implements PLOnInfoListener,
     @Override
     protected void onResume() {
         super.onResume();
-        LogUtils.i("rmy", "onResume");
-        try {
-            Thread.currentThread().sleep(3000);//毫秒
-            mVideoView.start();
-        } catch (Exception e) {
-        }
+        mVideoView.start();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        LogUtils.i("rmy", "onPause");
         mVideoView.pause();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        LogUtils.i("rmy", "onDestroy");
         mVideoView.stopPlayback();
     }
 }
