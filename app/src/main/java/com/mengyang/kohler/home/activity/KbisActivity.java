@@ -60,14 +60,14 @@ public class KbisActivity extends BaseActivity implements KbisARFragment.OnActiv
         return R.layout.activity_kbis;
     }
 
-    @Override
+/*    @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         int messageType = intent.getIntExtra("message1", 0);
         String myOrderIndex = intent.getStringExtra("orderindex");
         String myBusinessIndex = intent.getStringExtra("businessindex");
         LogUtils.i("rmy", "messageType = " + messageType + ", myOrderIndex = " + myOrderIndex + ", myBusinessIndex = " + myBusinessIndex);
-    }
+    }*/
 
     @Override
     protected void initValues() {

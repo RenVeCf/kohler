@@ -93,25 +93,25 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <receiver
+<!--        <receiver
             android:name=".common.view.MessageReceiver"
             android:enabled="true">
             <intent-filter>
 
-                <!-- Required 用户注册SDK的intent -->
+                &lt;!&ndash; Required 用户注册SDK的intent &ndash;&gt;
                 <action android:name="cn.jpush.android.intent.REGISTRATION" />
-                <!-- Required 用户接收SDK消息的intent -->
+                &lt;!&ndash; Required 用户接收SDK消息的intent &ndash;&gt;
                 <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />
-                <!-- Required 用户接收SDK通知栏信息的intent -->
+                &lt;!&ndash; Required 用户接收SDK通知栏信息的intent &ndash;&gt;
                 <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" />
-                <!-- Required 用户打开自定义通知栏的intent -->
+                &lt;!&ndash; Required 用户打开自定义通知栏的intent &ndash;&gt;
                 <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
-                <!-- 接收网络变化 连接/断开 since 1.6.3 -->
+                &lt;!&ndash; 接收网络变化 连接/断开 since 1.6.3 &ndash;&gt;
                 <action android:name="cn.jpush.android.intent.CONNECTION" />
 
                 <category android:name="com.mengyang.kohler" />
             </intent-filter>
-        </receiver>
+        </receiver>-->
 
         <activity
             android:name=".whole_category.activity.CommodityDetailsActivity"

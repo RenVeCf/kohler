@@ -1,12 +1,14 @@
 package com.mengyang.kohler.common.activity;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -123,7 +125,6 @@ public class ReservationExperienceActivity extends BaseActivity {
         ImmersionBar.setTitleBar(this, tvReservationExperienceTop);
         ivTopBack.setImageResource(R.mipmap.fanhuibai);
 
-        etReservationExperiencePhoneNum.setFocusableInTouchMode(true);
     }
 
     @Override
