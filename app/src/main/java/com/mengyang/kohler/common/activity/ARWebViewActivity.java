@@ -2,9 +2,11 @@ package com.mengyang.kohler.common.activity;
 
 import android.content.Intent;
 import android.view.View;
+import android.widget.ImageButton;
 
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
+import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.view.MediaController;
 import com.pili.pldroid.player.PLOnCompletionListener;
 import com.pili.pldroid.player.PLOnErrorListener;
@@ -12,9 +14,17 @@ import com.pili.pldroid.player.PLOnInfoListener;
 import com.pili.pldroid.player.PLOnVideoSizeChangedListener;
 import com.pili.pldroid.player.widget.PLVideoView;
 
+import butterknife.BindView;
+
 public class ARWebViewActivity extends BaseActivity implements PLOnInfoListener, PLOnCompletionListener, PLOnVideoSizeChangedListener, PLOnErrorListener {
 
-    private PLVideoView mVideoView;
+    @BindView(R.id.PLVideoView)
+    PLVideoView mVideoView;
+    @BindView(R.id.LoadingView)
+    View loadingView;
+    @BindView(R.id.bt_PLVideoView_out)
+    ImageButton btPLVideoViewOut;
+
     private MediaController mMediaController;
 
     @Override
@@ -24,20 +34,18 @@ public class ARWebViewActivity extends BaseActivity implements PLOnInfoListener,
 
     @Override
     protected void initValues() {
-        mVideoView = (PLVideoView) findViewById(R.id.PLVideoView);
-
         mMediaController = new MediaController(this);
         mVideoView.setMediaController(mMediaController);
 
-        View loadingView = findViewById(R.id.LoadingView);
-        mVideoView.setBufferingIndicator(loadingView);
+        if (!getIntent().getStringExtra("AR_url").equals("") && getIntent().getStringExtra("AR_url") != null)
+            mVideoView.setVideoPath(getIntent().getStringExtra("AR_url"));
+        LogUtils.i("rmy", "AR_url = " + getIntent().getStringExtra("AR_url"));
 
         mVideoView.setDisplayAspectRatio(PLVideoView.ASPECT_RATIO_ORIGIN);
         mVideoView.setDisplayAspectRatio(PLVideoView.ASPECT_RATIO_FIT_PARENT);
         mVideoView.setDisplayAspectRatio(PLVideoView.ASPECT_RATIO_PAVED_PARENT);
         mVideoView.setDisplayAspectRatio(PLVideoView.ASPECT_RATIO_16_9);
         mVideoView.setDisplayAspectRatio(PLVideoView.ASPECT_RATIO_4_3);
-        mVideoView.setVideoPath("http://ojd06y9cv.bkt.clouddn.com/e3d09c5aa71ea516ade43b7277983b0c.mp4");
 
         mVideoView.setOnInfoListener(this);
         mVideoView.setOnCompletionListener(this);
@@ -47,7 +55,13 @@ public class ARWebViewActivity extends BaseActivity implements PLOnInfoListener,
 
     @Override
     protected void initListener() {
-
+        mVideoView.setBufferingIndicator(loadingView);
+        btPLVideoViewOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     @Override
@@ -57,6 +71,7 @@ public class ARWebViewActivity extends BaseActivity implements PLOnInfoListener,
 
     @Override
     public void onCompletion() {
+        LogUtils.i("rmy", "onCompletion");
         mMediaController.refreshProgress();
         startActivity(new Intent(this, AzureCustomerServiceActivity.class));
         finish();
@@ -64,6 +79,7 @@ public class ARWebViewActivity extends BaseActivity implements PLOnInfoListener,
 
     @Override
     public boolean onError(int i) {
+        LogUtils.i("rmy", "onError = " + i);
         finish();
         return true;
     }
@@ -81,18 +97,25 @@ public class ARWebViewActivity extends BaseActivity implements PLOnInfoListener,
     @Override
     protected void onResume() {
         super.onResume();
-        mVideoView.start();
+        LogUtils.i("rmy", "onResume");
+        try {
+            Thread.currentThread().sleep(3000);//毫秒
+            mVideoView.start();
+        } catch (Exception e) {
+        }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        LogUtils.i("rmy", "onPause");
         mVideoView.pause();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        LogUtils.i("rmy", "onDestroy");
         mVideoView.stopPlayback();
     }
 }

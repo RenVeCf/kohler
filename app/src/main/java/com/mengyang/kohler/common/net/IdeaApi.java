@@ -1,7 +1,5 @@
 package com.mengyang.kohler.common.net;
 
-import android.os.Build;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;

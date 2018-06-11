@@ -13,6 +13,17 @@
         android:layout_height="match_parent"
         android:layout_gravity="center" />
 
+    <ImageButton
+        android:id="@+id/bt_PLVideoView_out"
+        android:layout_width="@dimen/x100"
+        android:layout_height="@dimen/y100"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="@dimen/x100"
+        android:layout_marginBottom="@dimen/y100"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/kohler_exit_whrite" />
+
     <LinearLayout
         android:id="@+id/LoadingView"
         android:layout_width="match_parent"
