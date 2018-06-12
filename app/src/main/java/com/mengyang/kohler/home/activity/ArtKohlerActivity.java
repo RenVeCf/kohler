@@ -123,7 +123,7 @@ public class ArtKohlerActivity extends BaseActivity {
         App.getManager().addActivity(this);
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(this, tvArtKohlerTop);
-        MobclickAgent.onEvent(ArtKohlerActivity.this, "shejikele");
+        MobclickAgent.onEvent(ArtKohlerActivity.this, "shejishanghai");
         mMeetingPopupWindow = new PopupWindow(this);
         mMeetingPopupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
         mMeetingPopupWindow.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
@@ -288,14 +288,14 @@ public class ArtKohlerActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
-        AIOAnalytics.onPageBegin("shejikele");
+        AIOAnalytics.onPageBegin("shejishanghai");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         MobclickAgent.onPause(this);
-        AIOAnalytics.onPageEnd("shejikele");
+        AIOAnalytics.onPageEnd("shejishanghai");
     }
 
     @OnClick({R.id.rl_art_kohler_live, R.id.rl_art_kohler_video, R.id.ll_view_all, R.id.ll_art_kohler_position_zero, R.id.iv_art_kohler_milan})

@@ -38,12 +38,7 @@ public class ARWebViewActivity extends BaseActivity implements PLOnInfoListener,
 
         if (!getIntent().getStringExtra("AR_url").equals("") && getIntent().getStringExtra("AR_url") != null)
             mVideoView.setVideoPath(getIntent().getStringExtra("AR_url"));
-
-        mVideoView.setDisplayAspectRatio(PLVideoView.ASPECT_RATIO_ORIGIN);
         mVideoView.setDisplayAspectRatio(PLVideoView.ASPECT_RATIO_FIT_PARENT);
-        mVideoView.setDisplayAspectRatio(PLVideoView.ASPECT_RATIO_PAVED_PARENT);
-        mVideoView.setDisplayAspectRatio(PLVideoView.ASPECT_RATIO_16_9);
-        mVideoView.setDisplayAspectRatio(PLVideoView.ASPECT_RATIO_4_3);
 
         mVideoView.setOnInfoListener(this);
         mVideoView.setOnCompletionListener(this);

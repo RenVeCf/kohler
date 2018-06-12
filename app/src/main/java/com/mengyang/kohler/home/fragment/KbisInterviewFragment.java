@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.allyes.analytics.AIOAnalytics;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.mengyang.kohler.BaseFragment;
 import com.mengyang.kohler.R;
@@ -13,6 +14,7 @@ import com.mengyang.kohler.common.activity.WebViewActivity;
 import com.mengyang.kohler.common.utils.ToastUtil;
 import com.mengyang.kohler.home.adapter.KbisPhotoAdapter;
 import com.mengyang.kohler.module.bean.KbisBean;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +40,8 @@ public class KbisInterviewFragment extends BaseFragment {
 
     @Override
     protected void initValues() {
-
+        AIOAnalytics.onEvent("trade_show_interview");
+        MobclickAgent.onEvent(getActivity(), "trade_show_interview");
     }
 
     @Override
@@ -51,6 +54,20 @@ public class KbisInterviewFragment extends BaseFragment {
         KbisBean data = (KbisBean) getArguments().getSerializable("data");
         mKbisInterviewBean.clear();
         mKbisInterviewBean.addAll(data.getTextList());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(getActivity());
+        AIOAnalytics.onPageBegin("trade_show_interview");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(getActivity());
+        AIOAnalytics.onPageEnd("trade_show_interview");
     }
 
     @OnClick({R.id.rl_kbis_interview_first, R.id.ll_kbis_interview_second, R.id.ll_kbis_interview_third})

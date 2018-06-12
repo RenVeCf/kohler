@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.allyes.analytics.AIOAnalytics;
 import com.bigkoo.pickerview.adapter.ArrayWheelAdapter;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
@@ -29,6 +30,7 @@ import com.mengyang.kohler.common.utils.JsonUtils;
 import com.mengyang.kohler.common.utils.ToastUtil;
 import com.mengyang.kohler.common.utils.VerifyUtils;
 import com.mengyang.kohler.common.view.TopView;
+import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -349,9 +351,20 @@ public class ReservationExperienceActivity extends BaseActivity {
                 selectTime();
                 break;
             case R.id.bt_reservation_experience_commit:
+                AIOAnalytics.onEvent("trade_show_appoint");
+                MobclickAgent.onEvent(ReservationExperienceActivity.this, "trade_show_appoint");
+                MobclickAgent.onResume(ReservationExperienceActivity.this);
+                AIOAnalytics.onPageBegin("trade_show_appoint");
                 appointmentCommit();
                 break;
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(ReservationExperienceActivity.this);
+        AIOAnalytics.onPageEnd("trade_show_appoint");
     }
 
     private void requestAddressData() {

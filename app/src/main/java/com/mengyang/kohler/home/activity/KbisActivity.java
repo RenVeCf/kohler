@@ -1,6 +1,5 @@
 package com.mengyang.kohler.home.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.widget.ImageView;
@@ -12,7 +11,6 @@ import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IdeaApi;
-import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.home.fragment.KbisARFragment;
 import com.mengyang.kohler.home.fragment.KbisAgendaFragment;
@@ -67,7 +65,7 @@ public class KbisActivity extends BaseActivity implements KbisARFragment.OnActiv
         ImmersionBar.with(this).fitsSystemWindows(false).statusBarDarkFont(false).init();
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(this, tvKbisTop);
-        MobclickAgent.onEvent(KbisActivity.this, "chuweizhan");
+        MobclickAgent.onEvent(KbisActivity.this, "trade_show");
         ivTopBack.setImageResource(R.mipmap.fanhuibai);
         KbisARFragment.setOnActivityPagerView(this);
     }
@@ -139,14 +137,14 @@ public class KbisActivity extends BaseActivity implements KbisARFragment.OnActiv
     protected void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
-        AIOAnalytics.onPageBegin("chuweizhan");
+        AIOAnalytics.onPageBegin("trade_show");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         MobclickAgent.onPause(this);
-        AIOAnalytics.onPageEnd("chuweizhan");
+        AIOAnalytics.onPageEnd("trade_show");
     }
 
     @Override

@@ -15,12 +15,15 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.allyes.analytics.AIOAnalytics;
 import com.mengyang.kohler.BaseFragment;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.utils.DisplayUtils;
+import com.mengyang.kohler.home.activity.KbisActivity;
 import com.mengyang.kohler.home.view.photoview.OnPhotoTapListener;
 import com.mengyang.kohler.home.view.photoview.PhotoView;
 import com.mengyang.kohler.home.view.photoview.PhotoViewAttacher;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,6 +79,8 @@ public class KbisGuideMapFragment extends BaseFragment implements OnPhotoTapList
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void initValues() {
+        AIOAnalytics.onEvent("trade_show_guide");
+        MobclickAgent.onEvent(getActivity(), "trade_show_guide");
         mAttacher = new PhotoViewAttacher(mPhotoView);
         //        mAttacher0 = new PhotoViewAttacher(mPhotoViewShadow);
         mAttacher1 = new PhotoViewAttacher(mPhotoView1);
@@ -127,7 +132,6 @@ public class KbisGuideMapFragment extends BaseFragment implements OnPhotoTapList
         mScrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
             @Override
             public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                Log.i("123", "scrollX = " + scrollX + ", scrollY = " + scrollY);
             }
         });
 
@@ -175,6 +179,20 @@ public class KbisGuideMapFragment extends BaseFragment implements OnPhotoTapList
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(getActivity());
+        AIOAnalytics.onPageBegin("trade_show_guide");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(getActivity());
+        AIOAnalytics.onPageEnd("trade_show_guide");
+    }
+
+    @Override
     public void onPhotoTap(ImageView view, float x, float y) {
         if (mPopupWindow != null) {
             if (!mPopupWindow.isOutsideTouchable() && mPopupWindow.isShowing()) {
@@ -188,31 +206,23 @@ public class KbisGuideMapFragment extends BaseFragment implements OnPhotoTapList
 
         String yyy = mYList.toString();
         String xxx = mXList.toString();
-        Log.i("123", "mYList = " + yyy);
-        Log.i("123", "mXList = " + xxx);
 
         float scale = mPhotoView.getScale();
 
         if ((y >= 0.01 && y <= 0.50) && (x >= 0.20 && x <= 0.72)) {
             setAllGone(5);
 
-            Log.i("123789465", "左上");
         } else if ((y >= 0.27 && y <= 0.82) && (x >= 0.04 && x <= 0.61)) {
             setAllGone(4);
 
-            Log.i("123789465", "左下");
         } else if ((y >= 0.30 && y <= 0.51) && (x >= 0.83 && x <= 0.99)) {
             setAllGone(1);
 
-            Log.i("123789465", "右上");
         } else if ((y >= 0.49 && y <= 0.64) && (x >= 0.74 && x <= 0.90)) {
             setAllGone(2);
 
-            Log.i("123789465", "右中");
         } else if ((y >= 0.64 && y <= 0.88) && (x >= 0.66 && x <= 0.88)) {
             setAllGone(3);
-
-            Log.i("123789465", "右下");
         } else {
             mPhotoView1.setVisibility(View.GONE);
             mPhotoView2.setVisibility(View.GONE);

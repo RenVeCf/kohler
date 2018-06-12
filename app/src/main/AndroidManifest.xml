@@ -342,8 +342,12 @@
             android:exported="false"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".home.activity.HiKohlerActivity" />
-        <activity android:name=".common.activity.ARWebViewActivity"></activity>
+        <activity
+            android:name=".home.activity.HiKohlerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".common.activity.ARWebViewActivity"
+            android:exported="false"></activity>
     </application>
 
 </manifest>

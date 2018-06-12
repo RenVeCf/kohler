@@ -5,6 +5,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
+import com.allyes.analytics.AIOAnalytics;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseFragment;
 import com.mengyang.kohler.R;
@@ -16,6 +17,7 @@ import com.mengyang.kohler.home.adapter.MeetingAdapter;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.KbisBean;
 import com.mengyang.kohler.module.bean.MeetingBean;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +46,8 @@ public class KbisAgendaFragment extends BaseFragment {
 
     @Override
     protected void initValues() {
+        AIOAnalytics.onEvent("trade_show_meeting");
+        MobclickAgent.onEvent(getActivity(), "trade_show_meeting");
         GridLayoutManager layoutManagerActivity = new GridLayoutManager(App.getContext(), 2);
         rvKbisAgenda.setLayoutManager(layoutManagerActivity);
         rvKbisAgenda.addItemDecoration(new GridSpacingItemDecoration(2, 20, false));
@@ -69,5 +73,19 @@ public class KbisAgendaFragment extends BaseFragment {
         mMeetingAdapterBean.add(0, first);
         mKbisAgendadapter = new KbisAgendadapter(mMeetingAdapterBean);
         rvKbisAgenda.setAdapter(mKbisAgendadapter);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(getActivity());
+        AIOAnalytics.onPageBegin("trade_show_meeting");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(getActivity());
+        AIOAnalytics.onPageEnd("trade_show_meeting");
     }
 }

@@ -8,6 +8,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.allyes.analytics.AIOAnalytics;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseFragment;
@@ -23,6 +24,7 @@ import com.mengyang.kohler.home.adapter.KbisPdfAdapter;
 import com.mengyang.kohler.home.adapter.KbisPhotoAdapter;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.KbisBean;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +48,8 @@ public class KbisPhotoFragment extends BaseFragment {
 
     @Override
     protected void initValues() {
+        AIOAnalytics.onEvent("trade_show_album");
+        MobclickAgent.onEvent(getActivity(), "trade_show_album");
         mRvKbisPhoto.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         SpacesItemDecoration decoration = new SpacesItemDecoration(25);
         mRvKbisPhoto.addItemDecoration(decoration);
@@ -74,5 +78,19 @@ public class KbisPhotoFragment extends BaseFragment {
                 }
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(getActivity());
+        AIOAnalytics.onPageBegin("trade_show_album");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(getActivity());
+        AIOAnalytics.onPageEnd("trade_show_album");
     }
 }

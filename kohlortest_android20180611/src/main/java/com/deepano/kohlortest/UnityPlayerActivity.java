@@ -134,12 +134,14 @@ public class UnityPlayerActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        runOnUiThread(new Runnable() {
+        new Thread() {
             @Override
             public void run() {
+                super.run();
                 mUnityPlayer.quit();
             }
-        });
+        }.start();
+        finish();
         super.onBackPressed();
     }
 
@@ -148,6 +150,5 @@ public class UnityPlayerActivity extends Activity {
         intent.setClassName("com.mengyang.kohler", "com.mengyang.kohler.common.activity.ARWebViewActivity");
         intent.putExtra("AR_url", url);
         startActivity(intent);
-//        finish();
     }
 }

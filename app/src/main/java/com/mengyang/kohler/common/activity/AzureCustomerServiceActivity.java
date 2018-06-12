@@ -104,7 +104,7 @@ public class AzureCustomerServiceActivity extends BaseActivity {
         //沉浸式状态栏初始化白色
         ImmersionBar.with(this).fitsSystemWindows(false).statusBarDarkFont(false).init();
         //防止状态栏和标题重叠
-        ImmersionBar.setTitleBar(this, tvAzureCustomerServiceTop);
+//        ImmersionBar.setTitleBar(this, tvAzureCustomerServiceTop);
         ivTopBack.setImageResource(R.mipmap.fanhuibai);
         initAdapter();
         mLlZaure.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {

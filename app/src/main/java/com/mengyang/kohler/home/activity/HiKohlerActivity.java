@@ -36,8 +36,8 @@ public class HiKohlerActivity extends BaseActivity {
         App.getManager().addActivity(this);
         //防止状态栏和标题重叠
         ImmersionBar.setTitleBar(this, tvHiKohlerTop);
-        AIOAnalytics.onEvent("nihaokele");
-        MobclickAgent.onEvent(HiKohlerActivity.this, "nihaokele");
+        AIOAnalytics.onEvent("hello_kohler");
+        MobclickAgent.onEvent(HiKohlerActivity.this, "hello_kohler");
         wvHiKohler.loadUrl(getIntent().getStringExtra("h5url"));
         wvHiKohler.addJavascriptInterface(this, "android");//添加js监听 这样html就能调用客户端
         WebSettings webSettings = wvHiKohler.getSettings();
@@ -59,13 +59,13 @@ public class HiKohlerActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
-        AIOAnalytics.onPageBegin("nihaokele");
+        AIOAnalytics.onPageBegin("hello_kohler");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         MobclickAgent.onPause(this);
-        AIOAnalytics.onPageEnd("nihaokele");
+        AIOAnalytics.onPageEnd("hello_kohler");
     }
 }

@@ -25,6 +25,8 @@ public class KbisARFragment extends BaseFragment {
 
     @Override
     protected void initValues() {
+        AIOAnalytics.onEvent("arsaoyisao");
+        MobclickAgent.onEvent(getActivity(), "arsaoyisao");
     }
 
     @Override
@@ -35,6 +37,20 @@ public class KbisARFragment extends BaseFragment {
     @Override
     protected void initData() {
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(getActivity());
+        AIOAnalytics.onPageBegin("arsaoyisao");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(getActivity());
+        AIOAnalytics.onPageEnd("arsaoyisao");
     }
 
     public static void setOnActivityPagerView(OnActivityPagerView onActivityPagerView) {

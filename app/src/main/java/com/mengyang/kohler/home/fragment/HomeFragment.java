@@ -2,21 +2,15 @@ package com.mengyang.kohler.home.fragment;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,10 +36,8 @@ import com.contrarywind.listener.OnItemSelectedListener;
 import com.contrarywind.view.WheelView;
 import com.deepano.kohlortest.UnityPlayerActivity;
 import com.gyf.barlibrary.ImmersionBar;
-import com.mengyang.kohler.App;
 import com.mengyang.kohler.BaseFragment;
 import com.mengyang.kohler.R;
-import com.mengyang.kohler.account.activity.LoginActivity;
 import com.mengyang.kohler.common.activity.CustomerServiceActivity;
 import com.mengyang.kohler.common.activity.WebViewActivity;
 import com.mengyang.kohler.common.net.DefaultObserver;
@@ -56,7 +48,6 @@ import com.mengyang.kohler.common.utils.DateUtils;
 import com.mengyang.kohler.common.utils.FileUtil;
 import com.mengyang.kohler.common.utils.FileUtils;
 import com.mengyang.kohler.common.utils.JsonUtils;
-import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.utils.ToastUtil;
 import com.mengyang.kohler.common.utils.VerifyUtils;
@@ -68,7 +59,6 @@ import com.mengyang.kohler.home.activity.GanChuangActivity;
 import com.mengyang.kohler.home.activity.HiKohlerActivity;
 import com.mengyang.kohler.home.activity.HomeSearchActivity;
 import com.mengyang.kohler.home.activity.KbisActivity;
-import com.mengyang.kohler.home.activity.MeetingActivity;
 import com.mengyang.kohler.home.activity.PDFActivity;
 import com.mengyang.kohler.home.activity.WeeklyRadioConcertActivity;
 import com.mengyang.kohler.home.adapter.BrochureListAdapter2;
@@ -81,7 +71,6 @@ import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -485,13 +474,13 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                                 }
 
                                 if (postion == 0) {
-                                    AIOAnalytics.onEvent("chuweizhan");
+                                    AIOAnalytics.onEvent("trade_show");
                                     startActivity(new Intent(getActivity(), KbisActivity.class));
                                 } else if (postion == 1) {
                                     AIOAnalytics.onEvent("ganchuang");
                                     startActivity(new Intent(getActivity(), GanChuangActivity.class));
                                 } else if (postion == 2) {
-                                    AIOAnalytics.onEvent("shejikele");
+                                    AIOAnalytics.onEvent("shejishanghai");
                                     startActivity(new Intent(getActivity(), ArtKohlerActivity.class));
                                     // 暂去掉经销商大会
                                     //                                } else if (postion == 3 && SPUtil.get(getActivity(), IConstants.TYPE, "").equals("")) {
@@ -647,6 +636,10 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                 selectTime();
                 break;
             case R.id.bt_appointment_commit:
+                AIOAnalytics.onEvent("appoint");
+                MobclickAgent.onEvent(getActivity(), "appoint");
+                MobclickAgent.onResume(getActivity());
+                AIOAnalytics.onPageBegin("appoint");
                 appointmentCommit();
                 break;
             default:
@@ -1091,6 +1084,8 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                         @Override
                         public void run() {
                             ToastUtil.showToast("预约成功！");
+                            MobclickAgent.onPause(getActivity());
+                            AIOAnalytics.onPageEnd("appoint");
                             dialog.dismiss();
                         }
                     });
