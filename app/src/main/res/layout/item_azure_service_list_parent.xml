@@ -7,44 +7,52 @@
     android:layout_marginStart="@dimen/x78"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
         android:id="@+id/rl_item_parent"
         android:layout_width="match_parent"
         android:layout_height="@dimen/y150"
         android:paddingEnd="@dimen/x48"
         android:paddingStart="@dimen/x48">
 
-        <TextView
-            android:id="@+id/tv_service_list_top_01"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:textColor="#ffffff"
-            android:textSize="13sp"
-            android:textStyle="bold" />
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_marginRight="@dimen/x60"
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tv_service_list_top_02"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/tv_service_list_top_01"
-            android:textColor="#ffffff"
-            android:textSize="13sp" />
+            <TextView
+                android:id="@+id/tv_service_list_top_01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:textColor="#ffffff"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_service_list_top_02"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textColor="#ffffff"
+                android:textSize="13sp" />
+        </LinearLayout>
 
         <ImageView
+            android:layout_gravity="right|center_vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
             android:src="@mipmap/azue_service_arrow_white_down" />
+    </LinearLayout>
 
-        <View
-            android:id="@+id/view_azure_parent_line"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:alpha="0.2"
-            android:background="#e2e2e2" />
-    </RelativeLayout>
+    <View
+        android:id="@+id/view_azure_parent_line"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:alpha="0.2"
+        android:background="#e2e2e2" />
 </LinearLayout>
