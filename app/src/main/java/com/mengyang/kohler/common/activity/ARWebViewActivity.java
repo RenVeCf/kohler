@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.ImageButton;
 
+import com.allyes.analytics.AIOAnalytics;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.view.MediaController;
@@ -12,6 +13,7 @@ import com.pili.pldroid.player.PLOnErrorListener;
 import com.pili.pldroid.player.PLOnInfoListener;
 import com.pili.pldroid.player.PLOnVideoSizeChangedListener;
 import com.pili.pldroid.player.widget.PLVideoView;
+import com.umeng.analytics.MobclickAgent;
 
 import butterknife.BindView;
 
@@ -33,6 +35,8 @@ public class ARWebViewActivity extends BaseActivity implements PLOnInfoListener,
 
     @Override
     protected void initValues() {
+        AIOAnalytics.onEvent("trade_show_ar_video");
+        MobclickAgent.onEvent(this, "trade_show_ar_video");
         mMediaController = new MediaController(this);
         mVideoView.setMediaController(mMediaController);
 
@@ -89,12 +93,16 @@ public class ARWebViewActivity extends BaseActivity implements PLOnInfoListener,
     protected void onResume() {
         super.onResume();
         mVideoView.start();
+        MobclickAgent.onResume(this);
+        AIOAnalytics.onPageBegin("trade_show_ar_video");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         mVideoView.pause();
+        MobclickAgent.onPause(this);
+        AIOAnalytics.onPageEnd("trade_show_ar_video");
     }
 
     @Override

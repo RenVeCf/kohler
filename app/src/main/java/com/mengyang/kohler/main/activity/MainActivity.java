@@ -50,6 +50,7 @@ import com.mengyang.kohler.common.net.IConstants;
 import com.mengyang.kohler.common.net.IdeaApi;
 import com.mengyang.kohler.common.utils.AppUtils;
 import com.mengyang.kohler.common.utils.LogUtils;
+import com.mengyang.kohler.common.utils.PermissionUtils;
 import com.mengyang.kohler.common.utils.SPUtil;
 import com.mengyang.kohler.common.utils.ToastUtil;
 import com.mengyang.kohler.common.view.ResideLayout;
@@ -184,6 +185,7 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
     protected void initValues() {
         App.addDestoryActivity(this, "MainActivity");
         App.getManager().addActivity(this);
+        openPermission(new int[]{PermissionUtils.CODE_PHONE});//请求权限
         Boolean isFirstOpen = (Boolean) SPUtil.get(this, IConstants.FIRST_APP, true);
         if (isFirstOpen) {
             Map<String, Object> stringMap = IdeaApi.getSign();
