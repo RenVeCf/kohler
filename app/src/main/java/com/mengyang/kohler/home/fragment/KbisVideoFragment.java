@@ -46,8 +46,8 @@ public class KbisVideoFragment extends BaseFragment {
 
     @Override
     protected void initValues() {
-        AIOAnalytics.onEvent("trade_show_video");
-        MobclickAgent.onEvent(getActivity(), "trade_show_video");
+        AIOAnalytics.onEvent("trade_show_ar_video");
+        MobclickAgent.onEvent(getActivity(), "trade_show_ar_video");
         mRvKbisVideo.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         SpacesItemDecoration decoration = new SpacesItemDecoration(25);
         mRvKbisVideo.addItemDecoration(decoration);
@@ -82,13 +82,13 @@ public class KbisVideoFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         MobclickAgent.onResume(getActivity());
-        AIOAnalytics.onPageBegin("trade_show_video");
+        AIOAnalytics.onPageBegin("trade_show_ar_video");
     }
 
     @Override
     public void onPause() {
         super.onPause();
         MobclickAgent.onPause(getActivity());
-        AIOAnalytics.onPageEnd("trade_show_video");
+        AIOAnalytics.onPageEnd("trade_show_ar_video");
     }
 }

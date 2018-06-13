@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.allyes.analytics.AIOAnalytics;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.google.gson.Gson;
@@ -34,6 +35,7 @@ import com.mengyang.kohler.common.view.TopView;
 import com.mengyang.kohler.module.bean.AzureServiceBean;
 import com.mengyang.kohler.module.bean.AzureServiceMultimediaBean;
 import com.mengyang.kohler.module.bean.QuestionSearchBean;
+import com.umeng.analytics.MobclickAgent;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -104,7 +106,9 @@ public class AzureCustomerServiceActivity extends BaseActivity {
         //沉浸式状态栏初始化白色
         ImmersionBar.with(this).fitsSystemWindows(false).statusBarDarkFont(false).init();
         //防止状态栏和标题重叠
-//        ImmersionBar.setTitleBar(this, tvAzureCustomerServiceTop);
+        //        ImmersionBar.setTitleBar(this, tvAzureCustomerServiceTop);
+        AIOAnalytics.onEvent("bot_customer_service");
+        MobclickAgent.onEvent(this, "bot_customer_service");
         ivTopBack.setImageResource(R.mipmap.fanhuibai);
         initAdapter();
         mLlZaure.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -186,6 +190,20 @@ public class AzureCustomerServiceActivity extends BaseActivity {
         //                mAzureBotStartBean = new Gson().fromJson(response.body().charStream(), AzureBotStartBean.class);
         //            }
         //        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+        AIOAnalytics.onPageBegin("bot_customer_service");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+        AIOAnalytics.onPageEnd("bot_customer_service");
     }
 
     @OnClick({R.id.bt_azure_send_message, R.id.rb_azure_01, R.id.rb_azure_02, R.id.rb_azure_03})
