@@ -67,6 +67,7 @@ public class TopView extends RelativeLayout implements View.OnClickListener {
         isBack = typedArray.getBoolean(R.styleable.TopView_is_back, false);
         isMenu = typedArray.getBoolean(R.styleable.TopView_is_menu, false);
         isShare = typedArray.getBoolean(R.styleable.TopView_is_share, false);
+        typedArray.recycle();
 
         ivTopTitle.setVisibility(isIvTopTitle ? View.GONE : View.VISIBLE);
         ivTopSystemMsg.setVisibility(isSystemMsg ? View.GONE : View.VISIBLE);

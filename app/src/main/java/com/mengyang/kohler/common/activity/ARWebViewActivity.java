@@ -1,12 +1,14 @@
 package com.mengyang.kohler.common.activity;
 
 import android.content.Intent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 
 import com.allyes.analytics.AIOAnalytics;
 import com.mengyang.kohler.BaseActivity;
 import com.mengyang.kohler.R;
+import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.view.MediaController;
 import com.pili.pldroid.player.PLOnCompletionListener;
 import com.pili.pldroid.player.PLOnErrorListener;
@@ -43,7 +45,6 @@ public class ARWebViewActivity extends BaseActivity implements PLOnInfoListener,
         if (!getIntent().getStringExtra("AR_url").equals("") && getIntent().getStringExtra("AR_url") != null)
             mVideoView.setVideoPath(getIntent().getStringExtra("AR_url"));
         mVideoView.setDisplayAspectRatio(PLVideoView.ASPECT_RATIO_FIT_PARENT);
-
         mVideoView.setOnInfoListener(this);
         mVideoView.setOnCompletionListener(this);
         mVideoView.setOnVideoSizeChangedListener(this);
