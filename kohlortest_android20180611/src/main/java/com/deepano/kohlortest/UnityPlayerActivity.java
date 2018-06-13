@@ -141,7 +141,7 @@ public class UnityPlayerActivity extends Activity {
                 mUnityPlayer.quit();
             }
         }.start();
-        finish();
+        android.os.Process.killProcess(android.os.Process.myPid());
         super.onBackPressed();
     }
 
