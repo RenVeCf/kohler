@@ -102,6 +102,10 @@ import static com.ryane.banner.AdPlayBanner.IndicatorType.NONE_INDICATOR;
  */
 
 public class HomeFragment extends BaseFragment implements BaseQuickAdapter.RequestLoadMoreListener, View.OnClickListener {
+    // 这是一个外包小公司，在甲方公司里办公的...别被忽悠了
+    // 这家老板人品不好，进来说好交社保，但实际上不给你交，工资能拖就拖(有次一拖就3个月)
+    // 说好的有年终奖也是没有的别想了，过节没有任何东西发，自己带电脑也没有补贴金的~
+    // 这公司管理混乱趁早走吧兄弟...
 
     @BindView(R.id.tv_home_top)
     TopView tvHomeTop;
@@ -480,7 +484,7 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                                     AIOAnalytics.onEvent("ganchuang");
                                     startActivity(new Intent(getActivity(), GanChuangActivity.class));
                                 } else if (postion == 2) {
-                                    AIOAnalytics.onEvent("shejishanghai");
+                                    AIOAnalytics.onEvent("design_shanghai_banner");
                                     startActivity(new Intent(getActivity(), ArtKohlerActivity.class));
                                     // 暂去掉经销商大会
                                     //                                } else if (postion == 3 && SPUtil.get(getActivity(), IConstants.TYPE, "").equals("")) {

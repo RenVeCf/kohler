@@ -1,8 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:scaleType="fitXY">
-
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:scaleType="fitXY">
 
     <!--返回-->
     <ImageView
@@ -13,7 +12,7 @@
         android:layout_marginStart="@dimen/x60"
         android:padding="5dp"
         android:src="@mipmap/fanhui"
-        android:visibility="visible"/>
+        android:visibility="visible" />
 
     <!--侧滑菜单-->
     <ImageView
@@ -23,7 +22,7 @@
         android:layout_centerVertical="true"
         android:layout_marginStart="@dimen/x60"
         android:src="@mipmap/navigation"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <!--标题-->
     <TextView
@@ -35,7 +34,7 @@
         android:letterSpacing="0.13"
         android:lineSpacingExtra="14sp"
         android:textSize="16sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <ImageView
         android:id="@+id/iv_top_title"
@@ -43,7 +42,7 @@
         android:layout_height="@dimen/y60"
         android:layout_centerInParent="true"
         android:layout_margin="10dp"
-        android:src="@mipmap/logo"/>
+        android:src="@mipmap/logo" />
 
     <!--分享-->
     <ImageView
@@ -54,7 +53,7 @@
         android:layout_centerVertical="true"
         android:paddingEnd="@dimen/x72"
         android:src="@mipmap/fenxiangbai"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -71,7 +70,7 @@
             android:layout_height="@dimen/y60"
             android:layout_marginEnd="@dimen/x72"
             android:src="@mipmap/service"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <!--系统消息-->
         <ImageView
@@ -79,6 +78,6 @@
             android:layout_width="@dimen/x60"
             android:layout_height="@dimen/y60"
             android:src="@mipmap/message"
-            android:visibility="gone"/>
+            android:visibility="gone" />
     </LinearLayout>
 </RelativeLayout>

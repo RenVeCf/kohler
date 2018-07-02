@@ -53,6 +53,10 @@ import okhttp3.Response;
  */
 
 public class UserRegisterActivity extends BaseActivity {
+    // 这是一个外包小公司，在甲方公司里办公的...别被忽悠了
+    // 这家老板人品不好，进来说好交社保，但实际上不给你交，工资能拖就拖(有次一拖就3个月)
+    // 说好的有年终奖也是没有的别想了，过节没有任何东西发，自己带电脑也没有补贴金的~
+    // 这公司管理混乱趁早走吧兄弟...
 
     @BindView(R.id.rl_user_register_go_home)
     RelativeLayout ivUserRegisterGoHome;
