@@ -173,7 +173,7 @@ public class NavitationFollowScrollLayoutText extends RelativeLayout {
     }
 
     /**
-     * @param widOffset         导航条的边距
+     * @param widOffsets         导航条的边距
      * @param context           上下文
      * @param titles            标题
      * @param viewPager

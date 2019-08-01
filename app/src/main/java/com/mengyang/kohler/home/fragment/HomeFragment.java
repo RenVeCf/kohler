@@ -462,7 +462,11 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                         }
 
                         for (int i = 0; i < mHomeIndexBean.getKvSize(); i++) {
-                            AdPageInfo info = new AdPageInfo("", mHomeIndexBean.getKvList().get(i).getKvUrl(), "", i + 1);
+                            int clickRedrict = 0;
+                            if (mHomeIndexBean.getKvList().get(i).getClickRedirect().length() > 0) {
+                                clickRedrict = Integer.parseInt(mHomeIndexBean.getKvList().get(i).getClickRedirect());
+                            }
+                            AdPageInfo info = new AdPageInfo("", mHomeIndexBean.getKvList().get(i).getKvUrl(), mHomeIndexBean.getKvList().get(i).getH5Url(), clickRedrict);
                             mDatas.add(info);
                         }
                         abHomeLoop.setImageLoadType(GLIDE);
@@ -476,14 +480,14 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                                         return;
                                     }
                                 }
-
-                                if (postion == 0) {
+                                int clickRedrict = info.getOrder();
+                                if (clickRedrict == 5) {
                                     AIOAnalytics.onEvent("trade_show");
                                     startActivity(new Intent(getActivity(), KbisActivity.class));
-                                } else if (postion == 1) {
+                                } else if (clickRedrict == 4) {
                                     AIOAnalytics.onEvent("ganchuang");
                                     startActivity(new Intent(getActivity(), GanChuangActivity.class));
-                                } else if (postion == 2) {
+                                } else if (clickRedrict == 3) {
                                     AIOAnalytics.onEvent("design_shanghai_banner");
                                     startActivity(new Intent(getActivity(), ArtKohlerActivity.class));
                                     // 暂去掉经销商大会
@@ -500,23 +504,15 @@ public class HomeFragment extends BaseFragment implements BaseQuickAdapter.Reque
                                     //                                    } else {
                                     //                                        mNoJurisdictionPopupWindow.showAtLocation(getView(), Gravity.NO_GRAVITY, 0, 0);
                                     //                                    }
-                                } else if (!mHomeIndexBean.getKvList().get(3).getH5Url().equals("") && postion == 3) {
-                                    startActivity(new Intent(getActivity(), HiKohlerActivity.class).putExtra("h5url", mHomeIndexBean.getKvList().get(3).getH5Url()));
-                                } else {
-                                    if (postion == 4) {
-                                        MobclickAgent.onEvent(getActivity(), "arjieshuo");
-                                        AIOAnalytics.onEvent("arjieshuo");
-                                        Intent intent = new Intent(getActivity(), UnityPlayerActivity.class);
-                                        intent.putExtra("flag", "9");
-                                        startActivity(intent);
-                                    } else {
-                                        if (mHomeIndexBean.getKvList().get(postion).getClickRedirect() != null && !mHomeIndexBean.getKvList().get(postion).getClickRedirect().equals("")) {
-                                            mH5_URL = mHomeIndexBean.getKvList().get(postion).getClickRedirect() + "";
-                                        } else if (mHomeIndexBean.getKvList().get(postion).getH5Url() != null && !mHomeIndexBean.getKvList().get(postion).getH5Url().equals("")) {
-                                            mH5_URL = mHomeIndexBean.getKvList().get(postion).getH5Url() + "";
-                                        }
-                                        startActivity(new Intent(getActivity(), WebViewActivity.class).putExtra("h5url", mH5_URL));
-                                    }
+                                }  else if (clickRedrict == 2){
+                                    MobclickAgent.onEvent(getActivity(), "arjieshuo");
+                                    AIOAnalytics.onEvent("arjieshuo");
+                                    Intent intent = new Intent(getActivity(), UnityPlayerActivity.class);
+                                    intent.putExtra("flag", "9");
+                                    startActivity(intent);
+                                }else if (info.getClickUlr().length() > 0) {
+                                    mH5_URL = mHomeIndexBean.getKvList().get(postion).getH5Url() + "";
+                                    startActivity(new Intent(getActivity(), WebViewActivity.class).putExtra("h5url", mH5_URL).putExtra("flag", 1));
                                 }
                             }
                         });

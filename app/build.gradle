@@ -3,7 +3,6 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 27
 
-
     aaptOptions.cruncherEnabled = false
     aaptOptions.useNewCruncher = false
 
@@ -12,8 +11,8 @@ android {
         minSdkVersion 21
         buildToolsVersion '27.0.3'
         targetSdkVersion 27
-        versionCode 4
-        versionName "1.0.3"
+        versionCode 6
+        versionName "1.0.5"
         flavorDimensions "versionCode"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         // Enabling multidex support.
@@ -105,7 +104,7 @@ android {
             jniLibs.srcDirs = ['libs']
         }
     }
-    buildToolsVersion '27.0.3'
+    buildToolsVersion '28.0.2'
 }
 
 dependencies {

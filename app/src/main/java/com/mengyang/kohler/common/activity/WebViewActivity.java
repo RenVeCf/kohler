@@ -15,6 +15,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gyf.barlibrary.ImmersionBar;
@@ -41,6 +42,8 @@ public class WebViewActivity extends BaseActivity {
     WebView mWvService;
     @BindView(R.id.tv_webview_top)
     TopView tvWebviewTop;
+    @BindView(R.id.tv_top_title)
+    TextView ivTopTitle;
     private CommonDialogUtils dialogUtils;
     private int mFlag = 0;
     String h5url = "";
@@ -244,6 +247,7 @@ public class WebViewActivity extends BaseActivity {
             @Override
             public void onReceivedTitle(WebView view, String title) {
                 super.onReceivedTitle(view, title);
+                ivTopTitle.setText(title);
             }
         });
     }

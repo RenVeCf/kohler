@@ -15,7 +15,6 @@ import com.mengyang.kohler.BaseFragment;
 import com.mengyang.kohler.R;
 import com.mengyang.kohler.common.net.DefaultObserver;
 import com.mengyang.kohler.common.net.IdeaApi;
-import com.mengyang.kohler.common.utils.LogUtils;
 import com.mengyang.kohler.common.view.GridSpacingItemDecoration;
 import com.mengyang.kohler.module.BasicResponse;
 import com.mengyang.kohler.module.bean.CommodityClassificationFragmentBean;
@@ -147,7 +146,7 @@ public class CommodityClassificationFragment extends BaseFragment implements Bas
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        //        mCmsId = ((CommodityClassificationActivity) activity).getCmsId();
+//        mCmsId = ((CommodityClassificationActivity) activity).getCmsId();
     }
 
     @Override
